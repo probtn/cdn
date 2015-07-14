@@ -1,3 +1,3 @@
-# cdn
-cdn for probtn
+# CDN files
+This is CDN files for cdn.probtn.com
 
