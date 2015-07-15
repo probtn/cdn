@@ -100,12 +100,12 @@ function callPlayer(frame_id, func, args) { /*
         };
 
         var ProBtnControl = {
-            uaParserPath: 'https://cdn.probtn.com/libs/ua-parser.js',
+            uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
             currentDomain: document.domain.replace("www.", ""),
             realDomain: document.domain.replace("www.", ""),
             initializedActiveZones: {},
             //curent app version
-            mainVersion: "1.33.1621_09072015_dev",
+            mainVersion: "1.34.1947_13072015_dev",
             hintText: undefined, //hinttext object with additional functions
             pizzabtn: undefined,
             closebutton: undefined,
@@ -1660,12 +1660,34 @@ function callPlayer(frame_id, func, args) { /*
                             css: pizzabtnCss
                         }).appendTo(btn);
 
-                        /*var scale = "0.1";
-                        pizzabtnImg.css("transform", "scale(" + scale + ")");
-                        pizzabtnImg.css("-moz-transform", "scale(" + scale + ")");
-                        pizzabtnImg.css("-webkit-transform", "scale(" + scale + ")");
-                        pizzabtnImg.css("-o-transform", "scale(" + scale + ")");
-                        pizzabtnImg.css("-ms-transform", "scale(" + scale + ")");*/
+                        var applyIframeScale = function () {
+                            if ((ProBtnControl.params.ButtonIframeInitialSize.W > 0) && (ProBtnControl.params.ButtonIframeInitialSize.H > 0) && (ProBtnControl.params.ButtonIframeInitialSize.W !== undefined) && (ProBtnControl.params.ButtonIframeInitialSize.W !== null) && (ProBtnControl.params.ButtonIframeInitialSize.H !== undefined) && (ProBtnControl.params.ButtonIframeInitialSize.H !== null)) {
+
+                                var scaleX = ProBtnControl.params.ButtonSize.W / ProBtnControl.params.ButtonIframeInitialSize.W;
+                                var scaleY = ProBtnControl.params.ButtonSize.H / ProBtnControl.params.ButtonIframeInitialSize.H;
+
+                                pizzabtnImg.css("width", ProBtnControl.params.ButtonIframeInitialSize.W);
+                                pizzabtnImg.css("height", ProBtnControl.params.ButtonIframeInitialSize.H);
+
+                                pizzabtnImg.css({
+                                    "transform": "scale(" + scaleX + "," + scaleY + ")",
+                                    "-moz-transform": "scale(" + scaleX + "," + scaleY + ")",
+                                    "-webkit-transform": "scale(" + scaleX + "," + scaleY + ")",
+                                    "-o-transform": "scale(" + scaleX + "," + scaleY + ")",
+                                    "-ms-transform": "scale(" + scaleX + "," + scaleY + ")"
+                                });
+
+                                //top left
+                                pizzabtnImg.css("transform-origin", "top left");
+                                pizzabtnImg.css("-moz-transform-origin", "top left");
+                                pizzabtnImg.css("-webkit-transform-origin", "top left");
+                                pizzabtnImg.css("-o-transform-origin", "top left");
+                                pizzabtnImg.css("-ms-transform-origin", "top left");
+                            }
+                        }
+
+                        applyIframeScale();
+                        //ProBtnControl.params.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
                         pizzabtnCss.position = 'absolute';
                         pizzabtnCss.top = '0px';
@@ -1775,11 +1797,14 @@ function callPlayer(frame_id, func, args) { /*
                                     '-o-transition-duration': ProBtnControl.params.ButtonDragDuration + 's'
                                 });
                             }
-                            pizzabtnImg.css({
-                                opacity: ProBtnControl.params.ButtonDragOpacity,
-                                width: ProBtnControl.params.ButtonDragSize.W,
-                                height: ProBtnControl.params.ButtonDragSize.H
-                            });
+
+                            if (ProBtnControl.params.ButtonImageType !== 'iframe') {
+                                pizzabtnImg.css({
+                                    opacity: ProBtnControl.params.ButtonDragOpacity,
+                                    width: ProBtnControl.params.ButtonDragSize.W,
+                                    height: ProBtnControl.params.ButtonDragSize.H
+                                });
+                            }
 
                         }, ProBtnControl.params.ButtonDragDelay * 1000);
                     }
@@ -1797,11 +1822,14 @@ function callPlayer(frame_id, func, args) { /*
                                     '-o-transition-duration': ProBtnControl.params.ButtonUndragDuration + 's'
                                 });
                             }
-                            pizzabtnImg.css({
-                                opacity: ProBtnControl.params.ButtonOpacity,
-                                width: ProBtnControl.params.ButtonSize.W,
-                                height: ProBtnControl.params.ButtonSize.H
-                            });
+
+                            if (ProBtnControl.params.ButtonImageType !== 'iframe') {
+                                pizzabtnImg.css({
+                                    opacity: ProBtnControl.params.ButtonOpacity,
+                                    width: ProBtnControl.params.ButtonSize.W,
+                                    height: ProBtnControl.params.ButtonSize.H
+                                });
+                            }
 
                         }, ProBtnControl.params.ButtonUndragDelay * 1000);
                     }
@@ -2086,6 +2114,31 @@ function callPlayer(frame_id, func, args) { /*
                 wasInteraction: false
             },
             additionalButtonFunctions: {
+                applyIframeScale: function (iframeItem, ButtonIframeInitialSize, ButtonSize) {
+                    if ((ButtonIframeInitialSize.W > 0) && (ButtonIframeInitialSize.H > 0) && (ButtonIframeInitialSize.W !== undefined) && (ButtonIframeInitialSize.W !== null) && (ButtonIframeInitialSize.H !== undefined) && (ButtonIframeInitialSize.H !== null)) {
+
+                        var scaleX = ButtonSize.W / ButtonIframeInitialSize.W;
+                        var scaleY = ButtonSize.H / ButtonIframeInitialSize.H;
+
+                        iframeItem.css("width", ButtonIframeInitialSize.W);
+                        iframeItem.css("height", ButtonIframeInitialSize.H);
+
+                        iframeItem.css({
+                            "transform": "scale(" + scaleX + "," + scaleY + ")",
+                            "-moz-transform": "scale(" + scaleX + "," + scaleY + ")",
+                            "-webkit-transform": "scale(" + scaleX + "," + scaleY + ")",
+                            "-o-transform": "scale(" + scaleX + "," + scaleY + ")",
+                            "-ms-transform": "scale(" + scaleX + "," + scaleY + ")"
+                        });
+
+                        //top left
+                        iframeItem.css("transform-origin", "top left");
+                        iframeItem.css("-moz-transform-origin", "top left");
+                        iframeItem.css("-webkit-transform-origin", "top left");
+                        iframeItem.css("-o-transform-origin", "top left");
+                        iframeItem.css("-ms-transform-origin", "top left");
+                    }
+                },
                 replaceRandom: function(contentURL) {
                     return contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
                 },
@@ -2699,8 +2752,12 @@ function callPlayer(frame_id, func, args) { /*
 
                 ProBtnControl.params = $.extend({
 
-                    uaParserPath: 'https://cdn.probtn.com/libs/ua-parser.js',
+                    uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
                     ButtonImageType: 'image', //variants image/iframe
+                    ButtonIframeInitialSize: {
+                        W: 0,
+                        H: 0
+                    },
 
                     ClickOnCloseButton: true,
                     AlwaysShowCloseButton: false,
