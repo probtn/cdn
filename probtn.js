@@ -1679,7 +1679,7 @@ function callPlayer(frame_id, func, args) { /*
                             css: pizzabtnCss
                         }).appendTo(btn);
 
-                        ProBtnControl.params.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
+                        ProBtnControl.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
                         pizzabtnCss.position = 'absolute';
                         pizzabtnCss.top = '0px';
