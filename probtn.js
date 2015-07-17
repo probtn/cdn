@@ -131,7 +131,7 @@ function callPlayer(frame_id, func, args) { /*
                     currentContentURL = ProBtnControl.params.ContentURL;
                 }
                 if (ProBtnControl.params.ButtonType == "button_and_scroll_zones") {
-                    if ((ProBtnControl.params.currentContentURL !== "") && (ProBtnControl.params.currentContentURL !== null) && (ProBtnControl.params.currentContentURL!==undefined)) {
+                    if ((ProBtnControl.params.currentContentURL !== "") && (ProBtnControl.params.currentContentURL !== null) && (ProBtnControl.params.currentContentURL !== undefined)) {
                         currentContentURL = ProBtnControl.params.currentContentURL;
                     }
                 }
@@ -419,7 +419,7 @@ function callPlayer(frame_id, func, args) { /*
                     fancyboxParams.maxHeight = ProBtnControl.params.MaxHeight;
                 };
 
-                var hideButtonAfterFirstShow = function() {
+                var hideButtonAfterFirstShow = function () {
                     if (ProBtnControl.params.HideAfterFirstShow == true) {
                         ProBtnControl.statistics.SendStatObject({
                             "Closed": 1,
@@ -1123,7 +1123,7 @@ function callPlayer(frame_id, func, args) { /*
 
                         var onclickIframe = 'return false;';
                         var iframeOverlay = '';
-                    
+
                         if ((ProBtnControl.params.FullscreenClickLink !== "") && (ProBtnControl.params.FullscreenClickLink !== undefined) && (ProBtnControl.params.FullscreenClickLink !== null)) {
                             onclickIframe = ProBtnControl.additionalButtonFunctions.getContentUrlWithUtm(ProBtnControl.params.FullscreenClickLink);
                             iframeOverlay = '<div id="probtn_iframe_overlay" style="  z-index: 200000; display: inline-block; width: 100%; height: 100%; margin-top: -100%;"></div>';
@@ -1157,7 +1157,7 @@ function callPlayer(frame_id, func, args) { /*
                             });
                             window.open(onclickIframe);
                         });
-                        
+
 
                         ProBtnControl.contentTime.startTimer();
                         ProBtnControl.HpmdFunctions.expandHpmdTrack();
@@ -1195,6 +1195,9 @@ function callPlayer(frame_id, func, args) { /*
                             if (currentActiveZone.ButtonImageType == "iframe") {
                                 elementType = '<iframe/>';
                             }
+                            if ((currentActiveZone.ButtonIframeInitialSize == null) || (currentActiveZone.ButtonIframeInitialSize == undefined)) {
+                                currentActiveZone.ButtonIframeInitialSize = { W: 0, H: 0 };
+                            }
                             var activeZoneBtn = $(elementType, {
                                 id: 'probtn_active_zone_' + currentActiveZone.Name,
                                 'src': currentActiveZone.InactiveImage,  //'//probtnexample1.azurewebsites.net/img/logo.png',
@@ -1211,11 +1214,13 @@ function callPlayer(frame_id, func, args) { /*
                                 }
                             }).prependTo('body');
 
+                            if (currentActiveZone.ButtonImageType == "iframe") {
+                                ProBtnControl.additionalButtonFunctions.applyIframeScale(activeZoneBtn, currentActiveZone.ButtonIframeInitialSize, currentActiveZone.InactiveSize);
+                            }
 
                             ProBtnControl.additionalButtonFunctions.preloadImage(currentActiveZone.ActiveImage);
 
                             if (currentActiveZone.ButtonContentType == "video") {
-
                                 ProBtnControl.videoFunctions.createVideoItem(currentActiveZone.Name, currentActiveZone.ActionURL);
                             }
 
@@ -1273,26 +1278,40 @@ function callPlayer(frame_id, func, args) { /*
                                 if (this.currentActiveZone.ButtonImageType !== "iframe") {
                                     this.attr("src", this.currentActiveZone.ActiveImage);
                                 }
-                                
+
                                 var activeZoneBtn = this;
 
-                                this.css({
-                                    opacity: this.currentActiveZone.ActiveOpacity,
-                                    width: this.currentActiveZone.ActiveSize.W,
-                                    height: this.currentActiveZone.ActiveSize.H
-                                });
+                                if (ProBtnControl.additionalButtonFunctions.checkExistInitIframeSIze(this)) {
+                                    this.css({
+                                        opacity: this.currentActiveZone.ActiveOpacity
+                                    });
+                                } else {
+                                    this.css({
+                                        opacity: this.currentActiveZone.ActiveOpacity,
+                                        width: this.currentActiveZone.ActiveSize.W,
+                                        height: this.currentActiveZone.ActiveSize.H
+                                    });
+                                }
                             }
 
                             //animation to move from active to inactive state
                             activeZoneBtn.animateInactive = function () {
+
                                 this.setTransitionDuration(ProBtnControl.params.CloseActiveDuration);
 
                                 var activeZoneBtn = this;
-                                activeZoneBtn.css({
-                                    width: activeZone.currentActiveZone.InactiveSize.W,
-                                    height: activeZone.currentActiveZone.InactiveSize.H,
-                                    opacity: activeZone.currentActiveZone.InactiveOpacity
-                                });
+
+                                if (ProBtnControl.additionalButtonFunctions.checkExistInitIframeSIze(activeZoneBtn)) {
+                                    activeZoneBtn.css({
+                                        opacity: activeZoneBtn.currentActiveZone.InactiveOpacity
+                                    });
+                                } else {
+                                    activeZoneBtn.css({
+                                        opacity: activeZoneBtn.currentActiveZone.InactiveOpacity,
+                                        width: activeZoneBtn.currentActiveZone.InactiveSize.W,
+                                        height: activeZoneBtn.currentActiveZone.InactiveSize.H
+                                    });
+                                }
                             };
 
                             activeZoneBtn.requestClickCounterLink = function () {
@@ -1655,39 +1674,12 @@ function callPlayer(frame_id, func, args) { /*
                         var pizzabtnImg = $("<iframe/>", {
                             id: "pizzabtnImg",
                             scrolling: 'no',
-                            'seamless': "seamless", 
+                            'seamless': "seamless",
                             src: ProBtnControl.params.ButtonImage,
                             css: pizzabtnCss
                         }).appendTo(btn);
 
-                        var applyIframeScale = function () {
-                            if ((ProBtnControl.params.ButtonIframeInitialSize.W > 0) && (ProBtnControl.params.ButtonIframeInitialSize.H > 0) && (ProBtnControl.params.ButtonIframeInitialSize.W !== undefined) && (ProBtnControl.params.ButtonIframeInitialSize.W !== null) && (ProBtnControl.params.ButtonIframeInitialSize.H !== undefined) && (ProBtnControl.params.ButtonIframeInitialSize.H !== null)) {
-
-                                var scaleX = ProBtnControl.params.ButtonSize.W / ProBtnControl.params.ButtonIframeInitialSize.W;
-                                var scaleY = ProBtnControl.params.ButtonSize.H / ProBtnControl.params.ButtonIframeInitialSize.H;
-
-                                pizzabtnImg.css("width", ProBtnControl.params.ButtonIframeInitialSize.W);
-                                pizzabtnImg.css("height", ProBtnControl.params.ButtonIframeInitialSize.H);
-
-                                pizzabtnImg.css({
-                                    "transform": "scale(" + scaleX + "," + scaleY + ")",
-                                    "-moz-transform": "scale(" + scaleX + "," + scaleY + ")",
-                                    "-webkit-transform": "scale(" + scaleX + "," + scaleY + ")",
-                                    "-o-transform": "scale(" + scaleX + "," + scaleY + ")",
-                                    "-ms-transform": "scale(" + scaleX + "," + scaleY + ")"
-                                });
-
-                                //top left
-                                pizzabtnImg.css("transform-origin", "top left");
-                                pizzabtnImg.css("-moz-transform-origin", "top left");
-                                pizzabtnImg.css("-webkit-transform-origin", "top left");
-                                pizzabtnImg.css("-o-transform-origin", "top left");
-                                pizzabtnImg.css("-ms-transform-origin", "top left");
-                            }
-                        }
-
-                        applyIframeScale();
-                        //ProBtnControl.params.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
+                        ProBtnControl.params.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
                         pizzabtnCss.position = 'absolute';
                         pizzabtnCss.top = '0px';
@@ -1705,7 +1697,7 @@ function callPlayer(frame_id, func, args) { /*
                             css: pizzabtnCss
                         }).appendTo(btn);
                     }
-                    
+
 
                     ProBtnControl.additionalButtonFunctions.preloadImage(ProBtnControl.params.ButtonDragImage);
 
@@ -1785,7 +1777,7 @@ function callPlayer(frame_id, func, args) { /*
                     };
 
                     btn.dragAnimate = function () {
-                        if ((ProBtnControl.params.ButtonDragImage !== "") && (ProBtnControl.params.ButtonDragImage !== undefined) && (ProBtnControl.params.ButtonDragImage !== null) && (ProBtnControl.params.ButtonImageType!=="iframe")) {
+                        if ((ProBtnControl.params.ButtonDragImage !== "") && (ProBtnControl.params.ButtonDragImage !== undefined) && (ProBtnControl.params.ButtonDragImage !== null) && (ProBtnControl.params.ButtonImageType !== "iframe")) {
                             pizzabtnImg.attr("src", ProBtnControl.params.ButtonDragImage);
                         }
                         setTimeout(function () {
@@ -1921,13 +1913,13 @@ function callPlayer(frame_id, func, args) { /*
                     }).prependTo('body');
 
                     //always show close button
-                    if (ProBtnControl.params.AlwaysShowCloseButton == true) {
+                    /*if (ProBtnControl.params.AlwaysShowCloseButton == true) {
                         $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
-                    }
+                    }*/
 
                     //hide button on close area click
                     if (ProBtnControl.params.ClickOnCloseButton == true) {
-                        $(document).on('click', '#probtn_closeButton', function() {
+                        $(document).on('click', '#probtn_closeButton', function () {
                             ProBtnControl.statistics.SendStatObject({
                                 "Closed": 1,
                                 "Hidded": 1
@@ -2084,7 +2076,7 @@ function callPlayer(frame_id, func, args) { /*
                     if (ProBtnControl.params.HideWithoutInteractionTime > 0) {
 
                         ProBtnControl.contentTime.intervalId = setTimeout(function () {
-                            if ((ProBtnControl.interactionFunctions.wasInteraction == false) || (ProBtnControl.interactionFunctions.wasInteraction==undefined)) {
+                            if ((ProBtnControl.interactionFunctions.wasInteraction == false) || (ProBtnControl.interactionFunctions.wasInteraction == undefined)) {
 
                                 ProBtnControl.statistics.SendStatObject({
                                     "Closed": 1,
@@ -2114,6 +2106,9 @@ function callPlayer(frame_id, func, args) { /*
                 wasInteraction: false
             },
             additionalButtonFunctions: {
+                checkExistInitIframeSIze: function (activeZone) {
+                    return ((activeZone.currentActiveZone.ButtonImageType == "iframe") && (activeZone.currentActiveZone.ButtonIframeInitialSize.W > 0) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H > 0) && (activeZone.currentActiveZone.ButtonIframeInitialSize.W !== undefined) && (activeZone.currentActiveZone.ButtonIframeInitialSize.W !== null) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H !== undefined) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H !== null));
+                },
                 applyIframeScale: function (iframeItem, ButtonIframeInitialSize, ButtonSize) {
                     if ((ButtonIframeInitialSize.W > 0) && (ButtonIframeInitialSize.H > 0) && (ButtonIframeInitialSize.W !== undefined) && (ButtonIframeInitialSize.W !== null) && (ButtonIframeInitialSize.H !== undefined) && (ButtonIframeInitialSize.H !== null)) {
 
@@ -2139,12 +2134,12 @@ function callPlayer(frame_id, func, args) { /*
                         iframeItem.css("-ms-transform-origin", "top left");
                     }
                 },
-                replaceRandom: function(contentURL) {
+                replaceRandom: function (contentURL) {
                     return contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
                 },
                 hideAllActiveZones: function () {
                     try {
-                        $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+                        $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
                             activeZone.hide();
                             /*if (activeZone.currentActiveZone.VisibleOnlyInteraction) {
                             activeZone.attr("src", activeZone.currentActiveZone.InactiveImage);
@@ -2157,7 +2152,7 @@ function callPlayer(frame_id, func, args) { /*
                         }*/
                         });
                     } catch (ex) {
-                        
+
                     }
                 },
                 getContentUrlWithUtm: function (currentContentURL) {
@@ -2193,15 +2188,15 @@ function callPlayer(frame_id, func, args) { /*
                         var imageAddr = "https://cdn.probtn.com/load2.png";
                         var downloadSize = 339234; //bytes
 
-                        measureSpeedByImage = function() {
+                        measureSpeedByImage = function () {
                             var startTime, endTime;
                             var download = new Image();
-                            download.onload = function() {
+                            download.onload = function () {
                                 endTime = (new Date()).getTime();
                                 showResults();
                             }
 
-                            download.onerror = function(err, msg) {
+                            download.onerror = function (err, msg) {
                                 console.log(err);
                             }
 
@@ -2517,7 +2512,7 @@ function callPlayer(frame_id, func, args) { /*
                                 ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 
                                     var count = 0;
-                                    
+
                                     ProBtnControl.pizzabtn.animate({
                                         top: (window.innerHeight - ProBtnControl.pizzabtn.height()),
                                         left: ($("body").innerWidth() - ProBtnControl.pizzabtn.width())
@@ -2719,21 +2714,21 @@ function callPlayer(frame_id, func, args) { /*
                             parsed_ua.ua_device_type = parsed_ua.device.type.toLowerCase();
                         } else {
                             switch (parsed_ua.ua_os_name) {
-                            case 'android':
-                                parsed_ua.ua_device_type = 'mobile';
-                                break;
-                            case 'ios':
-                                parsed_ua.ua_device_type = 'mobile';
-                                break;
-                            case 'windows phone':
-                                parsed_ua.ua_device_type = 'mobile';
-                                break;
-                            case 'windows mobile':
-                                parsed_ua.ua_device_type = 'mobile';
-                                break;
-                            default:
-                                parsed_ua.ua_device_type = 'console';
-                                break;
+                                case 'android':
+                                    parsed_ua.ua_device_type = 'mobile';
+                                    break;
+                                case 'ios':
+                                    parsed_ua.ua_device_type = 'mobile';
+                                    break;
+                                case 'windows phone':
+                                    parsed_ua.ua_device_type = 'mobile';
+                                    break;
+                                case 'windows mobile':
+                                    parsed_ua.ua_device_type = 'mobile';
+                                    break;
+                                default:
+                                    parsed_ua.ua_device_type = 'console';
+                                    break;
                             }
                         }
                         ProBtnControl.parsed_ua = parsed_ua;
@@ -2949,8 +2944,8 @@ function callPlayer(frame_id, func, args) { /*
                     iframeScaleMinWidth: 0,
                     iframeScale: 1.0,
 
-                    iframeScaleMobile: 1.0, 
-                    iframeScaleTablet: 1.0, 
+                    iframeScaleMobile: 1.0,
+                    iframeScaleTablet: 1.0,
                     iframeScaleDesktop: 1.0,
 
                     Debug: false,
@@ -3531,7 +3526,7 @@ function callPlayer(frame_id, func, args) { /*
 
                     if ((ProBtnControl.params.isServerCommunicationEnabled) || (ProBtnControl.params.useLocalFileSettings)) {
                         ProBtnControl.additionalButtonFunctions.testSpeed(function (kbs) {
-                            if ((ProBtnControl.params.Debug) && (kbs>0)) {
+                            if ((ProBtnControl.params.Debug) && (kbs > 0)) {
                                 //alert("test speed complited - " + kbs + " kbps");
                             }
 
@@ -3563,12 +3558,12 @@ function callPlayer(frame_id, func, args) { /*
                             }
 
                             try {
-                                $.getJSON(settingsUrl, parseResultData).done(function() { console.log('done settings load'); }).fail(function(jqXHR, textStatus, errorThrown) {
+                                $.getJSON(settingsUrl, parseResultData).done(function () { console.log('done settings load'); }).fail(function (jqXHR, textStatus, errorThrown) {
                                     if (ProBtnControl.params.Debug) console.log(errorThrown);
                                     if (ProBtnControl.params.Debug) console.log(textStatus);
                                 }).always(CheckInFrameAndEnabled);
                             } catch (ex) {
-                                $.getJSON(settingsUrl, function(data) {
+                                $.getJSON(settingsUrl, function (data) {
                                     parseResultData(data);
                                     CheckInFrameAndEnabled();
                                 });
@@ -3585,8 +3580,10 @@ function callPlayer(frame_id, func, args) { /*
                 var BeginButtonProcess = function () {
 
                     try {
-                        ProBtnControl.closeButton.center();
-                    } catch (ex) { }
+                        //ProBtnControl.closeButton.center();
+                    } catch (ex) {
+                        console.log(ex);
+                    }
 
                     function receiveMessage(event) {
                         try {
@@ -3696,6 +3693,13 @@ function callPlayer(frame_id, func, args) { /*
                         // show button
                         if (ProBtnControl.params.ButtonEnabled && ProBtnControl.params.ButtonVisible) {
                             ProBtnControl.pizzabtn.show();
+
+                            ProBtnControl.closeButton.center();
+
+                            //always show close button
+                            if (ProBtnControl.params.AlwaysShowCloseButton == true) {
+                                $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
+                            }
                         }
 
                         if (ProBtnControl.params.ButtonType == "fullscreen_fancybox") {
@@ -3836,17 +3840,27 @@ function callPlayer(frame_id, func, args) { /*
                                             if (activeZone.currentActiveZone.ButtonImageType !== "iframe") {
                                                 activeZone.attr("src", activeZone.currentActiveZone.InactiveImage);
                                             }
-                                            activeZone.css({
-                                                width: activeZone.currentActiveZone.InactiveSize.W,
-                                                height: activeZone.currentActiveZone.InactiveSize.H,
-                                                opacity: activeZone.currentActiveZone.InactiveOpacity
-                                            });
-                                            //activeZone.hide();
+                                            if ((activeZone.currentActiveZone.ButtonIframeInitialSize == null) || (activeZone.currentActiveZone.ButtonIframeInitialSize == undefined)) {
+                                                activeZone.currentActiveZone.ButtonIframeInitialSize = { W: 0, H: 0 };
+                                            }
 
+                                            if (ProBtnControl.additionalButtonFunctions.checkExistInitIframeSIze(activeZone)) {
+                                                activeZone.css({
+                                                    opacity: activeZone.currentActiveZone.InactiveOpacity
+                                                });
+                                            }else
+                                            {
+                                                activeZone.css({
+                                                    width: activeZone.currentActiveZone.InactiveSize.W,
+                                                    height: activeZone.currentActiveZone.InactiveSize.H,
+                                                    opacity: activeZone.currentActiveZone.InactiveOpacity
+                                                });
+                                            }
+                                            //activeZone.hide();
                                         });
                                     }
                                 } catch (ex) {
-
+                                    console.log(ex);
                                 }
 
                             },
@@ -3893,11 +3907,22 @@ function callPlayer(frame_id, func, args) { /*
                                         if (activeZone.currentActiveZone.ButtonImageType !== "iframe") {
                                             activeZone.attr("src", activeZone.currentActiveZone.InactiveImage);
                                         }
-                                        activeZone.css({
-                                            width: activeZone.currentActiveZone.InactiveSize.W,
-                                            height: activeZone.currentActiveZone.InactiveSize.H,
-                                            opacity: activeZone.currentActiveZone.InactiveOpacity
-                                        });
+                                        if ((activeZone.currentActiveZone.ButtonIframeInitialSize == null) || (activeZone.currentActiveZone.ButtonIframeInitialSize == undefined)) {
+                                            activeZone.currentActiveZone.ButtonIframeInitialSize = { W: 0, H: 0 };
+                                        }
+
+                                        if (ProBtnControl.additionalButtonFunctions.checkExistInitIframeSIze(activeZone)) {
+                                            activeZone.css({
+                                                opacity: activeZone.currentActiveZone.InactiveOpacity
+                                            });
+                                        } else {
+                                            activeZone.css({
+                                                width: activeZone.currentActiveZone.InactiveSize.W,
+                                                height: activeZone.currentActiveZone.InactiveSize.H,
+                                                opacity: activeZone.currentActiveZone.InactiveOpacity
+                                            });
+                                        }
+                                        
                                         activeZone.hide();
                                     }
                                 });
