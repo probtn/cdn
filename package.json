@@ -6,16 +6,11 @@
   "dependencies": {
     "grunt": "^0.4.5"
   },
-<<<<<<< HEAD
   "repository": {
     "type": "git",
     "url": "git@github.com:probtn/cdn.git"
   },
   "devDependencies": {
-=======
-  "devDependencies": {
-    "grunt": "^0.4.5",
->>>>>>> origin/master
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-githooks": "^0.3.1"
   },
