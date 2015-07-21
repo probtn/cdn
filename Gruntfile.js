@@ -10,7 +10,7 @@ module.exports = function(grunt) {
           }
         },
       options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd HH-mm") %> */\n'
       },
       build: {
         src: 'src/<%= pkg.name %>.js',
