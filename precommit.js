@@ -3,7 +3,7 @@
 var exec = require('child_process').exec;
 // https://npmjs.org/package/execSync
 // Executes shell commands synchronously
-var sh = require('execSync').run;
+var sh = require('sync-exec').run;
  
 exec('git add .', function (err, stdout, stderr) {
  
