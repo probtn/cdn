@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
 // Executes shell commands synchronously
 var sh = require('sync-exec').run;
  
-exec('git add .', function (err, stdout, stderr) {
+exec('grunt', function (err, stdout, stderr) {
  
 console.log(err);
 console.log(stdout);
@@ -14,7 +14,8 @@ console.log(stdout);
   // only run if there are staged changes
   // i.e. what you would be committing if you ran "git commit" without "-a" option.
   //if (err) {
-	  exec('grunt', function (err, stdout, stderr) { 
+	  exec('git add .', function (err, stdout, stderr) { 
+		console.log(err);
 		console.log(stdout);
 	  });
   //}
