@@ -9,9 +9,15 @@ exec('git add .', function (err, stdout, stderr) {
  
 console.log(err);
 console.log(stdout);
+
+
   // only run if there are staged changes
   // i.e. what you would be committing if you ran "git commit" without "-a" option.
   if (err) {
+	  exec('grunt', function (err, stdout, stderr) { 
+		console.log(stdout);
+	  });
+  }
 	/*
     // stash unstaged changes - only test what's being committed
     sh('git stash --keep-index --quiet');
@@ -30,6 +36,5 @@ console.log(stdout);
       }
       process.exit(exitCode);
     });*/
-  }
  
 });
