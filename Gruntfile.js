@@ -11,16 +11,20 @@ module.exports = function(grunt) {
         },
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd HH:mm:ss") %> */\n'
-      },
-      build: {
-        src: 'src/<%= pkg.name %>.js',
-        dest: 'build/<%= pkg.name %>.min.js'
       }
+	  //,
+      //build: {
+      //  src: 'src/<%= pkg.name %>.js',
+      //  dest: 'build/<%= pkg.name %>.min.js'
+      //}
     },
 	githooks: {
 		all: {
 		  'pre-commit': 'default'
-		}
+		},
+		options: {
+		  template: 'precommit.js'
+		},
 	}
   });
 
