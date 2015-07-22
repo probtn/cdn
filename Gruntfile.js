@@ -6,6 +6,7 @@ module.exports = function(grunt) {
     uglify: {
 		default: {
           files: {
+			//what files we are uglifying
             'probtn.js': ['probtn_full.js']
           }
         },
@@ -23,6 +24,7 @@ module.exports = function(grunt) {
 		  'pre-commit': 'default'
 		},
 		options: {
+		  //run this template before commit - to add unglyfied probtn.js to commit
 		  template: 'precommit.js'
 		},
 	}
