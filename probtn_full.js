@@ -1,3 +1,29 @@
+/*$.extend({
+    replaceTag: function (currentElem, newTagObj, keepProps) {
+        var $currentElem = $(currentElem);
+        var i, $newTag = $(newTagObj).clone();
+        if (keepProps) {//{{{
+            newTag = $newTag[0];
+            newTag.className = currentElem.className;
+            $.extend(newTag.classList, currentElem.classList);
+            $.extend(newTag.attributes, currentElem.attributes);
+        }//}}}
+        $currentElem.wrapAll($newTag);
+        $currentElem.contents().unwrap();
+        // return node; (Error spotted by Frank van Luijn)
+        return this; // Suggested by ColeLawrence
+    }
+});
+
+$.fn.extend({
+    replaceTag: function (newTagObj, keepProps) {
+        // "return" suggested by ColeLawrence
+        return this.each(function() {
+            jQuery.replaceTag(this, newTagObj, keepProps);
+        });
+    }
+});*/
+
 function callPlayer(frame_id, func, args) { /*
     if (window.jQuery && frame_id instanceof jQuery) frame_id = frame_id.get(0).id;
     var iframe = document.getElementById(frame_id);
@@ -82,8 +108,7 @@ function callPlayer(frame_id, func, args) { /*
 
     //load nessesary libraries and show button
     $.fn.StartButton = function (options) {
-
-
+        //options = JSON.parse(JSON.stringify(options));
 
         String.prototype.ProBtnHashCode = function () {
             var hash = 0;
@@ -356,7 +381,7 @@ function callPlayer(frame_id, func, args) { /*
                             //ProBtnControl.statistics.SendStatisticsData("Closed", 1);
                             //ProBtnControl.statistics.SendStatisticsData("Hidded", 1);
                             ProBtnControl.statistics.SendStatObject({
-                                "Closed": 1,
+                                //"Closed": 1,
                                 "Hidded": 1
                             });
                             ProBtnControl.pizzabtn.hide();
@@ -422,7 +447,7 @@ function callPlayer(frame_id, func, args) { /*
                 var hideButtonAfterFirstShow = function () {
                     if (ProBtnControl.params.HideAfterFirstShow == true) {
                         ProBtnControl.statistics.SendStatObject({
-                            "Closed": 1,
+                            //"Closed": 1,
                             "Hidded": 1
                         });
                         ProBtnControl.pizzabtn.hide();
@@ -800,6 +825,22 @@ function callPlayer(frame_id, func, args) { /*
                         $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ContentShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&callback=?",
                             function () { }).done(function () {
 
+                            }).fail(function () { }).always(function () {
+                                if ((callback !== null) && (callback !== undefined)) {
+                                    callback();
+                                }
+                            });
+                    }
+                },
+                //TODO
+                //refactoring - make universal function with azname stats sending
+                sendScrollAreaShowedStats: function (areaName, callback) {
+                    if (ProBtnControl.params.isServerCommunicationEnabled) {
+                        var probtnId = "1234";
+                        probtnId = ProBtnControl.GetDeviceUID();
+
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&callback=?",
+                            function () { }).done(function () {
                             }).fail(function () { }).always(function () {
                                 if ((callback !== null) && (callback !== undefined)) {
                                     callback();
@@ -1187,6 +1228,9 @@ function callPlayer(frame_id, func, args) { /*
                         for (var i = 0; i < ProBtnControl.params.ActiveZones.length; i++) {
                             var currentActiveZone = ProBtnControl.params.ActiveZones[i];
 
+                            currentActiveZone.ActiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(currentActiveZone.ActiveSize);
+                            currentActiveZone.InactiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(currentActiveZone.InactiveSize);
+
                             if ((currentActiveZone.Name == "") || (currentActiveZone.Name == null) || (currentActiveZone.Name == undefined)) {
                                 currentActiveZone.Name = ProBtnControl.additionalButtonFunctions.randomString(12);
                             }
@@ -1286,6 +1330,7 @@ function callPlayer(frame_id, func, args) { /*
                                         opacity: this.currentActiveZone.ActiveOpacity
                                     });
                                 } else {
+                                    this.currentActiveZone.ActiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(this.currentActiveZone.ActiveSize);
                                     this.css({
                                         opacity: this.currentActiveZone.ActiveOpacity,
                                         width: this.currentActiveZone.ActiveSize.W,
@@ -1296,7 +1341,6 @@ function callPlayer(frame_id, func, args) { /*
 
                             //animation to move from active to inactive state
                             activeZoneBtn.animateInactive = function () {
-
                                 this.setTransitionDuration(ProBtnControl.params.CloseActiveDuration);
 
                                 var activeZoneBtn = this;
@@ -1306,6 +1350,7 @@ function callPlayer(frame_id, func, args) { /*
                                         opacity: activeZoneBtn.currentActiveZone.InactiveOpacity
                                     });
                                 } else {
+                                    this.currentActiveZone.InactiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(this.currentActiveZone.InactiveSize);
                                     activeZoneBtn.css({
                                         opacity: activeZoneBtn.currentActiveZone.InactiveOpacity,
                                         width: activeZoneBtn.currentActiveZone.InactiveSize.W,
@@ -1332,14 +1377,30 @@ function callPlayer(frame_id, func, args) { /*
 
                 //for button_and_scroll_zones buttonType add nessesary handlers
                 initScrollChange: function (runOnScroll) {
-
+                    var firstRun = false;
                     var onScroll = function (e) {
                         var scrollZone = ProBtnControl.initFunctions.initStartScrollParams('get');
-
                         var scrollEvent = e;
 
+                        //console.log('on scroll', ProBtnControl.currentScrollZone, scrollZone);
+
+                        if ((scrollZone == null) && (ProBtnControl.currentScrollZone !== null) && (ProBtnControl.currentScrollZone !== undefined)) {
+                            ProBtnControl.statistics.sendScrollAreaShowedStats(ProBtnControl.currentScrollZone.Name);
+                        } else {
+                            if (firstRun === true) {
+                                ProBtnControl.statistics.sendScrollAreaShowedStats(scrollZone.Name);
+                            }
+                        }
+                        firstRun = false;
+
                         if (scrollZone !== null) {
-                            $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
+                            //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
+                            if (ProBtnControl.currentScrollZone != scrollZone) {
+                                $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
+
+                                //send statistics about scroll zone change
+                                ProBtnControl.statistics.sendScrollAreaShowedStats(scrollZone.Name);
+                            }
 
                             //if we have additional params for button, different from main button params
                             if (scrollZone.CustomButtonParams) {
@@ -1349,12 +1410,24 @@ function callPlayer(frame_id, func, args) { /*
                                 });
 
                                 //if ((scrollEvent !== undefined) && (scrollEvent !== null)) {
-                                $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
-                                $("#pizzabtnImg", ProBtnControl.pizzabtn).css({
-                                    'width': ProBtnControl.params.ButtonSize.W,
-                                    'height': ProBtnControl.params.ButtonSize.H,
-                                    'opacity': ProBtnControl.params.ButtonOpacity
-                                });
+                                //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
+                                if (ProBtnControl.currentScrollZone != scrollZone) {
+                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
+                                }
+
+                                if ((scrollZone.ButtonIframeInitialSize.W > 0) && (scrollZone.ButtonIframeInitialSize.H > 0)) {
+                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).css({
+                                        'width': scrollZone.ButtonIframeInitialSize.W,
+                                        'height': scrollZone.ButtonIframeInitialSize.H,
+                                        'opacity': ProBtnControl.params.ButtonOpacity
+                                    });
+                                } else {
+                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).css({
+                                        'width': ProBtnControl.params.ButtonSize.W,
+                                        'height': ProBtnControl.params.ButtonSize.H,
+                                        'opacity': ProBtnControl.params.ButtonOpacity
+                                    });
+                                }
 
                                 $(ProBtnControl.pizzabtn).css({
                                     'width': ProBtnControl.params.ButtonSize.W,
@@ -1364,14 +1437,17 @@ function callPlayer(frame_id, func, args) { /*
                                 //if main button params where saved, then restore it
                                 if (ProBtnControl.buttonMainParams.isEmpty == false) {
                                     //if ((scrollEvent !== undefined) && (scrollEvent !== null)) {
-                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
+                                    //if ((Object.is(ProBtnControl.currentScrollZone, scrollZone))) {
+                                    if (ProBtnControl.currentScrollZone == scrollZone) {
+                                        $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
+                                    }
                                     $("#pizzabtnImg", ProBtnControl.pizzabtn).css({
                                         'width': ProBtnControl.params.ButtonSize.W,
                                         'height': ProBtnControl.params.ButtonSize.H,
                                         'opacity': ProBtnControl.params.ButtonOpacity
                                     });
 
-                                    $(ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
+                                    //$(ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
                                     $(ProBtnControl.pizzabtn).css({
                                         'width': ProBtnControl.params.ButtonSize.W,
                                         'height': ProBtnControl.params.ButtonSize.H
@@ -1379,21 +1455,21 @@ function callPlayer(frame_id, func, args) { /*
                                 }
                             }
                         }
+                        ProBtnControl.currentScrollZone = scrollZone;
                     };
 
                     if (ProBtnControl.params.ButtonType == "button_and_scroll_zones") {
                         if ((runOnScroll !== null) && (runOnScroll !== undefined)) {
                             onScroll(null);
+                            //ProBtnControl.statistics.sendScrollAreaShowedStats(ProBtnControl.currentScrollZone.Name);
                         } else {
-                            if (ProBtnControl.params.Debug) console.log("initScrollChange");
-
                             $.each(ProBtnControl.params.ScrollZones, function (index, scrollZone) {
                                 ProBtnControl.additionalButtonFunctions.preloadImage(scrollZone.ButtonImage);
                                 ProBtnControl.additionalButtonFunctions.preloadImage(scrollZone.ButtonDragImage);
                             });
-
-
+                            firstRun = true;
                             onScroll(null);
+
                             $(window).scroll(onScroll);
                         }
                     }
@@ -1436,11 +1512,18 @@ function callPlayer(frame_id, func, args) { /*
                         var currentFullTop = 0;
                         $.each(ProBtnControl.params.ScrollZones, function (index, scrollZone) {
 
+                            if ((scrollZone.Name == undefined) || (scrollZone.Name == null)) {
+                                scrollZone.Name = "scrollZone" + index;
+                            }
+
                             var areaHeight = currentFullTop + getDocumentHeight() * scrollZone.ZoneHeight;
                             var buttonHeight = currentButtonHeight + top;
 
                             if ((buttonHeight <= areaHeight) && (buttonHeight > currentFullTop)) {
                                 currentZone = scrollZone;
+                                if ((ProBtnControl.currentScrollZone == null) || (ProBtnControl.currentScrollZone == undefined)) {
+                                    ProBtnControl.currentScrollZone = currentZone;
+                                }
 
                                 try {
                                     ProBtnControl.params.currentContentURL = scrollZone.CustomContentURL;
@@ -1448,9 +1531,72 @@ function callPlayer(frame_id, func, args) { /*
                                 ProBtnControl.params.ButtonImage = scrollZone.ButtonImage;
 
                                 if (scrollZone.ButtonImageType == "iframe") {
+                                    $("#probtn_hintText").remove();
+                                    $("#pizzabtnImg").css('border', '0px solid transparent');
+
+                                    //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
+                                    if (ProBtnControl.currentScrollZone != scrollZone) {
+                                        var widgetHTML = $('#probtn_button').html();
+
+                                        if ((widgetHTML !== undefined) && (widgetHTML !== null)) {
+                                            widgetHTML = widgetHTML.replace('img', 'iframe');
+                                            $('#probtn_button').html(widgetHTML);
+                                        }
+                                    }
                                     ProBtnControl.params.ButtonImageType = scrollZone.ButtonImageType;
                                 } else {
+                                    $("#pizzabtnIframeOverlay").remove();
+                                    var widgetHTML = $('#probtn_button').html();
+
+                                    //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
+                                    if (ProBtnControl.currentScrollZone != scrollZone) {
+                                        if ((widgetHTML !== undefined) && (widgetHTML !== null)) {
+                                            widgetHTML = widgetHTML.replace('iframe', 'img');
+                                            $('#probtn_button').html(widgetHTML);
+                                        }
+                                    }
+
                                     ProBtnControl.params.ButtonImageType = "image";
+                                }
+
+
+                                //set default values for ButtonIframeInitialSize
+                                if ((scrollZone.ButtonIframeInitialSize == null) || (scrollZone.ButtonIframeInitialSize == undefined)) {
+                                    scrollZone.ButtonIframeInitialSize = { W: 0, H: 0 };
+                                }
+                                if ((scrollZone.ButtonSize == null) || (scrollZone.ButtonSize == undefined)) {
+                                    scrollZone.ButtonSize = ProBtnControl.params.ButtonSize;
+                                }
+                                if (scrollZone.ButtonImageType == "iframe") {
+                                    //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
+                                    if (ProBtnControl.currentScrollZone != scrollZone) {
+                                        ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), scrollZone.ButtonIframeInitialSize, scrollZone.ButtonSize);
+                                    }
+
+                                    //if (($("#pizzabtnIframeOverlay").length <= 0) && (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true)) {
+                                    if (($("#pizzabtnIframeOverlay").length <= 0) && (ProBtnControl.currentScrollZone != scrollZone)) {
+
+                                        scrollZone.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(scrollZone.ButtonSize);
+                                        pizzabtnCss = {
+                                            'width': scrollZone.ButtonSize.W,
+                                            'height': scrollZone.ButtonSize.H,
+                                            'opacity': 1
+                                        };
+
+                                        pizzabtnCss.position = 'absolute';
+                                        pizzabtnCss.top = '0px';
+
+                                        var pizzabtnImg2 = $("<div/>", {
+                                            id: "pizzabtnIframeOverlay",
+                                            css: pizzabtnCss
+                                        }).appendTo(ProBtnControl.pizzabtn);
+                                    }
+
+                                    //scrollZone.ButtonSize = scrollZone.ButtonIframeInitialSize;
+                                    scrollZone.CustomButtonParams = true;
+                                    //}
+                                } else {
+                                    ProBtnControl.additionalButtonFunctions.setTransform($("#pizzabtnImg"), 1, 1);
                                 }
 
                                 //if we have image for draging state of button
@@ -1459,32 +1605,46 @@ function callPlayer(frame_id, func, args) { /*
                                 } else {
                                     ProBtnControl.params.ButtonDragImage = scrollZone.ButtonImage;
                                 }
+                                if (scrollZone.ButtonImageType == "iframe") {
+                                    ProBtnControl.params.ButtonDragImage = "";
+                                }
 
-                                if (scrollZone.CustomButtonParams) {
-                                    //save main button params
-                                    if (ProBtnControl.buttonMainParams.isEmpty) {
-                                        ProBtnControl.buttonMainParams.ButtonSize = ProBtnControl.params.ButtonSize;
-                                        ProBtnControl.buttonMainParams.ButtonDragSize = ProBtnControl.params.ButtonDragSize;
-                                        ProBtnControl.buttonMainParams.ButtonOpacity = ProBtnControl.params.ButtonOpacity;
-                                        ProBtnControl.buttonMainParams.ButtonDragOpacity = ProBtnControl.params.ButtonDragOpacity;
-                                        ProBtnControl.buttonMainParams.isEmpty = false;
-                                    }
-                                    //now apply custom button zone params
-                                    ProBtnControl.params.ButtonSize = scrollZone.ButtonSize;
-                                    ProBtnControl.params.ButtonDragSize = scrollZone.ButtonDragSize;
-                                    ProBtnControl.params.ButtonOpacity = scrollZone.ButtonOpacity;
-                                    ProBtnControl.params.ButtonDragOpacity = scrollZone.ButtonDragOpacity;
+                                //if (Object.is(ProBtnControl.currentScrollZone, scrollZone)) {
+                                if (false) {
                                 } else {
-                                    if (ProBtnControl.buttonMainParams.isEmpty == false) {
-                                        ProBtnControl.params.ButtonSize = ProBtnControl.buttonMainParams.ButtonSize;
-                                        ProBtnControl.params.ButtonDragSize = ProBtnControl.buttonMainParams.ButtonDragSize;
-                                        ProBtnControl.params.ButtonOpacity = ProBtnControl.buttonMainParams.ButtonOpacity;
-                                        ProBtnControl.params.ButtonDragOpacity = ProBtnControl.buttonMainParams.ButtonDragOpacity;
+                                    if (scrollZone.CustomButtonParams) {
+                                        //save main button params
+                                        if (ProBtnControl.buttonMainParams.isEmpty) {
+                                            ProBtnControl.buttonMainParams.ButtonSize = ProBtnControl.params.ButtonSize;
+                                            ProBtnControl.buttonMainParams.ButtonDragSize = ProBtnControl.params.ButtonDragSize;
+                                            ProBtnControl.buttonMainParams.ButtonOpacity = ProBtnControl.params.ButtonOpacity;
+                                            ProBtnControl.buttonMainParams.ButtonDragOpacity = ProBtnControl.params.ButtonDragOpacity;
+                                            ProBtnControl.buttonMainParams.isEmpty = false;
+                                        }
+                                        scrollZone.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(scrollZone.ButtonSize);
+                                        scrollZone.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(scrollZone.ButtonDragSize);
+
+                                        //now apply custom button zone params
+                                        ProBtnControl.params.ButtonSize = scrollZone.ButtonSize;
+                                        ProBtnControl.params.ButtonDragSize = scrollZone.ButtonDragSize;
+                                        ProBtnControl.params.ButtonOpacity = scrollZone.ButtonOpacity;
+                                        ProBtnControl.params.ButtonDragOpacity = scrollZone.ButtonDragOpacity;
+                                    } else {
+                                        if (ProBtnControl.buttonMainParams.isEmpty == false) {
+                                            ProBtnControl.params.ButtonSize = ProBtnControl.buttonMainParams.ButtonSize;
+                                            ProBtnControl.params.ButtonDragSize = ProBtnControl.buttonMainParams.ButtonDragSize;
+                                            ProBtnControl.params.ButtonOpacity = ProBtnControl.buttonMainParams.ButtonOpacity;
+                                            ProBtnControl.params.ButtonDragOpacity = ProBtnControl.buttonMainParams.ButtonDragOpacity;
+                                        }
                                     }
                                 }
                             }
                             currentFullTop = currentFullTop + getDocumentHeight() * scrollZone.ZoneHeight;
+
+                            //check positions for new sizes
+                            ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
                         });
+                        //ProBtnControl.currentScrollZone = currentZone;
                         return currentZone;
                     } else {
                         return null;
@@ -1681,6 +1841,7 @@ function callPlayer(frame_id, func, args) { /*
 
                         ProBtnControl.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
+
                         pizzabtnCss.position = 'absolute';
                         pizzabtnCss.top = '0px';
 
@@ -1778,6 +1939,7 @@ function callPlayer(frame_id, func, args) { /*
 
                     btn.dragAnimate = function () {
                         if ((ProBtnControl.params.ButtonDragImage !== "") && (ProBtnControl.params.ButtonDragImage !== undefined) && (ProBtnControl.params.ButtonDragImage !== null) && (ProBtnControl.params.ButtonImageType !== "iframe")) {
+                            if (ProBtnControl.params.Debug) console.log("drag image apply");
                             pizzabtnImg.attr("src", ProBtnControl.params.ButtonDragImage);
                         }
                         setTimeout(function () {
@@ -1803,6 +1965,7 @@ function callPlayer(frame_id, func, args) { /*
 
                     btn.undragAnimate = function () {
                         if ((ProBtnControl.params.ButtonImageType !== "iframe")) {
+                            //if (ProBtnControl.params.Debug) console.log("undrag image apply");
                             pizzabtnImg.attr("src", ProBtnControl.params.ButtonImage);
                         }
                         setTimeout(function () {
@@ -1974,6 +2137,8 @@ function callPlayer(frame_id, func, args) { /*
                         } else {
                         }
 
+                        ProBtnControl.params.CloseSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseSize);
+
                         var closeHeight = this.height();
                         if (this.height() == 0) {
                             closeHeight = ProBtnControl.params.CloseSize.H;
@@ -2021,6 +2186,9 @@ function callPlayer(frame_id, func, args) { /*
                         var me = this;
                         var position = me.position();
                         me.setTransitionDuration(ProBtnControl.params.CloseActiveDuration);
+
+                        ProBtnControl.params.CloseActiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseActiveSize);
+
                         setTimeout(function () {
                             me.css({
                                 opacity: ProBtnControl.params.CloseActiveOpacity,
@@ -2045,6 +2213,7 @@ function callPlayer(frame_id, func, args) { /*
 
                         me.setTransitionDuration(ProBtnControl.params.CloseUnactiveDuration);
                         setTimeout(function () {
+                            ProBtnControl.params.CloseSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseSize);
                             var options = {
                                 opacity: ProBtnControl.params.CloseOpacity,
                                 width: ProBtnControl.params.CloseSize.W,
@@ -2079,7 +2248,7 @@ function callPlayer(frame_id, func, args) { /*
                             if ((ProBtnControl.interactionFunctions.wasInteraction == false) || (ProBtnControl.interactionFunctions.wasInteraction == undefined)) {
 
                                 ProBtnControl.statistics.SendStatObject({
-                                    "Closed": 1,
+                                    //"Closed": 1,
                                     "Hidded": 1
                                 });
 
@@ -2106,9 +2275,111 @@ function callPlayer(frame_id, func, args) { /*
                 wasInteraction: false
             },
             additionalButtonFunctions: {
+                checkAndCorrentButtonPosition: function () {
+                    if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
+                        if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
+                            ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
+                        }
+                        if (ProBtnControl.pizzabtn.position().top > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
+                            ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
+                        }
+                    }
+                },
+                //update values for all percent params
+                updateAllPercentSizes: function () {
+                    //for main button
+                    ProBtnControl.params.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
+                    ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
+                    
+                    ProBtnControl.params.CloseSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseSize);
+                    ProBtnControl.params.CloseActiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseActiveSize);
+
+                    $("#pizzabtnImg", ProBtnControl.pizzabtn).css({
+                        'width': ProBtnControl.params.ButtonSize.W,
+                        'height': ProBtnControl.params.ButtonSize.H,
+                        'opacity': ProBtnControl.params.ButtonOpacity
+                    });
+                    $(ProBtnControl.pizzabtn).css({
+                        'width': ProBtnControl.params.ButtonSize.W,
+                        'height': ProBtnControl.params.ButtonSize.H
+                    });
+
+                    //for active zones
+                    if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType == "button_and_active_zones")) {
+                        //check every zone
+                        $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
+                            //activeZoneBtn.currentActiveZone
+                            activeZone.currentActiveZone.ActiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(activeZone.currentActiveZone.ActiveSize);
+                            activeZone.currentActiveZone.InactiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(activeZone.currentActiveZone.InactiveSize);
+                        });
+                    }
+                },
+                //convert button percents to px
+                convertPercentButtonSize: function (buttonSize) {
+                    try {
+                        var sButtonSize = buttonSize;
+                        var newWidth = buttonSize.W;
+                        var newHeight = buttonSize.H;
+
+                        try {
+                            //restore initial percent sizes if exists
+                            if ((buttonSize.Initial !== undefined) && (buttonSize.initial !== null)) {
+                                var newWidth = buttonSize.Initial.W;
+                                var newHeight = buttonSize.Initial.H;
+
+                                buttonSize.W = buttonSize.Initial.W;
+                                buttonSize.H = buttonSize.Initial.H;
+
+                                buttonSize.Initial = {};
+                                buttonSize.Initial.W = newWidth;
+                                buttonSize.Initial.H = newHeight;
+                            } else {
+                                buttonSize.Initial = {};
+                                buttonSize.Initial.W = newWidth;
+                                buttonSize.Initial.H = newHeight;
+                            }
+                        } catch (ex) {
+                            //save initial sizes
+                            buttonSize.Initial = {};
+                            buttonSize.Initial.W = newWidth;
+                            buttonSize.Initial.H = newHeight;
+
+                            console.log(ex);
+                        }
+
+                        if ((newWidth.toString().indexOf('%') !== -1) || (parseFloat(newWidth) < 0)) {
+                            if (parseFloat(newWidth) < 0) {
+                                newWidth = Math.abs(parseFloat(newWidth));
+                            }
+                            newWidth = window.innerWidth * (parseFloat(newWidth) / 100);
+                            //if other param set to proportions
+                            if ((parseFloat(newHeight) > 0) && (buttonSize.W.toString().indexOf('%') == -1)) {
+                                newHeight = newWidth * parseFloat(newHeight);
+                            }
+                        } else {
+                        }
+                        if ((newHeight.toString().indexOf('%') !== -1) || (parseFloat(newHeight) < 0)) {
+                            if (parseFloat(newHeight) < 0) {
+                                newHeight = Math.abs(parseFloat(newHeight));
+                            }
+                            newHeight = window.innerHeight * (parseFloat(newHeight) / 100);
+                            //if other param set to proportions
+                            if ((parseFloat(newWidth) > 0) && (buttonSize.H.toString().indexOf('%') == -1)) {
+                                newWidth = parseFloat(newWidth) * newHeight;
+                            }
+                        } else {
+                        }
+                        buttonSize.W = newWidth;
+                        buttonSize.H = newHeight;
+                    } catch (ex) {
+                    }
+                    return buttonSize;
+                },
+                //check is ButtonIframeInitialSize exists and set properly
                 checkExistInitIframeSIze: function (activeZone) {
                     return ((activeZone.currentActiveZone.ButtonImageType == "iframe") && (activeZone.currentActiveZone.ButtonIframeInitialSize.W > 0) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H > 0) && (activeZone.currentActiveZone.ButtonIframeInitialSize.W !== undefined) && (activeZone.currentActiveZone.ButtonIframeInitialSize.W !== null) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H !== undefined) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H !== null));
                 },
+                //apply scale for iframe item (used for button image iframe)
                 applyIframeScale: function (iframeItem, ButtonIframeInitialSize, ButtonSize) {
                     if ((ButtonIframeInitialSize.W > 0) && (ButtonIframeInitialSize.H > 0) && (ButtonIframeInitialSize.W !== undefined) && (ButtonIframeInitialSize.W !== null) && (ButtonIframeInitialSize.H !== undefined) && (ButtonIframeInitialSize.H !== null)) {
 
@@ -2118,21 +2389,25 @@ function callPlayer(frame_id, func, args) { /*
                         iframeItem.css("width", ButtonIframeInitialSize.W);
                         iframeItem.css("height", ButtonIframeInitialSize.H);
 
-                        iframeItem.css({
-                            "transform": "scale(" + scaleX + "," + scaleY + ")",
-                            "-moz-transform": "scale(" + scaleX + "," + scaleY + ")",
-                            "-webkit-transform": "scale(" + scaleX + "," + scaleY + ")",
-                            "-o-transform": "scale(" + scaleX + "," + scaleY + ")",
-                            "-ms-transform": "scale(" + scaleX + "," + scaleY + ")"
-                        });
-
-                        //top left
-                        iframeItem.css("transform-origin", "top left");
-                        iframeItem.css("-moz-transform-origin", "top left");
-                        iframeItem.css("-webkit-transform-origin", "top left");
-                        iframeItem.css("-o-transform-origin", "top left");
-                        iframeItem.css("-ms-transform-origin", "top left");
+                        ProBtnControl.additionalButtonFunctions.setTransform(iframeItem, scaleX, scaleY);
                     }
+                },
+                //add transform css properties for iframe items (to scale it)
+                setTransform: function (iframeItem, scaleX, scaleY) {
+                    iframeItem.css({
+                        "transform": "scale(" + scaleX + "," + scaleY + ")",
+                        "-moz-transform": "scale(" + scaleX + "," + scaleY + ")",
+                        "-webkit-transform": "scale(" + scaleX + "," + scaleY + ")",
+                        "-o-transform": "scale(" + scaleX + "," + scaleY + ")",
+                        "-ms-transform": "scale(" + scaleX + "," + scaleY + ")"
+                    });
+
+                    //top left
+                    iframeItem.css("transform-origin", "top left");
+                    iframeItem.css("-moz-transform-origin", "top left");
+                    iframeItem.css("-webkit-transform-origin", "top left");
+                    iframeItem.css("-o-transform-origin", "top left");
+                    iframeItem.css("-ms-transform-origin", "top left");
                 },
                 replaceRandom: function (contentURL) {
                     return contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
@@ -2155,6 +2430,7 @@ function callPlayer(frame_id, func, args) { /*
 
                     }
                 },
+                //add utm param to link
                 getContentUrlWithUtm: function (currentContentURL) {
                     try {
                         //check for utm source settings
@@ -2294,12 +2570,17 @@ function callPlayer(frame_id, func, args) { /*
                 //when window is resized or changed orientation on device
                 onOrientationChange: function (e) {
                     try {
-                        if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
+                        //update sizes for all percent values
+                        ProBtnControl.additionalButtonFunctions.updateAllPercentSizes();
+
+                        /*if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
                             ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
                         }
                         if (ProBtnControl.pizzabtn.position().top > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
                             ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
-                        }
+                        }*/
+
+                        ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
 
                         try {
                             ProBtnControl.closeButton.center();
@@ -2745,7 +3026,7 @@ function callPlayer(frame_id, func, args) { /*
         function allButton1() {
             if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
 
-                ProBtnControl.params = $.extend({
+                ProBtnControl.params = $.extend(true, {
 
                     uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
                     ButtonImageType: 'image', //variants image/iframe
@@ -3330,8 +3611,8 @@ function callPlayer(frame_id, func, args) { /*
                                     $("#smartbanner").css("position", "fixed");
                                 }
 
-                                $("#smartbanner .sb-info").append('<div style="margin-left: -1px;" class="rating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>');
-                                //★ ☆
+                                $("#smartbanner .sb-info").append('<div style="margin-left: -1px;" class="rating"><span>?</span><span>?</span><span>?</span><span>?</span><span>?</span></div>');
+                                //? ?
                                 if (ProBtnControl.params.smartbanner.isFixedMode == 'extrusion') {
                                     if (ProBtnControl.params.Debug) console.log("extrusion");
                                     $("#smartbanner").css("position", "fixed");
@@ -3397,6 +3678,9 @@ function callPlayer(frame_id, func, args) { /*
                     var isStartAppBanner = startAppBanner();
                     CheckAndRunButtonAtParent();
 
+                    ProBtnControl.params.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
+                    ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
+
                     if ((ProBtnControl.params.HideInFrame === true && window.self !== window.top) || (isStartAppBanner)) {
                         //do nothing      
                         if (ProBtnControl.params.Debug) console.log("do nothing");
@@ -3456,7 +3740,17 @@ function callPlayer(frame_id, func, args) { /*
                             } else {
                                 if (ProBtnControl.params.Debug) console.log(ProBtnControl.params);
                                 if (ProBtnControl.params.Debug) console.log(options);
-                                $.extend(true, ProBtnControl.params, data.result, options);
+                                ProBtnControl.params = $.extend(true, ProBtnControl.params, data.result);
+                                if (ProBtnControl.params.Debug) console.log("after server", ProBtnControl.params);
+                                ProBtnControl.params = $.extend(true, ProBtnControl.params, options);
+
+
+                                if (ProBtnControl.params.Debug) console.log("after options", ProBtnControl.params);
+
+                                ProBtnControl.params.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
+                                console.log(ProBtnControl.params.ButtonSize);
+                                ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
+                                console.log(ProBtnControl.params.ButtonDragSize);
 
                                 //get one more additional params
                                 try {
@@ -3827,11 +4121,15 @@ function callPlayer(frame_id, func, args) { /*
 
                                 try {
                                     if (this.activeDropRegions.length > 0) {
+
                                         var currentZoneName = jQuery(this.activeDropRegions[0]).attr("rel");
 
                                         var activeZone = ProBtnControl.initializedActiveZones[currentZoneName];
-                                        activeZone.animateActive();
-                                        window.probtn_dropedActiveZone = activeZone;
+                                        if ((activeZone !== null) && (activeZone !== undefined)) {
+                                            activeZone.animateActive();
+                                            window.probtn_dropedActiveZone = activeZone;
+                                        }
+
                                     } else {
                                         window.probtn_dropedActiveZone = null;
 
@@ -3848,8 +4146,8 @@ function callPlayer(frame_id, func, args) { /*
                                                 activeZone.css({
                                                     opacity: activeZone.currentActiveZone.InactiveOpacity
                                                 });
-                                            }else
-                                            {
+                                            } else {
+                                                activeZone.currentActiveZone.InactiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(activeZone.currentActiveZone.InactiveSize);
                                                 activeZone.css({
                                                     width: activeZone.currentActiveZone.InactiveSize.W,
                                                     height: activeZone.currentActiveZone.InactiveSize.H,
@@ -3922,7 +4220,7 @@ function callPlayer(frame_id, func, args) { /*
                                                 opacity: activeZone.currentActiveZone.InactiveOpacity
                                             });
                                         }
-                                        
+
                                         activeZone.hide();
                                     }
                                 });
