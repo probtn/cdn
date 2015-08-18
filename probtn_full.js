@@ -3767,7 +3767,7 @@ function callPlayer(frame_id, func, args) { /*
                                 if (ProBtnControl.params.Debug) console.log("after options", ProBtnControl.params);
 
                                 ProBtnControl.params.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
-                                console.log(ProBtnControl.params.ButtonSize);
+                                if (ProBtnControl.params.Debug) console.log(ProBtnControl.params.ButtonSize);
                                 ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
                                 if (ProBtnControl.params.Debug) console.log(ProBtnControl.params.ButtonDragSize);
 
