@@ -197,7 +197,7 @@ function callPlayer(frame_id, func, args) { /*
                             );
                         }
                     } catch (ex) {
-                        console.log(ex);
+                        //console.log(ex);
                     }
                 }
 
@@ -206,7 +206,7 @@ function callPlayer(frame_id, func, args) { /*
                     try {
                         ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.ClickCounterLink);
                     } catch (ex) {
-                        console.log(ex);
+                        //console.log(ex);
                     }
                 }
 
@@ -337,7 +337,7 @@ function callPlayer(frame_id, func, args) { /*
                                     video.play();
                                 }
                             } catch (ex) {
-                                console.log(ex);
+                                //console.log(ex);
                             }
                         }
                     },
@@ -534,10 +534,10 @@ function callPlayer(frame_id, func, args) { /*
                         if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(ProBtnControl.geolocation.getPosition);
                         } else {
-                            console.log("Geolocation is not supported by this browser.");
+                            if (ProBtnControl.params.Debug) console.log("Geolocation is not supported by this browser.");
                         }
                     } catch (ex) {
-                        console.log(ex);
+                        if (ProBtnControl.params.Debug) console.log(ex);
                     }
                 },
                 getPosition: function (position) {
@@ -546,7 +546,7 @@ function callPlayer(frame_id, func, args) { /*
                         ProBtnControl.geolocation.longitude = position.coords.latitude;
                         ProBtnControl.geolocation.latitude = position.coords.longitude;
                     } catch (ex) {
-                        console.log(ex);
+                        if (ProBtnControl.params.Debug) console.log(ex);
                     }
                 },
                 longitude: null,
@@ -796,7 +796,7 @@ function callPlayer(frame_id, func, args) { /*
                             //fancybox closed
                             ProBtnControl.params.hpmd.trackEvent("hpmd.expand");
                         } catch (ex) {
-                            console.log(ex);
+                            if (ProBtnControl.params.Debug) console.log(ex);
                         }
                     }
                 }
@@ -867,7 +867,7 @@ function callPlayer(frame_id, func, args) { /*
                             });
                         }
                     } catch (ex) {
-                        console.log(ex);
+                        if (ProBtnControl.params.Debug) console.log(ex);
                     }
                 },
                 ///
@@ -920,7 +920,7 @@ function callPlayer(frame_id, func, args) { /*
                             function (data1) {
                                 //if (ProBtnControl.params.Debug) console.log(data1);
                             }).done(function () { }).fail(function () { }).always(function () {
-                                ///if (ProBtnControl.params.Debug) console.log("SendStat always");
+                                ///if (ProBtnControl.params.Debug) if (ProBtnControl.params.Debug) console.log("SendStat always");
                                 if ((callback !== null) && (callback !== undefined)) {
                                     callback();
                                 }
@@ -1364,7 +1364,7 @@ function callPlayer(frame_id, func, args) { /*
                                     try {
                                         ProBtnControl.statistics.createClickCounterImage(this.currentActiveZone.ClickCounterLink);
                                     } catch (ex) {
-                                        console.log(ex);
+                                        if (ProBtnControl.params.Debug) console.log(ex);
                                     }
                                 }
                             }
@@ -2364,7 +2364,7 @@ function callPlayer(frame_id, func, args) { /*
                             buttonSize.Initial.W = newWidth;
                             buttonSize.Initial.H = newHeight;
 
-                            console.log(ex);
+                            if (ProBtnControl.params.Debug) console.log(ex);
                         }
 
                         if ((newWidth.toString().indexOf('%') !== -1) || (parseFloat(newWidth) < 0)) {
@@ -2474,7 +2474,7 @@ function callPlayer(frame_id, func, args) { /*
                             if (ProBtnControl.params.Debug) console.log("newpath - " + currentContentURL);
                         }
                     } catch (ex) {
-                        console.log(ex);
+                        if (ProBtnControl.params.Debug) console.log(ex);
                     }
                     return currentContentURL;
                 },
@@ -2493,7 +2493,7 @@ function callPlayer(frame_id, func, args) { /*
                             }
 
                             download.onerror = function (err, msg) {
-                                console.log(err);
+                                if (ProBtnControl.params.Debug) console.log(err);
                             }
 
                             startTime = (new Date()).getTime();
@@ -2510,7 +2510,7 @@ function callPlayer(frame_id, func, args) { /*
                                     speedBps + " bps\n\r" +
                                     speedKbps + " kbps\n\r" +
                                     speedMbps + " Mbps\n\r";
-                                console.log(result);
+                                if (ProBtnControl.params.Debug) console.log(result);
 
                                 if ((callback !== null) && (callback !== undefined)) {
                                     callback(speedKbps);
@@ -2598,7 +2598,7 @@ function callPlayer(frame_id, func, args) { /*
                         try {
                             ProBtnControl.closeButton.center();
                         } catch (ex) {
-                            console.log(ex);
+                            if (ProBtnControl.params.Debug) console.log(ex);
                         }
 
                         //check is menu opened and update it's positions
@@ -2967,7 +2967,7 @@ function callPlayer(frame_id, func, args) { /*
         ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
 
         $(window).bind("load", function () {
-            console.log("windows bind load");
+            if (ProBtnControl.params.Debug) console.log("windows bind load");
             if (ProBtnControl.allButtonInit === false) {
                 ProBtnControl.allButtonInit = true;
                 allButton();
@@ -3026,10 +3026,10 @@ function callPlayer(frame_id, func, args) { /*
                             }
                         }
                         ProBtnControl.parsed_ua = parsed_ua;
-                        console.log(ProBtnControl.parsed_ua);
+                        if (ProBtnControl.params.Debug) console.log(ProBtnControl.parsed_ua);
                     }
                 } catch (ex) {
-                    console.log(ex);
+                    if (ProBtnControl.params.Debug) console.log(ex);
                 }
 
                 allButton1();
@@ -3615,7 +3615,7 @@ function callPlayer(frame_id, func, args) { /*
                                         }
                                     }
                                 } catch (ex1) {
-                                    console.log(ex1);
+                                    if (ProBtnControl.params.Debug) console.log(ex1);
                                 }
 
                                 //appendToSelector
@@ -3644,7 +3644,7 @@ function callPlayer(frame_id, func, args) { /*
                                 try {
                                     $("#smartbanner .sb-button").attr("target", "_blank");
                                 } catch (ex) {
-                                    console.log(ex);
+                                    if (ProBtnControl.params.Debug) console.log(ex);
                                 }
 
                                 try {
@@ -3653,7 +3653,7 @@ function callPlayer(frame_id, func, args) { /*
                                         ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
                                     });
                                 } catch (ex) {
-                                    console.log(ex);
+                                    if (ProBtnControl.params.Debug) console.log(ex);
                                 }
 
                                 try {
@@ -3669,11 +3669,11 @@ function callPlayer(frame_id, func, args) { /*
                                         $("#smartbanner").hide(300);
                                     });
                                 } catch (ex) {
-                                    console.log(ex);
+                                    if (ProBtnControl.params.Debug) console.log(ex);
                                 }
 
                             } catch (ex) {
-                                console.log(ex);
+                                if (ProBtnControl.params.Debug) console.log(ex);
                             }
                         }
 
@@ -3769,7 +3769,7 @@ function callPlayer(frame_id, func, args) { /*
                                 ProBtnControl.params.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
                                 console.log(ProBtnControl.params.ButtonSize);
                                 ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
-                                console.log(ProBtnControl.params.ButtonDragSize);
+                                if (ProBtnControl.params.Debug) console.log(ProBtnControl.params.ButtonDragSize);
 
                                 //get one more additional params
                                 try {
@@ -3780,7 +3780,7 @@ function callPlayer(frame_id, func, args) { /*
                                         $.extend(true, ProBtnControl.params, ProBtnControl.params, textData);
                                     }
                                 } catch (ex) {
-                                    console.log(ex);
+                                    if (ProBtnControl.params.Debug) console.log(ex);
                                 }
 
                                 //check params for html code
@@ -3797,13 +3797,13 @@ function callPlayer(frame_id, func, args) { /*
                                                             .split('<script>').join('')
                                                             .split('</script>').join('');
                                                     } catch (ex) {
-                                                        console.log(ex);
+                                                        if (ProBtnControl.params.Debug) console.log(ex);
                                                     }
                                                 }
                                             }
                                         }
                                     } catch (ex) {
-                                        console.log(ex);
+                                        if (ProBtnControl.params.Debug) console.log(ex);
                                     }
                                 }
 
@@ -3833,7 +3833,7 @@ function callPlayer(frame_id, func, args) { /*
                                 }
                             }
                         } catch (ex) {
-                            console.log(ex);
+                            if (ProBtnControl.params.Debug) console.log(ex);
                         };
                     }
 
@@ -3856,7 +3856,7 @@ function callPlayer(frame_id, func, args) { /*
                                     }
                                 }
                             } catch (ex) {
-                                console.log(ex);
+                                if (ProBtnControl.params.Debug) console.log(ex);
                             }
 
                             settingsUrl = ProBtnControl.serverUrl + "/1/functions/getClientSettings?BundleID=" +
@@ -3871,7 +3871,7 @@ function callPlayer(frame_id, func, args) { /*
                             }
 
                             try {
-                                $.getJSON(settingsUrl, parseResultData).done(function () { console.log('done settings load'); }).fail(function (jqXHR, textStatus, errorThrown) {
+                                $.getJSON(settingsUrl, parseResultData).done(function () { if (ProBtnControl.params.Debug) console.log('done settings load'); }).fail(function (jqXHR, textStatus, errorThrown) {
                                     if (ProBtnControl.params.Debug) console.log(errorThrown);
                                     if (ProBtnControl.params.Debug) console.log(textStatus);
                                 }).always(CheckInFrameAndEnabled);
@@ -3883,7 +3883,7 @@ function callPlayer(frame_id, func, args) { /*
                             }
                         });
                     } else {
-                        console.log("Dont load settings");
+                        if (ProBtnControl.params.Debug) console.log("Dont load settings");
                     }
                 }
 
@@ -3895,7 +3895,7 @@ function callPlayer(frame_id, func, args) { /*
                     try {
                         //ProBtnControl.closeButton.center();
                     } catch (ex) {
-                        console.log(ex);
+                        if (ProBtnControl.params.Debug) console.log(ex);
                     }
 
                     function receiveMessage(event) {
@@ -4184,7 +4184,7 @@ function callPlayer(frame_id, func, args) { /*
                                         });
                                     }
                                 } catch (ex) {
-                                    console.log(ex);
+                                    if (ProBtnControl.params.Debug) console.log(ex);
                                 }
 
                             },
@@ -4208,7 +4208,7 @@ function callPlayer(frame_id, func, args) { /*
                                         if (activeZone.currentActiveZone.ButtonContentType !== "video") {
                                             ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZone.currentActiveZone.ButtonContentType);
                                         } else {
-                                            console.log("ProBtnControl.userData.isiPad - " + ProBtnControl.userData.isiPad);
+                                            if (ProBtnControl.params.Debug) console.log("ProBtnControl.userData.isiPad - " + ProBtnControl.userData.isiPad);
                                             if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad !== false)) {
                                                 ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZone.currentActiveZone.ButtonContentType);
                                             } else {
