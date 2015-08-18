@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script>
+            String.prototype.ProBtnHashCode = function () {
+                var hash = 0;
+                //, i, char;
+                var char1 = 0;
+                var i = 0;
+                if (this.length === 0) return hash;
+                for (i = 0, l = this.length; i < l; i++) {
+                    char1 = this.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char1;
+                    hash |= 0; // Convert to 32bit integer
+                }
+                return hash;
+            };
+
+            var cookieFunctions = {
+                GetDeviceCUID: function () {
+                    var probtnId = "1234";
+                    if (cookieFunctions.readCookie("probtnCID") != null) {
+                    } else {
+                        //set cookie
+                        var currentdate = new Date();
+                        currentdate = currentdate.getTime();
+                        probtnId = currentdate.toString() + "-" + navigator.userAgent.toString().ProBtnHashCode();
+                        cookieFunctions.createCookie("probtnCID", probtnId, 365);
+                    };
+                    probtnId = cookieFunctions.readCookie("probtnCID");
+                    return probtnId;
+                },
+                createCookie: function (name, value, days) {
+                    var expires = "";
+                    if (days) {
+                        var date = new Date();
+                        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                        expires = "; expires=" + date.toGMTString();
+                    }
+                    document.cookie = name + "=" + value + expires + "; path=/";
+                },
+                readCookie: function (name) {
+                    var nameEQ = name + "=";
+                    var ca = document.cookie.split(';');
+                    for (var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                    }
+                    return null;
+                },
+                eraseCookie: function (name) {
+                    cookieFunctions.createCookie(name, "", -1);
+                }
+            }
+
+            var cookieName = cookieFunctions.GetDeviceCUID();
+            cookieFunctions.createCookie("probtnId", cookieName, 365);
+
+            if (window.self !== window.top) {
+                window.top.postMessage({'type': 'probtnCID', 'cid': cookieName}, "*");
+            }
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>
