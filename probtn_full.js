@@ -125,6 +125,7 @@ function callPlayer(frame_id, func, args) { /*
         };
 
         var ProBtnControl = {
+            guidCookieControlPath: "//cdn.probtn.com/cookie_iframe/cookie-iframe.html",
             uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
             currentDomain: document.domain.replace("www.", ""),
             realDomain: document.domain.replace("www.", ""),
@@ -197,7 +198,7 @@ function callPlayer(frame_id, func, args) { /*
                             );
                         }
                     } catch (ex) {
-                        //console.log(ex);
+                        if (ProBtnControl.params.Debug) console.log(ex);
                     }
                 }
 
@@ -206,7 +207,7 @@ function callPlayer(frame_id, func, args) { /*
                     try {
                         ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.ClickCounterLink);
                     } catch (ex) {
-                        //console.log(ex);
+                        if (ProBtnControl.params.Debug) console.log(ex);
                     }
                 }
 
@@ -337,14 +338,11 @@ function callPlayer(frame_id, func, args) { /*
                                     video.play();
                                 }
                             } catch (ex) {
-                                //console.log(ex);
+                                if (ProBtnControl.params.Debug) console.log(ex);
                             }
                         }
                     },
                     afterClose: function () {
-
-
-
                         if (currentButtonContentType === "video") {
                             try {
                                 if ((areaName !== null) && (areaName !== undefined)) {
@@ -378,15 +376,7 @@ function callPlayer(frame_id, func, args) { /*
                         }
 
                         if (ProBtnControl.params.HideAfterFirstShow == true) {
-                            //ProBtnControl.statistics.SendStatisticsData("Closed", 1);
-                            //ProBtnControl.statistics.SendStatisticsData("Hidded", 1);
-                            ProBtnControl.statistics.SendStatObject({
-                                //"Closed": 1,
-                                "Hidded": 1
-                            });
-                            ProBtnControl.pizzabtn.hide();
-                            ProBtnControl.closeButton.remove();
-                            ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
+                            ProBtnControl.additionalButtonFunctions.hideAll();
                         };
 
                         ProBtnControl.contentTime.endTimer();
@@ -734,10 +724,67 @@ function callPlayer(frame_id, func, args) { /*
                     probtnId = currentdate.toString() + "-" + navigator.userAgent.toString().ProBtnHashCode();
                     ProBtnControl.cookieFunctions.createCookie("probtnId", probtnId, 365);
                 };
+                ProBtnControl.cookieFunctions.setHashCookie();
                 probtnId = ProBtnControl.cookieFunctions.readCookie("probtnId");
                 return probtnId;
             },
+            DeviceCID: "",
             cookieFunctions: {
+                getDeviceCID: function (callback) {
+                    var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
+                    if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
+                        ProBtnControl.DeviceCID = probtnCID;
+                        callback(probtnCID);
+                    } else {
+                        var receiveMessage = function (event) {
+                            if (ProBtnControl.params.Debug) console.log("event", event);
+                            if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID")) {
+                                ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
+                                ProBtnControl.DeviceCID = event.data.cid;
+                                callback(event.data.cid);
+                            }
+                        }
+                        window.self.addEventListener("message", receiveMessage, false);
+
+                        var guidIframe = $("<iframe/>", {
+                            id: "guidIframe",
+                            scrolling: 'no',
+                            'seamless': "seamless",
+                            src: ProBtnControl.guidCookieControlPath,
+                            css: {
+                                'width': "0px",
+                                'height': "0px",
+                                'position': 'absolute',
+                                'top': '-10000px',
+                                'left': '-10000px',
+                            }
+                        }).appendTo("body");
+                    }
+                },
+                setHashCookie: function () {
+                    var re = /#\S*=/g;
+                    var str = window.location.hash;
+                    var m;
+
+                    while ((m = re.exec(str)) !== null) {
+                        if (m.index === re.lastIndex) {
+                            re.lastIndex++;
+                        }
+                        var hashId = m[0].replace("=", "");
+                        if (hashId == "#probtn_deviceid") {
+                            var hashValue = str.replace(m[0], "");
+                            if ((hashValue !== "") && (hashValue !== undefined) && (hashValue !== null)) {
+                                //set NAMED cookie as devide identificator
+                                ProBtnControl.cookieFunctions.createCookie("probtnId", "_NAMED_" + hashValue, 365);
+                            } else {
+                                //set cookie to default random value
+                                ProBtnControl.cookieFunctions.eraseCookie("probtnId");
+                                ProBtnControl.GetDeviceUID();
+                            }
+                            
+                        }
+                    }                    
+                },
                 createCookie: function (name, value, days) {
                     var expires = "";
                     if (days) {
@@ -821,8 +868,9 @@ function callPlayer(frame_id, func, args) { /*
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
                         var probtnId = "1234";
                         probtnId = ProBtnControl.GetDeviceUID();
+                        var probtncid = ProBtnControl.DeviceCID;
 
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ContentShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ContentShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&callback=?",
                             function () { }).done(function () {
 
                             }).fail(function () { }).always(function () {
@@ -838,8 +886,9 @@ function callPlayer(frame_id, func, args) { /*
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
                         var probtnId = "1234";
                         probtnId = ProBtnControl.GetDeviceUID();
+                        var probtncid = ProBtnControl.DeviceCID;
 
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&callback=?",
                             function () { }).done(function () {
                             }).fail(function () { }).always(function () {
                                 if ((callback !== null) && (callback !== undefined)) {
@@ -906,6 +955,7 @@ function callPlayer(frame_id, func, args) { /*
                             value = 1;
                         };
                         probtnId = ProBtnControl.GetDeviceUID();
+                        var probtncid = ProBtnControl.DeviceCID;
 
                         if (custom == "" || custom == null || custom == undefined) {
                             ProBtnControl.statistics.SendStat(paramName, value, probtnId, ProBtnControl.currentDomain, callback);
@@ -916,11 +966,11 @@ function callPlayer(frame_id, func, args) { /*
                 },
                 SendStat: function (name, value, probtnId, currentDomain, callback) {
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + ProBtnControl.DeviceCID + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&callback=?",
                             function (data1) {
                                 //if (ProBtnControl.params.Debug) console.log(data1);
                             }).done(function () { }).fail(function () { }).always(function () {
-                                ///if (ProBtnControl.params.Debug) if (ProBtnControl.params.Debug) console.log("SendStat always");
+                                ///if (ProBtnControl.params.Debug) console.log("SendStat always");
                                 if ((callback !== null) && (callback !== undefined)) {
                                     callback();
                                 }
@@ -931,9 +981,10 @@ function callPlayer(frame_id, func, args) { /*
                     var statistic = JSON.stringify(object);
                     var probtnId = "1234";
                     probtnId = ProBtnControl.GetDeviceUID();
+                    var probtncid = ProBtnControl.DeviceCID;
 
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + statistic + "&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + statistic + "&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&callback=?",
                             function (data1) {
                                 if (ProBtnControl.params.Debug) console.log(data1);
                             }).done(function () { }).fail(function () { }).always(function () {
@@ -947,9 +998,10 @@ function callPlayer(frame_id, func, args) { /*
                 SendStatisticsDataObject: function (object, callback) {
                     var probtnId = "1234";
                     probtnId = ProBtnControl.GetDeviceUID();
+                    var probtncid = ProBtnControl.DeviceCID;
 
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateCustomStatistic?BundleID=" + ProBtnControl.currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + JSON.stringify(object) + "&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateCustomStatistic?BundleID=" + ProBtnControl.currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + JSON.stringify(object) + "&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&callback=?",
                             function (data1) {
                                 if (ProBtnControl.params.Debug) console.log(data1);
                             }).done(function () { }).fail(function () { }).always(function () {
@@ -1855,11 +1907,11 @@ function callPlayer(frame_id, func, args) { /*
 
                         //hide button until iframe loaded
                         if (ProBtnControl.params.waitForIframeButtonLoaded) {
-                            //console.log("waitForIframeButtonLoaded hide1");
+                            if (ProBtnControl.params.Debug) console.log("waitForIframeButtonLoaded hide1");
                             var myIframe = document.getElementById('pizzabtnImg');
                             btn.hide();
                             myIframe.onload = function () {
-                                //console.log("waitForIframeButtonLoaded show1");
+                                if (ProBtnControl.params.Debug) console.log("waitForIframeButtonLoaded show1");
                                 btn.show();
                             };
                         } else {
@@ -1945,7 +1997,7 @@ function callPlayer(frame_id, func, args) { /*
                     };
                     window.proBtn.performAction = function () {
                         if (ProBtnControl.params.CampaignID !== null) {
-                            $.getJSON(ProBtnControl.serverUrl + "/1/functions/performAction?DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() + "&X-ProBtn-Token=" + XProBtnToken + "&CampaignID=" + ProBtnControl.params.CampaignID + "&random=" + Math.random() + "&callback=?",
+                            $.getJSON(ProBtnControl.serverUrl + "/1/functions/performAction?DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() + "&DeviceCUID=" + ProBtnControl.DeviceCID + "&X-ProBtn-Token=" + XProBtnToken + "&CampaignID=" + ProBtnControl.params.CampaignID + "&random=" + Math.random() + "&callback=?",
                                 function (data) {
 
                                 }
@@ -2291,6 +2343,15 @@ function callPlayer(frame_id, func, args) { /*
                 wasInteraction: false
             },
             additionalButtonFunctions: {
+                hideAll: function() {
+                    ProBtnControl.statistics.SendStatObject({
+                        //"Closed": 1,
+                        "Hidded": 1
+                    });
+                    ProBtnControl.pizzabtn.hide();
+                    ProBtnControl.closeButton.remove();
+                    ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
+                },
                 checkAndCorrentButtonPosition: function () {
                     if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
                         if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
@@ -3860,7 +3921,7 @@ function callPlayer(frame_id, func, args) { /*
                             }
 
                             settingsUrl = ProBtnControl.serverUrl + "/1/functions/getClientSettings?BundleID=" +
-                        ProBtnControl.currentDomain + "&localDomain=" + ProBtnControl.realDomain + "&DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() +
+                        ProBtnControl.currentDomain + "&localDomain=" + ProBtnControl.realDomain + "&DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() + "&DeviceCUID=" + ProBtnControl.DeviceCID +
                         "&Location[Longitude]=0&Location[Latitude]=0&Version=" + ProBtnControl.mainVersion +
                         "&X-ProBtn-Token=" + ProBtnControl.XProBtnToken + "&random=" + Math.random() +
                         "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
@@ -3887,7 +3948,9 @@ function callPlayer(frame_id, func, args) { /*
                     }
                 }
 
-                getSettingsAndLaunchButton(null);
+                ProBtnControl.cookieFunctions.getDeviceCID(function (guid) {
+                    getSettingsAndLaunchButton(null);
+                });                
 
                 //BEGIN BUTTON PROCESS
                 var BeginButtonProcess = function () {
@@ -3895,7 +3958,7 @@ function callPlayer(frame_id, func, args) { /*
                     try {
                         //ProBtnControl.closeButton.center();
                     } catch (ex) {
-                        if (ProBtnControl.params.Debug) console.log(ex);
+                        console.log(ex);
                     }
 
                     function receiveMessage(event) {
@@ -4184,7 +4247,7 @@ function callPlayer(frame_id, func, args) { /*
                                         });
                                     }
                                 } catch (ex) {
-                                    if (ProBtnControl.params.Debug) console.log(ex);
+                                    console.log(ex);
                                 }
 
                             },
@@ -4262,9 +4325,13 @@ function callPlayer(frame_id, func, args) { /*
                                                     // (true) //
                                                     ProBtnControl.onButtonTap();
                                                 } else {
+                                                    
+                                                    if (ProBtnControl.params.HideAfterFirstShow == true) {
+                                                        ProBtnControl.additionalButtonFunctions.hideAll();
+                                                    };
 
                                                     //check for VideoClickURL not empty
-                                                    if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
+                                                    if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {                                                        
 
                                                         setTimeout(function () {
                                                             ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
