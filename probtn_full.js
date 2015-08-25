@@ -14,7 +14,6 @@
         return this; // Suggested by ColeLawrence
     }
 });
-
 $.fn.extend({
     replaceTag: function (newTagObj, keepProps) {
         // "return" suggested by ColeLawrence
