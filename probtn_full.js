@@ -1448,6 +1448,7 @@ function callPlayer(frame_id, func, args) { /*
                         if (scrollZone !== null) {
                             //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
                             if (ProBtnControl.currentScrollZone != scrollZone) {
+                                console.log("scrollZone.ButtonImage", scrollZone.ButtonImage);
                                 $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
 
                                 //send statistics about scroll zone change
@@ -1708,7 +1709,6 @@ function callPlayer(frame_id, func, args) { /*
 
                 // pizza button constructor
                 initPizzaButton: function () {
-
                     var pizzabtn_wrapper = $("<div/>", {
                         id: "probtn_wrapper"
                     }).prependTo('body');
@@ -1925,6 +1925,7 @@ function callPlayer(frame_id, func, args) { /*
                             src: ProBtnControl.params.ButtonImage,
                             css: pizzabtnCss
                         }).appendTo(btn);
+                        $("#pizzabtnImg").attr("src", ProBtnControl.params.ButtonImage);
                     }
 
 
@@ -2594,6 +2595,7 @@ function callPlayer(frame_id, func, args) { /*
                         src: clickCounterLink_random,
                         style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
                     }).prependTo('body');
+                    $(probtn_TrackingLink).attr("src", clickCounterLink_random);
                 },
                 sendMessageToParent: function (type) {
                     if ((type == null) || (type == undefined)) {
