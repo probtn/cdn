@@ -1447,7 +1447,7 @@ function callPlayer(frame_id, func, args) { /*
                         if (scrollZone !== null) {
                             //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
                             if (ProBtnControl.currentScrollZone != scrollZone) {
-                                console.log("scrollZone.ButtonImage", scrollZone.ButtonImage);
+                                //console.log("scrollZone.ButtonImage", scrollZone.ButtonImage);
                                 $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
 
                                 //send statistics about scroll zone change
@@ -1602,9 +1602,11 @@ function callPlayer(frame_id, func, args) { /*
 
                                     //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
                                     if (ProBtnControl.currentScrollZone != scrollZone) {
-                                        if ((widgetHTML !== undefined) && (widgetHTML !== null)) {
-                                            widgetHTML = widgetHTML.replace('iframe', 'img');
-                                            $('#probtn_button').html(widgetHTML);
+                                        if (ProBtnControl.currentScrollZone.ButtonImageType === "iframe") {
+                                            if ((widgetHTML !== undefined) && (widgetHTML !== null)) {
+                                                widgetHTML = widgetHTML.replace('iframe', 'img');
+                                                $('#probtn_button').html(widgetHTML);
+                                            }
                                         }
                                     }
 
