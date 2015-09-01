@@ -2404,11 +2404,17 @@ function callPlayer(frame_id, func, args) { /*
                         var newWidth = buttonSize.W;
                         var newHeight = buttonSize.H;
 
+                        var newWidthInit = buttonSize.W;
+                        var newHeightInit = buttonSize.H;
+
                         try {
                             //restore initial percent sizes if exists
                             if ((buttonSize.Initial !== undefined) && (buttonSize.initial !== null)) {
                                 var newWidth = buttonSize.Initial.W;
                                 var newHeight = buttonSize.Initial.H;
+
+                                var newWidthInit = buttonSize.Initial.W;
+                                var newHeightInit = buttonSize.Initial.H;
 
                                 buttonSize.W = buttonSize.Initial.W;
                                 buttonSize.H = buttonSize.Initial.H;
@@ -2431,24 +2437,24 @@ function callPlayer(frame_id, func, args) { /*
                         }
 
                         if ((newWidth.toString().indexOf('%') !== -1) || (parseFloat(newWidth) < 0)) {
-                            if (parseFloat(newWidth) < 0) {
+                            if (parseFloat(newWidthInit) < 0) {
                                 newWidth = Math.abs(parseFloat(newWidth));
                             }
                             newWidth = window.innerWidth * (parseFloat(newWidth) / 100);
                             //if other param set to proportions
-                            if ((parseFloat(newHeight) > 0) && (buttonSize.W.toString().indexOf('%') == -1)) {
-                                newHeight = newWidth * parseFloat(newHeight);
+                            if ((parseFloat(newHeightInit) > 0) && (buttonSize.W.toString().indexOf('%') == -1)) {    
+                                newHeight = newWidth * parseFloat(newHeightInit);
                             }
                         } else {
                         }
                         if ((newHeight.toString().indexOf('%') !== -1) || (parseFloat(newHeight) < 0)) {
-                            if (parseFloat(newHeight) < 0) {
+                            if (parseFloat(newHeightInit) < 0) {
                                 newHeight = Math.abs(parseFloat(newHeight));
                             }
                             newHeight = window.innerHeight * (parseFloat(newHeight) / 100);
                             //if other param set to proportions
-                            if ((parseFloat(newWidth) > 0) && (buttonSize.H.toString().indexOf('%') == -1)) {
-                                newWidth = parseFloat(newWidth) * newHeight;
+                            if ((parseFloat(newWidthInit) > 0) && (buttonSize.H.toString().indexOf('%') == -1)) {
+                                newWidth = parseFloat(newWidthInit) * newHeight;
                             }
                         } else {
                         }
