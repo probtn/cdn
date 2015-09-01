@@ -1548,7 +1548,8 @@ function callPlayer(frame_id, func, args) { /*
                         }
 
                         var getDocumentHeight = function () {
-                            return Math.max(document.compatMode != 'CSS1Compat' ? document.body.scrollHeight : document.documentElement.scrollHeight, getViewportHeight());
+                            //return Math.max(document.compatMode != 'CSS1Compat' ? document.body.scrollHeight : document.documentElement.scrollHeight, getViewportHeight());
+                            return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
                         }
 
                         //if all at one screen mode
