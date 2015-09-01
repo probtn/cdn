@@ -1085,7 +1085,7 @@ function callPlayer(frame_id, func, args) { /*
                         setTimeout(function () {
                             ProBtnControl.pizzabtn.animate({
                                 left: 0,
-                                top: ($(window).height() - ProBtnControl.pizzabtn.height())
+                                top: (window.innerHeight - ProBtnControl.pizzabtn.height())
                             }, 500, function () {
                                 setTimeout(function () {
                                     var menu = $("<div/>", {
@@ -1335,15 +1335,15 @@ function callPlayer(frame_id, func, args) { /*
                                 var activex = this.currentActiveZone.Position.X;
                                 var activey = this.currentActiveZone.Position.Y;
 
-                                var top = ($(window).height() - this.height()) * activey;
+                                var top = (window.innerHeight - this.height()) * activey;
                                 var left = (body.innerWidth() - this.width()) * activex + $(window).scrollLeft();
 
                                 //check top borders
                                 if (top <= 0) {
                                     top = 0;
                                 }
-                                if ((top + this.height()) > $(window).height()) {
-                                    top = ($(window).height() - this.height());
+                                if ((top + this.height()) > window.innerHeight) {
+                                    top = (window.innerHeight - this.height());
                                 }
 
                                 //check left borders
@@ -2630,11 +2630,11 @@ function callPlayer(frame_id, func, args) { /*
                         if ((ProBtnControl.params.ParentParams.height > 0) && (ProBtnControl.params.ParentParams.height !== undefined) && (ProBtnControl.params.ParentParams.height !== null)) {
                             return ProBtnControl.params.ParentParams.height;
                         } else {
-                            return window.innerHeight; //$(window).height();
+                            return window.innerHeight; //window.innerHeight;
                         }
 
                     } else {
-                        return window.innerHeight; //$(window).height();
+                        return window.innerHeight; //window.innerHeight;
                     }
                 },
                 getWindowWidth: function () {
@@ -2642,11 +2642,11 @@ function callPlayer(frame_id, func, args) { /*
                         if ((ProBtnControl.params.ParentParams.width > 0) && (ProBtnControl.params.ParentParams.width !== undefined) && (ProBtnControl.params.ParentParams.width !== null)) {
                             return ProBtnControl.params.ParentParams.width;
                         } else {
-                            return window.innerWidth; //$(window).width();
+                            return window.innerWidth; //window.innerWidth;
                         }
                         return ProBtnControl.params.ParentParams.width;
                     } else {
-                        return window.innerWidth; //$(window).width();
+                        return window.innerWidth; //window.innerWidth;
                     }
                 },
                 replaceUrlParam: function (url, paramName, paramValue) {
@@ -2835,8 +2835,8 @@ function callPlayer(frame_id, func, args) { /*
                     pizzabtn_wrapper = $("#probtn_wrapper");
 
                     var opts = {
-                        width: $(window).width(),
-                        height: $(window).height(),
+                        width: window.innerWidth,
+                        height: window.innerHeight,
                         position: "fixed"
                     };
 
@@ -2958,7 +2958,7 @@ function callPlayer(frame_id, func, args) { /*
                 },
                 //check for orientation - landscape or not
                 isLandscape: function () {
-                    return ($(window).width() > $(window).height());
+                    return (window.innerWidth > window.innerHeight);
                 },
                 getFancyboxMargins: function () {
                     if ((ProBtnControl.params.ContentInsets.T < 0) || (ProBtnControl.params.ContentInsets.B < 0) || (ProBtnControl.params.ContentInsets.L < 0) || (ProBtnControl.params.ContentInsets.R < 0)) {
@@ -4194,7 +4194,7 @@ function callPlayer(frame_id, func, args) { /*
                                     var pizzabtnRect = ProBtnControl.pizzabtn[0].getBoundingClientRect();
                                     var closeButtonRect = ProBtnControl.closeButton[0].getBoundingClientRect();
 
-                                    if ((pizzabtnRect.top + pizzabtnRect.height) > $(window).height()) {
+                                    if ((pizzabtnRect.top + pizzabtnRect.height) > window.innerHeight) {
                                     }
 
                                     var overlap = !(pizzabtnRect.right < closeButtonRect.left || pizzabtnRect.left > closeButtonRect.right || pizzabtnRect.bottom < closeButtonRect.top || pizzabtnRect.top > closeButtonRect.bottom);
