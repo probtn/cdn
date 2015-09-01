@@ -741,10 +741,13 @@ function callPlayer(frame_id, func, args) { /*
                                 ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
                                 ProBtnControl.DeviceCID = event.data.cid;
                                 callback(event.data.cid);
+                            } else {
+
                             }
                         }
                         window.self.addEventListener("message", receiveMessage, false);
 
+                        $("#guidIframe").remove();
                         var guidIframe = $("<iframe/>", {
                             id: "guidIframe",
                             scrolling: 'no',
@@ -2627,11 +2630,11 @@ function callPlayer(frame_id, func, args) { /*
                         if ((ProBtnControl.params.ParentParams.height > 0) && (ProBtnControl.params.ParentParams.height !== undefined) && (ProBtnControl.params.ParentParams.height !== null)) {
                             return ProBtnControl.params.ParentParams.height;
                         } else {
-                            return $(window).height();
+                            return window.innerHeight; //$(window).height();
                         }
 
                     } else {
-                        return $(window).height();
+                        return window.innerHeight; //$(window).height();
                     }
                 },
                 getWindowWidth: function () {
@@ -2639,11 +2642,11 @@ function callPlayer(frame_id, func, args) { /*
                         if ((ProBtnControl.params.ParentParams.width > 0) && (ProBtnControl.params.ParentParams.width !== undefined) && (ProBtnControl.params.ParentParams.width !== null)) {
                             return ProBtnControl.params.ParentParams.width;
                         } else {
-                            return $(window).width();
+                            return window.innerWidth; //$(window).width();
                         }
                         return ProBtnControl.params.ParentParams.width;
                     } else {
-                        return $(window).width();
+                        return window.innerWidth; //$(window).width();
                     }
                 },
                 replaceUrlParam: function (url, paramName, paramValue) {
