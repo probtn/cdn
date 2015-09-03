@@ -819,8 +819,7 @@ function callPlayer(frame_id, func, args) { /*
                             if (i === undefined) {
                                 i = 1;
                             }
-                            //fancybox closed
-                            ProBtnControl.params.hpmd.trackEvent("probtn" + i);
+                            //ProBtnControl.params.hpmd.trackEvent("probtn" + i);
                         } catch (ex) {
                         }
                     }
