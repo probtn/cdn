@@ -1,105 +1,16 @@
-/*$.extend({
-    replaceTag: function (currentElem, newTagObj, keepProps) {
-        var $currentElem = $(currentElem);
-        var i, $newTag = $(newTagObj).clone();
-        if (keepProps) {//{{{
-            newTag = $newTag[0];
-            newTag.className = currentElem.className;
-            $.extend(newTag.classList, currentElem.classList);
-            $.extend(newTag.attributes, currentElem.attributes);
-        }//}}}
-        $currentElem.wrapAll($newTag);
-        $currentElem.contents().unwrap();
-        // return node; (Error spotted by Frank van Luijn)
-        return this; // Suggested by ColeLawrence
+function probtn_callPlayer(frame_id, func, args) {
+    var player;
+    if ((func==null) || (func==undefined)) {
+        func = "playVideo";
     }
-});
-$.fn.extend({
-    replaceTag: function (newTagObj, keepProps) {
-        // "return" suggested by ColeLawrence
-        return this.each(function() {
-            jQuery.replaceTag(this, newTagObj, keepProps);
-        });
+    var youtube_command = window.JSON.stringify({ event: 'command', func: func });
+    
+    try {
+        player = document.getElementById(frame_id);
+        player.contentWindow.postMessage(youtube_command, 'https://www.youtube.com');
+    } catch (ex) {
+        console.log(ex);
     }
-});*/
-
-function callPlayer(frame_id, func, args) { /*
-    if (window.jQuery && frame_id instanceof jQuery) frame_id = frame_id.get(0).id;
-    var iframe = document.getElementById(frame_id);
-    if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
-        iframe = iframe.getElementsByTagName('iframe')[0];
-    }
-
-    // When the player is not ready yet, add the event to a queue
-    // Each frame_id is associated with an own queue.
-    // Each queue has three possible states:
-    //  undefined = uninitialised / array = queue / 0 = ready
-    if (!callPlayer.queue) callPlayer.queue = {};
-    var queue = callPlayer.queue[frame_id],
-        domReady = document.readyState == 'complete';
-
-    if (domReady && !iframe) {
-        // DOM is ready and iframe does not exist. Log a message
-        window.console && console.log('callPlayer: Frame not found; id=' + frame_id);
-        if (queue) clearInterval(queue.poller);
-    } else if (func === 'listening') {
-        // Sending the "listener" message to the frame, to request status updates
-        if (iframe && iframe.contentWindow) {
-            func = '{"event":"listening","id":' + JSON.stringify('' + frame_id) + '}';
-            iframe.contentWindow.postMessage(func, '*');
-        }
-    } else if (!domReady ||
-               iframe && (!iframe.contentWindow || queue && !queue.ready) ||
-               (!queue || !queue.ready) && typeof func === 'function') {
-        if (!queue) queue = callPlayer.queue[frame_id] = [];
-        queue.push([func, args]);
-        if (!('poller' in queue)) {
-            // keep polling until the document and frame is ready
-            queue.poller = setInterval(function () {
-                callPlayer(frame_id, 'listening');
-            }, 250);
-            // Add a global "message" event listener, to catch status updates:
-            messageEvent(1, function runOnceReady(e) {
-                if (!iframe) {
-                    iframe = document.getElementById(frame_id);
-                    if (!iframe) return;
-                    if (iframe.tagName.toUpperCase() != 'IFRAME') {
-                        iframe = iframe.getElementsByTagName('iframe')[0];
-                        if (!iframe) return;
-                    }
-                }
-                if (e.source === iframe.contentWindow) {
-                    // Assume that the player is ready if we receive a
-                    // message from the iframe
-                    clearInterval(queue.poller);
-                    queue.ready = true;
-                    messageEvent(0, runOnceReady);
-                    // .. and release the queue:
-                    while (tmp = queue.shift()) {
-                        callPlayer(frame_id, tmp[0], tmp[1]);
-                    }
-                }
-            }, false);
-        }
-    } else if (iframe && iframe.contentWindow) {
-        // When a function is supplied, just call it (like "onYouTubePlayerReady")
-        if (func.call) return func();
-        // Frame exists, send message
-        iframe.contentWindow.postMessage(JSON.stringify({
-            "event": "command",
-            "func": func,
-            "args": args || [],
-            "id": frame_id
-        }), "*");
-    }
-
-    function messageEvent(add, listener) {
-        var w3 = add ? window.addEventListener : window.removeEventListener;
-        w3 ?
-            w3('message', listener, !1)
-        :
-            (add ? window.attachEvent : window.detachEvent)('onmessage', listener);
-    }*/
 }
 
 
@@ -175,6 +86,7 @@ function callPlayer(frame_id, func, args) { /*
                     }
                 }
 
+
                 if (currentButtonContentType == "iframe") {
                     ProBtnControl.additionalButtonFunctions.sendMessageToParent("probtn_onbuttontap");
                 }
@@ -185,6 +97,8 @@ function callPlayer(frame_id, func, args) { /*
                 if (ProBtnControl.additionalButtonFunctions.animation.animationRuning) {
                     ProBtnControl.additionalButtonFunctions.animation.doneAnimation();
                 }
+
+
 
                 //click for dfp
                 if (ProBtnControl.params.dfp.isDFP) {
@@ -211,6 +125,7 @@ function callPlayer(frame_id, func, args) { /*
                 }
 
                 ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () { });
+
 
                 var isMobileLandscape = (ProBtnControl.additionalButtonFunctions.isLandscape() && ProBtnControl.userData.mobile),
                     position = ProBtnControl.pizzabtn.position(),
@@ -244,6 +159,29 @@ function callPlayer(frame_id, func, args) { /*
                 var InitTop = $("#probtn_button").offset().top;
 
                 $.pep.toggleAll(false);
+
+
+                //youtube video player mode
+                if (ProBtnControl.params.ButtonContentType == "youtube") {
+                    ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
+
+                    probtn_callPlayer("video_probtn");
+                    $("#youtube_fullscreen").show();
+                    $("#fullscreen_probtn").show();
+
+                    ProBtnControl.additionalButtonFunctions.youtubeModalWindowSizes();
+
+                    ProBtnControl.contentTime.startTimer();
+                    ProBtnControl.HpmdFunctions.expandHpmdTrack();
+                    //run it to update width and margins for ower 'fullscreen'
+                    ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
+
+                    
+                    
+                    probtn_callPlayer("video_probtn");
+                    return;
+                }
+
 
                 var fancyboxParams = {
                     href: currentContentURL, //ProBtnControl.params.ContentURL,
@@ -320,7 +258,7 @@ function callPlayer(frame_id, func, args) { /*
                         }
 
                         var frame_id = $(".fancybox-iframe").first().attr("id");
-                        callPlayer(frame_id, "playVideo");
+                        //callPlayer(frame_id, "playVideo");
 
                         ProBtnControl.additionalButtonFunctions.setIfameSizes();
 
@@ -329,12 +267,12 @@ function callPlayer(frame_id, func, args) { /*
                         if (currentButtonContentType === "video") {
                             ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
                             try {
-                                if ((areaName !== null) && (areaName !== undefined)) {
-                                    var video = $("#video_probtn_" + areaName).get(0);
-                                    video.play();
-                                } else {
-                                    var video = $("#video_probtn").get(0);
-                                    video.play();
+                                if ((areaName !== null) && (areaName !== undefined)) {                                    
+                                        var video = $("#video_probtn_" + areaName).get(0);
+                                        video.play();                                                                     
+                                } else {                                    
+                                        var video = $("#video_probtn").get(0);
+                                        video.play();
                                 }
                             } catch (ex) {
                                 if (ProBtnControl.params.Debug) console.log(ex);
@@ -411,12 +349,10 @@ function callPlayer(frame_id, func, args) { /*
                 }
 
                 if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
-                    try {
-                        fancyboxParams.titleShow = true;
-                        fancyboxParams.title = "<style>.fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
-                    } catch (ex) { }
-                }
-
+                    fancyboxParams.title = ProBtnControl.additionalButtonFunctions.getTitleTextForModalWindow();
+                    fancyboxParams.titleShow = true;
+                }             
+                
                 if (ProBtnControl.params.IsManualSize === true) {
                     fancyboxParams.width = ProBtnControl.params.ContentSize.X;
                     fancyboxParams.height = ProBtnControl.params.ContentSize.Y;
@@ -881,8 +817,7 @@ function callPlayer(frame_id, func, args) { /*
                             });
                     }
                 },
-                //TODO
-                //refactoring - make universal function with azname stats sending
+                //TODO refactoring - make universal function with azname stats sending
                 sendScrollAreaShowedStats: function (areaName, callback) {
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
                         var probtnId = "1234";
@@ -1717,6 +1652,43 @@ function callPlayer(frame_id, func, args) { /*
                         id: "probtn_wrapper"
                     }).prependTo('body');
 
+
+                    if (ProBtnControl.params.ButtonContentType === 'youtube') {
+
+                        var title = "";
+                        title = ProBtnControl.additionalButtonFunctions.getTitleTextForModalWindow();
+
+                        $('body').append('<div class="fancybox-overlay fancybox-overlay-fixed" id="youtube_fullscreen" style="width: auto; height: auto; display: none;""></div>');
+                        $('body').append('<div id="fullscreen_probtn" style="display: none;">' +
+                            '<div class="fancybox-wrap fancybox-mobile fancybox-type-iframe fancybox-opened" tabindex="-1" ' +
+                            'style="margin: 0 auto; height: auto; position: fixed; opacity: 1; overflow: visible;">' +
+                            '<div class="fancybox-skin" style="padding: 0px; width: auto; height: auto;">' +
+                            '<div class="fancybox-outer">' +
+                            '<div class="fancybox-inner" style="overflow: scroll; ">' +
+                            '<iframe id="video_probtn" class="fancybox-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="auto" src="' + ProBtnControl.additionalButtonFunctions.getContentUrlWithUtm(ProBtnControl.params.ContentURL) + '"' +
+                            ' sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>' +
+                            '</div></div>' +
+                            '<div style="background: white;" class="fancybox-title fancybox-title-inside-wrap">'+ title +'</div>' +
+                            '<a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a></div></div>' +
+                            '</div');
+
+                        //close youtube player
+                        $('body').on('click', "#fullscreen_probtn .fancybox-close, .fancybox-overlay", function () {
+                            $('#fullscreen_probtn').hide();
+                            $('.fancybox-overlay').hide();
+
+                            ProBtnControl.contentTime.endTimer();
+                            ProBtnControl.HpmdFunctions.closeHpmdTrack();
+
+                            ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function () {
+                            }, ProBtnControl.params.MinimizeWrapperTime);
+
+                            $.pep.toggleAll(true);
+                            probtn_callPlayer("video_probtn", "pauseVideo");
+                            probtn_callPlayer("video_probtn", "stopVideo");                            
+                        });
+                    }
+
                     if (ProBtnControl.params.ButtonContentType === 'video') {
                         var videoOnCLick = "";
 
@@ -1726,14 +1698,16 @@ function callPlayer(frame_id, func, args) { /*
                             ProBtnControl.params.VideoClickURL = ProBtnControl.params.VideoPoster;
                         }
 
-                        // replace with video item
-
-                        var content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;"> \
+                        var content = '';
+                        
+                            // replace with video item
+                            content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;"> \
         <table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0 auto;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline onclick="' + videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;"> \
           <source src="' + ProBtnControl.params.ContentURL + '" type="video/mp4"> \
             Your browser does not support the video tag. \
         </video></td></tr></table> \
     </div>';
+                        
                         $('body').append(content);
 
                         if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
@@ -2348,6 +2322,45 @@ function callPlayer(frame_id, func, args) { /*
                 wasInteraction: false
             },
             additionalButtonFunctions: {
+                //format title for fancybox\modal window
+                getTitleTextForModalWindow: function () {
+                    var title = "";
+                    if (ProBtnControl.params.Debug === true) {
+                        var outVendorText = ProBtnControl.params.VendorText + " " + ProBtnControl.mainVersion;
+                    } else {
+                        var outVendorText = ProBtnControl.params.VendorText;
+                    }
+                    
+                    if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
+                        try {
+                            title = "<style> .fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
+                        } catch (ex) { }
+                    }
+
+                    return title;
+                },
+                //calculate and apply custom fancybox for sizes
+                youtubeModalWindowSizes: function () {
+                    if ($("#youtube_fullscreen:visible").length > 0) {
+                        var margins = ProBtnControl.additionalButtonFunctions.getFancyboxMargins();
+                        var titleHeight = $(".fancybox-title").first().height();
+                        var style = { //t r b l
+                            width: (window.innerWidth - margins[1] - margins[3]),
+                            height: (window.innerHeight - margins[0] - margins[2] - titleHeight)
+                        }
+
+                        $("#fullscreen_probtn .fancybox-wrap").css(style);
+                        $("#fullscreen_probtn .fancybox-wrap").css({
+                            'margin-left': margins[3],
+                            'margin-right': margins[1],
+                            'margin-top': margins[0],
+                            'margin-bottom': margins[2]
+                        });
+                        $("#fullscreen_probtn .fancybox-skin").css(style);
+                        $("#fullscreen_probtn .fancybox-outer").css(style);
+                        $("#fullscreen_probtn .fancybox-inner").css(style);
+                    }
+                },
                 hideAll: function() {
                     ProBtnControl.statistics.SendStatObject({
                         //"Closed": 1,
@@ -2663,6 +2676,7 @@ function callPlayer(frame_id, func, args) { /*
                 //when window is resized or changed orientation on device
                 onOrientationChange: function (e) {
                     try {
+
                         //update sizes for all percent values
                         ProBtnControl.additionalButtonFunctions.updateAllPercentSizes();
 
@@ -2672,6 +2686,10 @@ function callPlayer(frame_id, func, args) { /*
                             ProBtnControl.closeButton.center();
                         } catch (ex) {
                             if (ProBtnControl.params.Debug) console.log(ex);
+                        }
+
+                        if (ProBtnControl.params.ButtonContentType == "youtube") {
+                            ProBtnControl.additionalButtonFunctions.youtubeModalWindowSizes();
                         }
 
                         //check is menu opened and update it's positions
@@ -3113,7 +3131,7 @@ function callPlayer(frame_id, func, args) { /*
             if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
 
                 ProBtnControl.params = $.extend(true, {
-
+                    VideoType: 'mp4',
                     //disable or not button movement
                     DisableButtonMove: false,
 
@@ -3324,8 +3342,8 @@ function callPlayer(frame_id, func, args) { /*
                     Debug: false,
 
                     VideoPoster: '',
-                    ButtonOnClick: 'function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); video.play(); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); callPlayer(frame_id, "playVideo"); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
-                    ButtonOnTouchEnd: 'console.log("window.probtn_pizzabtn_moved - " + window.probtn_pizzabtn_moved); var moved =  window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); videoZone.play(); } } else { if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { var video = jQuery("#video_probtn").get(0); video.play(); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); callPlayer(frame_id, "playVideo"); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); setTimeout(start2 , 1000); setTimeout(start2 , 2000); setTimeout(start2 , 3000);',
+                    ButtonOnClick: 'function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
+                    ButtonOnTouchEnd: 'console.log("window.probtn_pizzabtn_moved - " + window.probtn_pizzabtn_moved); var moved =  window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); videoZone.play(); } } else { if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); setTimeout(start2 , 1000); setTimeout(start2 , 2000); setTimeout(start2 , 3000);',
                     ButtonOnTouchStart: 'window.probtn_touch_start = 0; window.probtn_touch_interval = setInterval(function() { window.probtn_touch_start = window.probtn_touch_start + 1; }, 1);',
                     ButtonType: 'fancybox',
                     VideoSize: {
