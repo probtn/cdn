@@ -20,3 +20,6 @@ This is CDN files for cdn.probtn.com
 ##Список документации - принцип работы кнопки и админки:
 - https://probtn.hackpad.com/--jKDCZWpXCY8 описание механизма работы кнопки, описание взаимодействия кнопки и админки
 
+##Демо и примеры
+- https://probtn.hackpad.com/rHbHThaMwOi
+- https://probtn.hackpad.com/Probtn--TbYngMXGmLO
