@@ -1636,6 +1636,8 @@ function probtn_callPlayer(frame_id, func, args) {
                             }
                             currentFullTop = currentFullTop + getDocumentHeight() * scrollZone.ZoneHeight;
 
+                            //console.log("scrollzone");
+                           
                             //check positions for new sizes
                             ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
                         });
@@ -1950,8 +1952,8 @@ function probtn_callPlayer(frame_id, func, args) {
 
                     btn.center = function () {
                         var body = $('#probtn_wrapper');
-                        this.css('top', (body.innerHeight() - this.height()) / 2 + $(window).scrollTop() + 'px');
-                        this.css('left', (body.innerWidth() - this.width()) / 2 + $(window).scrollLeft() + 'px');
+                        this.css('top', (window.innerHeight - this.height()) / 2 + $(window).scrollTop() + 'px');
+                        this.css('left', (window.innerWidth - this.width()) / 2 + $(window).scrollLeft() + 'px');
                     }
 
                     btn.show = function () {
@@ -2087,12 +2089,12 @@ function probtn_callPlayer(frame_id, func, args) {
                         if ((top + ProBtnControl.params.ButtonSize.H) > window.innerHeight) {
                             top = window.innerHeight - ProBtnControl.params.ButtonSize.H;
                         }
-                        var left = ($('body').innerWidth() - (ProBtnControl.params.ButtonSize.W / 2)) * (ProBtnControl.params.ButtonPosition.X) + $(window).scrollLeft();
+                        var left = (window.innerWidth - (ProBtnControl.params.ButtonSize.W / 2)) * (ProBtnControl.params.ButtonPosition.X) + $(window).scrollLeft();
                         if (left < 0) {
                             left = 0;
                         }
-                        if ((left + ProBtnControl.params.ButtonSize.W) >= $('body').innerWidth()) {
-                            left = $('body').innerWidth() - ProBtnControl.params.ButtonSize.W;
+                        if ((left + ProBtnControl.params.ButtonSize.W) >= window.innerWidth) {
+                            left = window.innerWidth - ProBtnControl.params.ButtonSize.W;
                         }
 
                         btn.css({
@@ -2373,9 +2375,13 @@ function probtn_callPlayer(frame_id, func, args) {
                 checkAndCorrentButtonPosition: function () {
                     if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
                         if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
+                            //console.log("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
                             ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
                         }
-                        if (ProBtnControl.pizzabtn.position().top > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
+                        //console.log("ProBtnControl.pizzabtn.position().top", ProBtnControl.pizzabtn.position().top);
+                        //console.log("ProBtnControl.pizzabtn.css('top')", ProBtnControl.pizzabtn.css('top').replace('px', ''));
+                        if (ProBtnControl.pizzabtn.css('top').replace('px', '') > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
+                            //console.log("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
                             ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
                         }
                     }
@@ -2680,6 +2686,7 @@ function probtn_callPlayer(frame_id, func, args) {
                         //update sizes for all percent values
                         ProBtnControl.additionalButtonFunctions.updateAllPercentSizes();
 
+                        //console.log("onOrientationChange", e);
                         ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
 
                         try {
