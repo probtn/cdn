@@ -386,6 +386,7 @@ function probtn_callPlayer(frame_id, func, args) {
                     ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
                     $.pep.toggleAll(true);
                     window.open(currentContentURL, '_blank');
+                    ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function () { });
 
                     hideButtonAfterFirstShow();
 
