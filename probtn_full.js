@@ -4077,7 +4077,7 @@ function probtn_callPlayer(frame_id, func, args) {
                         }
 
                         var mo_domain = document.domain.replace("www.", "");
-                        var mo_not_load_fb = (mo_domain === 'm.maximonline.ru');
+                        var mo_not_load_fb = (mo_domain && mo_domain.indexOf('maximonline.ru') >= 0);
 
                         // load fancybox and jquery.pep
                         if (typeof fancyboxFunction == 'function' || mo_not_load_fb) {
