@@ -4,7 +4,7 @@ function probtn_callPlayer(frame_id, func, args) {
         func = "playVideo";
     }
     var youtube_command = window.JSON.stringify({ event: 'command', func: func });
-    
+
     try {
         player = document.getElementById(frame_id);
         player.contentWindow.postMessage(youtube_command, 'https://www.youtube.com');
@@ -176,8 +176,8 @@ function probtn_callPlayer(frame_id, func, args) {
                     //run it to update width and margins for ower 'fullscreen'
                     ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
 
-                    
-                    
+
+
                     probtn_callPlayer("video_probtn");
                     return;
                 }
@@ -267,10 +267,10 @@ function probtn_callPlayer(frame_id, func, args) {
                         if (currentButtonContentType === "video") {
                             ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
                             try {
-                                if ((areaName !== null) && (areaName !== undefined)) {                                    
+                                if ((areaName !== null) && (areaName !== undefined)) {
                                         var video = $("#video_probtn_" + areaName).get(0);
-                                        video.play();                                                                     
-                                } else {                                    
+                                        video.play();
+                                } else {
                                         var video = $("#video_probtn").get(0);
                                         video.play();
                                 }
@@ -351,8 +351,8 @@ function probtn_callPlayer(frame_id, func, args) {
                 if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
                     fancyboxParams.title = ProBtnControl.additionalButtonFunctions.getTitleTextForModalWindow();
                     fancyboxParams.titleShow = true;
-                }             
-                
+                }
+
                 if (ProBtnControl.params.IsManualSize === true) {
                     fancyboxParams.width = ProBtnControl.params.ContentSize.X;
                     fancyboxParams.height = ProBtnControl.params.ContentSize.Y;
@@ -720,9 +720,9 @@ function probtn_callPlayer(frame_id, func, args) {
                                 ProBtnControl.cookieFunctions.eraseCookie("probtnId");
                                 ProBtnControl.GetDeviceUID();
                             }
-                            
+
                         }
-                    }                    
+                    }
                 },
                 createCookie: function (name, value, days) {
                     var expires = "";
@@ -1638,7 +1638,7 @@ function probtn_callPlayer(frame_id, func, args) {
                             currentFullTop = currentFullTop + getDocumentHeight() * scrollZone.ZoneHeight;
 
                             //console.log("scrollzone");
-                           
+
                             //check positions for new sizes
                             ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
                         });
@@ -1688,7 +1688,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
                             $.pep.toggleAll(true);
                             probtn_callPlayer("video_probtn", "pauseVideo");
-                            probtn_callPlayer("video_probtn", "stopVideo");                            
+                            probtn_callPlayer("video_probtn", "stopVideo");
                         });
                     }
 
@@ -1702,7 +1702,7 @@ function probtn_callPlayer(frame_id, func, args) {
                         }
 
                         var content = '';
-                        
+
                             // replace with video item
                             content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;"> \
         <table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0 auto;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline onclick="' + videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;"> \
@@ -1710,7 +1710,7 @@ function probtn_callPlayer(frame_id, func, args) {
             Your browser does not support the video tag. \
         </video></td></tr></table> \
     </div>';
-                        
+
                         $('body').append(content);
 
                         if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
@@ -2333,7 +2333,7 @@ function probtn_callPlayer(frame_id, func, args) {
                     } else {
                         var outVendorText = ProBtnControl.params.VendorText;
                     }
-                    
+
                     if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
                         try {
                             title = "<style> .fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
@@ -2394,7 +2394,7 @@ function probtn_callPlayer(frame_id, func, args) {
                         ProBtnControl.params.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
                         ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
                     }
-                    
+
                     ProBtnControl.params.CloseSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseSize);
                     ProBtnControl.params.CloseActiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseActiveSize);
 
@@ -2465,7 +2465,7 @@ function probtn_callPlayer(frame_id, func, args) {
                             }
                             newWidth = window.innerWidth * (parseFloat(newWidth) / 100);
                             //if other param set to proportions
-                            if ((parseFloat(newHeightInit) > 0) && (buttonSize.W.toString().indexOf('%') == -1)) {    
+                            if ((parseFloat(newHeightInit) > 0) && (buttonSize.W.toString().indexOf('%') == -1)) {
                                 newHeight = newWidth * parseFloat(newHeightInit);
                             }
                         } else {
@@ -3327,7 +3327,7 @@ function probtn_callPlayer(frame_id, func, args) {
                         force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
                         hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
                         layer: false, // Display as overlay layer or slide down the page
-                        iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+                        iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.
                         appendToSelector: 'body' //Append the banner to a specific selector
                     },
 
@@ -3800,7 +3800,7 @@ function probtn_callPlayer(frame_id, func, args) {
                     ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
 
                     if ((ProBtnControl.params.HideInFrame === true && window.self !== window.top) || (isStartAppBanner)) {
-                        //do nothing      
+                        //do nothing
                         if (ProBtnControl.params.Debug) console.log("do nothing");
                     }
                     else {
@@ -3988,7 +3988,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
                 ProBtnControl.cookieFunctions.getDeviceCID(function (guid) {
                     getSettingsAndLaunchButton(null);
-                });                
+                });
 
                 //BEGIN BUTTON PROCESS
                 var BeginButtonProcess = function () {
@@ -4076,10 +4076,15 @@ function probtn_callPlayer(frame_id, func, args) {
                         } catch (ex) {
                         }
 
+                        var mo_domain = document.domain.replace("www.", "");
+                        var mo_not_load_fb = (mo_domain === 'm.maximonline.ru');
+
                         // load fancybox and jquery.pep
-                        if (typeof fancyboxFunction == 'function') {
+                        if (typeof fancyboxFunction == 'function' || mo_not_load_fb) {
+                            console.log('probtn, loading jquery.pep');
                             loadPep();
                         } else {
+                            console.log('probtn, loading fancybox');
                             $.getScript(ProBtnControl.params.fancyboxJsPath, loadPep); //fancybox end
                         }
                     } else {
@@ -4208,7 +4213,7 @@ function probtn_callPlayer(frame_id, func, args) {
                                     ProBtnControl.statistics.SendStatisticsData("Moved", 1);
                                 });
                             },
-                            drag: function (ev, obj) {                                                              
+                            drag: function (ev, obj) {
                                 ProBtnControl.initFunctions.initScrollChange(true);
 
                                 //if set, disable button move
@@ -4353,7 +4358,7 @@ function probtn_callPlayer(frame_id, func, args) {
                                 });
 
                                 if (!ProBtnControl.pizzabtn.moved) {
-                                    //if button clicked                                
+                                    //if button clicked
                                     ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
                                         if ((activeZone === null) || (activeZone === undefined)) {
                                             if (ProBtnControl.params.ButtonContentType !== 'video') {
@@ -4363,13 +4368,13 @@ function probtn_callPlayer(frame_id, func, args) {
                                                     // (true) //
                                                     ProBtnControl.onButtonTap();
                                                 } else {
-                                                    
+
                                                     if (ProBtnControl.params.HideAfterFirstShow == true) {
                                                         ProBtnControl.additionalButtonFunctions.hideAll();
                                                     };
 
                                                     //check for VideoClickURL not empty
-                                                    if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {                                                        
+                                                    if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
 
                                                         setTimeout(function () {
                                                             ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
