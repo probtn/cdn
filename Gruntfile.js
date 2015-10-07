@@ -7,7 +7,8 @@ module.exports = function(grunt) {
 		default: {
           files: {
 			//what files we are uglifying
-            'probtn.js': ['probtn_full.js']
+            'probtn.js': ['probtn_full.js'],
+			'probtn_concat.js': ['probtn_concat_full.js']
           }
         },
       options: {
