@@ -147,6 +147,7 @@ function loadJS(src, callback) {
 if (isjQuery) {
     if ($ == jQuery) {
         //jQuery(document).ready(function () {
+			var probtnJquery = jQuery.noConflict(true);
             loadJqueryPep(jQuery);
         //})
     } else {
