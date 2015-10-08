@@ -85,10 +85,10 @@ var loadFancybox = function (jQuery1) {
     }
 
     var mo_domain = document.domain.replace("www.", "");
-    var mo_not_load_fb = false; // ( mo_domain && mo_domain.indexOf('maximonline.ru') >= 0 );
+    var mo_not_load_fb = ( mo_domain && mo_domain.indexOf('maximonline.ru') >= 0 );
 
     if (typeof fancyboxFunction == 'function' || mo_not_load_fb) {
-        console.log('includepb, loading probtn');
+        console.log('includepb, loading probtn no fancybox');
         loadProbtn(jQuery);
     } else {
         console.log('includepb, loading fancybox');
