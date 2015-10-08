@@ -147,7 +147,10 @@ function loadJS(src, callback) {
 if (isjQuery) {
     if ($ == jQuery) {
         //jQuery(document).ready(function () {
-            loadJqueryPep(jQuery);
+        loadJS(jqueryPath, function () {
+            var probtnJquery = jQuery.noConflict(true);
+            loadJqueryPep(probtnJquery);
+        });
         //})
     } else {
         /*var oHead = document.getElementsByTagName('HEAD').item(0);
