@@ -13,6 +13,7 @@
   "devDependencies": {
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-githooks": "^0.3.1",
+    "grunt-includes": "^0.5.1",
     "sync-exec": "^0.6.1"
   },
   "scripts": {
