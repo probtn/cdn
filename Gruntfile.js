@@ -3,22 +3,32 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    uglify: {
+	includes: {
+		default: {
+		  files: {
+			'probtn_concat_full.js': ['src/probtn_concat_template.js'], // Source files
+			//dest: '/probtn_concat.js', // Destination directory
+			//flatten: true,
+			//'probtn_concat_template.js': ['probtn_concat.js'],
+			//cwd: '.',
+			/*options: {
+			  debug: true
+			}*/
+		  }
+		}
+	},
+	uglify: {
 		default: {
           files: {
 			//what files we are uglifying
             'probtn.js': ['probtn_full.js'],
 			'probtn_concat.js': ['probtn_concat_full.js']
+			//'probtn_concat.js': ['probtn_concat_full.js']
           }
         },
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd HH:mm:ss") %> */\n'
       }
-	  //,
-      //build: {
-      //  src: 'src/<%= pkg.name %>.js',
-      //  dest: 'build/<%= pkg.name %>.min.js'
-      //}
     },
 	githooks: {
 		all: {
@@ -33,10 +43,12 @@ module.exports = function(grunt) {
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-includes');
   grunt.loadNpmTasks('grunt-githooks');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify']);
+  //grunt.registerTask('default', ['includes']);
+  grunt.registerTask('default', ['includes', 'uglify']);
   
 };
 
