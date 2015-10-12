@@ -65,21 +65,11 @@
             }
         } catch (ex) {
         }
-
-        var mo_domain = document.domain.replace("www.", "");
-        var mo_not_load_fb = (mo_domain && mo_domain.indexOf('maximonline.ru') >= 0);
-
-        if (typeof fancyboxFunction == 'function' || mo_not_load_fb) {
-            //console.log('includepb, loading probtn');
-            loadProbtn(jQuery);
-        } else {
-            //console.log('includepb, loading fancybox');
-
+			
             /* fancybox */
 			include "../libs/jquery.fancybox.min.js"
 
             loadProbtn(jQuery);
-        }
     }
 
     var loadJqueryPep = function (jQuery) {
@@ -88,16 +78,16 @@
             pepFunction = jQuery.pep.toggleAll;
         } catch (ex) { }
 
-        if (typeof pepFunction == 'function') {
+        /*if (typeof pepFunction == 'function') {
             loadFancybox(jQuery);
-        } else {
+        } else {*/
 
             /* jquery.pep */
 			include "../libs/jquery.pep.min.js"
 
             loadFancybox(jQuery);
 
-        }
+        //}
     }
 
     var isjQuery = window.jQuery;
@@ -105,14 +95,21 @@
     if ((vernums[0] > 0) && (vernums[1] > 4)) {
     } else { isjQuery = false; };
 
+	/* jQuery */
+	include "../libs/jquery.js"
+
+    var probtnJquery = jQuery.noConflict(true);
+    loadJqueryPep(probtnJquery);
+		
     if (isjQuery) {
-        if ($ == jQuery) {
+        /*if ($ == jQuery) {
             loadJqueryPep(jQuery);
             //})
-        } else {
-            var probtnJquery = jQuery.noConflict(true);
-            loadJqueryPep(probtnJquery);
-        }
+        } else {*/
+            //var probtnJquery = jQuery.noConflict(true);
+            //loadJqueryPep(probtnJquery);
+			
+        //}
     } else {
         var oHead = document.getElementsByTagName('HEAD').item(0);
 
@@ -129,13 +126,6 @@
                 }
             };
             document.getElementsByTagName('head')[0].appendChild(s);
-        }
-
-        /* jQuery */
-		include "../libs/jquery.js"
-
-        var probtnJquery = jQuery.noConflict(true);
-        loadJqueryPep(probtnJquery);
-
+        }       
     }
 })();
