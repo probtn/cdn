@@ -5355,7 +5355,8 @@
                 fancyboxCssPath: fancyboxCssPath,
                 fancyboxJsPath: fancyboxPath,
                 jqueryPepPath: jquerypepPath,
-				loadFancyboxJS: false
+				loadFancyboxJS: false,
+				loadJqueryPepJS: false
             })
     }
 
