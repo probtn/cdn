@@ -1,4 +1,4 @@
-/*(function () {
+(function () {
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
@@ -23,9 +23,9 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	} catch(ex) {
 	}
-}*/
+}
 
-/*var params = {};
+var params = {};
 params.dfp = {};
 params.dfp.isDFP = true;
 params.dfp.clickUrlEsc = getParameterByName("click_url_esc");
@@ -44,4 +44,4 @@ window.top.document.body.appendChild(paramsDiv);
 loadJS('//cdn.probtn.com/probtn_concat.js', function () {
 });
 
-})();*/
+})();
