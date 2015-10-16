@@ -25,7 +25,7 @@ function getParameterByName(name) {
 	}
 }
 
-var params = {};
+/*var params = {};
 params.dfp = {};
 params.dfp.isDFP = true;
 params.dfp.clickUrlEsc = getParameterByName("click_url_esc");
@@ -42,5 +42,5 @@ paramsDiv.style.cssText = "display: none;";
 window.top.document.body.appendChild(paramsDiv);
 
 loadJS('//cdn.probtn.com/probtn_concat.js', function () {
-});
+});*/
 })();
