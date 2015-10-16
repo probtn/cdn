@@ -1,5 +1,5 @@
-(function () {
-/*var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
+/*(function () {
+var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
     var s = window.top.document.createElement('script');
@@ -42,6 +42,6 @@ paramsDiv.style.cssText = "display: none;";
 window.top.document.body.appendChild(paramsDiv);
 
 loadJS('//cdn.probtn.com/probtn_concat.js', function () {
-});*/
+});
 
-})();
+})();*/
