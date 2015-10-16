@@ -1,4 +1,4 @@
-/*(function () {
+(function () {
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
@@ -44,4 +44,4 @@ window.top.document.body.appendChild(paramsDiv);
 loadJS('//cdn.probtn.com/probtn_concat.js', function () {
 });
 
-})();*/
+})();
