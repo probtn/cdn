@@ -79,10 +79,6 @@
             pepFunction = jQuery.pep.toggleAll;
         } catch (ex) { }
 
-        /*if (typeof pepFunction == 'function') {
-            loadFancybox(jQuery);
-        } else {*/
-
             /* jquery.pep */
 			include "../libs/jquery.pep.min.js"
 

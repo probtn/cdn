@@ -5383,10 +5383,6 @@
             pepFunction = jQuery.pep.toggleAll;
         } catch (ex) { }
 
-        /*if (typeof pepFunction == 'function') {
-            loadFancybox(jQuery);
-        } else {*/
-
             /* jquery.pep */
 			/*
 			 *         ________                                                            ________
