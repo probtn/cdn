@@ -8,9 +8,7 @@ module.exports = function(grunt) {
 		  files: {
 			'probtn_concat_full.js': ['src/probtn_concat_template.js'], // Source files
 			'custom_include/maximonline_full.js': ['src/maximonline_template.js']
-			//dest: '/probtn_concat.js', // Destination directory
 			//flatten: true,
-			//'probtn_concat_template.js': ['probtn_concat.js'],
 			//cwd: '.',
 			/*options: {
 			  debug: true
@@ -49,7 +47,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-githooks');
 
   // Default task(s).
-  //grunt.registerTask('default', ['includes']);
   grunt.registerTask('default', ['includes', 'uglify']);
   
 };
