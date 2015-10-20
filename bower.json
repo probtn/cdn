@@ -10,7 +10,7 @@
   "keywords": [
     "probtn", "floating button", "floating", "ads", "advertisment"
   ],
-  "license": "MIT",
+  "license": "",
   "ignore": [
     "**/.*",
     "node_modules",
