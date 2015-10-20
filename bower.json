@@ -1,0 +1,40 @@
+{
+  "name": "probtn",
+  "version": "1.4.1947_20102015",
+  "homepage": "https://probtn.com",
+  "authors": [
+    "Profit Button"
+  ],
+  "description": "floating buttons for mobile web and applications",
+  "main": "probtn_concat.js",
+  "keywords": [
+    "probtn", "floating button", "floating", "ads", "advertisment"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+	"cookie_iframe",
+	".git",
+	"custom_include",
+	"iframe_buttons",
+	"images",
+	"jsdelivr",
+	"old_probtn",
+	"src",
+	"testing",
+	"video",
+	"vmetro",
+	"example.html",
+	".htaccess",
+	"Gruntfile.js",
+	"hpmd.html",
+	"load2.png",
+	"load3.png",
+	"pool.js",
+	"precommit.js"
+  ]
+}
