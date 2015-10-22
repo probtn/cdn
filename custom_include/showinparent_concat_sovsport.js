@@ -1,6 +1,6 @@
 (function () {
 var customDomain = "m.sovsport.ru";
-/*var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
+var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
     var s = window.top.document.createElement('script');
@@ -27,7 +27,7 @@ function getParameterByName(name) {
 	}
 }
 
-var params = {};
+/*var params = {};
 params.dfp = {};
 params.dfp.isDFP = true;
 params.dfp.clickUrlEsc = getParameterByName("click_url_esc");
@@ -41,9 +41,9 @@ var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
 paramsDiv.innerHTML = JSON.stringify(params);
 paramsDiv.style.cssText = "display: none;";
-window.top.document.body.appendChild(paramsDiv);
+window.top.document.body.appendChild(paramsDiv);*/
 
 loadJS('//cdn.probtn.com/probtn_concat.js', function () {
-});*/
+});
 
 })();
