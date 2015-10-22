@@ -27,6 +27,7 @@ function getParameterByName(name) {
 	}
 }
 
+
 /*var params = {};
 params.dfp = {};
 params.dfp.isDFP = true;
