@@ -14,10 +14,26 @@ console.log(stdout);
   // only run if there are staged changes
   // i.e. what you would be committing if you ran "git commit" without "-a" option.
   //if (err) {
-	  exec('git add .', function (err, stdout, stderr) { 
+	  
+		exec('cd bower', function (err, stdout, stderr) { 
+			exec('git add .', function (err, stdout, stderr) { 
+				exec('git commit -m "bower"', function (err, stdout, stderr) { 
+					exec('git push', function (err, stdout, stderr) { 
+						exec('cd ..', function (err, stdout, stderr) { 
+							exec('git add .', function (err, stdout, stderr) { 
+								console.log(err);
+								console.log(stdout);
+						    });
+						});
+					});
+				});
+			});
+		});
+	  
+	  /*exec('git add .', function (err, stdout, stderr) { 
 		console.log(err);
 		console.log(stdout);
-	  });
+	  });*/
   //}
 	/*
     // stash unstaged changes - only test what's being committed
