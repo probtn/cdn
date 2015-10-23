@@ -3770,6 +3770,25 @@ function probtn_callPlayer(frame_id, func, args) {
                 },
                 animation: {
                     animationRuning: false,
+                    opacityAnimation: function (animationName) {
+                        var animations = animationName.split('_');
+                        if (animations[0] == "opacity") {
+                            var opacity_param = animations[1];
+                            if ((opacity_param !== null) && (opacity_param !== undefined) && (!isNaN(opacity_param))) {
+                            } else {
+                                opacity_param = 0.5;
+                            }
+                            ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
+
+                            ProBtnControl.pizzabtn.animate({
+                                opacity: opacity_param
+                            }, {
+                                duration: ProBtnControl.params.animationDuration,
+                                step: function (now) {
+                                },
+                                complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
+                            });
+                        }                    },
                     checkAndRunAnimation: function () {
                         setTimeout(function () {
                             if ((ProBtnControl.params.isAnimation == "anim1") || (ProBtnControl.params.isAnimation == "anim2")) {
@@ -3809,6 +3828,8 @@ function probtn_callPlayer(frame_id, func, args) {
                                 })
 
                             }
+
+                            ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
                         }, 2000);
                     },
                     getRotationCss: function (deg, origin) {
