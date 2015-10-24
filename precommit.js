@@ -6,6 +6,8 @@ var exec = require('child_process').exec;
 var sh = require('sync-exec').run;
 
 console.log("test");
+
+exec('echo ', function (err, stdout, stderr) {
  
 exec('grunt', function (err, stdout, stderr) {
 console.log(0);
@@ -17,7 +19,7 @@ console.log(stdout);
   // i.e. what you would be committing if you ran "git commit" without "-a" option.
   //if (err) {
 	  
-		exec('cd bower', function (err, stdout, stderr) { 
+		/*exec('cd bower', function (err, stdout, stderr) { 
 			console.log(1);
 			console.log(err);
 			console.log(stdout);
@@ -55,16 +57,16 @@ console.log(stdout);
 					});
 				});
 			});
-		});
+		});*/
 	  
-	  /*exec('git add .', function (err, stdout, stderr) { 
+	  exec('git add .', function (err, stdout, stderr) { 
 		console.log(1);
 		console.log(err);
 		console.log(stdout);
 		
 		var exitCode = 0;
 		process.exit(exitCode);
-	  });*/
+	  });
   //}
 	/*
     // stash unstaged changes - only test what's being committed
