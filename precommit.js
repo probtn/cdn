@@ -20,7 +20,7 @@ exec('echo "hello world"', function (err, stdout, stderr) {
 			console.log(err);
 			console.log(stdout);
 			
-			exec('.\\bower\grunt', function (err, stdout, stderr) { 
+			exec('.\\bower\\grunt', function (err, stdout, stderr) { 
 				console.log(2);
 				console.log(err);
 				console.log(stdout);
