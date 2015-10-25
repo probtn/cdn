@@ -47,6 +47,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-includes');
   grunt.loadNpmTasks('grunt-githooks');
+  grunt.loadNpmTasks('grunt-git');
 
   // Default task(s).
   grunt.registerTask('default', ['includes', 'uglify']);
