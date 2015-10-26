@@ -6,6 +6,7 @@ var exec = require('child_process').exec;
 var sh = require('sync-exec').run;
 
 console.log("test");
+console.log(__dirname);
 
 exec('echo "hello world"', function (err, stdout, stderr) {
  

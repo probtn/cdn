@@ -17,6 +17,7 @@
     "grunt-git": "^0.3.5",
     "grunt-githooks": "^0.3.1",
     "grunt-includes": "^0.5.1",
+    "grunt-recurse": "^0.2.3",
     "sync-exec": "^0.6.1"
   },
   "scripts": {

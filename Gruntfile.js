@@ -48,16 +48,17 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-includes');
   grunt.loadNpmTasks('grunt-githooks');
   grunt.loadNpmTasks('grunt-git');
+  grunt.loadNpmTasks('grunt-recurse');
 
   // Default task(s).
   grunt.registerTask('default', ['includes', 'uglify']);
   
-  require('grunt-recurse')(grunt, __dirname);
+  /*require('grunt-recurse')(grunt, __dirname);
     [
         './bower',
     ].each(function(subproject){
         grunt.grunt(subproject);
-    });
+    });*/
   
 };
 
