@@ -7,7 +7,7 @@ var sh = require('sync-exec').run;
 
 console.log("test");
 var dirname = __dirname;
-dirame = dirname.replace(/\.git\\hooks/g, "bower/");
+dirname = dirname.replace(/\.git\\hooks/g, "bower\\");
 console.log(dirname + "grunt");
 
 exec('echo "hello world"', function (err, stdout, stderr) {
