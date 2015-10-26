@@ -34,7 +34,11 @@ module.exports = function(grunt) {
     },
 	githooks: {
 		all: {
-		  'pre-commit': 'default'
+		  'pre-commit': 'default',
+		  'post-commit': {
+			'taskNames': 'default',
+			'template': 'postcommit.js'
+		  }
 		},
 		options: {
 		  //run this template before commit - to add unglyfied probtn.js to commit
@@ -48,7 +52,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-includes');
   grunt.loadNpmTasks('grunt-githooks');
   grunt.loadNpmTasks('grunt-git');
-  grunt.loadNpmTasks('grunt-recurse');
 
   // Default task(s).
   grunt.registerTask('default', ['includes', 'uglify']);

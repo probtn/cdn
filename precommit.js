@@ -23,17 +23,17 @@ exec('echo "hello world"', function (err, stdout, stderr) {
 			console.log(err);
 			console.log(stdout);
 			
-			//var exitCode = 0;
-			//process.exit(exitCode);
+			var exitCode = 0;
+			process.exit(exitCode);
 			
-			exec("grunt --gruntfile " + dirname, function (err, stdout, stderr) { 
+			/*exec("grunt --gruntfile " + dirname, function (err, stdout, stderr) { 
 				console.log(2);
 				console.log(err);
 				console.log(stdout);
 				
 				var exitCode = 0;
 				process.exit(exitCode);
-			});
+			});*/
 			
 			
 		  });
