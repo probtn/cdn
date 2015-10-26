@@ -52,5 +52,12 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['includes', 'uglify']);
   
+  require('grunt-recurse')(grunt, __dirname);
+    [
+        './bower',
+    ].each(function(subproject){
+        grunt.grunt(subproject);
+    });
+  
 };
 

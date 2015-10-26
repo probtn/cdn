@@ -20,7 +20,7 @@ exec('echo "hello world"', function (err, stdout, stderr) {
 			console.log(err);
 			console.log(stdout);
 			
-			exec('cd bower;grunt', function (err, stdout, stderr) { 
+			/*exec('cd bower;grunt', function (err, stdout, stderr) { 
 				console.log(2);
 				console.log(err);
 				console.log(stdout);
@@ -29,7 +29,7 @@ exec('echo "hello world"', function (err, stdout, stderr) {
 				process.exit(exitCode);
 				/*exec('git add .', function (err, stdout, stderr) { 
 				});*/
-			});
+			});*/
 			
 			
 		  });
