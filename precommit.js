@@ -7,7 +7,8 @@ var sh = require('sync-exec').run;
 
 console.log("test");
 var dirname = __dirname;
-console.log(dirname + "\\..\\..\\bower\\");
+dirame = dirname.replace(/\.git\\hooks/g, "bower/");
+console.log(dirname + "grunt");
 
 exec('echo "hello world"', function (err, stdout, stderr) {
  
@@ -25,7 +26,7 @@ exec('echo "hello world"', function (err, stdout, stderr) {
 			//var exitCode = 0;
 			//process.exit(exitCode);
 			
-			exec(dirname + "\\..\\..\\bower\\grunt", function (err, stdout, stderr) { 
+			exec(dirname + "grunt", function (err, stdout, stderr) { 
 				console.log(2);
 				console.log(err);
 				console.log(stdout);
