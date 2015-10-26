@@ -6,7 +6,8 @@ var exec = require('child_process').exec;
 var sh = require('sync-exec').run;
 
 console.log("test");
-console.log(__dirname);
+var dirname = __dirname;
+console.log(dirname + "\\..\\..\\bower\\");
 
 exec('echo "hello world"', function (err, stdout, stderr) {
  
@@ -21,17 +22,17 @@ exec('echo "hello world"', function (err, stdout, stderr) {
 			console.log(err);
 			console.log(stdout);
 			
-			var exitCode = 0;
-			process.exit(exitCode);
+			//var exitCode = 0;
+			//process.exit(exitCode);
 			
-			/*exec('cd bower;grunt', function (err, stdout, stderr) { 
+			exec(dirname + "\\..\\..\\bower\\grunt", function (err, stdout, stderr) { 
 				console.log(2);
 				console.log(err);
 				console.log(stdout);
 				
 				var exitCode = 0;
 				process.exit(exitCode);
-			});*/
+			});
 			
 			
 		  });
