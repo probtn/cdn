@@ -7,8 +7,8 @@ var sh = require('sync-exec').run;
 
 console.log("test");
 var dirname = __dirname;
-dirname = dirname.replace(/\.git\\hooks/g, "bower\\");
-console.log(dirname + "grunt");
+dirname = dirname.replace(/\.git\\hooks/g, "bower\\Gruntfile.js");
+console.log(dirname);
 
 exec('echo "hello world"', function (err, stdout, stderr) {
  
@@ -26,7 +26,7 @@ exec('echo "hello world"', function (err, stdout, stderr) {
 			//var exitCode = 0;
 			//process.exit(exitCode);
 			
-			exec(dirname + "grunt", function (err, stdout, stderr) { 
+			exec("grunt --gruntfile " + dirname, function (err, stdout, stderr) { 
 				console.log(2);
 				console.log(err);
 				console.log(stdout);
