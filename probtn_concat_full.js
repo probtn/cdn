@@ -964,7 +964,7 @@
 			            realDomain: document.domain.replace("www.", ""),
 			            initializedActiveZones: {},
 			            //curent app version
-			            mainVersion: "1.4.1947_20102015_dev",
+			            mainVersion: "1.4.1335_31102015_dev",
 			            hintText: undefined, //hinttext object with additional functions
 			            pizzabtn: undefined,
 			            closebutton: undefined,
@@ -4989,6 +4989,9 @@
 
 			                //BEGIN BUTTON PROCESS
 			                var BeginButtonProcess = function () {
+			                    if ($("#probtn_wrapper").length > 0) {
+			                        return;
+			                    }
 
 			                    function receiveMessage(event) {
 			                        try {
@@ -5090,7 +5093,7 @@
 			                    }
 
 			                    ///
-			                    function AllLoadedButtonProcess() {
+			                    function AllLoadedButtonProcess() {                        
 
 			                        ProBtnControl.statistics.SendStatisticsData();
 			                        ProBtnControl.statistics.SendBrowserStatsInfo();
