@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to probtn’s documentation! &mdash; Документация probtn 1.4.1335_31102015_dev</title>
+    <title>Содержание &mdash; Документация probtn 1.4.1335_31102015_dev</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -37,12 +37,71 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-probtn-s-documentation">
-<h1>Welcome to probtn&#8217;s documentation!<a class="headerlink" href="#welcome-to-probtn-s-documentation" title="Ссылка на этот заголовок">¶</a></h1>
+  <div class="section" id="id1">
+<h1>Содержание<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul class="simple">
 </ul>
+</div>
+</div>
+<div class="section" id="id2">
+<h1>Общее описание кнопки<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id3">
+<h2>Получение настроек кнопки<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Скрипт кнопки получает настройки несколькими путями (в порядке приоритета настроек):
+Настройки указанные локально при запуске кнопки
+Получение настроек (конвертация текста из блока в json) из div c <code class="docutils literal"><span class="pre">id=&quot;probtn_additional_params&quot;</span></code>
+Получение настроек из json-файла с настройками кнопки (в этом случае обращение к серверу за настройками не происходит)
+Получение настроек от сервера (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>) - основной и наиболее широко используемый и удобный способ</p>
+<p>Список используемых параметров, их описаний и иже с ним доступен в документе Probtn web params</p>
+</div>
+<div class="section" id="admin-probtn-com">
+<h2>Краткое описание взаимодействия с сервером настроек (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)<a class="headerlink" href="#admin-probtn-com" title="Ссылка на этот заголовок">¶</a></h2>
+<p>При запуске скрипта кнопки, происходит следующее:</p>
+<p>Производится начальная инициализация, во время которой кнопка делает запрос настроек к admin.probtn.com. Настройки идентифицируются исходя из домена сайта (в частности при запросе в числе прочих передается параметр BundleID с доменом сайта, который автоматически берется из document.domain)</p>
+<p>В случае, если указаны настройки способами 1 и 2, и одним из параметров указан параметр domain c идентификатором&#8221;доменом&#8221;, соответствующим одному из &#8220;аппов&#8221; в admin.probtn.com, то скрипт кнопки при обращении к серверу в BundleID передаст указанный параметр и получит для него настройки. Это бывает полезно в различных случаях, к примеру когда кнопка с искомыми настройками должна показываться на нескольких сайтах, или же наоборот, когда на одном сайте нужно показать различные рекламные кампании (данный вариант возможен и с использованием campaign в &#8220;аппе&#8221;, но не всегда подходит).</p>
+<p>В случае, если апп (и его кампании) выключены, от сервера придет ответ о том что кнопка выключена, и соответственно кнопка показана не будет, и не будет производить дальнейшую инициализацию.</p>
+<p>В случае, если аппа с указанным bundleId&#8221;доменом&#8221; не существует, будет возвращена ошибка, и кнопка опять таки не будет производить дальнейшую инициализацию.</p>
+</div>
+<div class="section" id="id4">
+<h2>Интеграция со сторонними сервисами<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Документация</p>
+<ul class="simple">
+<li>AdRiver - интеграция с Adriver</li>
+<li>AdRiver  - интеграция с AdRiverс указанием кастомного домена</li>
+<li>AdRiver javascriptJavaScript - интеграция с AdRiver для баннера javascript/JavaScript</li>
+<li>AdFox - интеграция с AdFox</li>
+<li>AdFox  - интеграция с AdFox с указанием кастомного домена</li>
+<li>Probtn working with DFP Google ads - интеграция с DFP</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>Описание используемых вариантов<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Как видно из приведенных выше вариантов интеграции, зачастую используется
+<a class="reference external" href="http://cdn.probtn.com/includepb.min.js">http://cdn.probtn.com/includepb.min.js</a>
+<a class="reference external" href="http://cdn.probtn.com/showinparent.js">http://cdn.probtn.com/showinparent.js</a>
+<a class="reference external" href="http://cdn.probtn.com/probtn_concat.js">http://cdn.probtn.com/probtn_concat.js</a>
+<a class="reference external" href="http://cdn.probtn.com/showinparent_concat.js">http://cdn.probtn.com/showinparent_concat.js</a></p>
+<div class="section" id="includepb-min-js">
+<h3>includepb.min.js<a class="headerlink" href="#includepb-min-js" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Данный скрипт добавляет необходимые дополнительные библиотеки на страницу, если необходимо, и инициализирует запуск кнопки.</p>
+</div>
+<div class="section" id="showinparent-js">
+<h3>showinparent.js<a class="headerlink" href="#showinparent-js" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Данный скрипт добавляет includepb.min.js на страницу родителя (если страница, где добавлен код, и так является window.top - то код includepb.min.js будет просто добавлен на нее).</p>
+<p>Для того, чтобы скрипт мог добавить includepb.min.js для родителя, iframe и родитель должны на одном и том же домене (в ином случае в связи c cross domain policy) - для чего в инструкциях есть пункт по созданию html страницы с showinparent.js скриптом.</p>
+</div>
+<div class="section" id="probtn-concat-js">
+<h3>probtn_concat.js<a class="headerlink" href="#probtn-concat-js" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Данный скрипт добавляет необходимые дополнительные библиотеки на страницу, если необходимо, и инициализирует запуск кнопки.
+Все нужные для работы кнопки кнопки добавлены в этом файле и добавляются к собственной версии jQuery, запускаемой c <code class="docutils literal"><span class="pre">jQuery.noConflict(true)</span></code></p>
+</div>
+<div class="section" id="showinparent-concat-js">
+<h3>showinparent_concat.js<a class="headerlink" href="#showinparent-concat-js" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Данный скрипт добавляет probtn_concat.js на страницу родителя (если страница, где добавлен код, и так является <code class="docutils literal"><span class="pre">window.top</span></code> - то код <code class="docutils literal"><span class="pre">includepb.min.js</span></code> будет просто добавлен на нее).</p>
+<p>Для того, чтобы скрипт мог добавить <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> для родителя, iframe и родитель должны на одном и том же домене (в ином случае в связи c cross domain policy) - для чего в инструкциях есть пункт по созданию html страницы с <code class="docutils literal"><span class="pre">showinparent_concat.js</span></code> скриптом.</p>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -62,7 +121,20 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Оглавление</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to probtn&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#">Содержание</a></li>
+<li><a class="reference internal" href="#id2">Общее описание кнопки</a><ul>
+<li><a class="reference internal" href="#id3">Получение настроек кнопки</a></li>
+<li><a class="reference internal" href="#admin-probtn-com">Краткое описание взаимодействия с сервером настроек (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)</a></li>
+<li><a class="reference internal" href="#id4">Интеграция со сторонними сервисами</a></li>
+<li><a class="reference internal" href="#id5">Описание используемых вариантов</a><ul>
+<li><a class="reference internal" href="#includepb-min-js">includepb.min.js</a></li>
+<li><a class="reference internal" href="#showinparent-js">showinparent.js</a></li>
+<li><a class="reference internal" href="#probtn-concat-js">probtn_concat.js</a></li>
+<li><a class="reference internal" href="#showinparent-concat-js">showinparent_concat.js</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 <div class="relations">
