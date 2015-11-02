@@ -1,0 +1,4 @@
+*.min.js
+!excanvas.min.js
+!jquery.flot.tooltip.min.js
+node_modules/

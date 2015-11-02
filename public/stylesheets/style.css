@@ -1,0 +1,53 @@
+/*body {
+    touch-action: auto !important;
+    -ms-touch-action: auto !important;
+
+    -ms-scroll-limit-y-max: inherit !important;
+    overflow: inherit !important;
+}*/
+#probtn_wrapper {
+    position: fixed !important;
+    z-index: 111000;
+    cursor: default !important;
+}
+#probtn_button {
+    z-index: 113000;
+    cursor: pointer;
+}
+
+.probtn_button {
+    background: transparent !important;
+}
+
+#probtn_mainButtonImage {
+    z-index: 112000;
+}
+
+#probtn_closeButton, #closeButton {
+    display:  block;
+    position: fixed;
+    top:  200px;
+    left: 400px;
+    z-index: 101000;
+}
+
+
+#probtn_button img {
+    margin: 0 auto;
+    display: block;
+}
+
+#probtn_button #probtn_hintText, #probtn_wrapper #probtn_hintText, #probtn_button #hintText, #probtn_wrapper #hintText {
+    clear: both;
+    display: block;
+    width: auto;
+    height: auto;
+    padding-top: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    background: gray;
+
+    display: inline-block;
+    width: auto;
+}
