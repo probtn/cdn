@@ -4577,7 +4577,7 @@ function probtn_callPlayer(frame_id, func, args) {
                             window.top.document.getElementsByTagName('head')[0].appendChild(s);
                         }
 
-                        loadJS('//cdn.probtn.com/probtn_concat.js', function () {
+                        loadJS('//cdn.probtn.com/probtn_full_na.js', function () {
                         });
                     }
                 }
