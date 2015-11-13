@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="//code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <title>
+        Profit Button Demo
+    </title>
+</head>
+<body>
+    <div data-role="page" id="home" data-control-title="home" data-theme="d">
+        <div data-theme="b" data-role="header">
+            <label>
+                <center>
+                <h3>Please choose demo content you can put inside floating button</h3>
+                </center>
+            </label>
+        </div>
+        <div data-role="content">
+            <div class="ui-grid-solo">
+                <div class="ui-block-a">
+                <a id="to_surveymonkey" data-role="button" data-theme="a" href="#surveymonkey" data-iconpos="right" data-icon="arrow-r">
+                    Survey Monkey
+                </a>
+                </div>
+                <div class="ui-block-a">
+                <a id="to_wufoo" data-role="button" data-theme="a" href="#wufoo" data-iconpos="right" data-icon="arrow-r">
+                    Wufoo
+                </a>
+                </div>
+                <div class="ui-block-a">
+                <a id="to_porbtn_survey" data-role="button" data-theme="a" href="#probtn_survey" data-iconpos="right" data-icon="arrow-r">
+                    Profit Button Survey
+                </a>
+                </div>
+                <div class="ui-block-a">
+                <a id="to_google_form" data-role="button" data-theme="a" href="#google_form" data-iconpos="right" data-icon="arrow-r">
+                    Google Form
+                </a>
+                </div>
+                <div class="ui-block-a">
+                <a id="to_youtube" data-role="button" data-theme="a" href="#youtube" data-iconpos="right" data-icon="arrow-r">
+                    Youtube
+                </a>
+                </div>
+                <script>
+                if (window.location.protocol == 'http:') {
+                var s = '';
+                s += '<div class="ui-block-a">';
+                s += '<a id="to_ecwid" data-role="button" data-theme="a" href="#ecwid" data-iconpos="right" data-icon="arrow-r">';
+                s += '    Ecwid';
+                s += '</a>';
+                s += '</div>';
+                document.write(s);
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- Surveymonkey -->
+    <div data-role="page" id="surveymonkey" data-control-title="Surveymonkey" data-theme="d">
+        <div data-theme="b" data-role="header">
+            <label>
+                <a data-role="button" href="#home" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+            </label>
+        </div>
+        <div data-role="content">
+            <iframe frameBorder="0" style="overflow:hidden" width="100%" height="400px" src="https://www.surveymonkey.com/s/2DFXZBC"></iframe>
+        </div>
+    </div>
+
+    <!-- Wufoo -->
+    <div data-role="page" id="wufoo" data-control-title="Wufoo" data-theme="d">
+        <div data-theme="b" data-role="header">
+            <label>
+                <a data-role="button" href="#home" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+            </label>
+        </div>
+        <div data-role="content">
+            <iframe frameBorder="0" style="overflow:hidden" width="100%" height="400px" src="https://phahulin.wufoo.com/forms/m1ysi9xj1uyhj7e/"></iframe>
+        </div>
+    </div>
+
+    <!-- Google Form -->
+    <div data-role="page" id="google_form" data-control-title="Google Form" data-theme="d">
+        <div data-theme="b" data-role="header">
+            <label>
+                <a data-role="button" href="#home" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+            </label>
+        </div>
+        <div data-role="content">
+            <iframe frameBorder="0" style="overflow:hidden" width="100%" height="400px" src="https://docs.google.com/a/hintsolutions.ru/spreadsheet/viewform?formkey=dGNEWl9VYS0xTmw2S3U3S2tLYmZDVFE6MA"></iframe>
+        </div>
+    </div>
+
+    <!-- Youtube -->
+    <div data-role="page" id="youtube" data-control-title="Youtube" data-theme="d">
+        <div data-theme="b" data-role="header">
+            <label>
+                <a data-role="button" href="#home" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+            </label>
+        </div>
+        <div data-role="content">
+            <iframe frameBorder="0" style="overflow:hidden" width="100%" height="400px" src="//www.youtube.com/embed/01AJzbqgNRw?rel=0"></iframe>
+        </div>
+    </div>
+
+    <!-- Ecwid -->
+    <script>
+    if (window.location.protocol == 'http:') {
+    var s = '';
+    s += '<div data-role="page" id="ecwid" data-control-title="ecwid" data-theme="d">';
+    s += '    <div data-theme="b" data-role="header">';
+    s += '        <label>';
+    s += '            <a data-role="button" href="#home" data-icon="arrow-l" data-iconpos="left">';
+    s += '                Back';
+    s += '            </a>';
+    s += '        </label>';
+    s += '    </div>';
+    s += '    <div data-role="content">';
+    s += '        <iframe frameBorder="0" style="overflow:hidden" width="100%" height="500px" src="https://www.ecwid.com/demo/demo-store.php?#!/~/category/id=0&offset=0&sort=normal"></iframe>';
+    s += '    </div>';
+    s += '</div>';
+    document.write(s);
+    }
+    </script>
+
+    <!-- Profit Button Survey -->
+    <div data-role="page" id="probtn_survey" data-control-title="Profit Button Survey" data-theme="d">
+        <div data-theme="b" data-role="header">
+            <label>
+                <a data-role="button" href="#home" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+            </label>
+        </div>
+        <div data-role="content">
+            <iframe frameBorder="0" style="overflow:hidden" width="100%" height="500px" src="//hint-survey.herokuapp.com/5278b54241624f0200000001"></iframe>
+        </div>
+    </div>
+</body>
+</html>
