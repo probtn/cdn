@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Содержание &mdash; Документация probtn 1.4.1335_31102015_dev</title>
+    <title>Общее описание кнопки &mdash; Документация probtn 1.4.1335_31102015_dev</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
-    <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="#" />
-    <link rel="next" title="Общее описание кнопки" href="description.html" />
+    <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="index.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -39,49 +38,9 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>Содержание<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
-<div class="toctree-wrapper compound" id="id2">
-<p class="caption"><span class="caption-text">Содержание</span><a class="headerlink" href="#id2" title="Permalink to this toctree">¶</a></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id2">Получение настроек кнопки</a></li>
-<li class="toctree-l2"><a class="reference internal" href="description.html#admin-probtn-com">Краткое описание взаимодействия с сервером настроек (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id3">Интеграция со сторонними сервисами</a></li>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id4">Описание используемых вариантов</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id5">Общее описание</a></li>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id6">Описание сборки</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="description.html#id7">Содержание</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="description.html#indices-and-tables">Indices and tables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="webparams.html">Общее описание кнопки</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="webparams.html#id2">Получение настроек кнопки</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webparams.html#admin-probtn-com">Краткое описание взаимодействия с сервером настроек (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webparams.html#id3">Интеграция со сторонними сервисами</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webparams.html#id4">Описание используемых вариантов</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="webparams.html#probtn">Объединенный probtn</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="webparams.html#id5">Общее описание</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webparams.html#id6">Описание сборки</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="webparams.html#id7">Содержание</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="webparams.html#indices-and-tables">Indices and tables</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="id3">
-<h1>Общее описание кнопки<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h1>
-<div class="section" id="id4">
-<h2>Получение настроек кнопки<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<h1>Общее описание кнопки<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id2">
+<h2>Получение настроек кнопки<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Скрипт кнопки получает настройки несколькими путями (в порядке приоритета настроек):
 Настройки указанные локально при запуске кнопки
 Получение настроек (конвертация текста из блока в json) из div c <code class="docutils literal"><span class="pre">id=&quot;probtn_additional_params&quot;</span></code>
@@ -97,8 +56,8 @@
 <p>В случае, если апп (и его кампании) выключены, от сервера придет ответ о том что кнопка выключена, и соответственно кнопка показана не будет, и не будет производить дальнейшую инициализацию.</p>
 <p>В случае, если аппа с указанным bundleId&#8221;доменом&#8221; не существует, будет возвращена ошибка, и кнопка опять таки не будет производить дальнейшую инициализацию.</p>
 </div>
-<div class="section" id="id5">
-<h2>Интеграция со сторонними сервисами<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id3">
+<h2>Интеграция со сторонними сервисами<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Документация</p>
 <ul class="simple">
 <li>AdRiver - интеграция с Adriver</li>
@@ -109,8 +68,8 @@
 <li>Probtn working with DFP Google ads - интеграция с DFP</li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h2>Описание используемых вариантов<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id4">
+<h2>Описание используемых вариантов<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Как видно из приведенных выше вариантов интеграции, зачастую используется
 * <a class="reference external" href="http://cdn.probtn.com/includepb.min.js">http://cdn.probtn.com/includepb.min.js</a>
 * <a class="reference external" href="http://cdn.probtn.com/showinparent.js">http://cdn.probtn.com/showinparent.js</a>
@@ -139,8 +98,8 @@
 </div>
 <div class="section" id="probtn">
 <h1>Объединенный probtn<a class="headerlink" href="#probtn" title="Ссылка на этот заголовок">¶</a></h1>
-<div class="section" id="id7">
-<h2>Общее описание<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id5">
+<h2>Общее описание<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
 <p>На cdn доступен
 <code class="docutils literal"><span class="pre">cdn.probtn.com/probtn_concat.js</span></code>
 объединенный из всех необходимы библиотек (fancybox, jquery.pep, uaparser), jquery, probtn и includepb.
@@ -148,16 +107,16 @@
 <p>Также создан
 <code class="docutils literal"><span class="pre">cdn.probtn.com/showinparent_concat.js</span></code></p>
 </div>
-<div class="section" id="id8">
-<h2>Описание сборки<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id6">
+<h2>Описание сборки<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
 <p>В репозитории <code class="docutils literal"><span class="pre">probtn/cdn</span></code> при <code class="docutils literal"><span class="pre">precommit</span></code> происходит следующее:
 На основе <code class="docutils literal"><span class="pre">src/probtn_concat_template.js</span></code> шаблона происходит сборка в файл <code class="docutils literal"><span class="pre">probtn_concat_full.js</span></code>
 (замена в файле строк include &#8220;path_to_file&#8221;) посредством</p>
 <p>Далее probtn_concat_full.js минифицируется посредством <code class="docutils literal"><span class="pre">grunt-contrib-uglify</span></code> в <code class="docutils literal"><span class="pre">probtn_concat.js</span></code></p>
 </div>
 </div>
-<div class="section" id="id9">
-<h1>Содержание<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id7">
+<h1>Содержание<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul class="simple">
@@ -179,14 +138,13 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Оглавление</a></h3>
+  <h3><a href="index.html">Оглавление</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Содержание</a></li>
-<li><a class="reference internal" href="#id3">Общее описание кнопки</a><ul>
-<li><a class="reference internal" href="#id4">Получение настроек кнопки</a></li>
+<li><a class="reference internal" href="#">Общее описание кнопки</a><ul>
+<li><a class="reference internal" href="#id2">Получение настроек кнопки</a></li>
 <li><a class="reference internal" href="#admin-probtn-com">Краткое описание взаимодействия с сервером настроек (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)</a></li>
-<li><a class="reference internal" href="#id5">Интеграция со сторонними сервисами</a></li>
-<li><a class="reference internal" href="#id6">Описание используемых вариантов</a><ul>
+<li><a class="reference internal" href="#id3">Интеграция со сторонними сервисами</a></li>
+<li><a class="reference internal" href="#id4">Описание используемых вариантов</a><ul>
 <li><a class="reference internal" href="#includepb-min-js">includepb.min.js</a></li>
 <li><a class="reference internal" href="#showinparent-js">showinparent.js</a></li>
 <li><a class="reference internal" href="#probtn-concat-js">probtn_concat.js</a></li>
@@ -196,25 +154,24 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#probtn">Объединенный probtn</a><ul>
-<li><a class="reference internal" href="#id7">Общее описание</a></li>
-<li><a class="reference internal" href="#id8">Описание сборки</a></li>
+<li><a class="reference internal" href="#id5">Общее описание</a></li>
+<li><a class="reference internal" href="#id6">Описание сборки</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9">Содержание</a></li>
+<li><a class="reference internal" href="#id7">Содержание</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="description.html" title="следующая глава">Общее описание кнопки</a></li>
+  <li><a href="index.html">Documentation overview</a><ul>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>Эта страница</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/index.txt"
+      <li><a href="_sources/description.txt"
             rel="nofollow">Исходный текст</a></li>
     </ul>
    </div>
@@ -243,7 +200,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="_sources/index.txt"
+      <a href="_sources/description.txt"
           rel="nofollow">Page source</a>
     </div>
 
