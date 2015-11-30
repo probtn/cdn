@@ -1318,7 +1318,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    };
 			                }
 
-			                if (ProBtnControl.params.OpenExternal === true) {
+			                if ((ProBtnControl.params.OpenExternal === true) && (currentButtonContentType == "anchor_external")) {
 
 			                    ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 			                    $.pep.toggleAll(true);
@@ -4223,6 +4223,8 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                ProBtnControl.params = $.extend(true, {
 
+			                    SelectAdSet: '',
+
 			                    UseGeoLocation: false,
 			                    WaitForGeoLocation: false,
 
@@ -5495,11 +5497,18 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                                    //check for VideoClickURL not empty
 			                                                    if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
-
-			                                                        setTimeout(function () {
-			                                                            ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
-			                                                            ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'iframe');
-			                                                        }, 3000);
+			                                                        if (ProBtnControl.params.VideoClickURL.indexOf("#blank") > -1) {
+			                                                            setTimeout(function () {
+			                                                                ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+			                                                                ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'anchor_external');
+			                                                            }, 1500);
+			                                                        } else {
+			                                                            setTimeout(function () {
+			                                                                ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+			                                                                ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'iframe');
+			                                                            }, 1500);
+			                                                        }
+			                                                        
 			                                                    }
 
 			                                                }
