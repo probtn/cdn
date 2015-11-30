@@ -1,5 +1,6 @@
 (function () {
 var customDomain = "m.popmech.ru";
+document.domain = "kp.ru";
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
