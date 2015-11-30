@@ -5456,10 +5456,10 @@ var loadProbtn = function (jQuery) {
 	                                                    //check for VideoClickURL not empty
 	                                                    if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
 	                                                        if (ProBtnControl.params.VideoClickURL.indexOf("#blank") > -1) {
-	                                                            setTimeout(function () {
+	                                                            //setTimeout(function () {
 	                                                                ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
 	                                                                ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'anchor_external');
-	                                                            }, 1500);
+	                                                            //}, 1500);
 	                                                        } else {
 	                                                            setTimeout(function () {
 	                                                                ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
