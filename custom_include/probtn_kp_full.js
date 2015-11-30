@@ -1276,7 +1276,7 @@ var loadProbtn = function (jQuery) {
 	                    };
 	                }
 
-	                if ((ProBtnControl.params.OpenExternal === true) && (currentButtonContentType == "anchor_external")) {
+	                if ((ProBtnControl.params.OpenExternal === true) || (currentButtonContentType == "anchor_external")) {
 
 	                    ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 	                    $.pep.toggleAll(true);

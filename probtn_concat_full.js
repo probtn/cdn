@@ -1318,7 +1318,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    };
 			                }
 
-			                if ((ProBtnControl.params.OpenExternal === true) && (currentButtonContentType == "anchor_external")) {
+			                if ((ProBtnControl.params.OpenExternal === true) || (currentButtonContentType == "anchor_external")) {
 
 			                    ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 			                    $.pep.toggleAll(true);
