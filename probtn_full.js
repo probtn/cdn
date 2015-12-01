@@ -2294,6 +2294,9 @@ function probtn_callPlayer(frame_id, func, args) {
                                             $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("id", "");
 
                                             $(".pizzabtnImg_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).attr("id", "pizzabtnImg");
+
+                                            $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
+
                                             $(".pizzabtnImg_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).show();
                                         }
 
