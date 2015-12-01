@@ -14,7 +14,7 @@ function probtn_callPlayer(frame_id, func, args) {
 }
 
 
-    var domain = document.domain.replace("www.", "");
+    /*var domain = document.domain.replace("www.", "");
     if ((domain == "finanz.ru")) {
         var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
@@ -34,7 +34,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
         loadJS('//cdn.probtn.com/probtn_concat.js', function () {
         });
-    } else {
+    } else {*/
 
 
         /**
@@ -5523,4 +5523,3 @@ function probtn_callPlayer(frame_id, func, args) {
 
         })(jQuery);
 
-    }

@@ -40,7 +40,7 @@ var loadProbtn = function (jQuery) {
 	}
 
 
-	    var domain = document.domain.replace("www.", "");
+	    /*var domain = document.domain.replace("www.", "");
 	    if ((domain == "finanz.ru")) {
 	        var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
@@ -60,7 +60,7 @@ var loadProbtn = function (jQuery) {
 
 	        loadJS('//cdn.probtn.com/probtn_concat.js', function () {
 	        });
-	    } else {
+	    } else {*/
 
 
 	        /**
@@ -5549,7 +5549,7 @@ var loadProbtn = function (jQuery) {
 
 	        })(jQuery);
 
-	    }
+
 	
         jQuery(document).StartButton({
             isHPMD: isHPMD,
