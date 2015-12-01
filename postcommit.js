@@ -11,11 +11,14 @@ dirname = dirname.replace(/\.git\\hooks/g, "bower\\Gruntfile.js");
 console.log(dirname);
 
 
-			exec("grunt --gruntfile " + dirname, function (err, stdout, stderr) { 
+			/*exec("grunt --gruntfile " + dirname, function (err, stdout, stderr) { 
 				console.log(1);
 				console.log(err);
 				console.log(stdout);
 				
 				var exitCode = 0;
 				process.exit(exitCode);
-			});
+			});*/
+			
+			var exitCode = 0;
+			process.exit(exitCode);
