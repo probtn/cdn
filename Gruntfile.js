@@ -21,7 +21,8 @@ module.exports = function(grunt) {
 		default: {
           files: {
 			//what files we are uglifying
-            'probtn.js': ['probtn_full.js'],
+            'probtn.js': ['probtn_concat_full.js'],
+			//['probtn_full.js'],
 			'probtn_concat.js': ['probtn_concat_full.js'],
 			'bower/probtn_concat.js': ['probtn_concat_full.js'],
 			'bower/showinparent_concat.js': ['showinparent_concat.js'],
