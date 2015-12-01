@@ -2668,11 +2668,11 @@ function probtn_callPlayer(frame_id, func, args) {
                                     console.log(ex);
                                 }
 
-                                setTimeout(function () {
+                                //setTimeout(function () {
                                     //send stats and open link
                                     ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
                                     window.open(ProBtnControl.params.VideoClickURL);
-                                }, 150);                                
+                                //}, 150);                                
                             });
                         }
 
