@@ -3900,7 +3900,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        var videoWidth = (videoHeight / ProBtnControl.params.VideoSize.Y) * ProBtnControl.params.VideoSize.X;
 			                                    } else {
 			                                        var videoWidth = $('.fancybox-inner').width();
-			                                        var videoHeight = (videoHeight / ProBtnControl.params.VideoSize.X) * ProBtnControl.params.VideoSize.Y;
+			                                        //var videoHeight = (videoHeight / ProBtnControl.params.VideoSize.X) * ProBtnControl.params.VideoSize.Y;
+			                                        var videoHeight = (videoWidth / ProBtnControl.params.VideoSize.X) * ProBtnControl.params.VideoSize.Y;
 			                                    }
 
 			                                    //set video sizes
