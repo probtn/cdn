@@ -2729,19 +2729,18 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                            $("body").on('click', "#video_probtn", function (e) {
 			                                try {
-			                                    if ((areaName !== null) && (areaName !== undefined)) {
-			                                        var video = $("#video_probtn_" + areaName).get(0);
-			                                        video.pause();
-			                                    } else {
-			                                        var video = $("#video_probtn").get(0);
-			                                        video.pause();
-			                                    }
+			                                    var video = $("#video_probtn").get(0);
+			                                    video.pause();
+			                                    console.log("video pause");
 			                                } catch (ex) {
+			                                    console.log(ex);
 			                                }
 
-			                                //send stats and open link
-			                                ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
-			                                window.open(ProBtnControl.params.VideoClickURL);
+			                                setTimeout(function () {
+			                                    //send stats and open link
+			                                    ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+			                                    window.open(ProBtnControl.params.VideoClickURL);
+			                                }, 150);                                
 			                            });
 			                        }
 
