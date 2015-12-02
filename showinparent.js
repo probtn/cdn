@@ -27,9 +27,16 @@ params.dfp = {};
 params.dfp.isDFP = true;
 params.dfp.clickUrlEsc = getParameterByName("click_url_esc");
 params.dfp.cacheBuster = getParameterByName("cacheBuster");
+
 var domain = getParameterByName("domain");
 if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
+}
+
+//selectAdSet param
+var selectAdSet = getParameterByName("selectAdSet");
+if ((selectAdSet!==null) && (selectAdSet!==undefined) && (selectAdSet!=="")) {
+	params.selectAdSet = selectAdSet;
 }
 
 var paramsDiv = window.top.document.createElement('div');

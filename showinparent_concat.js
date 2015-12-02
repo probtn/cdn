@@ -35,6 +35,11 @@ var domain = getParameterByName("domain");
 if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
 }
+//selectAdSet param
+var selectAdSet = getParameterByName("selectAdSet");
+if ((selectAdSet!==null) && (selectAdSet!==undefined) && (selectAdSet!=="")) {
+	params.selectAdSet = selectAdSet;
+}
 
 var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
