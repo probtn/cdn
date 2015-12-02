@@ -4002,6 +4002,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        animation: {
 			                            animationRuning: false,
 			                            opacityAnimation: function (animationName) {
+			                                console.log("opacityAnimation", animationName);
 			                                var animations = animationName.split('_');
 			                                if (animations[0] == "opacity") {
 			                                    var opacity_param = animations[1];
@@ -4022,6 +4023,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                }
 			                            },
 			                            checkAndRunAnimation: function () {
+			                                //console.log("checkAndRunAnimation");
 			                                setTimeout(function () {
 			                                    if ((ProBtnControl.params.isAnimation == "anim1") || (ProBtnControl.params.isAnimation == "anim2")) {
 			                                        //$.pep.toggleAll(false);
@@ -4062,7 +4064,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                    }
 
 			                                    ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
-			                                }, 2000);
+			                                }, 500);
 			                            },
 			                            getRotationCss: function (deg, origin) {
 			                                if ((origin == null) && (origin == undefined)) {
@@ -5116,8 +5118,10 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                    var loadSettings = function () {
 
-			                                        settingsUrl = ProBtnControl.serverUrl + "/1/functions/getClientSettings?BundleID=" +
-			                                ProBtnControl.currentDomain + "&localDomain=" + ProBtnControl.realDomain + "&DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() + "&DeviceCUID=" + ProBtnControl.DeviceCID +
+			                                        settingsUrl = ProBtnControl.serverUrl + "/1/functions/getClientSettings?BundleID=" +                                            
+			                                ProBtnControl.currentDomain +
+			                                "&SelectAdSet=" + ProBtnControl.params.SelectAdSet +
+			                                "&localDomain=" + ProBtnControl.realDomain + "&DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() + "&DeviceCUID=" + ProBtnControl.DeviceCID +
 			                                "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&Version=" + ProBtnControl.mainVersion +
 			                                "&X-ProBtn-Token=" + ProBtnControl.XProBtnToken + "&random=" + Math.random() +
 			                                "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
