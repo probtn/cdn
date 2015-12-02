@@ -4022,7 +4022,7 @@ var loadProbtn = function (jQuery) {
 	                                    }
 
 	                                    ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
-	                                }, 500);
+	                                }, 2000);
 	                            },
 	                            getRotationCss: function (deg, origin) {
 	                                if ((origin == null) && (origin == undefined)) {

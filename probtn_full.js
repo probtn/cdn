@@ -3996,7 +3996,7 @@ function probtn_callPlayer(frame_id, func, args) {
                                     }
 
                                     ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
-                                }, 500);
+                                }, 2000);
                             },
                             getRotationCss: function (deg, origin) {
                                 if ((origin == null) && (origin == undefined)) {
