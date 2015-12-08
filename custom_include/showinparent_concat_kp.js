@@ -37,6 +37,8 @@ params.dfp.cacheBuster = getParameterByName("cacheBuster");
 var domain = getParameterByName("domain");
 if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
+} else {
+	params.domain = 'm.kp.ru';
 }
 
 var paramsDiv = window.top.document.createElement('div');
