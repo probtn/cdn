@@ -36,9 +36,9 @@ if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
 }
 //selectAdSet param
-var selectAdSet = getParameterByName("selectAdSet");
-if ((selectAdSet!==null) && (selectAdSet!==undefined) && (selectAdSet!=="")) {
-	params.selectAdSet = selectAdSet;
+var SelectAdSet = getParameterByName("SelectAdSet");
+if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
+	params.SelectAdSet = SelectAdSet;
 }
 
 var paramsDiv = window.top.document.createElement('div');
