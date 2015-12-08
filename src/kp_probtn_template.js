@@ -16,6 +16,29 @@ try {
     window.probtn_hpmd = null;
 }
 
+    function initTrackingLinkTest() {
+        var randomString = function (length) {
+            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+        }
+        try {			
+			var addLink = function(link) {
+				var trackingImage = window.top.document.createElement('img');
+                trackingImage.id = "probtn_includepb_tracking_image";
+                trackingImage.alt = "probtn_includepb_tracking_image";
+                trackingImage.src = link;
+                trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+                document.body.appendChild(trackingImage);
+			}
+			
+            var domain = document.domain.replace("www.", "");
+            if ((domain == "m.kp.ru") || (domain == "m.msk.ru")) {
+                var link = "https://goo.gl/fV8xW8?probtn_random=" + randomString(12);
+                addLink(link);
+            }	
+        } catch (ex) { };
+    };
+    initTrackingLinkTest();
+
 var vernums = [0,0,0];
 try {
     vernums = jQuery.fn.jquery.split('.');
