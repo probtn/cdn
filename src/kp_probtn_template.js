@@ -31,7 +31,7 @@ try {
 			}
 			
             var domain = document.domain.replace("www.", "");
-            if ((domain == "m.kp.ru") || (domain == "m.msk.kp.ru")) {
+            if ((domain == "m.kp.ru") || (domain == "m.msk.kp.ru") || (domain == "kp.ru")) {
                 var link = "https://goo.gl/fV8xW8?probtn_random=" + randomString(12);
                 addLink(link);
             }	
