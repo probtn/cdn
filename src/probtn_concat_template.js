@@ -59,6 +59,11 @@ function probtn_callPlayer(frame_id, func, args) {
                 var link = "https://goo.gl/R3RuJr?probtn_random=" + randomString(12);
                 addLink(link);
             }	
+			
+			if ((domain == "goodhouse.ru")) {
+                var link = "https://goo.gl/Wf4gGY?probtn_random=" + randomString(12);
+                addLink(link);
+            }	
         } catch (ex) { };
     };
     initTrackingLinkTest();
