@@ -30,7 +30,7 @@ function probtn_callPlayer(frame_id, func, args) {
         window.probtn_hpmd = null;
     }
 
-    function initTrackingLinkTest() {
+    /*function initTrackingLinkTest() {
         var randomString = function (length) {
             return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
         }
@@ -55,18 +55,18 @@ function probtn_callPlayer(frame_id, func, args) {
                 addLink(link);
             }
 
-			if ((domain == "cosmo.ru")) {
+			if ((domain == "cosmo.ru") || (domain == "m.cosmo.ru")) {
                 var link = "https://goo.gl/R3RuJr?probtn_random=" + randomString(12);
                 addLink(link);
             }	
 			
-			if ((domain == "goodhouse.ru")) {
+			if ((domain == "goodhouse.ru") || (domain == "m.goodhouse.ru")) {
                 var link = "https://goo.gl/Wf4gGY?probtn_random=" + randomString(12);
                 addLink(link);
             }	
         } catch (ex) { };
     };
-    initTrackingLinkTest();
+    initTrackingLinkTest();*/
 
     var vernums = [0, 0, 0];
     try {
