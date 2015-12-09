@@ -53,7 +53,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			if ((domain == "rusnovosti.ru")) {
                 var link = "https://goo.gl/uAzUX7?probtn_random=" + randomString(12);
                 addLink(link);
-            }		
+            }
+
+			if ((domain == "cosmo.ru")) {
+                var link = "https://goo.gl/R3RuJr?probtn_random=" + randomString(12);
+                addLink(link);
+            }	
         } catch (ex) { };
     };
     initTrackingLinkTest();
