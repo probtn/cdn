@@ -4,6 +4,9 @@
    contain the root `toctree` directive.
  
 .. _index:
+ 
+Общее описание кнопки
+==================================
 
 Содержание
 =================================
@@ -11,12 +14,10 @@
 .. toctree::
    :maxdepth: 2
    :caption: Содержание
+   :name: mastertoc
    
-   
-Общее описание кнопки
-==================================
-
-:ref:`Параметры <webparams>`
+   index
+   webparams
 
 Получение настроек кнопки
 ----------------------------------
@@ -101,20 +102,5 @@ showinparent_concat.js
 
 Далее probtn_concat_full.js минифицируется посредством ``grunt-contrib-uglify`` в ``probtn_concat.js``
 
-Содержание
-==================================
 
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
-Indices and tables
-============================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-* :ref:`index`
-* :ref:`webparams`
 
