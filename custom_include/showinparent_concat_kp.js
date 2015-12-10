@@ -1,6 +1,5 @@
 (function () {
-var customDomain = "m.kp.ru";
-document.domain = "kp.ru";
+//document.domain = "kp.ru";
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function initTrackingLinkTest() {

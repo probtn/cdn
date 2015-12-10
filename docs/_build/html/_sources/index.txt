@@ -2,6 +2,8 @@
    sphinx-quickstart on Mon Nov  2 12:32:08 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
+ 
+.. _index:
 
 Содержание
 =================================
@@ -10,8 +12,6 @@
    :maxdepth: 2
    :caption: Содержание
    
-   description
-   webparams
    
 Общее описание кнопки
 ==================================
@@ -115,4 +115,6 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+* :ref:`index`
+* :ref:`webparams`
 

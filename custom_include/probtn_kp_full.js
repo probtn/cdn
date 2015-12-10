@@ -9,7 +9,7 @@ var isServerCommunicationEnabled = true;
 var useLocalFileSettings = false;
 var localSettingsPath = "settings.json";
 var isHPMD = false;
-var domain = 'm.kp.ru';
+//var domain = 'm.kp.ru';
 try {
     window.probtn_hpmd = hpmd;
 } catch(ex) {
