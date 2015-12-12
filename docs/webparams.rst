@@ -14,6 +14,7 @@
 Другие страницы:
 
 * :ref:`index`
+* :ref:`description`
 
 MenuTemplateVariant
 ----------------------------------
