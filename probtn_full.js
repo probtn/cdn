@@ -5505,6 +5505,8 @@ initTrackingLinkTest();
                                                             // (true) //
                                                             ProBtnControl.onButtonTap();
                                                         } else {
+                                                            //send info that video showed
+                                                            ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 
                                                             if (ProBtnControl.params.HideAfterFirstShow == true) {
                                                                 ProBtnControl.additionalButtonFunctions.hideAll();
@@ -5523,7 +5525,6 @@ initTrackingLinkTest();
                                                                         ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'iframe');
                                                                     }, 1500);
                                                                 }
-
                                                             }
 
                                                         }

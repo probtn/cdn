@@ -5551,6 +5551,8 @@ var loadProbtn = function (jQuery) {
 	                                                            // (true) //
 	                                                            ProBtnControl.onButtonTap();
 	                                                        } else {
+	                                                            //send info that video showed
+	                                                            ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 
 	                                                            if (ProBtnControl.params.HideAfterFirstShow == true) {
 	                                                                ProBtnControl.additionalButtonFunctions.hideAll();
@@ -5569,7 +5571,6 @@ var loadProbtn = function (jQuery) {
 	                                                                        ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'iframe');
 	                                                                    }, 1500);
 	                                                                }
-
 	                                                            }
 
 	                                                        }
