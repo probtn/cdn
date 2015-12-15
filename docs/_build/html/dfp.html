@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Интеграция с DFP &mdash; Документация probtn 1.4.1335_31102015_dev</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.4.1335_31102015_dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="index.html" />
+    <link rel="next" title="Описание параметров кнопки" href="webparams.html" />
+    <link rel="prev" title="Интеграция с AdFox" href="adfox.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dfp">
+<span id="id1"></span><h1>Интеграция с DFP<a class="headerlink" href="#dfp" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Для  такого рода интеграции, необходимо произвести следующие действия:
+Создайте кампанию на <a class="reference external" href="https://admin.probtn.com">https://admin.probtn.com</a></p>
+<div class="section" id="id2">
+<h2>Интеграция с DFP - асинхронный код<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="step-1">
+<h3>Step 1<a class="headerlink" href="#step-1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create a page on the domain where the button will be displayed. (This page used in ad to exit dfp iframe and add button code to parent page).</p>
+<p>On this page add the script:</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent.js&quot;&gt;&lt;/script&gt;</span></code></p>
+<p>If you&#8217;d like to use concatenated script which do not interfere with jQuery and other plugins use</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+<p>E.g.:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdn.probtn.com/showinparent_concat.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+</div>
+<p>&lt;/body&gt;&lt;/html&gt;</p>
+</div>
+<div class="section" id="step-2">
+<h3>Step 2<a class="headerlink" href="#step-2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create an ad with content like this:</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?click_url_esc=%%CLICK_URL_ESC%%&amp;cacheBuster=%%CACHEBUSTER%%&quot;</span> <span class="pre">style=&quot;width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;&quot;</span> <span class="pre">/&gt;</span></code></p>
+<p>Url <code class="docutils literal"><span class="pre">//example.com/example_iframe_page.html</span></code> is added by example, you should use your own path</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Интеграция с DFP - синхронный код<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="step-0">
+<h3>Step 0<a class="headerlink" href="#step-0" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Добавьте следующий код в ваше  объявление</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/probtn_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Интеграция с DFP</a><ul>
+<li><a class="reference internal" href="#id2">Интеграция с DFP - асинхронный код</a><ul>
+<li><a class="reference internal" href="#step-1">Step 1</a></li>
+<li><a class="reference internal" href="#step-2">Step 2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">Интеграция с DFP - синхронный код</a><ul>
+<li><a class="reference internal" href="#step-0">Step 0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="adfox.html" title="предыдущая глава">Интеграция с AdFox</a></li>
+      <li>Next: <a href="webparams.html" title="следующая глава">Описание параметров кнопки</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dfp.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Введите слова для поиска или имя модуля, класса или функции.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, probtn.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/dfp.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
