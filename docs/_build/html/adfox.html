@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Интеграция с AdFox &mdash; Документация probtn 1.4.1335_31102015_dev</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.4.1335_31102015_dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="index.html" />
+    <link rel="next" title="Описание параметров кнопки" href="webparams.html" />
+    <link rel="prev" title="Интеграция с AdRiver" href="adriver.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="adfox">
+<span id="id1"></span><h1>Интеграция с AdFox<a class="headerlink" href="#adfox" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id2">
+<h2>Интеграция с AdFox с модифицированным кодом<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для  такого рода интеграции, необходимо произвести следующие действия:</p>
+<div class="section" id="step0">
+<h3>Step0<a class="headerlink" href="#step0" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Создать кампанию  (или апп с необходимым доменом, будь то реальный домен или домен-идентификатор  аппа)</p>
+<img alt="_images/adriver1_step0.png" src="_images/adriver1_step0.png" />
+</div>
+<div class="section" id="step1">
+<h3>Step1<a class="headerlink" href="#step1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Создайте  страницу, доступную по адресу с тем же доменом, где вы хотите показывать  кнопку.
+Добавьте  на страницу showinparent_concat.js ( Общее описание работы кнопки )
+<code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code>
+Например:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;title&gt;</span>probtn (hackpad)<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+                <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdn.probtn.com/showinparent_concat.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step2">
+<h3>Step2<a class="headerlink" href="#step2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Создать баннер (RichMedia format)</p>
+<img alt="_images/adfox_step2.png" src="_images/adfox_step2.png" />
+<img alt="_images/adfox_step2_1.png" src="_images/adfox_step2_1.png" />
+</div>
+<div class="section" id="step3">
+<h3>Step3<a class="headerlink" href="#step3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Создать объявление с кодом</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&quot;</span> <span class="pre">style=&quot;width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;</span> <span class="pre">border:</span> <span class="pre">0px;&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Url <code class="docutils literal"><span class="pre">//example.com/example_iframe_page.html</span></code> добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)</p>
+<blockquote>
+<div>Также значение GET параметра domain (для примера указано) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h3>Указание кампании (опционально)<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Также возможно указать идентификатор кампании, по которому кнопка будет показывать только креативы только указанной кампании для аппа.
+Для этого необходимо</p>
+<p>Создать объявление с кодом
+<code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;SelectAdSet=565e021f99c27511100000d0&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Url //example.com/example_iframe_page.html добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)
+Значение GET параметра domain (для примера указано) nessasary_example_app_domain.test нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com</p>
+<p>Значение GET параметра SelectAdSet (для примера указано) <code class="docutils literal"><span class="pre">565e021f99c27511100000d0</span></code> нужно заменить на идентификатор кампании (не нужно указывать идентификатор placement или creative)
+Сам идентификатор можно найти в адресной строке, открыв страницу кампании.</p>
+<img alt="_images/adriver2_step3_2.png" src="_images/adriver2_step3_2.png" />
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Интеграция с AdFox</a><ul>
+<li><a class="reference internal" href="#id2">Интеграция с AdFox с модифицированным кодом</a><ul>
+<li><a class="reference internal" href="#step0">Step0</a></li>
+<li><a class="reference internal" href="#step1">Step1</a></li>
+<li><a class="reference internal" href="#step2">Step2</a></li>
+<li><a class="reference internal" href="#step3">Step3</a></li>
+<li><a class="reference internal" href="#id3">Указание кампании (опционально)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="adriver.html" title="предыдущая глава">Интеграция с AdRiver</a></li>
+      <li>Next: <a href="webparams.html" title="следующая глава">Описание параметров кнопки</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/adfox.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Введите слова для поиска или имя модуля, класса или функции.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, probtn.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/adfox.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

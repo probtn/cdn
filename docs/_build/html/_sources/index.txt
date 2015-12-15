@@ -16,5 +16,7 @@
    index
    description
    adriver
+   adfox
    webparams
+   offline
 

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Оффлайн режим &mdash; Документация probtn 1.4.1335_31102015_dev</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.4.1335_31102015_dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="offline">
+<span id="id1"></span><h1>Оффлайн режим<a class="headerlink" href="#offline" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Инструкция описывает использование рекламного формата плавающей кнопки AdButton без обращений из кода кнопки к внешнему сервер, например, к панели администрирования AdButton (оффлайн режим). Этот вариант интеграции разработан для уменьшения рисков загрузки внешнего кода на сайт с установленным форматом. Для реализации этого функционала, код кнопки и данные настройки кампаний, расположены локально на веб-сервере. Креатив</p>
+<p>Для реализации кампании необходимо:
+загрузить архив с кодом на сайт. В архив включена демонстрационная страница и все необходимые файлы
+<a class="reference external" href="https://yadi.sk/d/yJyjsW27kF322">https://yadi.sk/d/yJyjsW27kF322</a></p>
+<p>добавить теги вызова</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;direct/probtn_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+<p>Пример работы интеграции на демо странице AdButton
+<a class="reference external" href="http://probtn-avito.azurewebsites.net/offline/">http://probtn-avito.azurewebsites.net/offline/</a></p>
+<p>Описание архива:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">settings.txt</span></code> - настройки кнопки, выгружаемые из admin.probtn.com для целевой кампании</li>
+<li><code class="docutils literal"><span class="pre">style.css</span></code> - стили</li>
+<li><code class="docutils literal"><span class="pre">probtn_concat.js</span></code> - код кнопки, объединенный со всеми зависимостями</li>
+<li><code class="docutils literal"><span class="pre">libs/</span></code> - дополнительные файлы (картинки, стили модального окна)</li>
+</ul>
+<p>В <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> настраиваются пути к файлам:</p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">mainStyleCssPath</span> <span class="pre">=</span> <span class="pre">&quot;style.css&quot;;</span></code></p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">fancyboxCssPath</span> <span class="pre">=</span> <span class="pre">&quot;libs/jquery.fancybox.min.css&quot;;</span></code></p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">localSettingsPath</span> <span class="pre">=</span> <span class="pre">&quot;settings.txt&quot;;</span></code></p>
+<p><code class="docutils literal"><span class="pre">mainStyleCssPath</span></code> - URL до стилей кнопки
+<code class="docutils literal"><span class="pre">fancyboxCssPath</span></code> - URL до стилей fancybox
+<code class="docutils literal"><span class="pre">localSettingsPath</span></code> - URL до файла с локальными настройками кнопки</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/offline.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Введите слова для поиска или имя модуля, класса или функции.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, probtn.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/offline.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
