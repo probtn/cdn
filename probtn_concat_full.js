@@ -5585,6 +5585,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                                        } else {
 			                                                            //send info that video showed
 			                                                            ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
+			                                                            ProBtnControl.HpmdFunctions.expandHpmdTrack();
 
 			                                                            if (ProBtnControl.params.HideAfterFirstShow == true) {
 			                                                                ProBtnControl.additionalButtonFunctions.hideAll();
