@@ -35,6 +35,7 @@ var domain = getParameterByName("domain");
 if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
 }
+
 //selectAdSet param
 var SelectAdSet = getParameterByName("SelectAdSet");
 if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
