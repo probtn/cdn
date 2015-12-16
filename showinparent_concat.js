@@ -47,6 +47,12 @@ paramsDiv.innerHTML = JSON.stringify(params);
 paramsDiv.style.cssText = "display: none;";
 window.top.document.body.appendChild(paramsDiv);
 
+try {
+	window.frameElement.style.cssText = "display: none; border: 0px; width: 0px; height: 0px; margin: 0px; padding: 0px;";
+} catch (ex) {
+	console.log(ex);
+}
+
 loadJS('//cdn.probtn.com/probtn_concat.js', function () {
 });
 

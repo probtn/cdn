@@ -47,7 +47,6 @@ function getParameterByName(name) {
 	}
 }
 
-
 var params = {};
 params.dfp = {};
 params.dfp.isDFP = true;
@@ -60,11 +59,23 @@ if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = 'm.kp.ru';
 }
 
+//selectAdSet param
+var SelectAdSet = getParameterByName("SelectAdSet");
+if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
+	params.SelectAdSet = SelectAdSet;
+}
+
 var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
 paramsDiv.innerHTML = JSON.stringify(params);
 paramsDiv.style.cssText = "display: none;";
 window.top.document.body.appendChild(paramsDiv);
+
+try {
+	window.frameElement.style.cssText = "display: none; border: 0px; width: 0px; height: 0px; margin: 0px; padding: 0px;";
+} catch (ex) {
+	console.log(ex);
+}
 
 loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	
