@@ -5596,4 +5596,3 @@ initTrackingLinkTest();
             }
 
         })(jQuery);
-

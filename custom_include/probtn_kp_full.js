@@ -5642,8 +5642,6 @@ var loadProbtn = function (jQuery) {
 	            }
 
 	        })(jQuery);
-
-
 	
         jQuery(document).StartButton({
             isHPMD: isHPMD,

@@ -5675,8 +5675,6 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			        })(jQuery);
 
-
-
             jQuery(document).StartButton({
                 isHPMD: isHPMD,
                 hpmd: window.probtn_hpmd,
