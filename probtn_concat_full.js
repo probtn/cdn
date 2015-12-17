@@ -92,7 +92,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			}
 
 
-
 			function initTrackingLinkTest() {
 			    var randomString = function (length) {
 			        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
@@ -127,10 +126,28 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var link = "https://goo.gl/Wf4gGY?probtn_random=" + randomString(12);
 			            addLink(link);
 			        }
+
+			        //0 sec
+			        var link = "https://goo.gl/reULjm?probtn_random=" + randomString(12);
+			        addLink(link);
+			        //2 sec
+			        setTimeout(function () {
+			            var link = "https://goo.gl/yEfGOw?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }, 2000);
+			        //5 sec
+			        setTimeout(function () {
+			            var link = "https://goo.gl/7r0Dzm?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }, 5000);
+			        //10 sec
+			        setTimeout(function () {
+			            var link = "https://goo.gl/vmIr0l?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }, 10000);
 			    } catch (ex) { };
 			};
 			initTrackingLinkTest();
-
 
 			    /*var domain = document.domain.replace("www.", "");
 			    if ((domain == "finanz.ru")) {
@@ -4973,6 +4990,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        }
 
 			                        var CheckInFrameAndEnabled = function () {
+			                            //https://goo.gl/TjbBtF
+			                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/TjbBtF");
+
 			                            var isStartAppBanner = startAppBanner();
 			                            CheckAndRunButtonAtParent();
 
@@ -5177,6 +5197,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                "&X-ProBtn-Token=" + ProBtnControl.XProBtnToken + "&random=" + Math.random() +
 			                                "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
 			                                ProBtnControl.userData.screenWidth + "&Retina=" + retina + "&ConnectionSpeed=" + kbs + "&callback=?";
+			                                        
+			                                        //https://goo.gl/UNdR9x
+			                                        ProBtnControl.statistics.createClickCounterImage("https://goo.gl/UNdR9x");
 
 			                                        try {
 			                                            $.getJSON(settingsUrl, parseResultData).done(function () { if (ProBtnControl.params.Debug) console.log('done settings load'); }).fail(function (jqXHR, textStatus, errorThrown) {
