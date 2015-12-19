@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="index.html" />
-    <link rel="next" title="Описание параметров кнопки" href="webparams.html" />
+    <link rel="next" title="Интеграция с AdFox" href="adfox.html" />
     <link rel="prev" title="Общее описание кнопки" href="description.html" />
    
   
@@ -84,7 +84,7 @@
 <div class="section" id="step-4">
 <h3>Step 4<a class="headerlink" href="#step-4" title="Ссылка на этот заголовок">¶</a></h3>
 <p>В нем необходимо изменить в index.html путь до showinparent.html (создан на шаге 1)
-<code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;&quot;</span> <span class="pre">src=&quot;http://example.com/showinparent.html?domain=nessasary_example_app_domain.test&quot;</span> <span class="pre">/&gt;</span></code>
+<code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span> <span class="pre">src=&quot;http://example.com/showinparent.html?domain=nessasary_example_app_domain.test&quot;</span> <span class="pre">/&gt;</span></code>
 Url <code class="docutils literal"><span class="pre">//example.com/showinparent.html?domain=nessasary_example_app_domain.test</span></code> добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)</p>
 <blockquote>
 <div>Также значение GET параметра domain (для примера указано) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com</div></blockquote>
@@ -94,7 +94,7 @@ Url <code class="docutils literal"><span class="pre">//example.com/showinparent.
 <p>Также возможно указать идентификатор кампании, по которому кнопка будет показывать только креативы только указанной кампании для аппа.
 Для этого необходимо</p>
 <p>Создать объявление с кодом
-<code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;SelectAdSet=565e021f99c27511100000d0&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span>&nbsp; <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;SelectAdSet=565e021f99c27511100000d0&quot;&gt;&lt;/iframe&gt;</span></code></p>
 <p>Url //example.com/example_iframe_page.html добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)
 Значение GET параметра domain (для примера указано) nessasary_example_app_domain.test нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com</p>
 <p>Значение GET параметра SelectAdSet (для примера указано) <code class="docutils literal"><span class="pre">565e021f99c27511100000d0</span></code> нужно заменить на идентификатор кампании (не нужно указывать идентификатор placement или creative)
@@ -211,7 +211,7 @@ Url <code class="docutils literal"><span class="pre">//example.com/showinparent.
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="description.html" title="предыдущая глава">Общее описание кнопки</a></li>
-      <li>Next: <a href="webparams.html" title="следующая глава">Описание параметров кнопки</a></li>
+      <li>Next: <a href="adfox.html" title="следующая глава">Интеграция с AdFox</a></li>
   </ul></li>
 </ul>
 </div>

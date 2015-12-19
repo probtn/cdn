@@ -47,7 +47,7 @@ Step 2
 
 Create an ad with content like this:
 
-``<iframe src="//example.com/example_iframe_page.html?click_url_esc=%%CLICK_URL_ESC%%&cacheBuster=%%CACHEBUSTER%%" style="width: 0px; height: 0px;" />``
+``<iframe src="//example.com/example_iframe_page.html?click_url_esc=%%CLICK_URL_ESC%%&cacheBuster=%%CACHEBUSTER%%" style="border: 0px; width: 0px; height: 0px; display: none;" />``
 
 Url ``//example.com/example_iframe_page.html`` is added by example, you should use your own path
 

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HPMD баннер &mdash; Документация probtn 1.4.1335_31102015_dev</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.4.1335_31102015_dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="index.html" />
+    <link rel="next" title="Описание параметров кнопки" href="webparams.html" />
+    <link rel="prev" title="Интеграция с DFP" href="dfp.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="hpmd">
+<span id="id1"></span><h1>HPMD баннер<a class="headerlink" href="#hpmd" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Пример кода hpmd js - <a class="reference external" href="http://cdn.probtn.com/custom_include/hpmd_code.js">http://cdn.probtn.com/custom_include/hpmd_code.js</a></p>
+<p>ВНИМАНИЕ -</p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">domain</span> <span class="pre">=</span> <span class="pre">'cosmo.ru';</span></code></p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">campaignId</span> <span class="pre">=</span> <span class="pre">'';</span></code>
+нужно заменить на актуальные данные</p>
+<div class="section" id="step-1">
+<h2>Step 1<a class="headerlink" href="#step-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p><a class="reference external" href="https://developers.hpmdnetwork.ru/console/">https://developers.hpmdnetwork.ru/console/</a></p>
+</div>
+<div class="section" id="step2">
+<h2>Step2<a class="headerlink" href="#step2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>указать название баннера</p>
+<img alt="_images/12.png" src="_images/12.png" />
+</div>
+<div class="section" id="step3">
+<h2>Step3<a class="headerlink" href="#step3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В качестве формата баннера выбрать &#8220;прочие форматы&#8221;</p>
+<img alt="_images/21.png" src="_images/21.png" />
+</div>
+<div class="section" id="step4">
+<h2>Step4<a class="headerlink" href="#step4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В поле HTML-код добавить</p>
+<p><code class="docutils literal"><span class="pre">&lt;div</span> <span class="pre">id=&quot;hpmd-probtn&quot;&gt;&lt;/div&gt;</span></code></p>
+<img alt="_images/31.png" src="_images/31.png" />
+</div>
+<div class="section" id="step5">
+<h2>Step5<a class="headerlink" href="#step5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В поле JS код добавить hpmd адаптированный код для запуска кнопки</p>
+<img alt="_images/41.png" src="_images/41.png" />
+</div>
+<div class="section" id="step6">
+<h2>Step6<a class="headerlink" href="#step6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В JS коде изменить две переменные</p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">domain</span> <span class="pre">=</span> <span class="pre">'cosmo.ru';</span></code></p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">campaignId</span> <span class="pre">=</span> <span class="pre">'';</span></code></p>
+<p>Где для переменной domain указать значение в виде домена аппа, настройки которого необходимо будет использовать.</p>
+<p>И для <code class="docutils literal"><span class="pre">campaignId</span></code> указать идентификатор кампании, в случае если нужно использовать конкретную кампанию из выбранного аппа (в ином случае если оставить пустым и в аппе есть несколько активных кампаний - то они будут показываться по очереди).</p>
+<p>Значение для <code class="docutils literal"><span class="pre">campaignId</span></code> нужно заменять на идентификатор кампании (не нужно указывать идентификатор placement или creative) либо оставлять пустым.</p>
+<p>Сам идентификатор можно найти в адресной строке, открыв страницу кампании (в admin.probtn.com)</p>
+<img alt="_images/51.png" src="_images/51.png" />
+</div>
+<div class="section" id="step7">
+<h2>Step7<a class="headerlink" href="#step7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Таргетинг не меняем, если таковое не требуется</p>
+<img alt="_images/61.png" src="_images/61.png" />
+</div>
+<div class="section" id="step8">
+<h2>Step8<a class="headerlink" href="#step8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Указать используемые системные события</p>
+<img alt="_images/71.png" src="_images/71.png" />
+</div>
+<div class="section" id="step9">
+<h2>Step9<a class="headerlink" href="#step9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Выбрать главным событием <code class="docutils literal"><span class="pre">hpmd.expand</span></code></p>
+<img alt="_images/81.png" src="_images/81.png" />
+</div>
+<div class="section" id="step10">
+<h2>Step10<a class="headerlink" href="#step10" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Нажать загрузить</p>
+<img alt="_images/91.png" src="_images/91.png" />
+</div>
+<div class="section" id="step11">
+<h2>Step11<a class="headerlink" href="#step11" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если не был указан таргетинг, то еще раз нажать Сохранить несмотря на предупреждение</p>
+<img alt="_images/101.png" src="_images/101.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">HPMD баннер</a><ul>
+<li><a class="reference internal" href="#step-1">Step 1</a></li>
+<li><a class="reference internal" href="#step2">Step2</a></li>
+<li><a class="reference internal" href="#step3">Step3</a></li>
+<li><a class="reference internal" href="#step4">Step4</a></li>
+<li><a class="reference internal" href="#step5">Step5</a></li>
+<li><a class="reference internal" href="#step6">Step6</a></li>
+<li><a class="reference internal" href="#step7">Step7</a></li>
+<li><a class="reference internal" href="#step8">Step8</a></li>
+<li><a class="reference internal" href="#step9">Step9</a></li>
+<li><a class="reference internal" href="#step10">Step10</a></li>
+<li><a class="reference internal" href="#step11">Step11</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dfp.html" title="предыдущая глава">Интеграция с DFP</a></li>
+      <li>Next: <a href="webparams.html" title="следующая глава">Описание параметров кнопки</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/hpmd.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Введите слова для поиска или имя модуля, класса или функции.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, probtn.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/hpmd.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
