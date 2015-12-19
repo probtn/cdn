@@ -1,42 +1,310 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Описание параметров кнопки &mdash; Документация probtn 1.4.1335_31102015_dev</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.4.1335_31102015_dev',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/translations.js"></script>
-    <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="index.html" />
-    <link rel="prev" title="Общее описание кнопки" href="description.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Описание параметров кнопки &mdash; Документация probtn 1.4.1335_31102015_dev</title>
+  
 
-  </head>
-  <body role="document">  
+  
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация probtn 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="next" title="Оффлайн режим" href="offline.html"/>
+        <link rel="prev" title="HPMD баннер" href="hpmd.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> probtn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#menutemplatevariant">MenuTemplateVariant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#videotype">VideoType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debug">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usegeolocation">UseGeoLocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#waitforgeolocation">WaitForGeoLocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loadjquerypepjs">loadJqueryPepJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loadfancyboxjs">loadFancyboxJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#disablebuttonmove">DisableButtonMove</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#waitforiframebuttonloaded">waitForIframeButtonLoaded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttoniframeinitialsize">ButtonIframeInitialSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonimagetype">ButtonImageType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clickonclosebutton">ClickOnCloseButton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alwaysshowclosebutton">AlwaysShowCloseButton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fullscreenclicklink">FullscreenClickLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#csseaseduration">cssEaseDuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changescrollbuttonatfullsiteheight">ChangeScrollButtonAtFullSiteHeight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#controliniframefromparent">ControlInIframeFromParent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#isaddutmsource">isAddUtmSource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utmsourceuseonlydomain">UtmSourceUseOnlyDomain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utmcampaign">UtmCampaign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utmsource">UtmSource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iframescale">IframeScale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttoninitdelay">ButtonInitDelay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#videoclickurl">VideoClickURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttononclick">ButtonOnClick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttontype">ButtonType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttoncontenttype">ButtonContentType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#videosize">VideoSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#videoposter">VideoPoster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trackinglink">TrackingLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minimizewrappertime">MinimizeWrapperTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#openexternal">OpenExternal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#campaignid">CampaignID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#neverclose">NeverClose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#domain">domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fancyboxjspath">fancyboxJsPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fancyboxcsspath">fancyboxCssPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jquerypeppath">jqueryPepPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonanimationtimeafterfancybox">buttonAnimationTimeAfterFancybox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hideafterfirstshow">HideAfterFirstShow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loadfancyboxcss">LoadFancyboxCSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contenturl">ContentURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonenabled">ButtonEnabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonvisible">ButtonVisible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonposition">ButtonPosition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonsize">ButtonSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttondragsize">ButtonDragSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonopacity">ButtonOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttondragopacity">ButtonDragOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonimage">ButtonImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttondragimage">ButtonDragImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closeposition">ClosePosition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closesize">CloseSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closeactivesize">CloseActiveSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closeopacity">CloseOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closeactiveopacity">CloseActiveOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closeimage">CloseImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintlabelinsets">HintLabelInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hinttext">HintText</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintfont">HintFont</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintfontcolor">HintFontColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vendortext">VendorText</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vendorsite">VendorSite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vendortextfont">VendorTextFont</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vendortextcolor">VendorTextColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vendorcolor">VendorColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iframescaleminwidth">iframeScaleMinWidth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">iframeScale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintopacity">HintOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintimage">HintImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentsize">ContentSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ismanualsize">IsManualSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentinsets">ContentInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hideinframe">HideInFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zcustomcss">ZCustomCss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#showinparent">showInParent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ishpmd">isHPMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dfp">dfp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clickcounterlink">ClickCounterLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#isservercommunicationenabled">isServerCommunicationEnabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uselocalfilesettings">useLocalFileSettings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#localsettingspath">localSettingsPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#issmartbanner">isSmartBanner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smartbannerjspath">smartbannerJsPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smartbannercsspath">smartbannerCssPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smartbanner">smartbanner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mainbuttonclickable">MainButtonClickable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#menu">Menu параметры</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#menuitems">MenuItems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#text">Text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#actionurl">ActionURL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#name">Name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#type">Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#menuoptions">MenuOptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fontsize">FontSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fontfamily">FontFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#backgroundcolor">BackgroundColor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#foregroundcolor">ForegroundColor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#menuheight">MenuHeight</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scroll">Scroll параметры</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scrollzones">ScrollZones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zoneheight">ZoneHeight</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">ButtonImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">ButtonDragImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">HintText</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">TrackingLink</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custombuttonparams">CustomButtonParams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">ButtonSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">ButtonDragSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">ButtonOpacity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">ButtonDragOpacity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activezones">ActiveZones параметры</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">ActiveZones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">ButtonImageType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">ButtonIframeInitialSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#position">Position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activeimage">ActiveImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inactiveimage">InactiveImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">ActionURL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visibleonlyinteraction">VisibleOnlyInteraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">ClickCounterLink</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activesize">ActiveSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inactivesize">InactiveSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inactiveopacity">InactiveOpacity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activeopacity">ActiveOpacity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id17">Неиспользуемые параметры</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#contentwebviewinsets">ContentWebViewInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#baseinsets">BaseInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonopenimage">ButtonOpenImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttoninactiveimage">ButtonInactiveImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closeactiveimage">CloseActiveImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonopensize">ButtonOpenSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttoninactivesize">ButtonInactiveSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintinsets">HintInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttonopenopacity">ButtonOpenOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttoninactiveopacity">ButtonInactiveOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintimageinsets">HintImageInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vendoropacity">VendorOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentimageinsets">ContentImageInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentopacity">ContentOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentbackopacity">ContentBackOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentbackcolor">ContentBackColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentactivitycolor">ContentActivityColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentimage">ContentImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentarrowsize">ContentArrowSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentarrowoffset">ContentArrowOffset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentarrowimaget">ContentArrowImageT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentarrowimageb">ContentArrowImageB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentarrowimagel">ContentArrowImageL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contentarrowimager">ContentArrowImageR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintarrowsize">HintArrowSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintarrowoffset">HintArrowOffset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintarrowimaget">HintArrowImageT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintarrowimageb">HintArrowImageB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintarrowimagel">HintArrowImageL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hintarrowimager">HintArrowImageR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">Остальные параметры</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">probtn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Описание параметров кнопки</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/webparams.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="webparams">
 <span id="id1"></span><h1>Описание параметров кнопки<a class="headerlink" href="#webparams" title="Ссылка на этот заголовок">¶</a></h1>
@@ -44,7 +312,7 @@
 В случае, если параметр используется несколько отличным способом в разных режимах, этот будет помечено (включая искомые режимы).</p>
 <p>Другие страницы:</p>
 <ul class="simple">
-<li><a class="reference internal" href="index.html#index"><span>Содержание</span></a></li>
+<li><a class="reference internal" href="index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Общее описание кнопки</span></a></li>
 </ul>
 <div class="section" id="menutemplatevariant">
@@ -994,231 +1262,72 @@ ActiveZones: [
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Оглавление</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Описание параметров кнопки</a><ul>
-<li><a class="reference internal" href="#menutemplatevariant">MenuTemplateVariant</a></li>
-<li><a class="reference internal" href="#videotype">VideoType</a></li>
-<li><a class="reference internal" href="#debug">Debug</a></li>
-<li><a class="reference internal" href="#usegeolocation">UseGeoLocation</a></li>
-<li><a class="reference internal" href="#waitforgeolocation">WaitForGeoLocation</a></li>
-<li><a class="reference internal" href="#loadjquerypepjs">loadJqueryPepJS</a></li>
-<li><a class="reference internal" href="#loadfancyboxjs">loadFancyboxJS</a></li>
-<li><a class="reference internal" href="#disablebuttonmove">DisableButtonMove</a></li>
-<li><a class="reference internal" href="#waitforiframebuttonloaded">waitForIframeButtonLoaded</a></li>
-<li><a class="reference internal" href="#buttoniframeinitialsize">ButtonIframeInitialSize</a></li>
-<li><a class="reference internal" href="#buttonimagetype">ButtonImageType</a></li>
-<li><a class="reference internal" href="#clickonclosebutton">ClickOnCloseButton</a></li>
-<li><a class="reference internal" href="#alwaysshowclosebutton">AlwaysShowCloseButton</a></li>
-<li><a class="reference internal" href="#fullscreenclicklink">FullscreenClickLink</a></li>
-<li><a class="reference internal" href="#csseaseduration">cssEaseDuration</a></li>
-<li><a class="reference internal" href="#changescrollbuttonatfullsiteheight">ChangeScrollButtonAtFullSiteHeight</a></li>
-<li><a class="reference internal" href="#controliniframefromparent">ControlInIframeFromParent</a></li>
-<li><a class="reference internal" href="#isaddutmsource">isAddUtmSource</a></li>
-<li><a class="reference internal" href="#utmsourceuseonlydomain">UtmSourceUseOnlyDomain</a></li>
-<li><a class="reference internal" href="#utmcampaign">UtmCampaign</a></li>
-<li><a class="reference internal" href="#utmsource">UtmSource</a></li>
-<li><a class="reference internal" href="#iframescale">IframeScale</a></li>
-<li><a class="reference internal" href="#buttoninitdelay">ButtonInitDelay</a></li>
-<li><a class="reference internal" href="#videoclickurl">VideoClickURL</a></li>
-<li><a class="reference internal" href="#buttononclick">ButtonOnClick</a></li>
-<li><a class="reference internal" href="#buttontype">ButtonType</a></li>
-<li><a class="reference internal" href="#buttoncontenttype">ButtonContentType</a></li>
-<li><a class="reference internal" href="#videosize">VideoSize</a></li>
-<li><a class="reference internal" href="#videoposter">VideoPoster</a></li>
-<li><a class="reference internal" href="#trackinglink">TrackingLink</a></li>
-<li><a class="reference internal" href="#minimizewrappertime">MinimizeWrapperTime</a></li>
-<li><a class="reference internal" href="#openexternal">OpenExternal</a></li>
-<li><a class="reference internal" href="#campaignid">CampaignID</a></li>
-<li><a class="reference internal" href="#neverclose">NeverClose</a></li>
-<li><a class="reference internal" href="#domain">domain</a></li>
-<li><a class="reference internal" href="#fancyboxjspath">fancyboxJsPath</a></li>
-<li><a class="reference internal" href="#fancyboxcsspath">fancyboxCssPath</a></li>
-<li><a class="reference internal" href="#jquerypeppath">jqueryPepPath</a></li>
-<li><a class="reference internal" href="#buttonanimationtimeafterfancybox">buttonAnimationTimeAfterFancybox</a></li>
-<li><a class="reference internal" href="#hideafterfirstshow">HideAfterFirstShow</a></li>
-<li><a class="reference internal" href="#loadfancyboxcss">LoadFancyboxCSS</a></li>
-<li><a class="reference internal" href="#contenturl">ContentURL</a></li>
-<li><a class="reference internal" href="#buttonenabled">ButtonEnabled</a></li>
-<li><a class="reference internal" href="#buttonvisible">ButtonVisible</a></li>
-<li><a class="reference internal" href="#buttonposition">ButtonPosition</a></li>
-<li><a class="reference internal" href="#buttonsize">ButtonSize</a></li>
-<li><a class="reference internal" href="#buttondragsize">ButtonDragSize</a></li>
-<li><a class="reference internal" href="#buttonopacity">ButtonOpacity</a></li>
-<li><a class="reference internal" href="#buttondragopacity">ButtonDragOpacity</a></li>
-<li><a class="reference internal" href="#buttonimage">ButtonImage</a></li>
-<li><a class="reference internal" href="#buttondragimage">ButtonDragImage</a></li>
-<li><a class="reference internal" href="#closeposition">ClosePosition</a></li>
-<li><a class="reference internal" href="#closesize">CloseSize</a></li>
-<li><a class="reference internal" href="#closeactivesize">CloseActiveSize</a></li>
-<li><a class="reference internal" href="#closeopacity">CloseOpacity</a></li>
-<li><a class="reference internal" href="#closeactiveopacity">CloseActiveOpacity</a></li>
-<li><a class="reference internal" href="#closeimage">CloseImage</a></li>
-<li><a class="reference internal" href="#hintlabelinsets">HintLabelInsets</a></li>
-<li><a class="reference internal" href="#hinttext">HintText</a></li>
-<li><a class="reference internal" href="#hintfont">HintFont</a></li>
-<li><a class="reference internal" href="#hintfontcolor">HintFontColor</a></li>
-<li><a class="reference internal" href="#vendortext">VendorText</a></li>
-<li><a class="reference internal" href="#vendorsite">VendorSite</a></li>
-<li><a class="reference internal" href="#vendortextfont">VendorTextFont</a></li>
-<li><a class="reference internal" href="#vendortextcolor">VendorTextColor</a></li>
-<li><a class="reference internal" href="#vendorcolor">VendorColor</a></li>
-<li><a class="reference internal" href="#iframescaleminwidth">iframeScaleMinWidth</a></li>
-<li><a class="reference internal" href="#id2">iframeScale</a></li>
-<li><a class="reference internal" href="#hintopacity">HintOpacity</a></li>
-<li><a class="reference internal" href="#hintimage">HintImage</a></li>
-<li><a class="reference internal" href="#contentsize">ContentSize</a></li>
-<li><a class="reference internal" href="#ismanualsize">IsManualSize</a></li>
-<li><a class="reference internal" href="#contentinsets">ContentInsets</a></li>
-<li><a class="reference internal" href="#hideinframe">HideInFrame</a></li>
-<li><a class="reference internal" href="#zcustomcss">ZCustomCss</a></li>
-<li><a class="reference internal" href="#showinparent">showInParent</a></li>
-<li><a class="reference internal" href="#ishpmd">isHPMD</a></li>
-<li><a class="reference internal" href="#dfp">dfp</a></li>
-<li><a class="reference internal" href="#clickcounterlink">ClickCounterLink</a></li>
-<li><a class="reference internal" href="#isservercommunicationenabled">isServerCommunicationEnabled</a></li>
-<li><a class="reference internal" href="#uselocalfilesettings">useLocalFileSettings</a></li>
-<li><a class="reference internal" href="#localsettingspath">localSettingsPath</a></li>
-<li><a class="reference internal" href="#issmartbanner">isSmartBanner</a></li>
-<li><a class="reference internal" href="#smartbannerjspath">smartbannerJsPath</a></li>
-<li><a class="reference internal" href="#smartbannercsspath">smartbannerCssPath</a></li>
-<li><a class="reference internal" href="#smartbanner">smartbanner</a></li>
-<li><a class="reference internal" href="#mainbuttonclickable">MainButtonClickable</a></li>
-<li><a class="reference internal" href="#menu">Menu параметры</a><ul>
-<li><a class="reference internal" href="#menuitems">MenuItems</a></li>
-<li><a class="reference internal" href="#text">Text</a></li>
-<li><a class="reference internal" href="#actionurl">ActionURL</a></li>
-<li><a class="reference internal" href="#image">Image</a></li>
-<li><a class="reference internal" href="#name">Name</a></li>
-<li><a class="reference internal" href="#type">Type</a></li>
-<li><a class="reference internal" href="#menuoptions">MenuOptions</a></li>
-<li><a class="reference internal" href="#fontsize">FontSize</a></li>
-<li><a class="reference internal" href="#fontfamily">FontFamily</a></li>
-<li><a class="reference internal" href="#backgroundcolor">BackgroundColor</a></li>
-<li><a class="reference internal" href="#foregroundcolor">ForegroundColor</a></li>
-<li><a class="reference internal" href="#menuheight">MenuHeight</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#scroll">Scroll параметры</a><ul>
-<li><a class="reference internal" href="#scrollzones">ScrollZones</a></li>
-<li><a class="reference internal" href="#zoneheight">ZoneHeight</a></li>
-<li><a class="reference internal" href="#id3">ButtonImage</a></li>
-<li><a class="reference internal" href="#id4">ButtonDragImage</a></li>
-<li><a class="reference internal" href="#id5">HintText</a></li>
-<li><a class="reference internal" href="#id6">TrackingLink</a></li>
-<li><a class="reference internal" href="#custombuttonparams">CustomButtonParams</a></li>
-<li><a class="reference internal" href="#id7">ButtonSize</a></li>
-<li><a class="reference internal" href="#id8">ButtonDragSize</a></li>
-<li><a class="reference internal" href="#id9">ButtonOpacity</a></li>
-<li><a class="reference internal" href="#id10">ButtonDragOpacity</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#activezones">ActiveZones параметры</a><ul>
-<li><a class="reference internal" href="#id11">ActiveZones</a></li>
-<li><a class="reference internal" href="#id12">Name</a></li>
-<li><a class="reference internal" href="#id13">ButtonImageType</a></li>
-<li><a class="reference internal" href="#id14">ButtonIframeInitialSize</a></li>
-<li><a class="reference internal" href="#position">Position</a></li>
-<li><a class="reference internal" href="#activeimage">ActiveImage</a></li>
-<li><a class="reference internal" href="#inactiveimage">InactiveImage</a></li>
-<li><a class="reference internal" href="#id15">ActionURL</a></li>
-<li><a class="reference internal" href="#visibleonlyinteraction">VisibleOnlyInteraction</a></li>
-<li><a class="reference internal" href="#id16">ClickCounterLink</a></li>
-<li><a class="reference internal" href="#activesize">ActiveSize</a></li>
-<li><a class="reference internal" href="#inactivesize">InactiveSize</a></li>
-<li><a class="reference internal" href="#inactiveopacity">InactiveOpacity</a></li>
-<li><a class="reference internal" href="#activeopacity">ActiveOpacity</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id17">Неиспользуемые параметры</a><ul>
-<li><a class="reference internal" href="#contentwebviewinsets">ContentWebViewInsets</a></li>
-<li><a class="reference internal" href="#baseinsets">BaseInsets</a></li>
-<li><a class="reference internal" href="#buttonopenimage">ButtonOpenImage</a></li>
-<li><a class="reference internal" href="#buttoninactiveimage">ButtonInactiveImage</a></li>
-<li><a class="reference internal" href="#closeactiveimage">CloseActiveImage</a></li>
-<li><a class="reference internal" href="#buttonopensize">ButtonOpenSize</a></li>
-<li><a class="reference internal" href="#buttoninactivesize">ButtonInactiveSize</a></li>
-<li><a class="reference internal" href="#hintinsets">HintInsets</a></li>
-<li><a class="reference internal" href="#buttonopenopacity">ButtonOpenOpacity</a></li>
-<li><a class="reference internal" href="#buttoninactiveopacity">ButtonInactiveOpacity</a></li>
-<li><a class="reference internal" href="#hintimageinsets">HintImageInsets</a></li>
-<li><a class="reference internal" href="#vendoropacity">VendorOpacity</a></li>
-<li><a class="reference internal" href="#contentimageinsets">ContentImageInsets</a></li>
-<li><a class="reference internal" href="#contentopacity">ContentOpacity</a></li>
-<li><a class="reference internal" href="#contentbackopacity">ContentBackOpacity</a></li>
-<li><a class="reference internal" href="#contentbackcolor">ContentBackColor</a></li>
-<li><a class="reference internal" href="#contentactivitycolor">ContentActivityColor</a></li>
-<li><a class="reference internal" href="#contentimage">ContentImage</a></li>
-<li><a class="reference internal" href="#contentarrowsize">ContentArrowSize</a></li>
-<li><a class="reference internal" href="#contentarrowoffset">ContentArrowOffset</a></li>
-<li><a class="reference internal" href="#contentarrowimaget">ContentArrowImageT</a></li>
-<li><a class="reference internal" href="#contentarrowimageb">ContentArrowImageB</a></li>
-<li><a class="reference internal" href="#contentarrowimagel">ContentArrowImageL</a></li>
-<li><a class="reference internal" href="#contentarrowimager">ContentArrowImageR</a></li>
-<li><a class="reference internal" href="#hintarrowsize">HintArrowSize</a></li>
-<li><a class="reference internal" href="#hintarrowoffset">HintArrowOffset</a></li>
-<li><a class="reference internal" href="#hintarrowimaget">HintArrowImageT</a></li>
-<li><a class="reference internal" href="#hintarrowimageb">HintArrowImageB</a></li>
-<li><a class="reference internal" href="#hintarrowimagel">HintArrowImageL</a></li>
-<li><a class="reference internal" href="#hintarrowimager">HintArrowImageR</a></li>
-<li><a class="reference internal" href="#id18">Остальные параметры</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id19">Параметры по умолчания для кнопки</a></li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="description.html" title="предыдущая глава">Общее описание кнопки</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>Эта страница</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/webparams.txt"
-            rel="nofollow">Исходный текст</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Быстрый поиск</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Искать" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Введите слова для поиска или имя модуля, класса или функции.
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="offline.html" class="btn btn-neutral float-right" title="Оффлайн режим" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hpmd.html" class="btn btn-neutral" title="HPMD баннер" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, probtn.
+
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2015, probtn.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
-      
-      |
-      <a href="_sources/webparams.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
