@@ -49,9 +49,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'probtn'
-copyright = '2015, probtn'
-author = 'probtn'
+project = 'Profit Button'
+copyright = '2015, Profit Button LLC'
+author = 'Author'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
