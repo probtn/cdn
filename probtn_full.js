@@ -5166,6 +5166,13 @@ initTrackingLinkTest();
                         //BEGIN BUTTON PROCESS
                         var BeginButtonProcess = function () {
                             if ($("#probtn_wrapper").length > 0) {
+                                //button already exist on page
+                                try {
+                                    var duplicatePixel = "https://goo.gl/ezDN1A?random=[RANDOM]";
+                                    ProBtnControl.statistics.createClickCounterImage(duplicatePixel);
+                                } catch (ex) {
+                                    if (ProBtnControl.params.Debug) console.log(ex);
+                                }
                                 return;
                             }
 
@@ -5596,3 +5603,4 @@ initTrackingLinkTest();
             }
 
         })(jQuery);
+

@@ -30,44 +30,6 @@ function probtn_callPlayer(frame_id, func, args) {
         window.probtn_hpmd = null;
     }
 
-    /*function initTrackingLinkTest() {
-        var randomString = function (length) {
-            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-        }
-        try {			
-			var addLink = function(link) {
-				var trackingImage = window.top.document.createElement('img');
-                trackingImage.id = "probtn_includepb_tracking_image";
-                trackingImage.alt = "probtn_includepb_tracking_image";
-                trackingImage.src = link;
-                trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
-                document.body.appendChild(trackingImage);
-			}
-			
-            var domain = document.domain.replace("www.", "");
-            if ((domain == "cars.ru") || (domain == "vesti.ru")) {
-                var link = "https://goo.gl/8jYqat?probtn_random=" + randomString(12);
-                addLink(link);
-            }
-			
-			if ((domain == "rusnovosti.ru")) {
-                var link = "https://goo.gl/uAzUX7?probtn_random=" + randomString(12);
-                addLink(link);
-            }
-
-			if ((domain == "cosmo.ru") || (domain == "m.cosmo.ru")) {
-                var link = "https://goo.gl/R3RuJr?probtn_random=" + randomString(12);
-                addLink(link);
-            }	
-			
-			if ((domain == "goodhouse.ru") || (domain == "m.goodhouse.ru")) {
-                var link = "https://goo.gl/Wf4gGY?probtn_random=" + randomString(12);
-                addLink(link);
-            }	
-        } catch (ex) { };
-    };
-    initTrackingLinkTest();*/
-
     var vernums = [0, 0, 0];
     try {
         vernums = jQuery.fn.jquery.split('.');
@@ -5244,6 +5206,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        //BEGIN BUTTON PROCESS
 			                        var BeginButtonProcess = function () {
 			                            if ($("#probtn_wrapper").length > 0) {
+			                                //button already exist on page
+			                                try {
+			                                    var duplicatePixel = "https://goo.gl/ezDN1A?random=[RANDOM]";
+			                                    ProBtnControl.statistics.createClickCounterImage(duplicatePixel);
+			                                } catch (ex) {
+			                                    if (ProBtnControl.params.Debug) console.log(ex);
+			                                }
 			                                return;
 			                            }
 
@@ -5674,6 +5643,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 
 			        })(jQuery);
+
+
 
             jQuery(document).StartButton({
                 isHPMD: isHPMD,
