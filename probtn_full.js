@@ -49,8 +49,18 @@ function initTrackingLinkTest() {
             addLink(link);
         }
 
+        if ((domain == "goodhouse.ru") || (domain == "m.goodhouse.ru")) {
+            var link = "https://goo.gl/Wf4gGY?probtn_random=" + randomString(12);
+            addLink(link);
+        }
+
+        if ((domain == "m.sport-express.ru") || (domain == "sport-express.ru")) {
+            var link = "https://goo.gl/kviXUs?probtn_random=" + randomString(12);
+            addLink(link);
+        }
+
         //0 sec
-        var link = "https://goo.gl/reULjm?probtn_random=" + randomString(12);
+        /*var link = "https://goo.gl/reULjm?probtn_random=" + randomString(12);
         addLink(link);
         //2 sec
         setTimeout(function () {
@@ -66,7 +76,7 @@ function initTrackingLinkTest() {
         setTimeout(function () {
             var link = "https://goo.gl/vmIr0l?probtn_random=" + randomString(12);
             addLink(link);
-        }, 10000);
+        }, 10000);*/
     } catch (ex) { };
 };
 initTrackingLinkTest();
