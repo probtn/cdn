@@ -5213,6 +5213,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                } catch (ex) {
 			                                    if (ProBtnControl.params.Debug) console.log(ex);
 			                                }
+
+			                                if ((ProBtnControl.realDomain == "cosmo.ru") || (ProBtnControl.realDomain == "m.cosmo.ru")) {
+			                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/1K75Qp?random=[RANDOM]");
+			                                }
 			                                return;
 			                            }
 
