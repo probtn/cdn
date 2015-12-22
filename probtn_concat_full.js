@@ -5227,6 +5227,24 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                if ((ProBtnControl.realDomain == "cosmo.ru") || (ProBtnControl.realDomain == "m.cosmo.ru")) {
 			                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/1K75Qp?random=[RANDOM]");
 			                                }
+
+			                                if ((ProBtnControl.params.SelectAdSet == "565447787ed4e7f67c000123")) { //foxlife
+			                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/7pDRsA?random=[RANDOM]");
+			                                }
+
+			                                if ((ProBtnControl.params.SelectAdSet == "5669498aec9f06e02e003d33")) {  //mega ufa
+			                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/mmA1mU?random=[RANDOM]");
+			                                }
+			                                if ((ProBtnControl.params.SelectAdSet == "566942b0ec9f06e02e003780")) {  //swarovski
+			                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SKFPgt?random=[RANDOM]");
+			                                }
+			                                if ((ProBtnControl.params.SelectAdSet == "56629b3bdb674994710038cf")) {  //cosmo_mega_2015_com
+			                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/78VRKc?random=[RANDOM]");
+			                                }
+			                                if ((ProBtnControl.params.SelectAdSet == "56548113bf9c249f7e000002")) {  //rowenta
+			                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/MBmNgd?random=[RANDOM]");
+			                                }
+
 			                                return;
 			                            }
 
