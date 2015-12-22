@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Оффлайн режим &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  <title>Иерархия сущностей admin.probtn.com &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
   
 
   
@@ -31,7 +31,8 @@
 
   
     <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
-        <link rel="prev" title="Описание параметров кнопки" href="webparams.html"/> 
+        <link rel="next" title="Интеграция с AdRiver" href="adriver.html"/>
+        <link rel="prev" title="Создание кампании и креатива" href="createbutton.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,7 +86,15 @@
 <li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Иерархия сущностей admin.probtn.com</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Иерархия</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Примеры</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Пример 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Пример 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
@@ -93,7 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="webparams.html">Описание параметров кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html#id17">Неиспользуемые параметры</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Параметры по умолчания для кнопки</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Оффлайн режим</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
 </ul>
 
             
@@ -124,11 +133,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Оффлайн режим</li>
+    <li>Иерархия сущностей admin.probtn.com</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/offline.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/hierarchy.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -138,30 +147,71 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="offline">
-<span id="id1"></span><h1>Оффлайн режим<a class="headerlink" href="#offline" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Инструкция описывает использование рекламного формата плавающей кнопки AdButton без обращений из кода кнопки к внешнему сервер, например, к панели администрирования AdButton (оффлайн режим). Этот вариант интеграции разработан для уменьшения рисков загрузки внешнего кода на сайт с установленным форматом. Для реализации этого функционала, код кнопки и данные настройки кампаний, расположены локально на веб-сервере. Креатив</p>
-<p>Для реализации кампании необходимо:
-загрузить архив с кодом на сайт. В архив включена демонстрационная страница и все необходимые файлы
-<a class="reference external" href="https://yadi.sk/d/yJyjsW27kF322">https://yadi.sk/d/yJyjsW27kF322</a></p>
-<p>добавить теги вызова</p>
-<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;direct/probtn_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
-<p>Пример работы интеграции на демо странице AdButton
-<a class="reference external" href="http://probtn-avito.azurewebsites.net/offline/">http://probtn-avito.azurewebsites.net/offline/</a></p>
-<p>Описание архива:</p>
+  <div class="section" id="admin-probtn-com">
+<span id="hierarchy"></span><h1>Иерархия сущностей admin.probtn.com<a class="headerlink" href="#admin-probtn-com" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id1">
+<h2>Иерархия<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<img alt="_images/13.png" src="_images/13.png" />
+<p>Будет или не будет показываться данный креатив определяется только его собственным состоянием (ON/OFF)
+При выключении какого-либо элемента выше по иерархии, состояния дочерних элементов запоминаются и они все выключаются.
+При включении обратно те дочерние элементы, которые изначально были включены, снова включаются, состояния остальных не меняются</p>
+</div>
+<div class="section" id="id2">
+<h2>Примеры<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id3">
+<h3>Пример 1<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Группа креативов - ON</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">settings.txt</span></code> - настройки кнопки, выгружаемые из admin.probtn.com для целевой кампании</li>
-<li><code class="docutils literal"><span class="pre">style.css</span></code> - стили</li>
-<li><code class="docutils literal"><span class="pre">probtn_concat.js</span></code> - код кнопки, объединенный со всеми зависимостями</li>
-<li><code class="docutils literal"><span class="pre">libs/</span></code> - дополнительные файлы (картинки, стили модального окна)</li>
+<li>Креатив-1 -  ON</li>
+<li>Креатив-2 - OFF</li>
 </ul>
-<p>В <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> настраиваются пути к файлам:</p>
-<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">mainStyleCssPath</span> <span class="pre">=</span> <span class="pre">&quot;style.css&quot;;</span></code></p>
-<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">fancyboxCssPath</span> <span class="pre">=</span> <span class="pre">&quot;libs/jquery.fancybox.min.css&quot;;</span></code></p>
-<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">localSettingsPath</span> <span class="pre">=</span> <span class="pre">&quot;settings.txt&quot;;</span></code></p>
-<p><code class="docutils literal"><span class="pre">mainStyleCssPath</span></code> - URL до стилей кнопки
-<code class="docutils literal"><span class="pre">fancyboxCssPath</span></code> - URL до стилей fancybox
-<code class="docutils literal"><span class="pre">localSettingsPath</span></code> - URL до файла с локальными настройками кнопки</p>
+<p>Какие креативы показываются? Креатив-1</p>
+<p>Теперь выключаем группу, состояния становятся:</p>
+<ul class="simple">
+<li>Группа креативов - OFF</li>
+<li>Креатив-1 - OFF</li>
+<li>Креатив-2 - OFF</li>
+</ul>
+<p>Какие креативы показываются? Никакие</p>
+<p>Теперь включаем группу обратно, получаем:</p>
+<ul class="simple">
+<li>Группа креативов - ON</li>
+<li>Креатив-1 - ON</li>
+<li>Креатив-2 -OFF</li>
+</ul>
+<p>Какие креативы показываются? Креатив-1</p>
+</div>
+<div class="section" id="id4">
+<h3>Пример 2<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<ul class="simple">
+<li>Группа креативов - ON</li>
+<li>Креатив-1 - ON</li>
+<li>Креатив-2 - OFF</li>
+</ul>
+<p>Какие креативы показываются? Креатив-1</p>
+<p>Теперь выключаем группу, состояния становятся:</p>
+<ul class="simple">
+<li>Группа креативов - OFF</li>
+<li>Креатив-1 - OFF</li>
+<li>Креатив-2 - OFF</li>
+</ul>
+<p>Какие креативы показываются? Никакие</p>
+<p>Теперь включаем один из креативов</p>
+<ul class="simple">
+<li>Группа креативов    OFF</li>
+<li>Креатив-1           OFF</li>
+<li>Креатив-2           ON</li>
+</ul>
+<p>Какие креативы показываются? Креатив-2</p>
+<p>Теперь включаем группу,</p>
+<ul class="simple">
+<li>Группа креативов - ON</li>
+<li>Креатив-1 - ON</li>
+<li>Креатив-2 - ON</li>
+</ul>
+<p>Какие креативы показываются? Креатив-1, Креатив-2</p>
+</div>
+</div>
 </div>
 
 
@@ -171,8 +221,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="adriver.html" class="btn btn-neutral float-right" title="Интеграция с AdRiver" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="webparams.html" class="btn btn-neutral" title="Описание параметров кнопки" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="createbutton.html" class="btn btn-neutral" title="Создание кампании и креатива" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
