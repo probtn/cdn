@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Оффлайн режим &mdash; Profit Button 1.4.1335_31102015_dev documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Profit Button 1.4.1335_31102015_dev documentation" href="index.html"/>
+        <link rel="prev" title="Описание параметров кнопки" href="webparams.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#id17">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Оффлайн режим</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Оффлайн режим</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/offline.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="offline">
+<span id="id1"></span><h1>Оффлайн режим<a class="headerlink" href="#offline" title="Permalink to this headline">¶</a></h1>
+<p>Инструкция описывает использование рекламного формата плавающей кнопки AdButton без обращений из кода кнопки к внешнему сервер, например, к панели администрирования AdButton (оффлайн режим). Этот вариант интеграции разработан для уменьшения рисков загрузки внешнего кода на сайт с установленным форматом. Для реализации этого функционала, код кнопки и данные настройки кампаний, расположены локально на веб-сервере. Креатив</p>
+<p>Для реализации кампании необходимо:
+загрузить архив с кодом на сайт. В архив включена демонстрационная страница и все необходимые файлы
+<a class="reference external" href="https://yadi.sk/d/yJyjsW27kF322">https://yadi.sk/d/yJyjsW27kF322</a></p>
+<p>добавить теги вызова</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;direct/probtn_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+<p>Пример работы интеграции на демо странице AdButton
+<a class="reference external" href="http://probtn-avito.azurewebsites.net/offline/">http://probtn-avito.azurewebsites.net/offline/</a></p>
+<p>Описание архива:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">settings.txt</span></code> - настройки кнопки, выгружаемые из admin.probtn.com для целевой кампании</li>
+<li><code class="docutils literal"><span class="pre">style.css</span></code> - стили</li>
+<li><code class="docutils literal"><span class="pre">probtn_concat.js</span></code> - код кнопки, объединенный со всеми зависимостями</li>
+<li><code class="docutils literal"><span class="pre">libs/</span></code> - дополнительные файлы (картинки, стили модального окна)</li>
+</ul>
+<p>В <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> настраиваются пути к файлам:</p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">mainStyleCssPath</span> <span class="pre">=</span> <span class="pre">&quot;style.css&quot;;</span></code></p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">fancyboxCssPath</span> <span class="pre">=</span> <span class="pre">&quot;libs/jquery.fancybox.min.css&quot;;</span></code></p>
+<p><code class="docutils literal"><span class="pre">var</span> <span class="pre">localSettingsPath</span> <span class="pre">=</span> <span class="pre">&quot;settings.txt&quot;;</span></code></p>
+<p><code class="docutils literal"><span class="pre">mainStyleCssPath</span></code> - URL до стилей кнопки
+<code class="docutils literal"><span class="pre">fancyboxCssPath</span></code> - URL до стилей fancybox
+<code class="docutils literal"><span class="pre">localSettingsPath</span></code> - URL до файла с локальными настройками кнопки</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="webparams.html" class="btn btn-neutral" title="Описание параметров кнопки" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
