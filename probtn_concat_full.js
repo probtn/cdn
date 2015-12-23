@@ -99,6 +99,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			            addLink(link);
 			        }
 
+			        if ((domain == "m.pinme.ru") || (domain == "pinme.ru")) {
+			            var link = "https://goo.gl/k4In4j?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+
 			        
 
 			        //0 sec
