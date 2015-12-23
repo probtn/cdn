@@ -49,15 +49,17 @@ function initTrackingLinkTest() {
             addLink(link);
         }
 
-        if ((domain == "goodhouse.ru") || (domain == "m.goodhouse.ru")) {
-            var link = "https://goo.gl/Wf4gGY?probtn_random=" + randomString(12);
-            addLink(link);
-        }
-
         if ((domain == "m.sport-express.ru") || (domain == "sport-express.ru")) {
             var link = "https://goo.gl/kviXUs?probtn_random=" + randomString(12);
             addLink(link);
         }
+
+        if ((domain == "justlady.ru")) {
+            var link = "https://goo.gl/mb2UlI?probtn_random=" + randomString(12);
+            addLink(link);
+        }
+
+        
 
         //0 sec
         /*var link = "https://goo.gl/reULjm?probtn_random=" + randomString(12);
@@ -4923,7 +4925,7 @@ initTrackingLinkTest();
 
                         var CheckInFrameAndEnabled = function () {
                             //https://goo.gl/TjbBtF
-                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/TjbBtF");
+                            //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/TjbBtF");
 
                             var isStartAppBanner = startAppBanner();
                             CheckAndRunButtonAtParent();
@@ -5131,7 +5133,7 @@ initTrackingLinkTest();
                                 ProBtnControl.userData.screenWidth + "&Retina=" + retina + "&ConnectionSpeed=" + kbs + "&callback=?";
                                         
                                         //https://goo.gl/UNdR9x
-                                        ProBtnControl.statistics.createClickCounterImage("https://goo.gl/UNdR9x");
+                                        //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/UNdR9x");
 
                                         try {
                                             $.getJSON(settingsUrl, parseResultData).done(function () { if (ProBtnControl.params.Debug) console.log('done settings load'); }).fail(function (jqXHR, textStatus, errorThrown) {
