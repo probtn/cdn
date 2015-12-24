@@ -4614,8 +4614,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            ButtonInactiveImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/drag_gray.png",
 
 			                            ClosePosition: { // Позиция
-			                                X: 0.5, // По умолчанию центр экрана
-			                                Y: 0.85 // По умолчанию центр экрана
+			                                X: 0.9, // По умолчанию центр экрана
+			                                Y: 0.9 // По умолчанию центр экрана
 			                            },
 			                            CloseSize: { // Размер
 			                                W: 64,
