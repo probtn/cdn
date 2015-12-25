@@ -90,6 +90,10 @@ var loadProbtn = function (jQuery) {
 	            addLink(link);
 	        }
 
+	        if ((domain == "marieclaire.ru")) {
+	            var link = "https://goo.gl/mb2UlI?probtn_random=" + randomString(12);
+	            addLink(link);
+	        }
 	        
 
 	        //0 sec

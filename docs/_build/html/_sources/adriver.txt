@@ -58,7 +58,7 @@ Step3
 Step 4
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 В нем необходимо изменить в index.html путь до showinparent.html (создан на шаге 1)
-``<iframe style="border: 0px; width: 0px; height: 0px; display: none;" src="http://example.com/showinparent.html?domain=nessasary_example_app_domain.test" />``
+``<iframe style="border: 0px; width: 0px; height: 0px; display: none;" src="http://example.com/showinparent.html?domain=nessasary_example_app_domain.test"></iframe>``
 Url ``//example.com/showinparent.html?domain=nessasary_example_app_domain.test`` добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)
  Также значение GET параметра domain (для примера указано) ``nessasary_example_app_domain.test`` нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com
  
