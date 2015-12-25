@@ -111,7 +111,7 @@ var loadProbtn = function (jQuery) {
 	        }
 
 	        if ((domain == "marieclaire.ru")) {
-	            var link = "https://goo.gl/mb2UlI?probtn_random=" + randomString(12);
+	            var link = "https://goo.gl/Aq1cRu?probtn_random=" + randomString(12);
 	            addLink(link);
 	        }
 	        
