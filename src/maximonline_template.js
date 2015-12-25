@@ -16,6 +16,21 @@ try {
     window.probtn_hpmd = null;
 }
 
+function probtn_callPlayer(frame_id, func, args) {
+    var player;
+    if ((func == null) || (func == undefined)) {
+        func = "playVideo";
+    }
+    var youtube_command = window.JSON.stringify({ event: 'command', func: func });
+
+    try {
+        player = document.getElementById(frame_id);
+        player.contentWindow.postMessage(youtube_command, 'https://www.youtube.com');
+    } catch (ex) {
+        console.log(ex);
+    }
+}
+
 var vernums = [0,0,0];
 try {
     vernums = jQuery.fn.jquery.split('.');
