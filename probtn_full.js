@@ -4273,6 +4273,10 @@ initTrackingLinkTest();
 
                         ProBtnControl.params = $.extend(true, {
 
+                            CheckPageAjaxUpdate: false,
+                            HideButtonAfterAjaxUpdate: false,
+
+
                             SelectAdSet: '',
                             MenuTemplateVariant: 'list',
 
@@ -5632,12 +5636,36 @@ initTrackingLinkTest();
                                     }
                                 });
 
-
                             } //onButtonTap
 
                             ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
 
                             ProBtnControl.initFunctions.initScrollChange(true);
+
+                            //HideButtonAfterAjaxUpdate
+                            if (ProBtnControl.params.CheckPageAjaxUpdate == true) {
+                                if ("onhashchange" in window) {
+                                    //alert("The browser supports the hashchange event!");
+                                }
+
+                                function locationHashChanged() {
+                                    if (ProBtnControl.params.HideButtonAfterAjaxUpdate == true) {
+                                        ProBtnControl.additionalButtonFunctions.hideAll();
+                                    }
+                                }
+
+                                function locationHashChanged2() {
+                                    if (ProBtnControl.params.HideButtonAfterAjaxUpdate == true) {
+                                        if (window.location.pathname !== startLocation) {
+                                            ProBtnControl.additionalButtonFunctions.hideAll();
+                                        }
+                                    }
+                                }
+
+                                var startLocation = window.location.pathname;
+                                setInterval(locationHashChanged2, 50);
+                                window.onhashchange = locationHashChanged;
+                            }
                         };
                     } else {
                         //console.log("IE8 not supported.");
