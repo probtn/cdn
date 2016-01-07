@@ -1,3 +1,6 @@
 [submodule "bower"]
 	path = bower
 	url = https://github.com/probtn/bower.git
+[submodule "docs/docs-en"]
+	path = docs/docs-en
+	url = https://github.com/probtn/readthedocs-en.git
