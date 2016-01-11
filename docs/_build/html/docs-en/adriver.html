@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Integrtion with AdRiver &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Integrtion with AdRiver</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs-en/adriver.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="integrtion-with-adriver">
+<span id="adriver"></span><h1>Integrtion with AdRiver<a class="headerlink" href="#integrtion-with-adriver" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="integrtion-with-adriver-modificated-code">
+<h2>Integrtion with AdRiver (modificated code)<a class="headerlink" href="#integrtion-with-adriver-modificated-code" title="Ссылка на этот заголовок">¶</a></h2>
+<p>You need to make this steps:</p>
+<div class="section" id="step0">
+<h3>Step0<a class="headerlink" href="#step0" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create a campaign (or an app with the necessary domain, real or a domain identifier)</p>
+<img alt="../_images/adriver1_step01.png" src="../_images/adriver1_step01.png" />
+</div>
+<div class="section" id="step1">
+<h3>Step1<a class="headerlink" href="#step1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create a page available at the address on the same domain where the button is to be displayed.</p>
+<p>On the page, add showinparent_concat.js</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+<p>For example:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;title&gt;</span>probtn (hackpad)<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+                <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdn.probtn.com/showinparent_concat.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step2">
+<h3>Step2<a class="headerlink" href="#step2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create an AjaxJS (Generic AjaxJS) banner</p>
+<img alt="../_images/adriver2_step11.png" src="../_images/adriver2_step11.png" />
+</div>
+<div class="section" id="step3">
+<h3>Step3<a class="headerlink" href="#step3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Upload a code for the banner (click on “Upload banner”)</p>
+<img alt="../_images/adriver2_step31.png" src="../_images/adriver2_step31.png" />
+<p>Code example for &#8220;generic ajax&#8221; banner</p>
+<p><a class="reference external" href="https://www.dropbox.com/s/vo4deq8g9e9yynp/generic_ajaxjs.zip?dl=0">https://www.dropbox.com/s/vo4deq8g9e9yynp/generic_ajaxjs.zip?dl=0</a></p>
+<img alt="../_images/adriver2_step3_11.png" src="../_images/adriver2_step3_11.png" />
+</div>
+<div class="section" id="step-4">
+<h3>Step 4<a class="headerlink" href="#step-4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Change the path from index.html to showinparent.html (example in the archive) (created in Step1)</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span> <span class="pre">src=&quot;http://example.com/showinparent.html?domain=nessasary_example_app_domain.test&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Url <code class="docutils literal"><span class="pre">//example.com/showinparent.html?domain=nessasary_example_app_domain.test</span></code> is an example, use your own path (to the page created on step 1)</p>
+<p>Change the value of the GET param of the domain (cited as an example) from <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> to the necessary domain (identifier) used in the appropriate app at <code class="docutils literal"><span class="pre">admin.probtn.com</span></code></p>
+</div>
+<div class="section" id="set-campaign-optional">
+<h3>Set campaign (optional)<a class="headerlink" href="#set-campaign-optional" title="Ссылка на этот заголовок">¶</a></h3>
+<p>It&#8217;s possible to use campaign id, so probtn would show creatives only from selected campaign fro app.
+To do so, you should:</p>
+<p>Create ad with code</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span>&nbsp; <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;SelectAdSet=565e021f99c27511100000d0&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Url //example.com/example_iframe_page.html добавлен для примера, is an example, use your own path (to the page created on step 1)</p>
+<p>Also value of GET param domain (for example) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> should be replaced on nessesary (id), used in nessesary app in admin.probtn.com</p>
+<p>Value of GET param SelectAdSet (for example) <code class="docutils literal"><span class="pre">565e021f99c27511100000d0</span></code> should be replaced on nessesary campaign id (don&#8217;t use placement or creative id).</p>
+<p>Campaign ID could be found  at url, if you open campaign page at admin.probtn.com.</p>
+<img alt="../_images/adriver2_step3_21.png" src="../_images/adriver2_step3_21.png" />
+</div>
+</div>
+<div class="section" id="integrtion-with-adriver-javascript-javascript-banner">
+<h2>Integrtion with AdRiver (javascript/JavaScript banner)<a class="headerlink" href="#integrtion-with-adriver-javascript-javascript-banner" title="Ссылка на этот заголовок">¶</a></h2>
+<p>For this integration type follow these steps:</p>
+<div class="section" id="id1">
+<h3>Step0<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create a campaign (or an app with the necessary domain, real or a domain identifier)</p>
+<img alt="../_images/adriver1_step01.png" src="../_images/adriver1_step01.png" />
+</div>
+<div class="section" id="id2">
+<h3>Step1<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create <code class="docutils literal"><span class="pre">special</span> <span class="pre">-&gt;</span> <span class="pre">javascript</span> <span class="pre">-&gt;</span> <span class="pre">JavaScript</span></code> banner</p>
+<img alt="../_images/adriver1_step11.png" src="../_images/adriver1_step11.png" />
+</div>
+<div class="section" id="id3">
+<h3>Step2<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Upload banner code</p>
+<img alt="../_images/adriver1_step21.png" src="../_images/adriver1_step21.png" />
+<p>As code you can use concatenated probtn script, called ( <a class="reference external" href="http://cdn.probtn.com/showinparent_concat.js">http://cdn.probtn.com/showinparent_concat.js</a> ):
+( <a class="reference internal" href="description.html#description"><span>General description of the button</span></a> )</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="kd">var</span> <span class="nx">oHead</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;HEAD&#39;</span><span class="p">).</span><span class="nx">item</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">loadJS</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">;</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">readyState</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">callback</span><span class="p">.</span><span class="nx">done</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">!</span><span class="nx">state</span> <span class="o">||</span> <span class="sr">/loaded|complete/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">state</span><span class="p">)))</span> <span class="p">{</span>
+                        <span class="nx">callback</span><span class="p">.</span><span class="nx">done</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                        <span class="nx">callback</span><span class="p">();</span>
+                <span class="p">}</span>
+        <span class="p">};</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getParameterByName</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[\[]/</span><span class="p">,</span> <span class="s2">&quot;\\[&quot;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[\]]/</span><span class="p">,</span> <span class="s2">&quot;\\]&quot;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;[\\?&amp;]&quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;=([^&amp;#]*)&quot;</span><span class="p">),</span>
+                <span class="nx">results</span> <span class="o">=</span> <span class="nx">regex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">results</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">?</span> <span class="s2">&quot;&quot;</span> <span class="o">:</span> <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\+/g</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">));</span>
+                <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">dfp</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">dfp</span><span class="p">.</span><span class="nx">isDFP</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">dfp</span><span class="p">.</span><span class="nx">clickUrlEsc</span> <span class="o">=</span> <span class="nx">getParameterByName</span><span class="p">(</span><span class="s2">&quot;click_url_esc&quot;</span><span class="p">);</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">dfp</span><span class="p">.</span><span class="nx">cacheBuster</span> <span class="o">=</span> <span class="nx">getParameterByName</span><span class="p">(</span><span class="s2">&quot;cacheBuster&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">domain</span> <span class="o">=</span> <span class="nx">getParameterByName</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">((</span><span class="nx">domain</span><span class="o">!==</span><span class="kc">null</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">domain</span><span class="o">!==</span><span class="kc">undefined</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">domain</span><span class="o">!==</span><span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">params</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="nx">domain</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//selectAdSet param</span>
+<span class="kd">var</span> <span class="nx">SelectAdSet</span> <span class="o">=</span> <span class="nx">getParameterByName</span><span class="p">(</span><span class="s2">&quot;SelectAdSet&quot;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">((</span><span class="nx">SelectAdSet</span><span class="o">!==</span><span class="kc">null</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">SelectAdSet</span><span class="o">!==</span><span class="kc">undefined</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">SelectAdSet</span><span class="o">!==</span><span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">params</span><span class="p">.</span><span class="nx">SelectAdSet</span> <span class="o">=</span> <span class="nx">SelectAdSet</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">paramsDiv</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+<span class="nx">paramsDiv</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;probtn_additional_params&quot;</span><span class="p">;</span>
+<span class="nx">paramsDiv</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">params</span><span class="p">);</span>
+<span class="nx">paramsDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">=</span> <span class="s2">&quot;display: none;&quot;</span><span class="p">;</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">paramsDiv</span><span class="p">);</span>
+
+<span class="nx">loadJS</span><span class="p">(</span><span class="s1">&#39;//cdn.probtn.com/probtn_concat.js&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="p">});</span>
+<span class="p">})();</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Profit Button &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Profit Button</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs-en/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="profit-button">
+<span id="index"></span><h1>Profit Button<a class="headerlink" href="#profit-button" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="toctree-wrapper compound" id="mastertoc">
+<p class="caption"><span class="caption-text">Table of content</span><a class="headerlink" href="#mastertoc" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="description.html">General description of the button</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="description.html#recieving-button-settings">Recieving button settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html#id1">Интеграция со сторонними сервисами</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html#description-of-the-used-options">Description of the used options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="createbutton.html">Campaign and creative creating</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="createbutton.html#step-1-create-campaign">Step 1 - create campaign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="createbutton.html#step-2">Step 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="createbutton.html#step-3">Step 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="createbutton.html#step-4">Step 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="createbutton.html#step-5">Step 5</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hierarchy.html">The hierarchy of entities of admin.probtn.com</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hierarchy.html#id1">Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hierarchy.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adriver.html">Integrtion with AdRiver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adriver.html#integrtion-with-adriver-modificated-code">Integrtion with AdRiver (modificated code)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adriver.html#integrtion-with-adriver-javascript-javascript-banner">Integrtion with AdRiver (javascript/JavaScript banner)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adfox.html">AdFox integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adfox.html#adfox-integration-with-modified-code">AdFox integration with modified code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dfp.html">Probtn - working with DFP Google ads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dfp.html#intergation-with-dfp-async-code">Intergation with DFP - async code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dfp.html#intergation-with-dfp-sync-code">Intergation with DFP - sync code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html">Params description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#menutemplatevariant">MenuTemplateVariant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#videotype">VideoType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#debug">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#usegeolocation">UseGeoLocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#waitforgeolocation">WaitForGeoLocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#loadjquerypepjs">loadJqueryPepJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#loadfancyboxjs">loadFancyboxJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#disablebuttonmove">DisableButtonMove</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#waitforiframebuttonloaded">waitForIframeButtonLoaded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttoniframeinitialsize">ButtonIframeInitialSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonimagetype">ButtonImageType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#clickonclosebutton">ClickOnCloseButton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#alwaysshowclosebutton">AlwaysShowCloseButton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#fullscreenclicklink">FullscreenClickLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hidewithoutinteractiontime">HideWithoutInteractionTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#csseaseduration">cssEaseDuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#changescrollbuttonatfullsiteheight">ChangeScrollButtonAtFullSiteHeight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#controliniframefromparent">ControlInIframeFromParent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#isaddutmsource">isAddUtmSource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#utmsourceuseonlydomain">UtmSourceUseOnlyDomain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#utmcampaign">UtmCampaign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#utmsource">UtmSource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#iframescale">IframeScale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttoninitdelay">ButtonInitDelay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#videoclickurl">VideoClickURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttononclick">ButtonOnClick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttontype">ButtonType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttoncontenttype">ButtonContentType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#videosize">VideoSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#videoposter">VideoPoster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#trackinglink">TrackingLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#minimizewrappertime">MinimizeWrapperTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#openexternal">OpenExternal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#campaignid">CampaignID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#neverclose">NeverClose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#domain">domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#fancyboxjspath">fancyboxJsPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#fancyboxcsspath">fancyboxCssPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#jquerypeppath">jqueryPepPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonanimationtimeafterfancybox">buttonAnimationTimeAfterFancybox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hideafterfirstshow">HideAfterFirstShow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#loadfancyboxcss">LoadFancyboxCSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contenturl">ContentURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonenabled">ButtonEnabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonvisible">ButtonVisible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonposition">ButtonPosition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonsize">ButtonSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttondragsize">ButtonDragSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonopacity">ButtonOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttondragopacity">ButtonDragOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonimage">ButtonImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttondragimage">ButtonDragImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#closeposition">ClosePosition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#closesize">CloseSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#closeactivesize">CloseActiveSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#closeopacity">CloseOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#closeactiveopacity">CloseActiveOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#closeimage">CloseImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintlabelinsets">HintLabelInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hinttext">HintText</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintfont">HintFont</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintfontcolor">HintFontColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#vendortext">VendorText</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#vendorsite">VendorSite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#vendortextfont">VendorTextFont</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#vendortextcolor">VendorTextColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#vendorcolor">VendorColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#iframescaleminwidth">iframeScaleMinWidth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#id1">iframeScale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintopacity">HintOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintimage">HintImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentsize">ContentSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#ismanualsize">IsManualSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentinsets">ContentInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hideinframe">HideInFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#zcustomcss">ZCustomCss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#showinparent">showInParent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#ishpmd">isHPMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#dfp">dfp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#clickcounterlink">ClickCounterLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#isservercommunicationenabled">isServerCommunicationEnabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#uselocalfilesettings">useLocalFileSettings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#localsettingspath">localSettingsPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#issmartbanner">isSmartBanner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#smartbannerjspath">smartbannerJsPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#smartbannercsspath">smartbannerCssPath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#smartbanner">smartbanner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#mainbuttonclickable">MainButtonClickable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#menu">Menu параметры</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#scroll-params">Scroll params</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#activezones-params">ActiveZones params</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#not-used-params">Not used params</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentwebviewinsets">ContentWebViewInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#baseinsets">BaseInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonopenimage">ButtonOpenImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttoninactiveimage">ButtonInactiveImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#closeactiveimage">CloseActiveImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonopensize">ButtonOpenSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttoninactivesize">ButtonInactiveSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintinsets">HintInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttonopenopacity">ButtonOpenOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#buttoninactiveopacity">ButtonInactiveOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintimageinsets">HintImageInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#vendoropacity">VendorOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentimageinsets">ContentImageInsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentopacity">ContentOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentbackopacity">ContentBackOpacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentbackcolor">ContentBackColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentactivitycolor">ContentActivityColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentimage">ContentImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentarrowsize">ContentArrowSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentarrowoffset">ContentArrowOffset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentarrowimaget">ContentArrowImageT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentarrowimageb">ContentArrowImageB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentarrowimagel">ContentArrowImageL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#contentarrowimager">ContentArrowImageR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintarrowsize">HintArrowSize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintarrowoffset">HintArrowOffset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintarrowimaget">HintArrowImageT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintarrowimageb">HintArrowImageB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintarrowimagel">HintArrowImageL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hintarrowimager">HintArrowImageR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#id15">Остальные параметры</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#button-default-params">Button default params</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline mode</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

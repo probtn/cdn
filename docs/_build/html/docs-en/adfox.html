@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AdFox integration &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>AdFox integration</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs-en/adfox.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adfox-integration">
+<span id="adfox"></span><h1>AdFox integration<a class="headerlink" href="#adfox-integration" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="adfox-integration-with-modified-code">
+<h2>AdFox integration with modified code<a class="headerlink" href="#adfox-integration-with-modified-code" title="Ссылка на этот заголовок">¶</a></h2>
+<p>To add the button using an adFox network, follow these steps:</p>
+<div class="section" id="step0">
+<h3>Step0<a class="headerlink" href="#step0" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create a campaign at admin.probtn.com with the nessesary domain (if nessesary)</p>
+<img alt="../_images/adriver1_step01.png" src="../_images/adriver1_step01.png" />
+</div>
+<div class="section" id="step1">
+<h3>Step1<a class="headerlink" href="#step1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create a page on the same domain where the button is to be displayed.</p>
+<p>On this page, add the following script showinparent_concat.js</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+<p>For example:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;title&gt;</span>probtn (hackpad)<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+                <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdn.probtn.com/showinparent_concat.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step2">
+<h3>Step2<a class="headerlink" href="#step2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create a banner  (RichMedia format)</p>
+<img alt="../_images/adfox_step21.png" src="../_images/adfox_step21.png" />
+<img alt="../_images/adfox_step2_11.png" src="../_images/adfox_step2_11.png" />
+</div>
+<div class="section" id="step3">
+<h3>Step3<a class="headerlink" href="#step3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Create an ad with the following content:</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&quot;</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Url <code class="docutils literal"><span class="pre">//example.com/showinparent.html?domain=nessasary_example_app_domain.test</span></code> is an example, use your own path (to the page created on step 1)</p>
+<p>Change the value of the GET param of the domain (cited as an example) from <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> to the necessary domain (identifier) used in the appropriate app at <code class="docutils literal"><span class="pre">admin.probtn.com</span></code></p>
+</div>
+<div class="section" id="set-campaign-optional">
+<h3>Set campaign (optional)<a class="headerlink" href="#set-campaign-optional" title="Ссылка на этот заголовок">¶</a></h3>
+<p>It&#8217;s possible to use campaign id, so probtn would show creatives only from selected campaign fro app.
+To do so, you should:</p>
+<p>Create ad with code</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span>&nbsp; <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;SelectAdSet=565e021f99c27511100000d0&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Url //example.com/example_iframe_page.html добавлен для примера, is an example, use your own path (to the page created on step 1)</p>
+<p>Also value of GET param domain (for example) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> should be replaced on nessesary (id), used in nessesary app in admin.probtn.com</p>
+<p>Value of GET param SelectAdSet (for example) <code class="docutils literal"><span class="pre">565e021f99c27511100000d0</span></code> should be replaced on nessesary campaign id (don&#8217;t use placement or creative id).</p>
+<p>Campaign ID could be found  at url, if you open campaign page at admin.probtn.com.</p>
+<img alt="../_images/adriver2_step3_21.png" src="../_images/adriver2_step3_21.png" />
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The hierarchy of entities of admin.probtn.com &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>The hierarchy of entities of admin.probtn.com</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs-en/hierarchy.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-hierarchy-of-entities-of-admin-probtn-com">
+<span id="hierarchy"></span><h1>The hierarchy of entities of admin.probtn.com<a class="headerlink" href="#the-hierarchy-of-entities-of-admin-probtn-com" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id1">
+<h2>Hierarchy<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<img alt="../_images/15.png" src="../_images/15.png" />
+<p>Would or wouldn&#8217;t creatives be shown depend only from creative state (ON/OFF).</p>
+<p>When some element higher in hierarchy turn off, state of child elements saved and all of them turned off too.</p>
+<p>Then this element turn on back, child element what was originaly turned on become turn on again, and other elements stay in current state (off).</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="example-1">
+<h3>Example 1<a class="headerlink" href="#example-1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Creatives group - ON</p>
+<ul class="simple">
+<li>Creative-1 -  ON</li>
+<li>Creative-2 - OFF</li>
+</ul>
+<p>What creatives would be shown? Creative-1</p>
+<p>Now turn off the group, and current status become:</p>
+<ul class="simple">
+<li>Creatives group - OFF</li>
+<li>Creative-1 - OFF</li>
+<li>Creative-2 - OFF</li>
+</ul>
+<p>What creative would be shown? None.</p>
+<p>Now turn on the group, get:</p>
+<ul class="simple">
+<li>Creatives group - ON</li>
+<li>Creative-1 - ON</li>
+<li>Creative-2 -OFF</li>
+</ul>
+<p>What creative would be shown? Creative-1</p>
+</div>
+<div class="section" id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Ссылка на этот заголовок">¶</a></h3>
+<ul class="simple">
+<li>Creatives group - ON</li>
+<li>Creative-1 - ON</li>
+<li>Creative-2 - OFF</li>
+</ul>
+<p>What creative would be shown? Creative-1</p>
+<p>Now turn on the group, get:</p>
+<ul class="simple">
+<li>Creatives group - OFF</li>
+<li>Creative-1 - OFF</li>
+<li>Creative-2 - OFF</li>
+</ul>
+<p>What creative would be shown? None</p>
+<p>Now turn on one of the creatives</p>
+<ul class="simple">
+<li>Creatives group    OFF</li>
+<li>Creative-1           OFF</li>
+<li>Creative-2           ON</li>
+</ul>
+<p>What creative would be shown? Creative-2</p>
+<p>Now turn on the group,</p>
+<ul class="simple">
+<li>Creatives group - ON</li>
+<li>Creative-1 - ON</li>
+<li>Creative-2 - ON</li>
+</ul>
+<p>What creative would be shown? Creative-1, Creative-2</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

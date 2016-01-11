@@ -1,0 +1,1228 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Params description &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Params description</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs-en/webparams.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="params-description">
+<span id="webparams"></span><h1>Params description<a class="headerlink" href="#params-description" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Description of the parameters used by the button (by application)</p>
+<p>If a parameter is used differently in different modes, it is specifically marked (including, the required modes)</p>
+<div class="section" id="menutemplatevariant">
+<h2>MenuTemplateVariant<a class="headerlink" href="#menutemplatevariant" title="Ссылка на этот заголовок">¶</a></h2>
+<p>This param is used to select nessesary variant of menu apperiance
+(used then ButtonType==menu)</p>
+<p>Possible options:</p>
+<ul class="simple">
+<li>list - default template, list</li>
+<li>radialcorner - partical radial menu (button is in the corner, and menu items aore located in one between 0 and 90 degrees)</li>
+</ul>
+</div>
+<div class="section" id="videotype">
+<h2>VideoType<a class="headerlink" href="#videotype" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Video type used in button</p>
+<p>Options:</p>
+<ul class="simple">
+<li>mp4 - by default</li>
+<li>youtube - video from youtube</li>
+</ul>
+</div>
+<div class="section" id="debug">
+<h2>Debug<a class="headerlink" href="#debug" title="Ссылка на этот заголовок">¶</a></h2>
+<p>The debug mode of the button displays the version of the button enabled by an open fancybox.</p>
+<p>By default:</p>
+<ul class="simple">
+<li>false</li>
+</ul>
+</div>
+<div class="section" id="usegeolocation">
+<h2>UseGeoLocation<a class="headerlink" href="#usegeolocation" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Use or not the data on the geographical position of a user</p>
+<p>By default:</p>
+<ul class="simple">
+<li>false</li>
+</ul>
+</div>
+<div class="section" id="waitforgeolocation">
+<h2>WaitForGeoLocation<a class="headerlink" href="#waitforgeolocation" title="Ссылка на этот заголовок">¶</a></h2>
+<p>With geolocation on, wait for the positioning data to be received (and user&#8217;s permission in case of the first use) before the display of the button.</p>
+<p>By default:</p>
+<ul class="simple">
+<li>false</li>
+</ul>
+</div>
+<div class="section" id="loadjquerypepjs">
+<h2>loadJqueryPepJS<a class="headerlink" href="#loadjquerypepjs" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Download jquery.pep.js if the script does not find the appropriate library function</p>
+<p>By default:</p>
+<ul class="simple">
+<li>true</li>
+</ul>
+</div>
+<div class="section" id="loadfancyboxjs">
+<h2>loadFancyboxJS<a class="headerlink" href="#loadfancyboxjs" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Download fancybox if the script does not find the appropriate library function</p>
+<p>By default:</p>
+<ul class="simple">
+<li>true</li>
+</ul>
+</div>
+<div class="section" id="disablebuttonmove">
+<h2>DisableButtonMove<a class="headerlink" href="#disablebuttonmove" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Disable button move</p>
+<p>By default:</p>
+<ul class="simple">
+<li>false</li>
+</ul>
+</div>
+<div class="section" id="waitforiframebuttonloaded">
+<h2>waitForIframeButtonLoaded<a class="headerlink" href="#waitforiframebuttonloaded" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Wait for the content of the button iframe to be uploaded.</p>
+<p>By default:</p>
+<ul class="simple">
+<li>true</li>
+</ul>
+</div>
+<div class="section" id="buttoniframeinitialsize">
+<h2>ButtonIframeInitialSize<a class="headerlink" href="#buttoniframeinitialsize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Button size. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">0,</span> <span class="pre">H:</span> <span class="pre">0</span> <span class="pre">}</span></code>
+here W and H stand for width and height in px respectively.</p>
+<p>If the values are set to 0, scaling for the button iframe is not needed.</p>
+<p>If positive values are set, the iframe is adjusted to the size indicated in the ButtonSize parameter respectvely.</p>
+</div>
+<div class="section" id="buttonimagetype">
+<h2>ButtonImageType<a class="headerlink" href="#buttonimagetype" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Type of the button content. By default: image</p>
+<p>Options:</p>
+<ul class="simple">
+<li>image</li>
+<li>iframe</li>
+</ul>
+</div>
+<div class="section" id="clickonclosebutton">
+<h2>ClickOnCloseButton<a class="headerlink" href="#clickonclosebutton" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Close the button by a click on it.
+By default: true</p>
+</div>
+<div class="section" id="alwaysshowclosebutton">
+<h2>AlwaysShowCloseButton<a class="headerlink" href="#alwaysshowclosebutton" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Always show the closing area.
+By default: false</p>
+</div>
+<div class="section" id="fullscreenclicklink">
+<h2>FullscreenClickLink<a class="headerlink" href="#fullscreenclicklink" title="Ссылка на этот заголовок">¶</a></h2>
+<p>(For the mode when ButtonType==&#8217;fullscreen&#8217;)
+Click on fullscreen will open link.</p>
+</div>
+<div class="section" id="hidewithoutinteractiontime">
+<h2>HideWithoutInteractionTime<a class="headerlink" href="#hidewithoutinteractiontime" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default: 0  (not hide).
+Period of time before the button hides when no interaction is in place.</p>
+</div>
+<div class="section" id="csseaseduration">
+<h2>cssEaseDuration<a class="headerlink" href="#csseaseduration" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Animation duration (in ms) for jquery.pep
+By default: 300</p>
+</div>
+<div class="section" id="changescrollbuttonatfullsiteheight">
+<h2>ChangeScrollButtonAtFullSiteHeight<a class="headerlink" href="#changescrollbuttonatfullsiteheight" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Change the button view in the scroll mode based on the page height (true) or the window size (false)</p>
+</div>
+<div class="section" id="controliniframefromparent">
+<h2>ControlInIframeFromParent<a class="headerlink" href="#controliniframefromparent" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Is button control from the parent.
+By default: false</p>
+</div>
+<div class="section" id="isaddutmsource">
+<h2>isAddUtmSource<a class="headerlink" href="#isaddutmsource" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Add the utm_source parameter to ContentURL.
+By default: false</p>
+</div>
+<div class="section" id="utmsourceuseonlydomain">
+<h2>UtmSourceUseOnlyDomain<a class="headerlink" href="#utmsourceuseonlydomain" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default false.</p>
+<p>Use utm_source by default. If set to false, the full URL is used, if set to true, only the domain is used.</p>
+</div>
+<div class="section" id="utmcampaign">
+<h2>UtmCampaign<a class="headerlink" href="#utmcampaign" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Value of the  utm_campaign parameter. Not set if the field is left blank,
+By default &#8220;&#8221;</p>
+</div>
+<div class="section" id="utmsource">
+<h2>UtmSource<a class="headerlink" href="#utmsource" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Value of the utm_source parameter,  if the field is left blank, the current page URL (or domain, defined by the UtmSourceUseOnlyDomain attribute) is used.
+By default &#8220;&#8221;</p>
+</div>
+<div class="section" id="iframescale">
+<h2>IframeScale<a class="headerlink" href="#iframescale" title="Ссылка на этот заголовок">¶</a></h2>
+<p>parameter applied to the iframe for transform: scale(value)</p>
+<p>By default: 1.</p>
+<p>If iframeScaleMinWidth !=0, calculations are made based on this parameter</p>
+</div>
+<div class="section" id="buttoninitdelay">
+<h2>ButtonInitDelay<a class="headerlink" href="#buttoninitdelay" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Delay before the button display (in ms)
+By default: 0</p>
+</div>
+<div class="section" id="videoclickurl">
+<h2>VideoClickURL<a class="headerlink" href="#videoclickurl" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Link that a user opens by a click on the video. (If VideoClickURL ==&#8217;&#8216;, a line from VideoPoster is pasted. If the parameter is left blank, no need to add a link to the video.</p>
+</div>
+<div class="section" id="buttononclick">
+<h2>ButtonOnClick<a class="headerlink" href="#buttononclick" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Event called by a click on the button (added in an onclick, necessary to play a video in mobile browsers)</p>
+<p>By default:</p>
+<p><code class="docutils literal"><span class="pre">function</span> <span class="pre">start1()</span> <span class="pre">{</span> <span class="pre">var</span> <span class="pre">video</span> <span class="pre">=</span> <span class="pre">$(&quot;#video&quot;).get(0);</span> <span class="pre">video.play();</span> <span class="pre">};</span> <span class="pre">start1();</span> <span class="pre">setTimeout(start1</span> <span class="pre">,</span> <span class="pre">1500);</span></code></p>
+</div>
+<div class="section" id="buttontype">
+<h2>ButtonType<a class="headerlink" href="#buttontype" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Button type</p>
+<p>By default
+button - button behaviour by default</p>
+<p>Current options for ButtonType</p>
+<ul class="simple">
+<li>button - button with an iframe in fancybox</li>
+<li>menu - floating menu mode</li>
+<li>smartbanner - smartbanner display</li>
+<li>fullscreen -  autoplay of the content after script initialization</li>
+<li>button_and_active_zones - button and active zones</li>
+<li>button_and_scroll_zones - button and changing images or different images in different screen zones (by height)</li>
+<li>fullscreen_fancybox - autoplay of the content in fanncybox after script initialization</li>
+</ul>
+</div>
+<div class="section" id="buttoncontenttype">
+<h2>ButtonContentType<a class="headerlink" href="#buttoncontenttype" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Type of the button content</p>
+<p>By default:
+* iframe - page display in the iframe</p>
+<p>Current options for ButtonContentType</p>
+<ul class="simple">
+<li>iframe - page display in the iframe</li>
+<li>video - video play</li>
+<li>anchor - transition to an indicated anchor on the page (ContentURL is a full link or an anchor on the page, e.g., in #someAnchor), the transition to an anchor or a link happens in the same tabwindow.</li>
+</ul>
+</div>
+<div class="section" id="videosize">
+<h2>VideoSize<a class="headerlink" href="#videosize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Video size (necessary to adjust the size of the video for mobile browsers that for some reason do not keep video porportions)</p>
+<p>The parameter itself is an object that consists of X and Y attributes (width and height)</p>
+<p>Example (value by default):</p>
+<p><code class="docutils literal"><span class="pre">VideoSize:</span> <span class="pre">{</span> <span class="pre">X:</span> <span class="pre">1920,</span> <span class="pre">Y:</span> <span class="pre">1080</span> <span class="pre">}</span></code></p>
+</div>
+<div class="section" id="videoposter">
+<h2>VideoPoster<a class="headerlink" href="#videoposter" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Poster for the video.
+Value is URL (to the image).</p>
+</div>
+<div class="section" id="trackinglink">
+<h2>TrackingLink<a class="headerlink" href="#trackinglink" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Link to the image to be used as background for the button wrapper. Introduced in order to set one&#8217;s image (pixel) to collect statistical data about a user.</p>
+</div>
+<div class="section" id="minimizewrappertime">
+<h2>MinimizeWrapperTime<a class="headerlink" href="#minimizewrappertime" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Period of time before the size of the button wrapper gets smaller. Introduced to fix the bugs in animation that sometimes appear on mobile devices.</p>
+</div>
+<div class="section" id="openexternal">
+<h2>OpenExternal<a class="headerlink" href="#openexternal" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Параметр, отвечающий за то, как именно должна открываться ссылка (соответственно для <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code> )
+Parameter that defines how link would be opened (for <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code> )</p>
+<ul class="simple">
+<li>false - содержимое открывается в fancybox</li>
+<li>true - контент открывается в новой вкладке (применяется в случае, если сайт не может быть показан в iframe по тем или иным причинам)</li>
+</ul>
+</div>
+<div class="section" id="campaignid">
+<h2>CampaignID<a class="headerlink" href="#campaignid" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Campaign identifier</p>
+</div>
+<div class="section" id="neverclose">
+<h2>NeverClose<a class="headerlink" href="#neverclose" title="Ссылка на этот заголовок">¶</a></h2>
+<p>If set to true, removes the closing area for the button</p>
+<p>Aplied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="domain">
+<h2>domain<a class="headerlink" href="#domain" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Domain that requests button settings. If left blank, the domain is received automatically and corresponds to the domain where the button is activated.</p>
+<p>If a certain domain is indicated, the actual domain is not used and the settings for the indicated domain are received.</p>
+</div>
+<div class="section" id="fancyboxjspath">
+<h2>fancyboxJsPath<a class="headerlink" href="#fancyboxjspath" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL to the location of the fancybox library.</p>
+</div>
+<div class="section" id="fancyboxcsspath">
+<h2>fancyboxCssPath<a class="headerlink" href="#fancyboxcsspath" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL to the location of fancybox css.</p>
+</div>
+<div class="section" id="jquerypeppath">
+<h2>jqueryPepPath<a class="headerlink" href="#jquerypeppath" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL to the location of library jquery.pep</p>
+</div>
+<div class="section" id="buttonanimationtimeafterfancybox">
+<h2>buttonAnimationTimeAfterFancybox<a class="headerlink" href="#buttonanimationtimeafterfancybox" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Animation duration after fancybox is closed, in ms</p>
+</div>
+<div class="section" id="hideafterfirstshow">
+<h2>HideAfterFirstShow<a class="headerlink" href="#hideafterfirstshow" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Show or not the button after its first display to a user.</p>
+<ul class="simple">
+<li>true - button hides after the first display (until HideAfterFirstShow is set to true or the cookie expires)</li>
+<li>false -  button is displayed every time (defined by server settings and server targeting)</li>
+</ul>
+<p>Applied when ButtonType = button</p>
+</div>
+<div class="section" id="loadfancyboxcss">
+<h2>LoadFancyboxCSS<a class="headerlink" href="#loadfancyboxcss" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Download or not css for fancybox by default.</p>
+<ul class="simple">
+<li>true - download</li>
+<li>false - don&#8217;t download (e.g., fancybox is already in use on the site)</li>
+</ul>
+</div>
+<div class="section" id="contenturl">
+<h2>ContentURL<a class="headerlink" href="#contenturl" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL to the content displayed by the button.</p>
+<p>For different ButtonContentType:</p>
+<ul class="simple">
+<li>iframe - any link to the site or another content displayed in the iframe</li>
+<li>video - сlink to the video (supported by HTML5 video)</li>
+</ul>
+</div>
+<div class="section" id="buttonenabled">
+<h2>ButtonEnabled<a class="headerlink" href="#buttonenabled" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Enabled/disabled</p>
+</div>
+<div class="section" id="buttonvisible">
+<h2>ButtonVisible<a class="headerlink" href="#buttonvisible" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Visible/invisible</p>
+</div>
+<div class="section" id="buttonposition">
+<h2>ButtonPosition<a class="headerlink" href="#buttonposition" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Button position. Set as an object <code class="docutils literal"><span class="pre">{X:0.5,</span> <span class="pre">Y:.5}</span></code>
+where X and Y vary between 0 and 1 (1 stands for width or height respectively).
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="buttonsize">
+<h2>ButtonSize<a class="headerlink" href="#buttonsize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Button size. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64.0,</span> <span class="pre">H:</span> <span class="pre">64.0</span> <span class="pre">}</span></code>
+where W and H stand for width and height in px respectively.</p>
+<blockquote>
+<div>Applied when  <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></div></blockquote>
+</div>
+<div class="section" id="buttondragsize">
+<h2>ButtonDragSize<a class="headerlink" href="#buttondragsize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Size of the button when dragged. Set as an object. <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64.0,</span> <span class="pre">H:</span> <span class="pre">64.0</span> <span class="pre">}</span></code>
+where W and H stand for width and height in px respectively</p>
+<p>Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="buttonopacity">
+<h2>ButtonOpacity<a class="headerlink" href="#buttonopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Button opacity. Varies between 0 and 1 (0 - transparent, 1 – opaque)
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="buttondragopacity">
+<h2>ButtonDragOpacity<a class="headerlink" href="#buttondragopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Opacity of the button when dragged
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="buttonimage">
+<h2>ButtonImage<a class="headerlink" href="#buttonimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Link to the button image
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="buttondragimage">
+<h2>ButtonDragImage<a class="headerlink" href="#buttondragimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Link to the image of the button when dragged
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="closeposition">
+<h2>ClosePosition<a class="headerlink" href="#closeposition" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Position of the button closing area</p>
+<p>Set as an object <code class="docutils literal"><span class="pre">{X:0.5,</span> <span class="pre">Y:0.5}</span></code>
+where X and Y vary between 0 and 1 (1 stands for window width or height respectively)</p>
+<p>Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="closesize">
+<h2>CloseSize<a class="headerlink" href="#closesize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Size of the closing area. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64.0,</span> <span class="pre">H:</span> <span class="pre">64.0</span> <span class="pre">}</span></code>
+where W and H stand for width and height in px respectively</p>
+<p>Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="closeactivesize">
+<h2>CloseActiveSize<a class="headerlink" href="#closeactivesize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Size of the closing area in active mode (when the button is rolled over the closing area).
+Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64.0,</span> <span class="pre">H:</span> <span class="pre">64.0</span> <span class="pre">}</span></code>
+where W and H stand for width and height in px respectively</p>
+<p>Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="closeopacity">
+<h2>CloseOpacity<a class="headerlink" href="#closeopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Opacity of the closing area.
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="closeactiveopacity">
+<h2>CloseActiveOpacity<a class="headerlink" href="#closeactiveopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Opacity of the closing area in active mode (when the button is rolled over it).</p>
+<p>Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="closeimage">
+<h2>CloseImage<a class="headerlink" href="#closeimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Link to the image for the closing area.</p>
+<p>Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="hintlabelinsets">
+<h2>HintLabelInsets<a class="headerlink" href="#hintlabelinsets" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Text insets (below the button line)</p>
+<p>Set in the following format <code class="docutils literal"><span class="pre">{</span> <span class="pre">T:</span> <span class="pre">4.0,</span> <span class="pre">B:</span> <span class="pre">4.0,</span> <span class="pre">L:</span> <span class="pre">4.0,</span> <span class="pre">R:</span> <span class="pre">4.0</span> <span class="pre">}</span></code></p>
+<p>Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="hinttext">
+<h2>HintText<a class="headerlink" href="#hinttext" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Button hint text
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="hintfont">
+<h2>HintFont<a class="headerlink" href="#hintfont" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Font parameters for the buttonhint text
+Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">Family:</span> <span class="pre">&quot;Arial&quot;,</span> <span class="pre">Size:</span> <span class="pre">18</span> <span class="pre">}</span></code></p>
+<ul class="simple">
+<li>Family - шрифт для надписи. Указывается для font-family</li>
+<li>Size - размер текста</li>
+</ul>
+<p>Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="hintfontcolor">
+<h2>HintFontColor<a class="headerlink" href="#hintfontcolor" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Text color. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">R:</span> <span class="pre">1.0,</span> <span class="pre">G:</span> <span class="pre">1.0,</span> <span class="pre">B:</span> <span class="pre">1.0,</span> <span class="pre">A:</span> <span class="pre">1.0</span> <span class="pre">}</span></code>
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="vendortext">
+<h2>VendorText<a class="headerlink" href="#vendortext" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Vendor text (displayed at the bottom of fancybox)</p>
+</div>
+<div class="section" id="vendorsite">
+<h2>VendorSite<a class="headerlink" href="#vendorsite" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Link to the vendor&#8217;s site</p>
+</div>
+<div class="section" id="vendortextfont">
+<h2>VendorTextFont<a class="headerlink" href="#vendortextfont" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Format corresponds to the HintFont parameter</p>
+</div>
+<div class="section" id="vendortextcolor">
+<h2>VendorTextColor<a class="headerlink" href="#vendortextcolor" title="Ссылка на этот заголовок">¶</a></h2>
+<p>VendorText color. Format corresponds to HintFontColor</p>
+</div>
+<div class="section" id="vendorcolor">
+<h2>VendorColor<a class="headerlink" href="#vendorcolor" title="Ссылка на этот заголовок">¶</a></h2>
+<p>VendorText background color</p>
+</div>
+<div class="section" id="iframescaleminwidth">
+<h2>iframeScaleMinWidth<a class="headerlink" href="#iframescaleminwidth" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Minimal width for the site displayed inside the iframe. If the current fancybox width is smaller than the required iframeScaleMinWidth, the iframe is to be scaled using the tranform parameter to fit in the current width.</p>
+<p>Suitable for the sites that do not adjust autmatically to the given width.</p>
+<p>Be default 0, no need to scale.</p>
+</div>
+<div class="section" id="id1">
+<h2>iframeScale<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default 1. Scaling attribute for the transform parameter of the iframe.</p>
+<p>Calculated automatially based on iframeScaleMinWidth and fancybox width.</p>
+</div>
+<div class="section" id="hintopacity">
+<h2>HintOpacity<a class="headerlink" href="#hintopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Text opacity. (from 0 to 1)
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="hintimage">
+<h2>HintImage<a class="headerlink" href="#hintimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Background image for the button signing.
+Applied when <code class="docutils literal"><span class="pre">ButtonType</span> <span class="pre">=</span> <span class="pre">button</span></code></p>
+</div>
+<div class="section" id="contentsize">
+<h2>ContentSize<a class="headerlink" href="#contentsize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Fancybox size</p>
+<p>Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">100,</span> <span class="pre">H:</span> <span class="pre">100,</span> <span class="pre">X:</span> <span class="pre">&quot;90%&quot;,</span> <span class="pre">Y:</span> <span class="pre">&quot;90%&quot;</span> <span class="pre">}</span></code></p>
+<p>If IsManualSize = true, X and Y show up for the size in %.
+Otherwise, W and H are used (width and height respectively)</p>
+</div>
+<div class="section" id="ismanualsize">
+<h2>IsManualSize<a class="headerlink" href="#ismanualsize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>If IsManualSize = true, ContentSize shows X and Y for the size in %.</p>
+<p>Otherwise, W and H are used (width and height in px respectively)</p>
+</div>
+<div class="section" id="contentinsets">
+<h2>ContentInsets<a class="headerlink" href="#contentinsets" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Insets for fancybox (and its substitutes)</p>
+<p>Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">T:</span> <span class="pre">-2.0,</span> <span class="pre">B:</span> <span class="pre">-2.0,</span> <span class="pre">L:</span> <span class="pre">-2.0,</span> <span class="pre">R:</span> <span class="pre">-2.0</span> <span class="pre">}</span></code></p>
+<p>With given top, bottom, left and right insets.
+If ContentInsets is below 0, insets are calculated automatically based on the button size.</p>
+</div>
+<div class="section" id="hideinframe">
+<h2>HideInFrame<a class="headerlink" href="#hideinframe" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Parameter defining whether to display the button when the page opens in the iframe.</p>
+<ul class="simple">
+<li>true -  hide the button when the page opens in the iframe</li>
+<li>false - display the button when the page opens in the iframe</li>
+</ul>
+</div>
+<div class="section" id="zcustomcss">
+<h2>ZCustomCss<a class="headerlink" href="#zcustomcss" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default &#8220;&#8221;.</p>
+<p>If this parameter includes a text, the latter is added to the page as css.</p>
+<p>The parameter helps to modify css of the page without interfering with the code</p>
+</div>
+<div class="section" id="showinparent">
+<h2>showInParent<a class="headerlink" href="#showinparent" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default false</p>
+<p>If the button is in the iframe and the parent window as well as the page in the iframe are located on the same domain, if set to true, the button adds to the parent the following code <code class="docutils literal"><span class="pre">//cdn.probtn.com/includepb.min.js</span></code> or <code class="docutils literal"><span class="pre">//cdn.probtn.com/probtn_concat.js</span></code> in order to play the button in the parent.</p>
+</div>
+<div class="section" id="ishpmd">
+<h2>isHPMD<a class="headerlink" href="#ishpmd" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default: false</p>
+<p>if set to true, HPMD events are called</p>
+</div>
+<div class="section" id="dfp">
+<h2>dfp<a class="headerlink" href="#dfp" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Объект для настроек при использовании DFP Google
+<code class="docutils literal"><span class="pre">dfp:</span> <span class="pre">{</span> <span class="pre">isDFP:</span> <span class="pre">false,</span>&nbsp; <span class="pre">clickUrlEsc:</span> <span class="pre">&quot;&quot;,</span> <span class="pre">cacheBuster:</span> <span class="pre">&quot;&quot;}</span></code>
+isDFP - используется ли DFP
+clickUrlEsc - ссылка из макроса DFP для отслеживания кликов</p>
+<p>Object for settings in DFP Google</p>
+<ul class="simple">
+<li>dfp: <code class="docutils literal"><span class="pre">{</span> <span class="pre">isDFP:</span> <span class="pre">false,</span>&nbsp; <span class="pre">clickUrlEsc:</span> <span class="pre">&quot;&quot;,</span> <span class="pre">cacheBuster:</span> <span class="pre">&quot;&quot;}</span></code></li>
+<li>isDFP - use or not DFP</li>
+<li>clickUrlEsc -  link from the DFP macro to track the clicks</li>
+</ul>
+</div>
+<div class="section" id="clickcounterlink">
+<h2>ClickCounterLink<a class="headerlink" href="#clickcounterlink" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Link called when the button is pressed. Helps to additionally collect statictics (including, number of clicks on the button). For this link, an ajax request is sent.</p>
+</div>
+<div class="section" id="isservercommunicationenabled">
+<h2>isServerCommunicationEnabled<a class="headerlink" href="#isservercommunicationenabled" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default: true</p>
+<p>Parameter that defines communication with the server (including, getting settings and sending statistics)</p>
+</div>
+<div class="section" id="uselocalfilesettings">
+<h2>useLocalFileSettings<a class="headerlink" href="#uselocalfilesettings" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default: false</p>
+<p>Use or not the json file containing the button settings</p>
+</div>
+<div class="section" id="localsettingspath">
+<h2>localSettingsPath<a class="headerlink" href="#localsettingspath" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL (absolute or relative) to the json file</p>
+<p>By default <code class="docutils literal"><span class="pre">&quot;settings.json&quot;</span></code></p>
+</div>
+<div class="section" id="issmartbanner">
+<h2>isSmartBanner<a class="headerlink" href="#issmartbanner" title="Ссылка на этот заголовок">¶</a></h2>
+<p>By default: false</p>
+<p>If set to true, a smartbanner is displayed instead of the button (based on  <a class="reference external" href="https://github.com/jasny/jquery.smartbanner">https://github.com/jasny/jquery.smartbanner</a> )</p>
+</div>
+<div class="section" id="smartbannerjspath">
+<h2>smartbannerJsPath<a class="headerlink" href="#smartbannerjspath" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Путь по умолчанию до jquery.smartbanner.js
+<code class="docutils literal"><span class="pre">//cdn.probtn.com/libs/jquery.smartbanner.js</span></code></p>
+</div>
+<div class="section" id="smartbannercsspath">
+<h2>smartbannerCssPath<a class="headerlink" href="#smartbannercsspath" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL by default to jquery.smartbanner.js <code class="docutils literal"><span class="pre">//cdn.probtn.com/libs/jquery.smartbanner.js</span></code></p>
+</div>
+<div class="section" id="smartbanner">
+<h2>smartbanner<a class="headerlink" href="#smartbanner" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Object with settings for the smartbanner</p>
+<p>Settings by default</p>
+<div class="highlight-python"><div class="highlight"><pre>{
+  iosAppId: null,
+  androidAppId: null,
+  isFixed: false, //if true, smartbanner will have position: fixed style
+  isFixedMode: &#39;default&#39;, //default - position fixed over content
+  // extrusion - banner is fixed, but content moved down (banner height) - so banner don&#39;t close any content at page
+
+  title: null, // What the title of the app should be in the banner (defaults to &lt;title&gt;)
+  author: null, // What the author of the app should be in the banner (defaults to &lt;meta name=&quot;author&quot;&gt; or hostname)
+  price: &#39;FREE&#39;, // Price of the app
+  appStoreLanguage: &#39;us&#39;, // Language code for App Store
+  inAppStore: &#39;On the App Store&#39;, // Text of price for iOS
+  inGooglePlay: &#39;In Google Play&#39;, // Text of price for Android
+  inAmazonAppStore: &#39;In the Amazon Appstore&#39;,
+  inWindowsStore: &#39;In the Windows Store&#39;, // Text of price for Windows
+  GooglePlayParams: null, // Aditional parameters for the market
+  icon: null, // The URL of the icon (defaults to &lt;meta name=&quot;apple-touch-icon&quot;&gt;)
+  iconGloss: null, // Force gloss effect for iOS even for precomposed
+  url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+  button: &#39;VIEW&#39;, // Text for the install button
+  scale: &#39;auto&#39;, // Scale based on viewport size (set to 1 to disable)
+  speedIn: 300, // Show animation speed of the banner
+  speedOut: 400, // Close animation speed of the banner
+  daysHidden: 15, // Duration (in days) to hide the banner after being closed (0 = always show banner)
+  daysReminder: 90, // Duration (in days) to hide the banner after &quot;VIEW&quot; is clicked *separate from when the close button is clicked* (0 = always show banner)
+  force: null, // Choose &#39;ios&#39;, &#39;android&#39; or &#39;windows&#39;. Don&#39;t do a browser check, just always show this banner
+  hideOnInstall: true, // Hide the banner after &quot;VIEW&quot; is clicked.
+  layer: false, // Display as overlay layer or slide down the page
+  iOSUniversalApp: true // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.
+  appendToSelector: &#39;body&#39; //Append the banner to a specific selector
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="mainbuttonclickable">
+<h2>MainButtonClickable<a class="headerlink" href="#mainbuttonclickable" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Clickability of the main button. By default true</p>
+</div>
+<div class="section" id="menu">
+<h2>Menu параметры<a class="headerlink" href="#menu" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Scroll areas are used if <code class="docutils literal"><span class="pre">ButtonType==&quot;menu&quot;</span></code></p>
+<div class="section" id="menuitems">
+<h3>MenuItems<a class="headerlink" href="#menuitems" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Array of objects for scroll areas</p>
+<p>Description of an object from MenuItems</p>
+</div>
+<div class="section" id="text">
+<h3>Text<a class="headerlink" href="#text" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Text of the menu item</p>
+</div>
+<div class="section" id="actionurl">
+<h3>ActionURL<a class="headerlink" href="#actionurl" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Link if pressed, switching to the menu item</p>
+</div>
+<div class="section" id="image">
+<h3>Image<a class="headerlink" href="#image" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Image of the menu item</p>
+</div>
+<div class="section" id="name">
+<h3>Name<a class="headerlink" href="#name" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Unique name of the menu item (for statistics)</p>
+</div>
+<div class="section" id="type">
+<h3>Type<a class="headerlink" href="#type" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Type of the menu item. By default external</p>
+<p>Options:</p>
+<ul class="simple">
+<li>external</li>
+<li>video</li>
+<li>iframe</li>
+</ul>
+</div>
+<div class="section" id="menuoptions">
+<h3>MenuOptions<a class="headerlink" href="#menuoptions" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Object that describes the main settings of the menu</p>
+</div>
+<div class="section" id="fontsize">
+<h3>FontSize<a class="headerlink" href="#fontsize" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Font size of the menu item</p>
+</div>
+<div class="section" id="fontfamily">
+<h3>FontFamily<a class="headerlink" href="#fontfamily" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Font of the menu item</p>
+</div>
+<div class="section" id="backgroundcolor">
+<h3>BackgroundColor<a class="headerlink" href="#backgroundcolor" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Background color of the menu item</p>
+</div>
+<div class="section" id="foregroundcolor">
+<h3>ForegroundColor<a class="headerlink" href="#foregroundcolor" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Text color of the menu item</p>
+</div>
+<div class="section" id="menuheight">
+<h3>MenuHeight<a class="headerlink" href="#menuheight" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Height of the menu item</p>
+<p>Example of an object:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>MenuOptions: {</dt>
+<dd>FontSize: &#8220;1.4em&#8221;,
+FontFamily: &#8216;&#8220;Helvetica Neue&#8221;,Helvetica,Arial,&#8221;Lucida Grande&#8221;,sans-serif&#8217;,
+BackgroundColor: &#8216;rgba(49,55,61,.95)&#8217;,
+ForegroundColor: &#8216;#fff&#8217;,
+MenuHeight: &#8220;3.4em&#8221;</dd>
+</dl>
+</div></blockquote>
+<p class="last">}</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="scroll-params">
+<h2>Scroll params<a class="headerlink" href="#scroll-params" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Scroll zones could be used if <code class="docutils literal"><span class="pre">ButtonType==&quot;button_and_scroll_zones&quot;</span></code></p>
+<div class="section" id="scrollzones">
+<h3>ScrollZones<a class="headerlink" href="#scrollzones" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Array of objects that decribe scroll zones</p>
+<p>Description of an object from ScrollZones</p>
+</div>
+<div class="section" id="zoneheight">
+<h3>ZoneHeight<a class="headerlink" href="#zoneheight" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Zone height (full height of the page=1)</p>
+</div>
+<div class="section" id="id2">
+<h3>ButtonImage<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>URL of the button image</p>
+</div>
+<div class="section" id="id3">
+<h3>ButtonDragImage<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>URL of the image of the button when dragged</p>
+</div>
+<div class="section" id="id4">
+<h3>HintText<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Text of the image</p>
+</div>
+<div class="section" id="id5">
+<h3>TrackingLink<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h3>
+<p>URL for statistics (by a click on the button)</p>
+</div>
+<div class="section" id="custombuttonparams">
+<h3>CustomButtonParams<a class="headerlink" href="#custombuttonparams" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Use additional parameters for the button (size, opacity, etc.)</p>
+<p>By default: false</p>
+</div>
+<div class="section" id="id6">
+<h3>ButtonSize<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Button size. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64.0,</span> <span class="pre">H:</span> <span class="pre">64.0</span> <span class="pre">}</span></code></p>
+<p>where W and H stand for width ad height in px respectively</p>
+</div>
+<div class="section" id="id7">
+<h3>ButtonDragSize<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Size of the button when dragged. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64.0,</span> <span class="pre">H:</span> <span class="pre">64.0</span> <span class="pre">}</span></code></p>
+<p>where W and H stand for width ad height in px respectively</p>
+</div>
+<div class="section" id="id8">
+<h3>ButtonOpacity<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Button opacity. Varies between 0 and 1 (0 – transpaternt, 1 – opaque)</p>
+</div>
+<div class="section" id="id9">
+<h3>ButtonDragOpacity<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Opacity of the button when dragged</p>
+<p>Example</p>
+<p>::
+ScrollZones: [</p>
+<blockquote>
+<div><blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd>ZoneHeight: 0.5,
+ButtonImage: &#8220;//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png&#8221;,
+ButtonDragImage: &#8220;&#8221;,
+HintText: &#8220;&#8221;,
+TrackingLink: &#8220;&#8221;,
+CustomButtonParams: false,</dd>
+<dt>ButtonSize: { // Размер</dt>
+<dd>W: 64.0,
+H: 64.0</dd>
+</dl>
+<p>},
+ButtonDragSize: { // Размер при перемещении</p>
+<blockquote>
+<div>W: 68.0,
+H: 68.0</div></blockquote>
+<p>},
+ButtonOpacity: 0.8, // Прозрачность
+ButtonDragOpacity: 1.0 // Прозрачность при перемещении
+},
+{</p>
+<blockquote>
+<div>ZoneHeight: 0.5,
+ButtonImage: &#8220;//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png&#8221;,
+ButtonDragImage: &#8220;&#8221;,
+HintText: &#8220;&#8221;,
+TrackingLink: &#8220;&#8221;,
+CustomButtonParams: false,</div></blockquote>
+<dl class="docutils">
+<dt>ButtonSize: { // Размер</dt>
+<dd>W: 64.0,
+H: 64.0</dd>
+</dl>
+<p>},
+ButtonDragSize: { // Размер при перемещении</p>
+<blockquote>
+<div>W: 68.0,
+H: 68.0</div></blockquote>
+<p>},
+ButtonOpacity: 0.8, // Прозрачность
+ButtonDragOpacity: 1.0 // Прозрачность при перемещении
+}</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="activezones-params">
+<h2>ActiveZones params<a class="headerlink" href="#activezones-params" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Active zones could be used if <code class="docutils literal"><span class="pre">ButtonType==&quot;button_and_active_zones&quot;</span></code></p>
+<div class="section" id="activezones">
+<h3>ActiveZones<a class="headerlink" href="#activezones" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Array of objects that describe active zones</p>
+<p>Description of an object from ActiveZone</p>
+</div>
+<div class="section" id="id10">
+<h3>Name<a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Unique name of a zone(A-Za-z0-9)</p>
+</div>
+<div class="section" id="id11">
+<h3>ButtonImageType<a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Type of the button content. By default image</p>
+<p>Options:</p>
+<ul class="simple">
+<li>image</li>
+<li>iframe</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>ButtonIframeInitialSize<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Button size. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">0,</span> <span class="pre">H:</span> <span class="pre">0</span> <span class="pre">}</span></code>
+where W and H stand for width and height in px respectively</p>
+<p>If the values are set to 0, no scaling needed for the button iframe.</p>
+<p>If positive values are set, the iframe is adjusted to the size indicated in ButtonSize respectively.</p>
+</div>
+<div class="section" id="position">
+<h3>Position<a class="headerlink" href="#position" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Object that describes zone position</p>
+<p>Example:</p>
+<ul class="simple">
+<li>Position: <code class="docutils literal"><span class="pre">{</span> <span class="pre">X:</span> <span class="pre">0.1,</span> <span class="pre">Y:</span> <span class="pre">0.1</span> <span class="pre">}</span></code></li>
+</ul>
+<p>Position value is set between 0 and 1</p>
+</div>
+<div class="section" id="activeimage">
+<h3>ActiveImage<a class="headerlink" href="#activeimage" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Link to the image for the active zone (when the button is rolled over there)</p>
+</div>
+<div class="section" id="inactiveimage">
+<h3>InactiveImage<a class="headerlink" href="#inactiveimage" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Link to the image for the inactive zone (by default, when the button is not rolled over the zone)</p>
+</div>
+<div class="section" id="id13">
+<h3>ActionURL<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Link that opens when the button is &#8220;dropped” to the zone. If <code class="docutils literal"><span class="pre">ActionURL==&quot;&quot;</span></code> (left blank), the link indicated in ContentURL opens (displayed by a click on the button)</p>
+</div>
+<div class="section" id="visibleonlyinteraction">
+<h3>VisibleOnlyInteraction<a class="headerlink" href="#visibleonlyinteraction" title="Ссылка на этот заголовок">¶</a></h3>
+<p>true/false
+By default -  true</p>
+<ul class="simple">
+<li>В случае true активная зона показывается только во время взаимодействия с кнопкой (ее перемещения)</li>
+<li>В случае false активная зона видна всегда</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h3>ClickCounterLink<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h3>
+<p>By default - false</p>
+<p>Link called when the button is dropped to the active zone. Helps to additionally collect statistics (including, the number of clicks on the button). An ajax request is sent for this link.</p>
+</div>
+<div class="section" id="activesize">
+<h3>ActiveSize<a class="headerlink" href="#activesize" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Size of the zone in active mode</p>
+<p>Looks like this</p>
+<p>ActiveSize: <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64,</span> <span class="pre">H:</span> <span class="pre">64</span> <span class="pre">}</span></code></p>
+<p>where W and H stand for width and height respectively</p>
+</div>
+<div class="section" id="inactivesize">
+<h3>InactiveSize<a class="headerlink" href="#inactivesize" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Size of the zone in active mode</p>
+<p>Looks like this</p>
+<p>InactiveSize: <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64,</span> <span class="pre">H:</span> <span class="pre">64</span> <span class="pre">}</span></code></p>
+<p>where W and H stand for width and height respectively</p>
+</div>
+<div class="section" id="inactiveopacity">
+<h3>InactiveOpacity<a class="headerlink" href="#inactiveopacity" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Opacity of the zone in inactive mode</p>
+</div>
+<div class="section" id="activeopacity">
+<h3>ActiveOpacity<a class="headerlink" href="#activeopacity" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Opacity of the zone in active mode</p>
+<p>Example</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><p class="first">IsActiveZones: false,
+ActiveZones: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd><p class="first">Name: &#8220;Area1&#8221;,
+Position: {</p>
+<blockquote>
+<div>X: 0.1,
+Y: 0.1</div></blockquote>
+<p>},
+ActiveImage: &#8220;//probtnexample1.azurewebsites.net/img/logo.png&#8221;,
+InactiveImage: &#8220;//admin.probtn.com/eqwid_btn_nonpress.png&#8221;,
+ActiveSize: {</p>
+<blockquote>
+<div>W: 64,
+H: 64</div></blockquote>
+<p>},
+InactiveSize: {</p>
+<blockquote>
+<div>W: 64,
+H: 64</div></blockquote>
+<p class="last">},
+ActionURL: &#8220;<a class="reference external" href="http://m0rg0t.ru">http://m0rg0t.ru</a>&#8221;,
+ClickCounterLink: &#8220;&#8221;,
+VisibleOnlyInteraction: true,</p>
+</dd>
+</dl>
+<p>},
+{</p>
+<blockquote>
+<div><p>Name: &#8220;Area2&#8221;,
+Position: {</p>
+<blockquote>
+<div>X: 0.6,
+Y: 0.1</div></blockquote>
+<p>},
+ActiveImage: &#8220;//probtnexample1.azurewebsites.net/img/logo.png&#8221;,
+InactiveImage: &#8220;//admin.probtn.com/eqwid_btn_nonpress.png&#8221;,
+ActiveSize: {</p>
+<blockquote>
+<div>W: 64,
+H: 64</div></blockquote>
+<p>},
+InactiveSize: {</p>
+<blockquote>
+<div>W: 64,
+H: 64</div></blockquote>
+<p>},
+ActionURL: &#8220;&#8221;,
+ClickCounterLink: &#8220;&#8221;,
+VisibleOnlyInteraction: false,
+InactiveOpacity: 0.8,
+ActiveOpacity: 1</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p class="last">]</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="not-used-params">
+<h1>Not used params<a class="headerlink" href="#not-used-params" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="contentwebviewinsets">
+<h2>ContentWebViewInsets<a class="headerlink" href="#contentwebviewinsets" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="baseinsets">
+<h2>BaseInsets<a class="headerlink" href="#baseinsets" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="buttonopenimage">
+<h2>ButtonOpenImage<a class="headerlink" href="#buttonopenimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="buttoninactiveimage">
+<h2>ButtonInactiveImage<a class="headerlink" href="#buttoninactiveimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="closeactiveimage">
+<h2>CloseActiveImage<a class="headerlink" href="#closeactiveimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.
+Link to the image in the closing area in active mode</p>
+</div>
+<div class="section" id="buttonopensize">
+<h2>ButtonOpenSize<a class="headerlink" href="#buttonopensize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.</p>
+<p>Button size when fancybox is open. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64.0,</span> <span class="pre">H:</span> <span class="pre">64.0</span> <span class="pre">}</span></code></p>
+<p>where W and H stand for width and height in px respectively</p>
+</div>
+<div class="section" id="buttoninactivesize">
+<h2>ButtonInactiveSize<a class="headerlink" href="#buttoninactivesize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.</p>
+<p>Button size in inactive mode. Set as an object <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">64.0,</span> <span class="pre">H:</span> <span class="pre">64.0</span> <span class="pre">}</span></code></p>
+<p>where W and H stand for width and height in px respectively</p>
+</div>
+<div class="section" id="hintinsets">
+<h2>HintInsets<a class="headerlink" href="#hintinsets" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="buttonopenopacity">
+<h2>ButtonOpenOpacity<a class="headerlink" href="#buttonopenopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="buttoninactiveopacity">
+<h2>ButtonInactiveOpacity<a class="headerlink" href="#buttoninactiveopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="hintimageinsets">
+<h2>HintImageInsets<a class="headerlink" href="#hintimageinsets" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="vendoropacity">
+<h2>VendorOpacity<a class="headerlink" href="#vendoropacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentimageinsets">
+<h2>ContentImageInsets<a class="headerlink" href="#contentimageinsets" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentopacity">
+<h2>ContentOpacity<a class="headerlink" href="#contentopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentbackopacity">
+<h2>ContentBackOpacity<a class="headerlink" href="#contentbackopacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentbackcolor">
+<h2>ContentBackColor<a class="headerlink" href="#contentbackcolor" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentactivitycolor">
+<h2>ContentActivityColor<a class="headerlink" href="#contentactivitycolor" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentimage">
+<h2>ContentImage<a class="headerlink" href="#contentimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentarrowsize">
+<h2>ContentArrowSize<a class="headerlink" href="#contentarrowsize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentarrowoffset">
+<h2>ContentArrowOffset<a class="headerlink" href="#contentarrowoffset" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentarrowimaget">
+<h2>ContentArrowImageT<a class="headerlink" href="#contentarrowimaget" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentarrowimageb">
+<h2>ContentArrowImageB<a class="headerlink" href="#contentarrowimageb" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentarrowimagel">
+<h2>ContentArrowImageL<a class="headerlink" href="#contentarrowimagel" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="contentarrowimager">
+<h2>ContentArrowImageR<a class="headerlink" href="#contentarrowimager" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used</p>
+</div>
+<div class="section" id="hintarrowsize">
+<h2>HintArrowSize<a class="headerlink" href="#hintarrowsize" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.</p>
+</div>
+<div class="section" id="hintarrowoffset">
+<h2>HintArrowOffset<a class="headerlink" href="#hintarrowoffset" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.</p>
+</div>
+<div class="section" id="hintarrowimaget">
+<h2>HintArrowImageT<a class="headerlink" href="#hintarrowimaget" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.</p>
+</div>
+<div class="section" id="hintarrowimageb">
+<h2>HintArrowImageB<a class="headerlink" href="#hintarrowimageb" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.</p>
+</div>
+<div class="section" id="hintarrowimagel">
+<h2>HintArrowImageL<a class="headerlink" href="#hintarrowimagel" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.</p>
+</div>
+<div class="section" id="hintarrowimager">
+<h2>HintArrowImageR<a class="headerlink" href="#hintarrowimager" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Not used.</p>
+</div>
+<div class="section" id="id15">
+<h2>Остальные параметры<a class="headerlink" href="#id15" title="Ссылка на этот заголовок">¶</a></h2>
+<p>DefaultDuration, DefaultDelay, OpenDuration, OpenDelay, CloseDuration, CloseDelay, ButtonShowDuration, ButtonShowDelay, ButtonHideDuration, ButtonHideDelay, ButtonDragDuration, ButtonDragDelay, ButtonUndragDuration: 0.2, ButtonUndragDelay, ButtonInactiveDuration, ButtonInactiveDelay, ButtonInertiaSpeed, ButtonInertiaSpeedMin, ButtonInertiaSpeedMax, ButtonInertiaFactor, CloseShowDuration, CloseShowDelay, CloseHideDuration, CloseHideDelay, CloseActiveDuration, CloseActiveDelay, CloseUnactiveDuration, CloseUnactiveDelay, HintLaunchDuration, HintLaunchDelay, HintShowDuration, HintShowDelay, HintHideDuration, HintHideDelay, ContentShowDuration, ContentShowDelay, ContentHideDuration, ContentHideDelay</p>
+<p>Not used</p>
+</div>
+</div>
+<div class="section" id="button-default-params">
+<h1>Button default params<a class="headerlink" href="#button-default-params" title="Ссылка на этот заголовок">¶</a></h1>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

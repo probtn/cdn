@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>General description of the button &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>General description of the button</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs-en/description.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="general-description-of-the-button">
+<span id="description"></span><h1>General description of the button<a class="headerlink" href="#general-description-of-the-button" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="recieving-button-settings">
+<h2>Recieving button settings<a class="headerlink" href="#recieving-button-settings" title="Ссылка на этот заголовок">¶</a></h2>
+<p>There are a few ways the button script gets the settings (in the settings priority):</p>
+<ul class="simple">
+<li>Settings are specified locally when the button is launched</li>
+<li>Settings are obtained (text conversion from a string in json) from div where <code class="docutils literal"><span class="pre">id=&quot;probtn_additional_params&quot;</span></code></li>
+<li>Settings are obtained from the json file containing button settings (no settings request is sent to the server)</li>
+<li>Settings are obtained from the server (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>), the most popular and easy way</li>
+</ul>
+<p>The list of used parameters and their description is available in the document Probtn web params</p>
+<ul class="simple">
+<li>Brief description of communication with the settings server (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)</li>
+</ul>
+<p>Zero initialization is activated when the button sends a settings request to admin.probtn.com. The settings are identified based on the site domain (in particular, among others the request transfers the parameter BundleID which contains the site domain automatically extracted from the <code class="docutils literal"><span class="pre">document.domain</span></code>).</p>
+<p>If settings are specified using methods 1 and 2 and the domain parameter with the domain identifier corresponding to an app from admin.probtn.com is set among others, the button script when requesting the server, transfers the indicated parameter and obtains its setings. This could be helpful when one button with the required settings is to be displayed on a numbrer of sites, or, on the contrary, when a number of adds is to be displayed on one site (here you can use a campaign in an app but it doesn&#8217;t always work).</p>
+<p>If an app (and its campaigns) are off, the server responds that the button is disabled and, consequently, it is not displayed and no further initialization is launched.</p>
+<p>If an app with a specified bandle id domain does not exist, an error is returned and no further button initialization is activated either.</p>
+</div>
+<div class="section" id="id1">
+<h2>Интеграция со сторонними сервисами<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Documentation</p>
+<ul class="simple">
+<li>AdRiver - Integration with Adriver</li>
+<li>AdRiver  - Integration with AdRiver when the custom domain is specified</li>
+<li>AdRiver javascriptJavaScript - Integration with  AdRiver for the banner javascript/JavaScript</li>
+<li>AdFox - Integration with AdFox</li>
+<li>AdFox  - Integration with  AdFox when the custom domain is specified</li>
+<li>Probtn working with DFP Google ads - integration with DFP</li>
+</ul>
+</div>
+<div class="section" id="description-of-the-used-options">
+<h2>Description of the used options<a class="headerlink" href="#description-of-the-used-options" title="Ссылка на этот заголовок">¶</a></h2>
+<p>The above cited integration types show that these combinations are often used</p>
+<ul class="simple">
+<li><a class="reference external" href="http://cdn.probtn.com/includepb.min.js">http://cdn.probtn.com/includepb.min.js</a></li>
+<li><a class="reference external" href="http://cdn.probtn.com/showinparent.js">http://cdn.probtn.com/showinparent.js</a></li>
+<li><a class="reference external" href="http://cdn.probtn.com/probtn_concat.js">http://cdn.probtn.com/probtn_concat.js</a></li>
+<li><a class="reference external" href="http://cdn.probtn.com/showinparent_concat.js">http://cdn.probtn.com/showinparent_concat.js</a></li>
+</ul>
+<div class="section" id="includepb-min-js">
+<h3>includepb.min.js<a class="headerlink" href="#includepb-min-js" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The script adds necessary libraries on the page and initializes the launch of the button, if necessary.</p>
+</div>
+<div class="section" id="showinparent-js">
+<h3>showinparent.js<a class="headerlink" href="#showinparent-js" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The script adds necessary libraries on the page and initializes the launch of the button, if necessary.</p>
+<p>For the script to be able to add includepb.min.js to the parent, the iframe and the parent must be on the same domain (otherwise, a cross domain policy file is needed). For this purpose, the instructions contain an article on creating an HTML page using the showinparent.js script.</p>
+</div>
+<div class="section" id="probtn-concat-js">
+<h3>probtn_concat.js<a class="headerlink" href="#probtn-concat-js" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The script adds necessary libraries on the page and initializes the launch of the button, if necessary.</p>
+<p>All necessary buttons are added in this file and to its own jQuery version run with <code class="docutils literal"><span class="pre">jQuery.noConflict</span> <span class="pre">(true)</span></code></p>
+</div>
+<div class="section" id="showinparent-concat-js">
+<h3>showinparent_concat.js<a class="headerlink" href="#showinparent-concat-js" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The script adds <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> to the parent page (if the page with the <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> code is already set as <code class="docutils literal"><span class="pre">window.top</span></code>, the <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> code is automatically added)</p>
+<p>For the script to be able to add  probtn_concat.js to the parent, the iframe and the parent must be on the same domain (otherwise, a cross domain policy file is needed). For this purpose, the instructions contain an article on creating an HTML page using the showinparent_concat.js script.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
