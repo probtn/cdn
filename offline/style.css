@@ -1,0 +1,110 @@
+/*body {
+    touch-action: auto !important;
+    -ms-touch-action: auto !important;
+	
+	-ms-scroll-limit-y-max: inherit !important;
+	overflow: inherit !important;
+}*/
+#probtn_wrapper {
+    position: fixed !important;
+    z-index: 111000;
+    cursor: default !important;
+}
+
+#probtn_button {
+    z-index: 113000;
+    cursor: pointer;
+}
+
+.probtn_button {
+    background: transparent !important;
+}
+
+#probtn_mainButtonImage {
+    z-index: 112000;
+}
+
+.probtn_active_zone {
+	z-index: 111000;
+}
+
+#probtn_closeButton, #closeButton {
+    display: block;
+    position: fixed;
+    top: 200px;
+    left: 400px;
+    z-index: 101000;
+}
+
+
+#probtn_button img {
+    margin: 0 auto;
+    display: block;
+}
+
+#probtn_button #probtn_hintText, #probtn_wrapper #probtn_hintText, #probtn_button #hintText, #probtn_wrapper #hintText {
+    clear: both;
+    display: block;
+    width: auto;
+    height: auto;
+    padding-top: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    background: gray;
+    display: inline-block;
+    width: auto;
+}
+
+#probtn_menu {
+    list-style: none;
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#probtn_menu_ul {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#probtn_menu li {
+    width: 14.8em;
+    height: 3.4em;
+    padding: .9em 1em;
+    top: .4em;
+    left: 5.6em;
+    white-space: nowrap;
+    border-radius: .3em;
+    background-color: rgba(49,55,61,.95);
+
+    cursor: pointer;
+    list-style: none;
+    margin: 3px;
+}
+
+#probtn_menu li span, #probtn_menu li span a {
+    /*font-size: 1.4em !important;*/
+    font-weight: 400;
+    font-style: normal;
+    /*color: #fff;*/
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    /*font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;*/
+}
+
+#probtn_menu a {
+    text-decoration: none;
+    border-bottom: 0px solid transparent;
+}
+
+#probtn_menu li span {
+    margin-top: -10px;
+    display: inline-block;
+    text-decoration: none;
+}

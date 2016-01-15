@@ -9,6 +9,7 @@ module.exports = function(grunt) {
 			'probtn_concat_full.js': ['src/probtn_concat_template.js'], // Source files
 			'custom_include/maximonline_full.js': ['src/maximonline_template.js'],
 			'custom_include/probtn_kp_full.js': ['src/kp_probtn_template.js'],
+			'offline/probtn_concat_offline.js': ['src/probtn_concat_offline_template.js'], // Source files
 			//flatten: true,
 			//cwd: '.',
 			/*options: {

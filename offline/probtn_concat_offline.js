@@ -18,10 +18,10 @@ function probtn_callPlayer(frame_id, func, args) {
     var jquerypepPath = "//cdn.probtn.com/libs/jquery.pep.min.js";
     var fancyboxPath = "//cdn.probtn.com/libs/jquery.fancybox.min.js";
     var fancyboxCssPath = "//cdn.probtn.com/libs/jquery.fancybox.min.css";
-    var probtnPath = "//cdn.probtn.com/probtn.js"; //"//probtnexample1.azurewebsites.net/probtn2.js";
+
     var jqueryPath = '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js';
-    var isServerCommunicationEnabled = true;
-    var useLocalFileSettings = false;
+    var isServerCommunicationEnabled = false;
+    var useLocalFileSettings = true;
     var localSettingsPath = "settings.json";
     var isHPMD = false;
     try {
@@ -5790,14 +5790,15 @@ function probtn_callPlayer(frame_id, func, args) {
 
             jQuery(document).StartButton({
                 isHPMD: isHPMD,
-                hpmd: window.probtn_hpmd,
 
                 mainStyleCss: mainStyleCssPath,
                 fancyboxCssPath: fancyboxCssPath,
-                fancyboxJsPath: fancyboxPath,
-                jqueryPepPath: jquerypepPath,
+
 				loadFancyboxJS: false,
-				loadJqueryPepJS: false
+				loadJqueryPepJS: false,
+				useLocalFileSettings: useLocalFileSettings, 
+				isServerCommunicationEnabled: isServerCommunicationEnabled, 
+				localSettingsPath: localSettingsPath
             })
     }
 
