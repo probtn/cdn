@@ -22,6 +22,7 @@
 ``<script src="direct/probtn_concat_offline.js"></script>``
 
 Пример работы интеграции на демо странице AdButton
+
 * http://cdn.probtn.com/offline/index.html
 * http://probtn-avito.azurewebsites.net/offline/
 
