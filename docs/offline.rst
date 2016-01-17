@@ -11,32 +11,33 @@
 Инструкция описывает использование рекламного формата плавающей кнопки AdButton без обращений из кода кнопки к внешнему сервер, например, к панели администрирования AdButton (оффлайн режим). Этот вариант интеграции разработан для уменьшения рисков загрузки внешнего кода на сайт с установленным форматом. Для реализации этого функционала, код кнопки и данные настройки кампаний, расположены локально на веб-сервере. Креатив 
 
 Для реализации кампании необходимо:
-загрузить архив с кодом на сайт. В архив включена демонстрационная страница и все необходимые файлы
-https://yadi.sk/d/yJyjsW27kF322
+загрузить код на сайт (либо файлы из архива). В архив включена демонстрационная страница и все необходимые файлы для работы как примера, так и собственного варианта
+
+* ``http://cdn.probtn.com/offline/probtn_concat_offline.js`` - сама библиотека
+* ``http://cdn.probtn.com/offline/example.zip`` - архив с примером
+* ``http://cdn.probtn.com/offline/index.html`` - пример работы режима на cdn
 
 добавить теги вызова
 
-``<script src="direct/probtn_concat.js"></script>``
+``<script src="direct/probtn_concat_offline.js"></script>``
 
 Пример работы интеграции на демо странице AdButton
-http://probtn-avito.azurewebsites.net/offline/
+* http://cdn.probtn.com/offline/index.html
+* http://probtn-avito.azurewebsites.net/offline/
 
 Описание архива:
 
-* ``settings.txt`` - настройки кнопки, выгружаемые из admin.probtn.com для целевой кампании
+* ``settings.json`` - настройки кнопки, выгружаемые из admin.probtn.com для целевой кампании
 * ``style.css`` - стили 
-* ``probtn_concat.js`` - код кнопки, объединенный со всеми зависимостями
-* ``libs/`` - дополнительные файлы (картинки, стили модального окна)
+* ``probtn_concat_offline.js`` - код кнопки, объединенный со всеми зависимостями
+* ``other/`` - дополнительные файлы (картинки, стили модального окна)
 
-В ``probtn_concat.js`` настраиваются пути к файлам:
+В ``probtn_concat_offline.js`` настраиваются пути к файлам:
 
-``var mainStyleCssPath = "style.css";``
+* ``var mainStyleCssPath = "style.css";``
+* ``var fancyboxCssPath = "libs/jquery.fancybox.min.css";``
+* ``var localSettingsPath = "settings.json";``
 
-``var fancyboxCssPath = "libs/jquery.fancybox.min.css";``
-
-``var localSettingsPath = "settings.txt";``
-
-
-``mainStyleCssPath`` - URL до стилей кнопки
-``fancyboxCssPath`` - URL до стилей fancybox
-``localSettingsPath`` - URL до файла с локальными настройками кнопки
+* ``mainStyleCssPath`` - URL до стилей кнопки
+* ``fancyboxCssPath`` - URL до стилей fancybox
+* ``localSettingsPath`` - URL до файла с локальными настройками кнопки

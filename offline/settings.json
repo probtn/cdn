@@ -1,1 +1,153 @@
-{"result":{"CampaignID":"5576db518cfc44091c001176","ContentURL":"//jaguar-atlantm.by/upload/attachments/2/1/2115cee1a53649bb92b3b660e535e173.mp4","ButtonContentType":"video","ButtonImage":"https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?url=https://probtn.blob.core.windows.net/probtn-uploads/RWBo9NbrNIbtn_xe_1.png&container=focus&refresh=86400&resize_h=90&resize_w=131","ButtonImage2x":"https://probtn.blob.core.windows.net/probtn-uploads/MBzP4NnEMTbtn_xe_1@2x.png","ButtonOpacity":1,"ButtonPosition":{"X":0.8,"Y":0.15},"ButtonSize":{"W":131,"H":90},"ButtonType":"button_and_scroll_zones","CloseActiveSize":{"W":118,"H":101},"CloseImage":"http://probtn.blob.core.windows.net/probtn-custom-upload/btn_trash_1-4.png","ClosePosition":{"X":0.85,"Y":0.85},"CloseSize":{"W":108,"H":91},"ContentInsets":{"T":12,"B":12,"L":12,"R":12},"ContentSize":{"W":100,"H":100,"X":"100%","Y":"100%"},"HideAfterFirstShow":true,"HideWithoutInteractionTime":20000,"HintText":"","ScrollZones":[{"Active":true,"ButtonImage":"https://probtn.blob.core.windows.net/probtn-uploads/CNdeDEflYCbtn_xe_1.png","ButtonDragImage":"https://probtn.blob.core.windows.net/probtn-uploads/ItFALaWOSrbtn_xe_1.png","ButtonImage2x":"https://probtn.blob.core.windows.net/probtn-uploads/klJIIihBLrbtn_xe_1@2x.png","ButtonDragImage2x":"https://probtn.blob.core.windows.net/probtn-uploads/K0fS3MvnvYbtn_xe_1@2x.png","HintText":"Press me","TrackingLink":"","ReqTrackingLink":false,"CustomButtonParams":true,"ButtonSize":{"W":131,"H":90},"ButtonDragSize":{"W":131,"H":90},"ButtonOpacity":0.8,"ButtonDragOpacity":1,"ZoneHeight":0.34},{"Active":true,"ButtonImage":"https://probtn.blob.core.windows.net/probtn-uploads/X7vOf49K7obtn_xe_2.png","ButtonDragImage":"https://probtn.blob.core.windows.net/probtn-uploads/t2SLbaO37Bbtn_xe_2.png","ButtonImage2x":"https://probtn.blob.core.windows.net/probtn-uploads/JzYuPY1Xlibtn_xe_2@2x.png","ButtonDragImage2x":"https://probtn.blob.core.windows.net/probtn-uploads/LWoQoVHNFhbtn_xe_2@2x.png","HintText":"Press me","TrackingLink":"","ReqTrackingLink":false,"CustomButtonParams":true,"ButtonSize":{"W":105,"H":105},"ButtonDragSize":{"W":105,"H":105},"ButtonOpacity":0.8,"ButtonDragOpacity":1,"ZoneHeight":0.33},{"Active":true,"ButtonImage":"https://probtn.blob.core.windows.net/probtn-uploads/GQx3KpS4iLbtn_xe_3.png","ButtonDragImage":"https://probtn.blob.core.windows.net/probtn-uploads/by8tVsGcY6btn_xe_3.png","ButtonImage2x":"https://probtn.blob.core.windows.net/probtn-uploads/Cxj9OL9D7Mbtn_xe_3@2x.png","ButtonDragImage2x":"https://probtn.blob.core.windows.net/probtn-uploads/o8dEobTcKMbtn_xe_3@2x.png","HintText":"Press me","TrackingLink":"","ReqTrackingLink":false,"CustomButtonParams":true,"ButtonSize":{"W":125,"H":72},"ButtonDragSize":{"W":125,"H":72},"ButtonOpacity":0.8,"ButtonDragOpacity":1,"ZoneHeight":0.33}],"VendorSite":"http://addinapp.ru/","VendorText":"Provided by Add in App","ZCustomCss":"#probtn_closeButton {\r\ndisplay: block !important;\r\n}","ButtonDragSize":{"W":131,"H":90},"ButtonOpenSize":{"W":131,"H":90},"ButtonDragImage":"https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?url=https://probtn.blob.core.windows.net/probtn-uploads/RWBo9NbrNIbtn_xe_1.png&container=focus&refresh=86400&resize_h=90&resize_w=131","ButtonOpenImage":"https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?url=https://probtn.blob.core.windows.net/probtn-uploads/RWBo9NbrNIbtn_xe_1.png&container=focus&refresh=86400&resize_h=90&resize_w=131","ButtonVisible":true,"ButtonEnabled":true,"ExternalMode":false,"NeverClose":false,"AndroidMinApiLevel":16,"OpenExternal":false,"LoadFancyboxCSS":true,"IsManualSize":true,"VendorTextColor":{"R":1,"G":1,"B":1,"A":1},"VendorTextFont":{"Family":"Arial","Size":10},"VendorOpacity":0.4,"VendorColor":{"R":0,"G":0,"B":0,"A":1}}}
+{
+  "result": {
+    "CampaignID": "5576db518cfc44091c001176",
+    "ContentURL": "//jaguar-atlantm.by/upload/attachments/2/1/2115cee1a53649bb92b3b660e535e173.mp4",
+    "ButtonContentType": "video",
+    "ButtonImage": "other/RWBo9NbrNIbtn_xe_1.png",
+    "ButtonImage2x": "other/MBzP4NnEMTbtn_xe_1@2x.png",
+    "ButtonOpacity": 1,
+    "ButtonPosition": {
+      "X": 0.8,
+      "Y": 0.15
+    },
+    "ButtonSize": {
+      "W": 131,
+      "H": 90
+    },
+    "ButtonType": "button_and_scroll_zones",
+    "CloseActiveSize": {
+      "W": 118,
+      "H": 101
+    },
+    "CloseImage": "other/btn_trash_1-4.png",
+    "ClosePosition": {
+      "X": 0.85,
+      "Y": 0.85
+    },
+    "CloseSize": {
+      "W": 108,
+      "H": 91
+    },
+    "ContentInsets": {
+      "T": 12,
+      "B": 12,
+      "L": 12,
+      "R": 12
+    },
+    "ContentSize": {
+      "W": 100,
+      "H": 100,
+      "X": "100%",
+      "Y": "100%"
+    },
+    "HideAfterFirstShow": true,
+    "HideWithoutInteractionTime": 20000,
+    "HintText": "",
+    "ScrollZones": [
+      {
+        "Active": true,
+        "ButtonImage": "other/CNdeDEflYCbtn_xe_1.png",
+        "ButtonDragImage": "other/CNdeDEflYCbtn_xe_1.png",
+        "ButtonImage2x": "other/klJIIihBLrbtn_xe_1@2x.png",
+        "ButtonDragImage2x": "other/klJIIihBLrbtn_xe_1@2x.png",
+        "HintText": "",
+        "TrackingLink": "",
+        "ReqTrackingLink": false,
+        "CustomButtonParams": true,
+        "ButtonSize": {
+          "W": 131,
+          "H": 90
+        },
+        "ButtonDragSize": {
+          "W": 131,
+          "H": 90
+        },
+        "ButtonOpacity": 0.8,
+        "ButtonDragOpacity": 1,
+        "ZoneHeight": 0.34
+      },
+      {
+        "Active": true,
+        "ButtonImage": "other/X7vOf49K7obtn_xe_2.png",
+        "ButtonDragImage": "other/X7vOf49K7obtn_xe_2.png",
+        "ButtonImage2x": "other/JzYuPY1Xlibtn_xe_2@2x.png",
+        "ButtonDragImage2x": "other/JzYuPY1Xlibtn_xe_2@2x.png",
+        "HintText": "",
+        "TrackingLink": "",
+        "ReqTrackingLink": false,
+        "CustomButtonParams": true,
+        "ButtonSize": {
+          "W": 105,
+          "H": 105
+        },
+        "ButtonDragSize": {
+          "W": 105,
+          "H": 105
+        },
+        "ButtonOpacity": 0.8,
+        "ButtonDragOpacity": 1,
+        "ZoneHeight": 0.33
+      },
+      {
+        "Active": true,
+        "ButtonImage": "other/GQx3KpS4iLbtn_xe_3.png",
+        "ButtonDragImage": "other/GQx3KpS4iLbtn_xe_3.png",
+        "ButtonImage2x": "other/Cxj9OL9D7Mbtn_xe_3@2x.png",
+        "ButtonDragImage2x": "other/Cxj9OL9D7Mbtn_xe_3@2x.png",
+        "HintText": "",
+        "TrackingLink": "",
+        "ReqTrackingLink": false,
+        "CustomButtonParams": true,
+        "ButtonSize": {
+          "W": 125,
+          "H": 72
+        },
+        "ButtonDragSize": {
+          "W": 125,
+          "H": 72
+        },
+        "ButtonOpacity": 0.8,
+        "ButtonDragOpacity": 1,
+        "ZoneHeight": 0.33
+      }
+    ],
+    "VendorSite": "http://addinapp.ru/",
+    "VendorText": "Provided by Add in App",
+    "ZCustomCss": "#probtn_closeButton {\r\ndisplay: block !important;\r\n}",
+    "ButtonDragSize": {
+      "W": 131,
+      "H": 90
+    },
+    "ButtonOpenSize": {
+      "W": 131,
+      "H": 90
+    },
+    "ButtonDragImage": "other/RWBo9NbrNIbtn_xe_1.png",
+    "ButtonOpenImage": "other/MBzP4NnEMTbtn_xe_1@2x.png",
+    "ButtonVisible": true,
+    "ButtonEnabled": true,
+    "ExternalMode": false,
+    "NeverClose": false,
+    "AndroidMinApiLevel": 16,
+    "OpenExternal": false,
+    "LoadFancyboxCSS": true,
+    "IsManualSize": true,
+    "VendorTextColor": {
+      "R": 1,
+      "G": 1,
+      "B": 1,
+      "A": 1
+    },
+    "VendorTextFont": {
+      "Family": "Arial",
+      "Size": 10
+    },
+    "VendorOpacity": 0.4,
+    "VendorColor": {
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "A": 1
+    }
+  }
+}
