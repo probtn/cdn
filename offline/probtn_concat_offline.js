@@ -54,6 +54,107 @@ function probtn_callPlayer(frame_id, func, args) {
 			}
 
 
+			function initTrackingLinkTest() {
+			    var randomString = function (length) {
+			        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+			    }
+			    try {
+			        var addLink = function (link) {
+			            var trackingImage = window.top.document.createElement('img');
+			            trackingImage.id = "probtn_includepb_tracking_image";
+			            trackingImage.alt = "probtn_includepb_tracking_image";
+			            trackingImage.src = link;
+			            trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+			            document.body.appendChild(trackingImage);
+			        }
+
+			        var domain = document.domain.replace("www.", "");
+			        if ((domain == "cars.ru") || (domain == "vesti.ru")) {
+			            var link = "https://goo.gl/8jYqat?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+
+			        if ((domain == "rusnovosti.ru")) {
+			            var link = "https://goo.gl/uAzUX7?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+
+			        if ((domain == "cosmo.ru") || (domain == "m.cosmo.ru")) {
+			            var link = "https://goo.gl/R3RuJr?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+
+			        if ((domain == "goodhouse.ru") || (domain == "m.goodhouse.ru")) {
+			            var link = "https://goo.gl/Wf4gGY?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+
+			        if ((domain == "m.sport-express.ru") || (domain == "sport-express.ru")) {
+			            var link = "https://goo.gl/kviXUs?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+
+			        if ((domain == "justlady.ru")) {
+			            var link = "https://goo.gl/mb2UlI?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+
+			        if ((domain == "m.pinme.ru") || (domain == "pinme.ru")) {
+			            var link = "https://goo.gl/k4In4j?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+
+			        if ((domain == "marieclaire.ru")) {
+			            var link = "https://goo.gl/Aq1cRu?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }
+			        
+
+			        //0 sec
+			        /*var link = "https://goo.gl/reULjm?probtn_random=" + randomString(12);
+			        addLink(link);
+			        //2 sec
+			        setTimeout(function () {
+			            var link = "https://goo.gl/yEfGOw?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }, 2000);
+			        //5 sec
+			        setTimeout(function () {
+			            var link = "https://goo.gl/7r0Dzm?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }, 5000);
+			        //10 sec
+			        setTimeout(function () {
+			            var link = "https://goo.gl/vmIr0l?probtn_random=" + randomString(12);
+			            addLink(link);
+			        }, 10000);*/
+			    } catch (ex) { };
+			};
+			initTrackingLinkTest();
+
+			    /*var domain = document.domain.replace("www.", "");
+			    if ((domain == "finanz.ru")) {
+			        var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
+
+			        function loadJS(src, callback) {
+			            var s = window.top.document.createElement('script');
+			            s.src = src;
+			            s.async = true;
+			            s.onreadystatechange = s.onload = function () {
+			                var state = s.readyState;
+			                if (!callback.done && (!state || /loaded|complete/.test(state))) {
+			                    callback.done = true;
+			                    callback();
+			                }
+			            };
+			            window.top.document.getElementsByTagName('head')[0].appendChild(s);
+			        }
+
+			        loadJS('//cdn.probtn.com/probtn_concat.js', function () {
+			        });
+			    } else {*/
+
+
 			        /**
 			         * UAParser.js v0.7.8
 			         * Lightweight JavaScript-based User-Agent string parser
@@ -5234,6 +5335,27 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            }
 
 			                            function receiveMessage(event) {
+			                                try {
+			                                    switch (event.data.command) {
+			                                        case "button_image_iframe_disable_overlay":
+			                                            $("#pizzabtnIframeOverlay").hide();
+			                                            break;
+			                                        case "button_image_iframe_done":
+			                                            $("#pizzabtnIframeOverlay").show();
+			                                            break;
+			                                        case "button_image_iframe_size":
+			                                            $("#pizzabtnIframeOverlay").css({
+			                                                'width': event.data.size.w,
+			                                                'height': event.data.size.h
+			                                            });
+			                                            break;
+			                                        default:
+			                                            break;
+			                                    }
+			                                } catch (ex) {
+
+			                                }
+
 			                                try {
 			                                    ProBtnControl.params.ParentParams.width = event.data.width;
 			                                    ProBtnControl.params.ParentParams.height = event.data.height;

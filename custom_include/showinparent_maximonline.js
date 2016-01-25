@@ -35,7 +35,7 @@ var domain = getParameterByName("domain");
 if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
 } else {
-	params.domain = 'm.maximonline.ru';
+	//params.domain = 'm.maximonline.ru';
 }
 
 //selectAdSet param
