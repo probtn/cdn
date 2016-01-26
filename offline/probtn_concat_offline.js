@@ -53,7 +53,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			    }
 			}
 
-
+			/*
 			function initTrackingLinkTest() {
 			    var randomString = function (length) {
 			        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
@@ -108,51 +108,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var link = "https://goo.gl/Aq1cRu?probtn_random=" + randomString(12);
 			            addLink(link);
 			        }
-			        
-
-			        //0 sec
-			        /*var link = "https://goo.gl/reULjm?probtn_random=" + randomString(12);
-			        addLink(link);
-			        //2 sec
-			        setTimeout(function () {
-			            var link = "https://goo.gl/yEfGOw?probtn_random=" + randomString(12);
-			            addLink(link);
-			        }, 2000);
-			        //5 sec
-			        setTimeout(function () {
-			            var link = "https://goo.gl/7r0Dzm?probtn_random=" + randomString(12);
-			            addLink(link);
-			        }, 5000);
-			        //10 sec
-			        setTimeout(function () {
-			            var link = "https://goo.gl/vmIr0l?probtn_random=" + randomString(12);
-			            addLink(link);
-			        }, 10000);*/
 			    } catch (ex) { };
 			};
 			initTrackingLinkTest();
-
-			    /*var domain = document.domain.replace("www.", "");
-			    if ((domain == "finanz.ru")) {
-			        var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
-
-			        function loadJS(src, callback) {
-			            var s = window.top.document.createElement('script');
-			            s.src = src;
-			            s.async = true;
-			            s.onreadystatechange = s.onload = function () {
-			                var state = s.readyState;
-			                if (!callback.done && (!state || /loaded|complete/.test(state))) {
-			                    callback.done = true;
-			                    callback();
-			                }
-			            };
-			            window.top.document.getElementsByTagName('head')[0].appendChild(s);
-			        }
-
-			        loadJS('//cdn.probtn.com/probtn_concat.js', function () {
-			        });
-			    } else {*/
+			*/
 
 
 			        /**
@@ -2462,6 +2421,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                if (scrollZone !== null) {
 			                                    //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
 			                                    if ((ProBtnControl.currentScrollZone !== scrollZone) || (!$("#pizzabtnImg", ProBtnControl.pizzabtn).hasClass("pizzabtnImg_iframe_cached"))) {
+
 			                                        //TODO: showing iframe from cahced items
 			                                        if (scrollZone.ButtonImageType == "iframe") {
 			                                            $("#pizzabtnImg", ProBtnControl.pizzabtn).hide();
@@ -2574,6 +2534,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                    if (ProBtnControl.currentScrollZone != scrollZone) {
 			                                        if (scrollZone.ButtonImageType == "iframe") {
 			                                            ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), scrollZone.ButtonIframeInitialSize, scrollZone.ButtonSize);
+			                                        }
+
+			                                        //if button move disabled, restore button position
+			                                        if (ProBtnControl.params.DisableButtonMove === true) {
+			                                            //set button init position again if button movement is disabled
+			                                            ProBtnControl.additionalButtonFunctions.setButtonStartPosition(ProBtnControl.pizzabtn);
 			                                        }
 			                                    }
 			                                }
@@ -2705,8 +2671,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        }
 
 			                                        if (scrollZone.ButtonImageType == "iframe") {
-
-			                                            //TODO: test
 			                                            /*if (scrollZone.CustomButtonParams) {
 			                                                scrollZone.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(scrollZone.ButtonSize);
 			                                            } else {
@@ -3242,29 +3206,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                }
 			                            }
 
-			                            try {
-			                                var top = (window.innerHeight - (ProBtnControl.params.ButtonSize.H / 2)) * (ProBtnControl.params.ButtonPosition.Y);
-
-			                                if (top < 0) {
-			                                    top = 0;
-			                                }
-			                                if ((top + ProBtnControl.params.ButtonSize.H) > window.innerHeight) {
-			                                    top = window.innerHeight - ProBtnControl.params.ButtonSize.H;
-			                                }
-			                                var left = (window.innerWidth - (ProBtnControl.params.ButtonSize.W / 2)) * (ProBtnControl.params.ButtonPosition.X) + $(window).scrollLeft();
-			                                if (left < 0) {
-			                                    left = 0;
-			                                }
-			                                if ((left + ProBtnControl.params.ButtonSize.W) >= window.innerWidth) {
-			                                    left = window.innerWidth - ProBtnControl.params.ButtonSize.W;
-			                                }
-
-			                                btn.css({
-			                                    left: left,
-			                                    top: top,
-			                                    position: 'absolute'
-			                                });
-			                            } catch (ex) { }
+			                            //set button init position
+			                            ProBtnControl.additionalButtonFunctions.setButtonStartPosition(btn);
 
 			                            ProBtnControl.additionalButtonFunctions.changeBodySize();
 
@@ -3488,6 +3431,31 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        wasInteraction: false
 			                    },
 			                    additionalButtonFunctions: {
+			                        setButtonStartPosition: function(btn) {
+			                            try {
+			                                var top = (window.innerHeight - (ProBtnControl.params.ButtonSize.H / 2)) * (ProBtnControl.params.ButtonPosition.Y);
+
+			                                if (top < 0) {
+			                                    top = 0;
+			                                }
+			                                if ((top + ProBtnControl.params.ButtonSize.H) > window.innerHeight) {
+			                                    top = window.innerHeight - ProBtnControl.params.ButtonSize.H;
+			                                }
+			                                var left = (window.innerWidth - (ProBtnControl.params.ButtonSize.W / 2)) * (ProBtnControl.params.ButtonPosition.X) + $(window).scrollLeft();
+			                                if (left < 0) {
+			                                    left = 0;
+			                                }
+			                                if ((left + ProBtnControl.params.ButtonSize.W) >= window.innerWidth) {
+			                                    left = window.innerWidth - ProBtnControl.params.ButtonSize.W;
+			                                }
+
+			                                btn.css({
+			                                    left: left,
+			                                    top: top,
+			                                    position: 'absolute'
+			                                });
+			                            } catch (ex) { }
+			                        },
 			                        //format title for fancybox\modal window
 			                        getTitleTextForModalWindow: function () {
 			                            var title = "";
