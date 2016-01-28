@@ -1,5 +1,5 @@
 # CDN files
-This is CDN files for probtn.com
+This is CDN files for http://probtn.com
 
 #Directories description
 
