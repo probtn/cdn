@@ -1,4 +1,6 @@
 module.exports = function(grunt) {
+	
+  //var mozjpeg = require('imagemin-mozjpeg');
 
   // Project configuration.
   grunt.initConfig({
@@ -18,6 +20,30 @@ module.exports = function(grunt) {
 		  }
 		}
 	},
+	imagemin: {
+		path1: {  
+		  options: { 
+		  	optimizationLevel: 7,
+		  },
+		  files: [{
+			expand: true,          // Enable dynamic expansion
+			cwd: 'images/',           // Src matches are relative to this path
+			src: ['*.{png,jpg}'],       // Actual patterns to match
+			dest: 'images' 
+		  }]
+		},
+		path2: {  
+		  options: { 
+		  	optimizationLevel: 7,
+		  },
+		  files: [{
+			expand: true,          // Enable dynamic expansion
+			cwd: 'iframe_buttons/',           // Src matches are relative to this path
+			src: ['**/*.{png,jpg}'],       // Actual patterns to match
+			dest: 'iframe_buttons' 
+		  }]
+		}
+  },
 	uglify: {
 		default: {
           files: {
@@ -57,9 +83,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-includes');
   grunt.loadNpmTasks('grunt-githooks');
   grunt.loadNpmTasks('grunt-git');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-newer');
 
   // Default task(s).
-  grunt.registerTask('default', ['includes', 'uglify']);
+  grunt.registerTask('default', ['includes', 'uglify', 'newer:imagemin']);
 
 };
 
