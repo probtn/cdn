@@ -1,4 +1,5 @@
 (function () {
+if (document.domain!=="m.baby.ru") {
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
@@ -52,7 +53,9 @@ try {
 } catch (ex) {
 }
 
+
 loadJS('//cdn.probtn.com/probtn_concat.js', function () {
 });
+}
 
 })();
