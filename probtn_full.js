@@ -4181,7 +4181,6 @@ initTrackingLinkTest();
                     },
                     rolloutAnimation: function () {
                         var rolloutParams = ProBtnControl.params.isAnimation.split('_');
-                        console.log("rolloutParams", rolloutParams);
 
                         var side = "left";
                         try {
@@ -4189,7 +4188,6 @@ initTrackingLinkTest();
                                 side = rolloutParams[1];
                             }        
                         } catch (ex) {
-                            console.log(ex);
                         }
 
                         if (rolloutParams[0] == "rollout") {
@@ -4208,9 +4206,7 @@ initTrackingLinkTest();
                                         rollOutPercent = rolloutParams[2];
                                     } else { }
                                 } catch (ex) {
-                                    console.log(ex);
                                 }
-                                console.log("rollOutPercent", rollOutPercent);
 
                                 var doc = document.documentElement;
                                 var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
@@ -4236,13 +4232,109 @@ initTrackingLinkTest();
                                 if (side == 'right') {
                                     ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2) - ((rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
                                 } else {
-                                    console.log("left", -(ProBtnControl.params.ButtonSize.W * 0.8) + ((rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
                                     ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8) + ((rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
                                 }                                
 
                             };
                             
                             $(window).scroll(onScrollRollAnimation);
+                        }
+                    },
+
+                    lookoutAnimation: function () {
+                        var lookoutParams = ProBtnControl.params.isAnimation.split('_');               
+
+                        var side = "left";
+                        try {
+                            if ((lookoutParams[1] !== null) && (lookoutParams[1] !== undefined)) {
+                                side = lookoutParams[1];
+                            }
+                        } catch (ex) {
+                        }
+
+                        if (lookoutParams[0] == "lookout") {
+
+                            if (side == 'right') {
+                                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2));
+                            } else {
+                                ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8));
+                            }
+
+                            var rollOutPercent = 30;
+                            try {
+                                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
+                                    rollOutPercent = lookoutParams[2];
+                                } else { }
+                            } catch (ex) {
+                            }
+
+                            var doc = document.documentElement;
+                            var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+                            var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+
+                            var topButton = (window.innerHeight - (ProBtnControl.params.ButtonSize.H / 2)) * (ProBtnControl.params.ButtonPosition.Y);
+
+                            var ua = navigator.userAgent.toLowerCase();
+                            var isOpera = (ua.indexOf('opera') > -1);
+                            var isIE = (!isOpera && ua.indexOf('msie') > -1);
+
+                            var getViewportHeight = function () {
+                                return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat') ? document.documentElement.clientHeight : document.body.clientHeight : (document.parentWindow || document.defaultView).innerHeight;
+                            }
+
+                            var getDocumentHeight = function () {
+                                return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
+                            }
+
+                            var onBackLookOut = function (e) {
+                                if (side == 'right') {
+                                    var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
+                                } else {
+                                    var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
+                                }
+
+                                var rollOutPercent = 30;
+                                try {
+                                    if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
+                                        rollOutPercent = lookoutParams[2];
+                                    } else { }
+                                } catch (ex) {
+                                }
+
+                                ProBtnControl.pizzabtn.animate({
+                                    left: left
+                                }, {
+                                    duration: ProBtnControl.params.animationDuration,
+                                    step: function (now) {
+                                    },
+                                    complete: onLookOut
+                                });
+                            }
+
+                            var onLookOut = function (e) {                               
+
+                                var currentButtonHeight = ProBtnControl.pizzabtn.position().top;
+                                var buttonHeight = currentButtonHeight + top;
+
+
+                                if (side == 'right') {
+                                    var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.9);
+                                } else {
+                                    var left = -(ProBtnControl.params.ButtonSize.W * 0.1);
+                                }
+
+                                console.log("newLeft", left);
+
+                                ProBtnControl.pizzabtn.animate({
+                                    left: left
+                                }, {
+                                    duration: ProBtnControl.params.animationDuration,
+                                    complete: onBackLookOut
+                                });
+
+                            };
+
+                            onLookOut();
                         }
                     },
                     cornerToCornerAnimation: function () {
@@ -4288,7 +4380,8 @@ initTrackingLinkTest();
                         setTimeout(function () {
                             ProBtnControl.additionalButtonFunctions.animation.cornerToCornerAnimation();
 
-                            ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();                            
+                            ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();
+                            ProBtnControl.additionalButtonFunctions.animation.lookoutAnimation();
 
                             ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
                         }, 200);

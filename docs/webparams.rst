@@ -74,14 +74,16 @@ DisableButtonMove
 Отключить ли возможность перемещения кнопки
 
 По умолчанию: 
-false
+
+* false
 
 waitForIframeButtonLoaded
 ----------------------------------
 Ждать ли пока загрузится контент iframe кнопки
 
 По умолчанию: 
-true
+
+* true
 
 ButtonIframeInitialSize
 ----------------------------------
@@ -95,6 +97,7 @@ ButtonImageType
 Тип содержимого кнопки. По умолчанию image
 
 Варианты:
+
 * image
 * iframe
 
