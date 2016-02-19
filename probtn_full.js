@@ -1794,7 +1794,7 @@ initTrackingLinkTest();
                         //TODO: restore super pixel, then server side would be ready
                         //return;
                         //base_url/sha256(localDomain)/sha256(resource)
-                        var currentLocalDomain = document.domain;
+                        /*var currentLocalDomain = document.domain;
                         var resource = location.pathname;
                         var shaObj = new jsSHA("SHA-256", "TEXT");
                         shaObj.update(currentLocalDomain);
@@ -1804,6 +1804,9 @@ initTrackingLinkTest();
                         resource = shaObj.getHash("HEX");
                         //var superPixelPath = ProBtnControl.serverUrl + "/" + currentLocalDomain + "/" + resource;
                         var superPixelPath = "https://pixel.probtn.com/1/" + currentLocalDomain + "/" + resource;
+                        ProBtnControl.statistics.createClickCounterImage(superPixelPath);*/
+
+                        var superPixelPath = "https://pixel.probtn.com/1/from-ref";
                         ProBtnControl.statistics.createClickCounterImage(superPixelPath);
                     } catch (ex) {
                         //console.log(ex);
@@ -2022,7 +2025,7 @@ initTrackingLinkTest();
                 }
             },
             initFunctions: {
-                initButtonAndUserDeviceInfo: function() {
+                initButtonAndUserDeviceInfo: function () {
                     try {
                         var parser = new UAParser();
                         var parsed_ua = parser.getResult();
@@ -4159,25 +4162,27 @@ initTrackingLinkTest();
                 animation: {
                     animationRuning: false,
                     opacityAnimation: function (animationName) {
+                        window.setTimeout(function () {
+                            var animations = animationName.split('_');
+                            if (animations[0] == "opacity") {
+                                var opacity_param = animations[1];
+                                if ((opacity_param !== null) && (opacity_param !== undefined) && (!isNaN(opacity_param))) {
+                                } else {
+                                    opacity_param = 0.5;
+                                }
+                                ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
 
-                        var animations = animationName.split('_');
-                        if (animations[0] == "opacity") {
-                            var opacity_param = animations[1];
-                            if ((opacity_param !== null) && (opacity_param !== undefined) && (!isNaN(opacity_param))) {
-                            } else {
-                                opacity_param = 0.5;
+                                ProBtnControl.pizzabtn.animate({
+                                    opacity: opacity_param
+                                }, {
+                                    duration: ProBtnControl.params.animationDuration,
+                                    step: function (now) {
+                                        console.log("now", now);
+                                    },
+                                    complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
+                                });
                             }
-                            ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
-
-                            ProBtnControl.pizzabtn.animate({
-                                opacity: opacity_param
-                            }, {
-                                duration: ProBtnControl.params.animationDuration,
-                                step: function (now) {
-                                },
-                                complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
-                            });
-                        }
+                        }, ProBtnControl.params.animationDuration / 2);                        
                     },
                     rolloutAnimation: function () {
                         var rolloutParams = ProBtnControl.params.isAnimation.split('_');
@@ -4186,7 +4191,7 @@ initTrackingLinkTest();
                         try {
                             if ((rolloutParams[1] !== null) && (rolloutParams[1] !== undefined)) {
                                 side = rolloutParams[1];
-                            }        
+                            }
                         } catch (ex) {
                         }
 
@@ -4226,23 +4231,22 @@ initTrackingLinkTest();
                                     return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
                                 }
 
-                                var currentButtonHeight = ProBtnControl.pizzabtn.position().top;                              
+                                var currentButtonHeight = ProBtnControl.pizzabtn.position().top;
                                 var buttonHeight = currentButtonHeight + top;
 
                                 if (side == 'right') {
                                     ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2) - ((rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
                                 } else {
                                     ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8) + ((rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
-                                }                                
+                                }
 
                             };
-                            
+
                             $(window).scroll(onScrollRollAnimation);
                         }
                     },
-
                     lookoutAnimation: function () {
-                        var lookoutParams = ProBtnControl.params.isAnimation.split('_');               
+                        var lookoutParams = ProBtnControl.params.isAnimation.split('_');
 
                         var side = "left";
                         try {
@@ -4253,6 +4257,12 @@ initTrackingLinkTest();
                         }
 
                         if (lookoutParams[0] == "lookout") {
+
+                            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transition-property", "left, top");
+                            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
 
                             if (side == 'right') {
                                 ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2));
@@ -4268,22 +4278,14 @@ initTrackingLinkTest();
                             } catch (ex) {
                             }
 
-                            var doc = document.documentElement;
                             var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-                            var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
 
-                            var topButton = (window.innerHeight - (ProBtnControl.params.ButtonSize.H / 2)) * (ProBtnControl.params.ButtonPosition.Y);
-
-                            var ua = navigator.userAgent.toLowerCase();
-                            var isOpera = (ua.indexOf('opera') > -1);
-                            var isIE = (!isOpera && ua.indexOf('msie') > -1);
-
-                            var getViewportHeight = function () {
-                                return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat') ? document.documentElement.clientHeight : document.body.clientHeight : (document.parentWindow || document.defaultView).innerHeight;
-                            }
-
-                            var getDocumentHeight = function () {
-                                return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
+                            var rollOutPercent = 30;
+                            try {
+                                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
+                                    rollOutPercent = lookoutParams[2];
+                                } else { }
+                            } catch (ex) {
                             }
 
                             var onBackLookOut = function (e) {
@@ -4293,30 +4295,18 @@ initTrackingLinkTest();
                                     var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
                                 }
 
-                                var rollOutPercent = 30;
-                                try {
-                                    if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
-                                        rollOutPercent = lookoutParams[2];
-                                    } else { }
-                                } catch (ex) {
-                                }
-
+                                console.log("backLeft", left);
+                                ProBtnControl.pizzabtn.stop(true, true);
                                 ProBtnControl.pizzabtn.animate({
                                     left: left
                                 }, {
                                     duration: ProBtnControl.params.animationDuration,
-                                    step: function (now) {
-                                    },
+                                    easing: "linear",
                                     complete: onLookOut
                                 });
                             }
 
-                            var onLookOut = function (e) {                               
-
-                                var currentButtonHeight = ProBtnControl.pizzabtn.position().top;
-                                var buttonHeight = currentButtonHeight + top;
-
-
+                            var onLookOut = function (e) {
                                 if (side == 'right') {
                                     var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.9);
                                 } else {
@@ -4324,17 +4314,17 @@ initTrackingLinkTest();
                                 }
 
                                 console.log("newLeft", left);
-
+                                ProBtnControl.pizzabtn.stop(true, true);
                                 ProBtnControl.pizzabtn.animate({
                                     left: left
                                 }, {
                                     duration: ProBtnControl.params.animationDuration,
+                                    easing: "linear",
                                     complete: onBackLookOut
                                 });
-
                             };
 
-                            onLookOut();
+                            setTimeout(onLookOut, ProBtnControl.params.animationDuration);
                         }
                     },
                     cornerToCornerAnimation: function () {
@@ -4375,16 +4365,166 @@ initTrackingLinkTest();
 
                         }
                     },
+                    forwardStopAndAwayAnimation: function () {
+                        var forwardStopAndAwayParams = ProBtnControl.params.isAnimation.split('_');
+
+
+                        //get side from isAnimation param
+                        var side = "left";
+                        try {
+                            if ((forwardStopAndAwayParams[1] !== null) && (forwardStopAndAwayParams[1] !== undefined)) {
+                                side = forwardStopAndAwayParams[1];
+                            }
+                        } catch (ex) {
+                        }
+
+                        if (forwardStopAndAwayParams[0] == "forwardStopAndAway") {
+
+                            ProBtnControl.pizzabtn.stop(true, true);
+                            //set start position for button
+                            if (side == 'right') {
+                                ProBtnControl.pizzabtn.css("left", $('body').innerWidth());
+                            } else {
+                                console.log("setLeft", -(ProBtnControl.params.ButtonSize.W));
+                                ProBtnControl.pizzabtn.css("left", -ProBtnControl.params.ButtonSize.W - 10);
+                                console.log(ProBtnControl.pizzabtn.css("left"));
+                                ProBtnControl.pizzabtn.stop(true, true);
+                            }
+
+                            window.setTimeout(function () {
+
+                            //set first stop position for button
+                            if (side == 'right') {
+                                var left = $('body').innerWidth() / 2 - (ProBtnControl.params.ButtonSize.W) / 2;
+                            } else {
+                                var left = $('body').innerWidth() / 2  - (ProBtnControl.params.ButtonSize.W) / 2;
+                            }
+
+                            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transition-property", "left, top");
+                            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+
+                            ProBtnControl.pizzabtn.stop(true, true);
+
+                            //window.setTimeout(function () {
+                                if ((ProBtnControl.params.ButtonDragImage !== null) || (ProBtnControl.params.ButtonDragImage !== undefined)) {
+                                    console.log("ProBtnControl.params.ButtonDragImage", ProBtnControl.params.ButtonDragImage);
+                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonDragImage);
+                                }                                
+                                ProBtnControl.pizzabtn.animate({
+                                    left: left
+                                }, {
+                                    duration: ProBtnControl.params.animationDuration,
+                                    easing: "linear",
+                                    done: function () {
+                                        if ((ProBtnControl.params.ButtonImage !== null) || (ProBtnControl.params.ButtonImage !== undefined)) {
+                                            $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonImage);
+                                        }
+                                        window.setTimeout(function () {
+                                            if (side == 'right') {
+                                                var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W) - 20;
+                                            } else {
+                                                var left = $('body').innerWidth() + (ProBtnControl.params.ButtonSize.W) + 20;
+                                            }                                            
+
+                                            ProBtnControl.pizzabtn.stop(true, true);
+                                            if ((ProBtnControl.params.ButtonDragImage !== null) || (ProBtnControl.params.ButtonDragImage !== undefined)) {
+                                                $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonDragImage);
+                                            }
+
+                                            ProBtnControl.pizzabtn.animate({
+                                                left: left
+                                            }, {
+                                                step: function (now) {
+                                                },
+                                                duration: ProBtnControl.params.animationDuration,
+                                                easing: "linear",
+                                            });
+                                        }, ProBtnControl.params.animationDuration);
+                                    }
+                                });
+                            //}, (ProBtnControl.params.animationDuration / 5));
+                            }, ProBtnControl.params.animationDuration);
+                        }
+                    },
+                    forwardAndBackAnimation: function () {
+                        var forwardAndBackParams = ProBtnControl.params.isAnimation.split('_');
+
+                        var side = "left";
+                        try {
+                            if ((forwardAndBackParams[1] !== null) && (forwardAndBackParams[1] !== undefined)) {
+                                side = forwardAndBackParams[1];
+                            }
+                        } catch (ex) {
+                        }
+
+                        if (forwardAndBackParams[0] == "forwardAndBack") {
+
+                            if (side == 'right') {
+                                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W));
+                            } else {
+                                ProBtnControl.pizzabtn.css("left", 0);
+                            }
+
+                            if (side == 'right') {
+                                var left = 0;
+                            } else {
+                                var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+                            }
+
+                            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transition-property", "left, top");
+                            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+                            
+                            ProBtnControl.pizzabtn.stop(true, true);
+
+                            window.setTimeout(function () {
+                                ProBtnControl.pizzabtn.animate({
+                                    left: left
+                                }, {
+                                    duration: ProBtnControl.params.animationDuration,
+                                    easing: "linear",
+                                    done: function () {
+                                        window.setTimeout(function () {
+                                            if (side == 'right') {
+                                                var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+                                            } else {
+                                                var left = 0;
+                                            }
+
+                                            ProBtnControl.pizzabtn.stop(true, true);
+                                            ProBtnControl.pizzabtn.animate({
+                                                left: left
+                                            }, {
+                                                duration: ProBtnControl.params.animationDuration,
+                                                easing: "linear"
+                                            });
+                                        }, ProBtnControl.params.animationDuration);
+                                    }
+                                });
+                            }, (ProBtnControl.params.animationDuration / 5));
+                            
+                        }
+                    },
                     checkAndRunAnimation: function () {
-                        //console.log("checkAndRunAnimation");
                         setTimeout(function () {
+                        $(document).ready(function () {
                             ProBtnControl.additionalButtonFunctions.animation.cornerToCornerAnimation();
 
                             ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();
                             ProBtnControl.additionalButtonFunctions.animation.lookoutAnimation();
 
+                            ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
+                            ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
+
+
                             ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
-                        }, 200);
+                        });
+                        }, 100);
                     },
                     getRotationCss: function (deg, origin) {
                         if ((origin == null) && (origin == undefined)) {
@@ -5909,13 +6049,13 @@ initTrackingLinkTest();
 
                                                     ProBtnControl.contentTime.startTimer();
 
-                                                    $(window).on("touchstart",function(event) {
+                                                    $(window).on("touchstart", function (event) {
                                                         console.log('document click');
                                                         if ((ProBtnControl.contentTime.intervalId !== undefined) && (ProBtnControl.contentTime.intervalId !== null)) {
                                                             console.log('endTimer');
                                                             // event.target is the clicked object
                                                             ProBtnControl.contentTime.endTimer();
-                                                        }                                                        
+                                                        }
                                                     });
 
                                                     if (ProBtnControl.params.HideAfterFirstShow == true) {
@@ -5970,9 +6110,11 @@ initTrackingLinkTest();
 
                     } //onButtonTap
 
-                    ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
+                    //ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
 
                     ProBtnControl.initFunctions.initScrollChange(true);
+
+                    ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
 
                     //HideButtonAfterAjaxUpdate
                     if (ProBtnControl.params.CheckPageAjaxUpdate == true) {
