@@ -92,6 +92,10 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#isanimation">isAnimation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opacity">Анимация opacity</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#menutemplatevariant">MenuTemplateVariant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#videotype">VideoType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debug">Debug</a></li>
@@ -316,6 +320,28 @@
 <li><a class="reference internal" href="docs-en/index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="docs-en/description.html#description"><span>General description of the button</span></a></li>
 </ul>
+<div class="section" id="isanimation">
+<h2>isAnimation<a class="headerlink" href="#isanimation" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Варианты анимации кнопки.</p>
+<p>Значения параметра:</p>
+<ul class="simple">
+<li>rollout_left</li>
+<li>rollout_right</li>
+<li>lookout_left</li>
+<li>lookout_right</li>
+<li>forwardAndBack</li>
+<li>forwardStopAndAway</li>
+<li>anim1</li>
+<li>anim2</li>
+<li>opacity</li>
+</ul>
+<div class="section" id="opacity">
+<h3>Анимация opacity<a class="headerlink" href="#opacity" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Изменяет прозрачность кнопки с указанной в ButtonOpacity прозрачности кнопки до 0.55 по умолчанию.
+Также возможно задать конечную прозрачность, указав в качестве параметра
+<code class="docutils literal"><span class="pre">opacity_&lt;конечная</span> <span class="pre">прозрачность&gt;</span></code> к примеру <code class="docutils literal"><span class="pre">opacity_0.4</span></code></p>
+</div>
+</div>
 <div class="section" id="menutemplatevariant">
 <h2>MenuTemplateVariant<a class="headerlink" href="#menutemplatevariant" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Параметр предназначен для выбора шаблона отображения меню.
@@ -368,14 +394,18 @@ true</p>
 <div class="section" id="disablebuttonmove">
 <h2>DisableButtonMove<a class="headerlink" href="#disablebuttonmove" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Отключить ли возможность перемещения кнопки</p>
-<p>По умолчанию:
-false</p>
+<p>По умолчанию:</p>
+<ul class="simple">
+<li>false</li>
+</ul>
 </div>
 <div class="section" id="waitforiframebuttonloaded">
 <h2>waitForIframeButtonLoaded<a class="headerlink" href="#waitforiframebuttonloaded" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Ждать ли пока загрузится контент iframe кнопки</p>
-<p>По умолчанию:
-true</p>
+<p>По умолчанию:</p>
+<ul class="simple">
+<li>true</li>
+</ul>
 </div>
 <div class="section" id="buttoniframeinitialsize">
 <h2>ButtonIframeInitialSize<a class="headerlink" href="#buttoniframeinitialsize" title="Ссылка на этот заголовок">¶</a></h2>
@@ -387,9 +417,11 @@ true</p>
 <div class="section" id="buttonimagetype">
 <h2>ButtonImageType<a class="headerlink" href="#buttonimagetype" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Тип содержимого кнопки. По умолчанию image</p>
-<p>Варианты:
-* image
-* iframe</p>
+<p>Варианты:</p>
+<ul class="simple">
+<li>image</li>
+<li>iframe</li>
+</ul>
 </div>
 <div class="section" id="clickonclosebutton">
 <h2>ClickOnCloseButton<a class="headerlink" href="#clickonclosebutton" title="Ссылка на этот заголовок">¶</a></h2>

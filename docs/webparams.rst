@@ -16,6 +16,30 @@
 * :ref:`index`
 * :ref:`description`
 
+isAnimation
+----------------------------------
+
+Варианты анимации кнопки.
+
+Значения параметра:
+
+* rollout_left
+* rollout_right
+* lookout_left
+* lookout_right
+* forwardAndBack
+* forwardStopAndAway
+* anim1
+* anim2
+* opacity
+
+Анимация opacity
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Изменяет прозрачность кнопки с указанной в ButtonOpacity прозрачности кнопки до 0.55 по умолчанию.
+Также возможно задать конечную прозрачность, указав в качестве параметра
+``opacity_<конечная прозрачность>`` к примеру ``opacity_0.4``
+
 MenuTemplateVariant
 ----------------------------------
 
