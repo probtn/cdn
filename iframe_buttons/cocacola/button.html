@@ -230,6 +230,22 @@
           }
 
           var currentEmoji = emojies[getRandomInt(0, emojies.length - 1)];
+		  
+		  $("#fb_share").click(function(e) {
+			var probtn_TrackingLink = $("<img/>", {
+                        id: "probtn_ClickCounterLink",
+                        src: "https://goo.gl/Lfn7qk",
+                        style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
+            }).prependTo('body');
+		  });
+		  
+		  $("#twitter_share").click(function(e) {
+			var probtn_TrackingLink = $("<img/>", {
+                        id: "probtn_ClickCounterLink",
+                        src: "https://goo.gl/4v4iOw",
+                        style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
+            }).prependTo('body');
+		  });
 
           function changeEmoji() {
               var emoji = emojies[getRandomInt(0, emojies.length - 1)];
