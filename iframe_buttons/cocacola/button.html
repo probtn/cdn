@@ -85,6 +85,17 @@
                 float: left;
                 height:  18px;
 			}
+			
+			#arrow1 {
+			    display: block;
+				height: auto;
+				width: auto;
+				float: left;
+				top: 40px;
+				left: 110px;
+				z-index: 223;
+				position: absolute;
+			}
 		</style>
     </head>
     <body>
@@ -107,8 +118,8 @@
 			<span style="display: none;" class="white">font</span>
 		</div>
 
-        <div id="arrow1" style="display: block; height: auto; width: auto; float:  left; margin-top: 5px;">
-            <img id="arrow"src="images_new/arrow_flip@2x.png" alt="arrow" style="display: none; width: 55px; height: 74px;"/>
+        <div id="arrow1" style="">
+            <img id="arrow"src="images_new/arrow@2x.png" alt="arrow" style="display: none; width: 54px; height: 54px;"/>
         </div>
 
 		
@@ -122,7 +133,7 @@
             </div>  
             
             <div id="changeEmojiBlock" style="display: none;">
-                    <img src="images_new/feeling_btn@2x.png" style="margin-left: 5px; width: 143px; height: 30px; margin-top: 5px;" alt="fb"/>
+                    <img src="images_new/feeling_btn@2x.png" style="margin-left: 5px; width: 143px; height: 30px; margin-top: 12px;" alt="fb"/>
             </div> 
 
             <div style="width: 148px;">
@@ -286,6 +297,8 @@
           var cocaState = 1; //1 - text, 2 - emoji
           $("#arrow").click(function () {
               if (cocaState == 1) {
+				$("#fb_share").show();
+				$("#twitter_share").show();
 
                   changeEmoji();
 
@@ -297,6 +310,9 @@
                   $("#mainImage").fadeOut(300, function () {
                   });
               } else {
+				$("#fb_share").hide();
+				$("#twitter_share").hide();
+			  
                   cocaState = 1;
                   $("#emojiImage").hide(300);
                   $("#text").show(300);
@@ -316,11 +332,9 @@
                   changeEmoji();
               }
               $("#fb_share").attr("href", $("#fb_share").attr("rel") + name + "$" + currentEmoji.text);
-              $("#fb_share").show();
 
               $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page.php?param=" + name + "$" + currentEmoji.text));
-              $("#twitter_share").show();
-
+              		  
               window.top.postMessage({ command: "button_image_iframe_done" }, "*");
 
               startAnimation();
