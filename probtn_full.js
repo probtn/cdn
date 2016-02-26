@@ -4278,7 +4278,7 @@ initTrackingLinkTest();
                             } catch (ex) {
                             }
 
-                            var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+                            //var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
 
                             var rollOutPercent = 30;
                             try {
@@ -4295,7 +4295,6 @@ initTrackingLinkTest();
                                     var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
                                 }
 
-                                console.log("backLeft", left);
                                 ProBtnControl.pizzabtn.stop(true, true);
                                 ProBtnControl.pizzabtn.animate({
                                     left: left
@@ -4313,7 +4312,6 @@ initTrackingLinkTest();
                                     var left = -(ProBtnControl.params.ButtonSize.W * 0.1);
                                 }
 
-                                console.log("newLeft", left);
                                 ProBtnControl.pizzabtn.stop(true, true);
                                 ProBtnControl.pizzabtn.animate({
                                     left: left
@@ -6148,4 +6146,3 @@ initTrackingLinkTest();
     }
 
 })(jQuery);
-
