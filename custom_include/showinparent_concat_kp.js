@@ -83,6 +83,13 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	//startInit();
 	//});
 	
+	var get_element = function (element) {
+		if (typeof element == 'string') {
+			element = document.getElementById(element);
+		}
+		return element;
+	};
+	
 	var add_event = function (object, event, callback) {
 		object = get_element(object);
 		if (!object) {
