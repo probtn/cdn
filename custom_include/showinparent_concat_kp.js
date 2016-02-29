@@ -77,13 +77,12 @@ try {
 	console.log(ex);
 }
 
-loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
+var curentInterval = setInterval(function() {
+		if (typeof(add_event)=="function") {
+			
+			loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	
-	//document.addEventListener("DOMContentLoaded", function(event) { 
-	//startInit();
-	//});
-	
-	var get_element = function (element) {
+	/*var get_element = function (element) {
 		if (typeof element == 'string') {
 			element = document.getElementById(element);
 		}
@@ -102,7 +101,7 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 		if (object && object.attachEvent) {
 			object.attachEvent('on' + event, callback);
 		}
-	};
+	};*/
 	
 	function startInit() {
 		try {
@@ -114,9 +113,7 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 				document.body.removeEventListener('touchstart', window.swipe_touchstart);
 				document.body.removeEventListener('touchmove', window.swipe_touchmove);
 			}
-			
-			
-					
+				
 			return false; 
 		}
 		
@@ -149,5 +146,11 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	}, 200);*/
 	
 });
+			
+			clearInterval(curentInterval);
+		}
+}, 200);
+
+
 
 })();
