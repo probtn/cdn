@@ -6214,7 +6214,7 @@ var loadProbtn = function (jQuery) {
             jqueryPepPath: jquerypepPath
         })
 		
-		try {
+		/*try {
 			var probtn_touch_start = function(event) { 
 				var evt = event ? event:window.event;
 				
@@ -6239,7 +6239,7 @@ var loadProbtn = function (jQuery) {
 			add_event(document.body, 'touchstart', probtn_touch_start);
 			add_event(document.body, 'touchend', probtn_touch_end);
 		} catch(ex) {
-		}
+		}*/
 }
 
 var loadFancybox = function (jQuery1) {

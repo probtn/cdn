@@ -65,8 +65,8 @@ if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
 	params.SelectAdSet = SelectAdSet;
 }
 
-params.ButtonOnTouchStart = "console.log('ontouchstart button1'); var event= {}; event.target = document.getElementById(\"pizzabtnImg\"); window.probtn_touch_start(event);";
-params.ButtonOnTouchEnd = "console.log('ontouchend button2'); var event= {}; event.target = document.getElementById(\"pizzabtnImg\"); window.probtn_touch_end(event);";
+params.ButtonOnTouchStart = "console.log('ontouchstart button1'); var event= {}; event.target = document.getElementById('pizzabtnImg'); window.probtn_touch_start(event);";
+params.ButtonOnTouchEnd = "console.log('ontouchend button2'); var event= {}; event.target = document.getElementById('pizzabtnImg'); window.probtn_touch_end(event);";
 
 var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
