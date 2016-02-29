@@ -77,13 +77,10 @@ try {
 	console.log(ex);
 }
 
-	function probtn_startInit() {
-		try {
-			console.log("start applying fix");
-		var probtn_touch_start = function(event) { 
+var probtn_touch_start = function(event) { 
 			var evt = event ? event:window.event;
 			console.log(event);
-			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay"))) {
+			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay")) || (event.target == document.getElementById("probtn_button"))) {
 				document.body.removeEventListener('touchstart', window.swipe_touchstart);
 				document.body.removeEventListener('touchmove', window.swipe_touchmove);
 			}
@@ -94,16 +91,26 @@ try {
 		var probtn_touch_end = function(event) { 
 			var evt = event ? event:window.event;
 			console.log(event);
-			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay"))) {
-				add_event(document.body, 'touchstart', window.swipe_touchstart);
-				add_event(document.body, 'touchmove', window.swipe_touchmove);
+			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay")) || (event.target == document.getElementById("probtn_button"))) {
+				//add_event(document.body, 'touchstart', window.swipe_touchstart);
+				//add_event(document.body, 'touchmove', window.swipe_touchmove);
+				
+				document.body.addEventListener('touchstart', window.swipe_touchstart, false);
+				document.body.addEventListener('touchmove', window.swipe_touchmove, false);
 			}
 			
 			return false; 
 		}
 
-		add_event(document.body, 'touchstart', probtn_touch_start);
-		add_event(document.body, 'touchend', probtn_touch_end);
+	function probtn_startInit() {
+		try {
+			console.log("start applying fix");		
+
+		//add_event(document.body, 'touchstart', probtn_touch_start);
+		//add_event(document.body, 'touchend', probtn_touch_end);
+		
+		document.body.addEventListener('touchstart', probtn_touch_start, true);
+		document.body.addEventListener('touchend', probtn_touch_end, true);
 		
 		} catch(ex) {
 			console.log(ex);
@@ -115,28 +122,9 @@ try {
 setTimeout(function() {
 	console.log(1);
 	
-	if (probtn_loaded==false) {
-		
-	var get_element = function (element) {
-		if (typeof element == 'string') {
-			element = document.getElementById(element);
-		}
-		return element;
-	};
+	if (probtn_loaded==false) {		
 	
-	var add_event = function (object, event, callback) {
-		object = get_element(object);
-		if (!object) {
-			return;
-		}
-		if (object && object.addEventListener) {
-			object.addEventListener(event, callback, false);
-		}
-
-		if (object && object.attachEvent) {
-			object.attachEvent('on' + event, callback);
-		}
-	};
+		console.log(2);
 		
 		loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 			probtn_startInit();
@@ -146,13 +134,12 @@ setTimeout(function() {
 }, 7000);
 
 var curentInterval = setInterval(function() {
-		if (typeof(add_event)=="function") {
+		if (typeof(window.swipe_touchstart)=="function") {
 			probtn_loaded = true;
 			loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 				probtn_loaded = true;
-	probtn_startInit();
-});
-			
+				probtn_startInit();
+			});			
 			clearInterval(curentInterval);
 		}
 }, 200);
