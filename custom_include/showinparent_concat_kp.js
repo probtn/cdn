@@ -87,6 +87,11 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 			document.body.removeEventListener('touchstart', window.swipe_touchstart);
 			document.body.removeEventListener('touchmove', window.swipe_touchmove);
 		}
+		
+		if (event.target == document.getElementById("pizzabtnIframeOverlay")) {
+			document.body.removeEventListener('touchstart', window.swipe_touchstart);
+			document.body.removeEventListener('touchmove', window.swipe_touchmove);
+		}
 				
 		return false; 
 	}
@@ -94,6 +99,11 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	var probtn_touch_end = function(event) { 
 		var evt = event ? event:window.event;
 		if (event.target == document.getElementById("pizzabtnImg")) {
+			add_event(document.body, 'touchstart', window.swipe_touchstart);
+			add_event(document.body, 'touchmove', window.swipe_touchmove);
+		}
+		
+		if (event.target == document.getElementById("pizzabtnIframeOverlay")) {
 			add_event(document.body, 'touchstart', window.swipe_touchstart);
 			add_event(document.body, 'touchmove', window.swipe_touchmove);
 		}
