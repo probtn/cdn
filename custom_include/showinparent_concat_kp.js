@@ -65,8 +65,8 @@ if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
 	params.SelectAdSet = SelectAdSet;
 }
 
-params.ButtonOnTouchStart = "console.log('ontouchstart button1'); var event= {}; event.target = document.getElementById(\"pizzabtnImg\"); probtn_touch_start(event);";
-params.ButtonOnTouchEnd = "console.log('ontouchend button2'); var event= {}; event.target = document.getElementById(\"pizzabtnImg\"); probtn_touch_end(event);";
+params.ButtonOnTouchStart = "console.log('ontouchstart button1'); var event= {}; event.target = document.getElementById(\"pizzabtnImg\"); window.probtn_touch_start(event);";
+params.ButtonOnTouchEnd = "console.log('ontouchend button2'); var event= {}; event.target = document.getElementById(\"pizzabtnImg\"); window.probtn_touch_end(event);";
 
 var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
@@ -80,7 +80,7 @@ try {
 	console.log(ex);
 }
 
-function probtn_touch_start(event) { 
+window.probtn_touch_start = function(event) { 
 			var evt = event ? event:window.event;
 			console.log(event);
 			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay")) || (event.target == document.getElementById("probtn_button"))) {
@@ -91,7 +91,7 @@ function probtn_touch_start(event) {
 			return false; 
 		}
 		
-function probtn_touch_end(event) { 
+window.probtn_touch_end = function(event) { 
 			var evt = event ? event:window.event;
 			console.log(event);
 			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay")) || (event.target == document.getElementById("probtn_button"))) {
@@ -112,8 +112,8 @@ function probtn_touch_end(event) {
 		//add_event(document.body, 'touchstart', probtn_touch_start);
 		//add_event(document.body, 'touchend', probtn_touch_end);
 		
-		document.body.addEventListener('touchstart', probtn_touch_start, true);
-		document.body.addEventListener('touchend', probtn_touch_end, true);
+		document.body.addEventListener('touchstart', window.probtn_touch_start, true);
+		document.body.addEventListener('touchend', window.probtn_touch_end, true);
 		
 		} catch(ex) {
 			console.log(ex);
