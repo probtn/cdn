@@ -1,4 +1,45 @@
-﻿(function () {
+﻿window.probtn_touch_start = function(event) { 
+			var evt = event ? event:window.event;
+			console.log(event);
+			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay")) || (event.target == document.getElementById("probtn_button"))) {
+				document.body.removeEventListener('touchstart', window.swipe_touchstart);
+				document.body.removeEventListener('touchmove', window.swipe_touchmove);
+			}
+				
+			return false; 
+		}
+		
+window.probtn_touch_end = function(event) { 
+			var evt = event ? event:window.event;
+			console.log(event);
+			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay")) || (event.target == document.getElementById("probtn_button"))) {
+				//add_event(document.body, 'touchstart', window.swipe_touchstart);
+				//add_event(document.body, 'touchmove', window.swipe_touchmove);
+				
+				document.body.addEventListener('touchstart', window.swipe_touchstart, false);
+				document.body.addEventListener('touchmove', window.swipe_touchmove, false);
+			}
+			
+			return false; 
+		}
+		
+function probtn_callPlayer(frame_id, func, args) {
+    var player;
+    if ((func == null) || (func == undefined)) {
+        func = "playVideo";
+    }
+    var youtube_command = window.JSON.stringify({ event: 'command', func: func });
+
+    try {
+        player = document.getElementById(frame_id);
+        player.contentWindow.postMessage(youtube_command, 'https://www.youtube.com');
+    } catch (ex) {
+        console.log(ex);
+    }
+}
+
+
+(function () {
 var mainStyleCssPath = "//cdn.probtn.com/style.css";
 var jquerypepPath =  "//cdn.probtn.com/libs/jquery.pep.min.js";
 var fancyboxPath = "//cdn.probtn.com/libs/jquery.fancybox.min.js";
