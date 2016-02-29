@@ -79,42 +79,45 @@ try {
 
 loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	
-	try {
-		console.log("start applying fix");
-	var probtn_touch_start = function(event) { 
-		var evt = event ? event:window.event;
-		console.log(event);
-		if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay"))) {
-			document.body.removeEventListener('touchstart', window.swipe_touchstart);
-			document.body.removeEventListener('touchmove', window.swipe_touchmove);
-		}
-		
-		
-				
-		return false; 
-	}
+	document.addEventListener("DOMContentLoaded", function(event) { 
+	console.log("document loaded");
+	  startInit();
+	  setTimeout(startInit, 2000);
+	});
 	
-	var probtn_touch_end = function(event) { 
-		var evt = event ? event:window.event;
-		console.log(event);
-		if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay"))) {
-			add_event(document.body, 'touchstart', window.swipe_touchstart);
-			add_event(document.body, 'touchmove', window.swipe_touchmove);
+	function startInit() {
+		try {
+			console.log("start applying fix");
+		var probtn_touch_start = function(event) { 
+			var evt = event ? event:window.event;
+			console.log(event);
+			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay"))) {
+				document.body.removeEventListener('touchstart', window.swipe_touchstart);
+				document.body.removeEventListener('touchmove', window.swipe_touchmove);
+			}
+			
+			
+					
+			return false; 
 		}
 		
-		return false; 
-	}
+		var probtn_touch_end = function(event) { 
+			var evt = event ? event:window.event;
+			console.log(event);
+			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay"))) {
+				add_event(document.body, 'touchstart', window.swipe_touchstart);
+				add_event(document.body, 'touchmove', window.swipe_touchmove);
+			}
+			
+			return false; 
+		}
 
-	add_event(document.body, 'touchstart', probtn_touch_start);
-	add_event(document.body, 'touchend', probtn_touch_end);
-	
-	setTimeout(function() {
-		console.log("timeout functions");
 		add_event(document.body, 'touchstart', probtn_touch_start);
 		add_event(document.body, 'touchend', probtn_touch_end);
-	}, 1000);
-	} catch(ex) {
-		console.log(ex);
+		
+		} catch(ex) {
+			console.log(ex);
+		}
 	}
 	
 });
