@@ -65,6 +65,9 @@ if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
 	params.SelectAdSet = SelectAdSet;
 }
 
+params.ButtonOnTouchStart = "console.log('ontouchstart button1'); var event= {}; event.target = document.getElementById(\"pizzabtnImg\"); probtn_touch_start(event);";
+params.ButtonOnTouchEnd = "console.log('ontouchend button2'); var event= {}; event.target = document.getElementById(\"pizzabtnImg\"); probtn_touch_end(event);";
+
 var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
 paramsDiv.innerHTML = JSON.stringify(params);
@@ -119,7 +122,7 @@ function probtn_touch_end(event) {
 	
 	var probtn_loaded = false;
 
-setTimeout(function() {
+//setTimeout(function() {
 	console.log(1);
 	
 	if (probtn_loaded==false) {		
@@ -131,9 +134,9 @@ setTimeout(function() {
 		});
 	}	
 	
-}, 7000);
+//}, 7000);
 
-var probtn_curentInterval = setInterval(function() {
+/*var probtn_curentInterval = setInterval(function() {
 		console.log(typeof(window.swipe_touchstart));
 		if (typeof(window.swipe_touchstart)=="function") {
 			probtn_loaded = true;
@@ -143,7 +146,7 @@ var probtn_curentInterval = setInterval(function() {
 			});			
 			clearInterval(probtn_curentInterval);
 		}
-}, 200);
+}, 200);*/
 
 
 
