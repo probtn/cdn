@@ -80,6 +80,7 @@ try {
 loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	
 	try {
+		console.log("start applying fix");
 	var probtn_touch_start = function(event) { 
 		var evt = event ? event:window.event;
 		console.log(event);
@@ -106,7 +107,14 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 
 	add_event(document.body, 'touchstart', probtn_touch_start);
 	add_event(document.body, 'touchend', probtn_touch_end);
+	
+	setTimeout(function() {
+		console.log("timeout functions");
+		add_event(document.body, 'touchstart', probtn_touch_start);
+		add_event(document.body, 'touchend', probtn_touch_end);
+	}, 1000);
 	} catch(ex) {
+		console.log(ex);
 	}
 	
 });
