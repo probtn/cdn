@@ -83,6 +83,20 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	//startInit();
 	//});
 	
+	var add_event = function (object, event, callback) {
+		object = get_element(object);
+		if (!object) {
+			return;
+		}
+		if (object && object.addEventListener) {
+			object.addEventListener(event, callback, false);
+		}
+
+		if (object && object.attachEvent) {
+			object.attachEvent('on' + event, callback);
+		}
+	};
+	
 	function startInit() {
 		try {
 			console.log("start applying fix");
@@ -118,12 +132,14 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 		}
 	}
 	
-	var curentInterval = setInterval(function() {
+	startInit();
+	
+	/*var curentInterval = setInterval(function() {
 		if (typeof(add_event)=="function") {
 			startInit();
 			clearInterval(curentInterval);
 		}
-	}, 200);
+	}, 200);*/
 	
 });
 
