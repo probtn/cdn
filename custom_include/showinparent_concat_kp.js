@@ -79,11 +79,9 @@ try {
 
 loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 	
-	document.addEventListener("DOMContentLoaded", function(event) { 
-	console.log("document loaded");
-	  startInit();
-	  setTimeout(startInit, 2000);
-	});
+	//document.addEventListener("DOMContentLoaded", function(event) { 
+	//startInit();
+	//});
 	
 	function startInit() {
 		try {
@@ -119,6 +117,13 @@ loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 			console.log(ex);
 		}
 	}
+	
+	var curentInterval = setInterval(function() {
+		if (typeof(add_event)=="function") {
+			startInit();
+			clearInterval(curentInterval);
+		}
+	}, 200);
 	
 });
 
