@@ -4204,8 +4204,14 @@ initTrackingLinkTest();
                             }
 
                             var onScrollRollAnimation = function (e) {
+                                //send message about scroll
+                                if ($("#pizzabtnImg").is("iframe")) {
+                                    var myIframe = document.getElementById('pizzabtnImg');
+                                    myIframe.contentWindow.postMessage({ message: "probtn_page_scroll" }, '*');
+                                }
+                                
 
-                                var rollOutPercent = 30;
+                                var rollOutPercent = 80;
                                 try {
                                     if ((rolloutParams[2] !== null) && (rolloutParams[2] !== undefined)) {
                                         rollOutPercent = rolloutParams[2];
@@ -5843,6 +5849,10 @@ initTrackingLinkTest();
                             // cssEaseString: 'cubic-bezier(0, 0, .58, 1)', // ease-out
                             cssEaseString: 'cubic-bezier(0, .50, .50, 1)',
                             cssEaseDuration: cssEaseDuration,
+                            //TODO: test
+                            allowDragEventPropagation: false,
+                            shouldPreventDefault: true,
+
                             velocityMultiplier: 1.0,
                             startThreshold: [1, 1],
                             droppable: '.probtn_active_zone',
