@@ -143,7 +143,7 @@ setTimeout(function() {
 		});
 	}	
 	
-}, 10000);
+}, 7000);
 
 var curentInterval = setInterval(function() {
 		if (typeof(add_event)=="function") {
