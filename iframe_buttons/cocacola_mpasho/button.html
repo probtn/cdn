@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>ProBtn video example</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+		<style>
+			html, body {
+				margin: 0px;
+				padding: 0px;
+			}			
+			
+			#cached {
+				display: none;
+			}
+			.rotate {
+				/* Safari */
+				/*-webkit-transform: rotate(-90deg);
+
+				/* Firefox 
+				-moz-transform: rotate(-90deg);
+
+				/* IE 
+				-ms-transform: rotate(-90deg);
+
+				/* Opera 
+				-o-transform: rotate(-90deg);
+
+				/* Internet Explorer 
+				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);*/
+				
+				transform-origin: 0% 0%;
+				-ms-transform-origin: 0% 0%;
+				-webkit-transform-origin: 0% 0%;
+			}
+			
+			@font-face {
+			  font-family: LOKICOLA;
+			  src: url(LOKICOLA.TTF);
+			}      
+            @font-face {
+			  font-family: you;
+			  src: url(you_font.otf);
+			}
+			
+			.white {
+				color: white;
+				font-size: 23px;
+				position: absolute;
+				z-index: 2;
+				font-family: you;
+				margin-top: 17px;
+				padding: 0px;
+				margin-left: 22px;
+			}
+			
+			#wrapper {
+				width: 153px; height: 83px;
+				overflow: hidden;
+				display: inline-block;
+                float:  left;
+			}
+			
+			#input_wrapper {
+                /*clear: both;
+				display: inline-block;*/
+				margin: 0px;
+				width: 104px;
+				/* top: 0px; */
+				/* position: relative; */
+				height: 70px;
+				vertical-align: top;
+			}
+			
+			#name {
+				background: white;
+				border-radius: 4px;
+				border: 1px solid gray;
+				padding: 5px;
+				width: 94px; 
+				margin-left: 5px; 
+				margin-right: 3px;
+                float: left;
+                height:  18px;
+			}
+			
+			#arrow1 {
+			    display: block;
+				height: auto;
+				width: auto;
+				float: left;
+				top: 40px;
+				left: 110px;
+				z-index: 223;
+				position: absolute;
+			}
+		</style>
+    </head>
+    <body>
+		
+		<div id="wrapper">
+			<img id="backImage" src="images_new/bottle_2@2x.png" 
+            style="left: 0px; right: 0px; position: absolute; width: 153px; height: 88px;" alt="cocacola"/>
+			
+			<img id="mainImage" src="images_new/bottle_1@2x.png" 
+            style="left: 0px; right: 0px; position: absolute; width: 153px; height: 88px;" alt="cocacola"/>
+
+            <img id="textImage" src="images_new/coca_logo@2x.png" 
+            style="left: 0px; right: 0px; position: relative; width: 95px; height: 28px; text-align: center; top: 30%; left: 50%; margin-left: -47px; margin-top: -12px;" alt="cocacola"/>
+
+            <img id="emojiImage" src="images_new/smile_1@2x.png" 
+            style="display: none; margin-left: 5px; left: 0px; right: 0px; position: relative; width: 36px; height: 36px; text-align: center; top: 30%; left: 50%; margin-left: -18px; margin-top: -18px;" alt="cocacola"/>
+
+            <span style="display: none; margin-top: 0px !important; margin-left: 0px !important; top: 57px !important; font-size: 13px;" id="emojiText" class="white">emoji</span>
+
+			<span style="display: none;" class="white">font</span>
+		</div>
+
+        <div id="arrow1" style="">
+            <img id="arrow"src="images_new/arrow@2x.png" alt="arrow" style="display: none; width: 54px; height: 54px;"/>
+        </div>
+
+		
+		<div id="input_wrapper">
+            <div id="input_text" style="display: inline-block;">
+			<img src="images_new/text@2x.png" style="margin-left: 5px; width:  134px; height: 30px; margin-bottom: 1px;" alt="what is your name"/><br/>
+                <div style="width:  144px; height:  30px; display:  inline-block;">
+                    <img src="images_new/ok_btn@2x.png" id="okBtn" alt="ok" style="cursor: pointer;display:inline-block; width:  30px; height: 30px;"/>
+			        <input id="name" type="text" placeholder="name" maxlength="11" style=""/>                
+                </div>
+            </div>  
+            
+            <div id="changeEmojiBlock" style="display: none;">
+                    <img src="images_new/feeling_btn@2x.png" style="margin-left: 5px; width: 143px; height: 30px; margin-top: 12px;" alt="fb"/>
+            </div> 
+
+            <div style="width: 148px;">
+			<a target="_blank" id="fb_share" style="display: none; cursor: pointer; float: left; width: auto; height: auto;" rel='http://www.facebook.com/sharer.php?u=http://share-a-coke-share-a-feeling.com/image_page.php?param=' href=''>
+            <img src="images_new/fb_btn@2x.png" style="margin-left: 5px; width: 69px; height: 31px; margin-top: 5px;" alt="fb"/>
+			</a>
+
+                <a target="_blank" id="twitter_share" style="display: none; cursor: pointer; float: left; width: auto; height: auto;" rel='http://www.twitter.com/share?url=' href=''>
+            <img src="images_new/tw_btn@2x.png" style="margin-left: 5px; width: 69px; height: 31px; margin-top: 5px;" alt="fb"/>
+			</a>
+            </div>
+			<!--<button id="submit">Submit</button>-->
+		</div>
+		
+		<div id="cached">
+			<img src="images_new/bottle_1@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+			<img src="images_new/bottle_2@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+		</div>
+	
+		<script>
+      $(document).ready(function () {
+
+          window.top.postMessage({ command: "button_image_iframe_size", size: { w: 113, h: 88, l: 0, r: 0} }, "*");
+
+          var name = "";
+          var images = ["images/coca_1@2x.png", "images/coca_2@2x.png", "images/coca_3@2x.png",
+          "images/coca_4@2x.png", "images/coca_5@2x.png", "images/coca_7@2x.png"];
+
+          var emojies = [{ text: "COOL", pic: "Emojis/COOL.png" },
+          { text: "ENJOY", pic: "Emojis/ENJOY.png" },
+          { text: "FUNKY", pic: "Emojis/FUNKY.png" },
+          { text: "HI", pic: "Emojis/HI.png" },
+          { text: "LET'S PARTY", pic: "Emojis/LETS_PARTY.png" },
+          { text: "NIAJE", pic: "Emojis/NIAJE.png" },
+          { text: "ON FLEEK", pic: "Emojis/ON_FLEEK.png" },
+          { text: "POA", pic: "Emojis/POA.png" },
+          { text: "SEMA", pic: "Emojis/SEMA.png" },
+          { text: "WOW", pic: "Emojis/WOW.png"}];
+
+
+          var startAnimation_old = function () {
+              var count = 1;
+              $("#text").remove();
+              var interval = setInterval(function () {
+                  var image = $("#mainImage");
+                  image.fadeOut(100, function () {
+                      image.attr('src', images[count]);
+                      count++;
+                      image.fadeIn(100, function () {
+                          if ((count) > images.length) {
+                              $("#backImage").hide();
+                          } else {
+                              $("#backImage").attr('src', images[count]);
+                          }
+                      });
+
+                      if (count > images.length) {
+                          if ($("#text").length < 1) {
+                              $("#wrapper").prepend("<span id='text' class='rotate white'>" + name + "</span>");
+                              $("#text").css({
+                                  "margin-top": (($("#mainImage").height() / 2) +
+                                    ($("#text").width() / 2) - 10) + "px"
+                              });
+
+                              setTimeout(function () {
+                                  $("#text").css({
+                                      "margin-top": (($("#mainImage").height() / 2) +
+                                        ($("#text").width() / 2) - 10) + "px"
+                                  });
+                              }, 100);
+                          }
+
+                          clearInterval(interval);
+                      }
+                  });
+              }, 250);
+          }
+
+          var startAnimation = function () {
+              var count = 1;
+              $("#text").remove();
+              if ($("#text").length < 1) {
+                  $("#textImage").hide(400);
+                  $("#wrapper").prepend("<span id='text' style='display: none;' class='rotate white'>" + name + "</span>");
+                  $("#text").css({
+                      "margin-left": (($("#mainImage").width() / 2) -
+                                    ($("#text").width() / 2)) + "px"
+                  });
+
+                  setTimeout(function () {
+                      $("#text").css({
+                          "margin-left": (($("#mainImage").width() / 2) -
+                                        ($("#text").width() / 2)) + "px"
+                      });
+                      $("#text").show(300);
+                      $("#arrow").show(300);
+                      $("#input_text").hide(300);
+                  }, 100);
+
+              }
+          }
+
+          function getRandomInt(min, max) {
+              return Math.floor(Math.random() * (max - min + 1)) + min;
+          }
+
+          var currentEmoji = emojies[getRandomInt(0, emojies.length - 1)];
+		  
+		  $("#fb_share").click(function(e) {
+			var probtn_TrackingLink = $("<img/>", {
+                        id: "probtn_ClickCounterLink",
+                        src: "https://goo.gl/wNWRJG",
+                        style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
+            }).prependTo('body');
+		  });
+		  
+		  $("#twitter_share").click(function(e) {
+			var probtn_TrackingLink = $("<img/>", {
+                        id: "probtn_ClickCounterLink",
+                        src: "https://goo.gl/a0Mok2",
+                        style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
+            }).prependTo('body');
+		  });
+
+          function changeEmoji() {
+              var emoji = emojies[getRandomInt(0, emojies.length - 1)];
+              currentEmoji = emoji;
+
+              $("#fb_share").attr("href", $("#fb_share").attr("rel") + name + "$" + currentEmoji.text);
+              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page.php?param=" + name + "$" + currentEmoji.text));
+
+              var newEmoji = emoji.pic;
+              var newEmojiText = emoji.text;
+              if (newEmoji == $("#emojiImage").attr('src')) {
+                  changeEmoji();
+              } else {
+                  $("#emojiImage").attr('src', newEmoji);
+
+                  $("#emojiText").text(newEmojiText);
+
+                  $("#emojiText").css({
+                      "left": (($("#mainImage").width() / 2) -
+                                    ($("#emojiText").width() / 2)) + "px"
+                  });
+                  setTimeout(function () {
+                      $("#emojiText").css({
+                          "left": (($("#mainImage").width() / 2) -
+                                        ($("#emojiText").width() / 2)) + "px"
+                      });
+                  }, 100);
+
+                  $("#emojiText").show();
+
+              }
+          }
+
+          $("#changeEmojiBlock").click(function () {
+              changeEmoji();
+          });
+
+          var cocaState = 1; //1 - text, 2 - emoji
+          $("#arrow").click(function () {
+              if (cocaState == 1) {
+				$("#fb_share").show();
+				$("#twitter_share").show();
+
+                  changeEmoji();
+
+                  cocaState = 2;
+                  $("#emojiImage").show(300);
+                  $("#text").hide(300);
+                  $("#changeEmojiBlock").show(300);
+
+                  $("#mainImage").fadeOut(300, function () {
+                  });
+              } else {
+				$("#fb_share").hide();
+				$("#twitter_share").hide();
+			  
+                  cocaState = 1;
+                  $("#emojiImage").hide(300);
+                  $("#text").show(300);
+                  $("#emojiText").hide(300);
+                  $("#changeEmojiBlock").hide(300);
+
+                  $("#mainImage").fadeIn(300, function () {
+                  });
+              }
+
+          });
+
+          var startButton = function () {
+              name = $("#name").val();
+              
+              if ((currentEmoji == null) || (currentEmoji == undefined)) {
+                  changeEmoji();
+              }
+              $("#fb_share").attr("href", $("#fb_share").attr("rel") + name + "$" + currentEmoji.text);
+
+              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page.php?param=" + name + "$" + currentEmoji.text));
+              		  
+              window.top.postMessage({ command: "button_image_iframe_done" }, "*");
+
+              startAnimation();
+          }
+
+          var checkWords = function () {
+              $.getJSON("https://coca-cola-stop-words.herokuapp.com/find?word=" + $("#name").val() + "&callback=?",
+                            function (data) {
+                                console.log("data", data);
+                                if (data.items.length > 0) {
+                                    alert("Sorry but this Word/Phrase is not permitted on the Coke Can");
+                                } else {
+                                    startButton();
+                                }
+                            }).done(function () {
+                            }).fail(function () { startButton(); }).always(function () {
+                            });
+          }
+
+          $("#okBtn").click(function (e) {
+              checkWords();
+          });
+
+          $("#name").keypress(function (event) {
+              if (event.which == 13) {
+                  event.preventDefault();
+
+                  checkWords();
+
+              } else {
+                  if ($("#name").val().length > 11) {
+                      $("#name").val($("#name").val().substring(0, 10));
+                  }
+              }
+
+          });
+
+          $("#submit").click(function () {
+              startButton();
+          });
+      });
+		</script>	
+	
+    </body>
+</html>
