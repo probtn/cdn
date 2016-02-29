@@ -1,4 +1,4 @@
-(function () {
+//(function () {
 //document.domain = "kp.ru";
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
@@ -77,7 +77,7 @@ try {
 	console.log(ex);
 }
 
-var probtn_touch_start = function(event) { 
+function probtn_touch_start(event) { 
 			var evt = event ? event:window.event;
 			console.log(event);
 			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay")) || (event.target == document.getElementById("probtn_button"))) {
@@ -88,7 +88,7 @@ var probtn_touch_start = function(event) {
 			return false; 
 		}
 		
-		var probtn_touch_end = function(event) { 
+function probtn_touch_end(event) { 
 			var evt = event ? event:window.event;
 			console.log(event);
 			if ((event.target == document.getElementById("pizzabtnImg")) || (event.target == document.getElementById("pizzabtnIframeOverlay")) || (event.target == document.getElementById("probtn_button"))) {
@@ -123,7 +123,7 @@ setTimeout(function() {
 	console.log(1);
 	
 	if (probtn_loaded==false) {		
-	
+		console.log("noInit", typeof(window.swipe_touchstart));
 		console.log(2);
 		
 		loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
@@ -133,17 +133,18 @@ setTimeout(function() {
 	
 }, 7000);
 
-var curentInterval = setInterval(function() {
+var probtn_curentInterval = setInterval(function() {
+		console.log(typeof(window.swipe_touchstart));
 		if (typeof(window.swipe_touchstart)=="function") {
 			probtn_loaded = true;
 			loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
 				probtn_loaded = true;
 				probtn_startInit();
 			});			
-			clearInterval(curentInterval);
+			clearInterval(probtn_curentInterval);
 		}
 }, 200);
 
 
 
-})();
+//})();
