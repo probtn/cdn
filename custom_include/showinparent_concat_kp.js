@@ -77,33 +77,7 @@ try {
 	console.log(ex);
 }
 
-var curentInterval = setInterval(function() {
-		if (typeof(add_event)=="function") {
-			
-			loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
-	
-	/*var get_element = function (element) {
-		if (typeof element == 'string') {
-			element = document.getElementById(element);
-		}
-		return element;
-	};
-	
-	var add_event = function (object, event, callback) {
-		object = get_element(object);
-		if (!object) {
-			return;
-		}
-		if (object && object.addEventListener) {
-			object.addEventListener(event, callback, false);
-		}
-
-		if (object && object.attachEvent) {
-			object.attachEvent('on' + event, callback);
-		}
-	};*/
-	
-	function startInit() {
+	function probtn_startInit() {
 		try {
 			console.log("start applying fix");
 		var probtn_touch_start = function(event) { 
@@ -136,15 +110,47 @@ var curentInterval = setInterval(function() {
 		}
 	}
 	
-	startInit();
+	var probtn_loaded = false;
+
+setTimeout(function() {
+	console.log(1);
 	
-	/*var curentInterval = setInterval(function() {
-		if (typeof(add_event)=="function") {
-			startInit();
-			clearInterval(curentInterval);
+	if (probtn_loaded==false) {
+		
+	var get_element = function (element) {
+		if (typeof element == 'string') {
+			element = document.getElementById(element);
 		}
-	}, 200);*/
+		return element;
+	};
 	
+	var add_event = function (object, event, callback) {
+		object = get_element(object);
+		if (!object) {
+			return;
+		}
+		if (object && object.addEventListener) {
+			object.addEventListener(event, callback, false);
+		}
+
+		if (object && object.attachEvent) {
+			object.attachEvent('on' + event, callback);
+		}
+	};
+		
+		loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
+			probtn_startInit();
+		});
+	}	
+	
+}, 10000);
+
+var curentInterval = setInterval(function() {
+		if (typeof(add_event)=="function") {
+			probtn_loaded = true;
+			loadJS('//cdn.probtn.com/custom_include/probtn_kp.js', function () {
+				probtn_loaded = true;
+	probtn_startInit();
 });
 			
 			clearInterval(curentInterval);
