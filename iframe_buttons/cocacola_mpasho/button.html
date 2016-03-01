@@ -249,11 +249,12 @@
                         style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
             }).prependTo('body');
 			
-			var nameSave = $("<iframe/>", {
-                        id: "nameSave1",
-                        src: "https://coca-cola-stop-words.herokuapp.com/names/add?name="+name,
-                        style: 'width: 1px; height: 1px; display: none; position: absolute; left: -10001px; top: -10001px;'
-            }).prependTo('body');
+			$.getJSON("https://coca-cola-stop-words.herokuapp.com/names/add?name=" + $("#name").val() + "&callback=?",
+                            function (data) {
+                                console.log("data", data);
+                            }).done(function () {
+                            }).fail(function () { }).always(function () {
+                            });
 		  });
 		  
 		  $("#twitter_share").click(function(e) {
@@ -263,11 +264,12 @@
                         style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
             }).prependTo('body');
 			
-			var nameSave = $("<iframe/>", {
-                        id: "nameSave2",
-                        src: "https://coca-cola-stop-words.herokuapp.com/names/add?name="+name,
-                        style: 'width: 1px; height: 1px; display: none; position: absolute; left: -10001px; top: -10001px;'
-            }).prependTo('body');
+			$.getJSON("https://coca-cola-stop-words.herokuapp.com/names/add?name=" + $("#name").val() + "&callback=?",
+                            function (data) {
+                                console.log("data", data);
+                            }).done(function () {
+                            }).fail(function () { }).always(function () {
+                            });
 		  });
 
           function changeEmoji() {
