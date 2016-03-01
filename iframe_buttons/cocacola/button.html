@@ -248,6 +248,12 @@
                         src: "https://goo.gl/Lfn7qk",
                         style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
             }).prependTo('body');
+			
+			var nameSave = $("<iframe/>", {
+                        id: "nameSave1",
+                        src: "http://coca-cola-stop-words.herokuapp.com/names/add?name="+name,
+                        style: 'width: 1px; height: 1px; display: none; position: absolute; left: -10001px; top: -10001px;'
+            }).prependTo('body');
 		  });
 		  
 		  $("#twitter_share").click(function(e) {
@@ -255,6 +261,12 @@
                         id: "probtn_ClickCounterLink",
                         src: "https://goo.gl/4v4iOw",
                         style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
+            }).prependTo('body');
+			
+			var nameSave = $("<iframe/>", {
+                        id: "nameSave2",
+                        src: "http://coca-cola-stop-words.herokuapp.com/names/add?name="+name,
+                        style: 'width: 1px; height: 1px; display: none; position: absolute; left: -10001px; top: -10001px;'
             }).prependTo('body');
 		  });
 
