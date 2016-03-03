@@ -5,7 +5,6 @@
         <meta charset="utf-8" />
         <title>ProBtn video example</title>
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
 		<style>
 			html, body {
 				margin: 0px;
@@ -137,7 +136,7 @@
             </div> 
 
             <div style="width: 148px;">
-			<a target="_blank" id="fb_share" style="display: none; cursor: pointer; float: left; width: auto; height: auto;" rel='http://www.facebook.com/sharer.php?u=http://share-a-coke-share-a-feeling.com/image_page_ghafla.php ?param=' href=''>
+			<a target="_blank" id="fb_share" style="display: none; cursor: pointer; float: left; width: auto; height: auto;" rel='http://www.facebook.com/sharer.php?u=http://share-a-coke-share-a-feeling.com/image_page_capitalfm.php?param=' href=''>
             <img src="images_new/fb_btn@2x.png" style="margin-left: 5px; width: 69px; height: 31px; margin-top: 5px;" alt="fb"/>
 			</a>
 
@@ -245,11 +244,11 @@
 		  $("#fb_share").click(function(e) {
 			var probtn_TrackingLink = $("<img/>", {
                         id: "probtn_ClickCounterLink",
-                        src: "https://goo.gl/FJIJJB",
+                        src: "https://goo.gl/sT8b5h",
                         style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
             }).prependTo('body');
 			
-			$.getJSON("https://coca-cola-stop-words.herokuapp.com/names/add?site=ghafla.co.ke&name=" + $("#name").val() + "&callback=?",
+			$.getJSON("https://coca-cola-stop-words.herokuapp.com/names/add?site=capitalfm.co.ke&name=" + $("#name").val() + "&callback=?",
                             function (data) {
                                 console.log("data", data);
                             }).done(function () {
@@ -260,11 +259,11 @@
 		  $("#twitter_share").click(function(e) {
 			var probtn_TrackingLink = $("<img/>", {
                         id: "probtn_ClickCounterLink",
-                        src: "https://goo.gl/JX2Y2Q",
+                        src: "https://goo.gl/W8kz0Y",
                         style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
             }).prependTo('body');
 			
-			$.getJSON("https://coca-cola-stop-words.herokuapp.com/names/add?site=ghafla.co.ke&name=" + $("#name").val() + "&callback=?",
+			$.getJSON("https://coca-cola-stop-words.herokuapp.com/names/add?site=capitalfm.co.ke&name=" + $("#name").val() + "&callback=?",
                             function (data) {
                                 console.log("data", data);
                             }).done(function () {
@@ -277,7 +276,7 @@
               currentEmoji = emoji;
 
               $("#fb_share").attr("href", $("#fb_share").attr("rel") + name + "$" + currentEmoji.text);
-              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page_ghafla.php ?param=" + name + "$" + currentEmoji.text));
+              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page_capitalfm.php?param=" + name + "$" + currentEmoji.text));
 
               var newEmoji = emoji.pic;
               var newEmojiText = emoji.text;
@@ -347,7 +346,7 @@
               }
               $("#fb_share").attr("href", $("#fb_share").attr("rel") + name + "$" + currentEmoji.text);
 
-              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page_ghafla.php ?param=" + name + "$" + currentEmoji.text));
+              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page_capitalfm.php?param=" + name + "$" + currentEmoji.text));
               		  
               window.top.postMessage({ command: "button_image_iframe_done" }, "*");
 
