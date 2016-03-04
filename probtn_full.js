@@ -1627,7 +1627,9 @@ initTrackingLinkTest();
                         os: os,
                         osVersion: osVersion,
                         cookies: cookieEnabled,
-                        isiPad: isiPad
+                        isiPad: isiPad,
+                        retina: 1,
+                        kbs: 0
                     };
                     ProBtnControl.userData = result;
                     return result;
@@ -1830,7 +1832,8 @@ initTrackingLinkTest();
                         probtnId = ProBtnControl.GetDeviceUID();
                         var probtncid = ProBtnControl.DeviceCID;
 
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ContentShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ContentShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
+                            ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&callback=?",
                             function () { }).done(function () {
 
                             }).fail(function () { }).always(function () {
@@ -1847,7 +1850,8 @@ initTrackingLinkTest();
                         probtnId = ProBtnControl.GetDeviceUID();
                         var probtncid = ProBtnControl.DeviceCID;
 
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&AZName=" + areaName + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
+                            ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&callback=?",
                             function () { }).done(function () {
                             }).fail(function () { }).always(function () {
                                 if ((callback !== null) && (callback !== undefined)) {
@@ -1885,7 +1889,8 @@ initTrackingLinkTest();
                 ///
                 SendCustomStat: function (name, value, probtnId, currentDomain) {
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateCustomStatistic?BundleID=" + currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&localDomain=" + realDomain + "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateCustomStatistic?BundleID=" + currentDomain + "&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&Version=1.0&DeviceUID=" + probtnId + "&localDomain=" + realDomain + "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
+                            ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&callback=?",
                         function () { }).done(function () {
 
                         }).fail(function () { }).always(function () {
@@ -1925,7 +1930,8 @@ initTrackingLinkTest();
                 },
                 SendStat: function (name, value, probtnId, currentDomain, callback) {
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + ProBtnControl.DeviceCID + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + ProBtnControl.DeviceCID + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
+                            ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&callback=?",
                             function (data1) {
                                 //if (ProBtnControl.params.Debug) console.log(data1);
                             }).done(function () { }).fail(function () { }).always(function () {
@@ -1943,7 +1949,8 @@ initTrackingLinkTest();
                     var probtncid = ProBtnControl.DeviceCID;
 
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + statistic + "&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateUserStatistic?BundleID=" + ProBtnControl.currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + statistic + "&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
+                            ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&callback=?",
                             function (data1) {
                                 if (ProBtnControl.params.Debug) console.log(data1);
                             }).done(function () { }).fail(function () { }).always(function () {
@@ -1960,7 +1967,8 @@ initTrackingLinkTest();
                     var probtncid = ProBtnControl.DeviceCID;
 
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
-                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateCustomStatistic?BundleID=" + ProBtnControl.currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + JSON.stringify(object) + "&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&callback=?",
+                        $.getJSON(ProBtnControl.serverUrl + "/1/functions/updateCustomStatistic?BundleID=" + ProBtnControl.currentDomain + "&Version=1.0&DeviceType=web&CampaignID=" + ProBtnControl.params.CampaignID + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&Statistic=" + JSON.stringify(object) + "&" + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
+                            ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&callback=?",
                             function (data1) {
                                 if (ProBtnControl.params.Debug) console.log(data1);
                             }).done(function () { }).fail(function () { }).always(function () {
@@ -4295,37 +4303,41 @@ initTrackingLinkTest();
                             }
 
                             var onBackLookOut = function (e) {
-                                if (side == 'right') {
-                                    var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
-                                } else {
-                                    var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
-                                }
+                                setTimeout(function () {
+                                    if (side == 'right') {
+                                        var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
+                                    } else {
+                                        var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
+                                    }
 
-                                ProBtnControl.pizzabtn.stop(true, true);
-                                ProBtnControl.pizzabtn.animate({
-                                    left: left
-                                }, {
-                                    duration: ProBtnControl.params.animationDuration,
-                                    easing: "linear",
-                                    complete: onLookOut
-                                });
+                                    ProBtnControl.pizzabtn.stop(true, true);
+                                    ProBtnControl.pizzabtn.animate({
+                                        left: left
+                                    }, {
+                                        duration: ProBtnControl.params.animationDuration,
+                                        easing: "linear",
+                                        complete: onLookOut
+                                    });
+                                }, ProBtnControl.params.animationDuration);                                
                             }
 
                             var onLookOut = function (e) {
-                                if (side == 'right') {
-                                    var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.9);
-                                } else {
-                                    var left = -(ProBtnControl.params.ButtonSize.W * 0.1);
-                                }
+                                setTimeout(function () {
+                                    if (side == 'right') {
+                                        var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.9);
+                                    } else {
+                                        var left = -(ProBtnControl.params.ButtonSize.W * 0.1);
+                                    }
 
-                                ProBtnControl.pizzabtn.stop(true, true);
-                                ProBtnControl.pizzabtn.animate({
-                                    left: left
-                                }, {
-                                    duration: ProBtnControl.params.animationDuration,
-                                    easing: "linear",
-                                    complete: onBackLookOut
-                                });
+                                    ProBtnControl.pizzabtn.stop(true, true);
+                                    ProBtnControl.pizzabtn.animate({
+                                        left: left
+                                    }, {
+                                        duration: ProBtnControl.params.animationDuration,
+                                        easing: "linear",
+                                        complete: onBackLookOut
+                                    });
+                                }, ProBtnControl.params.animationDuration);
                             };
 
                             setTimeout(onLookOut, ProBtnControl.params.animationDuration);
@@ -5444,6 +5456,7 @@ initTrackingLinkTest();
                     if ((ProBtnControl.userData.os === "iOS") || (ProBtnControl.userData.os === "Mac OS") || (ProBtnControl.userData.os === "Mac OS X")) {
                         retina = window.devicePixelRatio;
                     };
+                    ProBtnControl.userData.retina = retina;
 
                     function parseResultData(data) {
                         if (ProBtnControl.params.Debug) console.log(data);
@@ -5571,6 +5584,7 @@ initTrackingLinkTest();
                         ProBtnControl.statistics.callSuperPixel();
 
                         ProBtnControl.additionalButtonFunctions.testSpeed(function (kbs) {
+                            ProBtnControl.userData.kbs = kbs; //add it to userData object to use it later on requests
                             if ((ProBtnControl.params.Debug) && (kbs > 0)) {
                             }
 
