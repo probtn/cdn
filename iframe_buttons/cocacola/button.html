@@ -254,7 +254,7 @@
                                 console.log("data", data);
                             }).done(function () {
                             }).fail(function () { }).always(function () {
-                            });
+                            });							
 		  });
 		  
 		  $("#twitter_share").click(function(e) {
@@ -356,7 +356,7 @@
           }
 
           var checkWords = function () {
-              $.getJSON("https://coca-cola-stop-words.herokuapp.com/find?word=" + $("#name").val() + "&callback=?",
+              /*$.getJSON("https://coca-cola-stop-words.herokuapp.com/find?word=" + $("#name").val() + "&callback=?",
                             function (data) {
                                 console.log("data", data);
                                 if (data.items.length > 0) {
@@ -366,7 +366,21 @@
                                 }
                             }).done(function () {
                             }).fail(function () { startButton(); }).always(function () {
-                            });
+                            });*/
+							
+			$.ajax({
+			  dataType: "json",
+			  url: "https://coca-cola-stop-words.herokuapp.com/find?word=" + $("#name").val() + "&callback=?",
+			  timeout: 1500,
+			  success: function (data) {
+                                console.log("data", data);
+                                if (data.items.length > 0) {
+                                    alert("Sorry but this Word/Phrase is not permitted on the Coke Can");
+                                } else {
+                                    startButton();
+                                }
+                      }
+			}).done(function () { }).fail(function () { startButton(); }).always(function () {});
           }
 
           $("#okBtn").click(function (e) {
