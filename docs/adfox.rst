@@ -53,9 +53,15 @@ Step3
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Создать объявление с кодом
 
+``<iframe src="//example.com/example_iframe_page.html" style="border: 0px; width: 0px; height: 0px; display: none;"></iframe>``
+
+или
+
 ``<iframe src="//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test" style="border: 0px; width: 0px; height: 0px; display: none;"></iframe>``
 
 Url ``//example.com/example_iframe_page.html`` добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)
+
+GET параметр с доменом опционален, и нужен в случае, если нужно жестко задать домен, для которого будут браться настройки из admin.probtn.com
 
  Также значение GET параметра domain (для примера указано) ``nessasary_example_app_domain.test`` нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com
 
