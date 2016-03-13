@@ -26,6 +26,17 @@
 Кнопка с видео
 ----------------------------------
 
+Поведение кнопки аналогично кнопке по умолчанию, но при нажатии на кнопку происходит воспроизведение видео (с "автозапуском" в тос числе и на мобильных браузерах).
+
+Данный режиме задается при указании параметра
+``"ButtonContentType":"video"``
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ContentURL%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2FLenovo.mp4%22%2C%22ButtonType%22%3A%22button%22%2C%22ButtonContentType%22%3A%22video%22%2C%22HideAfterFirstShow%22%3Atrue%2C%22domain%22%3A%22%22%2C%22Debug%22%3Afalse%2C%22OpenExternal%22%3Afalse%2C%22ButtonImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonDragImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonOpenImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
+    </div>
+
 Кнопка со скролл-зонами
 ----------------------------------
 

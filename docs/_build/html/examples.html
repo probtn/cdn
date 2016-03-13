@@ -30,7 +30,9 @@
   
 
   
-    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/> 
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="next" title="Иерархия сущностей admin.probtn.com" href="hierarchy.html"/>
+        <link rel="prev" title="Создание кампании и креатива" href="createbutton.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,11 +82,18 @@
             
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Примеры режимов работы кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Плавающая кнопка по умолчанию</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Кнопка с видео</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Кнопка со скролл-зонами</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Кнопка</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
@@ -151,7 +160,12 @@
     <script src="//cdn.probtn.com/probtn_concat.js"></script></div>
 <div class="section" id="id3">
 <h2>Кнопка с видео<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
-</div>
+<p>Поведение кнопки аналогично кнопке по умолчанию, но при нажатии на кнопку происходит воспроизведение видео (с &#8220;автозапуском&#8221; в тос числе и на мобильных браузерах).</p>
+<p>Данный режиме задается при указании параметра
+<code class="docutils literal"><span class="pre">&quot;ButtonContentType&quot;:&quot;video&quot;</span></code></p>
+<div style="margin-top:10px;">
+  <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ContentURL%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2FLenovo.mp4%22%2C%22ButtonType%22%3A%22button%22%2C%22ButtonContentType%22%3A%22video%22%2C%22HideAfterFirstShow%22%3Atrue%2C%22domain%22%3A%22%22%2C%22Debug%22%3Afalse%2C%22OpenExternal%22%3Afalse%2C%22ButtonImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonDragImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonOpenImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
+</div></div>
 <div class="section" id="id4">
 <h2>Кнопка со скролл-зонами<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
 </div>
@@ -164,6 +178,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hierarchy.html" class="btn btn-neutral float-right" title="Иерархия сущностей admin.probtn.com" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="createbutton.html" class="btn btn-neutral" title="Создание кампании и креатива" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
