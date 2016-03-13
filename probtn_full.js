@@ -4999,7 +4999,7 @@ initTrackingLinkTest();
                     //"//cdn.jsdelivr.net/jquery.pep/0.6.3/jquery.pep.min.js",
                     buttonAnimationTimeAfterFancybox: 40,
 
-                    HideAfterFirstShow: false,
+                    HideAfterFirstShow: true,
 
                     LoadFancyboxCSS: true,
 
