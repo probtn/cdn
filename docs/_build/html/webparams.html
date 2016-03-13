@@ -83,7 +83,8 @@
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
@@ -94,8 +95,13 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#isanimation">isAnimation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#opacity">Анимация opacity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rollout">Анимация rollout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookout">Анимация lookout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forwardandback">Анимация forwardAndBack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forwardstopandaway">Анимация forwardStopAndAway</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#animationduration">animationDuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#menutemplatevariant">MenuTemplateVariant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#videotype">VideoType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debug">Debug</a></li>
@@ -110,6 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#clickonclosebutton">ClickOnCloseButton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#alwaysshowclosebutton">AlwaysShowCloseButton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fullscreenclicklink">FullscreenClickLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hidewithoutinteractiontime">HideWithoutInteractionTime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#csseaseduration">cssEaseDuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#changescrollbuttonatfullsiteheight">ChangeScrollButtonAtFullSiteHeight</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#controliniframefromparent">ControlInIframeFromParent</a></li>
@@ -341,6 +348,31 @@
 Также возможно задать конечную прозрачность, указав в качестве параметра
 <code class="docutils literal"><span class="pre">opacity_&lt;конечная</span> <span class="pre">прозрачность&gt;</span></code> к примеру <code class="docutils literal"><span class="pre">opacity_0.4</span></code></p>
 </div>
+<div class="section" id="rollout">
+<h3>Анимация rollout<a class="headerlink" href="#rollout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Выдвижение кнопки по мере скролла страницы.</p>
+<p>Возможно указать сторону из которой будет &#8220;выдвигаться&#8221; кнопка и максимальную ширину &#8220;выдвижения&#8221; (в процентах), в частности
+<code class="docutils literal"><span class="pre">rollout_&lt;сторона&gt;_&lt;ширина&gt;</span></code> к примеру <code class="docutils literal"><span class="pre">rollout</span></code>, <code class="docutils literal"><span class="pre">rollout_left</span></code>, <code class="docutils literal"><span class="pre">rollout_left_60</span></code></p>
+</div>
+<div class="section" id="lookout">
+<h3>Анимация lookout<a class="headerlink" href="#lookout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Постоянное выдвижение и скрытие кнопки по мере около края страницы.</p>
+<p>Возможно указать сторону из которой будет &#8220;выдвигаться&#8221; кнопка, в частности
+<code class="docutils literal"><span class="pre">lookout_&lt;сторона&gt;</span></code> к примеру <code class="docutils literal"><span class="pre">lookout</span></code>, <code class="docutils literal"><span class="pre">lookout_left</span></code>, <code class="docutils literal"><span class="pre">rollout_right</span></code></p>
+</div>
+<div class="section" id="forwardandback">
+<h3>Анимация forwardAndBack<a class="headerlink" href="#forwardandback" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Кнопка перемещается от левого края до правого, затем обратно до левого.</p>
+</div>
+<div class="section" id="forwardstopandaway">
+<h3>Анимация forwardStopAndAway<a class="headerlink" href="#forwardstopandaway" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Кнопка перемещается из-за левого края середины, останавливается и затем перемещается ща правый край.
+Длительность каждого этапа задается параметром <code class="docutils literal"><span class="pre">animationDuration</span></code></p>
+</div>
+</div>
+<div class="section" id="animationduration">
+<h2>animationDuration<a class="headerlink" href="#animationduration" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Длительность анимации, задается в мс.</p>
 </div>
 <div class="section" id="menutemplatevariant">
 <h2>MenuTemplateVariant<a class="headerlink" href="#menutemplatevariant" title="Ссылка на этот заголовок">¶</a></h2>
@@ -434,8 +466,10 @@ true</p>
 <div class="section" id="fullscreenclicklink">
 <h2>FullscreenClickLink<a class="headerlink" href="#fullscreenclicklink" title="Ссылка на этот заголовок">¶</a></h2>
 <p>(Для режима ButtonType==&#8217;fullscreen&#8217;)</p>
-<p>HideWithoutInteractionTime
-По умолчанию 0 (не скрывать)
+</div>
+<div class="section" id="hidewithoutinteractiontime">
+<h2>HideWithoutInteractionTime<a class="headerlink" href="#hidewithoutinteractiontime" title="Ссылка на этот заголовок">¶</a></h2>
+<p>По умолчанию 0 (не скрывать)
 Время, спустя которое кнопка скрывается, если не было с ней взаимодействия</p>
 </div>
 <div class="section" id="csseaseduration">

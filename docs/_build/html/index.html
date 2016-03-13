@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="#"/>
-        <link rel="next" title="Общее описание кнопки" href="description.html"/> 
+        <link rel="next" title="Интеграция" href="description.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -82,7 +82,8 @@
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
@@ -143,16 +144,20 @@
 <div class="toctree-wrapper compound" id="mastertoc">
 <p class="caption"><span class="caption-text">Содержание</span><a class="headerlink" href="#mastertoc" title="Permalink to this toctree">¶</a></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id2">Получение настроек кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="description.html#showinparent-concat-js-probtn-concat-js">showinparent_concat.js и probtn_concat.js</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="description.html#id3">Получение настроек кнопки</a></li>
 <li class="toctree-l2"><a class="reference internal" href="description.html#admin-probtn-com">Краткое описание взаимодействия с сервером настроек (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id3">Интеграция со сторонними сервисами</a></li>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id4">Описание используемых вариантов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html#id4">Интеграция со сторонними сервисами</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html#id5">Описание используемых вариантов</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id5">Общее описание</a></li>
-<li class="toctree-l2"><a class="reference internal" href="description.html#id6">Описание сборки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html#id6">Общее описание</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html#id7">Описание сборки</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a><ul>
@@ -198,6 +203,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html">Описание параметров кнопки</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#isanimation">isAnimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#animationduration">animationDuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#menutemplatevariant">MenuTemplateVariant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#videotype">VideoType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#debug">Debug</a></li>
@@ -212,6 +218,7 @@
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#clickonclosebutton">ClickOnCloseButton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#alwaysshowclosebutton">AlwaysShowCloseButton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#fullscreenclicklink">FullscreenClickLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webparams.html#hidewithoutinteractiontime">HideWithoutInteractionTime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#csseaseduration">cssEaseDuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#changescrollbuttonatfullsiteheight">ChangeScrollButtonAtFullSiteHeight</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webparams.html#controliniframefromparent">ControlInIframeFromParent</a></li>
@@ -337,7 +344,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="description.html" class="btn btn-neutral float-right" title="Общее описание кнопки" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="description.html" class="btn btn-neutral float-right" title="Интеграция" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

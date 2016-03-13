@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Общее описание кнопки &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  <title>Интеграция &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
   
 
   
@@ -83,11 +83,15 @@
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Общее описание кнопки</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Получение настроек кнопки</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Интеграция</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#showinparent-concat-js-probtn-concat-js">showinparent_concat.js и probtn_concat.js</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id2">Общее описание кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Получение настроек кнопки</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#admin-probtn-com">Краткое описание взаимодействия с сервером настроек (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Интеграция со сторонними сервисами</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">Описание используемых вариантов</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Интеграция со сторонними сервисами</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Описание используемых вариантов</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#includepb-min-js">includepb.min.js</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#showinparent-js">showinparent.js</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#probtn-concat-js">probtn_concat.js</a></li>
@@ -97,8 +101,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#probtn">Объединенный probtn</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id5">Общее описание</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">Описание сборки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">Общее описание</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">Описание сборки</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
@@ -141,7 +145,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Общее описание кнопки</li>
+    <li>Интеграция</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -156,9 +160,20 @@
            <div itemprop="articleBody">
             
   <div class="section" id="description">
-<span id="id1"></span><h1>Общее описание кнопки<a class="headerlink" href="#description" title="Ссылка на этот заголовок">¶</a></h1>
+<span id="id1"></span><h1>Интеграция<a class="headerlink" href="#description" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="showinparent-concat-js-probtn-concat-js">
+<h2>showinparent_concat.js и probtn_concat.js<a class="headerlink" href="#showinparent-concat-js-probtn-concat-js" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для этого вариантв интеграции, необходимо просто добавить</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+<p>или</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/probtn_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+<p>перед <code class="docutils literal"><span class="pre">&lt;/body&gt;</span></code></p>
+</div>
+</div>
 <div class="section" id="id2">
-<h2>Получение настроек кнопки<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<h1>Общее описание кнопки<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id3">
+<h2>Получение настроек кнопки<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Скрипт кнопки получает настройки несколькими путями (в порядке приоритета настроек):
 Настройки указанные локально при запуске кнопки
 Получение настроек (конвертация текста из блока в json) из div c <code class="docutils literal"><span class="pre">id=&quot;probtn_additional_params&quot;</span></code>
@@ -174,8 +189,8 @@
 <p>В случае, если апп (и его кампании) выключены, от сервера придет ответ о том что кнопка выключена, и соответственно кнопка показана не будет, и не будет производить дальнейшую инициализацию.</p>
 <p>В случае, если аппа с указанным bundleId&#8221;доменом&#8221; не существует, будет возвращена ошибка, и кнопка опять таки не будет производить дальнейшую инициализацию.</p>
 </div>
-<div class="section" id="id3">
-<h2>Интеграция со сторонними сервисами<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id4">
+<h2>Интеграция со сторонними сервисами<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Документация</p>
 <ul class="simple">
 <li>AdRiver - интеграция с Adriver</li>
@@ -186,13 +201,15 @@
 <li>Probtn working with DFP Google ads - интеграция с DFP</li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>Описание используемых вариантов<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Как видно из приведенных выше вариантов интеграции, зачастую используется
-* <a class="reference external" href="http://cdn.probtn.com/includepb.min.js">http://cdn.probtn.com/includepb.min.js</a>
-* <a class="reference external" href="http://cdn.probtn.com/showinparent.js">http://cdn.probtn.com/showinparent.js</a>
-* <a class="reference external" href="http://cdn.probtn.com/probtn_concat.js">http://cdn.probtn.com/probtn_concat.js</a>
-* <a class="reference external" href="http://cdn.probtn.com/showinparent_concat.js">http://cdn.probtn.com/showinparent_concat.js</a></p>
+<div class="section" id="id5">
+<h2>Описание используемых вариантов<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Как видно из приведенных выше вариантов интеграции, зачастую используется</p>
+<ul class="simple">
+<li><a class="reference external" href="http://cdn.probtn.com/includepb.min.js">http://cdn.probtn.com/includepb.min.js</a></li>
+<li><a class="reference external" href="http://cdn.probtn.com/showinparent.js">http://cdn.probtn.com/showinparent.js</a></li>
+<li><a class="reference external" href="http://cdn.probtn.com/probtn_concat.js">http://cdn.probtn.com/probtn_concat.js</a></li>
+<li><a class="reference external" href="http://cdn.probtn.com/showinparent_concat.js">http://cdn.probtn.com/showinparent_concat.js</a></li>
+</ul>
 <div class="section" id="includepb-min-js">
 <h3>includepb.min.js<a class="headerlink" href="#includepb-min-js" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Данный скрипт добавляет необходимые дополнительные библиотеки на страницу, если необходимо, и инициализирует запуск кнопки.</p>
@@ -216,8 +233,8 @@
 </div>
 <div class="section" id="probtn">
 <h1>Объединенный probtn<a class="headerlink" href="#probtn" title="Ссылка на этот заголовок">¶</a></h1>
-<div class="section" id="id5">
-<h2>Общее описание<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id6">
+<h2>Общее описание<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
 <p>На cdn доступен
 <code class="docutils literal"><span class="pre">cdn.probtn.com/probtn_concat.js</span></code>
 объединенный из всех необходимы библиотек (fancybox, jquery.pep, uaparser), jquery, probtn и includepb.
@@ -225,8 +242,8 @@
 <p>Также создан
 <code class="docutils literal"><span class="pre">cdn.probtn.com/showinparent_concat.js</span></code></p>
 </div>
-<div class="section" id="id6">
-<h2>Описание сборки<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id7">
+<h2>Описание сборки<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
 <p>В репозитории <code class="docutils literal"><span class="pre">probtn/cdn</span></code> при <code class="docutils literal"><span class="pre">precommit</span></code> происходит следующее:
 На основе <code class="docutils literal"><span class="pre">src/probtn_concat_template.js</span></code> шаблона происходит сборка в файл <code class="docutils literal"><span class="pre">probtn_concat_full.js</span></code>
 (замена в файле строк include &#8220;path_to_file&#8221;) посредством</p>

@@ -48,7 +48,7 @@ Step 2
 
 Url ``//example.com/example_iframe_page.html`` добавлен для примера, необходимо использовать свой путь.
 
-Такэе возможно указать домен, в частности:
+Также возможно указать домен, в частности:
 
 ``<iframe src="//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&click_url_esc=%%CLICK_URL_ESC%%&cacheBuster=%%CACHEBUSTER%%" style="border: 0px; width: 0px; height: 0px; display: none;"></iframe>``
 

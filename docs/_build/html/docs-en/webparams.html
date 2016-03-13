@@ -81,7 +81,8 @@
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
@@ -141,6 +142,53 @@
 <span id="webparams"></span><h1>Params description<a class="headerlink" href="#params-description" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Description of the parameters used by the button (by application)</p>
 <p>If a parameter is used differently in different modes, it is specifically marked (including, the required modes)</p>
+<div class="section" id="isanimation">
+<h2>isAnimation<a class="headerlink" href="#isanimation" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Different variant of button animation.</p>
+<p>Possible variants:</p>
+<ul class="simple">
+<li>rollout_left</li>
+<li>rollout_right</li>
+<li>lookout_left</li>
+<li>lookout_right</li>
+<li>forwardAndBack</li>
+<li>forwardStopAndAway</li>
+<li>anim1</li>
+<li>anim2</li>
+<li>opacity</li>
+</ul>
+<div class="section" id="animation-opacity">
+<h3>Animation opacity<a class="headerlink" href="#animation-opacity" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Change button opacity from set in ButtonOpacity to 0.55 opacity by default.</p>
+<p>Also possible to send end opacity, if we use as <code class="docutils literal"><span class="pre">isAnimation</span></code> param value
+<code class="docutils literal"><span class="pre">opacity_&lt;end</span> <span class="pre">opacity&gt;</span></code>, for example <code class="docutils literal"><span class="pre">opacity_0.4</span></code></p>
+</div>
+<div class="section" id="animation-rollout">
+<h3>Animation rollout<a class="headerlink" href="#animation-rollout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Moving button from page edge while scrolling page.</p>
+<p>Possible to set side of page, from which button would move and max width of mevement (in percents):
+<code class="docutils literal"><span class="pre">rollout_&lt;side&gt;_&lt;width&gt;</span></code>, for example <code class="docutils literal"><span class="pre">rollout</span></code>, <code class="docutils literal"><span class="pre">rollout_left</span></code>, <code class="docutils literal"><span class="pre">rollout_left_60</span></code></p>
+</div>
+<div class="section" id="animation-lookout">
+<h3>Animation lookout<a class="headerlink" href="#animation-lookout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Continuous button moving out and in from the edge of the page.</p>
+<p>Possible to set side of page, from which button would move
+<code class="docutils literal"><span class="pre">lookout_&lt;ide&gt;</span></code>, for example <code class="docutils literal"><span class="pre">lookout</span></code>, <code class="docutils literal"><span class="pre">lookout_left</span></code>, <code class="docutils literal"><span class="pre">rollout_right</span></code></p>
+</div>
+<div class="section" id="animation-forwardandback">
+<h3>Animation forwardAndBack<a class="headerlink" href="#animation-forwardandback" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Button moves from left side to right side of the page, and then moving back to the left side.</p>
+</div>
+<div class="section" id="animation-forwardstopandaway">
+<h3>Animation forwardStopAndAway<a class="headerlink" href="#animation-forwardstopandaway" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Button moves from left side to the center of the page, stops and after moves to the right side.
+Each animation step duration set by <code class="docutils literal"><span class="pre">animationDuration</span></code> param.</p>
+</div>
+</div>
+<div class="section" id="animationduration">
+<h2>animationDuration<a class="headerlink" href="#animationduration" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Animation duration, set in ms.</p>
+</div>
 <div class="section" id="menutemplatevariant">
 <h2>MenuTemplateVariant<a class="headerlink" href="#menutemplatevariant" title="Ссылка на этот заголовок">¶</a></h2>
 <p>This param is used to select nessesary variant of menu apperiance

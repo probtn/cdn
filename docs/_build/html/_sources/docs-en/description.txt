@@ -32,7 +32,7 @@ If an app (and its campaigns) are off, the server responds that the button is di
 
 If an app with a specified bandle id domain does not exist, an error is returned and no further button initialization is activated either.
 
-Интеграция со сторонними сервисами
+Integration with third-party services
 ----------------------------------
 Documentation
 

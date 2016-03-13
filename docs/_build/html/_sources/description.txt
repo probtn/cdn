@@ -4,6 +4,22 @@
    contain the root `toctree` directive.
  
 .. _description:
+
+Интеграция
+==================================
+
+showinparent_concat.js и probtn_concat.js
+----------------------------------
+
+Для этого вариантв интеграции, необходимо просто добавить
+
+``<script src="//cdn.probtn.com/showinparent_concat.js"></script>``
+
+или
+
+``<script src="//cdn.probtn.com/probtn_concat.js"></script>``
+
+перед ``</body>``
  
 Общее описание кнопки
 ==================================
@@ -44,6 +60,7 @@
 Описание используемых вариантов
 -------------------------------
 Как видно из приведенных выше вариантов интеграции, зачастую используется 
+
 * http://cdn.probtn.com/includepb.min.js
 * http://cdn.probtn.com/showinparent.js
 * http://cdn.probtn.com/probtn_concat.js
@@ -90,6 +107,8 @@ showinparent_concat.js
 (замена в файле строк include "path_to_file") посредством 
 
 Далее probtn_concat_full.js минифицируется посредством ``grunt-contrib-uglify`` в ``probtn_concat.js``
+
+
 
 
 

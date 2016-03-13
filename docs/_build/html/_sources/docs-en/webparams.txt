@@ -12,6 +12,60 @@ Description of the parameters used by the button (by application)
  
 If a parameter is used differently in different modes, it is specifically marked (including, the required modes)
 
+isAnimation
+----------------------------------
+
+Different variant of button animation.
+
+Possible variants:
+
+* rollout_left
+* rollout_right
+* lookout_left
+* lookout_right
+* forwardAndBack
+* forwardStopAndAway
+* anim1
+* anim2
+* opacity
+
+Animation opacity
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Change button opacity from set in ButtonOpacity to 0.55 opacity by default.
+
+Also possible to send end opacity, if we use as ``isAnimation`` param value
+``opacity_<end opacity>``, for example ``opacity_0.4``
+
+Animation rollout
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Moving button from page edge while scrolling page.
+
+Possible to set side of page, from which button would move and max width of mevement (in percents):
+``rollout_<side>_<width>``, for example ``rollout``, ``rollout_left``, ``rollout_left_60``
+
+Animation lookout
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Continuous button moving out and in from the edge of the page.
+
+Possible to set side of page, from which button would move
+``lookout_<ide>``, for example ``lookout``, ``lookout_left``, ``rollout_right``
+
+Animation forwardAndBack
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Button moves from left side to right side of the page, and then moving back to the left side.
+
+Animation forwardStopAndAway
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Button moves from left side to the center of the page, stops and after moves to the right side. 
+Each animation step duration set by ``animationDuration`` param.
+
+animationDuration
+----------------------------------
+Animation duration, set in ms.
 
 MenuTemplateVariant
 ----------------------------------

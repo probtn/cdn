@@ -83,7 +83,8 @@
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
@@ -200,9 +201,12 @@
 </div>
 <div class="section" id="step-4">
 <h3>Step 4<a class="headerlink" href="#step-4" title="Ссылка на этот заголовок">¶</a></h3>
-<p>В нем необходимо изменить в index.html путь до showinparent.html (создан на шаге 1)
-<code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span> <span class="pre">src=&quot;http://example.com/showinparent.html?domain=nessasary_example_app_domain.test&quot;&gt;&lt;/iframe&gt;</span></code>
-Url <code class="docutils literal"><span class="pre">//example.com/showinparent.html?domain=nessasary_example_app_domain.test</span></code> добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)</p>
+<p>В нем необходимо изменить в index.html путь до showinparent.html (создан на шаге 1)</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span> <span class="pre">src=&quot;http://example.com/showinparent.html&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>или</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span> <span class="pre">src=&quot;http://example.com/showinparent.html?domain=nessasary_example_app_domain.test&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Url <code class="docutils literal"><span class="pre">//example.com/showinparent.html?domain=nessasary_example_app_domain.test</span></code> добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)</p>
+<p>GET параметр domain опционален, и нужен в случае, если нужно жестко задать домен, для которого будут браться настройки из admin.probtn.com</p>
 <blockquote>
 <div>Также значение GET параметра domain (для примера указано) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com</div></blockquote>
 </div>
@@ -237,7 +241,7 @@ Url <code class="docutils literal"><span class="pre">//example.com/showinparent.
 <p>Загрузить код баннера (нажав на ссылку &#8220;Загрузить баннер&#8221;)</p>
 <img alt="_images/adriver1_step2.png" src="_images/adriver1_step2.png" />
 <p>В качестве кода возможно использовать объединенный probtn скрипт, вызываемый ( <a class="reference external" href="http://cdn.probtn.com/showinparent_concat.js">http://cdn.probtn.com/showinparent_concat.js</a> ):
-( <a class="reference internal" href="description.html#description"><span>Общее описание кнопки</span></a> )</p>
+( <a class="reference internal" href="docs-en/description.html#description"><span>General description of the button</span></a> )</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
 <span class="kd">var</span> <span class="nx">oHead</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;HEAD&#39;</span><span class="p">).</span><span class="nx">item</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 

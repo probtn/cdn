@@ -81,7 +81,8 @@
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
@@ -159,15 +160,30 @@
 <span class="nt">&lt;/head&gt;</span>
 <span class="nt">&lt;body&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdn.probtn.com/showinparent_concat.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;&lt;/html&gt;</span>
 </pre></div>
 </div>
-<p>&lt;/body&gt;&lt;/html&gt;</p>
 </div>
 <div class="section" id="step-2">
 <h3>Step 2<a class="headerlink" href="#step-2" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Create an ad with content like this:</p>
 <p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?click_url_esc=%%CLICK_URL_ESC%%&amp;cacheBuster=%%CACHEBUSTER%%&quot;</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span> <span class="pre">/&gt;</span></code></p>
 <p>Url <code class="docutils literal"><span class="pre">//example.com/example_iframe_page.html</span></code> is added by example, you should use your own path</p>
+<p>Also you can set domain:</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;click_url_esc=%%CLICK_URL_ESC%%&amp;cacheBuster=%%CACHEBUSTER%%&quot;</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Where GET param <code class="docutils literal"><span class="pre">domain</span></code> (for example) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> should be replaced to nessesary domain, used in app in admin.probtn.com</p>
+</div>
+<div class="section" id="set-campaign-optional">
+<h3>Set campaign (optional)<a class="headerlink" href="#set-campaign-optional" title="Ссылка на этот заголовок">¶</a></h3>
+<p>It&#8217;s possible to use campaign id, so probtn would show creatives only from selected campaign fro app.
+To do so, you should:</p>
+<p>Create ad with code</p>
+<p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span>&nbsp; <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;SelectAdSet=565e021f99c27511100000d0&quot;&gt;&lt;/iframe&gt;</span></code></p>
+<p>Url //example.com/example_iframe_page.html добавлен для примера, is an example, use your own path (to the page created on step 1)</p>
+<p>Also value of GET param domain (for example) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> should be replaced on nessesary (id), used in nessesary app in admin.probtn.com</p>
+<p>Value of GET param SelectAdSet (for example) <code class="docutils literal"><span class="pre">565e021f99c27511100000d0</span></code> should be replaced on nessesary campaign id (don&#8217;t use placement or creative id).</p>
+<p>Campaign ID could be found  at url, if you open campaign page at admin.probtn.com.</p>
+<img alt="../_images/adriver2_step3_21.png" src="../_images/adriver2_step3_21.png" />
 </div>
 </div>
 <div class="section" id="intergation-with-dfp-sync-code">
