@@ -40,9 +40,23 @@
 Кнопка со скролл-зонами
 ----------------------------------
 
-Кнопка 
+Поведение кнопки аналогично кнопке по умолчанию, но вся высота страницы разбивается на зоны, внутри которых может менятся изображение кнопки, ее размеры и режим.
+
+Данный режиме задается при указании параметра
+``"ButtonType":"button_and_scroll_zones"``
+и указания настроек скролл-зон (объект ``ScrollZones`` настроек)
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ButtonType%22%3A%22button_and_scroll_zones%22%2C%22Debug%22%3Atrue%2C%22HintText%22%3A%22%22%2C%22ScrollZones%22%3A%5B%7B%22ZoneHeight%22%3A0.34%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_ball_spartak.png%22%2C%22CustomButtonParams%22%3Atrue%2C%22CustomContentURL%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22ButtonSize%22%3A%7B%22W%22%3A164%2C%22H%22%3A164%7D%2C%22ButtonDragSize%22%3A%7B%22W%22%3A168%2C%22H%22%3A168%7D%7D%2C%7B%22ZoneHeight%22%3A0.33%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_logo_spartak.png%22%7D%2C%7B%22ZoneHeight%22%3A0.33%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_scarf_spartak.png%22%7D%5D%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22domain%22%3A%22%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+Кнопка c активными зонами
 ----------------------------------
 
+Кнопка-меню
+----------------------------------
 
-
-
+Фуллскрин
+----------------------------------
