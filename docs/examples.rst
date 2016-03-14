@@ -59,7 +59,7 @@
 
 Данный режиме задается при указании параметра
 ``"ButtonType":"button_and_active_zones"``
-и указания настроек скролл-зон (объект ``ActiveZones`` настроек)
+и указания настроек активных зон (объект ``ActiveZones`` настроек)
 
 .. raw:: html
 
@@ -70,14 +70,36 @@
 Кнопка-меню
 ----------------------------------
 
+Поведение кнопки аналогично кнопке по умолчанию, но после нажатия отображается меню из нескольких пунктов, с различными ссылками\действиями для каждого из пунктов.
+
+Данный режиме задается при указании параметра
+``"ButtonType":"menu"``
+и указания настроек меню (объект ``MenuItems`` настроек)
+
 .. raw:: html
 
     <div style="margin-top:10px;">
-      <iframe width="100%" height="400" src="http://bit.ly/1MiayAq" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/menu/" frameborder="0" allowfullscreen></iframe>
+    </div>
+	
+Также для меню возможно включить режим радиального меню используя параметр ``"MenuTemplateVariant":"radialcorner"``
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/radmenu_param/" frameborder="0" allowfullscreen></iframe>
     </div>
 
 Фуллскрин
 ----------------------------------
+
+Послк загрузки страницы и скрипта кнопки в модальном окне отображается страница ``ContentURL``
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="100%" height="400" src="http://demo.probtn.com/button_example/fullscreen_test/" frameborder="0" allowfullscreen></iframe>
+    </div>
 
 Анимации кнопки
 ----------------------------------
