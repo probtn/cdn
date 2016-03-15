@@ -94,7 +94,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#c">Кнопка c активными зонами</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">Кнопка-меню</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id6">Фуллскрин</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">Анимации кнопки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">Анимации кнопки</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opacity">Opacity анимация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rollout">rollout анимация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookout">lookout анимация</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forwardandback">forwardAndBack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forwardstopandaway">forwardStopAndAway</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
@@ -207,6 +214,69 @@
 </div></div>
 <div class="section" id="id7">
 <h2>Анимации кнопки<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="opacity">
+<h3>Opacity анимация<a class="headerlink" href="#opacity" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Анимация смены прозрачности кнопки.</p>
+<p>Используемые параметры:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>В частности задается как <code class="docutils literal"><span class="pre">isAnimation</span> <span class="pre">=</span> <span class="pre">opacity_0.5</span></code>
+в формате <code class="docutils literal"><span class="pre">opacity_&lt;конечное</span> <span class="pre">значение&gt;</span></code></p>
+<p>Начальное значение прозрачности соответственно устанавливается через <code class="docutils literal"><span class="pre">ButtonOpacity</span></code> параметр</p>
+<p>Демо страница - <a class="reference external" href="http://demo.probtn.com/button_example/opacity_animation">http://demo.probtn.com/button_example/opacity_animation</a></p>
+</div>
+<div class="section" id="rollout">
+<h3>rollout анимация<a class="headerlink" href="#rollout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Анимация, при которой кнопка &#8220;выдвигается&#8221; по мере скролла страницы</p>
+<p>Используемые параметры:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>В частности задается как <code class="docutils literal"><span class="pre">isAnimation</span> <span class="pre">=</span> <span class="pre">rollout_left</span></code> в формате <code class="docutils literal"><span class="pre">rollout_&lt;сторона&gt;</span></code>, где сторона - опциональна и может принимать значения <code class="docutils literal"><span class="pre">left</span></code> или <code class="docutils literal"><span class="pre">right</span></code></p>
+<p>И возможно указать сторону из которой будет &#8220;выдвигаться&#8221; кнопка и максимальную ширину &#8220;выдвижения&#8221; (в процентах), в частности
+<code class="docutils literal"><span class="pre">rollout_&lt;сторона&gt;_&lt;ширина&gt;</span></code> к примеру <code class="docutils literal"><span class="pre">rollout</span></code>, <code class="docutils literal"><span class="pre">rollout_left</span></code>, <code class="docutils literal"><span class="pre">rollout_left_60</span></code></p>
+<p>Демо страницы:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://demo.probtn.com/button_example2/rollout">http://demo.probtn.com/button_example2/rollout</a></li>
+<li><a class="reference external" href="http://demo.probtn.com/button_example2/rollout/right/">http://demo.probtn.com/button_example2/rollout/right/</a></li>
+</ul>
+</div>
+<div class="section" id="lookout">
+<h3>lookout анимация<a class="headerlink" href="#lookout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>кнопка периодически исчезает и появляется из-за края экрана.</p>
+<p>Используемые параметры:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>В частности задается как <code class="docutils literal"><span class="pre">isAnimation</span> <span class="pre">=</span> <span class="pre">lookout_left</span></code> в формате <code class="docutils literal"><span class="pre">lookout_&lt;сторона&gt;</span></code>, где сторона - опциональна и может принимать значения <code class="docutils literal"><span class="pre">left</span></code> или <code class="docutils literal"><span class="pre">right</span></code></p>
+</div>
+<div class="section" id="forwardandback">
+<h3>forwardAndBack<a class="headerlink" href="#forwardandback" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Кнопка перемещается от левого края до правого, затем обратно до левого.</p>
+<p>Используемые параметры:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>Пример:
+- <a class="reference external" href="http://demo.probtn.com/button_example2/forwardAndBack/">http://demo.probtn.com/button_example2/forwardAndBack/</a></p>
+</div>
+<div class="section" id="forwardstopandaway">
+<h3>forwardStopAndAway<a class="headerlink" href="#forwardstopandaway" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Кнопка перемещается из-за левого края середины, останавливается и затем перемещается ща правый край.
+Длительность каждого этапа задается параметром <code class="docutils literal"><span class="pre">animationDuration</span></code></p>
+<p>Используемые параметры:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>Пример:
+- <a class="reference external" href="http://demo.probtn.com/button_example2/forwardStopAndAway">http://demo.probtn.com/button_example2/forwardStopAndAway</a></p>
+</div>
 </div>
 </div>
 
