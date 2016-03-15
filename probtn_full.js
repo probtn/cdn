@@ -4768,7 +4768,7 @@ initTrackingLinkTest();
                         H: 0
                     },
 
-                    ClickOnCloseButton: true,
+                    ClickOnCloseButton: false,
                     AlwaysShowCloseButton: false,
 
                     FullscreenClickLink: '',

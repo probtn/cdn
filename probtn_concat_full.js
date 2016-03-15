@@ -4809,7 +4809,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        H: 0
 			                    },
 
-			                    ClickOnCloseButton: true,
+			                    ClickOnCloseButton: false,
 			                    AlwaysShowCloseButton: false,
 
 			                    FullscreenClickLink: '',

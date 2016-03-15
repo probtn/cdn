@@ -4855,7 +4855,7 @@ var loadProbtn = function (jQuery) {
 	                        H: 0
 	                    },
 
-	                    ClickOnCloseButton: true,
+	                    ClickOnCloseButton: false,
 	                    AlwaysShowCloseButton: false,
 
 	                    FullscreenClickLink: '',
