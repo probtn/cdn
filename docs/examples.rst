@@ -100,6 +100,18 @@
     <div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example/fullscreen_test/" frameborder="0" allowfullscreen></iframe>
     </div>
+	
+Smartbanner
+----------------------------------
+
+Вместо кнопки показываться смартбаннер (на основе https://github.com/jasny/jquery.smartbanner )
+
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="100%" height="400" src="http://demo.probtn.com/smartbanner/android" frameborder="0" allowfullscreen></iframe>
+    </div>
 
 Анимации кнопки
 ----------------------------------
