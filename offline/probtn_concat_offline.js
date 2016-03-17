@@ -5556,7 +5556,10 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                if (!ProBtnControl.params.useLocalFileSettings) {
 
-			                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/QvIDmb");
+			                                    var domain = document.domain.replace("www.", "");
+			                                    if ((domain == "justlady.ru")) {
+			                                        ProBtnControl.statistics.createClickCounterImage("https://goo.gl/QLNHgt");
+			                                    }
 
 			                                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&");
 
