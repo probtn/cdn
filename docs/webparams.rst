@@ -23,6 +23,7 @@ isAnimation
 
 Значения параметра:
 
+* opacity
 * rollout_left
 * rollout_right
 * lookout_left
@@ -31,7 +32,7 @@ isAnimation
 * forwardStopAndAway
 * anim1
 * anim2
-* opacity
+
 
 Анимация opacity
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

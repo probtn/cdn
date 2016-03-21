@@ -106,6 +106,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Примеры режимов работы кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
@@ -163,7 +164,7 @@
 <span id="id1"></span><h1>Интеграция<a class="headerlink" href="#description" title="Ссылка на этот заголовок">¶</a></h1>
 <div class="section" id="showinparent-concat-js-probtn-concat-js">
 <h2>showinparent_concat.js и probtn_concat.js<a class="headerlink" href="#showinparent-concat-js-probtn-concat-js" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Для этого вариантв интеграции, необходимо просто добавить</p>
+<p>Для этого варианта интеграции, необходимо просто добавить</p>
 <p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
 <p>или</p>
 <p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/probtn_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
@@ -179,14 +180,14 @@
 Получение настроек (конвертация текста из блока в json) из div c <code class="docutils literal"><span class="pre">id=&quot;probtn_additional_params&quot;</span></code>
 Получение настроек из json-файла с настройками кнопки (в этом случае обращение к серверу за настройками не происходит)
 Получение настроек от сервера (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>) - основной и наиболее широко используемый и удобный способ</p>
-<p>Список используемых параметров, их описаний и иже с ним доступен в документе Probtn web params</p>
+<p>Список используемых параметров и их описаний доступен в документе Probtn web params</p>
 </div>
 <div class="section" id="admin-probtn-com">
 <h2>Краткое описание взаимодействия с сервером настроек (<code class="docutils literal"><span class="pre">admin.probtn.com</span></code>)<a class="headerlink" href="#admin-probtn-com" title="Ссылка на этот заголовок">¶</a></h2>
 <p>При запуске скрипта кнопки, происходит следующее:</p>
 <p>Производится начальная инициализация, во время которой кнопка делает запрос настроек к admin.probtn.com. Настройки идентифицируются исходя из домена сайта (в частности при запросе в числе прочих передается параметр BundleID с доменом сайта, который автоматически берется из document.domain)</p>
 <p>В случае, если указаны настройки способами 1 и 2, и одним из параметров указан параметр domain c идентификатором&#8221;доменом&#8221;, соответствующим одному из &#8220;аппов&#8221; в <code class="docutils literal"><span class="pre">admin.probtn.com</span></code>, то скрипт кнопки при обращении к серверу в <code class="docutils literal"><span class="pre">BundleID</span></code> передаст указанный параметр и получит для него настройки. Это бывает полезно в различных случаях, к примеру когда кнопка с искомыми настройками должна показываться на нескольких сайтах, или же наоборот, когда на одном сайте нужно показать различные рекламные кампании (данный вариант возможен и с использованием campaign в &#8220;аппе&#8221;, но не всегда подходит).</p>
-<p>В случае, если апп (и его кампании) выключены, от сервера придет ответ о том что кнопка выключена, и соответственно кнопка показана не будет, и не будет производить дальнейшую инициализацию.</p>
+<p>В случае, если апп (и его кампании) выключены, от сервера придет ответ о том, что кнопка выключена, и соответственно кнопка показана не будет, и не будет производить дальнейшую инициализацию.</p>
 <p>В случае, если аппа с указанным bundleId&#8221;доменом&#8221; не существует, будет возвращена ошибка, и кнопка опять таки не будет производить дальнейшую инициализацию.</p>
 </div>
 <div class="section" id="id4">
@@ -212,7 +213,7 @@
 </ul>
 <div class="section" id="includepb-min-js">
 <h3>includepb.min.js<a class="headerlink" href="#includepb-min-js" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Данный скрипт добавляет необходимые дополнительные библиотеки на страницу, если необходимо, и инициализирует запуск кнопки.</p>
+<p>Данный скрипт добавляет необходимые дополнительные библиотеки на страницу и инициализирует запуск кнопки.</p>
 </div>
 <div class="section" id="showinparent-js">
 <h3>showinparent.js<a class="headerlink" href="#showinparent-js" title="Ссылка на этот заголовок">¶</a></h3>
@@ -221,13 +222,13 @@
 </div>
 <div class="section" id="probtn-concat-js">
 <h3>probtn_concat.js<a class="headerlink" href="#probtn-concat-js" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Данный скрипт добавляет необходимые дополнительные библиотеки на страницу, если необходимо, и инициализирует запуск кнопки.
-Все нужные для работы кнопки кнопки добавлены в этом файле и добавляются к собственной версии jQuery, запускаемой c <code class="docutils literal"><span class="pre">jQuery.noConflict(true)</span></code></p>
+<p>Данный скрипт добавляет необходимые дополнительные библиотеки на страницу и инициализирует запуск кнопки.
+Все нужные для работы кнопки добавлены в этом файле и добавляются к собственной версии jQuery, запускаемой c <code class="docutils literal"><span class="pre">jQuery.noConflict(true)</span></code></p>
 </div>
 <div class="section" id="showinparent-concat-js">
 <h3>showinparent_concat.js<a class="headerlink" href="#showinparent-concat-js" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Данный скрипт добавляет probtn_concat.js на страницу родителя (если страница, где добавлен код, и так является <code class="docutils literal"><span class="pre">window.top</span></code> - то код <code class="docutils literal"><span class="pre">includepb.min.js</span></code> будет просто добавлен на нее).</p>
-<p>Для того, чтобы скрипт мог добавить <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> для родителя, iframe и родитель должны на одном и том же домене (в ином случае в связи c <code class="docutils literal"><span class="pre">cross</span> <span class="pre">domain</span> <span class="pre">policy</span></code>) - для чего в инструкциях есть пункт по созданию html страницы с <code class="docutils literal"><span class="pre">showinparent_concat.js</span></code> скриптом.</p>
+<p>Для того, чтобы скрипт мог добавить <code class="docutils literal"><span class="pre">probtn_concat.js</span></code> для родителя, iframe и родитель должны находиться на одном и том же домене (в ином случае в связи c <code class="docutils literal"><span class="pre">cross</span> <span class="pre">domain</span> <span class="pre">policy</span></code>) - для чего в инструкциях есть пункт по созданию html страницы с <code class="docutils literal"><span class="pre">showinparent_concat.js</span></code> скриптом.</p>
 </div>
 </div>
 </div>

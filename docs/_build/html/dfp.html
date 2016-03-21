@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Примеры режимов работы кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
@@ -160,8 +161,8 @@
 <h2>Интеграция с DFP - асинхронный код<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="section" id="step-1">
 <h3>Step 1<a class="headerlink" href="#step-1" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Создайте  страницу, доступную по адресу с тем же доменом, где вы хотите показывать  кнопку.
-Добавьте  на страницу showinparent_concat.js ( Общее описание работы кнопки )</p>
+<p>Создайте страницу, доступную по адресу с тем же доменом, где вы хотите показывать  кнопку.
+Добавьте на страницу showinparent_concat.js ( Общее описание работы кнопки )</p>
 <p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
 <p>Например:</p>
 <div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
@@ -180,23 +181,23 @@
 </div>
 <div class="section" id="step-2">
 <h3>Step 2<a class="headerlink" href="#step-2" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Создайте обхявление с iframe со страницей, созданной на предыдущем шаге:</p>
+<p>Создайте объявление с iframe со страницей, созданной на предыдущем шаге:</p>
 <p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?click_url_esc=%%CLICK_URL_ESC%%&amp;cacheBuster=%%CACHEBUSTER%%&quot;</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span> <span class="pre">/&gt;</span></code></p>
 <p>Url <code class="docutils literal"><span class="pre">//example.com/example_iframe_page.html</span></code> добавлен для примера, необходимо использовать свой путь.</p>
 <p>Также возможно указать домен, в частности:</p>
 <p><code class="docutils literal"><span class="pre">&lt;iframe</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;click_url_esc=%%CLICK_URL_ESC%%&amp;cacheBuster=%%CACHEBUSTER%%&quot;</span> <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;&gt;&lt;/iframe&gt;</span></code></p>
 <p>Url <code class="docutils literal"><span class="pre">//example.com/example_iframe_page.html</span></code> добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)</p>
 <blockquote>
-<div>Также значение GET параметра domain (для примера указано) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com</div></blockquote>
+<div>Также значение GET параметра domain (для примера указано) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> нужно заменить на необходимый домен (идентификатор), используемый в нужном аппе в admin.probtn.com</div></blockquote>
 </div>
 <div class="section" id="id3">
 <h3>Указание кампании (опционально)<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Также возможно указать идентификатор кампании, по которому кнопка будет показывать только креативы только указанной кампании для аппа.
+<p>Также возможно указать идентификатор кампании, по которому кнопка будет показывать креативы только указанной кампании для аппа.
 Для этого необходимо</p>
 <p>Создать объявление с кодом
 <code class="docutils literal"><span class="pre">&lt;iframe</span>&nbsp; <span class="pre">style=&quot;border:</span> <span class="pre">0px;</span> <span class="pre">width:</span> <span class="pre">0px;</span> <span class="pre">height:</span> <span class="pre">0px;</span> <span class="pre">display:</span> <span class="pre">none;&quot;</span> <span class="pre">src=&quot;//example.com/example_iframe_page.html?domain=nessasary_example_app_domain.test&amp;SelectAdSet=565e021f99c27511100000d0&quot;&gt;&lt;/iframe&gt;</span></code></p>
 <p>Url //example.com/example_iframe_page.html добавлен для примера, необходимо использовать свой путь (до страницы созданной на шаге 1)
-Значение GET параметра domain (для примера указано) nessasary_example_app_domain.test нужно заменить на домен  (идентификатор) необходимый, используемый в нужном аппе в admin.probtn.com</p>
+Значение GET параметра domain (для примера указано) nessasary_example_app_domain.test нужно заменить на необходимый домен (идентификатор), используемый в нужном аппе в admin.probtn.com</p>
 <p>Значение GET параметра SelectAdSet (для примера указано) <code class="docutils literal"><span class="pre">565e021f99c27511100000d0</span></code> нужно заменить на идентификатор кампании (не нужно указывать идентификатор placement или creative)
 Сам идентификатор можно найти в адресной строке, открыв страницу кампании.</p>
 <img alt="_images/adriver2_step3_2.png" src="_images/adriver2_step3_2.png" />

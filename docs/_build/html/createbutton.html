@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
-        <link rel="next" title="Иерархия сущностей admin.probtn.com" href="hierarchy.html"/>
-        <link rel="prev" title="Общее описание кнопки" href="description.html"/> 
+        <link rel="next" title="Примеры режимов работы кнопки" href="examples.html"/>
+        <link rel="prev" title="Интеграция" href="description.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -83,7 +83,8 @@
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="description.html">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Создание кампании и креатива</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Шаг 1 - создание кампании</a></li>
@@ -93,6 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id6">Шаг 5</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Примеры режимов работы кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
@@ -156,13 +158,15 @@
 <div class="section" id="id3">
 <h2>Шаг 2<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Заполняем базовые поля формы кампании, в частности</p>
-<p>1 - имя кампании
-2 - состояние (включенавыключена)
-4 - общий лимит показов для кампании
-5 - дата и время старта кампании в формате YYYY/MM/DD HH:mm:ss
-6 - дата и время завершения кампании в формате YYYY/MM/DD HH:mm:ss
-7 - аппы для кампании</p>
-<img alt="_images/2.png" src="_images/2.png" />
+<ol>
+<li>имя кампании</li>
+<li>состояние (включена\выключена)</li>
+<li>рекламодатель</li>
+<li>общий лимит показов для кампании</li>
+<li>дата и время старта кампании в формате <pre>YYYY/MM/DD HH:mm:ss</pre></li>
+<li>дата и время завершения кампании в формате <pre>YYYY/MM/DD HH:mm:ss</pre></li>
+<li>аппы для кампании</li>
+</ol><img alt="_images/2.png" src="_images/2.png" />
 <img alt="_images/3.png" src="_images/3.png" />
 </div>
 <div class="section" id="id4">
@@ -173,16 +177,22 @@
 </div>
 <div class="section" id="id5">
 <h2>Шаг 4<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Создаем новую группу креативов, нажав на New Targeting
-Указываем имя группы и необходимые таргетинги для группы, если таковые необходимы</p>
+<p>Создаем новую группу креативов, нажав на New Targeting.</p>
+<p>Указываем имя группы и необходимые таргетинги для группы, если таковые необходимы</p>
 <img alt="_images/6.png" src="_images/6.png" />
 <img alt="_images/7.png" src="_images/7.png" />
 </div>
 <div class="section" id="id6">
 <h2>Шаг 5<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Создаем креатив для созданной на предыдущем шаге группе.</p>
+<p>Создаем креатив для созданной на предыдущем шаге группы.</p>
 <img alt="_images/9.png" src="_images/9.png" />
-<p>Первоначально указываем основные настройки кнопки, как то состояние (вкдвыкл), show what (что будет открываться при нажатии на кнопку) и open in external browser (открывать ли страницу в новой вкладке при нажатии на кнопку) и таргетинги для креатива, если таковые необходимы.</p>
+<p>Первоначально указываем основные настройки кнопки:</p>
+<ul class="simple">
+<li>как то состояние (onoff)</li>
+<li>show what (что будет открываться при нажатии на кнопку)</li>
+<li>open in external browser (открывать ли страницу в новой вкладке при нажатии на кнопку)</li>
+<li>таргетинги для креатива, если таковые необходимы.</li>
+</ul>
 <img alt="_images/10.png" src="_images/10.png" />
 <p>После чего сохраняем данные настройки.</p>
 <p>Затем указываем ниже основные настройки кнопки.
@@ -198,10 +208,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="hierarchy.html" class="btn btn-neutral float-right" title="Иерархия сущностей admin.probtn.com" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Примеры режимов работы кнопки" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="description.html" class="btn btn-neutral" title="Общее описание кнопки" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="description.html" class="btn btn-neutral" title="Интеграция" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
