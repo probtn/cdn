@@ -55,7 +55,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			}
 
 
-			function probtn_initTrackingLinkTest() {
+			/*function probtn_initTrackingLinkTest() {
 			    var randomString = function (length) {
 			        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 			    }
@@ -74,7 +74,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var link = "https://goo.gl/Dp03QJ?probtn_random=" + randomString(12);
 			            addLink(link);
 
-			            setTimeout(function() {
+			            setTimeout(function () {
 			                var link = "https://goo.gl/dSqT1w?probtn_random=" + randomString(12);
 			                addLink(link);
 			            }, 2000);
@@ -96,7 +96,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        }
 			    } catch (ex) { };
 			};
-			probtn_initTrackingLinkTest();
+			probtn_initTrackingLinkTest();*/
 
 
 
@@ -998,7 +998,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            realDomain: document.domain.replace("www.", ""),
 			            initializedActiveZones: {},
 			            //curent app version
-			            mainVersion: "1.4.1335_31102015_dev",
+			            mainVersion: "1.5.1335_31102015_dev",
 			            hintText: undefined, //hinttext object with additional functions
 			            pizzabtn: undefined,
 			            closebutton: undefined,
@@ -1023,12 +1023,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			                } else {
 			                    currentContentURL = ProBtnControl.params.ContentURL;
 			                }
+
 			                if (ProBtnControl.params.ButtonType == "button_and_scroll_zones") {
 			                    if ((ProBtnControl.params.currentContentURL !== "") && (ProBtnControl.params.currentContentURL !== null) && (ProBtnControl.params.currentContentURL !== undefined)) {
 			                        currentContentURL = ProBtnControl.params.currentContentURL;
 			                    }
 			                }
 
+			                //add random get params and utm params, if nessesary
 			                currentContentURL = ProBtnControl.additionalButtonFunctions.replaceRandom(currentContentURL);
 			                currentContentURL = ProBtnControl.additionalButtonFunctions.getContentUrlWithUtm(currentContentURL);
 
@@ -1790,13 +1792,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    var probtncid = ProBtnControl.DeviceCID;
 
 			                    var campaignId = "";
-			                    if ((ProBtnControl.params.CampaignID!==null) && (ProBtnControl.params.CampaignID!==undefined))
-			                    {
+			                    if ((ProBtnControl.params.CampaignID !== null) && (ProBtnControl.params.CampaignID !== undefined)) {
 			                        campaignId = "&CampaignID=" + ProBtnControl.params.CampaignID;
 			                    }
 
 			                    var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=1.0&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
-			                        ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&callback=?";
+			                        ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam + "&callback=?";
 			                    return url;
 			                },
 			                sendAreaActivatedStats: function (areaName, callback) {
@@ -1804,7 +1805,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        var probtnId = "1234";
 			                        probtnId = ProBtnControl.GetDeviceUID();
 			                        var probtncid = ProBtnControl.DeviceCID;
-			                        
+
 			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=areaName&Statistic=" + "{\"ContentShowed\": \"1\"}&"),
 			                            function () { }).always(function () {
 			                                if ((callback !== null) && (callback !== undefined)) {
@@ -1894,7 +1895,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                SendStat: function (name, value, probtnId, currentDomain, callback) {
 			                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&"),
-			                            function (data1) {}).always(function () {
+			                            function (data1) { }).always(function () {
 			                                if ((callback !== null) && (callback !== undefined)) {
 			                                    callback();
 			                                }
@@ -4441,13 +4442,23 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                            ProBtnControl.pizzabtn.stop(true, true);
 
+			                            var probtnIframeEvent = function (name) {
+			                                if ($("#pizzabtnImg").is("iframe")) {
+			                                    var myIframe = document.getElementById('pizzabtnImg');
+			                                    myIframe.contentWindow.postMessage({ message: name }, '*');
+			                                }
+			                            }
+
 			                            window.setTimeout(function () {
+			                                probtnIframeEvent("probtn_forwardAndBack_start");
+
 			                                ProBtnControl.pizzabtn.animate({
 			                                    left: left
 			                                }, {
 			                                    duration: ProBtnControl.params.animationDuration,
 			                                    easing: "linear",
 			                                    done: function () {
+			                                        probtnIframeEvent("probtn_forwardAndBack_stop");
 			                                        window.setTimeout(function () {
 			                                            if (side == 'right') {
 			                                                var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
@@ -4456,16 +4467,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                            }
 
 			                                            ProBtnControl.pizzabtn.stop(true, true);
+			                                            probtnIframeEvent("probtn_forwardAndBack_reverse");
+			                                            probtnIframeEvent("probtn_forwardAndBack_start");
 			                                            ProBtnControl.pizzabtn.animate({
 			                                                left: left
 			                                            }, {
 			                                                duration: ProBtnControl.params.animationDuration,
-			                                                easing: "linear"
+			                                                easing: "linear",
+			                                                done: function () {
+			                                                    probtnIframeEvent("probtn_forwardAndBack_stop");
+			                                                }
 			                                            });
 			                                        }, ProBtnControl.params.animationDuration);
 			                                    }
 			                                });
-			                            }, (ProBtnControl.params.animationDuration / 5));
+			                            }, (ProBtnControl.params.animationDuration / 2));
 
 			                        }
 			                    },
@@ -4477,13 +4493,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();
 			                                ProBtnControl.additionalButtonFunctions.animation.lookoutAnimation();
 
+			                                if ($("#pizzabtnImg").is("iframe")) {
+			                                    var myIframe = document.getElementById('pizzabtnImg');
+			                                    myIframe.addEventListener("load", function () {
+			                                        ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
+			                                    });
+			                                } else {
+			                                    ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
+			                                }
 			                                ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
 			                                ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
 
 
 			                                ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
 			                            });
-			                        }, 100);
+			                        }, 400);
 			                    },
 			                    getRotationCss: function (deg, origin) {
 			                        if ((origin == null) && (origin == undefined)) {
@@ -4612,77 +4636,37 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			        ProBtnControl.userDataFunction();
 			        window.probtn_ButtonContentType = null;
-			        //console.log(ProBtnControl.additionalButtonFunctions.randomString(14));
 
 			        ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
 
-			        $(window).bind("load", function () {
-			            if (ProBtnControl.params.Debug) console.log("windows bind load");
+			        //check that all is initialized and start button
+			        var allButtonInitStart = function () {
 			            if (ProBtnControl.allButtonInit === false) {
 			                ProBtnControl.allButtonInit = true;
 			                //allButton();
 			                ProBtnControl.initFunctions.initButtonAndUserDeviceInfo();
 			            }
+			        }
+
+			        $(window).bind("load", function () {
+			            if (ProBtnControl.params.Debug) console.log("windows bind load");
+			            allButtonInitStart();
 			        });
 
+			        //start hpmd tracking event
 			        ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
 
 			        setTimeout(function () {
 			            if (ProBtnControl.params.Debug) console.log("setTimeout");
-			            if (ProBtnControl.allButtonInit === false) {
-			                ProBtnControl.allButtonInit = true;
-			                //allButton();
-			                ProBtnControl.initFunctions.initButtonAndUserDeviceInfo();
-			            }
+			            allButtonInitStart();
 			        }, 2000);
-
-			        /*function allButton() {
-			            try {
-			                var parser = new UAParser();
-			                var parsed_ua = parser.getResult();
-
-			                if (parsed_ua && parsed_ua.device && parsed_ua.os) {
-			                    if (parsed_ua.os.name) {
-			                        parsed_ua.ua_os_name = parsed_ua.os.name.toLowerCase();
-			                    } else {
-			                        parsed_ua.ua_os_name = 'android';
-			                    }
-
-			                    if (parsed_ua.device.type) {
-			                        parsed_ua.ua_device_type = parsed_ua.device.type.toLowerCase();
-			                    } else {
-			                        switch (parsed_ua.ua_os_name) {
-			                            case 'android':
-			                                parsed_ua.ua_device_type = 'mobile';
-			                                break;
-			                            case 'ios':
-			                                parsed_ua.ua_device_type = 'mobile';
-			                                break;
-			                            case 'windows phone':
-			                                parsed_ua.ua_device_type = 'mobile';
-			                                break;
-			                            case 'windows mobile':
-			                                parsed_ua.ua_device_type = 'mobile';
-			                                break;
-			                            default:
-			                                parsed_ua.ua_device_type = 'console';
-			                                break;
-			                        }
-			                    }
-			                    ProBtnControl.parsed_ua = parsed_ua;
-			                    if (ProBtnControl.params.Debug) console.log(ProBtnControl.parsed_ua);
-			                }
-			            } catch (ex) {
-			                if (ProBtnControl.params.Debug) console.log(ex);
-			            }
-
-			            allButton1();
-			        }*/
 
 			        function allButton1() {
 			            if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
-
+			                //init default params
 			                ProBtnControl.params = $.extend(true, {
+
+			                    AdditionalTargetingParam: "",
 
 			                    CheckPageAjaxUpdate: false,
 			                    HideButtonAfterAjaxUpdate: false,
@@ -5190,6 +5174,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                //undefined until we init close button
 			                ProBtnControl.closeButton = undefined; //initCloseButton();
 
+			                //default domain
 			                ProBtnControl.currentDomain = document.domain.replace("www.", "");
 			                if (ProBtnControl.currentDomain == "" || ProBtnControl.currentDomain == null) {
 			                    ProBtnControl.currentDomain = "example.com";
@@ -5212,30 +5197,35 @@ function probtn_callPlayer(frame_id, func, args) {
 			                var operator = null;
 			                var settingsUrl = "";
 
+			                //add button script at parent window
 			                var CheckAndRunButtonAtParent = function () {
 			                    if ((ProBtnControl.params.showInParent) && (window.self !== window.top)) {
-			                        ProBtnControl.params.showInParent = false;
-			                        ProBtnControl.params.HideInFrame = true;
+			                        try {
+			                            ProBtnControl.params.showInParent = false;
+			                            ProBtnControl.params.HideInFrame = true;
 
-			                        // https://cdn.probtn.com/includepb.min.js
-			                        var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
+			                            // https://cdn.probtn.com/includepb.min.js
+			                            var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
-			                        var loadJS = function (src, callback) {
-			                            var s = window.top.document.createElement('script');
-			                            s.src = src;
-			                            s.async = true;
-			                            s.onreadystatechange = s.onload = function () {
-			                                var state = s.readyState;
-			                                if (!callback.done && (!state || /loaded|complete/.test(state))) {
-			                                    callback.done = true;
-			                                    callback();
-			                                }
-			                            };
-			                            window.top.document.getElementsByTagName('head')[0].appendChild(s);
+			                            var loadJS = function (src, callback) {
+			                                var s = window.top.document.createElement('script');
+			                                s.src = src;
+			                                s.async = true;
+			                                s.onreadystatechange = s.onload = function () {
+			                                    var state = s.readyState;
+			                                    if (!callback.done && (!state || /loaded|complete/.test(state))) {
+			                                        callback.done = true;
+			                                        callback();
+			                                    }
+			                                };
+			                                window.top.document.getElementsByTagName('head')[0].appendChild(s);
+			                            }
+
+			                            loadJS('//cdn.probtn.com/probtn_concat.js', function () {
+			                            });
+			                        } catch (ex) {
+			                            if (ProBtnControl.params.Debug) console.log(ex);
 			                        }
-
-			                        loadJS('//cdn.probtn.com/probtn_concat.js', function () {
-			                        });
 			                    }
 			                }
 
@@ -5349,8 +5339,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 			                var CheckInFrameAndEnabled = function () {
-			                    //https://goo.gl/TjbBtF
-			                    //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/TjbBtF");
 
 			                    var isStartAppBanner = startAppBanner();
 			                    CheckAndRunButtonAtParent();
@@ -5632,7 +5620,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        return;
 			                    }
 
-			                    function receiveMessage(event) {
+			                    var receiveMessage = function (event) {
 			                        try {
 			                            switch (event.data.command) {
 			                                case "button_image_iframe_disable_overlay":
@@ -5802,16 +5790,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        } else {
 			                        }
 
-
 			                        //DisableButtonMove
 			                        ProBtnControl.pizzabtn.pep({
 			                            // hardwareAccelerate: false,
 			                            useCSSTranslation: false,
 			                            constrainTo: 'parent',
-			                            // cssEaseString: 'cubic-bezier(0.225, 0.500, 0.580, 1.000)', //default
-			                            // cssEaseString: 'cubic-bezier(0, 1, 1, 1)', // fast
-			                            // cssEaseString: 'cubic-bezier(0, 0, 1, 1)', // linear
-			                            // cssEaseString: 'cubic-bezier(.42, 0, .58, 1)', // ease-in-out
 			                            // cssEaseString: 'cubic-bezier(0, 0, .58, 1)', // ease-out
 			                            cssEaseString: 'cubic-bezier(0, .50, .50, 1)',
 			                            cssEaseDuration: cssEaseDuration,
@@ -5826,17 +5809,19 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            start: function () {
 			                                ProBtnControl.interactionFunctions.wasInteraction = true;
 			                                window.probtn_button_tap = false;
-
+			                                //hide menu if button moved
 			                                ProBtnControl.initFunctions.initRemoveMenu();
 
 			                                window.probtn_dropedActiveZone = null;
 
 			                                ProBtnControl.initFunctions.initScrollChange(true);
 
+			                                //end button animation if it's active
 			                                if (ProBtnControl.additionalButtonFunctions.animation.animationRuning) {
 			                                    ProBtnControl.additionalButtonFunctions.animation.doneAnimation();
 			                                }
 
+			                                //show each active zone which visible when button moves
 			                                $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
 			                                    if (activeZone.currentActiveZone.VisibleOnlyInteraction) {
 			                                        activeZone.show();
@@ -5873,6 +5858,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                    return false;
 			                                }
 
+			                                //check is button above close area
 			                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 			                                    var pizzabtnRect = ProBtnControl.pizzabtn[0].getBoundingClientRect();
 			                                    var closeButtonRect = ProBtnControl.closeButton[0].getBoundingClientRect();
@@ -5900,8 +5886,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                });
 
 			                                try {
+			                                    //check is button overlap any active zones
 			                                    if (this.activeDropRegions.length > 0) {
-
+			                                        //if yes, make this zone "active"
 			                                        var currentZoneName = jQuery(this.activeDropRegions[0]).attr("rel");
 
 			                                        var activeZone = ProBtnControl.initializedActiveZones[currentZoneName];
@@ -5909,8 +5896,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                            activeZone.animateActive();
 			                                            window.probtn_dropedActiveZone = activeZone;
 			                                        }
-
 			                                    } else {
+			                                        //if no, then set active zones at "inactive" state
 			                                        window.probtn_dropedActiveZone = null;
 
 			                                        $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
@@ -5959,6 +5946,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                            activeZone.requestClickCounterLink();
 			                                        }
 
+			                                        //satrt video for active zone of this type - different variants for platforms
 			                                        if (activeZone.currentActiveZone.ButtonContentType !== "video") {
 			                                            ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZone.currentActiveZone.ButtonContentType);
 			                                        } else {
@@ -6023,10 +6011,9 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                                    ProBtnControl.contentTime.startTimer();
 
+			                                                    //start timer for ios - to user's get video playback duration
 			                                                    $(window).on("touchstart", function (event) {
-			                                                        console.log('document click');
 			                                                        if ((ProBtnControl.contentTime.intervalId !== undefined) && (ProBtnControl.contentTime.intervalId !== null)) {
-			                                                            console.log('endTimer');
 			                                                            // event.target is the clicked object
 			                                                            ProBtnControl.contentTime.endTimer();
 			                                                        }
