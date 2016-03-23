@@ -17,7 +17,7 @@
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/1-simple_x264.mp4" type="video/mp4" />
 	</video>
 
@@ -37,7 +37,7 @@
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/2-video_x264.mp4" type="video/mp4" />
 	</video>
     <!--<div style="margin-top:10px;">
@@ -55,7 +55,7 @@
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/3-scroll_x264.mp4" type="video/mp4" />
 	</video>
     <!--<div style="margin-top:10px;">
@@ -73,7 +73,7 @@
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/4-activezones_x264.mp4" type="video/mp4" />
 	</video>
     <!--<div style="margin-top:10px;">
@@ -91,7 +91,7 @@
 
 .. raw:: html
 
-    <video controls="controls" style="width: 100%;">
+    <video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/5-menu_x264.mp4" type="video/mp4" />
 	</video>
 	<!--<div style="margin-top:10px;">
@@ -102,7 +102,7 @@
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/5-radmenu_x264.mp4" type="video/mp4" />
 	</video>
     <!--<div style="margin-top:10px;">
@@ -116,7 +116,7 @@
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/6-fullscreen_x264.mp4" type="video/mp4" />
 	</video>
     <!--<div style="margin-top:10px;">
@@ -130,7 +130,7 @@ Smartbanner
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/7-smartbanner_x264.mp4" type="video/mp4" />
 	</video>
 	<!--<div style="margin-top:10px;">
@@ -158,7 +158,7 @@ Opacity
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/1-opacity_x264.mp4" type="video/mp4" />
 	</video>
 	
@@ -183,13 +183,13 @@ rollout
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/2-rollout_x264.mp4" type="video/mp4" />
 	</video>
 	
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/2-rollout-right_x264.mp4" type="video/mp4" />
 	</video>
 
@@ -206,7 +206,7 @@ lookout
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/4-lookout_x264.mp4" type="video/mp4" />
 	</video>
 
@@ -225,7 +225,7 @@ forwardAndBack
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/3-forwardAndBack_x264.mp4" type="video/mp4" />
 	</video>
 
@@ -245,6 +245,6 @@ forwardStopAndAway
 
 .. raw:: html
 
-	<video controls="controls" style="width: 100%;">
+	<video controls="controls" preload="metadata" style="width: 100%;">
 		<source src="https://demo.probtn.com/video/3-forwardStopAndAway_x264.mp4" type="video/mp4" />
 	</video>
