@@ -75,7 +75,7 @@ try {
 }
 
 ////cdn.probtn.com/probtn_concat.js
-loadJS('//demo.probtn.com/probtn.js', function () {
+loadJS('//cdn.probtn.com/probtn_concat.js', function () {
 });
 
 })();
