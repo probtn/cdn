@@ -37,9 +37,12 @@
 
 .. raw:: html
 
-    <div style="margin-top:10px;">
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/2-video_x264.mp4" type="video/mp4" />
+	</video>
+    <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ContentURL%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2FLenovo.mp4%22%2C%22ButtonType%22%3A%22button%22%2C%22ButtonContentType%22%3A%22video%22%2C%22HideAfterFirstShow%22%3Atrue%2C%22domain%22%3A%22%22%2C%22Debug%22%3Afalse%2C%22OpenExternal%22%3Afalse%2C%22ButtonImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonDragImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonOpenImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
-    </div>
+    </div>-->
 
 Кнопка со скролл-зонами
 ----------------------------------
@@ -52,9 +55,12 @@
 
 .. raw:: html
 
-    <div style="margin-top:10px;">
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/3-scroll_x264.mp4" type="video/mp4" />
+	</video>
+    <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ButtonType%22%3A%22button_and_scroll_zones%22%2C%22Debug%22%3Atrue%2C%22HintText%22%3A%22%22%2C%22ScrollZones%22%3A%5B%7B%22ZoneHeight%22%3A0.34%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_ball_spartak.png%22%2C%22CustomButtonParams%22%3Atrue%2C%22CustomContentURL%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22ButtonSize%22%3A%7B%22W%22%3A164%2C%22H%22%3A164%7D%2C%22ButtonDragSize%22%3A%7B%22W%22%3A168%2C%22H%22%3A168%7D%7D%2C%7B%22ZoneHeight%22%3A0.33%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_logo_spartak.png%22%7D%2C%7B%22ZoneHeight%22%3A0.33%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_scarf_spartak.png%22%7D%5D%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22domain%22%3A%22%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
-    </div>
+    </div>-->
 
 Кнопка c активными зонами
 ----------------------------------
@@ -67,9 +73,12 @@
 
 .. raw:: html
 
-    <div style="margin-top:10px;">
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/4-activezones_x264.mp4" type="video/mp4" />
+	</video>
+    <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://bit.ly/1MiayAq" frameborder="0" allowfullscreen></iframe>
-    </div>
+    </div>-->
 
 Кнопка-меню
 ----------------------------------
@@ -82,17 +91,23 @@
 
 .. raw:: html
 
-    <div style="margin-top:10px;">
+    <video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/5-menu_x264.mp4" type="video/mp4" />
+	</video>
+	<!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/menu/" frameborder="0" allowfullscreen></iframe>
-    </div>
+    </div>-->
 	
 Также для меню возможно включить режим радиального меню используя параметр ``"MenuTemplateVariant":"radialcorner"``
 
 .. raw:: html
 
-    <div style="margin-top:10px;">
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/5-radmenu_x264.mp4" type="video/mp4" />
+	</video>
+    <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/radmenu_param/" frameborder="0" allowfullscreen></iframe>
-    </div>
+    </div>-->
 
 Фуллскрин
 ----------------------------------
@@ -101,21 +116,26 @@
 
 .. raw:: html
 
-    <div style="margin-top:10px;">
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/6-fullscreen_x264.mp4" type="video/mp4" />
+	</video>
+    <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example/fullscreen_test/" frameborder="0" allowfullscreen></iframe>
-    </div>
+    </div>-->
 	
 Smartbanner
 ----------------------------------
 
 Вместо кнопки показываться смартбаннер (на основе https://github.com/jasny/jquery.smartbanner )
 
-
 .. raw:: html
 
-    <div style="margin-top:10px;">
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/7-smartbanner_x264.mp4" type="video/mp4" />
+	</video>
+	<!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/smartbanner/android" frameborder="0" allowfullscreen></iframe>
-    </div>
+    </div>-->
 
 Анимации кнопки
 ----------------------------------
@@ -135,6 +155,12 @@ Opacity
 Начальное значение прозрачности соответственно устанавливается через ``ButtonOpacity`` параметр
 
 Демо страница - http://demo.probtn.com/button_example/opacity_animation
+
+.. raw:: html
+
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/1-opacity_x264.mp4" type="video/mp4" />
+	</video>
 	
 rollout 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
@@ -155,6 +181,18 @@ rollout
 - http://demo.probtn.com/button_example2/rollout
 - http://demo.probtn.com/button_example2/rollout/right/
 
+.. raw:: html
+
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/2-rollout_x264.mp4" type="video/mp4" />
+	</video>
+	
+.. raw:: html
+
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/2-rollout-right_x264.mp4" type="video/mp4" />
+	</video>
+
 lookout
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 кнопка периодически исчезает и появляется из-за края экрана.
@@ -166,6 +204,12 @@ lookout
 
 В частности задается как ``isAnimation = lookout_left`` в формате ``lookout_<сторона>``, где сторона - опциональна и может принимать значения ``left`` или ``right``
 
+.. raw:: html
+
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/4-lookout_x264.mp4" type="video/mp4" />
+	</video>
+
 forwardAndBack
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Кнопка перемещается от левого края до правого, затем обратно до левого.
@@ -176,7 +220,14 @@ forwardAndBack
 - ``animationDuration``
 
 Пример:
+
 - http://demo.probtn.com/button_example2/forwardAndBack/
+
+.. raw:: html
+
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/3-forwardAndBack_x264.mp4" type="video/mp4" />
+	</video>
 
 forwardStopAndAway
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -189,4 +240,11 @@ forwardStopAndAway
 - ``animationDuration``
 
 Пример:
+
 - http://demo.probtn.com/button_example2/forwardStopAndAway
+
+.. raw:: html
+
+	<video controls="controls" style="width: 100%;">
+		<source src="https://demo.probtn.com/video/3-forwardStopAndAway_x264.mp4" type="video/mp4" />
+	</video>
