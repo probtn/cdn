@@ -29,7 +29,7 @@ function getParameterByName(name) {
 function getCurrentCategories() {
 	try {
 		var breadcrumbs = window.top.document.getElementsByClassName("breadcrumb__list");
-		console.log("breadcrumbs", breadcrumbs[0].children);
+		//console.log("breadcrumbs", breadcrumbs[0].children);
 		var categories = [];
 		var string_categories = "";
 		for (var i=0; i<breadcrumbs[0].children.length; i++) {
@@ -37,7 +37,7 @@ function getCurrentCategories() {
 			string_categories = string_categories + breadcrumbs[0].children[i].innerText.trim()+",";
 		}
 		string_categories = string_categories.substring(0, string_categories.length - 1);
-		console.log("categories", categories);
+		//console.log("categories", categories);
 		return string_categories;
 	} catch(ex) {
 		console.log(ex);
@@ -48,7 +48,7 @@ function getCurrentCategories() {
 var params = {};
 params.dfp = {};
 params.dfp.isDFP = true;
-console.log(getCurrentCategories());
+//console.log("string_categories", getCurrentCategories());
 params.AdditionalTargetingParam = getCurrentCategories();
 params.dfp.clickUrlEsc = getParameterByName("click_url_esc");
 params.dfp.cacheBuster = getParameterByName("cacheBuster");
