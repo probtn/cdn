@@ -94,6 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#additionaltargetingparam">AdditionalTargetingParam</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#isanimation">isAnimation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#opacity">Анимация opacity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rollout">Анимация rollout</a></li>
@@ -328,6 +329,11 @@
 <li><a class="reference internal" href="docs-en/index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Интеграция</span></a></li>
 </ul>
+<div class="section" id="additionaltargetingparam">
+<h2>AdditionalTargetingParam<a class="headerlink" href="#additionaltargetingparam" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Дополнительный кастомный параметр для таргетинга, позволяющий гибко настроит таргетинг admin.probtn.com в зависимости от задач.</p>
+<p>По умоланию &#8220;&#8221;.</p>
+</div>
 <div class="section" id="isanimation">
 <h2>isAnimation<a class="headerlink" href="#isanimation" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Варианты анимации кнопки.</p>
@@ -378,7 +384,7 @@
 <div class="section" id="menutemplatevariant">
 <h2>MenuTemplateVariant<a class="headerlink" href="#menutemplatevariant" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Параметр предназначен для выбора шаблона отображения меню.
-(предназначен для ButtonType==menu)</p>
+(предназначен для <code class="docutils literal"><span class="pre">ButtonType==menu</span></code>)</p>
 <p>Варианты значений параметра:</p>
 <ul class="simple">
 <li>list - шаблон по умолчанию, список</li>
@@ -387,8 +393,8 @@
 </div>
 <div class="section" id="videotype">
 <h2>VideoType<a class="headerlink" href="#videotype" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Тип видео
-Варианты:</p>
+<p>Тип видео.</p>
+<p>Варианты:</p>
 <ul class="simple">
 <li>mp4 - по умолчанию</li>
 <li>youtube - видео с youtube</li>
@@ -396,33 +402,28 @@
 </div>
 <div class="section" id="debug">
 <h2>Debug<a class="headerlink" href="#debug" title="Ссылка на этот заголовок">¶</a></h2>
-<p>debug режим кнопки - отображает версию кнопки при открытом fancybox, дополнительный вывод в консоли</p>
-<p>По умолчанию:
-false</p>
+<p>debug режим кнопки - отображает версию кнопки при открытом fancybox, дополнительный вывод в консоли.</p>
+<p>По умолчанию <code class="docutils literal"><span class="pre">false</span></code></p>
 </div>
 <div class="section" id="usegeolocation">
 <h2>UseGeoLocation<a class="headerlink" href="#usegeolocation" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Использовать ли получение данных о местоположении пользователя</p>
-<p>По умолчанию:
-false</p>
+<p>Использовать ли получение данных о местоположении пользователя.</p>
+<p>По умолчанию <code class="docutils literal"><span class="pre">false</span></code></p>
 </div>
 <div class="section" id="waitforgeolocation">
 <h2>WaitForGeoLocation<a class="headerlink" href="#waitforgeolocation" title="Ссылка на этот заголовок">¶</a></h2>
-<p>В случае использования геолокации ожидать ли получение координат (и в первый раз разрешения пользователя) до показа кнопки</p>
-<p>По умолчанию:
-false</p>
+<p>В случае использования геолокации ожидать ли получение координат (и в первый раз разрешения пользователя) до показа кнопки.</p>
+<p>По умолчанию <code class="docutils literal"><span class="pre">false</span></code></p>
 </div>
 <div class="section" id="loadjquerypepjs">
 <h2>loadJqueryPepJS<a class="headerlink" href="#loadjquerypepjs" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Загружать ли jquery.pep, если скрипт не обнаружил соответствующую функцию библиотеки
-По умолчанию
-true</p>
+<p>Загружать ли jquery.pep, если скрипт не обнаружил соответствующую функцию библиотеки.</p>
+<p>По умолчанию <code class="docutils literal"><span class="pre">true</span></code></p>
 </div>
 <div class="section" id="loadfancyboxjs">
 <h2>loadFancyboxJS<a class="headerlink" href="#loadfancyboxjs" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Загружать ли fancybox, если скрипт не обнаружил соответствующую функцию библиотеки</p>
-<p>По умолчание
-true</p>
+<p>По умолчание <code class="docutils literal"><span class="pre">true</span></code></p>
 </div>
 <div class="section" id="disablebuttonmove">
 <h2>DisableButtonMove<a class="headerlink" href="#disablebuttonmove" title="Ссылка на этот заголовок">¶</a></h2>
@@ -458,24 +459,24 @@ true</p>
 </div>
 <div class="section" id="clickonclosebutton">
 <h2>ClickOnCloseButton<a class="headerlink" href="#clickonclosebutton" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Скрытие кнопки по клику на кнопку. По умолчанию true</p>
+<p>Скрытие кнопки по клику на кнопку. По умолчанию <code class="docutils literal"><span class="pre">false</span></code></p>
 </div>
 <div class="section" id="alwaysshowclosebutton">
 <h2>AlwaysShowCloseButton<a class="headerlink" href="#alwaysshowclosebutton" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Всегда показывать область закрытия. По умолчанию false</p>
+<p>Всегда показывать область закрытия. По умолчанию <code class="docutils literal"><span class="pre">false</span></code></p>
 </div>
 <div class="section" id="fullscreenclicklink">
 <h2>FullscreenClickLink<a class="headerlink" href="#fullscreenclicklink" title="Ссылка на этот заголовок">¶</a></h2>
-<p>(Для режима ButtonType==&#8217;fullscreen&#8217;)</p>
+<p>(Для режима <code class="docutils literal"><span class="pre">ButtonType=='fullscreen'</span></code>)</p>
 </div>
 <div class="section" id="hidewithoutinteractiontime">
 <h2>HideWithoutInteractionTime<a class="headerlink" href="#hidewithoutinteractiontime" title="Ссылка на этот заголовок">¶</a></h2>
-<p>По умолчанию 0 (не скрывать)
-Время, спустя которое кнопка скрывается, если не было с ней взаимодействия</p>
+<p>По умолчанию 0 (не скрывать).</p>
+<p>Время, спустя которое кнопка скрывается, если не было с ней взаимодействия</p>
 </div>
 <div class="section" id="csseaseduration">
 <h2>cssEaseDuration<a class="headerlink" href="#csseaseduration" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Длительность анимации (в мс) для jquery.pep - по умолчанию 300</p>
+<p>Длительность анимации (в мс) для jquery.pep - по умолчанию 300.</p>
 </div>
 <div class="section" id="changescrollbuttonatfullsiteheight">
 <h2>ChangeScrollButtonAtFullSiteHeight<a class="headerlink" href="#changescrollbuttonatfullsiteheight" title="Ссылка на этот заголовок">¶</a></h2>
