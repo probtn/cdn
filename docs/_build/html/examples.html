@@ -203,9 +203,13 @@ function playVideo(thisItem) {
 <p>Поведение кнопки аналогично кнопке по умолчанию, но при нажатии на кнопку происходит воспроизведение видео (с &#8220;автозапуском&#8221;, в том числе и на мобильных браузерах).</p>
 <p>Данный режиме задается при указании параметра
 <code class="docutils literal"><span class="pre">&quot;ButtonContentType&quot;:&quot;video&quot;</span></code></p>
-    <video controls="controls" preload="metadata" style="width: 100%;">
-            <source src="https://demo.probtn.com/video/2-video_x264.mp4" type="video/mp4" />
-    </video>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/2-video_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
+
 <!--<div style="margin-top:10px;">
   <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ContentURL%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2FLenovo.mp4%22%2C%22ButtonType%22%3A%22button%22%2C%22ButtonContentType%22%3A%22video%22%2C%22HideAfterFirstShow%22%3Atrue%2C%22domain%22%3A%22%22%2C%22Debug%22%3Afalse%2C%22OpenExternal%22%3Afalse%2C%22ButtonImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonDragImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonOpenImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
 </div>--></div>
@@ -215,9 +219,13 @@ function playVideo(thisItem) {
 <p>Данный режим задается при указании параметра
 <code class="docutils literal"><span class="pre">&quot;ButtonType&quot;:&quot;button_and_scroll_zones&quot;</span></code>
 и указания настроек скролл-зон (объект <code class="docutils literal"><span class="pre">ScrollZones</span></code> настроек)</p>
-    <video controls="controls" preload="metadata" style="width: 100%;">
-            <source src="https://demo.probtn.com/video/3-scroll_x264.mp4" type="video/mp4" />
-    </video>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/3-scroll_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
+
 <!--<div style="margin-top:10px;">
   <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ButtonType%22%3A%22button_and_scroll_zones%22%2C%22Debug%22%3Atrue%2C%22HintText%22%3A%22%22%2C%22ScrollZones%22%3A%5B%7B%22ZoneHeight%22%3A0.34%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_ball_spartak.png%22%2C%22CustomButtonParams%22%3Atrue%2C%22CustomContentURL%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22ButtonSize%22%3A%7B%22W%22%3A164%2C%22H%22%3A164%7D%2C%22ButtonDragSize%22%3A%7B%22W%22%3A168%2C%22H%22%3A168%7D%7D%2C%7B%22ZoneHeight%22%3A0.33%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_logo_spartak.png%22%7D%2C%7B%22ZoneHeight%22%3A0.33%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_scarf_spartak.png%22%7D%5D%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22domain%22%3A%22%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
 </div>--></div>
@@ -227,9 +235,12 @@ function playVideo(thisItem) {
 <p>Данный режиме задается при указании параметра
 <code class="docutils literal"><span class="pre">&quot;ButtonType&quot;:&quot;button_and_active_zones&quot;</span></code>
 и указания настроек активных зон (объект <code class="docutils literal"><span class="pre">ActiveZones</span></code> настроек)</p>
-    <video controls="controls" preload="metadata" style="width: 100%;">
-            <source src="https://demo.probtn.com/video/4-activezones_x264.mp4" type="video/mp4" />
-    </video>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/4-activezones_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
 <!--<div style="margin-top:10px;">
   <iframe width="100%" height="400" src="http://bit.ly/1MiayAq" frameborder="0" allowfullscreen></iframe>
 </div>--></div>
@@ -239,33 +250,45 @@ function playVideo(thisItem) {
 <p>Данный режиме задается при указании параметра
 <code class="docutils literal"><span class="pre">&quot;ButtonType&quot;:&quot;menu&quot;</span></code>
 и указания настроек меню (объект <code class="docutils literal"><span class="pre">MenuItems</span></code> настроек)</p>
-<video controls="controls" preload="metadata" style="width: 100%;">
-            <source src="https://demo.probtn.com/video/5-menu_x264.mp4" type="video/mp4" />
-    </video>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/5-menu_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
     <!--<div style="margin-top:10px;">
   <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/menu/" frameborder="0" allowfullscreen></iframe>
 </div>--><p>Также для меню возможно включить режим радиального меню используя параметр <code class="docutils literal"><span class="pre">&quot;MenuTemplateVariant&quot;:&quot;radialcorner&quot;</span></code></p>
-    <video controls="controls" preload="metadata" style="width: 100%;">
-            <source src="https://demo.probtn.com/video/5-radmenu_x264.mp4" type="video/mp4" />
-    </video>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/5-radmenu_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
 <!--<div style="margin-top:10px;">
   <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/radmenu_param/" frameborder="0" allowfullscreen></iframe>
 </div>--></div>
 <div class="section" id="id6">
 <h2>Фуллскрин<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Послк загрузки страницы и скрипта кнопки в модальном окне отображается страница <code class="docutils literal"><span class="pre">ContentURL</span></code></p>
-    <video controls="controls" preload="metadata" style="width: 100%;">
-            <source src="https://demo.probtn.com/video/6-fullscreen_x264.mp4" type="video/mp4" />
-    </video>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/6-fullscreen_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
 <!--<div style="margin-top:10px;">
   <iframe width="100%" height="400" src="http://demo.probtn.com/button_example/fullscreen_test/" frameborder="0" allowfullscreen></iframe>
 </div>--></div>
 <div class="section" id="smartbanner">
 <h2>Smartbanner<a class="headerlink" href="#smartbanner" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Вместо кнопки показываться смартбаннер (на основе <a class="reference external" href="https://github.com/jasny/jquery.smartbanner">https://github.com/jasny/jquery.smartbanner</a> )</p>
-    <video controls="controls" preload="metadata" style="width: 100%;">
-            <source src="https://demo.probtn.com/video/7-smartbanner_x264.mp4" type="video/mp4" />
-    </video>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/7-smartbanner_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
     <!--<div style="margin-top:10px;">
   <iframe width="100%" height="400" src="http://demo.probtn.com/smartbanner/android" frameborder="0" allowfullscreen></iframe>
 </div>--></div>
@@ -283,9 +306,12 @@ function playVideo(thisItem) {
 в формате <code class="docutils literal"><span class="pre">opacity_&lt;конечное</span> <span class="pre">значение&gt;</span></code></p>
 <p>Начальное значение прозрачности соответственно устанавливается через <code class="docutils literal"><span class="pre">ButtonOpacity</span></code> параметр</p>
 <p>Демо страница - <a class="reference external" href="http://demo.probtn.com/button_example/opacity_animation">http://demo.probtn.com/button_example/opacity_animation</a></p>
-<video controls="controls" preload="metadata" style="width: 100%;">
-        <source src="https://demo.probtn.com/video/1-opacity_x264.mp4" type="video/mp4" />
-</video></div>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/1-opacity_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
 <div class="section" id="rollout">
 <h3>rollout<a class="headerlink" href="#rollout" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Анимация, при которой кнопка &#8220;выдвигается&#8221; по мере скролла страницы</p>
@@ -302,11 +328,17 @@ function playVideo(thisItem) {
 <li><a class="reference external" href="http://demo.probtn.com/button_example2/rollout">http://demo.probtn.com/button_example2/rollout</a></li>
 <li><a class="reference external" href="http://demo.probtn.com/button_example2/rollout/right/">http://demo.probtn.com/button_example2/rollout/right/</a></li>
 </ul>
-<video controls="controls" preload="metadata" style="width: 100%;">
-        <source src="https://demo.probtn.com/video/2-rollout_x264.mp4" type="video/mp4" />
-</video><video controls="controls" preload="metadata" style="width: 100%;">
-        <source src="https://demo.probtn.com/video/2-rollout-right_x264.mp4" type="video/mp4" />
-</video></div>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/2-rollout_x264.mp4" type="video/mp4" />
+        </video>
+</div><div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/2-rollout-right_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
 <div class="section" id="lookout">
 <h3>lookout<a class="headerlink" href="#lookout" title="Ссылка на этот заголовок">¶</a></h3>
 <p>кнопка периодически исчезает и появляется из-за края экрана.</p>
@@ -316,9 +348,12 @@ function playVideo(thisItem) {
 <li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
 </ul>
 <p>В частности задается как <code class="docutils literal"><span class="pre">isAnimation</span> <span class="pre">=</span> <span class="pre">lookout_left</span></code> в формате <code class="docutils literal"><span class="pre">lookout_&lt;сторона&gt;</span></code>, где сторона - опциональна и может принимать значения <code class="docutils literal"><span class="pre">left</span></code> или <code class="docutils literal"><span class="pre">right</span></code></p>
-<video controls="controls" preload="metadata" style="width: 100%;">
-        <source src="https://demo.probtn.com/video/4-lookout_x264.mp4" type="video/mp4" />
-</video></div>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/4-lookout_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
 <div class="section" id="forwardandback">
 <h3>forwardAndBack<a class="headerlink" href="#forwardandback" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Кнопка перемещается от левого края до правого, затем обратно до левого.</p>
@@ -331,9 +366,12 @@ function playVideo(thisItem) {
 <ul class="simple">
 <li><a class="reference external" href="http://demo.probtn.com/button_example2/forwardAndBack/">http://demo.probtn.com/button_example2/forwardAndBack/</a></li>
 </ul>
-<video controls="controls" preload="metadata" style="width: 100%;">
-        <source src="https://demo.probtn.com/video/3-forwardAndBack_x264.mp4" type="video/mp4" />
-</video></div>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/3-forwardAndBack_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
 <div class="section" id="forwardstopandaway">
 <h3>forwardStopAndAway<a class="headerlink" href="#forwardstopandaway" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Кнопка перемещается из-за левого края до середины экрана, останавливается и затем перемещается за правый край экрана.
@@ -347,9 +385,12 @@ function playVideo(thisItem) {
 <ul class="simple">
 <li><a class="reference external" href="http://demo.probtn.com/button_example2/forwardStopAndAway">http://demo.probtn.com/button_example2/forwardStopAndAway</a></li>
 </ul>
-<video controls="controls" preload="metadata" style="width: 100%;">
-        <source src="https://demo.probtn.com/video/3-forwardStopAndAway_x264.mp4" type="video/mp4" />
-</video></div>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/3-forwardStopAndAway_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
 </div>
 </div>
 

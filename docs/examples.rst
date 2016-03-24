@@ -66,9 +66,13 @@
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/2-video_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/2-video_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
+	
     <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ContentURL%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2FLenovo.mp4%22%2C%22ButtonType%22%3A%22button%22%2C%22ButtonContentType%22%3A%22video%22%2C%22HideAfterFirstShow%22%3Atrue%2C%22domain%22%3A%22%22%2C%22Debug%22%3Afalse%2C%22OpenExternal%22%3Afalse%2C%22ButtonImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonDragImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22ButtonOpenImage%22%3A%22http%3A%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fpopmech_lenovo%2Fbutton.png%22%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
     </div>-->
@@ -83,10 +87,14 @@
 и указания настроек скролл-зон (объект ``ScrollZones`` настроек)
 
 .. raw:: html
-
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/3-scroll_x264.mp4" type="video/mp4" />
-	</video>
+	
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/3-scroll_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
+	
     <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://probtnlandings1.azurewebsites.net/stand/iframe.html?json=%7B%22ButtonType%22%3A%22button_and_scroll_zones%22%2C%22Debug%22%3Atrue%2C%22HintText%22%3A%22%22%2C%22ScrollZones%22%3A%5B%7B%22ZoneHeight%22%3A0.34%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_ball_spartak.png%22%2C%22CustomButtonParams%22%3Atrue%2C%22CustomContentURL%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22ButtonSize%22%3A%7B%22W%22%3A164%2C%22H%22%3A164%7D%2C%22ButtonDragSize%22%3A%7B%22W%22%3A168%2C%22H%22%3A168%7D%7D%2C%7B%22ZoneHeight%22%3A0.33%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_logo_spartak.png%22%7D%2C%7B%22ZoneHeight%22%3A0.33%2C%22ButtonImage%22%3A%22%2F%2Fprobtnlandings1.azurewebsites.net%2Fbutton_example%2Fscroll%2Fbutton_images%2Fbtn_scarf_spartak.png%22%7D%5D%2C%22_site%22%3A%22http%3A%2F%2Fprobtn.com%22%2C%22domain%22%3A%22%22%2C%22SelectAdSet%22%3A%22%22%7D" frameborder="0" allowfullscreen></iframe>
     </div>-->
@@ -102,9 +110,12 @@
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/4-activezones_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/4-activezones_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
     <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://bit.ly/1MiayAq" frameborder="0" allowfullscreen></iframe>
     </div>-->
@@ -120,9 +131,12 @@
 
 .. raw:: html
 
-    <video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/5-menu_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/5-menu_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
 	<!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/menu/" frameborder="0" allowfullscreen></iframe>
     </div>-->
@@ -131,9 +145,12 @@
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/5-radmenu_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/5-radmenu_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
     <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/radmenu_param/" frameborder="0" allowfullscreen></iframe>
     </div>-->
@@ -145,9 +162,12 @@
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/6-fullscreen_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/6-fullscreen_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
     <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example/fullscreen_test/" frameborder="0" allowfullscreen></iframe>
     </div>-->
@@ -159,9 +179,12 @@ Smartbanner
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/7-smartbanner_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/7-smartbanner_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
 	<!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/smartbanner/android" frameborder="0" allowfullscreen></iframe>
     </div>-->
@@ -187,9 +210,12 @@ Opacity
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/1-opacity_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/1-opacity_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
 	
 rollout 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
@@ -212,15 +238,21 @@ rollout
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/2-rollout_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/2-rollout_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
 	
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/2-rollout-right_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/2-rollout-right_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
 
 lookout
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
@@ -235,9 +267,12 @@ lookout
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/4-lookout_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/4-lookout_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
 
 forwardAndBack
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -254,9 +289,12 @@ forwardAndBack
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/3-forwardAndBack_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/3-forwardAndBack_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
 
 forwardStopAndAway
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -274,6 +312,9 @@ forwardStopAndAway
 
 .. raw:: html
 
-	<video controls="controls" preload="metadata" style="width: 100%;">
-		<source src="https://demo.probtn.com/video/3-forwardStopAndAway_x264.mp4" type="video/mp4" />
-	</video>
+	<div class="videoExample">
+		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+			<source src="https://demo.probtn.com/video/3-forwardStopAndAway_x264.mp4" type="video/mp4" />
+		</video>
+	</div>
