@@ -82,10 +82,14 @@ loadJS('//cdn.probtn.com/probtn_concat.js', function () {
 
 };
 
-if (document.readyState === 'complete') {
-   init();
-} else {
-	window.onload = init();
-}
+//wait for site breadcrumbs
+var waitBreadcrumbs = setInterval(function() {
+	var breadcrumbs = window.top.document.getElementsByClassName("breadcrumb__list");
+	if (breadcrumbs.length>0) {
+		clearInterval(waitBreadcrumbs);
+		init();
+	} else {
+	};
+}, 100);
 
 })();
