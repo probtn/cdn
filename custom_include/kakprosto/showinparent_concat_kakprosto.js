@@ -1,5 +1,7 @@
 (function () {
 
+var init = function() {
+
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
@@ -77,5 +79,13 @@ try {
 ////cdn.probtn.com/probtn_concat.js
 loadJS('//cdn.probtn.com/probtn_concat.js', function () {
 });
+
+};
+
+if (document.readyState === 'complete') {
+   init();
+} else {
+	window.onload = init();
+}
 
 })();
