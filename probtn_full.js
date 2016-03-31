@@ -999,7 +999,11 @@ probtn_initTrackingLinkTest();*/
                     currentButtonContentType = ProBtnControl.params.ButtonContentType;
 
                     if (ProBtnControl.params.ButtonType == "menu") {
-                        ProBtnControl.initFunctions.initFloatingMenu();
+                        if ($("#probtn_menu_ul").length > 0) {
+                            ProBtnControl.initFunctions.initRemoveMenu();
+                        } else {
+                            ProBtnControl.initFunctions.initFloatingMenu();
+                        }
                         return;
                     }
                 }
@@ -2030,9 +2034,6 @@ probtn_initTrackingLinkTest();*/
 #probtn_menu_ul img { height: 60px !important; } \
 #probtn_menu_ul {padding-left: 0px; } \
 #probtn_menu_ul li a span { display: none; } \
-/* #probtn_menu_ul .menu_item_elem_count2{top:35px!important;position:relative!important;left:35px!important;} */ \
-/* #probtn_menu_ul .menu_item_elem_count3{top:100px!important;position:relative!important;left:30px!important;} */ \
-/* #probtn_closeButton{bottom:90px!important;left:70px!important;z-index:125000!important;top:inherit!important;} */ \
 </style>');
                                     }
 
@@ -2043,7 +2044,7 @@ probtn_initTrackingLinkTest();*/
                                         $.each(ProBtnControl.params.MenuItems, function (index, menuItem) {
                                             var image = "";
                                             if ((menuItem.Image !== undefined) && (menuItem.Image !== null) && (menuItem.Image !== "")) {
-                                                image = "<img style='height: 40px; margin-right: 10px;' src='" + menuItem.Image + "'/>";
+                                                image = "<img style='height: 50px; margin-right: 10px;' src='" + menuItem.Image + "'/>";
                                             } else {
                                                 image = "<div class='probtn_image_placeholder' style='display: inline-block; width: 40px; height:40px; margin-right: 10px;'>&nbsp;</div>";
                                             }
@@ -2058,7 +2059,7 @@ probtn_initTrackingLinkTest();*/
                                                 onclick = ProBtnControl.params.ButtonOnClick + ' return false';
                                             }
 
-                                            menuUL.append("<li class='menu_item_elem_count" + count + "' style='opacity: 0;'><span " + style + "><a " + style + " class='probtn_menu_link " + menuItem.Type + "' rel='" + menuItem.Name + "' rev='" + menuItem.Type + "' target='_blank' onclick='" + onclick + "' href='" + actionURL + "'>" + image + "<span>" + menuItem.Text + "</span>" + "</a></span></li>");
+                                            menuUL.append("<li class='menu_item_elem_count" + count + "' style='opacity: 0;'><a " + style + " class='probtn_menu_link " + menuItem.Type + "' rel='" + menuItem.Name + "' rev='" + menuItem.Type + "' target='_blank' onclick='" + onclick + "' href='" + actionURL + "'><table><tr><td>" + image + "</td><td><span " + style + ">" + "<span>" + menuItem.Text + "</span>" + "</a></span></td></tr></table></a></li>");
 
                                             if (ProBtnControl.params.MenuTemplateVariant == "radialcorner") {
 
@@ -2116,6 +2117,9 @@ probtn_initTrackingLinkTest();*/
                                                 ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
                                                 ProBtnControl.onButtonTap($(this).attr("href"), null, "iframe");
 
+                                                break
+                                            case "closeMenu":
+                                                ProBtnControl.initFunctions.initRemoveMenu();
                                                 break
                                             case "video":
                                                 window.probtn_dropedActiveZone = {};
@@ -2908,8 +2912,6 @@ probtn_initTrackingLinkTest();*/
                         btn.attr("ontouchend", ProBtnControl.params.ButtonOnTouchEnd);
                         btn.attr("ontouchstart", ProBtnControl.params.ButtonOnTouchStart);
                     }
-                    //btn.attr("onclick", ProBtnControl.params.ButtonOnClick);
-                    //btn.attr("ontouchend", ProBtnControl.params.ButtonOnTouchEnd);
 
                     var pizzabtnCss = {};
 
@@ -2972,6 +2974,18 @@ probtn_initTrackingLinkTest();*/
                             '-o-transition-property': 'opacity, width, height',
                             '-o-timing-function': 'linear'
                         };
+                    }
+
+                    //extrusion mode of button
+                    switch (ProBtnControl.params.ExtrusionMode) {
+                        case "topButton":
+                            $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
+                            /*$('#probtn_wrapper').css("position", "absolute !important");
+                            $('#probtn_wrapper').css("margin-top", "-" + ProBtnControl.params.ButtonSize.H + "px !important");*/
+                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
+                            break;
+                        default:
+                            break;
                     }
 
                     if (ProBtnControl.params.ButtonImageType == 'iframe') {
@@ -4073,7 +4087,9 @@ probtn_initTrackingLinkTest();*/
                 animation: {
                     animationRuning: false,
                     opacityAnimation: function (animationName) {
-                        window.setTimeout(function () {
+                        //console.log("opacityAnimation1", animationName);
+                        setTimeout(function () {
+                            //console.log("opacityAnimation2", animationName);
                             var animations = animationName.split('_');
                             if (animations[0] == "opacity") {
                                 var opacity_param = animations[1];
@@ -4088,7 +4104,7 @@ probtn_initTrackingLinkTest();*/
                                 }, {
                                     duration: ProBtnControl.params.animationDuration,
                                     step: function (now) {
-                                        console.log("now", now);
+                                        //console.log("now", now);
                                     },
                                     complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
                                 });
@@ -4359,7 +4375,7 @@ probtn_initTrackingLinkTest();*/
                                                 step: function (now) {
                                                 },
                                                 duration: ProBtnControl.params.animationDuration,
-                                                easing: "linear",
+                                                easing: "linear"
                                             });
                                         }, ProBtnControl.params.animationDuration);
                                     }
@@ -4446,7 +4462,7 @@ probtn_initTrackingLinkTest();*/
                     },
                     checkAndRunAnimation: function () {
                         setTimeout(function () {
-                            $(document).ready(function () {
+                            //$(document).ready(function () {
                                 ProBtnControl.additionalButtonFunctions.animation.cornerToCornerAnimation();
 
                                 ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();
@@ -4465,7 +4481,7 @@ probtn_initTrackingLinkTest();*/
 
 
                                 ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
-                            });
+                            //});
                         }, 400);
                     },
                     getRotationCss: function (deg, origin) {
@@ -4625,6 +4641,12 @@ probtn_initTrackingLinkTest();*/
                 //init default params
                 ProBtnControl.params = $.extend(true, {
 
+                    //variants:
+                    //none - nothing changes at page
+                    //topButton - body woulb be moved down with button height value
+                    ExtrusionMode: "none",
+
+                    //param, that allow make custom targetings
                     AdditionalTargetingParam: "",
 
                     CheckPageAjaxUpdate: false,
