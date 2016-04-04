@@ -10,6 +10,7 @@ var localSettingsPath = "settings.json";
 var isHPMD = true;
 var domain = 'cosmo.ru';
 var campaignId = '';
+var additionalTargetingParam = '';
 
 try {
 	window.probtn_hpmd = hpmd;
@@ -24,7 +25,8 @@ var loadProbtn = function() {
 			domain: domain,
 			hpmd: window.probtn_hpmd,
             fancyboxCssPath: fancyboxCssPath,
-			SelectAdSet: campaignId
+			SelectAdSet: campaignId,
+			AdditionalTargetingParam: additionalTargetingParam
         })
     })
 }
@@ -74,7 +76,7 @@ if (window.jQuery) {
         var oScript = document.createElement("script");
         oScript.type = "text/javascript";
         oScript["data-cfasync"] = "false";
-        oScript.text = "jQuery.noConflict(); jQuery.getScript('" + jquerypepPath + "', function() { jQuery.getScript('" + fancyboxPath + "', function () { jQuery.getScript('" + probtnPath + "', function () { jQuery(document).StartButton({domain: '"+ domain +"', 'SelectAdSet': '"+ campaignId +"', 'hpmd': window.probtn_hpmd, 'fancyboxCssPath': '" +fancyboxCssPath +"', 'isHPMD': " + isHPMD + ", 'mainStyleCss':'" + mainStyleCssPath + "'});});});}); ";
+        oScript.text = "jQuery.noConflict(); jQuery.getScript('" + jquerypepPath + "', function() { jQuery.getScript('" + fancyboxPath + "', function () { jQuery.getScript('" + probtnPath + "', function () { jQuery(document).StartButton({domain: '"+ domain +"', AdditionalTargetingParam: '"+ additionalTargetingParam +"', 'SelectAdSet': '"+ campaignId +"', 'hpmd': window.probtn_hpmd, 'fancyboxCssPath': '" +fancyboxCssPath +"', 'isHPMD': " + isHPMD + ", 'mainStyleCss':'" + mainStyleCssPath + "'});});});}); ";
         oHead.appendChild(oScript);
     }
 } else {
@@ -99,7 +101,7 @@ if (window.jQuery) {
         var oScript = document.createElement("script");
         oScript.type = "text/javascript";
         oScript["data-cfasync"] = "false";
-        oScript.text = "(function ($) {jQuery.noConflict(); jQuery.getScript('" + jquerypepPath + "', function() {jQuery.getScript('" + fancyboxPath + "', function () {jQuery.getScript('" + probtnPath + "', function () { jQuery(document).StartButton({domain: '"+ domain +"', 'SelectAdSet': '"+ campaignId +"', 'hpmd': window.probtn_hpmd, 'fancyboxCssPath': '" + fancyboxCssPath + "', 'isHPMD': " + isHPMD + ", 'mainStyleCss': '" + mainStyleCssPath + "'}); })});}); })(window.jQuery);";
+        oScript.text = "(function ($) {jQuery.noConflict(); jQuery.getScript('" + jquerypepPath + "', function() {jQuery.getScript('" + fancyboxPath + "', function () {jQuery.getScript('" + probtnPath + "', function () { jQuery(document).StartButton({domain: '"+ domain +"', AdditionalTargetingParam: '"+ additionalTargetingParam +"', 'SelectAdSet': '"+ campaignId +"', 'hpmd': window.probtn_hpmd, 'fancyboxCssPath': '" + fancyboxCssPath + "', 'isHPMD': " + isHPMD + ", 'mainStyleCss': '" + mainStyleCssPath + "'}); })});}); })(window.jQuery);";
         //setTimeout(function() {oHead.appendChild( oScript) }, 100);
         oHead.appendChild(oScript);
     });

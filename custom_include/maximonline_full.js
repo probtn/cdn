@@ -2068,7 +2068,21 @@ var loadProbtn = function (jQuery) {
 
 	                                    var menuUL = $("<ul/>", { id: 'probtn_menu_ul' }).prependTo(menu);
 
-	                                    if (ProBtnControl.params.MenuTemplateVariant == "radialcorner") {
+	                                    var menuType = ProBtnControl.params.MenuTemplateVariant.split('_');
+
+	                                    var menuRadius = "0";
+	                                    console.log("menuType", menuType);
+	                                    try {
+	                                        if (menuType[0] == "radialcorner") {
+	                                            if ((menuType[1] !== null) && (menuType[1] !== undefined)) {
+	                                                menuRadius = menuType[1];
+	                                                console.log("menuRadius", menuRadius);
+	                                            }
+	                                        }
+	                                    } catch (ex) {
+	                                    }
+
+	                                    if (menuType[0] == "radialcorner") {
 	                                        $('head').append('<style type="text/css"> \
 	#probtn_menu_ul li { \
 	    background:transparent!important;padding:0px!important;margin:0px!important;width:auto!important;display:inline-block!important; \
@@ -2103,7 +2117,7 @@ var loadProbtn = function (jQuery) {
 
 	                                            menuUL.append("<li class='menu_item_elem_count" + count + "' style='opacity: 0;'><a " + style + " class='probtn_menu_link " + menuItem.Type + "' rel='" + menuItem.Name + "' rev='" + menuItem.Type + "' target='_blank' onclick='" + onclick + "' href='" + actionURL + "'><table><tr><td>" + image + "</td><td><span " + style + ">" + "<span>" + menuItem.Text + "</span>" + "</a></span></td></tr></table></a></li>");
 
-	                                            if (ProBtnControl.params.MenuTemplateVariant == "radialcorner") {
+	                                            if (menuType[0] == "radialcorner") {
 
 	                                                function toDegrees(angle) {
 	                                                    return angle * (180 / Math.PI);
@@ -2113,9 +2127,13 @@ var loadProbtn = function (jQuery) {
 	                                                    return angle * (Math.PI / 180);
 	                                                }
 
+	                                                if (menuRadius == 0) {
+	                                                    menuRadius = ProBtnControl.pizzabtn.height();
+	                                                }
+
 	                                                var anglePart = toRadians(90 / ProBtnControl.params.MenuItems.length);
-	                                                var x = -(ProBtnControl.pizzabtn.height() * 1.3) * Math.cos(anglePart * count);
-	                                                var y = (ProBtnControl.pizzabtn.width() * 1.3) * Math.sin(anglePart * count);
+	                                                var x = -(menuRadius * 1.3) * Math.cos(anglePart * count);
+	                                                var y = (menuRadius * 1.3) * Math.sin(anglePart * count);
 
 	                                                var itemStyle = {
 	                                                    "position": "relative",
@@ -2181,7 +2199,7 @@ var loadProbtn = function (jQuery) {
 
 	                                    var menuTop = ProBtnControl.pizzabtn.position().top - menuUL.height();
 
-	                                    if (ProBtnControl.params.MenuTemplateVariant == "radialcorner") {
+	                                    if (menuType[0] == "radialcorner") {
 	                                        menuTop = ProBtnControl.pizzabtn.position().top;
 	                                    }
 
@@ -4426,6 +4444,71 @@ var loadProbtn = function (jQuery) {
 	                            }, ProBtnControl.params.animationDuration);
 	                        }
 	                    },
+	                    forwardAndStopAnimation: function () {
+	                        var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
+
+	                        var side = "left";
+	                        try {
+	                            if ((forwardAndStopParams[1] !== null) && (forwardAndStopParams[1] !== undefined)) {
+	                                side = forwardAndStopParams[1];
+	                            }
+	                        } catch (ex) {
+	                        }
+
+	                        if (forwardAndStopParams[0] == "forwardAndStop") {
+
+	                            if (side == 'right') {
+	                                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W));
+	                            } else {
+	                                ProBtnControl.pizzabtn.css("left", 0);
+	                            }
+
+	                            if (side == 'right') {
+	                                var left = 0;
+	                            } else {
+	                                var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+	                            }
+
+	                            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+	                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+	                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+	                            ProBtnControl.pizzabtn.css("transition-property", "left, top");
+	                            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+
+	                            ProBtnControl.pizzabtn.stop(true, true);
+
+	                            var probtnIframeEvent = function (name) {
+	                                if ($("#pizzabtnImg").is("iframe")) {
+	                                    var myIframe = document.getElementById('pizzabtnImg');
+	                                    myIframe.contentWindow.postMessage({ message: name }, '*');
+	                                }
+	                            }
+
+	                            setTimeout(function () {
+	                                probtnIframeEvent("probtn_forwardAndStop_start");
+
+	                                ProBtnControl.pizzabtn.animate({
+	                                    left: left
+	                                }, {
+	                                    duration: ProBtnControl.params.animationDuration,
+	                                    easing: "linear",
+	                                    done: function () {
+	                                        probtnIframeEvent("probtn_forwardAndStop_stop");
+	                                        setTimeout(function () {
+	                                            if (side == 'right') {
+	                                                var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+	                                            } else {
+	                                                var left = 0;
+	                                            }
+
+	                                            ProBtnControl.pizzabtn.stop(true, true);
+	                                        }, ProBtnControl.params.animationDuration);
+	                                    }
+	                                });
+	                            }, (ProBtnControl.params.animationDuration / 2));
+
+	                        }
+	                    },
 	                    forwardAndBackAnimation: function () {
 	                        var forwardAndBackParams = ProBtnControl.params.isAnimation.split('_');
 
@@ -4466,7 +4549,7 @@ var loadProbtn = function (jQuery) {
 	                                }
 	                            }
 
-	                            window.setTimeout(function () {
+	                            setTimeout(function () {
 	                                probtnIframeEvent("probtn_forwardAndBack_start");
 
 	                                ProBtnControl.pizzabtn.animate({
@@ -4510,14 +4593,17 @@ var loadProbtn = function (jQuery) {
 	                                ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();
 	                                ProBtnControl.additionalButtonFunctions.animation.lookoutAnimation();
 
-	                                if ($("#pizzabtnImg").is("iframe")) {
+	                                //TODO: check or remove
+	                                /*if ($("#pizzabtnImg").is("iframe")) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
 	                                    myIframe.addEventListener("load", function () {
 	                                        ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
+	                                        ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
 	                                    });
-	                                } else {
+	                                } else {*/
 	                                    ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
-	                                }
+	                                    ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
+	                                //}
 	                                ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
 	                                ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
 
@@ -5645,7 +5731,16 @@ var loadProbtn = function (jQuery) {
 
 	                    var receiveMessage = function (event) {
 	                        try {
+	                            console.log("event", event);
 	                            switch (event.data.command) {
+	                                //TODO: 
+	                                case "probtn_hide":
+	                                    window.proBtn.hide();
+	                                    break;
+	                                case "probtn_hide_content":
+	                                    window.proBtn.hideContent();
+	                                    break;
+	                                    
 	                                case "button_image_iframe_disable_overlay":
 	                                    $("#pizzabtnIframeOverlay").hide();
 	                                    break;
