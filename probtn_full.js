@@ -2089,9 +2089,20 @@ probtn_initTrackingLinkTest();*/
                                                     menuRadius = ProBtnControl.pizzabtn.height();
                                                 }
 
-                                                var anglePart = toRadians(90 / ProBtnControl.params.MenuItems.length);
-                                                var x = -(menuRadius * 1.3) * Math.cos(anglePart * count);
-                                                var y = (menuRadius * 1.3) * Math.sin(anglePart * count);
+                                                var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length -1));
+                                                var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
+                                                var y = (menuRadius * 1.1) * Math.sin(anglePart * (count-1));
+                                                console.log("x1 = ", x);
+                                                console.log("y = ", y);
+                                                /*y = y - 60;
+                                                x = x + 10;*/
+                                                if (count == 1) {
+                                                    y = 0;
+                                                } else {
+                                                    y = 25;
+                                                }
+                                                
+                                                console.log("y2 = ", y);
 
                                                 var itemStyle = {
                                                     "position": "relative",
