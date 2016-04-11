@@ -6,26 +6,26 @@
 	overflow: inherit !important;
 }*/
 #probtn_wrapper {
-    position: fixed !important;
-    z-index: 11100;
-    cursor: default !important;
+    position: fixed;
+    z-index: 111000;
+    cursor: default;
 }
 
 #probtn_button {
-    z-index: 11300;
+    z-index: 113000;
     cursor: pointer;
 }
 
 .probtn_button {
-    background: transparent !important;
+    background: transparent;
 }
 
 #probtn_mainButtonImage {
-    z-index: 11200;
+    z-index: 112000;
 }
 
 .probtn_active_zone {
-	z-index: 11100;
+	z-index: 111000;
 }
 
 #probtn_closeButton, #closeButton {
@@ -33,7 +33,7 @@
     position: fixed;
     top: 200px;
     left: 400px;
-    z-index: 10100;
+    z-index: 101000;
 }
 
 
@@ -70,17 +70,21 @@
 #probtn_menu_ul {
     margin-left: 0px;
     margin-right: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 #probtn_menu li {
     width: 14.8em;
-    height: 3.4em;
+    height: 2em;
     padding: .9em 1em;
     top: .4em;
     left: 5.6em;
     white-space: nowrap;
-    border-radius: .3em;
-    background-color: rgba(49,55,61,.95);
+    
+    opacity: 0.89;
+    background-color: #304965;
+    border-radius: 6px;
 
     cursor: pointer;
     list-style: none;
@@ -107,4 +111,12 @@
     margin-top: -10px;
     display: inline-block;
     text-decoration: none;
+}
+
+#probtn_menu li table td {
+    vertical-align: middle;
+}
+
+#probtn_menu li table {
+    margin-top: -10px;
 }

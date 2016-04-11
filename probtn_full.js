@@ -1784,7 +1784,7 @@ probtn_initTrackingLinkTest();*/
                         probtnId = ProBtnControl.GetDeviceUID();
                         var probtncid = ProBtnControl.DeviceCID;
 
-                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=areaName&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&"),
+                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName="+areaName+"&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&"),
                             function () { }).done(function () {
                             }).fail(function () { }).always(function () {
                                 if ((callback !== null) && (callback !== undefined)) {
@@ -2043,8 +2043,9 @@ probtn_initTrackingLinkTest();*/
                                     if (menuType[0] == "radialcorner") {
                                         $('head').append('<style type="text/css"> \
 #probtn_menu_ul li { \
-    background:transparent!important;padding:0px!important;margin:0px!important;width:auto!important;display:inline-block!important; \
+    background:transparent!important; padding:0px!important; margin:0px!important; width:auto!important; display:inline-block!important; \
 } \
+#probtn_menu_ul { position: absolute; } \
 #probtn_menu_ul img { height: 60px !important; } \
 #probtn_menu_ul {padding-left: 0px; } \
 #probtn_menu_ul li a span { display: none; } \
@@ -2068,7 +2069,7 @@ probtn_initTrackingLinkTest();*/
                                                 actionURL = "#video_item_" + menuItem.Name;
                                             }
 
-                                            var onclick = 'return false';
+                                            var onclick = 'return false;'; //return false
                                             if ((menuItem.Type == "video") && (ProBtnControl.userData.mobile)) {
                                                 onclick = ProBtnControl.params.ButtonOnClick + ' return false';
                                             }
@@ -2089,23 +2090,18 @@ probtn_initTrackingLinkTest();*/
                                                     menuRadius = ProBtnControl.pizzabtn.height();
                                                 }
 
-                                                var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length -1));
-                                                var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
-                                                var y = (menuRadius * 1.1) * Math.sin(anglePart * (count-1));
-                                                console.log("x1 = ", x);
-                                                console.log("y = ", y);
-                                                /*y = y - 60;
-                                                x = x + 10;*/
-                                                if (count == 1) {
-                                                    y = 0;
+                                                if (ProBtnControl.params.MenuItems.length == 2) {
+                                                    var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length + 1));
+                                                    var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
+                                                    var y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
                                                 } else {
-                                                    y = 25;
+                                                    var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
+                                                    var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
+                                                    var y = (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
                                                 }
-                                                
-                                                console.log("y2 = ", y);
 
                                                 var itemStyle = {
-                                                    "position": "relative",
+                                                    "position": "absolute",
                                                     "top": x,
                                                     "left": y
                                                 };
@@ -2126,19 +2122,27 @@ probtn_initTrackingLinkTest();*/
                                         });
                                     }
 
-                                    $(document).on("click", ".probtn_menu_link", function () {
+                                    $(document).on("click", ".probtn_menu_link", function (e) {
                                         var menuType = $(this).attr("rev");
+                                        console.log("menu click", e);
+                                        console.log("menuType", menuType);
 
                                         switch (menuType) {
                                             case "external":
+                                                console.log("external menu");
                                                 window.probtn_dropedActiveZone = {};
                                                 window.probtn_dropedActiveZone.currentActiveZone = null;
                                                 window.probtn_ButtonContentType = "external";
 
                                                 ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
+                                                console.log("open external menu");
                                                 window.open($(this).attr("href"));
-                                                break
+
+                                                e.preventDefault();
+                                                return false;
+                                                break;
                                             case "iframe":
+                                                console.log("iframe menu");
                                                 window.probtn_dropedActiveZone = {};
                                                 window.probtn_dropedActiveZone.currentActiveZone = null;
                                                 window.probtn_ButtonContentType = "iframe";
@@ -2146,11 +2150,14 @@ probtn_initTrackingLinkTest();*/
                                                 ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
                                                 ProBtnControl.onButtonTap($(this).attr("href"), null, "iframe");
 
-                                                break
+                                                break;
                                             case "closeMenu":
+                                                console.log("closeMenu menu");
                                                 ProBtnControl.initFunctions.initRemoveMenu();
-                                                break
+                                                return false;
+                                                break;
                                             case "video":
+                                                console.log("video menu");
                                                 window.probtn_dropedActiveZone = {};
                                                 window.probtn_dropedActiveZone.currentActiveZone = {};
                                                 window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType = "video";
@@ -2159,10 +2166,15 @@ probtn_initTrackingLinkTest();*/
 
                                                 ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
                                                 ProBtnControl.onButtonTap($(this).attr("href"), $(this).attr("rel"), "video");
-                                                break
+                                                return false;
+                                                break;
                                             default:
+                                                console.log("default menu");
                                                 ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
                                                 window.open($(this).attr("href"));
+                                                e.preventDefault();
+                                                return false;
+                                                break;
                                         }
                                     })
 
@@ -2170,7 +2182,9 @@ probtn_initTrackingLinkTest();*/
 
                                     if (menuType[0] == "radialcorner") {
                                         menuTop = ProBtnControl.pizzabtn.position().top;
+                                        menuTop = menuTop + (menuRadius / 2);
                                     }
+                                    console.log("menuTop", menuTop);
 
                                     //set menu position
                                     menu.css("top", menuTop);
@@ -5455,6 +5469,20 @@ probtn_initTrackingLinkTest();*/
                                 BeginButtonProcess();
                             }
 
+                        } else {
+                            switch (ProBtnControl.currentDomain) {
+                                case "justlady.ru":
+                                    $("body").append('<script type="text/javascript">if ("undefined" == typeof pr) var pr = Math.floor(4294967295 * Math.random()) + 1; "undefined" != typeof document.referrer ? "undefined" == typeof afReferrer && (afReferrer = encodeURIComponent(document.referrer)) : afReferrer = ""; var addate = new Date, scrheight = "", scrwidth = ""; if (self.screen) scrwidth = screen.width, scrheight = screen.height; else if (self.java) { var jkit = java.awt.Toolkit.getDefaultToolkit(), scrsize = jkit.getScreenSize(); scrwidth = scrsize.width, scrheight = scrsize.height } document.write(\'<script type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=vvq&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=\' + pr + "&amp;pt=b&amp;pd=" + addate.getDate() + "&amp;pw=" + addate.getDay() + "&amp;pv=" + addate.getHours() + "&amp;prr=" + afReferrer + "&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=" + scrwidth + "&amp;pdh=" + scrheight + \'"></script>\');</script>');
+                                    break;
+                                case "kakprosto.ru":
+                                    $("body").append('<script type="text/javascript">if ("undefined" == typeof pr) var pr = Math.floor(4294967295 * Math.random()) + 1; "undefined" != typeof document.referrer ? "undefined" == typeof afReferrer && (afReferrer = encodeURIComponent(document.referrer)) : afReferrer = ""; var addate = new Date, scrheight = "", scrwidth = ""; if (self.screen) scrwidth = screen.width, scrheight = screen.height; else if (self.java) { var jkit = java.awt.Toolkit.getDefaultToolkit(), scrsize = jkit.getScreenSize(); scrwidth = scrsize.width, scrheight = scrsize.height } document.write(\'<script type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=\' + pr + "&amp;pt=b&amp;pd=" + addate.getDate() + "&amp;pw=" + addate.getDay() + "&amp;pv=" + addate.getHours() + "&amp;prr=" + afReferrer + "&amp;pk=imho%20hmpd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=" + scrwidth + "&amp;pdh=" + scrheight + \'"></script>\');</script>');
+                                    break;
+                                case "pinme.ru":
+                                    $("body").append('<script type="text/javascript">if("undefined"==typeof pr)var pr=Math.floor(4294967295*Math.random())+1;"undefined"!=typeof document.referrer?"undefined"==typeof afReferrer&&(afReferrer=encodeURIComponent(document.referrer)):afReferrer="";var addate=new Date,scrheight="",scrwidth="";if(self.screen)scrwidth=screen.width,scrheight=screen.height;else if(self.java){var jkit=java.awt.Toolkit.getDefaultToolkit(),scrsize=jkit.getScreenSize();scrwidth=scrsize.width,scrheight=scrsize.height}document.write(\'<script type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=\'+pr+"&amp;pt=b&amp;pd="+addate.getDate()+"&amp;pw="+addate.getDay()+"&amp;pv="+addate.getHours()+"&amp;prr="+afReferrer+"&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw="+scrwidth+"&amp;pdh="+scrheight+\'"></script>\');</script>');
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }
