@@ -3320,15 +3320,9 @@ var loadProbtn = function (jQuery) {
 	                    if (ProBtnControl.params.ClickOnCloseButton == true) {
 	                        $(document).on('click', '#probtn_closeButton', function () {
 	                            ProBtnControl.statistics.SendStatObject({
-	                                "Closed": 1,
-	                                "Hidded": 1
+	                                "Closed": 1
 	                            });
-
-	                            ProBtnControl.pizzabtn.hide();
-	                            ProBtnControl.closeButton.remove();
-	                            ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
-
-	                            ProBtnControl.initFunctions.initRemoveMenu();
+	                            ProBtnControl.additionalButtonFunctions.hideAll();
 	                        });
 	                    }
 
@@ -3578,6 +3572,18 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                },
 	                hideAll: function () {
+
+	                    //TODO: save and restore body margin to prevent errors with some custome sites
+	                    //check is extrusion mode enabled and restore body margin
+	                    switch (ProBtnControl.params.ExtrusionMode) {
+	                        case "topButton":
+	                            $('body').css("margin-top", "0px");
+	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top: 0px !important; position: absolute !important; }</style>');
+	                            break;
+	                        default:
+	                            break;
+	                    }
+
 	                    ProBtnControl.statistics.SendStatObject({
 	                        //"Closed": 1,
 	                        "Hidded": 1
@@ -3585,6 +3591,8 @@ var loadProbtn = function (jQuery) {
 	                    ProBtnControl.pizzabtn.hide();
 	                    ProBtnControl.closeButton.remove();
 	                    ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
+
+	                    ProBtnControl.initFunctions.initRemoveMenu();
 	                },
 	                checkAndCorrentButtonPosition: function () {
 	                    if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
@@ -5556,6 +5564,7 @@ var loadProbtn = function (jQuery) {
 	                                    $("body").append('<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
 	                                    break;
 	                                case "pinme.ru":
+	                                case "m.pinme.ru":
 	                                    if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
 	                                    if (typeof (document.referrer) != 'undefined') {
 	                                        if (typeof (afReferrer) == 'undefined') {
