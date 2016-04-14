@@ -1871,7 +1871,7 @@ var loadProbtn = function (jQuery) {
 	                        probtnId = ProBtnControl.GetDeviceUID();
 	                        var probtncid = ProBtnControl.DeviceCID;
 
-	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName="+areaName+"&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&"),
+	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=" + areaName + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&"),
 	                            function () { }).done(function () {
 	                            }).fail(function () { }).always(function () {
 	                                if ((callback !== null) && (callback !== undefined)) {
@@ -2101,9 +2101,17 @@ var loadProbtn = function (jQuery) {
 	                        ProBtnControl.pizzabtn.stop(true, true);
 	                        setTimeout(function () {
 
+	                            var animateLeft = 0;
+	                            var animateTop = window.innerHeight - ProBtnControl.pizzabtn.height();
+	                            var menuType = ProBtnControl.params.MenuTemplateVariant.split('_');
+	                            if (menuType[0] == "circularCenter") {
+	                                animateTop = window.innerHeight / 2 - ProBtnControl.pizzabtn.height() / 2;
+	                                animateLeft = window.innerWidth / 2 - ProBtnControl.pizzabtn.width() / 2;
+	                            }
+
 	                            ProBtnControl.pizzabtn.animate({
-	                                left: 0,
-	                                top: window.innerHeight - ProBtnControl.pizzabtn.height()
+	                                left: animateLeft,
+	                                top: animateTop
 	                            }, 500, function () {
 	                                setTimeout(function () {
 	                                    var menu = $("<div/>", {
@@ -2113,12 +2121,9 @@ var loadProbtn = function (jQuery) {
 
 	                                    var menuUL = $("<ul/>", { id: 'probtn_menu_ul' }).prependTo(menu);
 
-	                                    var menuType = ProBtnControl.params.MenuTemplateVariant.split('_');
-
 	                                    var menuRadius = "0";
-	                                    console.log("menuType", menuType);
 	                                    try {
-	                                        if (menuType[0] == "radialcorner") {
+	                                        if ((menuType[0] == "radialcorner") || (menuType[0] == "circularCenter")) {
 	                                            if ((menuType[1] !== null) && (menuType[1] !== undefined)) {
 	                                                menuRadius = menuType[1];
 	                                                console.log("menuRadius", menuRadius);
@@ -2127,7 +2132,7 @@ var loadProbtn = function (jQuery) {
 	                                    } catch (ex) {
 	                                    }
 
-	                                    if (menuType[0] == "radialcorner") {
+	                                    if ((menuType[0] == "radialcorner") || (menuType[0] == "circularCenter")) {
 	                                        $('head').append('<style type="text/css"> \
 	#probtn_menu_ul li { \
 	    background:transparent!important; padding:0px!important; margin:0px!important; width:auto!important; display:inline-block!important; \
@@ -2163,40 +2168,54 @@ var loadProbtn = function (jQuery) {
 
 	                                            menuUL.append("<li class='menu_item_elem_count" + count + "' style='opacity: 0;'><a " + style + " class='probtn_menu_link " + menuItem.Type + "' rel='" + menuItem.Name + "' rev='" + menuItem.Type + "' target='_blank' onclick='" + onclick + "' href='" + actionURL + "'><table><tr><td>" + image + "</td><td><span " + style + ">" + "<span>" + menuItem.Text + "</span>" + "</a></span></td></tr></table></a></li>");
 
-	                                            if (menuType[0] == "radialcorner") {
+	                                            function toDegrees(angle) {
+	                                                return angle * (180 / Math.PI);
+	                                            }
 
-	                                                function toDegrees(angle) {
-	                                                    return angle * (180 / Math.PI);
-	                                                }
+	                                            function toRadians(angle) {
+	                                                return angle * (Math.PI / 180);
+	                                            }
 
-	                                                function toRadians(angle) {
-	                                                    return angle * (Math.PI / 180);
-	                                                }
+	                                            if (menuRadius == 0) {
+	                                                menuRadius = ProBtnControl.pizzabtn.height();
+	                                            }
 
-	                                                if (menuRadius == 0) {
-	                                                    menuRadius = ProBtnControl.pizzabtn.height();
-	                                                }
+	                                            switch (menuType[0]) {
+	                                                case "radialcorner":
+	                                                    if (ProBtnControl.params.MenuItems.length == 2) {
+	                                                        var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length + 1));
+	                                                        var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
+	                                                        var y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
+	                                                    } else {
+	                                                        var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
+	                                                        var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
+	                                                        var y = (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
+	                                                    }
 
-	                                                if (ProBtnControl.params.MenuItems.length == 2) {
-	                                                    var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length + 1));
-	                                                    var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
-	                                                    var y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
-	                                                } else {
-	                                                    var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
-	                                                    var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
-	                                                    var y = (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
-	                                                }
+	                                                    var itemStyle = {
+	                                                        "position": "absolute",
+	                                                        "top": x,
+	                                                        "left": y
+	                                                    };
+	                                                    $(".menu_item_elem_count" + count).css(itemStyle);
+	                                                    break;
+	                                                case "circularCenter":
+	                                                    var anglePart = toRadians(360 / (ProBtnControl.params.MenuItems.length - 1));
+	                                                    var x = animateTop + ProBtnControl.pizzabtn.height() / 4 - (menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
+	                                                    var y = animateLeft + ProBtnControl.pizzabtn.width() / 4 + (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
 
-	                                                var itemStyle = {
-	                                                    "position": "absolute",
-	                                                    "top": x,
-	                                                    "left": y
-	                                                };
-	                                                $(".menu_item_elem_count" + count).css(itemStyle);
-	                                            } else {
-	                                                $("#probtn_menu li:last").css({
-	                                                    "margin-left": -$("#probtn_menu li:last").width()
-	                                                });
+	                                                    var itemStyle = {
+	                                                        "position": "absolute",
+	                                                        "top": x,
+	                                                        "left": y
+	                                                    };
+	                                                    $(".menu_item_elem_count" + count).css(itemStyle);
+	                                                    break;
+	                                                default:
+	                                                    $("#probtn_menu li:last").css({
+	                                                        "margin-left": -$("#probtn_menu li:last").width()
+	                                                    });
+	                                                    break;
 	                                            }
 
 	                                            count++;
@@ -2269,6 +2288,9 @@ var loadProbtn = function (jQuery) {
 	                                    if (menuType[0] == "radialcorner") {
 	                                        menuTop = ProBtnControl.pizzabtn.position().top;
 	                                        menuTop = menuTop + (menuRadius / 2);
+	                                    }
+	                                    if (menuType[0] == "circularCenter") {
+	                                        menuTop = 0;
 	                                    }
 
 	                                    //set menu position
@@ -4664,27 +4686,27 @@ var loadProbtn = function (jQuery) {
 	                    checkAndRunAnimation: function () {
 	                        setTimeout(function () {
 	                            //$(document).ready(function () {
-	                                ProBtnControl.additionalButtonFunctions.animation.cornerToCornerAnimation();
+	                            ProBtnControl.additionalButtonFunctions.animation.cornerToCornerAnimation();
 
-	                                ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();
-	                                ProBtnControl.additionalButtonFunctions.animation.lookoutAnimation();
+	                            ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();
+	                            ProBtnControl.additionalButtonFunctions.animation.lookoutAnimation();
 
-	                                //TODO: check or remove
-	                                /*if ($("#pizzabtnImg").is("iframe")) {
-	                                    var myIframe = document.getElementById('pizzabtnImg');
-	                                    myIframe.addEventListener("load", function () {
-	                                        ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
-	                                        ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
-	                                    });
-	                                } else {*/
+	                            //TODO: check or remove
+	                            /*if ($("#pizzabtnImg").is("iframe")) {
+	                                var myIframe = document.getElementById('pizzabtnImg');
+	                                myIframe.addEventListener("load", function () {
 	                                    ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
 	                                    ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
-	                                //}
-	                                ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
-	                                ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
+	                                });
+	                            } else {*/
+	                            ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
+	                            ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
+	                            //}
+	                            ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
+	                            ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
 
 
-	                                ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
+	                            ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
 	                            //});
 	                        }, 400);
 	                    },
@@ -5563,77 +5585,84 @@ var loadProbtn = function (jQuery) {
 	                            }
 
 	                        } else {
-	                            switch (ProBtnControl.currentDomain) {
-	                                case "justlady.ru":
-	                                    if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
-	                                    if (typeof (document.referrer) != 'undefined') {
-	                                        if (typeof (afReferrer) == 'undefined') {
-	                                            afReferrer = encodeURIComponent(document.referrer);
-	                                        }
-	                                    } else {
-	                                        afReferrer = '';
+
+	                            $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
+	                                $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function () {
+	                                    $("body").append("<div id='probtn_adfox'></div>");
+	                                    switch (ProBtnControl.currentDomain) {
+	                                        case "justlady.ru":
+	                                            if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
+	                                            if (typeof (document.referrer) != 'undefined') {
+	                                                if (typeof (afReferrer) == 'undefined') {
+	                                                    afReferrer = encodeURIComponent(document.referrer);
+	                                                }
+	                                            } else {
+	                                                afReferrer = '';
+	                                            }
+	                                            var addate = new Date();
+	                                            var scrheight = '', scrwidth = '';
+	                                            if (self.screen) {
+	                                                scrwidth = screen.width;
+	                                                scrheight = screen.height;
+	                                            } else if (self.java) {
+	                                                var jkit = java.awt.Toolkit.getDefaultToolkit();
+	                                                var scrsize = jkit.getScreenSize();
+	                                                scrwidth = scrsize.width;
+	                                                scrheight = scrsize.height;
+	                                            }
+	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=vvq&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+	                                            //$("body").append();
+	                                            break;
+	                                        case "kakprosto.ru":
+	                                            if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
+	                                            if (typeof (document.referrer) != 'undefined') {
+	                                                if (typeof (afReferrer) == 'undefined') {
+	                                                    afReferrer = encodeURIComponent(document.referrer);
+	                                                }
+	                                            } else {
+	                                                afReferrer = '';
+	                                            }
+	                                            var addate = new Date();
+	                                            var scrheight = '', scrwidth = '';
+	                                            if (self.screen) {
+	                                                scrwidth = screen.width;
+	                                                scrheight = screen.height;
+	                                            } else if (self.java) {
+	                                                var jkit = java.awt.Toolkit.getDefaultToolkit();
+	                                                var scrsize = jkit.getScreenSize();
+	                                                scrwidth = scrsize.width;
+	                                                scrheight = scrsize.height;
+	                                            }
+	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+	                                            break;
+	                                        case "pinme.ru":
+	                                        case "m.pinme.ru":
+	                                            if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
+	                                            if (typeof (document.referrer) != 'undefined') {
+	                                                if (typeof (afReferrer) == 'undefined') {
+	                                                    afReferrer = encodeURIComponent(document.referrer);
+	                                                }
+	                                            } else {
+	                                                afReferrer = '';
+	                                            }
+	                                            var addate = new Date();
+	                                            var scrheight = '', scrwidth = '';
+	                                            if (self.screen) {
+	                                                scrwidth = screen.width;
+	                                                scrheight = screen.height;
+	                                            } else if (self.java) {
+	                                                var jkit = java.awt.Toolkit.getDefaultToolkit();
+	                                                var scrsize = jkit.getScreenSize();
+	                                                scrwidth = scrsize.width;
+	                                                scrheight = scrsize.height;
+	                                            }
+	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+	                                            break;
+	                                        default:
+	                                            break;
 	                                    }
-	                                    var addate = new Date();
-	                                    var scrheight = '', scrwidth = '';
-	                                    if (self.screen) {
-	                                        scrwidth = screen.width;
-	                                        scrheight = screen.height;
-	                                    } else if (self.java) {
-	                                        var jkit = java.awt.Toolkit.getDefaultToolkit();
-	                                        var scrsize = jkit.getScreenSize();
-	                                        scrwidth = scrsize.width;
-	                                        scrheight = scrsize.height;
-	                                    }
-	                                    $("body").append('<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=vvq&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-	                                    break;
-	                                case "kakprosto.ru":
-	                                    if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
-	                                    if (typeof (document.referrer) != 'undefined') {
-	                                        if (typeof (afReferrer) == 'undefined') {
-	                                            afReferrer = encodeURIComponent(document.referrer);
-	                                        }
-	                                    } else {
-	                                        afReferrer = '';
-	                                    }
-	                                    var addate = new Date();
-	                                    var scrheight = '', scrwidth = '';
-	                                    if (self.screen) {
-	                                        scrwidth = screen.width;
-	                                        scrheight = screen.height;
-	                                    } else if (self.java) {
-	                                        var jkit = java.awt.Toolkit.getDefaultToolkit();
-	                                        var scrsize = jkit.getScreenSize();
-	                                        scrwidth = scrsize.width;
-	                                        scrheight = scrsize.height;
-	                                    }
-	                                    $("body").append('<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-	                                    break;
-	                                case "pinme.ru":
-	                                case "m.pinme.ru":
-	                                    if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
-	                                    if (typeof (document.referrer) != 'undefined') {
-	                                        if (typeof (afReferrer) == 'undefined') {
-	                                            afReferrer = encodeURIComponent(document.referrer);
-	                                        }
-	                                    } else {
-	                                        afReferrer = '';
-	                                    }
-	                                    var addate = new Date();
-	                                    var scrheight = '', scrwidth = '';
-	                                    if (self.screen) {
-	                                        scrwidth = screen.width;
-	                                        scrheight = screen.height;
-	                                    } else if (self.java) {
-	                                        var jkit = java.awt.Toolkit.getDefaultToolkit();
-	                                        var scrsize = jkit.getScreenSize();
-	                                        scrwidth = scrsize.width;
-	                                        scrheight = scrsize.height;
-	                                    }
-	                                    $("body").append('<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-	                                    break;
-	                                default:
-	                                    break;
-	                            }
+	                                });
+	                            });
 	                        }
 	                    }
 	                }
@@ -5888,7 +5917,7 @@ var loadProbtn = function (jQuery) {
 	                                case "probtn_hide_content":
 	                                    window.proBtn.hideContent();
 	                                    break;
-	                                    
+
 	                                case "button_image_iframe_disable_overlay":
 	                                    $("#pizzabtnIframeOverlay").hide();
 	                                    break;
