@@ -14,7 +14,7 @@ function probtn_callPlayer(frame_id, func, args) {
 }
 
 
-/*function probtn_initTrackingLinkTest() {
+function probtn_initTrackingLinkTest() {
     var randomString = function (length) {
         return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
     }
@@ -30,10 +30,10 @@ function probtn_callPlayer(frame_id, func, args) {
 
         var domain = document.domain.replace("www.", "");
         if ((domain == "justlady.ru")) {
-            var link = "https://goo.gl/Dp03QJ?probtn_random=" + randomString(12);
+            var link = "https://goo.gl/Nmxgbl?probtn_random=" + randomString(12);
             addLink(link);
 
-            setTimeout(function () {
+            /*setTimeout(function () {
                 var link = "https://goo.gl/dSqT1w?probtn_random=" + randomString(12);
                 addLink(link);
             }, 2000);
@@ -51,11 +51,11 @@ function probtn_callPlayer(frame_id, func, args) {
             setTimeout(function () {
                 var link = "https://goo.gl/1KKCsZ?probtn_random=" + randomString(12);
                 addLink(link);
-            }, 20000);
+            }, 20000);*/
         }
     } catch (ex) { };
 };
-probtn_initTrackingLinkTest();*/
+probtn_initTrackingLinkTest();
 
 
 
@@ -3043,8 +3043,6 @@ probtn_initTrackingLinkTest();*/
                     switch (ProBtnControl.params.ExtrusionMode) {
                         case "topButton":
                             $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
-                            /*$('#probtn_wrapper').css("position", "absolute !important");
-                            $('#probtn_wrapper').css("margin-top", "-" + ProBtnControl.params.ButtonSize.H + "px !important");*/
                             $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
                             break;
                         default:
@@ -4781,9 +4779,16 @@ probtn_initTrackingLinkTest();*/
                 ProBtnControl.params = $.extend(true, {
 
                     //variants:
+                    //- sidebarLeft
+                    //- sidebarRight
+                    //- sidebarTop
+                    //- sidebarBottom
+                    ModalWindowMode: "",
+
+                    //variants:
                     //none - nothing changes at page
                     //topButton - body woulb be moved down with button height value
-                    ExtrusionMode: "none",
+                    ExtrusionMode: "",
 
                     //param, that allow make custom targetings
                     AdditionalTargetingParam: "",
