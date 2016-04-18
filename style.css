@@ -6,7 +6,7 @@
 	overflow: inherit !important;
 }*/
 #probtn_wrapper {
-    position: fixed;
+    position: fixed !important;
     z-index: 111000;
     cursor: default;
 }
