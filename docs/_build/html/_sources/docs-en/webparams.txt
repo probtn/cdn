@@ -12,6 +12,37 @@ Description of the parameters used by the button (by application)
  
 If a parameter is used differently in different modes, it is specifically marked (including, the required modes)
 
+ModalWindowMode
+----------------------------------
+Additional variants and possibilities for modal window (showed after button click).
+
+Variants:
+
+* (empty) - nothing happens
+* sidebarLeft
+* sidebarRight
+* sidebarTop
+* sidebarBottom
+
+By default "".
+
+ExtrusionMode
+----------------------------------
+Different modes with extrusion of the page.
+
+Variants:
+
+* (empty) - nothing happens
+* topButton - body element would have margin-top equal to button height.
+
+By default "".
+
+AdditionalTargetingParam
+----------------------------------
+Additional custom parameter for targeting, which allows to make targeting at admin.probtn.com depending from custom tasks (for example targeting by different categories at site, etc).
+
+By default "".
+
 isAnimation
 ----------------------------------
 

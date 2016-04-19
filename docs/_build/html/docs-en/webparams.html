@@ -85,6 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Примеры режимов работы кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
@@ -142,6 +143,34 @@
 <span id="webparams"></span><h1>Params description<a class="headerlink" href="#params-description" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Description of the parameters used by the button (by application)</p>
 <p>If a parameter is used differently in different modes, it is specifically marked (including, the required modes)</p>
+<div class="section" id="modalwindowmode">
+<h2>ModalWindowMode<a class="headerlink" href="#modalwindowmode" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Additional variants and possibilities for modal window (showed after button click).</p>
+<p>Variants:</p>
+<ul class="simple">
+<li>(empty) - nothing happens</li>
+<li>sidebarLeft</li>
+<li>sidebarRight</li>
+<li>sidebarTop</li>
+<li>sidebarBottom</li>
+</ul>
+<p>By default &#8220;&#8221;.</p>
+</div>
+<div class="section" id="extrusionmode">
+<h2>ExtrusionMode<a class="headerlink" href="#extrusionmode" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Different modes with extrusion of the page.</p>
+<p>Variants:</p>
+<ul class="simple">
+<li>(empty) - nothing happens</li>
+<li>topButton - body element would have margin-top equal to button height.</li>
+</ul>
+<p>By default &#8220;&#8221;.</p>
+</div>
+<div class="section" id="additionaltargetingparam">
+<h2>AdditionalTargetingParam<a class="headerlink" href="#additionaltargetingparam" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Additional custom parameter for targeting, which allows to make targeting at admin.probtn.com depending from custom tasks (for example targeting by different categories at site, etc).</p>
+<p>By default &#8220;&#8221;.</p>
+</div>
 <div class="section" id="isanimation">
 <h2>isAnimation<a class="headerlink" href="#isanimation" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Different variant of button animation.</p>
