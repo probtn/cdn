@@ -3129,6 +3129,7 @@ var loadProbtn = function (jQuery) {
 	                    //extrusion mode of button
 	                    switch (ProBtnControl.params.ExtrusionMode) {
 	                        case "topButton":
+	                            console.log("ExtrusionMode - topButton");
 	                            $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
 	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
 	                            break;
@@ -5575,6 +5576,35 @@ var loadProbtn = function (jQuery) {
 	                                $('head').append('<style type="text/css">' + ProBtnControl.params.ZCustomCss + '</style>');
 	                            }
 
+	                            console.log("ProBtnControl.params.ModalWindowMode", ProBtnControl.params.ModalWindowMode);
+	                            //check ModalWindowMode
+	                            //and apply nessesary css
+	                            switch (ProBtnControl.params.ModalWindowMode) {
+	                                case "sidebarRight":
+	                                    console.log("sidebarRight");
+	                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
+	".fancybox-wrap { top: 0px !important; right: 0px !important; left: initial !important; }" +
+	".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+	                                    break;
+	                                case "sidebarLeft":
+	                                    console.log("sidebarLeft");
+	                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
+	".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
+	".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+	                                    break;
+	                                case "sidebarTop":
+	                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { width: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
+	".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
+	".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+	                                    break;
+	                                case "sidebarBottom":
+	                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { width: 100% !important; top: initial !important; } .fancybox-wrap  {position: fixed !important;}" +
+	".fancybox-wrap { bottom: 0px !important; left: 0px !important; }" +
+	".fancybox-close { bottom: 0px !important; right: 0px !important; }" + '</style>');
+	                                    break;
+	                                default:
+	                            }
+
 	                            //init close button
 	                            ProBtnControl.closeButton = ProBtnControl.initFunctions.initCloseButton();
 	                            //ProBtnControl.closeButton.center();
@@ -5841,15 +5871,6 @@ var loadProbtn = function (jQuery) {
 	                                    }
 
 	                                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&");
-
-	                                    /*settingsUrl = ProBtnControl.serverUrl + "/1/functions/getClientSettings?BundleID=" +
-	                            ProBtnControl.currentDomain +
-	                            "&SelectAdSet=" + ProBtnControl.params.SelectAdSet +
-	                            "&localDomain=" + ProBtnControl.realDomain + "&DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() + "&DeviceCUID=" + ProBtnControl.DeviceCID +
-	                            "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&Version=" + ProBtnControl.mainVersion +
-	                            "&X-ProBtn-Token=" + ProBtnControl.XProBtnToken + "&random=" + Math.random() +
-	                            "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
-	                            ProBtnControl.userData.screenWidth + "&Retina=" + retina + "&ConnectionSpeed=" + kbs + "&callback=?";*/
 	                                } else {
 	                                    settingsUrl = ProBtnControl.params.localSettingsPath;
 	                                }
