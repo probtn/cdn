@@ -15,6 +15,14 @@
 
 В данном событии в data будет присутствовать объект с описанием события и необходимыми данными.
 
+Пример
+----------------------------------
+
+``document.addEventListener('probtn_events', function (e) {
+                console.log("probtn_events", e.data);
+                $("#eventsOutput").append("<p>"+JSON.stringify(e.data)+"</p>");
+}, false);``
+
 Пример объекта
 ----------------------------------
 

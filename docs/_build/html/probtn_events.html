@@ -98,7 +98,8 @@
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Получение событий кнопки на странице</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Общее описание</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Пример объекта</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Пример</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">Пример объекта</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#demo">demo-страницы</a></li>
 </ul>
 </li>
@@ -154,7 +155,16 @@
 <p>В данном событии в data будет присутствовать объект с описанием события и необходимыми данными.</p>
 </div>
 <div class="section" id="id3">
-<h2>Пример объекта<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Пример<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="docutils">
+<dt><a href="#id4"><span class="problematic" id="id5">``</span></a>document.addEventListener(&#8216;probtn_events&#8217;, function (e) {</dt>
+<dd>console.log(&#8220;probtn_events&#8221;, e.data);
+$(&#8220;#eventsOutput&#8221;).append(&#8220;&lt;p&gt;&#8221;+JSON.stringify(e.data)+&#8221;&lt;/p&gt;&#8221;);</dd>
+</dl>
+<p>}, false);``</p>
+</div>
+<div class="section" id="id6">
+<h2>Пример объекта<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">{&quot;AZName&quot;:&quot;&quot;,&quot;Statistic&quot;:[{&quot;name&quot;:&quot;Moved&quot;,&quot;value&quot;:1}]}</span></code></p>
 </div>
 <div class="section" id="demo">
