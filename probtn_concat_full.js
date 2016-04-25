@@ -1768,6 +1768,37 @@ function probtn_callPlayer(frame_id, func, args) {
 			                probtnId: "probtn_button_" //+ ProBtnControl.additionalButtonFunctions.randomString(12)
 			            },
 			            statistics: {
+			                //create probtn_events event with data same as we send to admin.probtn.com
+			                createEventHandler: function (data) {
+			                    try {
+			                        var event = document.createEvent('Event');
+			                        event.initEvent('probtn_events', true, true);
+			                        event.data = data;
+			                        document.dispatchEvent(event);
+			                    } catch(ex)
+			                    {
+			                        
+			                    }
+			                },
+			                prepareObjectForEventHandler: function (object) {
+			                    var result_object = { AZName: "", Statistic: [] };
+			                    try {
+			                        if ((object !== null) && (object !== "") && (object !== undefined)) {
+			                            for (var k in object) {
+			                                if (object.hasOwnProperty(k)) {
+			                                    var item = {};
+			                                    item["value"] = object[k];
+			                                    item["name"] = k;
+			                                    result_object.Statistic.push(item);
+			                                }
+			                            }
+			                        };
+			                    } catch(ex)
+			                    {
+			                        
+			                    }
+			                    return result_object;
+			                },
 			                callSuperPixel: function () {
 			                    try {
 			                        var superPixelPath = "https://pixel.probtn.com/1/from-ref";
@@ -1787,10 +1818,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
 			                    }).prependTo('body');
 			                },
-			                createStatisticsLink: function (path, additional_params) {
+			                createStatisticsLink: function (path, additional_params, params_object) {
 			                    if ((path == undefined) || (path == null)) {
 			                        path = "updateUserStatistic";
 			                    }
+
 			                    var probtnId = "1234";
 			                    probtnId = ProBtnControl.GetDeviceUID();
 			                    var probtncid = ProBtnControl.DeviceCID;
@@ -1802,15 +1834,24 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                    var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=1.0&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
 			                        ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam + "&callback=?";
+
+			                    if ((params_object == null) || (params_object == undefined)) {
+			                        params_object = { "additional_params": additional_params };
+			                    } else {
+			                        ProBtnControl.statistics.createEventHandler(params_object);
+			                    }
+
 			                    return url;
 			                },
+			                //TODO:
+			                //check AZName value - correct using of areaName
 			                sendAreaActivatedStats: function (areaName, callback) {
 			                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 			                        var probtnId = "1234";
 			                        probtnId = ProBtnControl.GetDeviceUID();
 			                        var probtncid = ProBtnControl.DeviceCID;
 
-			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=areaName&Statistic=" + "{\"ContentShowed\": \"1\"}&"),
+			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=" + areaName + "&Statistic=" + "{\"ContentShowed\": \"1\"}&", { AZName: areaName, Statistic: [{ "name": "ContentShowed", "value": 1 }] }),
 			                            function () { }).always(function () {
 			                                if ((callback !== null) && (callback !== undefined)) {
 			                                    callback();
@@ -1825,7 +1866,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        probtnId = ProBtnControl.GetDeviceUID();
 			                        var probtncid = ProBtnControl.DeviceCID;
 
-			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=" + areaName + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&"),
+			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=" + areaName + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&", { AZName: areaName, Statistic: [{ "name": "ScrollZoneShowed", "value": 1 }] }),
 			                            function () { }).done(function () {
 			                            }).fail(function () { }).always(function () {
 			                                if ((callback !== null) && (callback !== undefined)) {
@@ -1860,7 +1901,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                SendCustomStat: function (name, value, probtnId, currentDomain) {
 			                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 
-			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=areaName&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&"),
+			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=areaName&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", { AZName: areaName, Statistic: [{ "name": name, "value": value }] }),
 			                        function () { }).always(function () {
 			                            if ((callback !== null) && (callback !== undefined)) {
 			                                callback();
@@ -1898,7 +1939,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                },
 			                SendStat: function (name, value, probtnId, currentDomain, callback) {
 			                    if (ProBtnControl.params.isServerCommunicationEnabled) {
-			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&"),
+			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", { AZName: "", Statistic: [{ "name": name, "value": value }] }),
 			                            function (data1) { }).always(function () {
 			                                if ((callback !== null) && (callback !== undefined)) {
 			                                    callback();
@@ -1913,8 +1954,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    var probtncid = ProBtnControl.DeviceCID;
 
 			                    if (ProBtnControl.params.isServerCommunicationEnabled) {
-
-			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + statistic + "&"),
+			                        var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
+			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + statistic + "&", converted_object),
 			                            function (data1) {
 			                                if (ProBtnControl.params.Debug) console.log(data1);
 			                            }).done(function () { }).fail(function () { }).always(function () {
@@ -1932,7 +1973,8 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 
-			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateCustomStatistic", "&Statistic=" + JSON.stringify(object) + "&"),
+			                        var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
+			                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateCustomStatistic", "&Statistic=" + JSON.stringify(object) + "&", converted_object),
 			                            function (data1) {
 			                                if (ProBtnControl.params.Debug) console.log(data1);
 			                            }).done(function () { }).fail(function () { }).always(function () {
@@ -2857,7 +2899,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        return null;
 			                    }
 			                },
-
 			                // pizza button constructor
 			                initPizzaButton: function () {
 			                    var pizzabtn_wrapper = $("<div/>", {
@@ -3592,7 +3633,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    }
 			                },
 			                hideAll: function () {
-
 			                    //TODO: save and restore body margin to prevent errors with some custome sites
 			                    //check is extrusion mode enabled and restore body margin
 			                    switch (ProBtnControl.params.ExtrusionMode) {
