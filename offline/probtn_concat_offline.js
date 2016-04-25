@@ -2226,25 +2226,20 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                    $(document).on("click", ".probtn_menu_link", function (e) {
 			                                        var menuType = $(this).attr("rev");
-			                                        console.log("menu click", e);
-			                                        console.log("menuType", menuType);
 
 			                                        switch (menuType) {
 			                                            case "external":
-			                                                console.log("external menu");
 			                                                window.probtn_dropedActiveZone = {};
 			                                                window.probtn_dropedActiveZone.currentActiveZone = null;
 			                                                window.probtn_ButtonContentType = "external";
 
 			                                                ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
-			                                                console.log("open external menu");
 			                                                window.open($(this).attr("href"));
 
 			                                                e.preventDefault();
 			                                                return false;
 			                                                break;
 			                                            case "iframe":
-			                                                console.log("iframe menu");
 			                                                window.probtn_dropedActiveZone = {};
 			                                                window.probtn_dropedActiveZone.currentActiveZone = null;
 			                                                window.probtn_ButtonContentType = "iframe";
@@ -2254,12 +2249,10 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                                break;
 			                                            case "closeMenu":
-			                                                console.log("closeMenu menu");
 			                                                ProBtnControl.initFunctions.initRemoveMenu();
 			                                                return false;
 			                                                break;
 			                                            case "video":
-			                                                console.log("video menu");
 			                                                window.probtn_dropedActiveZone = {};
 			                                                window.probtn_dropedActiveZone.currentActiveZone = {};
 			                                                window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType = "video";
@@ -2969,7 +2962,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                try {
 			                                    var video = $("#video_probtn").get(0);
 			                                    video.pause();
-			                                    console.log("video pause");
 			                                } catch (ex) {
 			                                    console.log(ex);
 			                                }
@@ -3124,7 +3116,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    //extrusion mode of button
 			                    switch (ProBtnControl.params.ExtrusionMode) {
 			                        case "topButton":
-			                            console.log("ExtrusionMode - topButton");
 			                            $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
 			                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
 			                            break;
@@ -4471,9 +4462,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            if (side == 'right') {
 			                                ProBtnControl.pizzabtn.css("left", $('body').innerWidth());
 			                            } else {
-			                                console.log("setLeft", -(ProBtnControl.params.ButtonSize.W));
 			                                ProBtnControl.pizzabtn.css("left", -ProBtnControl.params.ButtonSize.W - 10);
-			                                console.log(ProBtnControl.pizzabtn.css("left"));
 			                                ProBtnControl.pizzabtn.stop(true, true);
 			                            }
 
@@ -4496,7 +4485,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                //window.setTimeout(function () {
 			                                if ((ProBtnControl.params.ButtonDragImage !== null) || (ProBtnControl.params.ButtonDragImage !== undefined)) {
-			                                    console.log("ProBtnControl.params.ButtonDragImage", ProBtnControl.params.ButtonDragImage);
+			                                    
 			                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonDragImage);
 			                                }
 			                                ProBtnControl.pizzabtn.animate({

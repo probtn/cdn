@@ -98,9 +98,23 @@
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Получение событий кнопки на странице</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Общее описание</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Пример</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">Пример объекта</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#demo">demo-страницы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Описание объекта</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Описание вариантов событий кнопки</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opened">Opened</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#showed">Showed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#moved">Moved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contentshowed">ContentShowed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contentshowedduration">ContentShowedDuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#closed">Closed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hidded">Hidded</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Примеры</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#listener">Пример добавления listener&#8217;а для события</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Пример объекта</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demo">demo-страницы</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -155,23 +169,68 @@
 <p>В данном событии в data будет присутствовать объект с описанием события и необходимыми данными.</p>
 </div>
 <div class="section" id="id3">
-<h2>Пример<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Описание объекта<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Основные даныые о событии находятся в <code class="docutils literal"><span class="pre">Statistic</span></code> и представлены в виде массива объектов, где <code class="docutils literal"><span class="pre">name</span></code> - название события и <code class="docutils literal"><span class="pre">value</span></code> - значение.</p>
+</div>
+<div class="section" id="id4">
+<h2>Описание вариантов событий кнопки<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="opened">
+<h3>Opened<a class="headerlink" href="#opened" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Значение по умолчанию - 1.</p>
+<p>Данное событие вызывается в том случае, если кнопка успешно инициализировалась.</p>
+</div>
+<div class="section" id="showed">
+<h3>Showed<a class="headerlink" href="#showed" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Значение по умолчанию - 1.</p>
+<p>Данное событие вызывается в том случае, если кнопка успешно была показана (после завершения инициализации).</p>
+</div>
+<div class="section" id="moved">
+<h3>Moved<a class="headerlink" href="#moved" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Значение по умолчанию - 1.</p>
+<p>Данное событие вызывается в начале перемещения кнопки.</p>
+</div>
+<div class="section" id="contentshowed">
+<h3>ContentShowed<a class="headerlink" href="#contentshowed" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Значение по умолчанию - 1.</p>
+<p>Данное событие вызывается при открытии контента (по нажатию на кнопку, пункт меню или взаимодейстие с активной зоной) в модальном окне, при открытии в новой вкладке и т.д.</p>
+</div>
+<div class="section" id="contentshowedduration">
+<h3>ContentShowedDuration<a class="headerlink" href="#contentshowedduration" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Длительность показа контента (для тех случаев, когда ее возможно измерить).
+Значение указывается в секундах.</p>
+</div>
+<div class="section" id="closed">
+<h3>Closed<a class="headerlink" href="#closed" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Значение по умолчанию - 1.</p>
+<p>Вызывается при закрытии кнопки пользователем.</p>
+</div>
+<div class="section" id="hidded">
+<h3>Hidded<a class="headerlink" href="#hidded" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Значение по умолчанию - 1.</p>
+<p>Вызывается при скрытии кнопки (как автоматическом, так и инициированном пользователем).</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>Примеры<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="listener">
+<h3>Пример добавления listener&#8217;а для события<a class="headerlink" href="#listener" title="Ссылка на этот заголовок">¶</a></h3>
 <dl class="docutils">
-<dt><a href="#id4"><span class="problematic" id="id5">``</span></a>document.addEventListener(&#8216;probtn_events&#8217;, function (e) {</dt>
+<dt><a href="#id6"><span class="problematic" id="id7">``</span></a>document.addEventListener(&#8216;probtn_events&#8217;, function (e) {</dt>
 <dd>console.log(&#8220;probtn_events&#8221;, e.data);
 $(&#8220;#eventsOutput&#8221;).append(&#8220;&lt;p&gt;&#8221;+JSON.stringify(e.data)+&#8221;&lt;/p&gt;&#8221;);</dd>
 </dl>
 <p>}, false);``</p>
 </div>
-<div class="section" id="id6">
-<h2>Пример объекта<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id8">
+<h3>Пример объекта<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">{&quot;AZName&quot;:&quot;&quot;,&quot;Statistic&quot;:[{&quot;name&quot;:&quot;Moved&quot;,&quot;value&quot;:1}]}</span></code></p>
 </div>
 <div class="section" id="demo">
-<h2>demo-страницы<a class="headerlink" href="#demo" title="Ссылка на этот заголовок">¶</a></h2>
+<h3>demo-страницы<a class="headerlink" href="#demo" title="Ссылка на этот заголовок">¶</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="http://demo.probtn.com/button_example3/probtnEvents/">http://demo.probtn.com/button_example3/probtnEvents/</a></li>
 </ul>
+</div>
 </div>
 </div>
 
