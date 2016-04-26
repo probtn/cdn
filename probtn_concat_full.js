@@ -1062,7 +1062,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 
-
 			                //click for dfp
 			                if (ProBtnControl.params.dfp.isDFP) {
 			                    try {
@@ -1140,7 +1139,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
 
 
-
 			                    probtn_callPlayer("video_probtn");
 			                    return;
 			                }
@@ -1178,8 +1176,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        overlay: {
 			                            locked: false,
 			                            speedIn: 0,
-			                            speedOut: 0,   // duration of fadeOut animation
-			                            showEarly: true  // indicates if should be opened immediately or wait until the content is ready
+			                            speedOut: 0, // duration of fadeOut animation
+			                            showEarly: true // indicates if should be opened immediately or wait until the content is ready
 			                        },
 			                        title: { type: 'inside' }
 			                    },
@@ -1393,8 +1391,47 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            //dropedActiveZone: null,
 			            contentTime: {
+			                timeValue: { "ContentShowedDuration": 0, "MovedDuration": 0 },
 			                contentOpenedTime: 0,
-			                startTimer: function () {
+			                movedTime: 0, //button moved duration
+			                startTimer: function (param) {
+			                    if ((param == null) || (param == undefined)) {
+			                        param = "ContentShowedDuration";
+			                    }
+
+			                    if (ProBtnControl.contentTime.intervalId[param] !== undefined) {
+			                    } else {
+			                        clearInterval(ProBtnControl.contentTime.intervalId[param]);
+			                    }
+			                    ProBtnControl.contentTime.timeValue[param] = 0;
+
+			                    ProBtnControl.contentTime.intervalId[param] = setInterval(function () {
+			                        ProBtnControl.contentTime.timeValue[param]++;
+			                    }, 1000);
+			                },
+			                endTimer: function (param) {
+			                    if ((param == null) || (param == undefined)) {
+			                        param = "ContentShowedDuration";
+			                    };
+
+			                    clearInterval(ProBtnControl.contentTime.intervalId[param]);
+			                    ProBtnControl.contentTime.intervalId[param] = undefined;
+
+			                    ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param]);
+			                },
+			                intervalId: {
+			                    "ContentShowedDuration": undefined,
+			                    "MovedDuration": undefined
+			                }
+			            },
+			            /*contentTime: {
+			                contentOpenedTime: 0,
+			                movedTime: 0, //button moved duration
+			                startTimer: function (param) {
+			                    if ((param == null) || (param == undefined)) {
+
+			                    }
+
 			                    if (ProBtnControl.contentTime.intervalId !== undefined) {
 			                    } else {
 			                        clearInterval(ProBtnControl.contentTime.intervalId);
@@ -1409,12 +1446,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    clearInterval(ProBtnControl.contentTime.intervalId);
 			                    ProBtnControl.contentTime.intervalId = undefined;
 
-			                    if (ProBtnControl.params.Debug) console.log("ProBtnControl.contentTime.contentOpenedTime - " + ProBtnControl.contentTime.contentOpenedTime);
-
 			                    ProBtnControl.statistics.SendStatisticsData("ContentShowedDuration", ProBtnControl.contentTime.contentOpenedTime);
 			                },
 			                intervalId: undefined
-			            },
+			            },*/
 			            userData: {},
 			            geolocation: {
 			                getLocation: function (callback) {
@@ -1775,9 +1810,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        event.initEvent('probtn_events', true, true);
 			                        event.data = data;
 			                        document.dispatchEvent(event);
-			                    } catch(ex)
-			                    {
-			                        
+			                    } catch (ex) {
+
 			                    }
 			                },
 			                prepareObjectForEventHandler: function (object) {
@@ -1793,9 +1827,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                }
 			                            }
 			                        };
-			                    } catch(ex)
-			                    {
-			                        
+			                    } catch (ex) {
+
 			                    }
 			                    return result_object;
 			                },
@@ -4485,7 +4518,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                //window.setTimeout(function () {
 			                                if ((ProBtnControl.params.ButtonDragImage !== null) || (ProBtnControl.params.ButtonDragImage !== undefined)) {
-			                                    
+
 			                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonDragImage);
 			                                }
 			                                ProBtnControl.pizzabtn.animate({
@@ -5566,24 +5599,24 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                case "sidebarRight":
 			                                    console.log("sidebarRight");
 			                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
-			".fancybox-wrap { top: 0px !important; right: 0px !important; left: initial !important; }" +
-			".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+			    ".fancybox-wrap { top: 0px !important; right: 0px !important; left: initial !important; }" +
+			    ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
 			                                    break;
 			                                case "sidebarLeft":
 			                                    console.log("sidebarLeft");
 			                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
-			".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
-			".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+			    ".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
+			    ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
 			                                    break;
 			                                case "sidebarTop":
 			                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { width: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
-			".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
-			".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+			    ".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
+			    ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
 			                                    break;
 			                                case "sidebarBottom":
 			                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { width: 100% !important; top: initial !important; } .fancybox-wrap  {position: fixed !important;}" +
-			".fancybox-wrap { bottom: 0px !important; left: 0px !important; }" +
-			".fancybox-close { bottom: 0px !important; right: 0px !important; }" + '</style>');
+			    ".fancybox-wrap { bottom: 0px !important; left: 0px !important; }" +
+			    ".fancybox-close { bottom: 0px !important; right: 0px !important; }" + '</style>');
 			                                    break;
 			                                default:
 			                            }
@@ -6152,6 +6185,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        }
 			                                    };
 			                                    ProBtnControl.statistics.SendStatisticsData("Moved", 1);
+			                                    ProBtnControl.contentTime.startTimer("MovedDuration");
 			                                });
 			                            },
 			                            drag: function (ev, obj) {
@@ -6234,7 +6268,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                            },
 			                            stop: function () {
-
+			                                ProBtnControl.contentTime.endTimer("MovedDuration");
 			                                var activeZone = null;
 			                                //check is there is some active zone after we stop using button
 			                                if (this.activeDropRegions.length > 0) {
