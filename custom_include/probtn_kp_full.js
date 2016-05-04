@@ -3766,7 +3766,7 @@ var loadProbtn = function (jQuery) {
 	                            }
 	                            break;
 	                    }
-	                    
+
 	                },
 	                //update values for all percent params
 	                updateAllPercentSizes: function () {
@@ -4962,6 +4962,7 @@ var loadProbtn = function (jQuery) {
 	                //init default params
 	                ProBtnControl.params = $.extend(true, {
 
+	                    PassbackCustomCode: "",
 	                    //variants:
 	                    //- sidebarLeft
 	                    //- sidebarRight
@@ -5716,9 +5717,10 @@ var loadProbtn = function (jQuery) {
 	                            }
 
 	                        } else {
-
 	                            $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
 	                                $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function () {
+	                                    
+
 	                                    $("body").append("<div id='probtn_adfox'></div>");
 	                                    switch (ProBtnControl.currentDomain) {
 	                                        case "justlady.ru":
@@ -5745,7 +5747,7 @@ var loadProbtn = function (jQuery) {
 	                                            //$("body").append();
 	                                            break;
 	                                        case "kakprosto.ru":
-	                                            /*if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
+	                                            if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
 	                                            if (typeof (document.referrer) != 'undefined') {
 	                                                if (typeof (afReferrer) == 'undefined') {
 	                                                    afReferrer = encodeURIComponent(document.referrer);
@@ -5764,7 +5766,9 @@ var loadProbtn = function (jQuery) {
 	                                                scrwidth = scrsize.width;
 	                                                scrheight = scrsize.height;
 	                                            }
-	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');*/
+	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+	                                            break;
+	                                        case "dev.kakprosto.ru":
 	                                            window.hpmd_adbutton_passback();
 	                                            break;
 	                                        case "pinme.ru":
@@ -5791,6 +5795,7 @@ var loadProbtn = function (jQuery) {
 	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
 	                                            break;
 	                                        default:
+	                                            postscribe(ProBtnControl.params.PassbackCustomCode);
 	                                            break;
 	                                    }
 	                                });
