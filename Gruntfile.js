@@ -51,8 +51,9 @@ module.exports = function(grunt) {
             'probtn.js': ['probtn_full.js'],
 			//['probtn_full.js'],
 			'probtn_concat.js': ['probtn_concat_full.js'],
-			'bower/probtn_concat.js': ['probtn_concat_full.js'],
-			'bower/showinparent_concat.js': ['showinparent_concat.js'],
+			//TODO: restore bower
+			//'bower/probtn_concat.js': ['probtn_concat_full.js'],
+			//'bower/showinparent_concat.js': ['showinparent_concat.js'],
 			'custom_include/maximonline.js': ['custom_include/maximonline_full.js'],
 			'custom_include/maximonline.ru.js': ['custom_include/maximonline_full.js'],
 			'custom_include/probtn_kp.js': ['custom_include/probtn_kp_full.js']
