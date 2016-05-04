@@ -5749,7 +5749,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
 			                                            break;
 			                                        default:
-			                                            postscribe(ProBtnControl.params.PassbackCustomCode);
+			                                            postscribe('#probtn_adfox', ProBtnControl.params.PassbackCustomCode);
 			                                            break;
 			                                    }
 			                                });
