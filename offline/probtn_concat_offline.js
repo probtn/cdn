@@ -2927,9 +2927,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			                },
 			                // pizza button constructor
 			                initPizzaButton: function () {
-			                    var pizzabtn_wrapper = $("<div/>", {
-			                        id: "probtn_wrapper"
-			                    }).prependTo('body');
+			                    //TODO
+			                    //ExtrusionMode with inserting wrapper inside specified block
+			                    switch (ProBtnControl.params.ExtrusionMode) {
+			                        case "insertBlock":
+			                            $('head').append('<style type="text/css">#probtn_wrapper { width: 100% !important; display: inline-block !important; position: relative !important; height:' + ProBtnControl.params.ButtonSize.H + 'px !important; } #probtn_button { top: 0px !important; left: 0px !important; width:100% !important; }</style>');
+			                            var pizzabtn_wrapper = $("<div/>", {
+			                                id: "probtn_wrapper"
+			                            }).prependTo(ProBtnControl.params.ExtrusionPath);
+			                            break;
+			                        default:
+			                            var pizzabtn_wrapper = $("<div/>", {
+			                                id: "probtn_wrapper"
+			                            }).prependTo('body');
+			                            break;
+			                    }
 
 
 			                    if (ProBtnControl.params.ButtonContentType === 'youtube') {
@@ -3151,6 +3163,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        case "topButton":
 			                            $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
 			                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
+			                            break;
+			                        case "insertBlock":
+			                            pizzabtnCss.width = "100%";
 			                            break;
 			                        default:
 			                            break;
@@ -3610,6 +3625,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            left = window.innerWidth - ProBtnControl.params.ButtonSize.W;
 			                        }
 
+			                        switch (ProBtnControl.params.ExtrusionMode) {
+			                            case "insertBlock":
+			                                left = 0;
+			                                top = 0;
+			                                break;
+			                            default:
+			                                break;
+			                        }
+
 			                        btn.css({
 			                            left: left,
 			                            top: top,
@@ -3679,14 +3703,24 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    ProBtnControl.initFunctions.initRemoveMenu();
 			                },
 			                checkAndCorrentButtonPosition: function () {
-			                    if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
-			                        if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
-			                            ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
-			                        }
-			                        if (ProBtnControl.pizzabtn.css('top').replace('px', '') > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
-			                            ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
-			                        }
+			                    switch (ProBtnControl.params.ExtrusionMode) {
+			                        case "insertBlock":
+			                            console.log("checkAndCorrentButtonPosition insertBlock");
+			                            ProBtnControl.pizzabtn.css("top", 0);
+			                            ProBtnControl.pizzabtn.css("left", 0);
+			                            break;
+			                        default:
+			                            if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
+			                                if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
+			                                    ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
+			                                }
+			                                if (ProBtnControl.pizzabtn.css('top').replace('px', '') > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
+			                                    ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
+			                                }
+			                            }
+			                            break;
 			                    }
+			                    
 			                },
 			                //update values for all percent params
 			                updateAllPercentSizes: function () {
@@ -5665,7 +5699,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                            //$("body").append();
 			                                            break;
 			                                        case "kakprosto.ru":
-			                                            if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
+			                                            /*if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
 			                                            if (typeof (document.referrer) != 'undefined') {
 			                                                if (typeof (afReferrer) == 'undefined') {
 			                                                    afReferrer = encodeURIComponent(document.referrer);
@@ -5684,7 +5718,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                                scrwidth = scrsize.width;
 			                                                scrheight = scrsize.height;
 			                                            }
-			                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+			                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');*/
+			                                            window.hpmd_adbutton_passback();
 			                                            break;
 			                                        case "pinme.ru":
 			                                        case "m.pinme.ru":
