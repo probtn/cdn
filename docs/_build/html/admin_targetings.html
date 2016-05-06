@@ -102,7 +102,26 @@
 <li class="toctree-l2"><a class="reference internal" href="#id3">Варианты</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#always">Always</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#country">Country</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Country</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mobile-operator">Mobile Operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#city">City</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#schedule">Schedule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#once-in">Once in</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#campaign-shown">Campaign shown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#show-limit">Show limit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#target-action">Target action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#device-platform">Device platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site-pages">Site pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ip-adress">IP adress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#button-closing-max">Button closing max</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Button closing max</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overall-shows-limit">Overall shows limit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#daily-shows-limit">Daily shows limit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#device-model">Device Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#domains">Domains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#start-at">Start at</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stop-at">Stop at</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connection-speed">Connection speed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-parameter">Additional parameter</a></li>
 </ul>
 </li>
 </ul>
@@ -179,13 +198,265 @@
 <li>USA</li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h3>Country<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Таргетинг по стране пользователя.</p>
+<div class="section" id="mobile-operator">
+<h3>Mobile Operator<a class="headerlink" href="#mobile-operator" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по мобильному оператору.</p>
 <p>Возможные условия:</p>
 <ul class="simple">
 <li>is</li>
 <li>is not</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>MTS RUS</li>
+<li>Beeline</li>
+<li>Megafon</li>
+</ul>
+</div>
+<div class="section" id="city">
+<h3>City<a class="headerlink" href="#city" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по городу пользователя.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>one of</li>
+<li>except</li>
+</ul>
+</div>
+<div class="section" id="schedule">
+<h3>Schedule<a class="headerlink" href="#schedule" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по расписанию.
+Предоставляется календарь для указания временных промежутков для каждого из дней недели.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>on</li>
+</ul>
+</div>
+<div class="section" id="once-in">
+<h3>Once in<a class="headerlink" href="#once-in" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по ограничению показа кнопки пользователю (показ кнопки один раз за период).</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>in</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>1 minute</li>
+<li>6 hours</li>
+<li>1 day</li>
+<li>2 day</li>
+<li>3 day</li>
+<li>4 day</li>
+<li>5 day</li>
+<li>6 day</li>
+<li>7 day</li>
+</ul>
+</div>
+<div class="section" id="campaign-shown">
+<h3>Campaign shown<a class="headerlink" href="#campaign-shown" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по показу данного креатива пользователю (срабатывает если этому пользователю этот креатив раньше ни разу не показывался/показывался).</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>for</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>first time</li>
+<li>more then once</li>
+</ul>
+</div>
+<div class="section" id="show-limit">
+<h3>Show limit<a class="headerlink" href="#show-limit" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Ограничение не кол-во показов кнопки пользователю.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>=</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+<li>5</li>
+</ul>
+</div>
+<div class="section" id="target-action">
+<h3>Target action<a class="headerlink" href="#target-action" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>was</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>performed</li>
+<li>not performed</li>
+</ul>
+</div>
+<div class="section" id="device-platform">
+<h3>Device platform<a class="headerlink" href="#device-platform" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по типам устройств.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>&#8211; Any Mobile &#8211;</li>
+<li>[mobile] iOS</li>
+<li>[mobile] Android</li>
+<li>[mobile] WinPhone</li>
+<li>[mobile] Other</li>
+<li>&#8211; Any Tablet &#8211;</li>
+<li>[tablet] iOS</li>
+<li>[tablet] Android</li>
+<li>[tablet] WinPhone</li>
+<li>[tablet] Other</li>
+<li>&#8211; Any Desktop &#8211;</li>
+<li>Mac OS X</li>
+<li>Ubuntu</li>
+<li>Windows</li>
+<li>Other</li>
+</ul>
+</div>
+<div class="section" id="site-pages">
+<h3>Site pages<a class="headerlink" href="#site-pages" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг на основе относительного пути страницы, на которой показывается кнопка.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is exactly</li>
+<li>starts with</li>
+<li>is not</li>
+<li>doesnt start with</li>
+</ul>
+</div>
+<div class="section" id="ip-adress">
+<h3>IP adress<a class="headerlink" href="#ip-adress" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг на основе IP адреса пользователя.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>one of</li>
+<li>none of</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>ip адрес или список ip адресов перечисленных через запятую</li>
+</ul>
+</div>
+<div class="section" id="button-closing-max">
+<h3>Button closing max<a class="headerlink" href="#button-closing-max" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по количеству закрытий кнопки.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>once per campaign</li>
+<li>once per day</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>Button closing max<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по количеству закрытий кнопки.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>once per campaign</li>
+<li>once per day</li>
+</ul>
+</div>
+<div class="section" id="overall-shows-limit">
+<h3>Overall shows limit<a class="headerlink" href="#overall-shows-limit" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по общему количеству показов.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>количество показов</li>
+</ul>
+</div>
+<div class="section" id="daily-shows-limit">
+<h3>Daily shows limit<a class="headerlink" href="#daily-shows-limit" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по дневному количеству показов.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>количество показов</li>
+</ul>
+</div>
+<div class="section" id="device-model">
+<h3>Device Model<a class="headerlink" href="#device-model" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по модели устройства.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is</li>
+<li>is not</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>iPhone 4 / 4s</li>
+<li>iPhone 5 / 5s / 6 (with display zoom)</li>
+<li>iPhone 6 / 6s (with display zoom)</li>
+<li>iPhone 6+</li>
+<li>&#8211; Other &#8211;</li>
+</ul>
+</div>
+<div class="section" id="domains">
+<h3>Domains<a class="headerlink" href="#domains" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по домену.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>one of</li>
+<li>none of</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>домен или список доменов перечисленных через запятую</li>
+</ul>
+</div>
+<div class="section" id="start-at">
+<h3>Start at<a class="headerlink" href="#start-at" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по времени начала показа.</p>
+<p>Опции:</p>
+<ul class="simple">
+<li>дата в формате yyyy/mm/dd HH:MM:SS</li>
+</ul>
+</div>
+<div class="section" id="stop-at">
+<h3>Stop at<a class="headerlink" href="#stop-at" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по времени окончания показа.</p>
+<p>Опции:</p>
+<ul class="simple">
+<li>дата в формате yyyy/mm/dd HH:MM:SS</li>
+</ul>
+</div>
+<div class="section" id="connection-speed">
+<h3>Connection speed<a class="headerlink" href="#connection-speed" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по скорости соединения (возможен только вслучае, если в скрипте кнопки вручную включен режим измерения скорости соединения).</p>
+<p>Опции:</p>
+<ul class="simple">
+<li>диапазон скорости соединения</li>
+</ul>
+</div>
+<div class="section" id="additional-parameter">
+<h3>Additional parameter<a class="headerlink" href="#additional-parameter" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Ручнойкастомный таргетинг - позволяет производить таргетинг на основе самостоятельного переданного параметра скрипту кнопки.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>equals</li>
+<li>contains</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>любой параметр для кастомного таргетинга.</li>
 </ul>
 </div>
 </div>
