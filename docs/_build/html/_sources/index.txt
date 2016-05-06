@@ -24,4 +24,5 @@ Profit Button
    webparams
    offline
    probtn_events
+   admin_targetings
 

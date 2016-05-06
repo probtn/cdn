@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Поиск &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  <title>Описание вариантов таргетинга в админке &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
   
 
   
@@ -30,7 +30,8 @@
   
 
   
-    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/> 
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="prev" title="Получение событий кнопки на странице" href="probtn_events.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +66,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -80,7 +81,7 @@
             
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
@@ -96,7 +97,16 @@
 <li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Параметры по умолчания для кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
 <li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
-<li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Описание вариантов таргетинга в админке</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Общее описание</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Варианты</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#always">Always</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#country">Country</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Country</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -127,8 +137,12 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Описание вариантов таргетинга в админке</li>
       <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/admin_targetings.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
@@ -137,23 +151,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="admin-targetings">
+<span id="id1"></span><h1>Описание вариантов таргетинга в админке<a class="headerlink" href="#admin-targetings" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id2">
+<h2>Общее описание<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Посредством таргетингов возможно настроить необходимые ограничения для группы или конктретного креатива (с возможностью построения логических выражений, необходимых для таргетинга).</p>
+</div>
+<div class="section" id="id3">
+<h2>Варианты<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="always">
+<h3>Always<a class="headerlink" href="#always" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по умолчанию.</p>
+<p>Показывать все времяв любом случае.</p>
+</div>
+<div class="section" id="country">
+<h3>Country<a class="headerlink" href="#country" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по стране пользователя.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is</li>
+<li>is not</li>
+</ul>
+<p>Опции:</p>
+<ul class="simple">
+<li>-Other-</li>
+<li>Russia</li>
+<li>USA</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>Country<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Таргетинг по стране пользователя.</p>
+<p>Возможные условия:</p>
+<ul class="simple">
+<li>is</li>
+<li>is not</li>
+</ul>
+</div>
+</div>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="probtn_events.html" class="btn btn-neutral" title="Получение событий кнопки на странице" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -192,7 +240,6 @@
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
       <script type="text/javascript" src="_static/translations.js"></script>
-      <script type="text/javascript" src="_static/searchtools.js"></script>
 
   
 
@@ -208,14 +255,7 @@
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

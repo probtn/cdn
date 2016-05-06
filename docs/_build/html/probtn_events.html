@@ -31,6 +31,7 @@
 
   
     <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="next" title="Описание вариантов таргетинга в админке" href="admin_targetings.html"/>
         <link rel="prev" title="Оффлайн режим" href="offline.html"/> 
 
   
@@ -105,18 +106,22 @@
 <li class="toctree-l3"><a class="reference internal" href="#moved">Moved</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#contentshowed">ContentShowed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#contentshowedduration">ContentShowedDuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#movedduration">MovedDuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#closed">Closed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hidded">Hidded</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scrollzoneshowed">ScrollZoneShowed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#videoclicked">VideoClicked</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">Примеры</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#listener">Пример добавления listener&#8217;а для события</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">Пример объекта</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listener">Пример добавления listener для события</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Пример объекта</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#demo">demo-страницы</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
 </ul>
 
             
@@ -196,8 +201,13 @@
 </div>
 <div class="section" id="contentshowedduration">
 <h3>ContentShowedDuration<a class="headerlink" href="#contentshowedduration" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Длительность показа контента (для тех случаев, когда ее возможно измерить).
-Значение указывается в секундах.</p>
+<p>Длительность показа контента (для тех случаев, когда ее возможно измерить).</p>
+<p>Значение указывается в секундах.</p>
+</div>
+<div class="section" id="movedduration">
+<h3>MovedDuration<a class="headerlink" href="#movedduration" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Длительность перемещения кнопки, вызывается при завершении перемещения.</p>
+<p>Значение указывается в секундах.</p>
 </div>
 <div class="section" id="closed">
 <h3>Closed<a class="headerlink" href="#closed" title="Ссылка на этот заголовок">¶</a></h3>
@@ -209,20 +219,34 @@
 <p>Значение по умолчанию - 1.</p>
 <p>Вызывается при скрытии кнопки (как автоматическом, так и инициированном пользователем).</p>
 </div>
+<div class="section" id="scrollzoneshowed">
+<h3>ScrollZoneShowed<a class="headerlink" href="#scrollzoneshowed" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Значение по умолчанию - 1.</p>
+<p>Вызывается при показе скролл-зоны или при смене на другую скролл-зону.</p>
+</div>
+<div class="section" id="videoclicked">
+<h3>VideoClicked<a class="headerlink" href="#videoclicked" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Значение по умолчанию - 1.</p>
+<p>Вызывается при клике на видео (если для видео указана ссылка для перехода по нажатию на видео).</p>
+</div>
 </div>
 <div class="section" id="id5">
 <h2>Примеры<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="section" id="listener">
-<h3>Пример добавления listener&#8217;а для события<a class="headerlink" href="#listener" title="Ссылка на этот заголовок">¶</a></h3>
+<h3>Пример добавления listener для события<a class="headerlink" href="#listener" title="Ссылка на этот заголовок">¶</a></h3>
 <dl class="docutils">
-<dt><a href="#id6"><span class="problematic" id="id7">``</span></a>document.addEventListener(&#8216;probtn_events&#8217;, function (e) {</dt>
+<dt>::</dt>
+<dd><dl class="first docutils">
+<dt>document.addEventListener(&#8216;probtn_events&#8217;, function (e) {</dt>
 <dd>console.log(&#8220;probtn_events&#8221;, e.data);
 $(&#8220;#eventsOutput&#8221;).append(&#8220;&lt;p&gt;&#8221;+JSON.stringify(e.data)+&#8221;&lt;/p&gt;&#8221;);</dd>
 </dl>
-<p>}, false);``</p>
+<p class="last">}, false);</p>
+</dd>
+</dl>
 </div>
-<div class="section" id="id8">
-<h3>Пример объекта<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id6">
+<h3>Пример объекта<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">{&quot;AZName&quot;:&quot;&quot;,&quot;Statistic&quot;:[{&quot;name&quot;:&quot;Moved&quot;,&quot;value&quot;:1}]}</span></code></p>
 </div>
 <div class="section" id="demo">
@@ -240,6 +264,8 @@ $(&#8220;#eventsOutput&#8221;).append(&#8220;&lt;p&gt;&#8221;+JSON.stringify(e.d
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="admin_targetings.html" class="btn btn-neutral float-right" title="Описание вариантов таргетинга в админке" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="offline.html" class="btn btn-neutral" title="Оффлайн режим" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

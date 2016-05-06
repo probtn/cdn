@@ -6,7 +6,7 @@
 .. _probtn_events:
  
 Получение событий кнопки на странице
-==================================
+===================================
 
 Общее описание
 ----------------------------------
@@ -85,13 +85,14 @@ VideoClicked
 Примеры
 ----------------------------------
 
-Пример добавления listener'а для события
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Пример добавления listener для события
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``document.addEventListener('probtn_events', function (e) {
-                console.log("probtn_events", e.data);
-                $("#eventsOutput").append("<p>"+JSON.stringify(e.data)+"</p>");
-}, false);``
+::
+	document.addEventListener('probtn_events', function (e) {
+					console.log("probtn_events", e.data);
+					$("#eventsOutput").append("<p>"+JSON.stringify(e.data)+"</p>");
+	}, false);
 
 Пример объекта
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -94,6 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#passbackcustomcode">PassbackCustomCode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#modalwindowmode">ModalWindowMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extrusionmode">ExtrusionMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#additionaltargetingparam">AdditionalTargetingParam</a></li>
@@ -278,6 +279,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#id19">Параметры по умолчания для кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
+<li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
 </ul>
 
             
@@ -331,6 +334,12 @@
 <li><a class="reference internal" href="docs-en/index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Интеграция</span></a></li>
 </ul>
+<div class="section" id="passbackcustomcode">
+<h2>PassbackCustomCode<a class="headerlink" href="#passbackcustomcode" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В данном параметре возможно указать код, который будет вызываться в случае, если кнопка будет выключена (когда от admin.probtn.com придет <code class="docutils literal"><span class="pre">{&quot;ButtonVisible&quot;:false,&quot;ButtonEnabled&quot;:false}</span></code>)</p>
+<p>Внимание - желательно предварительно тестировать желаемый код до использования.</p>
+<p>По умолчанию &#8220;&#8221;.</p>
+</div>
 <div class="section" id="modalwindowmode">
 <h2>ModalWindowMode<a class="headerlink" href="#modalwindowmode" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Параметр, описывающий дополнительное поведение модального окна (показываемого при клике на кнопку).</p>
@@ -552,7 +561,7 @@ function start1() { var video = $(&#8220;#video&#8221;).get(0); video.play(); };
 <h2>ButtonType<a class="headerlink" href="#buttontype" title="Ссылка на этот заголовок">¶</a></h2>
 <p>тип кнопки
 По умолчанию button - поведение кнопки по умолчанию.</p>
-<p>Текущие варианты ButtonType</p>
+<p>Текущие варианты ButtonType:</p>
 <ul class="simple">
 <li>button - кнопка с iframe в fancybox</li>
 <li>menu - floating menu режим</li>
@@ -562,8 +571,6 @@ function start1() { var video = $(&#8220;#video&#8221;).get(0); video.play(); };
 <li>button_and_scroll_zones - кнопка со сменой изображений с различными изображениями в разных зонах экрана (по высоте)</li>
 <li>fullscreen_fancybox - автозапуск содержимого в fancybox после инициализации скрипта</li>
 </ul>
-<p>может быть на video протестировать тогда второй формат?
-Да, тоже подумал про это - сейчас изменения в ButtonType и еще один параметр - что ButonType будет отвечать за тип работы кнопки (просто кнопка или фуллскрин), и параметр про содержимое fancboxмодального окна</p>
 </div>
 <div class="section" id="buttoncontenttype">
 <h2>ButtonContentType<a class="headerlink" href="#buttoncontenttype" title="Ссылка на этот заголовок">¶</a></h2>
@@ -993,15 +1000,21 @@ true - контент открывается в новой вкладке (пр�
 <h3>MenuHeight<a class="headerlink" href="#menuheight" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Высота пункта меню</p>
 <p>Пример объекта:</p>
-<div class="highlight-python"><div class="highlight"><pre> MenuOptions: {
-     FontSize: &quot;1.4em&quot;,
-     FontFamily: &#39;&quot;Helvetica Neue&quot;,Helvetica,Arial,&quot;Lucida Grande&quot;,sans-serif&#39;,
-     BackgroundColor: &#39;rgba(49,55,61,.95)&#39;,
-     ForegroundColor: &#39;#fff&#39;,
-     MenuHeight: &quot;3.4em&quot;
-}
-</pre></div>
-</div>
+<dl class="docutils">
+<dt>::</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>MenuOptions: {</dt>
+<dd>FontSize: &#8220;1.4em&#8221;,
+FontFamily: &#8216;&#8220;Helvetica Neue&#8221;,Helvetica,Arial,&#8221;Lucida Grande&#8221;,sans-serif&#8217;,
+BackgroundColor: &#8216;rgba(49,55,61,.95)&#8217;,
+ForegroundColor: &#8216;#fff&#8217;,
+MenuHeight: &#8220;3.4em&#8221;</dd>
+</dl>
+</div></blockquote>
+<p class="last">}</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="section" id="scroll">
@@ -1121,24 +1134,26 @@ ButtonDragOpacity: 1.0 // Прозрачность при перемещении
 </div>
 <div class="section" id="id13">
 <h3>ButtonImageType<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Тип содержимого кнопки. По умолчанию image
-Варианты:
-* image
-* iframe</p>
+<p>Тип содержимого кнопки. По умолчанию image</p>
+<p>Варианты:</p>
+<ul class="simple">
+<li>image</li>
+<li>iframe</li>
+</ul>
 </div>
 <div class="section" id="id14">
 <h3>ButtonIframeInitialSize<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Размер кнопки. Задается как объект { W: 0, H: 0 }
-Где W и H соответственно ширина и высота в px
-В случае, когда значения равны нулю, для iframe кнопки не применяется &#8220;масштабирование&#8221;.
+<p>Размер кнопки. Задается как объект <code class="docutils literal"><span class="pre">{</span> <span class="pre">W:</span> <span class="pre">0,</span> <span class="pre">H:</span> <span class="pre">0</span> <span class="pre">}</span></code>
+Где W и H соответственно ширина и высота в px</p>
+<p>В случае, когда значения равны нулю, для iframe кнопки не применяется &#8220;масштабирование&#8221;.
 Если указаны размеры, то iframe от этих размеров будет погонятся под размеры, указанные в ButtonSize параметре соответственно.</p>
 </div>
 <div class="section" id="position">
 <h3>Position<a class="headerlink" href="#position" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Объект, описывающий местоположение зоны.
-Пример:
-Position: { X: 0.1, Y: 0.1 }
-Позиция указывается как число от 0 до 1</p>
+<p>Объект, описывающий местоположение зоны.</p>
+<p>Пример:</p>
+<p><code class="docutils literal"><span class="pre">Position:</span> <span class="pre">{</span> <span class="pre">X:</span> <span class="pre">0.1,</span> <span class="pre">Y:</span> <span class="pre">0.1</span> <span class="pre">}</span></code></p>
+<p>Позиция указывается как число от 0 до 1</p>
 </div>
 <div class="section" id="activeimage">
 <h3>ActiveImage<a class="headerlink" href="#activeimage" title="Ссылка на этот заголовок">¶</a></h3>
