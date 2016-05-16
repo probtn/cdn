@@ -3566,6 +3566,37 @@ probtn_initTrackingLinkTest();
                 wasInteraction: false
             },
             additionalButtonFunctions: {
+                checkProtocolInUrl: function (url) {
+                    if (window.location.protocol == "https:") {
+                        var position = url.indexOf("http://");
+                        if (position == 0) {
+                            url = url.replace("http://", "https://");
+                        }
+                    }
+                    return url;
+                },
+                checkProtocolLinks: function (inObject) {
+                    try {
+                        for (var property in inObject) {
+                            if (inObject.hasOwnProperty(property)) {
+                                if (ProBtnControl.params.ButtonImageType == 'iframe') {
+                                    switch (property) {
+                                        case "ButtonImage":
+                                        case "ButtonImage2x":
+                                        case "ButtonDragImage":
+                                        case "ButtonOpenImage":
+                                            console.log("property", property);
+                                            inObject[property] = ProBtnControl.additionalButtonFunctions.checkProtocolInUrl(inObject[property]);
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    } catch (ex) {
+                    }
+                },
                 setButtonStartPosition: function (btn) {
                     try {
                         var top = (window.innerHeight - (ProBtnControl.params.ButtonSize.H / 2)) * (ProBtnControl.params.ButtonPosition.Y);
@@ -3660,6 +3691,8 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
 
                     ProBtnControl.initFunctions.initRemoveMenu();
+                    //remove wrapper
+                    $("#probtn_wrapper").remove();
                 },
                 checkAndCorrentButtonPosition: function () {
                     switch (ProBtnControl.params.ExtrusionMode) {
@@ -3761,7 +3794,12 @@ probtn_initTrackingLinkTest();
                             if (parseFloat(newWidthInit) < 0) {
                                 newWidth = Math.abs(parseFloat(newWidth));
                             }
-                            newWidth = window.innerWidth * (parseFloat(newWidth) / 100);
+                            if (ProBtnControl.params.ExtrusionMode == "insertBlock") {
+                                newWidth = $(ProBtnControl.params.ExtrusionPath).width() * (parseFloat(newWidth) / 100);
+                            } else {
+                                newWidth = window.innerWidth * (parseFloat(newWidth) / 100);
+                            }
+
                             //if other param set to proportions
                             if ((parseFloat(newHeightInit) > 0) && (buttonSize.W.toString().indexOf('%') == -1)) {
                                 newHeight = newWidth * parseFloat(newHeightInit);
@@ -3772,7 +3810,13 @@ probtn_initTrackingLinkTest();
                             if (parseFloat(newHeightInit) < 0) {
                                 newHeight = Math.abs(parseFloat(newHeight));
                             }
-                            newHeight = window.innerHeight * (parseFloat(newHeight) / 100);
+
+                            if (ProBtnControl.params.ExtrusionMode == "insertBlock") {
+                                newHeight = $(ProBtnControl.params.ExtrusionPath).height() * (parseFloat(newHeight) / 100);
+                            } else {
+                                newHeight = window.innerHeight * (parseFloat(newHeight) / 100);
+                            }
+
                             //if other param set to proportions
                             if ((parseFloat(newWidthInit) > 0) && (buttonSize.H.toString().indexOf('%') == -1)) {
                                 newWidth = parseFloat(newWidthInit) * newHeight;
@@ -5586,7 +5630,6 @@ probtn_initTrackingLinkTest();
                                 $('head').append('<style type="text/css">' + ProBtnControl.params.ZCustomCss + '</style>');
                             }
 
-                            console.log("ProBtnControl.params.ModalWindowMode", ProBtnControl.params.ModalWindowMode);
                             //check ModalWindowMode
                             //and apply nessesary css
                             switch (ProBtnControl.params.ModalWindowMode) {
@@ -5632,7 +5675,7 @@ probtn_initTrackingLinkTest();
                         } else {
                             $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
                                 $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function () {
-                                    
+
 
                                     $("body").append("<div id='probtn_adfox'></div>");
                                     switch (ProBtnControl.currentDomain) {
@@ -5659,7 +5702,7 @@ probtn_initTrackingLinkTest();
                                             postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=vvq&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
                                             //$("body").append();
                                             break;
-                                        case "kakprosto.ru":
+                                        /*case "kakprosto.ru":
                                             if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
                                             if (typeof (document.referrer) != 'undefined') {
                                                 if (typeof (afReferrer) == 'undefined') {
@@ -5680,7 +5723,7 @@ probtn_initTrackingLinkTest();
                                                 scrheight = scrsize.height;
                                             }
                                             postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-                                            break;
+                                            break;*/
                                         case "dev.kakprosto.ru":
                                         case "www.dev.new.kakprosto.ru":
                                         case "dev.new.kakprosto.ru":
@@ -5803,6 +5846,8 @@ probtn_initTrackingLinkTest();
                                     }
 
                                     checkHtmlInObject(ProBtnControl.params);
+                                    console.log("ProBtnControl.additionalButtonFunctions.checkProtocolLinks");
+                                    ProBtnControl.additionalButtonFunctions.checkProtocolLinks(ProBtnControl.params);
 
                                     //show button if we have probtnDebug hash in url
                                     if (window.location.hash == "#probtnDebug") {
