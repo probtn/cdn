@@ -2155,7 +2155,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        if ((menuType[0] == "radialcorner") || (menuType[0] == "circularCenter")) {
 			                                            if ((menuType[1] !== null) && (menuType[1] !== undefined)) {
 			                                                menuRadius = menuType[1];
-			                                                console.log("menuRadius", menuRadius);
 			                                            }
 			                                        }
 			                                    } catch (ex) {
@@ -3626,7 +3625,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        case "ButtonImage2x":
 			                                        case "ButtonDragImage":
 			                                        case "ButtonOpenImage":
-			                                            console.log("property", property);
 			                                            inObject[property] = ProBtnControl.additionalButtonFunctions.checkProtocolInUrl(inObject[property]);
 			                                        break;
 			                                    default:
@@ -3738,7 +3736,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                checkAndCorrentButtonPosition: function () {
 			                    switch (ProBtnControl.params.ExtrusionMode) {
 			                        case "insertBlock":
-			                            console.log("checkAndCorrentButtonPosition insertBlock");
 			                            ProBtnControl.pizzabtn.css("top", 0);
 			                            ProBtnControl.pizzabtn.css("left", 0);
 			                            break;
@@ -4153,7 +4150,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                }
 
 			                                if (ProBtnControl.params.MenuTemplateVariant == "radialcorner") {
-			                                    console.log("probtn_menu top", window.innerHeight - $("#probtn_menu").height());
 			                                    $("#probtn_menu").css("top", window.innerHeight - $("#probtn_menu").height());
 			                                } else {
 			                                    $("#probtn_menu").css("top", (window.innerHeight - $("#probtn_menu").height() - ProBtnControl.params.ButtonSize.H));
@@ -5675,13 +5671,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            //and apply nessesary css
 			                            switch (ProBtnControl.params.ModalWindowMode) {
 			                                case "sidebarRight":
-			                                    console.log("sidebarRight");
 			                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
 			    ".fancybox-wrap { top: 0px !important; right: 0px !important; left: initial !important; }" +
 			    ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
 			                                    break;
 			                                case "sidebarLeft":
-			                                    console.log("sidebarLeft");
 			                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
 			    ".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
 			    ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
@@ -6042,7 +6036,6 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                    var receiveMessage = function (event) {
 			                        try {
-			                            console.log("event", event);
 			                            switch (event.data.command) {
 			                                //TODO: 
 			                                case "probtn_hide":
