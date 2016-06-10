@@ -5002,6 +5002,8 @@ var loadProbtn = function (jQuery) {
 	                //init default params
 	                ProBtnControl.params = $.extend(true, {
 
+	                    CreativeId: "",
+
 	                    PassbackCustomCode: "",
 	                    //variants:
 	                    //- sidebarLeft
@@ -6018,7 +6020,13 @@ var loadProbtn = function (jQuery) {
 	                                        ProBtnControl.statistics.createClickCounterImage("https://goo.gl/QLNHgt");
 	                                    }
 
-	                                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&");
+	                                    if ((ProBtnControl.params.CreativeId !== "") && (ProBtnControl.params.CreativeId !== null) && (ProBtnControl.params.CreativeId !== undefined)) {
+	                                        settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + "&");
+	                                    } else {
+	                                        settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&");
+	                                    }
+	                                    
+	                                    /*var settingsUrl = "https://admin.probtn.com/1/functions/getClientSettings?BundleID="+domain+"&ForceCampaign=" + forceCampaign + "&DeviceType=web&Version=1.0&DeviceUID=FORCEDEMO&DeviceCUID=FORCEDEMO&localDomain=demo.probtn.com&SelectAdSet=&X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=0&Location[Latitude]=0&ScreenResolutionX=1080&ScreenResolutionY=1920&retina=1&ConnectionSpeed=0&AdditionalTargetingParam=&callback=?";*/
 	                                } else {
 	                                    settingsUrl = ProBtnControl.params.localSettingsPath;
 	                                }
