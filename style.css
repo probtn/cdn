@@ -7,12 +7,12 @@
 }*/
 #probtn_wrapper {
     position: fixed !important;
-    z-index: 111000;
+    z-index: 10000;
     cursor: default;
 }
 
 #probtn_button {
-    z-index: 113000;
+    z-index: 10300;
     cursor: pointer;
 }
 
@@ -21,11 +21,11 @@
 }
 
 #probtn_mainButtonImage {
-    z-index: 112000;
+    z-index: 10200;
 }
 
 .probtn_active_zone {
-	z-index: 111000;
+	z-index: 10100;
 }
 
 #probtn_closeButton, #closeButton {
@@ -33,7 +33,7 @@
     position: fixed;
     top: 200px;
     left: 400px;
-    z-index: 101000;
+    z-index: 10100;
 }
 
 
