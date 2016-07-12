@@ -2287,8 +2287,8 @@ var loadProbtn = function (jQuery) {
 	                                                window.probtn_dropedActiveZone.currentActiveZone = null;
 	                                                window.probtn_ButtonContentType = "iframe";
 
-	                                                ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
-	                                                ProBtnControl.onButtonTap($(this).attr("href"), null, "iframe");
+	                                                //ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
+	                                                ProBtnControl.onButtonTap($(this).attr("href"), $(this).attr("rel"), "iframe");
 
 	                                                break;
 	                                            case "closeMenu":
@@ -2302,7 +2302,7 @@ var loadProbtn = function (jQuery) {
 	                                                window.probtn_dropedActiveZone.currentActiveZone.Name = $(this).attr("rel");
 	                                                window.probtn_ButtonContentType = "video";
 
-	                                                ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
+	                                                //ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
 	                                                ProBtnControl.onButtonTap($(this).attr("href"), $(this).attr("rel"), "video");
 	                                                return false;
 	                                                break;
