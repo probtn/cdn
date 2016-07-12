@@ -1036,12 +1036,15 @@ probtn_initTrackingLinkTest();
                     }
                 }
 
-                //custom click
-                if ((ProBtnControl.params.ClickCounterLink) && (ProBtnControl.params.ClickCounterLink !== "")) {
-                    try {
-                        ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.ClickCounterLink);
-                    } catch (ex) {
-                        if (ProBtnControl.params.Debug) console.log(ex);
+                if (ProBtnControl.params.ButtonType !== "menu") {
+                    //custom click
+                    //TODO - put in function to prevent duplicates
+                    if ((ProBtnControl.params.ClickCounterLink) && (ProBtnControl.params.ClickCounterLink !== "")) {
+                        try {
+                            ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.ClickCounterLink);
+                        } catch (ex) {
+                            if (ProBtnControl.params.Debug) console.log(ex);
+                        }
                     }
                 }
 
@@ -2074,6 +2077,13 @@ probtn_initTrackingLinkTest();
                     allButton1();
                 },
                 initFloatingMenu: function () {
+                    if ((ProBtnControl.params.ClickCounterLink) && (ProBtnControl.params.ClickCounterLink !== "")) {
+                        try {
+                            ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.ClickCounterLink);
+                        } catch (ex) {
+                            if (ProBtnControl.params.Debug) console.log(ex);
+                        }
+                    }
 
                     ProBtnControl.initFunctions.initRemoveMenu();
                     ProBtnControl.hintText.makeInvisible();
@@ -3352,6 +3362,20 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.additionalButtonFunctions.changeBodySize();
 
                     ProBtnControl.interactionFunctions.initInteractionTimer();
+
+
+                    //TODO: put in spetialized function
+                    try {
+                        if ($("#pizzabtnImg").is("iframe")) {
+                            var myIframe = document.getElementById('pizzabtnImg');
+                            window.addEventListener('deviceorientation', function (event) {
+                                console.log(event);
+                                myIframe.contentWindow.postMessage({ message: "probtn_page_deviceorientation", dataEvent: { alpha: event.alpha, beta: event.beta, gamma: event.gamma } }, '*');
+                            });
+                        }
+                    } catch (ex) {
+                        console.log(ex);
+                    }
 
                     return btn;
                 },
@@ -6091,6 +6115,7 @@ probtn_initTrackingLinkTest();
                     // get or create pizzabtn
                     ProBtnControl.pizzabtn = ProBtnControl.initFunctions.initPizzaButton();
                     window.probtn_ButtonContentType = ProBtnControl.params.ButtonContentType;
+
 
                     ProBtnControl.initFunctions.initScrollChange();
                     ProBtnControl.initFunctions.initActiveZones();
