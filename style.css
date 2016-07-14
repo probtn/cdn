@@ -76,7 +76,7 @@
 
 #probtn_menu li {
     width: 14.8em;
-    height: 2em;
+    height: auto;
     padding: .9em 1em;
     top: .4em;
     left: 5.6em;
@@ -89,6 +89,9 @@
     cursor: pointer;
     list-style: none;
     margin: 3px;
+}
+#probtn_menu li table td {
+padding: 0px !important;
 }
 
 #probtn_menu li span, #probtn_menu li span a {
