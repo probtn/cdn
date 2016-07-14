@@ -57,44 +57,44 @@
 }
 
 #probtn_menu {
-    list-style: none !important;
+    list-style: none;
 
-    position: absolute !important;
-    top: 10px !important;
-    left: 10px !important;
+    position: absolute;
+    top: 10px;
+    left: 10px;
 
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 #probtn_menu_ul {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    margin-bottom: 0px !important;
-    margin-top: 0px !important;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 #probtn_menu li {
-    width: 14.8em !important;
-    height: 2em !important;
-    padding: .9em 1em !important;
-    top: .4em !important;
+    width: 14.8em;
+    height: 2em;
+    padding: .9em 1em;
+    top: .4em;
     left: 5.6em;
-    white-space: nowrap !important;
+    white-space: nowrap;
     
-    opacity: 0.89 !important;
-    background-color: #304965 !important;
-    border-radius: 6px !important;
+    opacity: 0.89;
+    background-color: #304965;
+    border-radius: 6px;
 
-    cursor: pointer !important;
-    list-style: none !important;
-    margin: 3px !important;
+    cursor: pointer;
+    list-style: none;
+    margin: 3px;
 }
 
 #probtn_menu li span, #probtn_menu li span a {
     /*font-size: 1.4em !important;*/
-    font-weight: 400 !important;
-    font-style: normal !important;
+    font-weight: 400;
+    font-style: normal;
     /*color: #fff;*/
     text-decoration: none;
     text-shadow: none;
@@ -103,20 +103,20 @@
 }
 
 #probtn_menu a {
-    text-decoration: none !important;
-    border-bottom: 0px solid transparent !important;
+    text-decoration: none;
+    border-bottom: 0px solid transparent;
 }
 
 #probtn_menu li span {
-    margin-top: -10px !important;
-    display: inline-block !important;
-    text-decoration: none !important;
+    margin-top: -10px;
+    display: inline-block;
+    text-decoration: none;
 }
 
 #probtn_menu li table td {
-    vertical-align: middle !important;
+    vertical-align: middle;
 }
 
 #probtn_menu li table {
-    margin-top: -10px !important;
+    margin-top: -10px;
 }
