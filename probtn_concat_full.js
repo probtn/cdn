@@ -2126,6 +2126,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        }
 			                    }
 
+			                    ProBtnControl.statistics.SendStatObject({
+			                        "MenuOpened": 1
+			                    });
+
 			                    ProBtnControl.initFunctions.initRemoveMenu();
 			                    ProBtnControl.hintText.makeInvisible();
 

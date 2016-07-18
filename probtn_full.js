@@ -2085,6 +2085,10 @@ probtn_initTrackingLinkTest();
                         }
                     }
 
+                    ProBtnControl.statistics.SendStatObject({
+                        "MenuOpened": 1
+                    });
+
                     ProBtnControl.initFunctions.initRemoveMenu();
                     ProBtnControl.hintText.makeInvisible();
 

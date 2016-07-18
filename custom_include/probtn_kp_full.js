@@ -2172,6 +2172,10 @@ var loadProbtn = function (jQuery) {
 	                        }
 	                    }
 
+	                    ProBtnControl.statistics.SendStatObject({
+	                        "MenuOpened": 1
+	                    });
+
 	                    ProBtnControl.initFunctions.initRemoveMenu();
 	                    ProBtnControl.hintText.makeInvisible();
 
