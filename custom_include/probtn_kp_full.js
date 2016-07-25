@@ -1197,8 +1197,6 @@ var loadProbtn = function (jQuery) {
 	                $('head').append('<style type="text/css"> .fancybox-wrap { perspective: 500px; }</style>');*/
 
 	                var fancyboxParams = {
-	                    FancyboxcloseMethod: "", //'perspectiveOut',
-	                    FancyboxCloseSpeed: 0, //3000,
 
 	                    href: currentContentURL, //ProBtnControl.params.ContentURL,
 	                    sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
@@ -1483,32 +1481,6 @@ var loadProbtn = function (jQuery) {
 	                    "MovedDuration": undefined
 	                }
 	            },
-	            /*contentTime: {
-	                contentOpenedTime: 0,
-	                movedTime: 0, //button moved duration
-	                startTimer: function (param) {
-	                    if ((param == null) || (param == undefined)) {
-
-	                    }
-
-	                    if (ProBtnControl.contentTime.intervalId !== undefined) {
-	                    } else {
-	                        clearInterval(ProBtnControl.contentTime.intervalId);
-	                    }
-	                    ProBtnControl.contentTime.contentOpenedTime = 0;
-
-	                    ProBtnControl.contentTime.intervalId = setInterval(function () {
-	                        ProBtnControl.contentTime.contentOpenedTime++;
-	                    }, 1000);
-	                },
-	                endTimer: function () {
-	                    clearInterval(ProBtnControl.contentTime.intervalId);
-	                    ProBtnControl.contentTime.intervalId = undefined;
-
-	                    ProBtnControl.statistics.SendStatisticsData("ContentShowedDuration", ProBtnControl.contentTime.contentOpenedTime);
-	                },
-	                intervalId: undefined
-	            },*/
 	            userData: {},
 	            geolocation: {
 	                getLocation: function (callback) {
@@ -5043,6 +5015,9 @@ var loadProbtn = function (jQuery) {
 	                //init default params
 	                ProBtnControl.params = $.extend(true, {
 
+	                    FancyboxcloseMethod: "zoomOut", //'perspectiveOut',
+	                    FancyboxCloseSpeed: 0, //3000,
+
 	                    CreativeId: "",
 
 	                    PassbackCustomCode: "",
@@ -6248,7 +6223,7 @@ var loadProbtn = function (jQuery) {
 
 	                    function addFancyboxAnimations() {
 	                        (function ($, F) {
-	                            /*F.transitions.dropIn = function () {
+	                            F.transitions.dropIn = function () {
 	                                var endPos = F._getPosition(true);
 
 	                                endPos.top = (parseInt(endPos.top, 10) - 200) + 'px';
@@ -6259,7 +6234,7 @@ var loadProbtn = function (jQuery) {
 	                                    duration: F.current.openSpeed,
 	                                    complete: F._afterZoomIn
 	                                });
-	                            };*/
+	                            };
 
 	                            F.transitions.perspectiveOut = function () {
 	                                var perspect = ProBtnControl.additionalButtonFunctions.getWindowHeight();
