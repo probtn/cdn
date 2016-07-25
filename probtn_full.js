@@ -1105,8 +1105,14 @@ probtn_initTrackingLinkTest();
                     return;
                 }
 
+                /*$("body").css("perspective", "500px");
+                //$(".fancybox-wrap").css('transform', 'rotateX(11deg)');
+                $('head').append('<style type="text/css"> .fancybox-wrap { perspective: 500px; }</style>');*/
 
                 var fancyboxParams = {
+                    FancyboxcloseMethod: "", //'perspectiveOut',
+                    FancyboxCloseSpeed: 0, //3000,
+
                     href: currentContentURL, //ProBtnControl.params.ContentURL,
                     sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
                     type: 'iframe',
@@ -1118,7 +1124,11 @@ probtn_initTrackingLinkTest();
                     scrollOutside: true,
                     speedIn: 1000,
                     openSpeed: 1000,
-                    closeSpeed: 0,
+                    
+                    closeMethod: ProBtnControl.params.FancyboxcloseMethod, //'perspectiveOut',
+                    closeSpeed: ProBtnControl.params.FancyboxCloseSpeed, //3000,
+
+                    //closeSpeed: 0,
                     speedOut: 0,
                     openOpacity: false,
                     padding: "0px",
@@ -3171,10 +3181,14 @@ probtn_initTrackingLinkTest();
                             if (ProBtnControl.params.Debug) console.log("waitForIframeButtonLoaded hide1");
                             var myIframe = document.getElementById('pizzabtnImg');
                             btn.hide();
-                            myIframe.onload = function () {
-                                if (ProBtnControl.params.Debug) console.log("waitForIframeButtonLoaded show1");
-                                btn.show();
-                            };
+                            try {
+                                myIframe.onload = function() {
+                                    if (ProBtnControl.params.Debug) console.log("waitForIframeButtonLoaded show1");
+                                    btn.show();
+                                };
+                            } catch (ex) {
+                                
+                            }
                         } else {
 
                         }
@@ -3373,7 +3387,6 @@ probtn_initTrackingLinkTest();
                         if ($("#pizzabtnImg").is("iframe")) {
                             var myIframe = document.getElementById('pizzabtnImg');
                             window.addEventListener('deviceorientation', function (event) {
-                                console.log(event);
                                 myIframe.contentWindow.postMessage({ message: "probtn_page_deviceorientation", dataEvent: { alpha: event.alpha, beta: event.beta, gamma: event.gamma } }, '*');
                             });
                         }
@@ -6146,7 +6159,59 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.initFunctions.fullscreenInitAndShow();
                     }
 
+                    function addFancyboxAnimations() {
+                        (function ($, F) {
+                            /*F.transitions.dropIn = function () {
+                                var endPos = F._getPosition(true);
+
+                                endPos.top = (parseInt(endPos.top, 10) - 200) + 'px';
+
+                                F.wrap.css(endPos).show().animate({
+                                    top: '+=200px'
+                                }, {
+                                    duration: F.current.openSpeed,
+                                    complete: F._afterZoomIn
+                                });
+                            };*/
+
+                            F.transitions.perspectiveOut = function () {
+                                var perspect = ProBtnControl.additionalButtonFunctions.getWindowHeight();
+                                if (ProBtnControl.additionalButtonFunctions.getWindowWidth() > ProBtnControl.additionalButtonFunctions.getWindowHeight()) {
+                                    perspect = ProBtnControl.additionalButtonFunctions.getWindowWidth();
+                                }
+                                $("body").css("perspective", perspect + "px");
+
+                                F.wrap.removeClass('fancybox-opened');
+
+                                $({ deg: 0 }).animate({ deg: 7*50 }, {
+                                    duration: F.current.closeSpeed,
+                                    step: function (now) {
+                                        var transform = 'rotateX(' + now / 50 + 'deg) scaleX(' + (1 - now / 720) + ')';
+                            
+                                        $(".fancybox-wrap").css('transform', transform);
+                                        $(".fancybox-skin").css('transform', transform);
+
+                                    },
+                                    complete: function (e) {
+                                        $("body").css("perspective", "inherit");
+                                        F._afterZoomOut(e);
+                                    }
+                                });
+
+                                F.wrap.removeClass('fancybox-opened').animate(
+                                {
+                                    top: "-300px"
+                                }
+                                , {
+                                    duration: F.current.closeSpeed
+                                });
+                            };
+
+                        }(jQuery, jQuery.fancybox));
+                    }
+
                     function loadPep() {
+                        addFancyboxAnimations();
                         try {
                             if ((typeof $.pep.toggleAll == 'function') || (ProBtnControl.params.loadJqueryPepJS == false)) {
                                 AllLoadedButtonProcess();
