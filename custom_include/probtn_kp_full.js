@@ -1075,6 +1075,54 @@ var loadProbtn = function (jQuery) {
 	                        currentContentURL = ProBtnControl.params.currentContentURL;
 	                    }
 	                }
+	                if (ProBtnControl.params.ButtonType == "expansionButton") {
+	                    $.pep.toggleAll(false);
+	                    console.log("expansionButton");
+	                    var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 20;
+	                    var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 20;
+	                    var animationSizes = {
+	                        width: newWidth,
+	                        height: newHeight,
+	                    };
+	                    var pizzabtnImg_contentURL = $("<iframe/>", {
+	                        id: "pizzabtnImg_contentURL",
+	                        scrolling: 'yes',
+	                        'seamless': "seamless",
+	                        src: ProBtnControl.params.ContentURL
+	                    }).appendTo($("#probtn_button"));
+	                    pizzabtnImg_contentURL.css("border", "0px");
+	                    pizzabtnImg_contentURL.css("display", "none");
+	                    pizzabtnImg_contentURL.css("width", newWidth);
+	                    pizzabtnImg_contentURL.css("height", newHeight);
+
+	                    var animationParams = {
+	                        duration: 4500,
+	                        complete: function () {
+	                            $("#pizzabtnIframeOverlay").hide();
+	                            //$("#pizzabtnImg_contentURL").attr("style", $("#pizzabtnImg").attr("style"));
+	                            $("#pizzabtnImg").hide();
+	                            pizzabtnImg_contentURL.show();
+	                            $("#pizzabtnImg").attr("id", "pizzabtnImg_old");
+	                            $("#pizzabtnImg_contentURL").attr("id", "pizzabtnImg");
+	                            
+	                            //document.getElementById('pizzabtnImg').src = ProBtnControl.params.ContentURL;
+	                            console.log("animation complite");
+	                        }
+	                    };
+	                    //$("#probtn_button").animate({ left: 10, top: 10 }, animationParams);
+	                    $("#probtn_button").css("left", "10px");
+	                    $("#probtn_button").css("top", "10px");
+	                    $("#probtn_button").css("width", newWidth);
+	                    $("#probtn_button").css("height", newHeight);
+	                    $("#pizzabtnImg").css("overflow", "scroll");
+	                    $("#pizzabtnImg").attr("scrolling", "yes");
+	                    $("body").css("overflow", "hidden");
+
+	                    $("#probtn_button").animate(animationSizes, animationParams);
+	                    $("#pizzabtnImg").animate(animationSizes, animationParams);
+
+	                    return;
+	                }
 
 	                //add random get params and utm params, if nessesary
 	                currentContentURL = ProBtnControl.additionalButtonFunctions.replaceRandom(currentContentURL);
@@ -1209,7 +1257,7 @@ var loadProbtn = function (jQuery) {
 	                    scrollOutside: true,
 	                    speedIn: 1000,
 	                    openSpeed: 1000,
-	                    
+
 	                    closeMethod: ProBtnControl.params.FancyboxcloseMethod, //'perspectiveOut',
 	                    closeSpeed: ProBtnControl.params.FancyboxCloseSpeed, //3000,
 
@@ -3241,12 +3289,12 @@ var loadProbtn = function (jQuery) {
 	                            var myIframe = document.getElementById('pizzabtnImg');
 	                            btn.hide();
 	                            try {
-	                                myIframe.onload = function() {
+	                                myIframe.onload = function () {
 	                                    if (ProBtnControl.params.Debug) console.log("waitForIframeButtonLoaded show1");
 	                                    btn.show();
 	                                };
 	                            } catch (ex) {
-	                                
+
 	                            }
 	                        } else {
 
@@ -3444,10 +3492,16 @@ var loadProbtn = function (jQuery) {
 	                    //TODO: put in spetialized function
 	                    try {
 	                        if ($("#pizzabtnImg").is("iframe")) {
-	                            var myIframe = document.getElementById('pizzabtnImg');
-	                            window.addEventListener('deviceorientation', function (event) {
-	                                myIframe.contentWindow.postMessage({ message: "probtn_page_deviceorientation", dataEvent: { alpha: event.alpha, beta: event.beta, gamma: event.gamma } }, '*');
-	                            });
+	                            try {
+	                                var myIframe = document.getElementById('pizzabtnImg');
+	                                window.addEventListener('deviceorientation', function (event) {
+	                                    if (myIframe.contentWindow !== null) {
+	                                        myIframe.contentWindow.postMessage({ message: "probtn_page_deviceorientation", dataEvent: { alpha: event.alpha, beta: event.beta, gamma: event.gamma } }, '*');
+	                                    }
+	                                });
+	                            } catch (ex) {
+
+	                            }
 	                        }
 	                    } catch (ex) {
 	                        console.log(ex);
@@ -3685,9 +3739,9 @@ var loadProbtn = function (jQuery) {
 	                                        case "ButtonDragImage":
 	                                        case "ButtonOpenImage":
 	                                            inObject[property] = ProBtnControl.additionalButtonFunctions.checkProtocolInUrl(inObject[property]);
-	                                        break;
-	                                    default:
-	                                        break;
+	                                            break;
+	                                        default:
+	                                            break;
 	                                    }
 	                                }
 	                            }
@@ -4701,6 +4755,15 @@ var loadProbtn = function (jQuery) {
 	                        } catch (ex) {
 	                        }
 
+
+	                        var firstPartDuration = ProBtnControl.params.animationDuration / 2;
+	                        try {
+	                            if ((forwardAndStopParams[2] !== null) && (forwardAndStopParams[2] !== undefined)) {
+	                                firstPartDuration = forwardAndStopParams[2];
+	                            }
+	                        } catch (ex) {
+	                        }
+
 	                        if (forwardAndStopParams[0] == "forwardAndStop") {
 
 	                            if (side == 'right') {
@@ -4751,7 +4814,7 @@ var loadProbtn = function (jQuery) {
 	                                        }, ProBtnControl.params.animationDuration);
 	                                    }
 	                                });
-	                            }, (ProBtnControl.params.animationDuration / 2));
+	                            }, firstPartDuration);
 
 	                        }
 	                    },
@@ -5801,28 +5864,28 @@ var loadProbtn = function (jQuery) {
 	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=vvq&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
 	                                            //$("body").append();
 	                                            break;
-	                                        /*case "kakprosto.ru":
-	                                            if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
-	                                            if (typeof (document.referrer) != 'undefined') {
-	                                                if (typeof (afReferrer) == 'undefined') {
-	                                                    afReferrer = encodeURIComponent(document.referrer);
+	                                            /*case "kakprosto.ru":
+	                                                if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
+	                                                if (typeof (document.referrer) != 'undefined') {
+	                                                    if (typeof (afReferrer) == 'undefined') {
+	                                                        afReferrer = encodeURIComponent(document.referrer);
+	                                                    }
+	                                                } else {
+	                                                    afReferrer = '';
 	                                                }
-	                                            } else {
-	                                                afReferrer = '';
-	                                            }
-	                                            var addate = new Date();
-	                                            var scrheight = '', scrwidth = '';
-	                                            if (self.screen) {
-	                                                scrwidth = screen.width;
-	                                                scrheight = screen.height;
-	                                            } else if (self.java) {
-	                                                var jkit = java.awt.Toolkit.getDefaultToolkit();
-	                                                var scrsize = jkit.getScreenSize();
-	                                                scrwidth = scrsize.width;
-	                                                scrheight = scrsize.height;
-	                                            }
-	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-	                                            break;*/
+	                                                var addate = new Date();
+	                                                var scrheight = '', scrwidth = '';
+	                                                if (self.screen) {
+	                                                    scrwidth = screen.width;
+	                                                    scrheight = screen.height;
+	                                                } else if (self.java) {
+	                                                    var jkit = java.awt.Toolkit.getDefaultToolkit();
+	                                                    var scrsize = jkit.getScreenSize();
+	                                                    scrwidth = scrsize.width;
+	                                                    scrheight = scrsize.height;
+	                                                }
+	                                                postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+	                                                break;*/
 	                                        case "dev.kakprosto.ru":
 	                                        case "www.dev.new.kakprosto.ru":
 	                                        case "dev.new.kakprosto.ru":
@@ -6041,7 +6104,7 @@ var loadProbtn = function (jQuery) {
 	                                    } else {
 	                                        settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&");
 	                                    }
-	                                    
+
 	                                    /*var settingsUrl = "https://admin.probtn.com/1/functions/getClientSettings?BundleID="+domain+"&ForceCampaign=" + forceCampaign + "&DeviceType=web&Version=1.0&DeviceUID=FORCEDEMO&DeviceCUID=FORCEDEMO&localDomain=demo.probtn.com&SelectAdSet=&X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b&Location[Longitude]=0&Location[Latitude]=0&ScreenResolutionX=1080&ScreenResolutionY=1920&retina=1&ConnectionSpeed=0&AdditionalTargetingParam=&callback=?";*/
 	                                } else {
 	                                    settingsUrl = ProBtnControl.params.localSettingsPath;
@@ -6245,11 +6308,11 @@ var loadProbtn = function (jQuery) {
 
 	                                F.wrap.removeClass('fancybox-opened');
 
-	                                $({ deg: 0 }).animate({ deg: 7*50 }, {
+	                                $({ deg: 0 }).animate({ deg: 7 * 50 }, {
 	                                    duration: F.current.closeSpeed,
 	                                    step: function (now) {
 	                                        var transform = 'rotateX(' + now / 50 + 'deg) scaleX(' + (1 - now / 720) + ')';
-	                            
+
 	                                        $(".fancybox-wrap").css('transform', transform);
 	                                        $(".fancybox-skin").css('transform', transform);
 
