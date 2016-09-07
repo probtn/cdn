@@ -3404,6 +3404,13 @@ var loadProbtn = function (jQuery) {
 	                    window.proBtn.hideContent = function () {
 	                        $.fancybox.close();
 	                    };
+	                    window.proBtn.close = function () {
+	                        $.fancybox.close();
+	                        ProBtnControl.statistics.SendStatObject({
+	                            "Closed": 1
+	                        });
+	                        ProBtnControl.additionalButtonFunctions.hideAll();
+	                    };
 	                    window.proBtn.performAction = function () {
 	                        if (ProBtnControl.params.CampaignID !== null) {
 	                            $.getJSON(ProBtnControl.serverUrl + "/1/functions/performAction?DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() + "&DeviceCUID=" + ProBtnControl.DeviceCID + "&X-ProBtn-Token=" + XProBtnToken + "&CampaignID=" + ProBtnControl.params.CampaignID + "&random=" + Math.random() + "&callback=?",
@@ -4912,6 +4919,14 @@ var loadProbtn = function (jQuery) {
 	                        } catch (ex) {
 	                        }
 
+	                        var stopDuration = 0;
+	                        try {
+	                            if ((forwardAndBackParams[3] !== null) && (forwardAndBackParams[3] !== undefined)) {
+	                                stopDuration = forwardAndBackParams[3];
+	                            }
+	                        } catch (ex) {
+	                        }
+
 	                        if (forwardAndBackParams[0] == "forwardAndBack") {
 	                            //ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 	                                //console.log("MaximizeWrapper forwardAndBack");
@@ -4974,7 +4989,10 @@ var loadProbtn = function (jQuery) {
 	                                                            probtnIframeEvent("probtn_forwardAndBack_stop");
 	                                                            probtnIframeEvent("probtn_forwardAndBack_stop_reverse");
 
-	                                                            ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
+	                                                            setTimeout(function() {
+	                                                                ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
+	                                                            }, stopDuration);
+	                                                            
 	                                                        }
 	                                                    });
 	                                                }, pauseDuration);
@@ -6275,6 +6293,9 @@ var loadProbtn = function (jQuery) {
 	                    var receiveMessage = function (event) {
 	                        try {
 	                            switch (event.data.command) {
+	                                case "probtn_close":
+	                                    window.proBtn.close();
+	                                    break;
 	                                case "probtn_hide":
 	                                    window.proBtn.hide();
 	                                    break;
