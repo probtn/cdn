@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            .car {
+                display: none;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 250px;
+                height: 100px; 
+            }
+            #car1 {
+                display: block;
+            }
+            #car2 {
+                width: 131px !important;
+                left: 119px !important;
+            }
+            #car3 {
+                width: 221px !important;
+            }
+            .headlights {
+                position: absolute;
+                display: none;
+                opacity: 0;
+                top: 30px;
+                left: 120px;
+                width: 133px;
+                height: 33px; 
+            }
+            #car5 {
+                width: 112px !important;
+                height: 100px !important;
+            }
+            #headlights-back {
+                left: 0px !important;
+                display: block !important;
+                z-index: 10 !important;
+                top: 27px !important;
+                width: 109px !important;
+                height: 18px !important; 
+            }
+            #car6 {
+                width: 183px !important;
+                height: 100px !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <img src="img/car-one.png" srcset="img/car-one.png 2x" alt="car" id="car1" class="car"/>
+            <img src="img/car-two.png" srcset="img/car-two.png 2x" alt="car" id="car2" class="car"/>
+            <img src="img/headlights-front.png" srcset="img/headlights-front.png 2x" alt="headlights" id="headlights-front" class="headlights"/>
+            <img src="img/car-three.png" srcset="img/car-three.png 2x" alt="car" id="car3" class="car"/>
+            <img src="img/car-four.png" srcset="img/car-four.png 2x" alt="car" id="car4" class="car"/>
+            <img src="img/car-five.png" srcset="img/car-five.png 2x" alt="car" id="car5" class="car"/>
+            <img src="img/car-six.png" srcset="img/car-six.png 2x" alt="car" id="car6" class="car"/>
+            <img src="img/headlights-back.png" src="img/headlights-back.png 2x" alt="headlights" id="headlights-back" class="headlights"/>
+        </div>
+
+        <script>
+            var phase = 1;
+            window.addEventListener("message", receiveMessage, false);
+            function receiveMessage(event) {
+
+                if ((event.data.message === "probtn_forwardAndBack_stop") && (phase === 1)) {
+                    console.log("probtn_forwardAndBack_stop", phase);
+                    phase++;
+                    $("#car1").fadeOut(300);
+                    $("#car2").fadeIn(300, function() {
+                        $("#headlights-front").show();
+
+                        $("#headlights-front").animate({
+                            opacity: 1
+                        }, {
+                            duration: 300,
+                            easing: "linear",
+                            done: function () {
+                                $("#headlights-front").animate({
+                                    opacity: 0.1
+                                }, {
+                                    duration: 200,
+                                    easing: "linear",
+                                    done: function () {
+                                        $("#headlights-front").animate({
+                                            opacity: 1
+                                        }, {
+                                            duration: 200,
+                                            easing: "linear",
+                                            done: function () {
+                                                $("#headlights-front").animate({
+                                                    opacity: 0
+                                                }, {
+                                                    duration: 200,
+                                                    easing: "linear",
+                                                    done: function () {
+                                                        setTimeout(function () {
+                                                            console.log('headlights-front done');
+                                                            $("#headlights-front").hide();
+                                                            $("#car3").fadeIn(300);
+                                                            $("#car2").fadeOut(300);
+                                                        }, 200);
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
+
+                if ((event.data.message === "probtn_forwardAndBack_reverse") && (phase === 2)) {
+                    console.log("probtn_forwardAndBack_reverse", phase);
+                    phase = 3;
+
+                    $("#car1").hide();
+                    $("#car2").hide();
+                    $("#car3").fadeOut(300);
+                    $("#car4").fadeIn(300);
+                }
+
+                if ((event.data.message === "probtn_forwardAndBack_stop") && (phase === 3)) {
+                    console.log("probtn_forwardAndBack_stop", phase);
+                    $("#car3").hide();
+                    $("#car2").hide();
+                    $("#car1").hide();
+                    $("#car4").fadeOut(300);
+                    $("#car5").fadeIn(300, function() {
+                        $("#headlights-back").show();
+
+                        $("#headlights-back").animate({
+                            opacity: 1
+                        }, {
+                            duration: 300,
+                            step: function () {
+                                $("#car3").hide();
+                                $("#car2").hide();
+                                $("#car1").hide();
+                                $("#car4").hide();
+                            },
+                            easing: "linear",
+                            done: function () {
+                                $("#headlights-back").animate({
+                                    opacity: 0.1
+                                }, {
+                                    duration: 200,
+                                    easing: "linear",
+                                    done: function () {
+                                        $("#headlights-back").animate({
+                                            opacity: 1
+                                        }, {
+                                            duration: 200,
+                                            easing: "linear",
+                                            done: function () {
+                                                $("#headlights-back").animate({
+                                                    opacity: 0
+                                                }, {
+                                                    duration: 200,
+                                                    easing: "linear",
+                                                    done: function () {
+                                                        $("#car5").fadeOut(300);
+                                                        $("#car6").fadeIn(300, function () {
+                                                            $("#car6").fadeOut(300);
+                                                            $("#car1").fadeIn(300);
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                }
+            }
+        </script>
+    </body>
+</html>
