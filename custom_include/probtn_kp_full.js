@@ -95,6 +95,7 @@ var loadProbtn = function (jQuery) {
 	    try {
 	        player = document.getElementById(frame_id);
 	        console.log(player);
+	        console.log("func", func);
 	        player.contentWindow.postMessage(youtube_command, 'https://www.youtube.com');
 	    } catch (ex) {
 	        console.log(ex);
@@ -1088,6 +1089,7 @@ var loadProbtn = function (jQuery) {
 	                } else {
 	                    currentButtonContentType = ProBtnControl.params.ButtonContentType;
 
+	                    //inti menu mode
 	                    if (ProBtnControl.params.ButtonType == "menu") {
 	                        if ($("#probtn_menu_ul").length > 0) {
 	                            ProBtnControl.initFunctions.initRemoveMenu();
@@ -1100,9 +1102,7 @@ var loadProbtn = function (jQuery) {
 
 
 	                if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck === 0)) {
-	                    //ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
 
-	                    //});
 	                    ProBtnControl.onButtonTapCountCheck++;
 	                    $.pep.toggleAll(false);
 	                    ProBtnControl.pizzabtn.stop(true, true);
@@ -1119,16 +1119,11 @@ var loadProbtn = function (jQuery) {
 	                        height: newHeight
 	                    }
 
-	                    //$('head').append("<style type='text/css'> .fancybox-wrap, .fancybox-overlay  { display:none; } </style>");
 	                    $('head').append("<style type='text/css'> #pizzabtnImg { margin: 0px !important; } </style>");
-
-	                    //ProBtnControl.onButtonTap(ProBtnControl.params.ContentURL, "expansionButton", "iframe");
-	                    //$(".fancybox-overlay").hide();
 
 	                    var animationParams = {
 	                        duration: 3000,
 	                        step: function (s) {
-	                            //console.log(s);
 	                        },
 	                        complete: function () {
 
@@ -1136,12 +1131,11 @@ var loadProbtn = function (jQuery) {
 	                            $(".fancybox-overlay").fadeIn();
 
 	                            if (ProBtnControl.params.ButtonType === "expansionVideo") {
+	                                //remove iframe overlay to give user access to iframe control - for example to pause video, toggle sound and so on
 	                                $("#pizzabtnIframeOverlay").remove();
 	                            } else {
 	                                ProBtnControl.onButtonTap(ProBtnControl.params.ContentURL, "expansionButton", "iframe");
 	                            }
-
-	                            //console.log("animation complite");
 	                        }
 	                    };
 
@@ -1152,11 +1146,8 @@ var loadProbtn = function (jQuery) {
 	                    ProBtnControl.pizzabtn.css("height", newHeight);
 
 
-	                    //$(".fancybox-overlay").hide();
-	                    //$("#probtn_button").animate(animationSizes, animationParams);
+	                    //animate button sizes
 	                    $("#pizzabtnImg").animate(animationSizes, animationParams);
-
-
 	                    return;
 	                }
 
@@ -1170,7 +1161,6 @@ var loadProbtn = function (jQuery) {
 	                if (ProBtnControl.additionalButtonFunctions.animation.animationRuning) {
 	                    ProBtnControl.additionalButtonFunctions.animation.doneAnimation();
 	                }
-
 
 	                //click for dfp
 	                if (ProBtnControl.params.dfp.isDFP) {
@@ -1201,7 +1191,6 @@ var loadProbtn = function (jQuery) {
 
 	                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () { });
 
-
 	                var isMobileLandscape = (ProBtnControl.additionalButtonFunctions.isLandscape() && ProBtnControl.userData.mobile),
 	                    position = ProBtnControl.pizzabtn.position(),
 	                    buttonTop = position.top,
@@ -1221,6 +1210,9 @@ var loadProbtn = function (jQuery) {
 	                if (widthCenter <= buttonLeft) {
 	                    finishLeft = (winWidth - ProBtnControl.params.ButtonSize.W) + 'px';
 	                }
+
+	                console.log("finishTop", finishTop);
+	                console.log("finishLeft", finishLeft);
 
 	                var margins = ProBtnControl.additionalButtonFunctions.getFancyboxMargins();
 
@@ -1766,7 +1758,7 @@ var loadProbtn = function (jQuery) {
 	                            ProBtnControl.DeviceCID = probtnCID;
 	                            callback(probtnCID);
 	                        } else {
-	                            if (ProBtnControl.params.isServerCommunicationEnabled != false) {
+	                            if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
 	                                var receiveMessage = function (event) {
 	                                    if (ProBtnControl.params.Debug) console.log("event", event);
 	                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID")) {
@@ -5493,7 +5485,7 @@ var loadProbtn = function (jQuery) {
 
 	                    VideoPoster: '',
 	                    ButtonOnClick: 'function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
-	                    ButtonOnTouchEnd: 'var moved =  window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); videoZone.play(); } } else { if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); setTimeout(start2 , 1000); setTimeout(start2 , 2000); setTimeout(start2 , 3000);',
+	                    ButtonOnTouchEnd: 'var moved =  window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); videoZone.play(); } } else { if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); setTimeout(start2 , 1000); setTimeout(start2 , 2000); setTimeout(start2 , 3000);',
 	                    ButtonOnTouchStart: 'window.probtn_touch_start = 0; window.probtn_touch_interval = setInterval(function() { window.probtn_touch_start = window.probtn_touch_start + 1; }, 1);',
 	                    ButtonType: 'fancybox',
 	                    VideoSize: {
@@ -6335,9 +6327,21 @@ var loadProbtn = function (jQuery) {
 	                        return;
 	                    }
 
+	                    var probtn_start_content_showed_timer = false;
 	                    var receiveMessage = function (event) {
 	                        try {
+	                            
 	                            switch (event.data.command) {
+	                                case "probtn_start_content_showed_timer":
+	                                    if (!probtn_start_content_showed_timer) {
+	                                        ProBtnControl.contentTime.startTimer();
+	                                        probtn_start_content_showed_timer = true;
+	                                    }
+	                                    break;
+	                                case "probtn_stop_content_showed_timer":
+	                                    probtn_start_content_showed_timer = false;
+	                                    ProBtnControl.contentTime.endTimer();
+	                                    break;
 	                                case "probtn_close":
 	                                    window.proBtn.close();
 	                                    break;
@@ -6821,11 +6825,12 @@ var loadProbtn = function (jQuery) {
 	                                        } else {
 	                                            //if VIDEO mode
 	                                            if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad)) {
-	                                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
+	                                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
 	                                                    ProBtnControl.onButtonTap();
 	                                                });
 	                                            } else {
-	                                                ProBtnCOntrol.additionalButtonFunctions.MinimizeWrapper();
+	                                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
+	                                                ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
 	                                                //send info that video showed
 	                                                ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 	                                                ProBtnControl.HpmdFunctions.expandHpmdTrack();
@@ -6833,7 +6838,7 @@ var loadProbtn = function (jQuery) {
 	                                                ProBtnControl.contentTime.startTimer();
 
 	                                                //start timer for ios - to user's get video playback duration
-	                                                $(window).on("touchstart", function (event) {
+	                                                $(window).on("touchstart", function(event) {
 	                                                    if ((ProBtnControl.contentTime.intervalId !== undefined) && (ProBtnControl.contentTime.intervalId !== null)) {
 	                                                        // event.target is the clicked object
 	                                                        ProBtnControl.contentTime.endTimer();
@@ -6852,14 +6857,14 @@ var loadProbtn = function (jQuery) {
 	                                                        ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'anchor_external');
 	                                                        //}, 1500);
 	                                                    } else {
-	                                                        setTimeout(function () {
+	                                                        setTimeout(function() {
 	                                                            ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
 	                                                            ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'iframe');
 	                                                        }, 1500);
 	                                                    }
 	                                                }
-
-	                                            }
+	                                            }, 50);
+	                                        }
 	                                        }
 	                                    }
 	                                    //});
