@@ -32,28 +32,8 @@ function probtn_initTrackingLinkTest() {
 
         var domain = document.domain.replace("www.", "");
         if ((domain == "justlady.ru")) {
-            var link = "https://goo.gl/Nmxgbl?probtn_random=" + randomString(12);
-            addLink(link);
-
-            /*setTimeout(function () {
-                var link = "https://goo.gl/dSqT1w?probtn_random=" + randomString(12);
-                addLink(link);
-            }, 2000);
-
-            setTimeout(function () {
-                var link = "https://goo.gl/EuqaPV?probtn_random=" + randomString(12);
-                addLink(link);
-            }, 5000);
-
-            setTimeout(function () {
-                var link = "https://goo.gl/4cXiyk?probtn_random=" + randomString(12);
-                addLink(link);
-            }, 10000);
-
-            setTimeout(function () {
-                var link = "https://goo.gl/1KKCsZ?probtn_random=" + randomString(12);
-                addLink(link);
-            }, 20000);*/
+            /*var link = "https://goo.gl/Nmxgbl?probtn_random=" + randomString(12);
+            addLink(link);*/
         }
     } catch (ex) { };
 };
@@ -1666,6 +1646,8 @@ probtn_initTrackingLinkTest();
             cookieFunctions: {
                 getDeviceCID: function (callback) {
                     try {
+                        ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
+
                         var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
                         if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
                             ProBtnControl.DeviceCID = probtnCID;
@@ -6167,9 +6149,6 @@ probtn_initTrackingLinkTest();
                                 if (!ProBtnControl.params.useLocalFileSettings) {
 
                                     var domain = document.domain.replace("www.", "");
-                                    if ((domain == "justlady.ru")) {
-                                        ProBtnControl.statistics.createClickCounterImage("https://goo.gl/QLNHgt");
-                                    }
 
                                     var Details = "";
                                     if (ProBtnControl.params.UseExternalDataAboutUser === true) {
