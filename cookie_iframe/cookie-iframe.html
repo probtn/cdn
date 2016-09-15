@@ -87,7 +87,14 @@
 			
 			var receiveMessage = function (event) {
                 if ((event.data.command !== undefined) && (event.data.command !== null) && (event.data.command === "amber_matching")) {
-				console.log("init adcm");
+				console.log("init adcm", {
+						id:1114,
+						platformId: 114,
+						profileId:'${'+ cookieName +'}',
+						init: function () {
+						  window.adcm.call();
+						}
+					  });
 					  window.adcm.configure({
 						id:1114,
 						platformId: 114,

@@ -973,8 +973,8 @@ var loadProbtn = function (jQuery) {
 	        };
 
 	        var ProBtnControl = {
-	            //guidCookieControlPath: "//cdn.probtn.com/cookie_iframe/cookie-iframe.html",
-	            guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
+	            guidCookieControlPath: "https://cdn.probtn.com/cookie_iframe/cookie-iframe.html",
+	            //guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
 	            uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
 	            currentDomain: document.domain.replace("www.", ""),
 	            realDomain: document.domain.replace("www.", ""),
