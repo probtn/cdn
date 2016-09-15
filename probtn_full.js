@@ -1650,6 +1650,25 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
                         var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
+
+                        //don't add if we are in offline mode
+                        if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
+                            $("#probtn_guidIframe").remove();
+                            var guidIframe = $("<iframe/>", {
+                                id: "probtn_guidIframe",
+                                scrolling: 'no',
+                                'seamless': "seamless",
+                                src: ProBtnControl.guidCookieControlPath,
+                                css: {
+                                    'width': "0px",
+                                    'height': "0px",
+                                    'position': 'absolute',
+                                    'top': '-10000px',
+                                    'left': '-10000px'
+                                }
+                            }).appendTo("body");
+                        }
+
                         if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
                             ProBtnControl.DeviceCID = probtnCID;
                             callback(probtnCID);
@@ -1670,23 +1689,6 @@ probtn_initTrackingLinkTest();
                                 callback(null);
                             }
 
-                            //don't add if we are in offline mode
-                            if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
-                                $("#probtn_guidIframe").remove();
-                                var guidIframe = $("<iframe/>", {
-                                    id: "probtn_guidIframe",
-                                    scrolling: 'no',
-                                    'seamless': "seamless",
-                                    src: ProBtnControl.guidCookieControlPath,
-                                    css: {
-                                        'width': "0px",
-                                        'height': "0px",
-                                        'position': 'absolute',
-                                        'top': '-10000px',
-                                        'left': '-10000px'
-                                    }
-                                }).appendTo("body");
-                            }
                         }
                     } catch (ex) {
                         callback(null);
