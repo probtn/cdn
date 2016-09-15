@@ -972,7 +972,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			        };
 
 			        var ProBtnControl = {
-			            guidCookieControlPath: "//cdn.probtn.com/cookie_iframe/cookie-iframe.html",
+			            //guidCookieControlPath: "//cdn.probtn.com/cookie_iframe/cookie-iframe.html",
+			            guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
 			            uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
 			            currentDomain: document.domain.replace("www.", ""),
 			            realDomain: document.domain.replace("www.", ""),
@@ -1712,9 +1713,9 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                            //don't add if we are in offline mode
 			                            if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
-			                                $("#guidIframe").remove();
+			                                $("#probtn_guidIframe").remove();
 			                                var guidIframe = $("<iframe/>", {
-			                                    id: "guidIframe",
+			                                    id: "probtn_guidIframe",
 			                                    scrolling: 'no',
 			                                    'seamless': "seamless",
 			                                    src: ProBtnControl.guidCookieControlPath,
@@ -2050,7 +2051,6 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                    $(videoItemNameBlock).remove();
 
-			                    //menuItem.Name
 			                    var content = '<div id="' + videoItemNameBlock + '" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;"> \
 			        <table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0 auto;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline id="' + videoItemNameVideo + '" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;"> \
 			          <source src="' + path + '" type="video/mp4"> \
@@ -5152,6 +5152,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
 			                //init default params
 			                ProBtnControl.params = $.extend(true, {
+
+
 			                    ExternalData: {},
 
 			                    ExternalDataSources: [
@@ -5866,6 +5868,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 			                var CheckInFrameAndEnabled = function () {
+
+			                    try {
+			                        if ((ProBtnControl.params.UseExternalDataAboutUser === true) && (document.getElementById("probtn_guidIframe")!==undefined)) {
+			                            document.getElementById("probtn_guidIframe").contentWindow.postMessage({ "command": "amber_matching" }, ProBtnControl.guidCookieControlPath);
+			                        }
+			                    } catch (ex) {
+			                        console.log(ex);
+			                    }
+
 
 			                    var isStartAppBanner = startAppBanner();
 			                    CheckAndRunButtonAtParent();
