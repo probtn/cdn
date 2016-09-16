@@ -1158,8 +1158,16 @@ var loadProbtn = function (jQuery) {
 	                    finishValue: (isMobileLandscape) ? finishLeft : finishTop
 	                }
 
-	                var InitLeft = $("#probtn_button").offset().left;
-	                var InitTop = $("#probtn_button").offset().top;
+	                var InitLeft = 0;
+	                var InitTop = 0; 
+	                try {
+	                    if ($("#probtn_button").offset() !== undefined) {
+	                        InitLeft = $("#probtn_button").offset().left;
+	                        InitTop = $("#probtn_button").offset().top;
+	                    }
+	                } catch (ex) {
+	                    console.log(ex);
+	                }
 
 	                $.pep.toggleAll(false);
 
