@@ -6719,7 +6719,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        } else {
 			                                            if (ProBtnControl.params.Debug) console.log("ProBtnControl.userData.isiPad - " + ProBtnControl.userData.isiPad);
 			                                            if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad !== false)) {
-			                                                ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZone.currentActiveZone.ButtonContentType);
+			                                                ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZonew = $("#probtn_button").offset().left.currentActiveZone.ButtonContentType);
 			                                            } else {
 			                                                if (ProBtnControl.params.VideoClickURL !== "") {
 
