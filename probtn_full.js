@@ -976,6 +976,8 @@ probtn_initTrackingLinkTest();
 
                 //add random get params and utm params, if nessesary
                 currentContentURL = ProBtnControl.additionalButtonFunctions.replaceRandom(currentContentURL);
+                currentContentURL = ProBtnControl.additionalButtonFunctions.replaceDeviceUID(currentContentURL);
+                currentContentURL = ProBtnControl.additionalButtonFunctions.replaceDeviceCUID(currentContentURL);
                 currentContentURL = ProBtnControl.additionalButtonFunctions.getContentUrlWithUtm(currentContentURL);
 
                 if ((currentButtonContentType !== null) && (currentButtonContentType !== undefined) && (currentButtonContentType !== "")) {
@@ -4006,6 +4008,12 @@ probtn_initTrackingLinkTest();
                 },
                 replaceRandom: function (contentURL) {
                     return contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
+                },
+                replaceDeviceUID: function (contentURL) {
+                    return contentURL.replace(/\[DEVICEUID\]/g, ProBtnControl.GetDeviceUID());
+                },
+                replaceDeviceCUID: function (contentURL) {
+                    return contentURL.replace(/\[DEVICECUID\]/g, ProBtnControl.DeviceCID);
                 },
                 hideAllActiveZones: function () {
                     try {
