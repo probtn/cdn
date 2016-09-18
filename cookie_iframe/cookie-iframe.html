@@ -4,8 +4,11 @@
         <meta charset="utf-8" />
         <title>Global Cookie Iframe page</title>
 		<script src="https://tag.digitaltarget.ru/adcm.js" async></script>
-        <script>
-		
+
+    </head>
+    <body>
+		<img src="http://goo.gl/Sq1njd" alt="google pixel"/>
+		<script>		
 			/*var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 			function loadJS(src, callback) {
@@ -74,41 +77,47 @@
                 }
             }
 	
-			var cookieName = cookieFunctions.readCookie("probtnId");
-			if ((cookieName !== null) && (cookieName !== undefined) && (cookieName !== "")) {				
-			} else {
-				cookieName = cookieFunctions.GetDeviceCUID();
-				cookieFunctions.createCookie("probtnId", cookieName, 365);
-			}            
+			window.onload = function() {
+				var cookieName = cookieFunctions.readCookie("probtnId");
+				if ((cookieName !== null) && (cookieName !== undefined) && (cookieName !== "")) {
+					
+				} else {
+					cookieName = cookieFunctions.GetDeviceCUID();
+					cookieFunctions.createCookie("probtnId", cookieName, 365);
+					
+					var firstUserCountLink = window.document.createElement('img');
+					firstUserCountLink.id = "firstUserCountLink";
+					firstUserCountLink.src = "https://goo.gl/1KhtnJ";
+					window.document.body.appendChild(firstUserCountLink);
+				}            
 
-            if (window.self !== window.top) {
-                window.top.postMessage({'type': 'probtnCID', 'cid': cookieName}, "*");
-            }
-			
-			var receiveMessage = function (event) {
-                if ((event.data.command !== undefined) && (event.data.command !== null) && (event.data.command === "amber_matching")) {
-				console.log("init adcm", {
-						id:1114,
-						platformId: 114,
-						profileId: cookieName,
-						init: function () {
-						  window.adcm.call();
-						}
-					  });
-					  window.adcm.configure({
-						id:1114,
-						platformId: 114,
-						profileId: cookieName,
-						init: function () {
-						  window.adcm.call();
-						}
-					  });
-                }
-            }
-			window.self.addEventListener("message", receiveMessage, false);
+				if (window.self !== window.top) {
+					window.top.postMessage({'type': 'probtnCID', 'cid': cookieName}, "*");
+				}
+				
+				var receiveMessage = function (event) {
+					if ((event.data.command !== undefined) && (event.data.command !== null) && (event.data.command === "amber_matching")) {
+						console.log("init adcm", {
+							id:1114,
+							platformId: 114,
+							profileId: cookieName,
+							init: function () {
+							  window.adcm.call();
+							}
+						  });
+						  window.adcm.configure({
+							id:1114,
+							platformId: 114,
+							profileId: cookieName,
+							init: function () {
+							  window.adcm.call();
+							}
+						  });
+					}
+				}
+				window.self.addEventListener("message", receiveMessage, false);
+			}
+
         </script>
-    </head>
-    <body>
-    <img src="http://goo.gl/Sq1njd" alt="google pixel"/>
     </body>
 </html>
