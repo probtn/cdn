@@ -26,4 +26,5 @@ Profit Button
    probtn_events
    admin_targetings
    postMessage_button_control
+   postMessage_button_animation
 

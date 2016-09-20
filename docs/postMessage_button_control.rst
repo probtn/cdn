@@ -16,7 +16,7 @@
 ----------------------------------
 
 Пример:
-``{command: "command_value", size: {width: 100, height: 100}``
+``{command: "command_value", size: {width: 100, height: 100} }``
 
 Вместо ``command_value`` указываем одну из доступных команд ниже. ``Size`` используем только для ``button_image_iframe_size``, где указываем размеры области.
 
