@@ -94,6 +94,9 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fancyboxclosemethod">FancyboxcloseMethod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fancyboxclosespeed">FancyboxCloseSpeed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creativeid">CreativeId</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#passbackcustomcode">PassbackCustomCode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#modalwindowmode">ModalWindowMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extrusionmode">ExtrusionMode</a></li>
@@ -281,6 +284,7 @@
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
 <li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
 <li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
 </ul>
 
             
@@ -331,9 +335,24 @@
 В случае, если параметр используется несколько отличным способом в разных режимах, этот будет помечено (включая искомые режимы).</p>
 <p>Другие страницы:</p>
 <ul class="simple">
-<li><a class="reference internal" href="docs-en/index.html#index"><span>Profit Button</span></a></li>
+<li><a class="reference internal" href="index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Интеграция</span></a></li>
 </ul>
+<div class="section" id="fancyboxclosemethod">
+<h2>FancyboxcloseMethod<a class="headerlink" href="#fancyboxclosemethod" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Анимация закрытия модального окна</p>
+<p>По умолчанию: &#8220;zoomOut&#8221;</p>
+</div>
+<div class="section" id="fancyboxclosespeed">
+<h2>FancyboxCloseSpeed<a class="headerlink" href="#fancyboxclosespeed" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Длительность анимации закрытия модального окна</p>
+<p>По умолчанию: 0</p>
+</div>
+<div class="section" id="creativeid">
+<h2>CreativeId<a class="headerlink" href="#creativeid" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Идентификатор креатива для обязательного показа</p>
+<p>По умолчанию: &#8220;&#8221;</p>
+</div>
 <div class="section" id="passbackcustomcode">
 <h2>PassbackCustomCode<a class="headerlink" href="#passbackcustomcode" title="Ссылка на этот заголовок">¶</a></h2>
 <p>В данном параметре возможно указать код, который будет вызываться в случае, если кнопка будет выключена (когда от admin.probtn.com придет <code class="docutils literal"><span class="pre">{&quot;ButtonVisible&quot;:false,&quot;ButtonEnabled&quot;:false}</span></code>)</p>

@@ -12,6 +12,32 @@ Description of the parameters used by the button (by application)
  
 If a parameter is used differently in different modes, it is specifically marked (including, the required modes)
 
+FancyboxcloseMethod
+----------------------------------
+Close animation of modal window (fancybox)
+
+By default: "zoomOut"
+
+FancyboxCloseSpeed
+----------------------------------
+Close animation duration of modal window (fancybox)
+
+By default: 0
+
+CreativeId
+----------------------------------
+Creative ID for force show
+
+By default: ""
+
+PassbackCustomCode
+----------------------------------
+In this param possible to add code, which would be called in case, if button disabled (when settings request from admin.probtn.com return ``{"ButtonVisible":false,"ButtonEnabled":false}``)
+
+ATTENTION - better to test your code before using in production.
+
+By default: "".
+
 ModalWindowMode
 ----------------------------------
 Additional variants and possibilities for modal window (showed after button click).

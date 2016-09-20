@@ -5,20 +5,15 @@
  
 .. _examples:
 
-Примеры режимов работы кнопки
+Button modes examples
 ==================================
 
-На данной странице описаны основные режимы работы кнопки и приведены примеры их поведения.
+Please see the key modes description and video examples.
 
 .. raw:: html
 
 	<div class="css">
 		<style>
-			/*.videoExample {
-				display: block;
-				width: 411px;
-				height:840px;
-			}*/
 			.videoExample {
 				display: inline-block;
 				width: 100%;
@@ -43,29 +38,31 @@
 	</script>
 	<div>
 
-Плавающая кнопка по умолчанию
+Default floating button
 ----------------------------------
 
-Кнопка по умолчанию - с возможностью передвигать ее по экрану, закрытием при наведении и отпускании на область закрытия (корзина) и открытием рекламной страницы по нажатию на кнопку.
+Default Button – move the button with the thumb, hide it while shifting to the special spot, open ads with the click.
+
+It appears in the new layer on the top of a web site (an application). Could be shifted over the screen.  Video, survey or banner opens with the click. Could be static or animated.
 
 .. raw:: html
 
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/1-simple_x264_001.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/1-simple-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 	
 	<div id="probtn_additional_params" style="display: none;">{"domain":"probtn.com"}</div>
 	<script src="//cdn.probtn.com/probtn_concat.js"></script>
 
-Кнопка с видео
+Video Button
 ----------------------------------
 
-Поведение кнопки аналогично кнопке по умолчанию, но при нажатии на кнопку происходит воспроизведение видео (с "автозапуском", в том числе и на мобильных браузерах).
+Obtains all standard features plus opening the video with the click.  (could have manual or auto play, works on any mobile browsers).
 
-Данный режим задается при указании параметра
+Current mode is set with 
 ``"ButtonContentType":"video"``
 
 .. raw:: html
@@ -73,92 +70,87 @@
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/2-video_x264_001.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/2-video-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 
-Кнопка со скролл-зонами
+Scroll-zones Button
 ----------------------------------
 
-Поведение кнопки аналогично кнопке по умолчанию, но вся высота страницы разбивается на зоны, внутри которых может менятся изображение кнопки, ее размеры и режим.
+Obtains all standard features plus may changes it’s image while scrolling the screen.  Page height is divided into several zones. The Button has different image (size and mode optionally) at different zone respectively.  
 
-Данный режим задается при указании параметра
-``"ButtonType":"button_and_scroll_zones"``
-и указания настроек скролл-зон (объект ``ScrollZones`` настроек)
+Current mode is set with ``"ButtonType":"button_and_scroll_zones"`` parameter and scroll zones settings ``ScrollZones``
 
 .. raw:: html
 	
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/3-scroll_x264_001.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/3-scroll-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 
-Кнопка c активными зонами
+Active-zones Button
 ----------------------------------
 
-Поведение кнопки аналогично кнопке по умолчанию, но кроме кнопки на экране присутствует несколько активных зон, при "сбросе" кнопки на которую будет произведено то или иное действие (в зависимости от настроек активной зоны).
+Obtains all standard features plus have several active zones which appear on the screen while shifting the button.  Superposition of the button and any of the zones activates the ad (survey or video).
 
-Данный режим задается при указании параметра
-``"ButtonType":"button_and_active_zones"``
-и указания настроек активных зон (объект ``ActiveZones`` настроек)
+Current mode is set with ``"ButtonType":"button_and_active_zones"`` parameter and active zones settings ``ActiveZones``.
 
 .. raw:: html
 
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/4-activezones_x264_001.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/4-activezones-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 
-Кнопка-меню
+Menu Button
 ----------------------------------
 
-Поведение кнопки аналогично кнопке по умолчанию, но после нажатия отображается меню из нескольких пунктов, с различными ссылками-действиями для каждого из пунктов.
+Obtains all standard features plus shows menu upon the click (list, radial or round view).
 
-Данный режим задается при указании параметра
-``"ButtonType":"menu"``
-и указания настроек меню (объект ``MenuItems`` настроек)
+Current mode is set with ``"ButtonType":"menu"`` parameter and active zones settings ``MenuItems``
+
 
 .. raw:: html
 
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/5-1-menu_x264.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/5-1-menu-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 	<!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/menu/" frameborder="0" allowfullscreen></iframe>
     </div>-->
 	
-Также для меню возможно включить режим радиального меню используя параметр ``"MenuTemplateVariant":"radialcorner"``
+Also for menu is possible to enable radial menu, using param ``"MenuTemplateVariant":"radialcorner"``
 
 .. raw:: html
 
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/5-2-radmenu_x264.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/5-2-radmenu-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
     <!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/radmenu_param/" frameborder="0" allowfullscreen></iframe>
     </div>-->
 
-Фуллскрин
+Fullscreen
 ----------------------------------
 
-После загрузки страницы и скрипта кнопки в модальном окне отображается страница ``ContentURL``
+Show ad page after the script loading ``ContentURL``.
 
 .. raw:: html
 
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/6-fullscreen_x264_001.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/6-fullscreen-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
     <!--<div style="margin-top:10px;">
@@ -168,63 +160,65 @@
 Smartbanner
 ----------------------------------
 
-Вместо кнопки показывается смартбаннер (на основе https://github.com/jasny/jquery.smartbanner )
+Smarbanner (Based on https://github.com/jasny/jquery.smartbanner ).
+
+The banner appears within the set time at the top of the screen.  Offers to install an app. Works under iOS, Android and Windows. Provides all metrics.
 
 .. raw:: html
 
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/7-smartbanner_x264_001.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/7-smartbanner-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 	<!--<div style="margin-top:10px;">
       <iframe width="100%" height="400" src="http://demo.probtn.com/smartbanner/android" frameborder="0" allowfullscreen></iframe>
     </div>-->
 
-Анимации кнопки
+Button Animation
 ----------------------------------
 
 Opacity
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Анимация смены прозрачности кнопки.
+The button changes its opacity within the set period of time. 
 
-Используемые параметры:
+Using parameters:
 
 - ``isAnimation``
 - ``animationDuration``
 
-В частности задается как ``isAnimation = opacity_0.5``
-в формате ``opacity_<конечное значение>``
+Current animation is set as  ``isAnimation = opacity_0.5``
+5 in a ``opacity_<final value>`` form.
 
-Начальное значение прозрачности соответственно устанавливается через ``ButtonOpacity`` параметр
+Initial opacity value is set with ButtonOpacity parameter.
 
-Демо страница - http://demo.probtn.com/button_example/opacity_animation
+Demo link - http://demo.probtn.com/button_example/opacity_animation
 
 .. raw:: html
 
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/8-1-opacity_x264.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/8-1-opacity-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 	
 rollout 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
-Анимация, при которой кнопка "выдвигается" по мере скролла страницы
+The button appears form the right/left edge of the screen during the scroll. 
 
-Используемые параметры:
+Using parameters:
 
 - ``isAnimation``
 - ``animationDuration``
 
-В частности задается как ``isAnimation = rollout_left`` в формате ``rollout_<сторона>``, где сторона - опциональна и может принимать значения ``left`` или ``right``
+Current animation is set as ``isAnimation = rollout_left`` in a ``rollout_<side>`` form. The side can have the value ``left`` or ``right``. 
 
-И возможно указать сторону из которой будет "выдвигаться" кнопка и максимальную ширину "выдвижения" (в процентах), в частности
-``rollout_<сторона>_<ширина>`` к примеру ``rollout``, ``rollout_left``, ``rollout_left_60``
+It is also possible to set the width of rollout ``rollout_<side>_<width>`` for example ``rollout``, ``rollout_left``, ``rollout_left_60``.
 
-Демо страницы:
+
+Demo links:
 
 - http://demo.probtn.com/button_example2/rollout
 - http://demo.probtn.com/button_example2/rollout/right/
@@ -234,7 +228,7 @@ rollout
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/8-2-rollout_x264.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/8-2-rollout-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 	
@@ -243,40 +237,39 @@ rollout
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/8-3-rollout-right_x264.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/8-3-rollout-right-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 
 lookout
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
-кнопка периодически исчезает и появляется из-за края экрана.
+The button appears from the edge of the screen and hides to within the set period of time.
 
-Используемые параметры:
-
+Using parameters:
 - ``isAnimation``
 - ``animationDuration``
 
-В частности задается как ``isAnimation = lookout_left`` в формате ``lookout_<сторона>``, где сторона - опциональна и может принимать значения ``left`` или ``right``
+Current animation is set as ``isAnimation = lookout_left`` in a ``lookout_<side>`` form. The side can have the value ``left`` or ``right``. 
 
 .. raw:: html
 
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/8-4-lookout_x264.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/8-4-lookout-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 
 forwardAndBack
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Кнопка перемещается от левого края до правого, затем обратно до левого.
+The button moves from the left edge of the screen to the right one and backward. 
 
-Используемые параметры:
+Using parameters:
 
 - ``isAnimation``
 - ``animationDuration``
 
-Пример:
+Example:
 
 - http://demo.probtn.com/button_example2/forwardAndBack/
 
@@ -285,21 +278,22 @@ forwardAndBack
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/8-5-forwardAndBack_x264.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/8-5-forwardAndBack-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>
 
 forwardStopAndAway
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Кнопка перемещается из-за левого края до середины экрана, останавливается и затем перемещается за правый край экрана. 
-Длительность каждого этапа задается параметром ``animationDuration``
+The button moves from the left edge of the screen, stops in the middle and moves further to the right one.
 
-Используемые параметры:
+Duration for each step is set by ``animationDuration`` param.
+
+Using parameters:
 
 - ``isAnimation``
 - ``animationDuration``
 
-Пример:
+Example:
 
 - http://demo.probtn.com/button_example2/forwardStopAndAway
 
@@ -308,6 +302,6 @@ forwardStopAndAway
 	<div class="videoExample">
 		<img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
 		<video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
-			<source src="https://demo.probtn.com/video/8-6-forwardStopAndAway_x264.mp4" type="video/mp4" />
+			<source src="https://demo.probtn.com/video/en/8-6-forwardStopAndAway-eng_x264.mp4" type="video/mp4" />
 		</video>
 	</div>

@@ -95,6 +95,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../probtn_events.html">Получение событий кнопки на странице</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
 </ul>
 
             
@@ -143,6 +146,27 @@
 <span id="webparams"></span><h1>Params description<a class="headerlink" href="#params-description" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Description of the parameters used by the button (by application)</p>
 <p>If a parameter is used differently in different modes, it is specifically marked (including, the required modes)</p>
+<div class="section" id="fancyboxclosemethod">
+<h2>FancyboxcloseMethod<a class="headerlink" href="#fancyboxclosemethod" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Close animation of modal window (fancybox)</p>
+<p>By default: &#8220;zoomOut&#8221;</p>
+</div>
+<div class="section" id="fancyboxclosespeed">
+<h2>FancyboxCloseSpeed<a class="headerlink" href="#fancyboxclosespeed" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Close animation duration of modal window (fancybox)</p>
+<p>By default: 0</p>
+</div>
+<div class="section" id="creativeid">
+<h2>CreativeId<a class="headerlink" href="#creativeid" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Creative ID for force show</p>
+<p>By default: &#8220;&#8221;</p>
+</div>
+<div class="section" id="passbackcustomcode">
+<h2>PassbackCustomCode<a class="headerlink" href="#passbackcustomcode" title="Ссылка на этот заголовок">¶</a></h2>
+<p>In this param possible to add code, which would be called in case, if button disabled (when settings request from admin.probtn.com return <code class="docutils literal"><span class="pre">{&quot;ButtonVisible&quot;:false,&quot;ButtonEnabled&quot;:false}</span></code>)</p>
+<p>ATTENTION - better to test your code before using in production.</p>
+<p>By default: &#8220;&#8221;.</p>
+</div>
 <div class="section" id="modalwindowmode">
 <h2>ModalWindowMode<a class="headerlink" href="#modalwindowmode" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Additional variants and possibilities for modal window (showed after button click).</p>

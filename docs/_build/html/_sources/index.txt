@@ -25,4 +25,5 @@ Profit Button
    offline
    probtn_events
    admin_targetings
+   postMessage_button_control
 

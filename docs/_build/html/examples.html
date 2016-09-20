@@ -114,6 +114,9 @@
 <li class="toctree-l1"><a class="reference internal" href="webparams.html#id17">Неиспользуемые параметры</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Параметры по умолчания для кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
+<li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
 </ul>
 
             
@@ -192,7 +195,7 @@ function playVideo(thisItem) {
 </script>
 <div><div class="section" id="id2">
 <h2>Плавающая кнопка по умолчанию<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Кнопка по умолчанию - с возможностью передвигать ее по экрану, закрытием при наведении и отпускании на облость закрытия (корзина) и открытием рекламной страницы по нажатию на кнопку.</p>
+<p>Кнопка по умолчанию - с возможностью передвигать ее по экрану, закрытием при наведении и отпускании на область закрытия (корзина) и открытием рекламной страницы по нажатию на кнопку.</p>
 <div class="videoExample">
         <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
         <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
@@ -205,7 +208,7 @@ function playVideo(thisItem) {
 <div class="section" id="id3">
 <h2>Кнопка с видео<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Поведение кнопки аналогично кнопке по умолчанию, но при нажатии на кнопку происходит воспроизведение видео (с &#8220;автозапуском&#8221;, в том числе и на мобильных браузерах).</p>
-<p>Данный режиме задается при указании параметра
+<p>Данный режим задается при указании параметра
 <code class="docutils literal"><span class="pre">&quot;ButtonContentType&quot;:&quot;video&quot;</span></code></p>
 <div class="videoExample">
         <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
@@ -227,8 +230,8 @@ function playVideo(thisItem) {
 </div></div>
 <div class="section" id="c">
 <h2>Кнопка c активными зонами<a class="headerlink" href="#c" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Поведение кнопки аналогично кнопке по умолчанию, но кроме кнопки на экране присутствует несколько активных зон, при &#8220;сбросе&#8221; кнопки на которую будет произведено то или иное действие (в заминсимости от настроек активной зоны).</p>
-<p>Данный режиме задается при указании параметра
+<p>Поведение кнопки аналогично кнопке по умолчанию, но кроме кнопки на экране присутствует несколько активных зон, при &#8220;сбросе&#8221; кнопки на которую будет произведено то или иное действие (в зависимости от настроек активной зоны).</p>
+<p>Данный режим задается при указании параметра
 <code class="docutils literal"><span class="pre">&quot;ButtonType&quot;:&quot;button_and_active_zones&quot;</span></code>
 и указания настроек активных зон (объект <code class="docutils literal"><span class="pre">ActiveZones</span></code> настроек)</p>
 <div class="videoExample">
@@ -240,7 +243,7 @@ function playVideo(thisItem) {
 <div class="section" id="id5">
 <h2>Кнопка-меню<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Поведение кнопки аналогично кнопке по умолчанию, но после нажатия отображается меню из нескольких пунктов, с различными ссылками-действиями для каждого из пунктов.</p>
-<p>Данный режиме задается при указании параметра
+<p>Данный режим задается при указании параметра
 <code class="docutils literal"><span class="pre">&quot;ButtonType&quot;:&quot;menu&quot;</span></code>
 и указания настроек меню (объект <code class="docutils literal"><span class="pre">MenuItems</span></code> настроек)</p>
     <div class="videoExample">
@@ -263,7 +266,7 @@ function playVideo(thisItem) {
 </div>--></div>
 <div class="section" id="id6">
 <h2>Фуллскрин<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Послк загрузки страницы и скрипта кнопки в модальном окне отображается страница <code class="docutils literal"><span class="pre">ContentURL</span></code></p>
+<p>После загрузки страницы и скрипта кнопки в модальном окне отображается страница <code class="docutils literal"><span class="pre">ContentURL</span></code></p>
     <div class="videoExample">
             <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
             <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
@@ -275,7 +278,7 @@ function playVideo(thisItem) {
 </div>--></div>
 <div class="section" id="smartbanner">
 <h2>Smartbanner<a class="headerlink" href="#smartbanner" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Вместо кнопки показываться смартбаннер (на основе <a class="reference external" href="https://github.com/jasny/jquery.smartbanner">https://github.com/jasny/jquery.smartbanner</a> )</p>
+<p>Вместо кнопки показывается смартбаннер (на основе <a class="reference external" href="https://github.com/jasny/jquery.smartbanner">https://github.com/jasny/jquery.smartbanner</a> )</p>
     <div class="videoExample">
             <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
             <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">

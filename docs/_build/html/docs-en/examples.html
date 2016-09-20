@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Button modes examples &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#id2">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Примеры режимов работы кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../probtn_events.html">Получение событий кнопки на странице</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Button modes examples</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs-en/examples.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="button-modes-examples">
+<span id="examples"></span><h1>Button modes examples<a class="headerlink" href="#button-modes-examples" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Please see the key modes description and video examples.</p>
+<div class="css">
+        <style>
+                .videoExample {
+                        display: inline-block;
+                        width: 100%;
+                        height: auto;
+                }
+                .videoItem {
+                        /*position: relative;*/
+                        width: 100%;
+                        height: auto;
+                        /*top: -750px;*/
+                        z-index: 1;
+                        /*margin-left: 26px;*/
+                }
+                #mainImage1, .mainImage1 {
+                        display: none;
+                }
+</style>
+<script>
+function playVideo(thisItem) {
+        thisItem.play();
+}
+</script>
+<div><div class="section" id="default-floating-button">
+<h2>Default floating button<a class="headerlink" href="#default-floating-button" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Default Button – move the button with the thumb, hide it while shifting to the special spot, open ads with the click.</p>
+<p>It appears in the new layer on the top of a web site (an application). Could be shifted over the screen.  Video, survey or banner opens with the click. Could be static or animated.</p>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/1-simple-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div>
+
+<div id="probtn_additional_params" style="display: none;">{"domain":"probtn.com"}</div>
+<script src="//cdn.probtn.com/probtn_concat.js"></script></div>
+<div class="section" id="video-button">
+<h2>Video Button<a class="headerlink" href="#video-button" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Obtains all standard features plus opening the video with the click.  (could have manual or auto play, works on any mobile browsers).</p>
+<p>Current mode is set with
+<code class="docutils literal"><span class="pre">&quot;ButtonContentType&quot;:&quot;video&quot;</span></code></p>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/2-video-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
+<div class="section" id="scroll-zones-button">
+<h2>Scroll-zones Button<a class="headerlink" href="#scroll-zones-button" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Obtains all standard features plus may changes it’s image while scrolling the screen.  Page height is divided into several zones. The Button has different image (size and mode optionally) at different zone respectively.</p>
+<p>Current mode is set with <code class="docutils literal"><span class="pre">&quot;ButtonType&quot;:&quot;button_and_scroll_zones&quot;</span></code> parameter and scroll zones settings <code class="docutils literal"><span class="pre">ScrollZones</span></code></p>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/3-scroll-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
+<div class="section" id="active-zones-button">
+<h2>Active-zones Button<a class="headerlink" href="#active-zones-button" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Obtains all standard features plus have several active zones which appear on the screen while shifting the button.  Superposition of the button and any of the zones activates the ad (survey or video).</p>
+<p>Current mode is set with <code class="docutils literal"><span class="pre">&quot;ButtonType&quot;:&quot;button_and_active_zones&quot;</span></code> parameter and active zones settings <code class="docutils literal"><span class="pre">ActiveZones</span></code>.</p>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/4-activezones-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
+<div class="section" id="menu-button">
+<h2>Menu Button<a class="headerlink" href="#menu-button" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Obtains all standard features plus shows menu upon the click (list, radial or round view).</p>
+<p>Current mode is set with <code class="docutils literal"><span class="pre">&quot;ButtonType&quot;:&quot;menu&quot;</span></code> parameter and active zones settings <code class="docutils literal"><span class="pre">MenuItems</span></code></p>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/en/5-1-menu-eng_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
+    <!--<div style="margin-top:10px;">
+  <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/menu/" frameborder="0" allowfullscreen></iframe>
+</div>--><p>Also for menu is possible to enable radial menu, using param <code class="docutils literal"><span class="pre">&quot;MenuTemplateVariant&quot;:&quot;radialcorner&quot;</span></code></p>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/en/5-2-radmenu-eng_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
+<!--<div style="margin-top:10px;">
+  <iframe width="100%" height="400" src="http://demo.probtn.com/button_example2/radmenu_param/" frameborder="0" allowfullscreen></iframe>
+</div>--></div>
+<div class="section" id="fullscreen">
+<h2>Fullscreen<a class="headerlink" href="#fullscreen" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Show ad page after the script loading <code class="docutils literal"><span class="pre">ContentURL</span></code>.</p>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/en/6-fullscreen-eng_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
+<!--<div style="margin-top:10px;">
+  <iframe width="100%" height="400" src="http://demo.probtn.com/button_example/fullscreen_test/" frameborder="0" allowfullscreen></iframe>
+</div>--></div>
+<div class="section" id="smartbanner">
+<h2>Smartbanner<a class="headerlink" href="#smartbanner" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Smarbanner (Based on <a class="reference external" href="https://github.com/jasny/jquery.smartbanner">https://github.com/jasny/jquery.smartbanner</a> ).</p>
+<p>The banner appears within the set time at the top of the screen.  Offers to install an app. Works under iOS, Android and Windows. Provides all metrics.</p>
+    <div class="videoExample">
+            <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+            <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                    <source src="https://demo.probtn.com/video/en/7-smartbanner-eng_x264.mp4" type="video/mp4" />
+            </video>
+    </div>
+    <!--<div style="margin-top:10px;">
+  <iframe width="100%" height="400" src="http://demo.probtn.com/smartbanner/android" frameborder="0" allowfullscreen></iframe>
+</div>--></div>
+<div class="section" id="button-animation">
+<h2>Button Animation<a class="headerlink" href="#button-animation" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="opacity">
+<h3>Opacity<a class="headerlink" href="#opacity" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The button changes its opacity within the set period of time.</p>
+<p>Using parameters:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>Current animation is set as  <code class="docutils literal"><span class="pre">isAnimation</span> <span class="pre">=</span> <span class="pre">opacity_0.5</span></code>
+5 in a <code class="docutils literal"><span class="pre">opacity_&lt;final</span> <span class="pre">value&gt;</span></code> form.</p>
+<p>Initial opacity value is set with ButtonOpacity parameter.</p>
+<p>Demo link - <a class="reference external" href="http://demo.probtn.com/button_example/opacity_animation">http://demo.probtn.com/button_example/opacity_animation</a></p>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/8-1-opacity-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
+<div class="section" id="rollout">
+<h3>rollout<a class="headerlink" href="#rollout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The button appears form the right/left edge of the screen during the scroll.</p>
+<p>Using parameters:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>Current animation is set as <code class="docutils literal"><span class="pre">isAnimation</span> <span class="pre">=</span> <span class="pre">rollout_left</span></code> in a <code class="docutils literal"><span class="pre">rollout_&lt;side&gt;</span></code> form. The side can have the value <code class="docutils literal"><span class="pre">left</span></code> or <code class="docutils literal"><span class="pre">right</span></code>.</p>
+<p>It is also possible to set the width of rollout <code class="docutils literal"><span class="pre">rollout_&lt;side&gt;_&lt;width&gt;</span></code> for example <code class="docutils literal"><span class="pre">rollout</span></code>, <code class="docutils literal"><span class="pre">rollout_left</span></code>, <code class="docutils literal"><span class="pre">rollout_left_60</span></code>.</p>
+<p>Demo links:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://demo.probtn.com/button_example2/rollout">http://demo.probtn.com/button_example2/rollout</a></li>
+<li><a class="reference external" href="http://demo.probtn.com/button_example2/rollout/right/">http://demo.probtn.com/button_example2/rollout/right/</a></li>
+</ul>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/8-2-rollout-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div><div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/8-3-rollout-right-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
+<div class="section" id="lookout">
+<h3>lookout<a class="headerlink" href="#lookout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The button appears from the edge of the screen and hides to within the set period of time.</p>
+<p>Using parameters:
+- <code class="docutils literal"><span class="pre">isAnimation</span></code>
+- <code class="docutils literal"><span class="pre">animationDuration</span></code></p>
+<p>Current animation is set as <code class="docutils literal"><span class="pre">isAnimation</span> <span class="pre">=</span> <span class="pre">lookout_left</span></code> in a <code class="docutils literal"><span class="pre">lookout_&lt;side&gt;</span></code> form. The side can have the value <code class="docutils literal"><span class="pre">left</span></code> or <code class="docutils literal"><span class="pre">right</span></code>.</p>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/8-4-lookout-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
+<div class="section" id="forwardandback">
+<h3>forwardAndBack<a class="headerlink" href="#forwardandback" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The button moves from the left edge of the screen to the right one and backward.</p>
+<p>Using parameters:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>Example:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://demo.probtn.com/button_example2/forwardAndBack/">http://demo.probtn.com/button_example2/forwardAndBack/</a></li>
+</ul>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/8-5-forwardAndBack-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
+<div class="section" id="forwardstopandaway">
+<h3>forwardStopAndAway<a class="headerlink" href="#forwardstopandaway" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The button moves from the left edge of the screen, stops in the middle and moves further to the right one.</p>
+<p>Duration for each step is set by <code class="docutils literal"><span class="pre">animationDuration</span></code> param.</p>
+<p>Using parameters:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">isAnimation</span></code></li>
+<li><code class="docutils literal"><span class="pre">animationDuration</span></code></li>
+</ul>
+<p>Example:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://demo.probtn.com/button_example2/forwardStopAndAway">http://demo.probtn.com/button_example2/forwardStopAndAway</a></li>
+</ul>
+<div class="videoExample">
+        <img id="mainImage1" src="http://probtn.blob.core.windows.net/video/i6-stand.png" srcset="http://probtn.blob.core.windows.net/video/i6-stand@2x.png 2x" style="width: 411px; height:840px;" alt=""/>
+        <video onclick="playVideo(this);" controls="controls" preload="metadata" class="videoItem">
+                <source src="https://demo.probtn.com/video/en/8-6-forwardStopAndAway-eng_x264.mp4" type="video/mp4" />
+        </video>
+</div></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

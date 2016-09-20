@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Алфавитный указатель &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  <title>Управление кнопкой посредстовм postMessage сообщений из iframe &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
   
 
   
@@ -31,7 +30,8 @@
   
 
   
-    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/> 
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="prev" title="Описание вариантов таргетинга в админке" href="admin_targetings.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -81,7 +81,7 @@
             
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
@@ -98,7 +98,17 @@
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
 <li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
 <li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Управление кнопкой посредстовм postMessage сообщений из iframe</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Формат объекта в сообщении</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Варианты сообщений</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-start-content-showed-timer">probtn_start_content_showed_timer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-stop-content-showed-timer">probtn_stop_content_showed_timer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-close">probtn_close</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Пример отправки сообщения</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -129,9 +139,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Управление кнопкой посредстовм postMessage сообщений из iframe</li>
       <li class="wy-breadcrumbs-aside">
         
+          
+            <a href="_sources/postMessage_button_control.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -141,17 +153,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-<h1 id="index">Алфавитный указатель</h1>
-
-<div class="genindex-jumpbox">
- 
+  <div class="section" id="postmessage-iframe">
+<span id="hpmd"></span><h1>Управление кнопкой посредстовм postMessage сообщений из iframe<a class="headerlink" href="#postmessage-iframe" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Возможность управления кнопкой из iframe (к примеру из показываемой страницы в модальном окне или креатива, показываемого в iframe) бывает необходима, в случае если на какие-либо действия внутри iframe нужно соответствующее действие кнопки (к примеру закрытие модального окна, закрытие кнопки и т.д.).</p>
+<p>Ниже описан формат передаваемого объекта и список доступных команд.</p>
+<div class="section" id="id1">
+<h2>Формат объекта в сообщении<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
+<div class="section" id="id2">
+<h2>Варианты сообщений<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="probtn-start-content-showed-timer">
+<h3>probtn_start_content_showed_timer<a class="headerlink" href="#probtn-start-content-showed-timer" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Передача сообщения для запуска таймера времени просмотра контента пользователем.</p>
+</div>
+<div class="section" id="probtn-stop-content-showed-timer">
+<h3>probtn_stop_content_showed_timer<a class="headerlink" href="#probtn-stop-content-showed-timer" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Передача сообщения об остановке таймера времени просмотра контента пользователем и произведении отправки статистики в admin.probtn.com</p>
+</div>
+<div class="section" id="probtn-close">
+<h3>probtn_close<a class="headerlink" href="#probtn-close" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Закрытие кнопки (включая модальное окно, области закрытияЮ активные зоны и т.д.) и отправка статистики о ее закрытии</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Пример отправки сообщения<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
 </div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="admin_targetings.html" class="btn btn-neutral" title="Описание вариантов таргетинга в админке" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
