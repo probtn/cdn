@@ -3138,7 +3138,7 @@ var loadProbtn = function (jQuery) {
 
 	                        // replace with video item
 	                        content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;"> \
-	        <table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0 auto;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline onclick="' + videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;"> \
+	        <table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline onclick="' + videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;"> \
 	          <source src="' + ProBtnControl.params.ContentURL + '" type="video/mp4"> \
 	            Your browser does not support the video tag. \
 	        </video></td></tr></table> \
@@ -3185,13 +3185,12 @@ var loadProbtn = function (jQuery) {
 
 	                        var videoHeight = 0;
 	                        var videoWidth = 0;
-	                        if (newFancyboxWidth > newFancyboxHeight) {
+	                        if (newFancyboxWidth < newFancyboxHeight) {
 	                            videoHeight = newFancyboxHeight;
 	                            videoWidth = (videoHeight / ProBtnControl.params.VideoSize.Y) * ProBtnControl.params.VideoSize.X;
 	                        } else {
 	                            videoWidth = newFancyboxWidth;
 	                            videoHeight = (videoWidth / ProBtnControl.params.VideoSize.X) * ProBtnControl.params.VideoSize.Y;
-
 	                        }
 
 	                        $(".probtn_video_wrapper").width(newFancyboxWidth);
@@ -4427,13 +4426,23 @@ var loadProbtn = function (jQuery) {
 
 	                            setFancyboxSizes();
 
-	                            if (newFancyboxWidth > newFancyboxHeight) {
+	                            //if (newFancyboxWidth < newFancyboxHeight) {
+	                            if ($('.fancybox-inner').width() > $('.fancybox-inner').height()) {
 	                                var videoHeight = $('.fancybox-inner').height();
 	                                var videoWidth = (videoHeight / ProBtnControl.params.VideoSize.Y) * ProBtnControl.params.VideoSize.X;
+
+	                                if (videoWidth > $('.fancybox-inner').width()) {
+	                                    var videoWidth = $('.fancybox-inner').width();
+	                                    var videoHeight = (videoWidth / ProBtnControl.params.VideoSize.X) * ProBtnControl.params.VideoSize.Y;
+	                                }
 	                            } else {
 	                                var videoWidth = $('.fancybox-inner').width();
-	                                //var videoHeight = (videoHeight / ProBtnControl.params.VideoSize.X) * ProBtnControl.params.VideoSize.Y;
 	                                var videoHeight = (videoWidth / ProBtnControl.params.VideoSize.X) * ProBtnControl.params.VideoSize.Y;
+
+	                                if (videoHeight > $('.fancybox-inner').height()) {
+	                                    var videoHeight = $('.fancybox-inner').height();
+	                                    var videoWidth = (videoHeight / ProBtnControl.params.VideoSize.Y) * ProBtnControl.params.VideoSize.X;
+	                                }
 	                            }
 
 	                            //set video sizes
