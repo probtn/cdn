@@ -104,6 +104,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#probtn-start-content-showed-timer">probtn_start_content_showed_timer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#probtn-stop-content-showed-timer">probtn_stop_content_showed_timer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#probtn-close">probtn_close</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-hide">probtn_hide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-hide-content">probtn_hide_content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#button-image-iframe-disable-overlay">button_image_iframe_disable_overlay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#button-image-iframe-done">button_image_iframe_done</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-restore-button-size">probtn_restore_button_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#button-image-iframe-size">button_image_iframe_size</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">Пример отправки сообщения</a></li>
@@ -159,6 +165,9 @@
 <p>Ниже описан формат передаваемого объекта и список доступных команд.</p>
 <div class="section" id="id1">
 <h2>Формат объекта в сообщении<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Пример:
+<code class="docutils literal"><span class="pre">{command:</span> <span class="pre">&quot;command_value&quot;,</span> <span class="pre">size:</span> <span class="pre">{width:</span> <span class="pre">100,</span> <span class="pre">height:</span> <span class="pre">100}</span></code></p>
+<p>Вместо <code class="docutils literal"><span class="pre">command_value</span></code> указываем одну из доступных команд ниже. <code class="docutils literal"><span class="pre">Size</span></code> используем только для <code class="docutils literal"><span class="pre">button_image_iframe_size</span></code>, где указываем размеры области.</p>
 </div>
 <div class="section" id="id2">
 <h2>Варианты сообщений<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
@@ -174,9 +183,34 @@
 <h3>probtn_close<a class="headerlink" href="#probtn-close" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Закрытие кнопки (включая модальное окно, области закрытияЮ активные зоны и т.д.) и отправка статистики о ее закрытии</p>
 </div>
+<div class="section" id="probtn-hide">
+<h3>probtn_hide<a class="headerlink" href="#probtn-hide" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Скрытие кнопки (скрывается только кнопка)</p>
+</div>
+<div class="section" id="probtn-hide-content">
+<h3>probtn_hide_content<a class="headerlink" href="#probtn-hide-content" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Скрыть модальное окно</p>
+</div>
+<div class="section" id="button-image-iframe-disable-overlay">
+<h3>button_image_iframe_disable_overlay<a class="headerlink" href="#button-image-iframe-disable-overlay" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Скрыть overlay поверх iframe креатива для того чтобы дать пользователю возможность взаимодействовать со страницей внутри кнопки.</p>
+</div>
+<div class="section" id="button-image-iframe-done">
+<h3>button_image_iframe_done<a class="headerlink" href="#button-image-iframe-done" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Показатьвернуть iframe креатив</p>
+</div>
+<div class="section" id="probtn-restore-button-size">
+<h3>probtn_restore_button_size<a class="headerlink" href="#probtn-restore-button-size" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Восстановить изначальные размеры кнопки</p>
+</div>
+<div class="section" id="button-image-iframe-size">
+<h3>button_image_iframe_size<a class="headerlink" href="#button-image-iframe-size" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Установить размеры overlay над iframe креатива кнопки. В сообщении также передается новый размер overlay.</p>
+</div>
 </div>
 <div class="section" id="id3">
 <h2>Пример отправки сообщения<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">window.top.postMessage({</span> <span class="pre">command:</span> <span class="pre">&quot;probtn_close&quot;</span> <span class="pre">},</span> <span class="pre">'*');</span></code></p>
 </div>
 </div>
 
