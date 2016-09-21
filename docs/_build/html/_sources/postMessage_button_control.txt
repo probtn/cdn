@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
  
-.. _hpmd:
+.. _postMessage_button_control:
  
 Управление кнопкой посредстовм postMessage сообщений из iframe
 ==================================

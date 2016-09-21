@@ -27,4 +27,5 @@ Profit Button
    admin_targetings
    postMessage_button_control
    postMessage_button_animation
+   button_additional_animations_param
 
