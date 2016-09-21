@@ -81,5 +81,5 @@ Step 0
 
 Добавьте следующий код в ваше  объявление
 
-``<script src="//cdn.probtn.com/probtn_concat.js"></script>``
+``<script src="//cdn.probtn.com/showinparent_concat.js"></script>``
 

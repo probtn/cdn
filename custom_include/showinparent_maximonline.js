@@ -1,4 +1,7 @@
 (function () {
+	
+var init = function() {
+	
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
@@ -26,16 +29,37 @@ function getParameterByName(name) {
 	}
 }
 
+function getCurrentCategory() {
+	try {
+		var content = window.top.document.getElementsByClassName("content");
+		var title = content[0].getElementsByClassName("title");
+		//console.log("breadcrumbs", breadcrumbs[0].children);
+		var categories = [];
+		var string_category = "";
+		console.log(title);
+		//for (var i=0; i<title[0].length; i++) {
+			categories.push(title[0].innerText.trim());
+			string_category = string_category + title[0].innerText.trim()+"";
+		//}
+		//string_category = string_category.substring(0, string_categories.length - 1);
+		console.log("string_category", string_category);
+		return string_category;
+	} catch(ex) {
+		console.log(ex);
+		return "";
+	}
+}
+
 var params = {};
 params.dfp = {};
 params.dfp.isDFP = true;
+params.AdditionalTargetingParam = getCurrentCategory();
 params.dfp.clickUrlEsc = getParameterByName("click_url_esc");
 params.dfp.cacheBuster = getParameterByName("cacheBuster");
 var domain = getParameterByName("domain");
 if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
 } else {
-	//params.domain = 'm.maximonline.ru';
 }
 
 //selectAdSet param
@@ -86,5 +110,30 @@ loadJS('//cdn.probtn.com/custom_include/maximonline.js', function () {
 	}
 	
 });
+
+}
+
+//wait for site breadcrumbs
+var waitBreadcrumbs = setInterval(function() {
+	console.log(3);
+	var content = window.top.document.getElementsByClassName("content");
+	if (content.length>0) {
+		var title = content[0].getElementsByClassName("title");
+		if (title.length>0) {
+			clearInterval(waitBreadcrumbs);
+			init();
+		}
+	} else {
+	};
+}, 100);
+
+setTimeout(function() {
+	console.log(1);
+	if ((waitBreadcrumbs!==null) && (waitBreadcrumbs!==undefined)) {
+		console.log(2);
+		clearInterval(waitBreadcrumbs);
+		init();	
+	}
+}, 7000);
 
 })();
