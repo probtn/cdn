@@ -101,7 +101,32 @@
 <li class="toctree-l1"><a class="reference internal" href="postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postMessage_button_animation.html">Передача сообщений об этапах анимации</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Дополнительные параметры анимации кнопки</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Анимации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Список анимаций</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opacity">opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rollout">rollout</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">&lt;начальное_положение&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">&lt;процент_выдвижения_кнопки&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lookout">lookout</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">&lt;начальное_положение&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">&lt;процент_выдвижения_кнопки&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cornertocorner">cornerToCorner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#forwardstopandaway">forwardStopAndAway</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">&lt;начальное_положение&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#forwardandstop">forwardAndStop</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">&lt;начальное_положение&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">&lt;длительность_первого_этапа&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">&lt;дополнительный_режим&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">&lt;начальное_положение&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pauseduration">&lt;pauseDuration&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stopduration">&lt;stopDuration&gt;</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -152,16 +177,117 @@
 <span id="id1"></span><h1>Дополнительные параметры анимации кнопки<a class="headerlink" href="#hpmd" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Посредством дополнительных параметров анимации, указываемых в самом имени анимации посредством <code class="docutils literal"><span class="pre">_</span></code> разделителей возможно указать время отдельных этапов анимаций, ее направления и т.д.</p>
 <div class="section" id="id2">
-<h2>Анимации<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Список анимаций<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <ul class="simple">
-<li>opacity</li>
-<li>rollout</li>
-<li>lookout</li>
-<li>forwardAndBack</li>
-<li>forwardStopAndAway</li>
-<li>cornerToCorner</li>
-<li>forwardAndStop</li>
+<li><code class="docutils literal"><span class="pre">opacity</span></code></li>
+<li><code class="docutils literal"><span class="pre">rollout</span></code></li>
+<li><code class="docutils literal"><span class="pre">lookout</span></code></li>
+<li><code class="docutils literal"><span class="pre">forwardAndBack</span></code></li>
+<li><code class="docutils literal"><span class="pre">forwardStopAndAway</span></code></li>
+<li><code class="docutils literal"><span class="pre">cornerToCorner</span></code></li>
+<li><code class="docutils literal"><span class="pre">forwardAndStop</span></code></li>
 </ul>
+</div>
+<div class="section" id="opacity">
+<h2>opacity<a class="headerlink" href="#opacity" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Формат: <code class="docutils literal"><span class="pre">opacity_&lt;конечное_значение_прозрачности_кнопки&gt;</span></code></p>
+<p>Пример: <code class="docutils literal"><span class="pre">opacity_0.3</span></code></p>
+</div>
+<div class="section" id="rollout">
+<h2>rollout<a class="headerlink" href="#rollout" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Формат: <code class="docutils literal"><span class="pre">rollout_&lt;начальное_положение&gt;_&lt;процент_выдвижения_кнопки&gt;</span></code></p>
+<p>Пример: <code class="docutils literal"><span class="pre">rollout_left_70</span></code></p>
+<div class="section" id="id3">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">left</span></code></li>
+<li><code class="docutils literal"><span class="pre">right</span></code></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>&lt;процент_выдвижения_кнопки&gt;<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Процент от ширины страницы на которую максимально будет выдвинута кнопка</p>
+</div>
+</div>
+<div class="section" id="lookout">
+<h2>lookout<a class="headerlink" href="#lookout" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Формат: <code class="docutils literal"><span class="pre">lookout_&lt;начальное_положение&gt;_&lt;процент_выдвижения_кнопки&gt;</span></code></p>
+<p>Пример: <code class="docutils literal"><span class="pre">lookout_left_70</span></code></p>
+<div class="section" id="id5">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">left</span></code></li>
+<li><code class="docutils literal"><span class="pre">right</span></code></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>&lt;процент_выдвижения_кнопки&gt;<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Процент от ширины кнопки на которую максимально будет &#8220;выглядывать&#8221; кнопка</p>
+</div>
+</div>
+<div class="section" id="cornertocorner">
+<h2>cornerToCorner<a class="headerlink" href="#cornertocorner" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Дополнительные параметры отсутствуют.</p>
+</div>
+<div class="section" id="forwardstopandaway">
+<h2>forwardStopAndAway<a class="headerlink" href="#forwardstopandaway" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Формат: <code class="docutils literal"><span class="pre">forwardStopAndAway_&lt;начальное_положение&gt;</span></code></p>
+<p>Пример: <code class="docutils literal"><span class="pre">forwardStopAndAway_right</span></code></p>
+<div class="section" id="id7">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">left</span></code></li>
+<li><code class="docutils literal"><span class="pre">right</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="forwardandstop">
+<h2>forwardAndStop<a class="headerlink" href="#forwardandstop" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Формат: <code class="docutils literal"><span class="pre">forwardAndStop_&lt;начальное_положение&gt;_&lt;длительность_первого_этапа&gt;_&lt;дополнительный_режим&gt;</span></code></p>
+<p>Пример: <code class="docutils literal"><span class="pre">forwardAndStop_right_2000</span></code></p>
+<div class="section" id="id8">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">left</span></code></li>
+<li><code class="docutils literal"><span class="pre">right</span></code></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h3>&lt;длительность_первого_этапа&gt;<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Длительность проезда кнопки от одного края до другого в мс</p>
+</div>
+<div class="section" id="id10">
+<h3>&lt;дополнительный_режим&gt;<a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">maximizeButton</span></code> - увеличение размеров кнопки до размеров экрана по завершению перемещения</li>
+</ul>
+<blockquote>
+<div>forwardAndBack</div></blockquote>
+<hr class="docutils" />
+<p>Формат: `` forwardAndBack_&lt;начальное_положение&gt;_&lt;pauseDuration&gt;_&lt;stopDuration&gt;``</p>
+<p>Пример: `` forwardAndBack_right_2000``</p>
+</div>
+<div class="section" id="id11">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">left</span></code></li>
+<li><code class="docutils literal"><span class="pre">right</span></code></li>
+</ul>
+</div>
+<div class="section" id="pauseduration">
+<h3>&lt;pauseDuration&gt;<a class="headerlink" href="#pauseduration" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Длительность паузы (в мс) после первого проезда кнопки в противоположной части экрана</p>
+</div>
+<div class="section" id="stopduration">
+<h3>&lt;stopDuration&gt;<a class="headerlink" href="#stopduration" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Длительность задержки до уменьшения probtn_wrapper</p>
+</div>
 </div>
 </div>
 
