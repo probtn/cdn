@@ -1679,19 +1679,19 @@ probtn_initTrackingLinkTest();
                             }).appendTo("body");
                         }
 
-                        if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
+                        if (false) {
+                        //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
                             ProBtnControl.DeviceCID = probtnCID;
                             callback(probtnCID);
                         } else {
                             if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                                 var receiveMessage = function (event) {
-                                    if (ProBtnControl.params.Debug) console.log("event", event);
-                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID")) {
+                                    //console.log("DeviceCID event", event);
+                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && (event.origin === "https://cdn.probtn.com")) {
                                         ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
                                         ProBtnControl.DeviceCID = event.data.cid;
                                         callback(event.data.cid);
                                     } else {
-
                                     }
                                 }
                                 window.self.addEventListener("message", receiveMessage, false);
@@ -5857,7 +5857,7 @@ probtn_initTrackingLinkTest();
 
                     try {
                         if ((ProBtnControl.params.UseExternalDataAboutUser === true) && (document.getElementById("probtn_guidIframe")!==undefined)) {
-                            document.getElementById("probtn_guidIframe").contentWindow.postMessage({ "command": "amber_matching" }, ProBtnControl.guidCookieControlPath);
+                            document.getElementById("probtn_guidIframe").contentWindow.postMessage({ "command": "amber_matching" }, ProBtnControl.guidCookieControlPath); //ProBtnControl.guidCookieControlPath
                         }
                     } catch (ex) {
                         console.log(ex);
