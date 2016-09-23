@@ -939,6 +939,7 @@ probtn_initTrackingLinkTest();
             initializedActiveZones: {},
             //curent app version
             mainVersion: "1.8.1814_23092016_dev",
+            DeviceCID_log: "none",
             hintText: undefined, //hinttext object with additional functions
             pizzabtn: undefined,
             wrapper: undefined,
@@ -1688,6 +1689,9 @@ probtn_initTrackingLinkTest();
                                 var receiveMessage = function (event) {
                                     console.log("DeviceCID event", event);
                                     if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && (event.origin === "https://cdn.probtn.com")) {
+
+                                        ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
+
                                         ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
                                         ProBtnControl.DeviceCID = event.data.cid;
                                         callback(event.data.cid);
@@ -1856,7 +1860,7 @@ probtn_initTrackingLinkTest();
                         campaignId = "&CampaignID=" + ProBtnControl.params.CampaignID;
                     }
 
-                    var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version="+ ProBtnControl.mainVersion +"&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
+                    var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
                         ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam + "&callback=?";
 
                     if ((params_object == null) || (params_object == undefined)) {
