@@ -7,7 +7,7 @@
 
     </head>
     <body>
-		<img src="http://goo.gl/Sq1njd" alt="google pixel"/>
+		<img src="https://goo.gl/Sq1njd" alt="google pixel"/>
 		<script>		
 			/*var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
@@ -42,15 +42,20 @@
             var cookieFunctions = {
                 GetDeviceCUID: function () {
                     var probtnId = "1234";
-                    if (cookieFunctions.readCookie("probtnCID") != null) {
+                    if ((cookieFunctions.readCookie("probtnCID") !== null) && (cookieFunctions.readCookie("probtnCID") !== undefined) && (cookieFunctions.readCookie("probtnCID") !== "null")) {
+						probtnId = cookieFunctions.readCookie("probtnCID");
                     } else {
                         //set cookie
                         var currentdate = new Date();
                         currentdate = currentdate.getTime();
                         probtnId = currentdate.toString() + "-" + navigator.userAgent.toString().ProBtnHashCode();
                         cookieFunctions.createCookie("probtnCID", probtnId, 365);
-                    };
-                    probtnId = cookieFunctions.readCookie("probtnCID");
+						
+						var firstUserCountLink = window.document.createElement('img');
+						firstUserCountLink.id = "firstUserCountLink";
+						firstUserCountLink.src = "https://goo.gl/1KhtnJ";
+						window.document.body.appendChild(firstUserCountLink);
+                    }                    
                     return probtnId;
                 },
                 createCookie: function (name, value, days) {
@@ -78,21 +83,24 @@
             }
 	
 			window.onload = function() {
-				var cookieName = cookieFunctions.readCookie("probtnId");
-				if ((cookieName !== null) && (cookieName !== undefined) && (cookieName !== "")) {
+				var cookieName = cookieFunctions.GetDeviceCUID(); //cookieFunctions.readCookie("probtnCID");
+				/*if ((cookieName !== null) && (cookieName !== undefined) && (cookieName !== "")) {
 					
 				} else {
 					cookieName = cookieFunctions.GetDeviceCUID();
-					cookieFunctions.createCookie("probtnId", cookieName, 365);
+					cookieFunctions.createCookie("probtnCID", cookieName, 365);
 					
 					var firstUserCountLink = window.document.createElement('img');
 					firstUserCountLink.id = "firstUserCountLink";
 					firstUserCountLink.src = "https://goo.gl/1KhtnJ";
 					window.document.body.appendChild(firstUserCountLink);
-				}            
+				}*/            
 
 				if (window.self !== window.top) {
-					window.top.postMessage({'type': 'probtnCID', 'cid': cookieName}, "*");
+					
+					var deviceCUID_item = {'type': 'probtnCID', 'cid': cookieName};
+					console.log("deviceCUID_item", deviceCUID_item);
+					window.top.postMessage(deviceCUID_item, "*");
 				}
 				
 				var receiveMessage = function (event) {
