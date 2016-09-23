@@ -42,7 +42,7 @@
             var cookieFunctions = {
                 GetDeviceCUID: function () {
                     var probtnId = "1234";
-                    if ((cookieFunctions.readCookie("probtnCID") !== null) && (cookieFunctions.readCookie("probtnCID") !== undefined) && (cookieFunctions.readCookie("probtnCID") !== "null")) {
+                    if ((cookieFunctions.readCookie("probtnCID") !== null) && (cookieFunctions.readCookie("probtnCID") !== undefined) && (cookieFunctions.readCookie("probtnCID") !== "null") && (cookieFunctions.readCookie("probtnCID") !== "") && (cookieFunctions.readCookie("probtnCID") !== "undefined")) {
 						probtnId = cookieFunctions.readCookie("probtnCID");
                     } else {
                         //set cookie
