@@ -972,7 +972,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        };
 
 			        var ProBtnControl = {
-			            guidCookieControlPath: "https://cdn.probtn.com/cookie_iframe/cookie-iframe.html",
+			            guidCookieControlPath: "//cdn.probtn.com/cookie_iframe/cookie-iframe.html",
 			            //guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
 			            uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
 			            currentDomain: document.domain.replace("www.", ""),
@@ -1729,7 +1729,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
 			                                var receiveMessage = function (event) {
 			                                    console.log("DeviceCID event", event);
-			                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && (event.origin === "https://cdn.probtn.com")) {
+			                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && (event.origin === "https://cdn.probtn.com") && (event.origin === "http://cdn.probtn.com")) {
 
 			                                        ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
 
