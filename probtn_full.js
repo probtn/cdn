@@ -1688,7 +1688,7 @@ probtn_initTrackingLinkTest();
                             if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                                 var receiveMessage = function (event) {
                                     console.log("DeviceCID event", event);
-                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && (event.origin === "https://cdn.probtn.com") && (event.origin === "http://cdn.probtn.com")) {
+                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))) {
 
                                         ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
 
