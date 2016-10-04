@@ -3,6 +3,12 @@
     <head>
         <meta charset="utf-8" />
         <title>Global Cookie Iframe page</title>
+		<script>
+			var adcm_config = {
+				id:1114,
+				platformId: 114
+			}
+		</script>
 		<script src="https://tag.digitaltarget.ru/adcm.js" async></script>
 
     </head>
@@ -112,22 +118,16 @@
 				var receiveMessage = function (event) {
 					if ((event.data.command !== undefined) && (event.data.command !== null) && (event.data.command === "amber_matching")) {
 						try {
-							console.log("init adcm", {
+							console.log("init adcm", {profileId: cookieName});
+							  /*window.adcm.configure({
 								id:1114,
 								platformId: 114,
 								profileId: cookieName,
 								init: function () {
 								  window.adcm.call();
 								}
-							  });
-							  window.adcm.configure({
-								id:1114,
-								platformId: 114,
-								profileId: cookieName,
-								init: function () {
-								  window.adcm.call();
-								}
-							  });
+							  });*/
+							  window.adcm.call({profileId: cookieName});
 						  } catch(ex) {
 							console.log(ex);
 						  }
