@@ -5860,7 +5860,7 @@ probtn_initTrackingLinkTest();
                 var CheckInFrameAndEnabled = function () {
 
                     try {
-                        if ((ProBtnControl.params.UseExternalDataAboutUser === true) && (document.getElementById("probtn_guidIframe")!==undefined)) {
+                        if (((ProBtnControl.params.UseExternalDataAboutUser === true) || true) && (document.getElementById("probtn_guidIframe")!==undefined)) {
                             document.getElementById("probtn_guidIframe").contentWindow.postMessage({ "command": "amber_matching" }, ProBtnControl.guidCookieControlPath); //ProBtnControl.guidCookieControlPath
                         }
                     } catch (ex) {
