@@ -5008,6 +5008,95 @@ var loadProbtn = function (jQuery) {
 	                            //}, 0);
 	                        }
 	                    },
+	                    TopToBottomAndStopAnimation: function () {
+	                        var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
+
+	                        var side = "top";
+	                        try {
+	                            if ((forwardAndStopParams[1] !== null) && (forwardAndStopParams[1] !== undefined)) {
+	                                side = forwardAndStopParams[1];
+	                            }
+	                        } catch (ex) {
+	                        }
+
+
+	                        var firstPartDuration = ProBtnControl.params.animationDuration / 2;
+	                        try {
+	                            if ((forwardAndStopParams[2] !== null) && (forwardAndStopParams[2] !== undefined)) {
+	                                firstPartDuration = forwardAndStopParams[2];
+	                            }
+	                        } catch (ex) {
+	                        }
+
+
+	                        var additionalMode = "";
+	                        try {
+	                            if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
+	                                additionalMode = forwardAndStopParams[3];
+	                            }
+	                        } catch (ex) {
+	                        }
+
+	                        if (forwardAndStopParams[0].toLowerCase() == "TopToBottomAndStop".toLowerCase()) {
+
+	                            if (side == 'bottom') {
+	                                ProBtnControl.pizzabtn.css("top", ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H));
+	                            } else {
+	                                ProBtnControl.pizzabtn.css("top", 0);
+	                            }
+
+	                            if (side == 'bottom') {
+	                                var top = 0;
+	                            } else {
+	                                var top = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H);
+	                            }
+
+	                            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+	                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+	                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+	                            ProBtnControl.pizzabtn.css("transition-property", "left, top");
+	                            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+
+	                            ProBtnControl.pizzabtn.stop(true, true);
+
+	                            var probtnIframeEvent = function (name, data) {
+	                                if ($("#pizzabtnImg").is("iframe")) {
+	                                    var myIframe = document.getElementById('pizzabtnImg');
+	                                    myIframe.contentWindow.postMessage({ message: name, data: data }, '*');
+	                                }
+	                            }
+
+	                            setTimeout(function () {
+	                                probtnIframeEvent("probtn_topToBottomAndStop_start");
+
+	                                ProBtnControl.pizzabtn.animate({
+	                                    top: top
+	                                }, {
+	                                    duration: ProBtnControl.params.animationDuration,
+	                                    done: function () {
+	                                        probtnIframeEvent("probtn_topToBottomAndStop_stop", ProBtnControl.pizzabtn.position());
+
+	                                        switch (additionalMode) {
+	                                            case "maximizeButton":
+	                                                break;
+	                                            default:
+	                                        }
+
+	                                        setTimeout(function () {
+	                                            if (side == 'bottom') {
+	                                                var top = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H);
+	                                            } else {
+	                                                var top = 0;
+	                                            }
+
+	                                            ProBtnControl.pizzabtn.stop(true, true);
+	                                        }, ProBtnControl.params.animationDuration);
+	                                    }
+	                                });
+	                            }, firstPartDuration);
+
+	                        }
+	                    },
 	                    checkAndRunAnimation: function () {
 	                        setTimeout(function () {
 	                            //$(document).ready(function () {
@@ -5019,6 +5108,8 @@ var loadProbtn = function (jQuery) {
 
 	                            ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
 	                            ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
+
+	                            ProBtnControl.additionalButtonFunctions.animation.TopToBottomAndStopAnimation();
 
 	                            //ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
 	                            //ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
