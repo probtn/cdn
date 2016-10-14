@@ -2154,6 +2154,137 @@ var loadProbtn = function (jQuery) {
 	                }
 	            },
 	            initFunctions: {
+	                initiosWebAudio: function () {
+
+	                    if ((ProBtnControl.params.VideoPoster !== "") && (ProBtnControl.params.VideoPoster !== null) && (ProBtnControl.params.VideoPoster !== undefined)) {
+
+	                        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+	                        var context = new AudioContext();
+
+	                        function loadDogSound(url) {
+	                            var request = new XMLHttpRequest();
+	                            request.open('GET', url, true);
+	                            request.responseType = 'arraybuffer';
+
+	                            function onError(e) {
+	                                console.log(e);
+	                            }
+
+	                            // Decode asynchronously
+	                            request.onload = function() {
+	                                context.decodeAudioData(request.response, function(buffer) {
+	                                    dogBarkingBuffer = buffer;
+	                                    playSound(dogBarkingBuffer);
+	                                }, onError);
+	                            }
+	                            request.send();
+	                        }
+
+	                        function playSound(buffer) {
+	                            var source = context.createBufferSource(); // creates a sound source
+	                            source.buffer = buffer; // tell the source which sound to play
+	                            source.connect(context.destination); // connect the source to the context's destination (the speakers)
+	                            source.start(0); // play the source now
+	                            // note: on older systems, may have to use deprecated noteOn(time);
+	                        }
+
+	                        if (true) {
+	                            //if (ProBtnControl.userData.mobile) {
+
+	                            //console.log("initiosWebAudio");
+	                            var audioUnlocked = true;
+	                            var isUnlocked = false;
+	                            var isIOS = false;
+
+	                            function isFunction(functionToCheck) {
+	                                var getType = {};
+	                                return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+	                            }
+
+	                            function unlock(callback) {
+	                                console.log("unlock");
+
+	                                if (isIOS || this.unlocked) {
+	                                    console.log("return");
+	                                    callback();
+	                                    return;
+	                                }
+
+	                                try {
+	                                    // create empty buffer and play it
+	                                    var buffer = context.createBuffer(1, 1, 22050);
+	                                    var source = context.createBufferSource();
+	                                    source.buffer = buffer;
+	                                    source.connect(context.destination);
+
+	                                    console.log(source);
+	                                    if (isFunction(source.noteOn)) {
+	                                        source.noteOn(0);
+	                                    } else {
+	                                        source.start(0);
+	                                    }
+	                                } catch (ex) {
+	                                    console.log(ex);
+	                                }
+
+	                                // by checking the play state after some time, we know if we're really unlocked
+	                                setTimeout(function() {
+	                                    console.log("source.playbackState", source.playbackState);
+	                                    if ((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
+	                                        isUnlocked = true;
+	                                        callback();
+	                                    } else {
+	                                        callback();
+	                                    }
+	                                }, 0);
+	                            }
+
+	                            window.addEventListener('touchstart', function() {
+	                                if (audioUnlocked) {
+	                                    try {
+	                                        unlock(function() {
+	                                            if (audioUnlocked) {
+	                                                audioUnlocked = false;
+
+	                                                loadDogSound(ProBtnControl.params.VideoPoster);
+
+	                                                if ($("#pizzabtnImg").is("iframe")) {
+	                                                    try {
+	                                                        var myIframe = document.getElementById('pizzabtnImg');
+	                                                        if (myIframe.contentWindow !== null) {
+
+	                                                            //console.log("probtn_web_audio_api_enabled");
+	                                                            myIframe.contentWindow.postMessage({ message: "probtn_web_audio_api_enabled" }, '*');
+	                                                        }
+	                                                    } catch (ex) {
+
+	                                                    }
+	                                                }
+	                                            }
+	                                        });
+	                                    } catch (ex) {
+	                                        console.log(ex);
+	                                    }
+	                                }
+	                            }, false);
+	                        } else {
+	                            loadDogSound(ProBtnControl.params.VideoPoster);
+
+	                            if ($("#pizzabtnImg").is("iframe")) {
+	                                try {
+	                                    var myIframe = document.getElementById('pizzabtnImg');
+	                                    if (myIframe.contentWindow !== null) {
+
+	                                        //console.log("probtn_web_audio_api_enabled");
+	                                        myIframe.contentWindow.postMessage({ message: "probtn_web_audio_api_enabled" }, '*');
+	                                    }
+	                                } catch (ex) {
+
+	                                }
+	                            }
+	                        }
+	                    }
+	                },
 	                initButtonAndUserDeviceInfo: function () {
 	                    try {
 	                        var parser = new UAParser();
@@ -6587,6 +6718,8 @@ var loadProbtn = function (jQuery) {
 	                    ProBtnControl.initFunctions.initScrollChange();
 	                    ProBtnControl.initFunctions.initActiveZones();
 
+	                    
+
 	                    //if not fullscreen - load pep and fancybox
 	                    if (ProBtnControl.params.ButtonType !== "fullscreen") {
 
@@ -7007,6 +7140,8 @@ var loadProbtn = function (jQuery) {
 	                            }
 	                        });
 
+
+	                        ProBtnControl.initFunctions.initiosWebAudio();
 	                    } //onButtonTap
 
 	                    ProBtnControl.initFunctions.initScrollChange(true);
