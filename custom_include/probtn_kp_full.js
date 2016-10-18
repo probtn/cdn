@@ -1774,7 +1774,7 @@ var loadProbtn = function (jQuery) {
 	                        } else {
 	                            if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
 	                                var receiveMessage = function (event) {
-	                                    console.log("DeviceCID event", event);
+	                                    //console.log("DeviceCID event", event);
 	                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))) {
 
 	                                        ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
@@ -3447,6 +3447,11 @@ var loadProbtn = function (jQuery) {
 	                        case "insertBlock":
 	                            pizzabtnCss.width = "100%";
 	                            break;
+	                        case "fixedTop":
+	                            pizzabtnCss.width = "100%";
+	                            /*$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
+	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: fixed !important; }</style>');*/
+	                            break;
 	                        default:
 	                            break;
 	                    }
@@ -4043,6 +4048,10 @@ var loadProbtn = function (jQuery) {
 	                            $('body').css("margin-top", "0px");
 	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top: 0px !important; position: absolute !important; }</style>');
 	                            break;
+	                        case "fixedTop":
+	                            $('body').css("margin-top", "0px");
+	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top: 0px !important; position: absolute !important; }</style>');
+	                            break;
 	                        default:
 	                            break;
 	                    }
@@ -4158,7 +4167,7 @@ var loadProbtn = function (jQuery) {
 	                            if (parseFloat(newWidthInit) < 0) {
 	                                newWidth = Math.abs(parseFloat(newWidth));
 	                            }
-	                            if (ProBtnControl.params.ExtrusionMode == "insertBlock") {
+	                            if ((ProBtnControl.params.ExtrusionMode === "insertBlock") || (ProBtnControl.params.ExtrusionMode === "fixedTop")) {
 	                                newWidth = $(ProBtnControl.params.ExtrusionPath).width() * (parseFloat(newWidth) / 100);
 	                            } else {
 	                                newWidth = window.innerWidth * (parseFloat(newWidth) / 100);
@@ -4175,7 +4184,7 @@ var loadProbtn = function (jQuery) {
 	                                newHeight = Math.abs(parseFloat(newHeight));
 	                            }
 
-	                            if (ProBtnControl.params.ExtrusionMode == "insertBlock") {
+	                            if ((ProBtnControl.params.ExtrusionMode === "insertBlock") || (ProBtnControl.params.ExtrusionMode === "fixedTop")) {
 	                                newHeight = $(ProBtnControl.params.ExtrusionPath).height() * (parseFloat(newHeight) / 100);
 	                            } else {
 	                                newHeight = window.innerHeight * (parseFloat(newHeight) / 100);
@@ -4189,6 +4198,18 @@ var loadProbtn = function (jQuery) {
 	                        }
 	                        buttonSize.W = newWidth;
 	                        buttonSize.H = newHeight;
+
+	                        if (ProBtnControl.params.ExtrusionMode === "fixedTop") {
+	                            if ($('#probtn_button').height() !== null) {
+	                                $('body').css("margin-top", $('#probtn_button').height() + "px");
+	                                $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + $('#probtn_button').height() + 'px !important; position: fixed !important; }</style>');
+	                            } else {
+	                                $('body').css("margin-top", newHeight + "px");
+	                                $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + newHeight + 'px !important; position: fixed !important; }</style>');
+	                            }
+
+	                        }
+
 	                    } catch (ex) {
 	                    }
 	                    return buttonSize;
@@ -6672,6 +6693,13 @@ var loadProbtn = function (jQuery) {
 	                            var pizzabtn_wrapper = $("<div/>", {
 	                                id: "probtn_wrapper"
 	                            }).prependTo(ProBtnControl.params.ExtrusionPath);
+	                            break;
+	                        case "fixedTop":
+	                            $('head').append('<style type="text/css">#probtn_wrapper { width: 100% !important; display: inline-block !important; position: fixed !important;  } #probtn_button { top: 0px !important; left: 0px !important; width:100% !important; }</style>');
+	                            //height:' + ProBtnControl.params.ButtonSize.H + 'px !important;
+	                            var pizzabtn_wrapper = $("<div/>", {
+	                                id: "probtn_wrapper"
+	                            }).prependTo('body');
 	                            break;
 	                        default:
 	                            var pizzabtn_wrapper = $("<div/>", {
