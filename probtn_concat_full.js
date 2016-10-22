@@ -2108,14 +2108,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 			            },
 			            initFunctions: {
-			                initiosWebAudio: function () {
+			                initWebAudio: function () {
 
-			                    if ((ProBtnControl.params.VideoPoster !== "") && (ProBtnControl.params.VideoPoster !== null) && (ProBtnControl.params.VideoPoster !== undefined)) {
+			                    if ((ProBtnControl.params.SoundURL !== "") && (ProBtnControl.params.SoundURL !== null) && (ProBtnControl.params.SoundURL !== undefined)) {
 
 			                        window.AudioContext = window.AudioContext || window.webkitAudioContext;
 			                        var context = new AudioContext();
 
-			                        function loadDogSound(url) {
+			                        function loadSound(url) {
 			                            var request = new XMLHttpRequest();
 			                            request.open('GET', url, true);
 			                            request.responseType = 'arraybuffer';
@@ -2127,8 +2127,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            // Decode asynchronously
 			                            request.onload = function() {
 			                                context.decodeAudioData(request.response, function(buffer) {
-			                                    dogBarkingBuffer = buffer;
-			                                    playSound(dogBarkingBuffer);
+			                                    var playBuffer = buffer;
+			                                    playSound(playBuffer);
 			                                }, onError);
 			                            }
 			                            request.send();
@@ -2142,22 +2142,22 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            // note: on older systems, may have to use deprecated noteOn(time);
 			                        }
 
-			                        if (true) {
-			                            //if (ProBtnControl.userData.mobile) {
+			                        var touchSoundStart = true;
+			                        if ((ProBtnControl.params.SoundMode === "autoStart") && (ProBtnControl.userData.os !== "iOS")) {
+			                            touchSoundStart = false;
+			                        }
 
-			                            //console.log("initiosWebAudio");
-			                            var audioUnlocked = true;
-			                            var isUnlocked = false;
-			                            var isIOS = false;
+			                        var audioUnlocked = true;
+			                        var isUnlocked = false;
+			                        var isIOS = false;
 
-			                            function isFunction(functionToCheck) {
-			                                var getType = {};
-			                                return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
-			                            }
+			                        function isFunction(functionToCheck) {
+			                            var getType = {};
+			                            return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+			                        }
 
+			                        if (touchSoundStart) {
 			                            function unlock(callback) {
-			                                console.log("unlock");
-
 			                                if (isIOS || this.unlocked) {
 			                                    console.log("return");
 			                                    callback();
@@ -2183,7 +2183,6 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                // by checking the play state after some time, we know if we're really unlocked
 			                                setTimeout(function() {
-			                                    console.log("source.playbackState", source.playbackState);
 			                                    if ((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
 			                                        isUnlocked = true;
 			                                        callback();
@@ -2193,14 +2192,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                }, 0);
 			                            }
 
-			                            window.addEventListener('touchstart', function() {
+			                            function checkndStartAudio() {
+			                                console.log("checkndStartAudio");
 			                                if (audioUnlocked) {
 			                                    try {
-			                                        unlock(function() {
+			                                        unlock(function () {
 			                                            if (audioUnlocked) {
 			                                                audioUnlocked = false;
 
-			                                                loadDogSound(ProBtnControl.params.VideoPoster);
+			                                                loadSound(ProBtnControl.params.SoundURL);
 
 			                                                if ($("#pizzabtnImg").is("iframe")) {
 			                                                    try {
@@ -2220,16 +2220,18 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        console.log(ex);
 			                                    }
 			                                }
-			                            }, false);
+			                            }
+
+			                            window.addEventListener('touchstart', checkndStartAudio, false);
+			                            window.addEventListener('click', checkndStartAudio, false);
 			                        } else {
-			                            loadDogSound(ProBtnControl.params.VideoPoster);
+			                            loadSound(ProBtnControl.params.SoundURL);
 
 			                            if ($("#pizzabtnImg").is("iframe")) {
 			                                try {
 			                                    var myIframe = document.getElementById('pizzabtnImg');
 			                                    if (myIframe.contentWindow !== null) {
 
-			                                        //console.log("probtn_web_audio_api_enabled");
 			                                        myIframe.contentWindow.postMessage({ message: "probtn_web_audio_api_enabled" }, '*');
 			                                    }
 			                                } catch (ex) {
@@ -5426,7 +5428,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
 			                //init default params
 			                ProBtnControl.params = $.extend(true, {
-
+			                    SoundURL: "",
+			                    SoundMode: "",
 
 			                    ExternalData: {},
 
@@ -7123,7 +7126,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        });
 
 
-			                        ProBtnControl.initFunctions.initiosWebAudio();
+			                        ProBtnControl.initFunctions.initWebAudio();
 			                    } //onButtonTap
 
 			                    ProBtnControl.initFunctions.initScrollChange(true);
