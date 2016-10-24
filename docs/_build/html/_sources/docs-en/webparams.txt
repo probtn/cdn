@@ -12,6 +12,30 @@ Description of the parameters used by the button (by application)
  
 If a parameter is used differently in different modes, it is specifically marked (including, the required modes)
 
+SoundURL
+----------------------------------
+URL to the sound file which would be played at page.
+If field is empty, sound wouldn't be played.
+
+By default: ""
+
+SoundMode
+----------------------------------
+Mode for audio play.
+
+By default: ""
+
+Variants:
+
+* ``autoStart`` - automatic sound play at button start (except ios, where this mode works simmular to default mode)
+* "" - start sound play when  user manipulate page at first time.
+
+UseExternalDataAboutUser
+----------------------------------
+Use or not additional data for targeting from external systems (at current moment Amber data)
+
+By default: false
+
 FancyboxcloseMethod
 ----------------------------------
 Close animation of modal window (fancybox)

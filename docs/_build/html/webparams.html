@@ -94,6 +94,9 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#soundurl">SoundURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#soundmode">SoundMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#useexternaldataaboutuser">UseExternalDataAboutUser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fancyboxclosemethod">FancyboxcloseMethod</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fancyboxclosespeed">FancyboxCloseSpeed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creativeid">CreativeId</a></li>
@@ -285,6 +288,8 @@
 <li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
 <li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postMessage_button_animation.html">Передача сообщений об этапах анимации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
 </ul>
 
             
@@ -338,6 +343,27 @@
 <li><a class="reference internal" href="index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Интеграция</span></a></li>
 </ul>
+<div class="section" id="soundurl">
+<h2>SoundURL<a class="headerlink" href="#soundurl" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL до звукового файла, который будет воспроизведен на странице.
+Если поле пусто, то никакие действия производится не будут.</p>
+<p>По умолчанию: &#8220;&#8221;</p>
+</div>
+<div class="section" id="soundmode">
+<h2>SoundMode<a class="headerlink" href="#soundmode" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Режим воспроизведения аудио.</p>
+<p>По умолчанию: &#8220;&#8221;</p>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">autoStart</span></code> - автозапуск (за исключением ios, где данный режим работает аналогично режиму по умолчанию)</li>
+<li>&#8220;&#8221; - запуск звука после взаимодействия пользователя со страницей</li>
+</ul>
+</div>
+<div class="section" id="useexternaldataaboutuser">
+<h2>UseExternalDataAboutUser<a class="headerlink" href="#useexternaldataaboutuser" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Использовать или нет дополнительные данные по пользователям из внешних систем (в настоящее время Amber data)</p>
+<p>По умолчанию: false</p>
+</div>
 <div class="section" id="fancyboxclosemethod">
 <h2>FancyboxcloseMethod<a class="headerlink" href="#fancyboxclosemethod" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Анимация закрытия модального окна</p>

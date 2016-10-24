@@ -98,6 +98,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../probtn_events.html">Получение событий кнопки на странице</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postMessage_button_animation.html">Передача сообщений об этапах анимации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
 </ul>
 
             
@@ -146,6 +148,27 @@
 <span id="webparams"></span><h1>Params description<a class="headerlink" href="#params-description" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Description of the parameters used by the button (by application)</p>
 <p>If a parameter is used differently in different modes, it is specifically marked (including, the required modes)</p>
+<div class="section" id="soundurl">
+<h2>SoundURL<a class="headerlink" href="#soundurl" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL to the sound file which would be played at page.
+If field is empty, sound wouldn&#8217;t be played.</p>
+<p>By default: &#8220;&#8221;</p>
+</div>
+<div class="section" id="soundmode">
+<h2>SoundMode<a class="headerlink" href="#soundmode" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Mode for audio play.</p>
+<p>By default: &#8220;&#8221;</p>
+<p>Variants:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">autoStart</span></code> - automatic sound play at button start (except ios, where this mode works simmular to default mode)</li>
+<li>&#8220;&#8221; - start sound play when  user manipulate page at first time.</li>
+</ul>
+</div>
+<div class="section" id="useexternaldataaboutuser">
+<h2>UseExternalDataAboutUser<a class="headerlink" href="#useexternaldataaboutuser" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Use or not additional data for targeting from external systems (at current moment Amber data)</p>
+<p>By default: false</p>
+</div>
 <div class="section" id="fancyboxclosemethod">
 <h2>FancyboxcloseMethod<a class="headerlink" href="#fancyboxclosemethod" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Close animation of modal window (fancybox)</p>
