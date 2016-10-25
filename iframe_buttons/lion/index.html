@@ -11,74 +11,49 @@
             }
         </style>
 
-                <script>
-                    var context;
-                    //window.addEventListener('load', init1, false);
+        <script>
+            var context;
 
-                    /*function init() {
-                    try {
-                    // Fix up for prefixing
-                    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                    context = new AudioContext();
+            function receiveMessage(event) {
+                //console.log("event", event.data);
+                if (event.data.message === "probtn_web_audio_api_enabled") {
+                    //console.log(event);                           
 
-                    function loadDogSound(url) {
-                    var request = new XMLHttpRequest();
-                    request.open('GET', url, true);
-                    request.responseType = 'arraybuffer';
+                    var myIframe = document.getElementById('iframe');
+                    var pic = document.getElementById('pic');
 
-                    function onError(e) {
-                    console.log(e);
-                    }
+                    myIframe.contentWindow.postMessage({message: "probtn_web_audio_api_enabled"}, '*');
 
-                    // Decode asynchronously
-                    request.onload = function () {
-                    context.decodeAudioData(request.response, function (buffer) {
-                    dogBarkingBuffer = buffer;
-                    playSound(dogBarkingBuffer);
-                    }, onError);
-                    }
-                    request.send();
-                    }
-
-                    function playSound(buffer) {
-                    var source = context.createBufferSource(); // creates a sound source
-                    source.buffer = buffer;                    // tell the source which sound to play
-                    source.connect(context.destination);       // connect the source to the context's destination (the speakers)
-                    source.start(0);                           // play the source now
-                    // note: on older systems, may have to use deprecated noteOn(time);
-                    }
-
-
-                    }
-                    catch (e) {
-                    console.log(e);
-                    //alert('Web Audio API is not supported in this browser');
-                    }
-                    }*/
-
-                    //init();
-
-                    function receiveMessage(event) {
-                        console.log("event", event.data);
-                        if (event.data.message === "probtn_web_audio_api_enabled") {
-                            console.log(event);
-
-                            var myIframe = document.getElementById('iframe');
-                            var pic = document.getElementById('pic');
-
-                            console.log("myIframe", myIframe);
-
-                            pic.style.display = 'none';
-                            myIframe.style.display = 'block';
-                            //loadDogSound("lion.mp3");
-                        }
-                    }
-                    //function init1() {
-                    window.addEventListener("message", receiveMessage, false);
-                    //}
+                    setTimeout(function() {
+                        pic.style.display = 'none';
+                        myIframe.style.display = 'block';
+                    }, 700);
+                    
+                }
+            }
+            window.addEventListener("message", receiveMessage, false);
         </script>
     </head>
     <body>
+        <img src="iframe/lion-anim.hyperesources/1_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/11_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/12_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/13_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/14-with-logo_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/14-with-logo.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/15_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/16_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/17_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/19_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/2_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/3_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/4_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/5_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/6_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/7_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/8_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        <img src="iframe/lion-anim.hyperesources/9_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+
         <img src="iframe/lion-anim.hyperesources/1.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
        
         <img src="iframe/lion-anim.hyperesources/3.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
@@ -91,24 +66,16 @@
         
         <img src="iframe/lion-anim.hyperesources/12.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
         <img src="iframe/lion-anim.hyperesources/13.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/14.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        
         <img src="iframe/lion-anim.hyperesources/15.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
         <img src="iframe/lion-anim.hyperesources/16.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
         <img src="iframe/lion-anim.hyperesources/17.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
         
         <img src="iframe/lion-anim.hyperesources/19.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        
-        <img src="iframe/lion-anim.hyperesources/21.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/22.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        
-        <img src="iframe/lion-anim.hyperesources/24.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/25.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/26.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+                
 
-
-
-        <img src="lion-static.png" alt="lion" style="width: 266px; height: 210px;" id="pic" />
-        <iframe src="iframe/index.html" style="width: 266px; height: 210px; border: 0px; display: none;" id="iframe"></iframe>
+        <img src="1.png" alt="lion" style="width: 220px; height: 220px;" id="pic" />
+        <iframe src="iframe/index.html" style="width: 220px; height: 220px; border: 0px; display: none;" id="iframe"></iframe>
 
     </body>
 </html>
