@@ -17,6 +17,21 @@ try {
 } catch(ex) {
 }
 
+function loadJS(src, callback) {
+        var s = document.createElement('script');
+        s.src = src;
+        s["data-cfasync"] = "false";
+        s.async = true;
+        s.onreadystatechange = s.onload = function () {
+            var state = s.readyState;
+            if (!callback.done && (!state || /loaded|complete/.test(state))) {
+                callback.done = true;
+                callback();
+            }
+        };
+        document.getElementsByTagName('head')[0].appendChild(s);
+}
+
 var loadProbtn = function() {
     jQuery.getScript(probtnPath, function () {
         jQuery(document).StartButton({
@@ -83,20 +98,6 @@ if (window.jQuery) {
     console.log("No jquery");
     var oHead = document.getElementsByTagName('HEAD').item(0);
 
-    function loadJS(src, callback) {
-        var s = document.createElement('script');
-        s.src = src;
-        s["data-cfasync"] = "false";
-        s.async = true;
-        s.onreadystatechange = s.onload = function () {
-            var state = s.readyState;
-            if (!callback.done && (!state || /loaded|complete/.test(state))) {
-                callback.done = true;
-                callback();
-            }
-        };
-        document.getElementsByTagName('head')[0].appendChild(s);
-    }
     loadJS(jqueryPath, function () {
         var oScript = document.createElement("script");
         oScript.type = "text/javascript";
