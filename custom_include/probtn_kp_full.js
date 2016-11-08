@@ -1022,12 +1022,12 @@ var loadProbtn = function (jQuery) {
 	        var ProBtnControl = {
 	            guidCookieControlPath: "https://cdn.probtn.com/cookie_iframe/cookie-iframe.html",
 	            //guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
-	            uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
+	            uaParserPath: 'https://cdn.probtn.com/libs/ua-parser.js',
 	            currentDomain: document.domain.replace("www.", ""),
 	            realDomain: document.domain.replace("www.", ""),
 	            initializedActiveZones: {},
 	            //curent app version
-	            mainVersion: "1.8.1814_23092016_dev",
+	            mainVersion: "1.9.1814_07112016_dev",
 	            DeviceCID_log: "none",
 	            hintText: undefined, //hinttext object with additional functions
 	            pizzabtn: undefined,
@@ -1040,6 +1040,7 @@ var loadProbtn = function (jQuery) {
 	            },
 
 	            onButtonTapCountCheck: 0,
+	            //main function called after button tap or active zone interaction
 	            onButtonTap: function (currentContentURL, areaName, currentButtonContentType) {
 	                if (ProBtnControl.params.Debug) console.log("onButtonTap");
 	                window.probtn_button_tap = true;
@@ -1086,7 +1087,7 @@ var loadProbtn = function (jQuery) {
 	                } else {
 	                    currentButtonContentType = ProBtnControl.params.ButtonContentType;
 
-	                    //inti menu mode
+	                    //init menu mode
 	                    if (ProBtnControl.params.ButtonType == "menu") {
 	                        if ($("#probtn_menu_ul").length > 0) {
 	                            ProBtnControl.initFunctions.initRemoveMenu();
@@ -1148,8 +1149,14 @@ var loadProbtn = function (jQuery) {
 	                    return;
 	                }
 
-	                if (currentButtonContentType == "iframe") {
+	                if (currentButtonContentType === "iframe") {
 	                    ProBtnControl.additionalButtonFunctions.sendMessageToParent("probtn_onbuttontap");
+
+	                    //check is protocol's correct to open page in iframe
+	                    if ((window.location.protocol === "https:") && (currentContentURL.split("/")[0] === "http:")) {
+	                        console.log("detected protocols mismatch");
+	                        currentButtonContentType = "anchor_external";
+	                    }
 	                }
 
 	                ProBtnControl.contentTime.startTimer();
@@ -1744,7 +1751,7 @@ var loadProbtn = function (jQuery) {
 	            },
 	            XProBtnToken: "b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b",
 	            //main server url
-	            serverUrl: "//admin.probtn.com",
+	            serverUrl: "https://admin.probtn.com",
 	            GetDeviceUID: function () {
 	                var probtnId = "1234";
 	                if (ProBtnControl.cookieFunctions.readCookie("probtnId") != null) {
@@ -1769,20 +1776,43 @@ var loadProbtn = function (jQuery) {
 
 	                        //don't add if we are in offline mode
 	                        if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
-	                            $("#probtn_guidIframe").remove();
-	                            var guidIframe = $("<iframe/>", {
-	                                id: "probtn_guidIframe",
-	                                scrolling: 'no',
-	                                'seamless': "seamless",
-	                                src: ProBtnControl.guidCookieControlPath,
-	                                css: {
-	                                    'width': "0px",
-	                                    'height': "0px",
-	                                    'position': 'absolute',
-	                                    'top': '-10000px',
-	                                    'left': '-10000px'
+	                            try {
+	                                $("#probtn_guidIframe").remove();
+
+	                                var isCordovaApp = !!window.cordova;
+	                                console.log("isCordovaApp", isCordovaApp);
+	                                if (isCordovaApp) {
+	                                    setTimeout(function() {
+	                                        var cookieName = "";
+	                                        var deviceCUID_item = { 'type': 'probtnCID', 'cid': cookieName };
+	                                        console.log("deviceCUID_item", deviceCUID_item);
+	                                        window.top.postMessage(deviceCUID_item, "*");
+	                                        window.postMessage(deviceCUID_item, "*");
+	                                    }, 500);
 	                                }
-	                            }).appendTo("body");
+
+	                                var guidIframe = $("<iframe/>", {
+	                                    id: "probtn_guidIframe",
+	                                    scrolling: 'no',
+	                                    'seamless': "seamless",
+	                                    src: ProBtnControl.guidCookieControlPath,
+	                                    css: {
+	                                        'width': "0px",
+	                                        'height': "0px",
+	                                        'position': 'absolute',
+	                                        'top': '-10000px',
+	                                        'left': '-10000px'
+	                                    }
+	                                }).appendTo("body");
+	                            } catch (ex) {
+	                                console.log("send message without iframe");
+	                                console.log(ex);
+	                                var cookieName = "";
+	                                var deviceCUID_item = { 'type': 'probtnCID', 'cid': cookieName };
+	                                console.log("deviceCUID_item", deviceCUID_item);
+	                                window.top.postMessage(deviceCUID_item, "*");
+	                                window.postMessage(deviceCUID_item, "*");
+	                            }
 	                        }
 
 	                        if (false) {
@@ -5624,7 +5654,7 @@ var loadProbtn = function (jQuery) {
 	                    ScrollZones: [
 	                    {
 	                        ZoneHeight: 0.5,
-	                        ButtonImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
+	                        ButtonImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
 	                        ButtonDragImage: "",
 	                        HintText: "",
 	                        TrackingLink: "",
@@ -5644,7 +5674,7 @@ var loadProbtn = function (jQuery) {
 	                    },
 	                    {
 	                        ZoneHeight: 0.5,
-	                        ButtonImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
+	                        ButtonImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
 	                        ButtonDragImage: "",
 	                        HintText: "",
 	                        TrackingLink: "",
@@ -5672,8 +5702,8 @@ var loadProbtn = function (jQuery) {
 	                                X: 0.5,
 	                                Y: 0.5
 	                            },
-	                            ActiveImage: "//admin.probtn.com/eqwid_btn_nonpress.png",
-	                            InactiveImage: "//admin.probtn.com/eqwid_btn_nonpress.png",
+	                            ActiveImage: "https://admin.probtn.com/eqwid_btn_nonpress.png",
+	                            InactiveImage: "https://admin.probtn.com/eqwid_btn_nonpress.png",
 	                            ActiveSize: {
 	                                W: 64,
 	                                H: 64
@@ -5779,15 +5809,15 @@ var loadProbtn = function (jQuery) {
 	                    MaxHeight: 0,
 	                    MaxWidth: 0,
 	                    domain: "",
-	                    fancyboxJsPath: "//cdn.probtn.com/libs/jquery.fancybox.min.js",
+	                    fancyboxJsPath: "https://cdn.probtn.com/libs/jquery.fancybox.min.js",
 	                    //"//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js",
 	                    //"//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.js",
-	                    fancyboxCssPath: "//cdn.probtn.com/libs/jquery.fancybox.min.css",
+	                    fancyboxCssPath: "https://cdn.probtn.com/libs/jquery.fancybox.min.css",
 
 	                    //"//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css",
 	                    //"//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css",
-	                    mainStyleCss: "//cdn.probtn.com/style.css",
-	                    jqueryPepPath: "//cdn.probtn.com/libs/jquery.pep.min.js",
+	                    mainStyleCss: "https://cdn.probtn.com/style.css",
+	                    jqueryPepPath: "https://cdn.probtn.com/libs/jquery.pep.min.js",
 	                    //"//cdn.jsdelivr.net/jquery.pep/0.6.3/jquery.pep.min.js",
 	                    buttonAnimationTimeAfterFancybox: 0,
 
@@ -5836,10 +5866,10 @@ var loadProbtn = function (jQuery) {
 	                    ButtonDragOpacity: 1.0, // Прозрачность при перемещении
 	                    ButtonOpenOpacity: 1.0, // Прозрачность в открытом состоянии
 	                    ButtonInactiveOpacity: 0.5, // Прозрачность в неактивном состоянии
-	                    ButtonImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
-	                    ButtonDragImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/drag_gray.png",
-	                    ButtonOpenImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/drag_gray.png",
-	                    ButtonInactiveImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/drag_gray.png",
+	                    ButtonImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
+	                    ButtonDragImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/drag_gray.png",
+	                    ButtonOpenImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/drag_gray.png",
+	                    ButtonInactiveImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/drag_gray.png",
 
 	                    ClosePosition: { // Позиция
 	                        X: 0.9, // По умолчанию центр экрана
@@ -5855,8 +5885,8 @@ var loadProbtn = function (jQuery) {
 	                    },
 	                    CloseOpacity: 0.6, // Прозрачность
 	                    CloseActiveOpacity: 1.0, // Прозрачность в активном состоянии
-	                    CloseImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/close.png", // Ссылка на изображение
-	                    CloseActiveImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/close.png", // Ссылка на изображение в активном состоянии
+	                    CloseImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/close.png", // Ссылка на изображение
+	                    CloseActiveImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/close.png", // Ссылка на изображение в активном состоянии
 
 	                    HintInsets: { // Смещение от краев
 	                        T: 4.0,
@@ -5895,7 +5925,7 @@ var loadProbtn = function (jQuery) {
 	                    VendorColor: { "R": 0, "G": 0, "B": 0, "A": 1 },
 
 	                    HintOpacity: 0.8, // Прозрачность подсказки
-	                    HintImage: "//cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/hint.png", // Ссылка на изображение
+	                    HintImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/hint.png", // Ссылка на изображение
 
 	                    HintArrowSize: { // Размер стрелки
 	                        W: 8.0,
