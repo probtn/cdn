@@ -1735,7 +1735,6 @@ var loadProbtn = function (jQuery) {
 	                                $("#probtn_guidIframe").remove();
 
 	                                var isCordovaApp = !!window.cordova;
-	                                console.log("isCordovaApp", isCordovaApp);
 	                                if (isCordovaApp) {
 	                                    setTimeout(function() {
 	                                        var cookieName = "";
@@ -3471,7 +3470,7 @@ var loadProbtn = function (jQuery) {
 	                    switch (ProBtnControl.params.ExtrusionMode) {
 	                        case "topButton":
 	                            $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
-	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
+	                            $('head').append('<style type="text/css">#probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
 	                            break;
 	                        case "insertBlock":
 	                            pizzabtnCss.width = "100%";
