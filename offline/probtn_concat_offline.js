@@ -1210,6 +1210,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    return;
 			                }
 
+			                var iframeLoadedSend = false;
+
 			                var fancyboxParams = {
 
 			                    href: currentContentURL, //ProBtnControl.params.ContentURL,
@@ -1221,8 +1223,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    scrolling: 'yes',
 			                    margin: margins,
 			                    scrollOutside: true,
-			                    speedIn: 1000,
-			                    openSpeed: 1000,
+			                    speedIn: 0, //1000
+			                    openSpeed: 100, //1000
 
 			                    closeMethod: ProBtnControl.params.FancyboxcloseMethod, //'perspectiveOut',
 			                    closeSpeed: ProBtnControl.params.FancyboxCloseSpeed, //3000,
@@ -1273,6 +1275,25 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        }
 			                        $('html').css("overflow", "hidden");
 			                    },
+			                    beforeShow: function () {
+			                        //send message inside iframe, that it's showed and ready
+			                        $(".fancybox-iframe").first().on('load', function () {
+			                            var frame_id = $(".fancybox-iframe").first().attr("id");
+			                            if ($("#" + frame_id).is("iframe")) {
+			                                try {
+			                                    var myIframe = document.getElementById(frame_id);
+			                                    if (myIframe.contentWindow !== null) {
+			                                        iframeLoadedSend = true;
+			                                        myIframe.contentWindow.postMessage({ message: "iframe_showed_and_loaded" }, '*');
+			                                    }
+			                                } catch (ex) {
+
+			                                }
+			                            }
+
+			                            console.log('load the iframe');
+			                        });
+			                    }, 
 			                    afterShow: function () {
 			                        var pizzabtn_wrapper = ProBtnControl.wrapper;
 			                        var opts = {
@@ -1308,6 +1329,23 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                }
 			                            } catch (ex) {
 			                                if (ProBtnControl.params.Debug) console.log(ex);
+			                            }
+			                        }
+
+			                        if (iframeLoadedSend === false) {
+			                            iframeLoadedSend = true;
+
+			                            var frame_id = $(".fancybox-iframe").first().attr("id");
+			                            if ($("#" + frame_id).is("iframe")) {
+			                                try {
+			                                    var myIframe = document.getElementById(frame_id);
+			                                    if (myIframe.contentWindow !== null) {
+			                                        iframeLoadedSend = true;
+			                                        myIframe.contentWindow.postMessage({ message: "iframe_showed_and_loaded" }, '*');
+			                                    }
+			                                } catch (ex) {
+
+			                                }
 			                            }
 			                        }
 			                    },
@@ -5491,6 +5529,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
 			                //init default params
 			                ProBtnControl.params = $.extend(true, {
+			                    CloseButtonShowDelay: 0, //delay before showing close button when AlwaysShowCloseButton == true
+
 			                    SoundURL: "",
 			                    SoundMode: "",
 
@@ -6846,7 +6886,9 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                            //always show close button
 			                            if (ProBtnControl.params.AlwaysShowCloseButton == true) {
-			                                $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
+			                                setTimeout(function() {
+			                                    $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
+			                                }, ProBtnControl.params.CloseButtonShowDelay);
 			                            }
 			                        }
 
