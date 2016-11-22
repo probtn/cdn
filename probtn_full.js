@@ -1991,7 +1991,7 @@ probtn_initTrackingLinkTest();
 
                         ProBtnControl.params.currentAreaName = areaName;
 
-                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=" + areaName + "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&", { AZName: areaName, Statistic: [{ "name": "ScrollZoneShowed", "value": 1 }] }),
+                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&", { AZName: areaName, Statistic: [{ "name": "ScrollZoneShowed", "value": 1 }] }),
                             function () { }).done(function () {
                             }).fail(function () { }).always(function () {
                                 if ((callback !== null) && (callback !== undefined)) {
