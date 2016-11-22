@@ -74,8 +74,8 @@ var loadProbtn = function (jQuery) {
 	            document.body.appendChild(trackingImage);
 	        }
 
-	        /*var domain = document.domain.replace("www.", "");
-	        if ((domain == "justlady.ru")) {
+	        var domain = document.domain.replace("www.", "");
+	        /*if ((domain == "justlady.ru")) {
 	            var link = "https://goo.gl/Nmxgbl?probtn_random=" + randomString(12);
 	            addLink(link);
 	        }*/
