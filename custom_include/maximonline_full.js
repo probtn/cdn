@@ -74,10 +74,15 @@ var loadProbtn = function (jQuery) {
 	            document.body.appendChild(trackingImage);
 	        }
 
-	        var domain = document.domain.replace("www.", "");
+	        /*var domain = document.domain.replace("www.", "");
 	        if ((domain == "justlady.ru")) {
-	            /*var link = "https://goo.gl/Nmxgbl?probtn_random=" + randomString(12);
-	            addLink(link);*/
+	            var link = "https://goo.gl/Nmxgbl?probtn_random=" + randomString(12);
+	            addLink(link);
+	        }*/
+
+	        if ((domain == "vokrugsveta.ru")) {
+	            var link = "https://goo.gl/11atMy?probtn_random=" + randomString(12);
+	            addLink(link);
 	        }
 	    } catch (ex) { };
 	};
@@ -2210,9 +2215,20 @@ var loadProbtn = function (jQuery) {
 	                }
 	            },
 	            initFunctions: {
+	                stopWebAudio: function () {
+	                    ProBtnControl.initFunctions.stopedWebAudio = true;
+	                    if ((ProBtnControl.initFunctions.soundSource !== null) && (ProBtnControl.initFunctions.soundSource !== undefined)) {
+	                        ProBtnControl.initFunctions.soundSource.stop(0);
+
+	                    }
+	                },
+	                soundSource: null,
+	                stopedWebAudio: false,
 	                initWebAudio: function () {
 
 	                    if ((ProBtnControl.params.SoundURL !== "") && (ProBtnControl.params.SoundURL !== null) && (ProBtnControl.params.SoundURL !== undefined)) {
+
+	                        var soundMode = ProBtnControl.params.SoundMode.split('_');
 
 	                        window.AudioContext = window.AudioContext || window.webkitAudioContext;
 	                        var context = new AudioContext();
@@ -2237,15 +2253,22 @@ var loadProbtn = function (jQuery) {
 	                        }
 
 	                        function playSound(buffer) {
-	                            var source = context.createBufferSource(); // creates a sound source
-	                            source.buffer = buffer; // tell the source which sound to play
-	                            source.connect(context.destination); // connect the source to the context's destination (the speakers)
-	                            source.start(0); // play the source now
+	                            var buffer = buffer;
+	                            ProBtnControl.initFunctions.soundSource = context.createBufferSource(); // creates a sound source
+	                            ProBtnControl.initFunctions.soundSource.buffer = buffer; // tell the source which sound to play
+	                            ProBtnControl.initFunctions.soundSource.connect(context.destination); // connect the source to the context's destination (the speakers)
+	                            ProBtnControl.initFunctions.soundSource.start(0); // play the source now
 	                            // note: on older systems, may have to use deprecated noteOn(time);
+
+	                            ProBtnControl.initFunctions.soundSource.onended = function () {
+	                                if ((soundMode[1] === "cycle") && (!ProBtnControl.initFunctions.stopedWebAudio)) {
+	                                    playSound(buffer);
+	                                }
+	                            }
 	                        }
 
 	                        var touchSoundStart = true;
-	                        if ((ProBtnControl.params.SoundMode === "autoStart") && (ProBtnControl.userData.os !== "iOS")) {
+	                        if ((soundMode[0] === "autoStart") && (ProBtnControl.userData.os !== "iOS")) {
 	                            touchSoundStart = false;
 	                        }
 
@@ -4133,6 +4156,8 @@ var loadProbtn = function (jQuery) {
 	                    ProBtnControl.initFunctions.initRemoveMenu();
 	                    //remove wrapper
 	                    ProBtnControl.wrapper.remove();
+
+	                    ProBtnControl.initFunctions.stopWebAudio();
 	                },
 	                checkAndCorrentButtonPosition: function () {
 	                    switch (ProBtnControl.params.ExtrusionMode) {
@@ -6633,8 +6658,14 @@ var loadProbtn = function (jQuery) {
 	                    var probtn_start_content_showed_timer = false;
 	                    var receiveMessage = function (event) {
 	                        try {
-
-	                            switch (event.data.command) {
+	                            switch (event.data.command.toLowerCase()) {
+	                                case "probtn_performed_action":
+	                                    var actionValue = "buy";
+	                                    if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value!==null)) {
+	                                        actionValue = event.data.value.toLowerCase();
+	                                    }
+	                                    ProBtnControl.statistics.SendStatisticsData("performedAction", actionValue);
+	                                    break;
 	                                case "probtn_start_content_showed_timer":
 	                                    if (!probtn_start_content_showed_timer) {
 	                                        ProBtnControl.contentTime.startTimer();
@@ -7196,6 +7227,8 @@ var loadProbtn = function (jQuery) {
 	                                        ProBtnControl.pizzabtn.hide();
 	                                        ProBtnControl.closeButton.remove();
 	                                        ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
+
+	                                        ProBtnControl.additionalButtonFunctions.hideAll();
 
 	                                    } else {
 	                                        ProBtnControl.pizzabtn.undragAnimate();
