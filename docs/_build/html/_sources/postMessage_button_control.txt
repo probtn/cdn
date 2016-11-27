@@ -16,7 +16,7 @@
 ----------------------------------
 
 Пример:
-``{command: "command_value", size: {width: 100, height: 100} }``
+``{command: "command_value", size: {width: 100, height: 100}, value: "buy" }``
 
 Вместо ``command_value`` указываем одну из доступных команд ниже. ``Size`` используем только для ``button_image_iframe_size``, где указываем размеры области.
 
@@ -58,6 +58,17 @@ probtn_restore_button_size
 button_image_iframe_size
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Установить размеры overlay над iframe креатива кнопки. В сообщении также передается новый размер overlay.
+
+probtn_performed_action
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Отправка сообщения о действии внутри iframe.
+В поле ``value`` возможно указать тип действия. Если не указать, то по умолчанию будет использоваться вариант ``buy``
+
+Пример:
+
+``window.top.postMessage({ command: 'probtn_performed_action' }, '*');``
+
+``window.top.postMessage({ command: 'probtn_performed_action', value: 'booked' }, '*');``
 
 Пример отправки сообщения
 ----------------------------------

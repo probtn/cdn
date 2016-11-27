@@ -111,6 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#button-image-iframe-done">button_image_iframe_done</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#probtn-restore-button-size">probtn_restore_button_size</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#button-image-iframe-size">button_image_iframe_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-performed-action">probtn_performed_action</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">Пример отправки сообщения</a></li>
@@ -169,7 +170,7 @@
 <div class="section" id="id1">
 <h2>Формат объекта в сообщении<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Пример:
-<code class="docutils literal"><span class="pre">{command:</span> <span class="pre">&quot;command_value&quot;,</span> <span class="pre">size:</span> <span class="pre">{width:</span> <span class="pre">100,</span> <span class="pre">height:</span> <span class="pre">100}</span> <span class="pre">}</span></code></p>
+<code class="docutils literal"><span class="pre">{command:</span> <span class="pre">&quot;command_value&quot;,</span> <span class="pre">size:</span> <span class="pre">{width:</span> <span class="pre">100,</span> <span class="pre">height:</span> <span class="pre">100},</span> <span class="pre">value:</span> <span class="pre">&quot;buy&quot;</span> <span class="pre">}</span></code></p>
 <p>Вместо <code class="docutils literal"><span class="pre">command_value</span></code> указываем одну из доступных команд ниже. <code class="docutils literal"><span class="pre">Size</span></code> используем только для <code class="docutils literal"><span class="pre">button_image_iframe_size</span></code>, где указываем размеры области.</p>
 </div>
 <div class="section" id="id2">
@@ -209,6 +210,14 @@
 <div class="section" id="button-image-iframe-size">
 <h3>button_image_iframe_size<a class="headerlink" href="#button-image-iframe-size" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Установить размеры overlay над iframe креатива кнопки. В сообщении также передается новый размер overlay.</p>
+</div>
+<div class="section" id="probtn-performed-action">
+<h3>probtn_performed_action<a class="headerlink" href="#probtn-performed-action" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Отправка сообщения о действии внутри iframe.
+В поле <code class="docutils literal"><span class="pre">value</span></code> возможно указать тип действия. Если не указать, то по умолчанию будет использоваться вариант <code class="docutils literal"><span class="pre">buy</span></code></p>
+<p>Пример:</p>
+<p><code class="docutils literal"><span class="pre">window.top.postMessage({</span> <span class="pre">command:</span> <span class="pre">'probtn_performed_action'</span> <span class="pre">},</span> <span class="pre">'*');</span></code></p>
+<p><code class="docutils literal"><span class="pre">window.top.postMessage({</span> <span class="pre">command:</span> <span class="pre">'probtn_performed_action',</span> <span class="pre">value:</span> <span class="pre">'booked'</span> <span class="pre">},</span> <span class="pre">'*');</span></code></p>
 </div>
 </div>
 <div class="section" id="id3">
