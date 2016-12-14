@@ -2071,6 +2071,15 @@ var loadProbtn = function (jQuery) {
 	                },
 	                //TODO refactoring - make universal function with azname stats sending
 	                sendScrollAreaShowedStats: function (areaName, callback) {
+
+	                    if ($("#pizzabtnImg").is("iframe")) {
+	                        var myIframe = document.getElementById('pizzabtnImg');
+	                        myIframe.contentWindow.postMessage({
+	                            message: "probtn_page_scrollzone_changed",
+	                            name: areaName
+	                        }, '*');
+	                    }
+
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 	                        var probtnId = "1234";
 	                        probtnId = ProBtnControl.GetDeviceUID();
@@ -2998,11 +3007,13 @@ var loadProbtn = function (jQuery) {
 
 	                                //TODO: showing iframe from cahced items
 	                                if (scrollZone.ButtonImageType == "iframe") {
-	                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).hide();
-	                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("id", "");
+	                                    if (scrollZone.CustomContentURL !== ProBtnControl.currentScrollZone.CustomContentURL) {
+	                                        $("#pizzabtnImg", ProBtnControl.pizzabtn).hide();
+	                                        $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("id", "");
 
-	                                    $(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).attr("id", "pizzabtnImg");
-	                                    $(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).show();
+	                                        $(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).attr("id", "pizzabtnImg");
+	                                        $(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).show();
+	                                    }
 	                                } else {
 	                                    //$("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
 	                                    $("#pizzabtnImg", ProBtnControl.pizzabtn).hide();
@@ -3051,12 +3062,14 @@ var loadProbtn = function (jQuery) {
 	                                }
 
 	                                if ((scrollZone.ButtonIframeInitialSize.W > 0) && (scrollZone.ButtonIframeInitialSize.H > 0)) {
-	                                    $("#pizzabtnImg").css({
-	                                        'width': scrollZone.ButtonIframeInitialSize.W,
-	                                        'height': scrollZone.ButtonIframeInitialSize.H,
-	                                        'opacity': ProBtnControl.params.ButtonOpacity
-	                                    });
-	                                    ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), scrollZone.ButtonIframeInitialSize, scrollZone.ButtonSize);
+	                                    if (scrollZone.CustomButtonParams) {
+	                                        $("#pizzabtnImg").css({
+	                                            'width': scrollZone.ButtonIframeInitialSize.W,
+	                                            'height': scrollZone.ButtonIframeInitialSize.H,
+	                                            'opacity': ProBtnControl.params.ButtonOpacity
+	                                        });
+	                                        ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), scrollZone.ButtonIframeInitialSize, scrollZone.ButtonSize);
+	                                    }
 	                                } else {
 	                                    $("#pizzabtnImg").css({
 	                                        'width': ProBtnControl.params.ButtonSize.W,
@@ -3091,17 +3104,19 @@ var loadProbtn = function (jQuery) {
 	                                        'height': ProBtnControl.params.ButtonSize.H
 	                                    });
 	                                } else {
-	                                    $("#pizzabtnImg").css({
-	                                        'width': ProBtnControl.params.ButtonSize.W,
-	                                        'height': ProBtnControl.params.ButtonSize.H,
-	                                        'opacity': ProBtnControl.params.ButtonOpacity
-	                                    });
+	                                    //TODO make better check
+	                                    if (scrollZone.ButtonImageType !== "iframe") {
+	                                        $("#pizzabtnImg").css({
+	                                            'width': ProBtnControl.params.ButtonSize.W,
+	                                            'height': ProBtnControl.params.ButtonSize.H,
+	                                            'opacity': ProBtnControl.params.ButtonOpacity
+	                                        });
 
-	                                    //$(ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
-	                                    $(ProBtnControl.pizzabtn).css({
-	                                        'width': ProBtnControl.params.ButtonSize.W,
-	                                        'height': ProBtnControl.params.ButtonSize.H
-	                                    });
+	                                        $(ProBtnControl.pizzabtn).css({
+	                                            'width': ProBtnControl.params.ButtonSize.W,
+	                                            'height': ProBtnControl.params.ButtonSize.H
+	                                        });
+	                                    }
 	                                }
 	                            }
 
@@ -3178,7 +3193,7 @@ var loadProbtn = function (jQuery) {
 	                        var currentFullTop = 0;
 	                        $.each(ProBtnControl.params.ScrollZones, function (index, scrollZone) {
 
-	                            if ((scrollZone.Name == undefined) || (scrollZone.Name == null)) {
+	                            if ((scrollZone.Name === undefined) || (scrollZone.Name === null)) {
 	                                scrollZone.Name = "scrollZone" + index;
 	                            }
 
@@ -3254,7 +3269,7 @@ var loadProbtn = function (jQuery) {
 	                                    scrollZone.ButtonSize = ProBtnControl.params.ButtonSize;
 	                                }
 
-	                                if (scrollZone.ButtonImageType == "iframe") {
+	                                if (scrollZone.ButtonImageType === "iframe") {
 	                                    if (($("#pizzabtnIframeOverlay").length <= 0) || (ProBtnControl.currentScrollZone != scrollZone)) {
 
 	                                        pizzabtnCss = {
@@ -4508,6 +4523,7 @@ var loadProbtn = function (jQuery) {
 	                    if (ProBtnControl.additionalButtonFunctions.preloadIframeScrollZonesDone == false) {
 	                        ProBtnControl.additionalButtonFunctions.preloadIframeScrollZonesDone = true;
 
+
 	                        for (var i = 0; i < ProBtnControl.params.ScrollZones.length; i++) {
 	                            var scrollZone = ProBtnControl.params.ScrollZones[i];
 
@@ -4528,15 +4544,28 @@ var loadProbtn = function (jQuery) {
 	                            pizzabtnCss.position = 'absolute';
 	                            pizzabtnCss.top = '0px';
 	                            if (scrollZone.ButtonImageType == "iframe") {
-	                                var pizzabtnImg = $("<iframe/>", {
-	                                    class: "pizzabtnImg_iframe_cached",
-	                                    scrolling: 'no',
-	                                    //id: "pizzabtnImg",
-	                                    rel: scrollZone.Name,
-	                                    'seamless': "seamless",
-	                                    src: scrollZone.ButtonImage,
-	                                    css: pizzabtnCss
-	                                }).prependTo(ProBtnControl.pizzabtn);
+	                                var duplicate = false;
+	                                //TODO: don't add duplicates
+	                                for (var j = 0; j < ProBtnControl.params.ScrollZones.length; j++) {
+	                                    if (j !== i) {
+	                                        //console.log("pizzabtnImg_iframe_cached", $(".pizzabtnImg_iframe_cached[rel='" + ProBtnControl.params.ScrollZones[j].Name + "']", ProBtnControl.pizzabtn).attr("src"));
+	                                        if ($(".pizzabtnImg_iframe_cached[rel='" + ProBtnControl.params.ScrollZones[j].Name + "']", ProBtnControl.pizzabtn).attr("src") === scrollZone.ButtonImage) {
+	                                            duplicate = true;
+	                                        }
+	                                        
+	                                    }
+	                                }
+	                                if (duplicate === false) {
+	                                    var pizzabtnImg = $("<iframe/>", {
+	                                        class: "pizzabtnImg_iframe_cached",
+	                                        scrolling: 'no',
+	                                        //id: "pizzabtnImg",
+	                                        rel: scrollZone.Name,
+	                                        'seamless': "seamless",
+	                                        src: scrollZone.ButtonImage,
+	                                        css: pizzabtnCss
+	                                    }).prependTo(ProBtnControl.pizzabtn);
+	                                }
 	                            } else {
 	                                var pizzabtnImg = $("<img/>", {
 	                                    class: "pizzabtnImg_cached",
@@ -5633,6 +5662,7 @@ var loadProbtn = function (jQuery) {
 	                    CreativeId: "",
 
 	                    PassbackCustomCode: "",
+	                    PassbackCodeSelector: "#probtn_wrapper #probtn_additionalItemsContainer",
 	                    //variants:
 	                    //- sidebarLeft
 	                    //- sidebarRight
@@ -6375,7 +6405,7 @@ var loadProbtn = function (jQuery) {
 	                                $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function () {
 
 
-	                                    $("body").append("<div id='probtn_adfox'></div>");
+	                                    $("body").append("<div id='probtn_passback'></div>");
 	                                    switch (ProBtnControl.currentDomain) {
 	                                        case "justlady.ru":
 	                                            if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
@@ -6397,31 +6427,9 @@ var loadProbtn = function (jQuery) {
 	                                                scrwidth = scrsize.width;
 	                                                scrheight = scrsize.height;
 	                                            }
-	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=vvq&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+	                                            postscribe('#probtn_passback', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=vvq&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
 	                                            //$("body").append();
 	                                            break;
-	                                            /*case "kakprosto.ru":
-	                                                if (typeof (pr) == 'undefined') { var pr = Math.floor(Math.random() * 4294967295) + 1; }
-	                                                if (typeof (document.referrer) != 'undefined') {
-	                                                    if (typeof (afReferrer) == 'undefined') {
-	                                                        afReferrer = encodeURIComponent(document.referrer);
-	                                                    }
-	                                                } else {
-	                                                    afReferrer = '';
-	                                                }
-	                                                var addate = new Date();
-	                                                var scrheight = '', scrwidth = '';
-	                                                if (self.screen) {
-	                                                    scrwidth = screen.width;
-	                                                    scrheight = screen.height;
-	                                                } else if (self.java) {
-	                                                    var jkit = java.awt.Toolkit.getDefaultToolkit();
-	                                                    var scrsize = jkit.getScreenSize();
-	                                                    scrwidth = scrsize.width;
-	                                                    scrheight = scrsize.height;
-	                                                }
-	                                                postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=i&amp;ps=vgo&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20hpmd%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-	                                                break;*/
 	                                        case "dev.kakprosto.ru":
 	                                        case "www.dev.new.kakprosto.ru":
 	                                        case "dev.new.kakprosto.ru":
@@ -6448,10 +6456,10 @@ var loadProbtn = function (jQuery) {
 	                                                scrwidth = scrsize.width;
 	                                                scrheight = scrsize.height;
 	                                            }
-	                                            postscribe('#probtn_adfox', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+	                                            postscribe('#probtn_passback', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
 	                                            break;
 	                                        default:
-	                                            postscribe('#probtn_adfox', '<script type="text/javascript">' + ProBtnControl.params.PassbackCustomCode + '</script>');
+	                                            postscribe(ProBtnControl.params.PassbackCodeSelector, '<script type="text/javascript">' + ProBtnControl.params.PassbackCustomCode + '</script>');
 	                                            break;
 	                                    }
 	                                });
@@ -6494,6 +6502,7 @@ var loadProbtn = function (jQuery) {
 	                                    //set PassbackCustomCode from admin.probtn.com
 	                                    try {
 	                                        ProBtnControl.params.PassbackCustomCode = data.PassbackCustomCode;
+	                                        ProBtnControl.params.PassbackCodeSelector = data.PassbackCodeSelector;
 	                                    } catch (ex) {
 	                                    };
 	                                    if (ProBtnControl.params.Debug) console.log("after server", ProBtnControl.params);
@@ -6705,6 +6714,7 @@ var loadProbtn = function (jQuery) {
 	                        try {
 	                            switch (event.data.command.toLowerCase()) {
 	                                case "probtn_performed_action":
+	                                    console.log("probtn_performed_action", event.data);
 	                                    var actionValue = "buy";
 	                                    if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value!==null)) {
 	                                        actionValue = event.data.value.toLowerCase();
@@ -7313,7 +7323,7 @@ var loadProbtn = function (jQuery) {
 	                                    ProBtnControl.additionalButtonFunctions.hideAll();
 	                                }
 	                            }
-	                        }
+	                        } passback
 
 	                        var startLocation = window.location.pathname;
 	                        setInterval(locationHashChanged2, 50);

@@ -8,12 +8,11 @@
 				id:1114,
 				platformId: 114
 			}
-		</script>
-		<script src="https://tag.digitaltarget.ru/adcm.js" async></script>
-
+		</script>	
+		<!--<script src="https://tag.digitaltarget.ru/adcm.js" async></script>-->
     </head>
     <body>
-		<img src="https://goo.gl/Sq1njd" alt="google pixel"/>
+		<img src="https://goo.gl/Sq1njd" alt="google pixel"/>		
 		<script>		
 			/*var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
@@ -119,15 +118,8 @@
 					if ((event.data.command !== undefined) && (event.data.command !== null) && (event.data.command === "amber_matching")) {
 						try {
 							console.log("init adcm", {profileId: cookieName});
-							  /*window.adcm.configure({
-								id:1114,
-								platformId: 114,
-								profileId: cookieName,
-								init: function () {
-								  window.adcm.call();
-								}
-							  });*/
-							  window.adcm.call({profileId: cookieName});
+
+							//window.adcm.call({profileId: cookieName});
 						  } catch(ex) {
 							console.log(ex);
 						  }
@@ -135,7 +127,6 @@
 				}
 				window.self.addEventListener("message", receiveMessage, false);
 			}
-
         </script>
     </body>
 </html>
