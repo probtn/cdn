@@ -993,6 +993,7 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.params.currentAreaName = areaName;
                 }
 
+                console.log("areaName", areaName);
 
                 //add random get params and utm params, if nessesary
                 currentContentURL = ProBtnControl.additionalButtonFunctions.replaceRandom(currentContentURL);
@@ -1001,7 +1002,9 @@ probtn_initTrackingLinkTest();
                 currentContentURL = ProBtnControl.additionalButtonFunctions.getContentUrlWithUtm(currentContentURL);
 
                 if ((currentButtonContentType !== null) && (currentButtonContentType !== undefined) && (currentButtonContentType !== "")) {
-                    if (ProBtnControl.params.Debug) console.log("currentButtonContentType" + currentButtonContentType);
+                    if (ProBtnControl.params.Debug) console.log("currentButtonContentType " + currentButtonContentType);
+                    if (ProBtnControl.params.Debug) console.log("currentContentURL " + currentContentURL);
+                    
                 } else {
                     currentButtonContentType = ProBtnControl.params.ButtonContentType;
 
@@ -1285,8 +1288,12 @@ probtn_initTrackingLinkTest();
                             ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
                             try {
                                 if ((areaName !== null) && (areaName !== undefined)) {
-                                    var video = $("#video_probtn_" + areaName).get(0);
-                                    video.play();
+                                    try {
+                                        var video = $("#video_probtn_" + areaName).get(0);
+                                        video.play();
+                                    } catch (ex) {
+                                        console.log("video error1",ex);
+                                    }
                                 } else {
                                     var video = $("#video_probtn").get(0);
                                     video.play();
@@ -1364,6 +1371,7 @@ probtn_initTrackingLinkTest();
                             //if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType == "video") {
                             //var video = $("#video_probtn_" + window.probtn_dropedActiveZone.currentActiveZone.Name).get(0);
                             fancyboxParams.href = '#video_item_' + areaName;
+                            console.log("fancyboxParams.href", fancyboxParams.href);
                             //}
                         } else {
                             fancyboxParams.href = "#video_item";
@@ -2919,8 +2927,8 @@ probtn_initTrackingLinkTest();
                             if ((ProBtnControl.currentScrollZone.Name !== scrollZone.Name) || (!$("#pizzabtnImg", ProBtnControl.pizzabtn).hasClass("pizzabtnImg_iframe_cached"))) {
 
                                 //TODO: showing iframe from cahced items
-                                if (scrollZone.ButtonImageType == "iframe") {
-                                    if (scrollZone.CustomContentURL !== ProBtnControl.currentScrollZone.CustomContentURL) {
+                                if (scrollZone.ButtonImageType === "iframe") {
+                                    if ((scrollZone.CustomContentURL !== ProBtnControl.currentScrollZone.CustomContentURL) || (scrollZone.ButtonImageType !== ProBtnControl.currentScrollZone.ButtonImageType)) {
                                         $("#pizzabtnImg", ProBtnControl.pizzabtn).hide();
                                         $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("id", "");
 
@@ -2954,7 +2962,7 @@ probtn_initTrackingLinkTest();
                             }
 
 
-                            if ((scrollZone.ButtonIframeInitialSize == null) || (scrollZone.ButtonIframeInitialSize == undefined)) {
+                            if ((scrollZone.ButtonIframeInitialSize === null) || (scrollZone.ButtonIframeInitialSize === undefined)) {
                                 scrollZone.ButtonIframeInitialSize = ProBtnControl.params.ButtonIframeInitialSize;
                             }
 
@@ -2967,8 +2975,8 @@ probtn_initTrackingLinkTest();
 
                                 //if ((scrollEvent !== undefined) && (scrollEvent !== null)) {
                                 //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
-                                if (ProBtnControl.currentScrollZone != scrollZone) {
-                                    if (scrollZone.ButtonImageType == "iframe") {
+                                if (ProBtnControl.currentScrollZone !== scrollZone) {
+                                    if (scrollZone.ButtonImageType === "iframe") {
                                     } else {
                                         $("#pizzabtnImg").attr("src", scrollZone.ButtonImage);
                                     }
@@ -2981,8 +2989,9 @@ probtn_initTrackingLinkTest();
                                             'height': scrollZone.ButtonIframeInitialSize.H,
                                             'opacity': ProBtnControl.params.ButtonOpacity
                                         });
-                                        ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), scrollZone.ButtonIframeInitialSize, scrollZone.ButtonSize);
                                     }
+
+                                    //ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), scrollZone.ButtonIframeInitialSize, scrollZone.ButtonSize);
                                 } else {
                                     $("#pizzabtnImg").css({
                                         'width': ProBtnControl.params.ButtonSize.W,
@@ -2995,6 +3004,11 @@ probtn_initTrackingLinkTest();
                                     'width': ProBtnControl.params.ButtonSize.W,
                                     'height': ProBtnControl.params.ButtonSize.H
                                 });
+
+                                if ((scrollZone.ButtonIframeInitialSize.W > 0) && (scrollZone.ButtonIframeInitialSize.H > 0)) {
+                                    ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), scrollZone.ButtonIframeInitialSize, scrollZone.ButtonSize);
+                                }
+
                             } else {
                                 //if main button params where saved, then restore it
                                 if (ProBtnControl.buttonMainParams.isEmpty == false) {
@@ -3057,6 +3071,22 @@ probtn_initTrackingLinkTest();
                             $.each(ProBtnControl.params.ScrollZones, function (index, scrollZone) {
                                 ProBtnControl.additionalButtonFunctions.preloadImage(scrollZone.ButtonImage);
                                 ProBtnControl.additionalButtonFunctions.preloadImage(scrollZone.ButtonDragImage);
+
+                                $("body").on('click', "#video_probtn_" + scrollZone.Name, function (e) {
+                                    console.log("");
+                                    try {
+                                        var video = $("#video_probtn_" + scrollZone.Name).get(0);
+                                        video.pause();
+                                    } catch (ex) {
+                                        console.log(ex);
+                                    }
+
+                                    //setTimeout(function () {
+                                    //send stats and open link
+                                    ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+                                    window.open(ProBtnControl.params.VideoClickURL);
+                                    //}, 150);                                
+                                });
                             });
                             ProBtnControl.initFunctions.scrollZoneFirstRun = true;
 
@@ -3112,6 +3142,8 @@ probtn_initTrackingLinkTest();
 
                             if (scrollZone.ButtonContentType === "video") {
                                 ProBtnControl.videoFunctions.createVideoItem(scrollZone.Name, scrollZone.CustomContentURL);
+
+                                
                             }
 
                             var areaHeight = currentFullTop + getDocumentHeight() * scrollZone.ZoneHeight;
@@ -3124,6 +3156,8 @@ probtn_initTrackingLinkTest();
 
                                 currentZone = scrollZone;
                                 window.probtn_dropedActiveZone.currentActiveZone = scrollZone;
+
+                                //console.log("window.probtn_dropedActiveZone1", window.probtn_dropedActiveZone);
 
 
                                 if ((ProBtnControl.currentScrollZone == null) || (ProBtnControl.currentScrollZone == undefined)) {
@@ -3284,8 +3318,6 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.wrapper = pizzabtn_wrapper;*/
                     pizzabtn_wrapper = ProBtnControl.wrapper;
 
-
-
                     if (ProBtnControl.params.ButtonContentType === 'youtube') {
 
                         var title = "";
@@ -3327,7 +3359,7 @@ probtn_initTrackingLinkTest();
 
                         //TEMPORARY
                         //rewrite VideoClickURL param by VideoPoster param
-                        if ((ProBtnControl.params.VideoClickURL == "") || (ProBtnControl.params.VideoClickURL == null) || (ProBtnControl.params.VideoClickURL == undefined)) {
+                        if ((ProBtnControl.params.VideoClickURL === "") || (ProBtnControl.params.VideoClickURL === null) || (ProBtnControl.params.VideoClickURL === undefined)) {
                             ProBtnControl.params.VideoClickURL = ProBtnControl.params.VideoPoster;
                         }
 
@@ -3345,6 +3377,8 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.additionalItemsContainer.append(content);
 
                         if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
+
+                            console.log("ProBtnControl.params.VideoClickURL1", ProBtnControl.params.VideoClickURL);
 
                             $("body").on('click', "#video_probtn", function (e) {
                                 try {
@@ -5795,8 +5829,8 @@ probtn_initTrackingLinkTest();
                     Debug: false,
 
                     VideoPoster: '',
-                    ButtonOnClick: 'function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
-                    ButtonOnTouchEnd: 'var moved =  window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); videoZone.play(); } } else { console.log("moved", moved); if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); setTimeout(start2 , 1000); setTimeout(start2 , 2000); setTimeout(start2 , 3000);',
+                    ButtonOnClick: 'console.log("ButtonOnClick"); function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
+                    ButtonOnTouchEnd: 'var moved =  window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined) && (moved === false)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0);  videoZone.play(); moved = true; } } else { console.log("moved", moved); if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); setTimeout(start2 , 1000); setTimeout(start2 , 2000); /*setTimeout(start2 , 3000);*/',
                     ButtonOnTouchStart: 'window.probtn_touch_start = 0; window.probtn_touch_interval = setInterval(function() { window.probtn_touch_start = window.probtn_touch_start + 1; }, 1);',
                     ButtonType: 'fancybox',
                     VideoSize: {
@@ -6915,7 +6949,7 @@ probtn_initTrackingLinkTest();
                         // help vars
                         ProBtnControl.overlaped = false;
 
-                        window.probtn_pizzabtn_moved = false;
+                        window.probtn_pizzabtn_moved = true; //TODO - was false
                         ProBtnControl.pizzabtn.moved = false;
 
                         var cssEaseDuration = ProBtnControl.params.cssEaseDuration;
@@ -7032,7 +7066,8 @@ probtn_initTrackingLinkTest();
                                         }
                                     } else {
                                         //if no, then set active zones at "inactive" state
-                                        window.probtn_dropedActiveZone = null;
+                                        //todo uncomment
+                                        //window.probtn_dropedActiveZone = null;
 
                                         $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
 
@@ -7098,7 +7133,8 @@ probtn_initTrackingLinkTest();
                                         window.probtn_dropedActiveZone = null;
                                     }
                                 } else {
-                                    window.probtn_dropedActiveZone = null;
+                                    //todo uncomment
+                                    //window.probtn_dropedActiveZone = null;
                                 }
 
                                 //hide zones and set inactive sizes
@@ -7164,6 +7200,7 @@ probtn_initTrackingLinkTest();
 
                                                     //check for VideoClickURL not empty
                                                     if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
+                                                        console.log("ProBtnControl.params.VideoClickURL", ProBtnControl.params.VideoClickURL);
                                                         if ((ProBtnControl.params.VideoClickURL.indexOf("#blank") > -1) || (ProBtnControl.params.OpenExternal === true)) {
                                                             //setTimeout(function () {
                                                             ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
@@ -7236,7 +7273,7 @@ probtn_initTrackingLinkTest();
                                     ProBtnControl.additionalButtonFunctions.hideAll();
                                 }
                             }
-                        } passback
+                        } 
 
                         var startLocation = window.location.pathname;
                         setInterval(locationHashChanged2, 50);
