@@ -4203,7 +4203,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                    ProBtnControl.initFunctions.initRemoveMenu();
 			                    //remove wrapper
-			                    ProBtnControl.wrapper.remove();
+			                    //ProBtnControl.wrapper.remove();
 
 			                    ProBtnControl.initFunctions.stopWebAudio();
 			                },

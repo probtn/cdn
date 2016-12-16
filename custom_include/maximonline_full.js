@@ -4204,7 +4204,7 @@ var loadProbtn = function (jQuery) {
 
 	                    ProBtnControl.initFunctions.initRemoveMenu();
 	                    //remove wrapper
-	                    ProBtnControl.wrapper.remove();
+	                    //ProBtnControl.wrapper.remove();
 
 	                    ProBtnControl.initFunctions.stopWebAudio();
 	                },

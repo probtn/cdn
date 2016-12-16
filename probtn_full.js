@@ -4162,7 +4162,7 @@ probtn_initTrackingLinkTest();
 
                     ProBtnControl.initFunctions.initRemoveMenu();
                     //remove wrapper
-                    ProBtnControl.wrapper.remove();
+                    //ProBtnControl.wrapper.remove();
 
                     ProBtnControl.initFunctions.stopWebAudio();
                 },
