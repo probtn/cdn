@@ -7206,6 +7206,7 @@ var loadProbtn = function (jQuery) {
 	                                });
 
 	                                if (!ProBtnControl.pizzabtn.moved) {
+
 	                                    //if button clicked                                
 	                                    //ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 	                                    if ((activeZone === null) || (activeZone === undefined)) {
@@ -7262,6 +7263,14 @@ var loadProbtn = function (jQuery) {
 	                                    //});
 	                                } else {
 	                                    ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
+
+	                                    var moved = window.probtn_pizzabtn_moved;
+	                                    if ((window.probtn_dropedActiveZone !== null) && (window.probtn_dropedActiveZone !== undefined) && (moved === false)) {
+	                                        if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType == "video") {
+	                                            console.log("pause video zone");
+	                                            var videoZone = jQuery("#video_probtn_" + window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); videoZone.pause();
+	                                        }
+	                                    }
 
 	                                    if (ProBtnControl.overlaped) {
 	                                        //send close statistics
