@@ -1982,7 +1982,8 @@ probtn_initTrackingLinkTest();
 
                         ProBtnControl.params.currentAreaName = areaName;
 
-                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=" + areaName + "&Statistic=" + "{\"ContentShowed\": \"1\"}&", { AZName: areaName, Statistic: [{ "name": "ContentShowed", "value": 1 }] }),
+                        //"&AZName=" + areaName +
+                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ContentShowed\": \"1\"}&", { AZName: areaName, Statistic: [{ "name": "ContentShowed", "value": 1 }] }),
                             function () { }).always(function () {
                                 if ((callback !== null) && (callback !== undefined)) {
                                     callback();
@@ -2043,7 +2044,8 @@ probtn_initTrackingLinkTest();
                 SendCustomStat: function (name, value, probtnId, currentDomain) {
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
 
-                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&AZName=areaName&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", { AZName: areaName, Statistic: [{ "name": name, "value": value }] }),
+                        //&AZName=areaName
+                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", { AZName: areaName, Statistic: [{ "name": name, "value": value }] }),
                         function () { }).always(function () {
                             if ((callback !== null) && (callback !== undefined)) {
                                 callback();
