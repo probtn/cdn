@@ -1004,8 +1004,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                if (ProBtnControl.params.Debug) console.log("onButtonTap");
 			                window.probtn_button_tap = true;
 
-			                if (ProBtnControl.params.MainButtonClickable === false)
-			                {
+			                if (ProBtnControl.params.MainButtonClickable === false) {
 			                    if (ProBtnControl.params.Debug) console.log("ProBtnControl.params.ActiveZoneMainButtonClickEnabled " + ProBtnControl.params.MainButtonClickable);
 			                    if ((areaName === "") || (areaName === null) || areaName === undefined) {
 			                        if (ProBtnControl.params.Debug) console.log("areaname empty");
@@ -1045,7 +1044,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                if ((currentButtonContentType !== null) && (currentButtonContentType !== undefined) && (currentButtonContentType !== "")) {
 			                    if (ProBtnControl.params.Debug) console.log("currentButtonContentType " + currentButtonContentType);
 			                    if (ProBtnControl.params.Debug) console.log("currentContentURL " + currentContentURL);
-			                    
+
 			                } else {
 			                    currentButtonContentType = ProBtnControl.params.ButtonContentType;
 
@@ -1301,7 +1300,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                            console.log('load the iframe');
 			                        });
-			                    }, 
+			                    },
 			                    afterShow: function () {
 			                        var pizzabtn_wrapper = ProBtnControl.wrapper;
 			                        var opts = {
@@ -1333,7 +1332,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        var video = $("#video_probtn_" + areaName).get(0);
 			                                        video.play();
 			                                    } catch (ex) {
-			                                        console.log("video error1",ex);
+			                                        console.log("video error1", ex);
 			                                    }
 			                                } else {
 			                                    var video = $("#video_probtn").get(0);
@@ -1548,7 +1547,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        };
 			                    });
 
-			                   
+
 			                },
 			                intervalId: {
 			                    "ContentShowedDuration": undefined,
@@ -1786,7 +1785,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                                var isCordovaApp = !!window.cordova;
 			                                if (isCordovaApp) {
-			                                    setTimeout(function() {
+			                                    setTimeout(function () {
 			                                        var cookieName = "";
 			                                        var deviceCUID_item = { 'type': 'probtnCID', 'cid': cookieName };
 			                                        console.log("deviceCUID_item", deviceCUID_item);
@@ -2126,7 +2125,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 			                        var AZName = "";
 
-			                        if ((ProBtnControl.params.currentAreaName !== null) && (ProBtnControl.params.currentAreaName!==undefined) && (ProBtnControl.params.currentAreaName!=="")) {
+			                        if ((ProBtnControl.params.currentAreaName !== null) && (ProBtnControl.params.currentAreaName !== undefined) && (ProBtnControl.params.currentAreaName !== "")) {
 			                            AZName = ProBtnControl.params.currentAreaName;
 			                        }
 			                        //console.log("AZName SendStat", AZName);
@@ -3186,7 +3185,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            if (scrollZone.ButtonContentType === "video") {
 			                                ProBtnControl.videoFunctions.createVideoItem(scrollZone.Name, scrollZone.CustomContentURL);
 
-			                                
+
 			                            }
 
 			                            var areaHeight = currentFullTop + getDocumentHeight() * scrollZone.ZoneHeight;
@@ -4542,7 +4541,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                        if ($(".pizzabtnImg_iframe_cached[rel='" + ProBtnControl.params.ScrollZones[j].Name + "']", ProBtnControl.pizzabtn).attr("src") === scrollZone.ButtonImage) {
 			                                            duplicate = true;
 			                                        }
-			                                        
+
 			                                    }
 			                                }
 			                                if (duplicate === false) {
@@ -6449,7 +6448,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                            postscribe('#probtn_passback', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
 			                                            break;
 			                                        default:
-			                                            postscribe(ProBtnControl.params.PassbackCodeSelector, '<script type="text/javascript">' + ProBtnControl.params.PassbackCustomCode + '</script>');
+			                                            //postscribe(ProBtnControl.params.PassbackCodeSelector, '<script type="text/javascript">' + ProBtnControl.params.PassbackCustomCode + '</script>');
+			                                            postscribe(ProBtnControl.params.PassbackCodeSelector, '' + ProBtnControl.params.PassbackCustomCode + '');
 			                                            break;
 			                                    }
 			                                });
@@ -6493,6 +6493,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                    try {
 			                                        ProBtnControl.params.PassbackCustomCode = data.PassbackCustomCode;
 			                                        ProBtnControl.params.PassbackCodeSelector = data.PassbackCodeSelector;
+
+			                                        if ((ProBtnControl.params.PassbackCodeSelector === "") || (ProBtnControl.params.PassbackCodeSelector===undefined) || (ProBtnControl.params.PassbackCodeSelector===null)) {
+			                                            ProBtnControl.params.PassbackCodeSelector = "#probtn_passback";
+			                                        }
 			                                    } catch (ex) {
 			                                    };
 			                                    if (ProBtnControl.params.Debug) console.log("after server", ProBtnControl.params);
@@ -6524,15 +6528,22 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                                if (inObject.hasOwnProperty(property)) {
 			                                                    if (typeof (inObject[property]) == "string") {
 			                                                        try {
-			                                                            var before = inObject[property];
-			                                                            //inObject[property] = inObject[property].replace(/<\/?[^>]+(>|$)/g, ""); //$(inObject[property]).text();
-			                                                            inObject[property] = inObject[property].split('<style>').join('')
-			                                                                .split('</style>').join('')
-			                                                                .split('<script>').join('')
-			                                                                .split('</script>').join('');
-			                                                        } catch (ex) {
+			                                                            if (property !== "PassbackCustomCode") {
+			                                                                var before = inObject[property];
+			                                                                //inObject[property] = inObject[property].replace(/<\/?[^>]+(>|$)/g, ""); //$(inObject[property]).text();
+			                                                                inObject[property] = inObject[property].split('<style>').join('')
+			                                                                    .split('</style>').join('')
+			                                                                    .split('<script>').join('')
+			                                                                    .split('</script>').join('');
+			                                                            } else {
+			                                                                console.log("property", property);
+			                                                                console.log("inObject[property]", inObject[property]);
+			                                                            }
+			                                                        } catch 
+			                                                            (ex) {
 			                                                            if (ProBtnControl.params.Debug) console.log(ex);
 			                                                        }
+
 			                                                    }
 			                                                }
 			                                            }
@@ -6634,7 +6645,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                    if (ProBtnControl.params.UseExternalDataAboutUser === true) {
 			                                        Details = "Details=" + JSON.stringify(ProBtnControl.params.ExternalData) + "&";
 			                                    }
-			                           
+
 			                                    if ((ProBtnControl.params.CreativeId !== "") && (ProBtnControl.params.CreativeId !== null) && (ProBtnControl.params.CreativeId !== undefined)) {
 			                                        settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "SelectCampaign=" + ProBtnControl.params.CreativeId + "&" + Details);
 			                                    } else {
@@ -6706,7 +6717,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                case "probtn_performed_action":
 			                                    console.log("probtn_performed_action", event.data);
 			                                    var actionValue = "buy";
-			                                    if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value!==null)) {
+			                                    if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value !== null)) {
 			                                        actionValue = event.data.value.toLowerCase();
 			                                    }
 			                                    ProBtnControl.statistics.SendStatisticsData("performedAction", actionValue);
@@ -6963,7 +6974,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                            //always show close button
 			                            if (ProBtnControl.params.AlwaysShowCloseButton == true) {
-			                                setTimeout(function() {
+			                                setTimeout(function () {
 			                                    $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
 			                                }, ProBtnControl.params.CloseButtonShowDelay);
 			                            }
@@ -7325,7 +7336,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                                    ProBtnControl.additionalButtonFunctions.hideAll();
 			                                }
 			                            }
-			                        } 
+			                        }
 
 			                        var startLocation = window.location.pathname;
 			                        setInterval(locationHashChanged2, 50);
