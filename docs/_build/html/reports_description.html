@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Поиск &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  <title>Отчеты: &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
   
 
   
@@ -30,7 +30,8 @@
   
 
   
-    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/> 
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="prev" title="Дополнительные параметры анимации кнопки" href="button_additional_animations_param.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +66,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -80,7 +81,7 @@
             
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
@@ -100,7 +101,11 @@
 <li class="toctree-l1"><a class="reference internal" href="postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postMessage_button_animation.html">Передача сообщений об этапах анимации</a></li>
 <li class="toctree-l1"><a class="reference internal" href="button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reports_description.html">Отчеты:</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Отчеты:</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Старые отчеты, видимые только админам</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Отчеты, доступные всем пользователям</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -131,8 +136,12 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Отчеты:</li>
       <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/reports_description.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
@@ -141,23 +150,89 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="reports-description">
+<span id="id1"></span><h1>Отчеты:<a class="headerlink" href="#reports-description" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id2">
+<h2>Старые отчеты, видимые только админам<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><strong>SQL Campaigns</strong></li>
+<li><strong>SQL Detailed</strong></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>Отчеты, доступные всем пользователям<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt><strong>C0de calls</strong></dt>
+<dd><p class="first last">Показывает с разбивкой по дням общее кол-во запросов (<cite>getClientSettings</cite>) к серверу с какого-либо аппа</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>SQL Duration</strong></dt>
+<dd><p class="first last">Отчет о продолжительности просмотра посадки (<cite>ContentShowedDuration</cite>) с разбивкой по интервалам</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>Detailed by App</strong></dt>
+<dd><p class="first">Один из основных отчетов. Содержит отчеты, выгружаемые по аппу.
+Варианты отображения данных:</p>
+<ol class="last arabic simple">
+<li><em>by Date</em> - сумма по датам</li>
+<li><em>by Date and creative</em> - сумма по датам с разбивкой по креативам</li>
+<li><em>by Zones*</em> - средняя продолжительность и клики с разбивкой каждой зоне (необходимо выбрать креатив)</li>
+<li><em>by Performed action</em> - статистика по различным performed action (необходимо выбрать креатив)</li>
+<li><em>by Campaign</em> - разбивка по кампаниям (всем на данной площадке)</li>
+<li><em>by Creative</em> - сумма по креативам</li>
+<li><em>by Device</em> - разбивка по устройствам</li>
+<li><em>by Mobile operator</em> - по моб. операторам</li>
+<li><em>by Operating system</em> - по операционным системам</li>
+<li><em>by Country</em> - по странам</li>
+<li><em>by City</em> - по городам</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>Detailed by Campaign</strong></dt>
+<dd><p class="first">Второй из основных отчетов. Содержит отчеты, выгружаемые по рекламной кампании.
+Варианты отображания данных:</p>
+<ol class="last arabic simple">
+<li><em>by Date</em> - сумма по датам</li>
+<li><em>by Apps</em> - с разбивкой по аппам (всем в этой кампании)</li>
+<li><em>by Creative</em> - сумма по креативам</li>
+<li><em>by Device</em> - разбивка по устройствам</li>
+<li><em>by Mobile operator</em> - по моб. операторам</li>
+<li><em>by Operating system</em> - по операционным системам</li>
+<li><em>by Country</em> - по странам</li>
+<li><em>by City</em> - по городам</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>SQL Pool</strong></dt>
+<dd><p class="first last">Отчет по аппу с <cite>BundleID == &#8220;pool&#8221;</cite>, который используется (использовался?) в основном Addinapp&#8217;ом для запуска идентичных креативов на нескольких площадках
+Отчет показывает сколько показов было на какой площадке (имя площадки необходимо ввести самому в Domain name)</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="button_additional_animations_param.html" class="btn btn-neutral" title="Дополнительные параметры анимации кнопки" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -196,7 +271,6 @@
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
       <script type="text/javascript" src="_static/translations.js"></script>
-      <script type="text/javascript" src="_static/searchtools.js"></script>
 
   
 
@@ -212,14 +286,7 @@
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>
