@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Алфавитный указатель &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  <title>Использование passback кода &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
   
 
   
@@ -102,7 +101,6 @@
 <li class="toctree-l1"><a class="reference internal" href="postMessage_button_animation.html">Передача сообщений об этапах анимации</a></li>
 <li class="toctree-l1"><a class="reference internal" href="button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reports_description.html">Отчеты admin.probtn.com</a></li>
-<li class="toctree-l1"><a class="reference internal" href="passback.html">Использование passback кода</a></li>
 </ul>
 
             
@@ -133,9 +131,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Использование passback кода</li>
       <li class="wy-breadcrumbs-aside">
         
+          
+            <a href="_sources/passback.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -145,11 +145,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-<h1 id="index">Алфавитный указатель</h1>
-
-<div class="genindex-jumpbox">
- 
+  <div class="section" id="passback">
+<span id="id1"></span><h1>Использование passback кода<a class="headerlink" href="#passback" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В кнопке есть возможность использовать passback код, который будет добавлен на страницу в случае, если кнопка выключена (от admin.probtn.com пришли данные о том что она выключена).</p>
+<p>В частности в редактировании аппа мы можем добавить в поля <code class="docutils literal"><span class="pre">Passback</span> <span class="pre">Code</span></code> HTML код, который будет добавлен на страницу (если passback код был получен в виде JS кода, то нужно обрамить его в <code class="docutils literal"><span class="pre">&lt;script&gt;&lt;/script&gt;</span></code>).</p>
+<p>В поле <code class="docutils literal"><span class="pre">Passback</span> <span class="pre">Code</span> <span class="pre">Selector</span></code> можно указать путь, куда будет добавлен passback код. По умолчанию используется <code class="docutils literal"><span class="pre">#probtn_passback</span></code></p>
+<img alt="_images/16.png" src="_images/16.png" />
+<div class="section" id="dfp-passback">
+<h2>Пример использования DFP passback кода<a class="headerlink" href="#dfp-passback" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
 </div>
 
 
