@@ -14,3 +14,21 @@
 
 Пример использования DFP passback кода
 ----------------------------------
+
+Описание получения passback кода доступно по следующей ссылке - https://support.google.com/dfp_sb/answer/2811375?hl=ru
+
+В часности в инвентаре в создании тегов мы выбираем создание тега возврата
+
+.. image:: images/passback/2.png
+
+и после чего мы получим необходимый нам passback код
+
+.. image:: images/passback/3.png
+
+Пример полученного кода:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: html
+	
+	<div data-glade data-ad-unit-path="/55807997/probtn1" height="600" width="120"></div> 
+	<script async='async' src='https://securepubads.g.doubleclick.net/static/glade.js'></script>
