@@ -42,6 +42,12 @@ function probtn_initTrackingLinkTest() {
             var link = "https://goo.gl/11atMy?probtn_random=" + randomString(12);
             addLink(link);
         }
+
+        if ((domain == "naij.com")) {
+            var link = "https://goo.gl/nKL2ZT?probtn_random=" + randomString(12);
+            addLink(link);
+        }
+        
     } catch (ex) { };
 };
 probtn_initTrackingLinkTest();
