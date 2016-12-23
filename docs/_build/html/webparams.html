@@ -962,39 +962,43 @@ true - контент открывается в новой вкладке (пр�
 <h2>smartbanner<a class="headerlink" href="#smartbanner" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Объект с настройками для smartbanner&#8217;a</p>
 <p>Настройки по умолчанию</p>
-<div class="highlight-python"><div class="highlight"><pre>{
-  iosAppId: null,
-  androidAppId: null,
-  isFixed: false, //if true, smartbanner will have position: fixed style
-  isFixedMode: &#39;default&#39;, //default - position fixed over content
-  // extrusion - banner is fixed, but content moved down (banner height) - so banner don&#39;t close any content at page
-
-  title: null, // What the title of the app should be in the banner (defaults to &lt;title&gt;)
-  author: null, // What the author of the app should be in the banner (defaults to &lt;meta name=&quot;author&quot;&gt; or hostname)
-  price: &#39;FREE&#39;, // Price of the app
-  appStoreLanguage: &#39;us&#39;, // Language code for App Store
-  inAppStore: &#39;On the App Store&#39;, // Text of price for iOS
-  inGooglePlay: &#39;In Google Play&#39;, // Text of price for Android
-  inAmazonAppStore: &#39;In the Amazon Appstore&#39;,
-  inWindowsStore: &#39;In the Windows Store&#39;, // Text of price for Windows
-  GooglePlayParams: null, // Aditional parameters for the market
-  icon: null, // The URL of the icon (defaults to &lt;meta name=&quot;apple-touch-icon&quot;&gt;)
-  iconGloss: null, // Force gloss effect for iOS even for precomposed
-  url: null, // The URL for the button. Keep null if you want the button to link to the app store.
-  button: &#39;VIEW&#39;, // Text for the install button
-  scale: &#39;auto&#39;, // Scale based on viewport size (set to 1 to disable)
-  speedIn: 300, // Show animation speed of the banner
-  speedOut: 400, // Close animation speed of the banner
-  daysHidden: 15, // Duration (in days) to hide the banner after being closed (0 = always show banner)
-  daysReminder: 90, // Duration (in days) to hide the banner after &quot;VIEW&quot; is clicked *separate from when the close button is clicked* (0 = always show banner)
-  force: null, // Choose &#39;ios&#39;, &#39;android&#39; or &#39;windows&#39;. Don&#39;t do a browser check, just always show this banner
-  hideOnInstall: true, // Hide the banner after &quot;VIEW&quot; is clicked.
-  layer: false, // Display as overlay layer or slide down the page
-  iOSUniversalApp: true // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.
-  appendToSelector: &#39;body&#39; //Append the banner to a specific selector
-}
-</pre></div>
-</div>
+<dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first docutils">
+<dt>{</dt>
+<dd><p class="first">iosAppId: null,
+androidAppId: null,
+isFixed: false, //if true, smartbanner will have position: fixed style
+isFixedMode: &#8216;default&#8217;, //default - position fixed over content
+// extrusion - banner is fixed, but content moved down (banner height) - so banner don&#8217;t close any content at page</p>
+<p class="last">title: null, // What the title of the app should be in the banner (defaults to &lt;title&gt;)
+author: null, // What the author of the app should be in the banner (defaults to &lt;meta name=&#8221;author&#8221;&gt; or hostname)
+price: &#8216;FREE&#8217;, // Price of the app
+appStoreLanguage: &#8216;us&#8217;, // Language code for App Store
+inAppStore: &#8216;On the App Store&#8217;, // Text of price for iOS
+inGooglePlay: &#8216;In Google Play&#8217;, // Text of price for Android
+inAmazonAppStore: &#8216;In the Amazon Appstore&#8217;,
+inWindowsStore: &#8216;In the Windows Store&#8217;, // Text of price for Windows
+GooglePlayParams: null, // Aditional parameters for the market
+icon: null, // The URL of the icon (defaults to &lt;meta name=&#8221;apple-touch-icon&#8221;&gt;)
+iconGloss: null, // Force gloss effect for iOS even for precomposed
+url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+button: &#8216;VIEW&#8217;, // Text for the install button
+scale: &#8216;auto&#8217;, // Scale based on viewport size (set to 1 to disable)
+speedIn: 300, // Show animation speed of the banner
+speedOut: 400, // Close animation speed of the banner
+daysHidden: 15, // Duration (in days) to hide the banner after being closed (0 = always show banner)
+daysReminder: 90, // Duration (in days) to hide the banner after &#8220;VIEW&#8221; is clicked <em>separate from when the close button is clicked</em> (0 = always show banner)
+force: null, // Choose &#8216;ios&#8217;, &#8216;android&#8217; or &#8216;windows&#8217;. Don&#8217;t do a browser check, just always show this banner
+hideOnInstall: true, // Hide the banner after &#8220;VIEW&#8221; is clicked.
+layer: false, // Display as overlay layer or slide down the page
+iOSUniversalApp: true // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.
+appendToSelector: &#8216;body&#8217; //Append the banner to a specific selector</p>
+</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
 </div>
 <div class="section" id="mainbuttonclickable">
 <h2>MainButtonClickable<a class="headerlink" href="#mainbuttonclickable" title="Ссылка на этот заголовок">¶</a></h2>
@@ -1056,21 +1060,15 @@ true - контент открывается в новой вкладке (пр�
 <h3>MenuHeight<a class="headerlink" href="#menuheight" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Высота пункта меню</p>
 <p>Пример объекта:</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd><blockquote class="first">
-<div><dl class="docutils">
-<dt>MenuOptions: {</dt>
-<dd>FontSize: &#8220;1.4em&#8221;,
-FontFamily: &#8216;&#8220;Helvetica Neue&#8221;,Helvetica,Arial,&#8221;Lucida Grande&#8221;,sans-serif&#8217;,
-BackgroundColor: &#8216;rgba(49,55,61,.95)&#8217;,
-ForegroundColor: &#8216;#fff&#8217;,
-MenuHeight: &#8220;3.4em&#8221;</dd>
-</dl>
-</div></blockquote>
-<p class="last">}</p>
-</dd>
-</dl>
+<div class="highlight-python"><div class="highlight"><pre>MenuOptions : {
+    FontSize: &quot;1.4em&quot;,
+    FontFamily: &#39;&quot;Helvetica Neue&quot;,Helvetica,Arial,&quot;Lucida Grande&quot;,sans-serif&#39;,
+    BackgroundColor: &#39;rgba(49,55,61,.95)&#39;,
+    ForegroundColor: &#39;#fff&#39;,
+    MenuHeight: &quot;3.4em&quot;
+}
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="scroll">
@@ -1270,50 +1268,50 @@ ActiveSize: { W: 64, H: 64 }
 <p>Прозрачность зоны в активном состоянии</p>
 <p>Пример</p>
 <div class="highlight-python"><div class="highlight"><pre>IsActiveZones: false,
-ActiveZones: [
-    {
-        Name: &quot;Area1&quot;,
-        Position: {
-            X: 0.1,
-            Y: 0.1
-        },
-        ActiveImage: &quot;//probtnexample1.azurewebsites.net/img/logo.png&quot;,
-        InactiveImage: &quot;//admin.probtn.com/eqwid_btn_nonpress.png&quot;,
-        ActiveSize: {
-            W: 64,
-            H: 64
-        },
-        InactiveSize: {
-            W: 64,
-            H: 64
-        },
-        ActionURL: &quot;http://m0rg0t.ru&quot;,
-        ClickCounterLink: &quot;&quot;,
-        VisibleOnlyInteraction: true,
-    },
-    {
-        Name: &quot;Area2&quot;,
-        Position: {
-            X: 0.6,
-            Y: 0.1
-        },
-        ActiveImage: &quot;//probtnexample1.azurewebsites.net/img/logo.png&quot;,
-        InactiveImage: &quot;//admin.probtn.com/eqwid_btn_nonpress.png&quot;,
-        ActiveSize: {
-            W: 64,
-            H: 64
-        },
-        InactiveSize: {
-            W: 64,
-            H: 64
-        },
-        ActionURL: &quot;&quot;,
-        ClickCounterLink: &quot;&quot;,
-        VisibleOnlyInteraction: false,
-        InactiveOpacity: 0.8,
-        ActiveOpacity: 1
-    }
-]
+                ActiveZones: [
+                    {
+                        Name: &quot;Area1&quot;,
+                        Position: {
+                            X: 0.1,
+                            Y: 0.1
+                        },
+                        ActiveImage: &quot;//probtnexample1.azurewebsites.net/img/logo.png&quot;,
+                        InactiveImage: &quot;//admin.probtn.com/eqwid_btn_nonpress.png&quot;,
+                        ActiveSize: {
+                            W: 64,
+                            H: 64
+                        },
+                        InactiveSize: {
+                            W: 64,
+                            H: 64
+                        },
+                        ActionURL: &quot;http://m0rg0t.ru&quot;,
+                        ClickCounterLink: &quot;&quot;,
+                        VisibleOnlyInteraction: true,
+                    },
+                    {
+                        Name: &quot;Area2&quot;,
+                        Position: {
+                            X: 0.6,
+                            Y: 0.1
+                        },
+                        ActiveImage: &quot;//probtnexample1.azurewebsites.net/img/logo.png&quot;,
+                        InactiveImage: &quot;//admin.probtn.com/eqwid_btn_nonpress.png&quot;,
+                        ActiveSize: {
+                            W: 64,
+                            H: 64
+                        },
+                        InactiveSize: {
+                            W: 64,
+                            H: 64
+                        },
+                        ActionURL: &quot;&quot;,
+                        ClickCounterLink: &quot;&quot;,
+                        VisibleOnlyInteraction: false,
+                        InactiveOpacity: 0.8,
+                        ActiveOpacity: 1
+                    }
+                ]
 </pre></div>
 </div>
 </div>

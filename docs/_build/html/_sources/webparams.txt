@@ -685,6 +685,7 @@ smartbanner
 Объект с настройками для smartbanner'a
 
 Настройки по умолчанию
+
 :: 
 	{
 	  iosAppId: null,
@@ -783,13 +784,14 @@ MenuHeight
 Пример объекта:
 
 ::
-        MenuOptions: {
-            FontSize: "1.4em",
-            FontFamily: '"Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif',
-            BackgroundColor: 'rgba(49,55,61,.95)',
-            ForegroundColor: '#fff',
-            MenuHeight: "3.4em"
-       }
+
+    MenuOptions : {
+        FontSize: "1.4em",
+        FontFamily: '"Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif',
+        BackgroundColor: 'rgba(49,55,61,.95)',
+        ForegroundColor: '#fff',
+        MenuHeight: "3.4em"
+    }
 
 Scroll параметры
 ----------------------------------
@@ -1002,8 +1004,10 @@ ActiveOpacity
 Прозрачность зоны в активном состоянии
 
 Пример
+
 ::
-                    IsActiveZones: false,
+
+    IsActiveZones: false,
                     ActiveZones: [
                         {
                             Name: "Area1",
