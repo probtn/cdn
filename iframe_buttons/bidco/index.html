@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>bidco</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=260" />
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="bidco_hype_container" style="margin:auto;position:relative;width:260px;height:285px;overflow:hidden;" aria-live="polite">
+		<script type="text/javascript" charset="utf-8" src="bidco.hyperesources/bidco_hype_generated_script.js?49980"></script>
+	</div>
+
+	<!-- end copy -->
+	
+
+
+	<!-- text content for search engines: -->
+
+	<div style="display:none">
+
+
+	</div>
+
+	<!-- end text content: -->
+
+	<script>
+     function MyFunctions(hypeDocument, element, event) {
+         var receiveMessage = function (event) {
+             
+             if (event.data.message === "probtn_page_scrollzone_changed") {
+                 console.log("button event", event.data.name);
+                 switch (event.data.name) {
+                     case "a6":
+                         hypeDocument.showSceneNamed("scene-2");
+                         break;
+                     default:
+                         hypeDocument.showSceneNamed("scene-1");
+                         break;
+                 }
+
+             }
+         }
+         window.addEventListener("message", receiveMessage, false);
+         // run your functions that require a loaded Hype scene here. 
+     }
+     if ("HYPE_eventListeners" in window === false) {
+         window.HYPE_eventListeners = Array();
+     }
+     window.HYPE_eventListeners.push({
+         "type": "HypeSceneLoad",
+         "callback": MyFunctions
+     });
+	</script>
+
+  </body>
+</html>
