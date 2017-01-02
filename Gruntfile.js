@@ -76,7 +76,18 @@ module.exports = function(grunt) {
 		  //run this template before commit - to add unglyfied probtn.js to commit
 		  template: 'precommit.js'
 		},
-	}
+	},
+	jshint: {
+      files: ['probtn_full.js'],
+	  //reporterOutput: 'report_probtn_full.txt',
+      options: {
+		reporter: require('jshint-html-reporter'),
+        reporterOutput: 'jshint-report.html',
+        globals: {
+          jQuery: true
+        }
+      }
+    }	
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -86,9 +97,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-git');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-newer');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task(s).
-  grunt.registerTask('default', ['includes', 'uglify', 'newer:imagemin']);
+  grunt.registerTask('default', ['includes', 'uglify', 'newer:imagemin', 'jshint']);
+  //grunt.registerTask('jshint', ['jshint']);
 
 };
 

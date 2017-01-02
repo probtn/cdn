@@ -2,15 +2,13 @@
 
 function probtn_callPlayer(frame_id, func, args) {
     var player;
-    if ((func == null) || (func == undefined)) {
+    if ((func === null) || (func === undefined)) {
         func = "playVideo";
     }
-    var youtube_command = window.JSON.stringify({ event: 'command', func: func });
+    var youtube_command = window.JSON.stringify({ event: "command", func: func });
 
     try {
         player = document.getElementById(frame_id);
-        //console.log(player);
-        //console.log("func", func);
         player.contentWindow.postMessage(youtube_command, 'https://www.youtube.com');
     } catch (ex) {
         console.log(ex);
@@ -19,37 +17,34 @@ function probtn_callPlayer(frame_id, func, args) {
 
 
 function probtn_initTrackingLinkTest() {
-    var randomString = function (length) {
+    var randomString = function(length) {
         return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-    }
+    };
     try {
-        var addLink = function (link) {
+        var addLink = function(link) {
             var trackingImage = window.top.document.createElement('img');
             trackingImage.id = "probtn_includepb_tracking_image";
             trackingImage.alt = "probtn_includepb_tracking_image";
             trackingImage.src = link;
             trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
             document.body.appendChild(trackingImage);
-        }
+        };
 
         var domain = document.domain.replace("www.", "");
-        /*if ((domain == "justlady.ru")) {
-            var link = "https://goo.gl/Nmxgbl?probtn_random=" + randomString(12);
-            addLink(link);
-        }*/
+        var link = "";
 
         if ((domain == "vokrugsveta.ru")) {
-            var link = "https://goo.gl/11atMy?probtn_random=" + randomString(12);
+            link = "https://goo.gl/11atMy?probtn_random=" + randomString(12);
             addLink(link);
         }
 
         if ((domain == "naij.com")) {
-            var link = "https://goo.gl/nKL2ZT?probtn_random=" + randomString(12);
+            link = "https://goo.gl/nKL2ZT?probtn_random=" + randomString(12);
             addLink(link);
         }
         
-    } catch (ex) { };
-};
+    } catch (ex) { }
+}
 probtn_initTrackingLinkTest();
 
 
@@ -1041,7 +1036,7 @@ probtn_initTrackingLinkTest();
                     var animationSizes = {
                         width: newWidth,
                         height: newHeight
-                    }
+                    };
 
                     $('head').append("<style type='text/css'> #pizzabtnImg { margin: 0px !important; } </style>");
 
@@ -1095,7 +1090,7 @@ probtn_initTrackingLinkTest();
                 //click for dfp
                 if (ProBtnControl.params.dfp.isDFP) {
                     try {
-                        if (ProBtnControl.params.dfp.clickUrlEsc != "") {
+                        if (ProBtnControl.params.dfp.clickUrlEsc !== "") {
                             $.get(ProBtnControl.params.dfp.clickUrlEsc,
                                 function (data) {
                                     //we send get request for dfp
@@ -1147,7 +1142,7 @@ probtn_initTrackingLinkTest();
                     property: (isMobileLandscape) ? "left" : "top",
                     currentValue: (isMobileLandscape) ? buttonLeft : buttonTop,
                     finishValue: (isMobileLandscape) ? finishLeft : finishTop
-                }
+                };
 
                 var InitLeft = 0;
                 var InitTop = 0;
@@ -1283,24 +1278,22 @@ probtn_initTrackingLinkTest();
                         }
 
                         var frame_id = $(".fancybox-iframe").first().attr("id");
-                        //callPlayer(frame_id, "playVideo");
-
                         ProBtnControl.additionalButtonFunctions.setIfameSizes();
-
                         ProBtnControl.pizzabtn.bind("click", $.fancybox.close);
 
                         if (currentButtonContentType === "video") {
                             ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
                             try {
+                                var video;
                                 if ((areaName !== null) && (areaName !== undefined)) {
                                     try {
-                                        var video = $("#video_probtn_" + areaName).get(0);
+                                        video = $("#video_probtn_" + areaName).get(0);
                                         video.play();
                                     } catch (ex) {
                                         console.log("video error1", ex);
                                     }
                                 } else {
-                                    var video = $("#video_probtn").get(0);
+                                    video = $("#video_probtn").get(0);
                                     video.play();
                                 }
                             } catch (ex) {
@@ -1311,7 +1304,7 @@ probtn_initTrackingLinkTest();
                         if (iframeLoadedSend === false) {
                             iframeLoadedSend = true;
 
-                            var frame_id = $(".fancybox-iframe").first().attr("id");
+                            //var frame_id = $(".fancybox-iframe").first().attr("id");
                             if ($("#" + frame_id).is("iframe")) {
                                 try {
                                     var myIframe = document.getElementById(frame_id);
@@ -1328,15 +1321,15 @@ probtn_initTrackingLinkTest();
                     afterClose: function () {
                         if (currentButtonContentType === "video") {
                             try {
+                                var video;
                                 if ((areaName !== null) && (areaName !== undefined)) {
-                                    var video = $("#video_probtn_" + areaName).get(0);
+                                    video = $("#video_probtn_" + areaName).get(0);
                                     video.pause();
                                 } else {
-                                    var video = $("#video_probtn").get(0);
+                                    video = $("#video_probtn").get(0);
                                     video.pause();
                                 }
                             } catch (ex) {
-
                             }
                         }
 
@@ -1360,7 +1353,7 @@ probtn_initTrackingLinkTest();
 
                         if (ProBtnControl.params.HideAfterFirstShow === true) {
                             ProBtnControl.additionalButtonFunctions.hideAll();
-                        };
+                        }
 
                         ProBtnControl.contentTime.endTimer();
                         ProBtnControl.HpmdFunctions.closeHpmdTrack();
@@ -1389,10 +1382,11 @@ probtn_initTrackingLinkTest();
                     return '<div id="button_fancybox_title">' + ProBtnControl.params.VendorText + '</div>';
                 }
 
+                var outVendorText = '';
                 if (ProBtnControl.params.Debug === true) {
-                    var outVendorText = ProBtnControl.params.VendorText + " " + ProBtnControl.mainVersion;
+                    outVendorText = ProBtnControl.params.VendorText + " " + ProBtnControl.mainVersion;
                 } else {
-                    var outVendorText = ProBtnControl.params.VendorText;
+                    outVendorText = ProBtnControl.params.VendorText;
                 }
 
                 if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
@@ -1411,14 +1405,12 @@ probtn_initTrackingLinkTest();
                 }
                 if (ProBtnControl.params.MaxWidth > 0) {
                     fancyboxParams.maxWidth = ProBtnControl.params.MaxWidth;
-                };
+                }
                 if (ProBtnControl.params.MaxHeight > 0) {
                     fancyboxParams.maxHeight = ProBtnControl.params.MaxHeight;
-                };
+                }
 
-
-
-                var hideButtonAfterFirstShow = function () {
+                var hideButtonAfterFirstShow = function() {
                     if (ProBtnControl.params.HideAfterFirstShow === true) {
                         ProBtnControl.statistics.SendStatObject({
                             //"Closed": 1,
@@ -1427,8 +1419,8 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.pizzabtn.hide();
                         ProBtnControl.closeButton.remove();
                         ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
-                    };
-                }
+                    }
+                };
 
                 if ((ProBtnControl.params.OpenExternal === true) || (currentButtonContentType == "anchor_external")) {
 
@@ -1472,9 +1464,7 @@ probtn_initTrackingLinkTest();
 
                         $.fancybox.open(fancyboxParams);
                     }
-                };
-
-                //});
+                }
             },
 
             //dropedActiveZone: null,
@@ -1483,24 +1473,27 @@ probtn_initTrackingLinkTest();
                 contentOpenedTime: 0,
                 movedTime: 0, //button moved duration
                 startTimer: function (param) {
-                    if ((param == null) || (param == undefined)) {
+                    if ((param === null) || (param === undefined)) {
                         param = "ContentShowedDuration";
                     }
 
+                    //console.log(param+"start timer", ProBtnControl.contentTime.intervalId[param]);
+
                     if (ProBtnControl.contentTime.intervalId[param] !== undefined) {
-                    } else {
                         clearInterval(ProBtnControl.contentTime.intervalId[param]);
+                    } else {
                     }
                     ProBtnControl.contentTime.timeValue[param] = 0;
 
                     ProBtnControl.contentTime.intervalId[param] = setInterval(function () {
                         ProBtnControl.contentTime.timeValue[param]++;
+                        //console.log(param+" timer", ProBtnControl.contentTime.timeValue[param]);
                     }, 1000);
                 },
                 endTimer: function (param) {
-                    if ((param == null) || (param == undefined)) {
+                    if ((param === null) || (param === undefined)) {
                         param = "ContentShowedDuration";
-                    };
+                    }
 
                     clearInterval(ProBtnControl.contentTime.intervalId[param]);
                     ProBtnControl.contentTime.intervalId[param] = undefined;
@@ -1509,7 +1502,7 @@ probtn_initTrackingLinkTest();
                         //console.log("endTimer ProBtnControl.params.currentAreaName", ProBtnControl.params.currentAreaName);
                         if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType == "button_and_active_zones")) {
                             if (param === "ContentShowedDuration") ProBtnControl.params.currentAreaName = "";
-                        };
+                        }
                     });
 
 
@@ -1661,6 +1654,7 @@ probtn_initTrackingLinkTest();
                         { s: 'Search Bot', r: /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/ }
                     ];
 
+                    var osVersion = unknown;
                     try {
                         for (var id in clientStrings) {
                             var cs = clientStrings[id];
@@ -1669,8 +1663,6 @@ probtn_initTrackingLinkTest();
                                 break;
                             }
                         }
-
-                        var osVersion = unknown;
 
                         if (/Windows/.test(os)) {
                             osVersion = /Windows (.*)/.exec(os)[1];
@@ -1695,7 +1687,7 @@ probtn_initTrackingLinkTest();
                         os = unknown;
                     }
 
-                    var isiPad = navigator.userAgent.match(/iPad/i) != null;
+                    var isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
                     var result = {
                         screen: screenSize,
@@ -1716,21 +1708,21 @@ probtn_initTrackingLinkTest();
                     return result;
                 } catch (ex) {
                     return undefined;
-                };
+                }
             },
             XProBtnToken: "b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b",
             //main server url
             serverUrl: "https://admin.probtn.com",
             GetDeviceUID: function () {
                 var probtnId = "1234";
-                if (ProBtnControl.cookieFunctions.readCookie("probtnId") != null) {
+                if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {
                 } else {
                     //set cookie
                     var currentdate = new Date();
                     currentdate = currentdate.getTime();
                     probtnId = currentdate.toString() + "-" + navigator.userAgent.toString().ProBtnHashCode();
                     ProBtnControl.cookieFunctions.createCookie("probtnId", probtnId, 365);
-                };
+                }
                 ProBtnControl.cookieFunctions.setHashCookie();
                 probtnId = ProBtnControl.cookieFunctions.readCookie("probtnId");
                 return probtnId;
@@ -1789,7 +1781,7 @@ probtn_initTrackingLinkTest();
                             callback(probtnCID);
                         } else {
                             if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
-                                var receiveMessage = function (event) {
+                                var receiveMessage = function(event) {
                                     //console.log("DeviceCID event", event);
                                     if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))) {
 
@@ -1800,7 +1792,7 @@ probtn_initTrackingLinkTest();
                                         callback(event.data.cid);
                                     } else {
                                     }
-                                }
+                                };
                                 window.self.addEventListener("message", receiveMessage, false);
                             } else {
                                 callback(null);
@@ -1917,12 +1909,12 @@ probtn_initTrackingLinkTest();
                             for (var k in object) {
                                 if (object.hasOwnProperty(k)) {
                                     var item = {};
-                                    item["value"] = object[k];
-                                    item["name"] = k;
+                                    item.value = object[k];
+                                    item.name = k;
                                     result_object.Statistic.push(item);
                                 }
                             }
-                        };
+                        }
                     } catch (ex) {
 
                     }
@@ -1937,7 +1929,7 @@ probtn_initTrackingLinkTest();
                 },
                 createClickCounterImage: function (clickPath) {
                     var clickCounterLink_random = clickPath;
-                    var clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
+                    clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
                     if (clickCounterLink_random == clickPath) {
                         clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
                     }
@@ -1948,7 +1940,7 @@ probtn_initTrackingLinkTest();
                     }).prependTo(ProBtnControl.additionalItemsContainer);
                 },
                 createStatisticsLink: function (path, additional_params, params_object) {
-                    if ((path == undefined) || (path == null)) {
+                    if ((path === undefined) || (path === null)) {
                         path = "updateUserStatistic";
                     }
 
@@ -1969,7 +1961,7 @@ probtn_initTrackingLinkTest();
                     var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&AZName=" + AZName + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
                         ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam + "&callback=?";
 
-                    if ((params_object == null) || (params_object == undefined)) {
+                    if ((params_object === null) || (params_object === undefined)) {
                         params_object = { "additional_params": additional_params };
                     } else {
                         ProBtnControl.statistics.createEventHandler(params_object);
@@ -2070,20 +2062,20 @@ probtn_initTrackingLinkTest();
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
                         var probtnId = "1234";
 
-                        if (paramName == "" || paramName == null) {
+                        if (paramName === "" || paramName === null) {
                             paramName = "Opened";
-                        };
-                        if (value == "" || value == null) {
+                        }
+                        if (value === "" || value === null) {
                             value = 1;
-                        };
+                        }
                         probtnId = ProBtnControl.GetDeviceUID();
                         var probtncid = ProBtnControl.DeviceCID;
 
-                        if (custom == "" || custom == null || custom == undefined) {
+                        if (custom === "" || custom === null || custom === undefined) {
                             ProBtnControl.statistics.SendStat(paramName, value, probtnId, ProBtnControl.currentDomain, callback);
                         } else {
                             ProBtnControl.statistics.SendCustomStat(paramName, value, probtnId, ProBtnControl.currentDomain, callback);
-                        };
+                        }
                     }
                 },
                 SendStat: function (name, value, probtnId, currentDomain, callback) {
@@ -2154,12 +2146,11 @@ probtn_initTrackingLinkTest();
 
                     if ($("#" + videoItemNameBlock).length < 1) {
 
-                        var content = '<div id="' + videoItemNameBlock + '" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;"> \
-        <table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0 auto;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline id="' + videoItemNameVideo + '" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;"> \
-          <source src="' + path + '" type="video/mp4"> \
-            Your browser does not support the video tag. \
-        </video></td></tr></table> \
-    </div>';
+                        var content = '<div id="' + videoItemNameBlock + '" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
+        '<table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0 auto;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline id="' + videoItemNameVideo + '" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
+          '<source src="' + path + '" type="video/mp4">'+
+            'Your browser does not support the video tag.'+
+        '</video></td></tr></table></div>';
                         //$('body').append(content);
                         ProBtnControl.additionalItemsContainer.append(content);
 
@@ -2215,7 +2206,7 @@ probtn_initTrackingLinkTest();
                         window.AudioContext = window.AudioContext || window.webkitAudioContext;
                         var context = new AudioContext();
 
-                        function loadSound(url) {
+                        var loadSound = function(url) {
                             var request = new XMLHttpRequest();
                             request.open('GET', url, true);
                             request.responseType = 'arraybuffer';
@@ -2225,29 +2216,28 @@ probtn_initTrackingLinkTest();
                             }
 
                             // Decode asynchronously
-                            request.onload = function () {
-                                context.decodeAudioData(request.response, function (buffer) {
+                            request.onload = function() {
+                                context.decodeAudioData(request.response, function(buffer) {
                                     var playBuffer = buffer;
                                     playSound(playBuffer);
                                 }, onError);
-                            }
+                            };
                             request.send();
-                        }
+                        };
 
-                        function playSound(buffer) {
-                            var buffer = buffer;
+                        var playSound = function(buffer) {
                             ProBtnControl.initFunctions.soundSource = context.createBufferSource(); // creates a sound source
                             ProBtnControl.initFunctions.soundSource.buffer = buffer; // tell the source which sound to play
                             ProBtnControl.initFunctions.soundSource.connect(context.destination); // connect the source to the context's destination (the speakers)
                             ProBtnControl.initFunctions.soundSource.start(0); // play the source now
                             // note: on older systems, may have to use deprecated noteOn(time);
 
-                            ProBtnControl.initFunctions.soundSource.onended = function () {
+                            ProBtnControl.initFunctions.soundSource.onended = function() {
                                 if ((soundMode[1] === "cycle") && (!ProBtnControl.initFunctions.stopedWebAudio)) {
                                     playSound(buffer);
                                 }
-                            }
-                        }
+                            };
+                        };
 
                         var touchSoundStart = true;
                         if ((soundMode[0] === "autoStart") && (ProBtnControl.userData.os !== "iOS")) {
@@ -2258,13 +2248,13 @@ probtn_initTrackingLinkTest();
                         var isUnlocked = false;
                         var isIOS = false;
 
-                        function isFunction(functionToCheck) {
+                        var isFunction = function(functionToCheck) {
                             var getType = {};
                             return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
-                        }
+                        };
 
                         if (touchSoundStart) {
-                            function unlock(callback) {
+                            var unlock = function(callback) {
                                 if (isIOS || this.unlocked) {
                                     console.log("return");
                                     callback();
@@ -2289,7 +2279,7 @@ probtn_initTrackingLinkTest();
                                 }
 
                                 // by checking the play state after some time, we know if we're really unlocked
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     if ((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
                                         isUnlocked = true;
                                         callback();
@@ -2297,13 +2287,13 @@ probtn_initTrackingLinkTest();
                                         callback();
                                     }
                                 }, 0);
-                            }
+                            };
 
-                            function checkndStartAudio() {
+                            var checkndStartAudio = function() {
                                 //console.log("checkndStartAudio");
                                 if (audioUnlocked) {
                                     try {
-                                        unlock(function () {
+                                        unlock(function() {
                                             if (audioUnlocked) {
                                                 audioUnlocked = false;
 
@@ -2327,7 +2317,7 @@ probtn_initTrackingLinkTest();
                                         console.log(ex);
                                     }
                                 }
-                            }
+                            };
 
                             window.addEventListener('touchstart', checkndStartAudio, false);
                             window.addEventListener('click', checkndStartAudio, false);
@@ -2397,13 +2387,13 @@ probtn_initTrackingLinkTest();
                             if (ProBtnControl.params.ExternalDataSources.length > 0) {
                                 ProBtnControl.params.ExternalDataSources.sort(
                                     function (a, b) {
-                                        return a.Priority - b.Priority
+                                        return a.Priority - b.Priority;
                                     }
                                 );
 
                                 var a1 = window.addEventListener("message", receiveMessage, false);
 
-                                function receiveMessage(event) {
+                                var receiveMessage = function(event) {
                                     var origin = event.origin || event.originalEvent.origin;
                                     origin = ProBtnControl.additionalButtonFunctions.extractDomain(origin);
 
@@ -2500,15 +2490,15 @@ probtn_initTrackingLinkTest();
                                     }
 
                                     if ((menuType[0] == "radialcorner") || (menuType[0] == "circularCenter")) {
-                                        $('head').append('<style type="text/css"> \
-#probtn_menu_ul li { \
-    background:transparent!important; padding:0px!important; margin:0px!important; width:auto!important; display:inline-block!important; \
-} \
-#probtn_menu_ul { position: absolute; } \
-#probtn_menu_ul img { height: 60px !important; } \
-#probtn_menu_ul {padding-left: 0px; } \
-#probtn_menu_ul li a span { display: none; } \
-</style>');
+                                        $('head').append('<style type="text/css">'+
+'#probtn_menu_ul li { '+
+'    background:transparent!important; padding:0px!important; margin:0px!important; width:auto!important; display:inline-block!important; '+
+'}'+
+'#probtn_menu_ul { position: absolute; } '+
+'#probtn_menu_ul img { height: 60px !important; } '+
+'#probtn_menu_ul {padding-left: 0px; }'+
+'#probtn_menu_ul li a span { display: none; } '+
+'<\/style>');
                                     }
 
                                     //add menu items
@@ -2543,20 +2533,23 @@ probtn_initTrackingLinkTest();
                                                 return angle * (Math.PI / 180);
                                             }
 
-                                            if (menuRadius == 0) {
+                                            if (menuRadius === 0) {
                                                 menuRadius = ProBtnControl.pizzabtn.height();
                                             }
 
+                                            var anglePart = 0;
+                                            var x = 0;
+                                            var y = 0;
                                             switch (menuType[0]) {
                                                 case "radialcorner":
                                                     if (ProBtnControl.params.MenuItems.length == 2) {
-                                                        var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length + 1));
-                                                        var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
-                                                        var y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
+                                                        anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length + 1));
+                                                        x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
+                                                        y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
                                                     } else {
-                                                        var anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
-                                                        var x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
-                                                        var y = (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
+                                                        anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
+                                                        x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
+                                                        y = (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
                                                     }
 
                                                     var itemStyle = {
@@ -2567,9 +2560,9 @@ probtn_initTrackingLinkTest();
                                                     $(".menu_item_elem_count" + count).css(itemStyle);
                                                     break;
                                                 case "circularCenter":
-                                                    var anglePart = toRadians(360 / (ProBtnControl.params.MenuItems.length - 0));
-                                                    var x = animateTop + ProBtnControl.pizzabtn.height() / 4 - (menuRadius * 1.1) * Math.cos(anglePart * (count - 0));
-                                                    var y = animateLeft + ProBtnControl.pizzabtn.width() / 4 + (menuRadius * 1.1) * Math.sin(anglePart * (count - 0));
+                                                    anglePart = toRadians(360 / (ProBtnControl.params.MenuItems.length - 0));
+                                                    x = animateTop + ProBtnControl.pizzabtn.height() / 4 - (menuRadius * 1.1) * Math.cos(anglePart * (count - 0));
+                                                    y = animateLeft + ProBtnControl.pizzabtn.width() / 4 + (menuRadius * 1.1) * Math.sin(anglePart * (count - 0));
 
                                                     var itemStyle = {
                                                         "position": "absolute",
@@ -4115,7 +4108,7 @@ probtn_initTrackingLinkTest();
 
                     if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
                         try {
-                            title = "<style> .fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
+                            title = "<style> .fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.self.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
                         } catch (ex) { }
                     }
 
