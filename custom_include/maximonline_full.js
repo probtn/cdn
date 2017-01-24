@@ -1962,7 +1962,7 @@ var loadProbtn = function (jQuery) {
 	                    } catch (ex) {
 	                    }
 	                },
-	                createClickCounterImage: function(clickPath) {
+	                createClickCounterImage: function(clickPath, name) {
 	                    try {
 	                        var clickCounterLink_random = clickPath;
 	                        clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
@@ -1974,11 +1974,16 @@ var loadProbtn = function (jQuery) {
 	                        if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
 	                            prependBlock = "body";
 	                        }
+	                        var currentName = ProBtnControl.additionalButtonFunctions.randomString(12);
+	                        if ((name !== null) && (name !== undefined)) {
+	                            currentName = name;
+	                        }
 	                        var probtn_TrackingLink = $("<img/>", {
-	                            id: "probtn_ClickCounterLink_" + ProBtnControl.additionalButtonFunctions.randomString(12),
+	                            id: "probtn_ClickCounterLink_" + currentName,
 	                            src: clickCounterLink_random,
 	                            style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
 	                        }).prependTo(prependBlock);
+	                        console.log("probtn_TrackingLink", probtn_TrackingLink);
 	                    } catch(ex)
 	                    {
 	                        console.log(ex);
@@ -6377,7 +6382,7 @@ var loadProbtn = function (jQuery) {
 	                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/JGZCkS");
 	                            //add tracking link image
 	                            if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== undefined) && (ProBtnControl.params.TrackingLink !== "")) {
-	                                ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.TrackingLink);
+	                                ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.TrackingLink, "_probtn_TrackingLink");
 	                                ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");
 	                            }
 
