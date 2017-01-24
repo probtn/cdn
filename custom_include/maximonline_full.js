@@ -3498,7 +3498,7 @@ var loadProbtn = function (jQuery) {
 
 	                    //add tracking link image
 	                    if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== "")) {
-	                        /*var probtn_TrackingLink_random = ProBtnControl.params.TrackingLink;
+	                        var probtn_TrackingLink_random = ProBtnControl.params.TrackingLink;
 	                        probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(ProBtnControl.params.TrackingLink);
 	                        if (probtn_TrackingLink_random == ProBtnControl.params.TrackingLink) {
 	                            probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(probtn_TrackingLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
@@ -3508,7 +3508,9 @@ var loadProbtn = function (jQuery) {
 	                            id: "probtn_TrackingLink",
 	                            src: probtn_TrackingLink_random,
 	                            style: 'width: 1px; height: 1px; position: absolute; left: -10000px; top: -10000px;'
-	                        }).prependTo(ProBtnControl.additionalItemsContainer);*/
+	                        }).prependTo("body");
+	                        ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");
+	                        console.log("probtn_TrackingLink", probtn_TrackingLink);
 	                    }
 	                    pizzabtn_wrapper.css(opts);
 
@@ -6382,8 +6384,8 @@ var loadProbtn = function (jQuery) {
 	                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/JGZCkS");
 	                            //add tracking link image
 	                            if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== undefined) && (ProBtnControl.params.TrackingLink !== "")) {
-	                                ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.TrackingLink, "_probtn_TrackingLink");
-	                                ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");
+	                                /*ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.TrackingLink, "_probtn_TrackingLink");
+	                                ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");*/
 	                            }
 
 	                            if (ProBtnControl.params.LoadFancyboxCSS === true) {
