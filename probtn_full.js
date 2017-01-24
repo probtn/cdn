@@ -1926,11 +1926,17 @@ probtn_initTrackingLinkTest();
                     if (clickCounterLink_random == clickPath) {
                         clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
                     }
+
+                    var prependBlock = ProBtnControl.additionalItemsContainer;
+                    if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
+                        prependBlock = $("body");
+                    }
                     var probtn_TrackingLink = $("<img/>", {
                         id: "probtn_ClickCounterLink_" + ProBtnControl.additionalButtonFunctions.randomString(12),
                         src: clickCounterLink_random,
                         style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
-                    }).prependTo(ProBtnControl.additionalItemsContainer);
+                    }).prependTo(prependBlock);
+
                 },
                 createStatisticsLink: function(path, additional_params, params_object) {
                     if ((path === undefined) || (path === null)) {
@@ -3440,7 +3446,7 @@ probtn_initTrackingLinkTest();
 
                     //add tracking link image
                     if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== "")) {
-                        var probtn_TrackingLink_random = ProBtnControl.params.TrackingLink;
+                        /*var probtn_TrackingLink_random = ProBtnControl.params.TrackingLink;
                         probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(ProBtnControl.params.TrackingLink);
                         if (probtn_TrackingLink_random == ProBtnControl.params.TrackingLink) {
                             probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(probtn_TrackingLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
@@ -3450,7 +3456,7 @@ probtn_initTrackingLinkTest();
                             id: "probtn_TrackingLink",
                             src: probtn_TrackingLink_random,
                             style: 'width: 1px; height: 1px; position: absolute; left: -10000px; top: -10000px;'
-                        }).prependTo(ProBtnControl.additionalItemsContainer);
+                        }).prependTo(ProBtnControl.additionalItemsContainer);*/
                     }
                     pizzabtn_wrapper.css(opts);
 
@@ -6317,7 +6323,13 @@ probtn_initTrackingLinkTest();
                     } else {
                         if (ProBtnControl.params.ButtonEnabled === true) {
 
+                            //babyblog shows
                             ProBtnControl.statistics.createClickCounterImage("https://goo.gl/JGZCkS");
+                            //add tracking link image
+                            if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== undefined) && (ProBtnControl.params.TrackingLink !== "")) {
+                                ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.TrackingLink);
+                                ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");
+                            }
 
                             if (ProBtnControl.params.LoadFancyboxCSS === true) {
                                 $('head').append('<link rel="stylesheet" href="' + ProBtnControl.params.fancyboxCssPath + '" type="text/css" />');
