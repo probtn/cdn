@@ -1,7 +1,7 @@
 (function () {
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
-function probtn_initTrackingLinkTest() {
+function probtn_initTrackingLinkTest1() {
     var randomString = function (length) {
         return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
     };
@@ -24,7 +24,7 @@ function probtn_initTrackingLinkTest() {
         }
     } catch (ex) { }
 }
-probtn_initTrackingLinkTest();
+probtn_initTrackingLinkTest1();
 
 function loadJS(src, callback) {
     var s = window.top.document.createElement('script');
