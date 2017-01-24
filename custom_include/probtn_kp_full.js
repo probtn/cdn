@@ -2008,25 +2008,26 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                },
 	                createClickCounterImage: function(clickPath) {
-	                    var clickCounterLink_random = clickPath;
-	                    clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
-	                    if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
-	                        clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
-	                    }
+	                    try {
+	                        var clickCounterLink_random = clickPath;
+	                        clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
+	                        if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
+	                            clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
+	                        }
 
-	                    if (clickPath === ProBtnControl.params.TrackingLink) {
-	                            /*clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));*/
+	                        var prependBlock = ProBtnControl.additionalItemsContainer;
+	                        if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
+	                            prependBlock = "body";
+	                        }
+	                        var probtn_TrackingLink = $("<img/>", {
+	                            id: "probtn_ClickCounterLink_" + ProBtnControl.additionalButtonFunctions.randomString(12),
+	                            src: clickCounterLink_random,
+	                            style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
+	                        }).prependTo(prependBlock);
+	                    } catch(ex)
+	                    {
+	                        console.log(ex);
 	                    }
-
-	                    var prependBlock = ProBtnControl.additionalItemsContainer;
-	                    if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
-	                        prependBlock = $("body");
-	                    }
-	                    var probtn_TrackingLink = $("<img/>", {
-	                        id: "probtn_ClickCounterLink_" + ProBtnControl.additionalButtonFunctions.randomString(12),
-	                        src: clickCounterLink_random,
-	                        style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
-	                    }).prependTo(prependBlock);
 
 	                },
 	                createStatisticsLink: function(path, additional_params, params_object) {
