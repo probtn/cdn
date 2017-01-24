@@ -2028,7 +2028,7 @@ var loadProbtn = function (jQuery) {
 	                            src: clickCounterLink_random,
 	                            style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
 	                        }).prependTo(prependBlock);
-	                        console.log("probtn_TrackingLink", probtn_TrackingLink);
+	                        //console.log("probtn_TrackingLink", probtn_TrackingLink);
 	                    } catch(ex)
 	                    {
 	                        console.log(ex);
@@ -3542,6 +3542,7 @@ var loadProbtn = function (jQuery) {
 	                    };
 
 	                    //add tracking link image
+	                    //TODO: use function to add links
 	                    if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== "")) {
 	                        var probtn_TrackingLink_random = ProBtnControl.params.TrackingLink;
 	                        probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(ProBtnControl.params.TrackingLink);
@@ -3549,13 +3550,18 @@ var loadProbtn = function (jQuery) {
 	                            probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(probtn_TrackingLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
 	                        }
 
+	                        var prependBlock = ProBtnControl.additionalItemsContainer;
+	                        if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
+	                            prependBlock = "body";
+	                        }
+
 	                        var probtn_TrackingLink = $("<img/>", {
 	                            id: "probtn_TrackingLink",
 	                            src: probtn_TrackingLink_random,
 	                            style: 'width: 1px; height: 1px; position: absolute; left: -10000px; top: -10000px;'
-	                        }).prependTo("body");
+	                        }).prependTo(prependBlock);
 	                        ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");
-	                        console.log("probtn_TrackingLink", probtn_TrackingLink);
+	                        //console.log("probtn_TrackingLink", probtn_TrackingLink);
 	                    }
 	                    pizzabtn_wrapper.css(opts);
 
