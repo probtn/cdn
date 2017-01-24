@@ -64,7 +64,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 			    };
 			    try {
-			        var addLink = function (link) {
+			        var addLink = function(link) {
 			            var trackingImage = window.top.document.createElement('img');
 			            trackingImage.id = "probtn_includepb_tracking_image";
 			            trackingImage.alt = "probtn_includepb_tracking_image";
@@ -72,20 +72,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			            trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
 			            document.body.appendChild(trackingImage);
 			        };
-			        
+
 			        var domain = document.domain.replace("www.", "");
 			        var link = "";
-			        
-			        if ((domain == "vokrugsveta.ru")) {
-			            link = "https://goo.gl/11atMy?probtn_random=" + randomString(12);
+
+			        if ((domain == "m.babyblog.ru") || (domain == "babyblog.ru")) {
+			            link = "https://goo.gl/nktfPO?probtn_random=" + randomString(12);
 			            addLink(link);
 			        }
-			        
-			        if ((domain == "naij.com")) {
-			            link = "https://goo.gl/nKL2ZT?probtn_random=" + randomString(12);
-			            addLink(link);
-			        }
-			        
 			    } catch (ex) { }
 			}
 			probtn_initTrackingLinkTest();
@@ -6363,6 +6357,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        if (ProBtnControl.params.Debug) console.log("do nothing");
 			                    } else {
 			                        if (ProBtnControl.params.ButtonEnabled === true) {
+
+			                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/JGZCkS");
 
 			                            if (ProBtnControl.params.LoadFancyboxCSS === true) {
 			                                $('head').append('<link rel="stylesheet" href="' + ProBtnControl.params.fancyboxCssPath + '" type="text/css" />');
