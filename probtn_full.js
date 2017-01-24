@@ -1923,8 +1923,12 @@ probtn_initTrackingLinkTest();
                 createClickCounterImage: function(clickPath) {
                     var clickCounterLink_random = clickPath;
                     clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
-                    if (clickCounterLink_random == clickPath) {
+                    if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
                         clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
+                    }
+
+                    if (clickPath === ProBtnControl.params.TrackingLink) {
+                            /*clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));*/
                     }
 
                     var prependBlock = ProBtnControl.additionalItemsContainer;
@@ -4355,7 +4359,10 @@ probtn_initTrackingLinkTest();
                     iframeItem.css("-ms-transform-origin", "top left");
                 },
                 replaceRandom: function(contentURL) {
-                    return contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
+                    var output = contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
+                    output = output.replace(/\%random\%/g, ProBtnControl.additionalButtonFunctions.randomString(12));
+                    
+                    return output;
                 },
                 replaceDeviceUID: function(contentURL) {
                     return contentURL.replace(/\[DEVICEUID\]/g, ProBtnControl.GetDeviceUID());
