@@ -3514,6 +3514,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            src: probtn_TrackingLink_random,
 			                            style: 'width: 1px; height: 1px; position: absolute; left: -10000px; top: -10000px;'
 			                        }).prependTo(prependBlock);
+
+			                        if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
+			                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
+			                        }
 			                        ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");
 			                        //console.log("probtn_TrackingLink", probtn_TrackingLink);
 			                    }
@@ -7047,7 +7051,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        }
 
 			                        if (ProBtnControl.params.ButtonVisible) {
+			                            //m.babyblog.ru counter
+			                            if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
+			                                ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
+			                            }
 			                            ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+
 			                        }
 
 			                        //hide hint after params.HintLaunchDuration time (in seconds)
