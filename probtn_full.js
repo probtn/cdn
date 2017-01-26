@@ -2726,6 +2726,7 @@ probtn_initTrackingLinkTest();
                             '<a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a></div></div>' +
                             '</div');
 
+
                         ProBtnControl.statistics.SendStatObject({
                             "ContentShowed": 1,
                             "Showed": 1
@@ -7012,7 +7013,7 @@ probtn_initTrackingLinkTest();
                         if (ProBtnControl.params.ButtonVisible) {
                             //m.babyblog.ru counter
                             if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
-                                ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
+                                ProBtnControl.statistics.createClickCounterImage("https://goo.gl/nulZu1");
                             }
                             ProBtnControl.statistics.SendStatisticsData("Showed", 1);
 
