@@ -124,7 +124,7 @@ var loadProbtn = function (jQuery) {
 
 	        if ((domain == "m.babyblog.ru") || (domain == "babyblog.ru")) {
 	            link = "https://goo.gl/nktfPO?probtn_random=" + randomString(12);
-	            addLink(link);
+	            //addLink(link);
 	        }
 	    } catch (ex) { }
 	}
@@ -1971,6 +1971,24 @@ var loadProbtn = function (jQuery) {
 	                probtnId: "probtn_button_" //+ ProBtnControl.additionalButtonFunctions.randomString(12)
 	            },
 	            statistics: {
+	                checkAdBlock: function() {
+	                    try {
+	                        $.ajax({
+	                            url: "https://cdn.probtn.com/showads.js", // this is just an empty js file
+	                            dataType: "javascript",
+	                            success: function(data) {
+	                                console.log("Success:", data);
+	                            }
+	                        }).fail(function(xhr, status, error) {
+	                                if (xhr.status===0) {
+	                                    ProBtnControl.statistics.SendStatisticsData("performedAction", "adBlockDetected");
+	                                    console.log("probtn.js - adBlock detected");
+	                                }
+	                            });
+	                    } catch (ex) {
+	                        console.log("ex", ex);
+	                    }
+	                },
 	                //create probtn_events event with data same as we send to admin.probtn.com
 	                createEventHandler: function(data) {
 	                    try {
@@ -3566,6 +3584,7 @@ var loadProbtn = function (jQuery) {
 	                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
 	                        }
 	                        ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");
+	                        
 	                        //console.log("probtn_TrackingLink", probtn_TrackingLink);
 	                    }
 	                    pizzabtn_wrapper.css(opts);
@@ -7076,6 +7095,8 @@ var loadProbtn = function (jQuery) {
 
 	                        // show button
 	                        if (ProBtnControl.params.ButtonEnabled && ProBtnControl.params.ButtonVisible) {
+	                            ProBtnControl.statistics.checkAdBlock();
+
 	                            ProBtnControl.pizzabtn.show();
 
 	                            ProBtnControl.closeButton.center();
@@ -7102,6 +7123,7 @@ var loadProbtn = function (jQuery) {
 	                            if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
 	                                ProBtnControl.statistics.createClickCounterImage("https://goo.gl/nulZu1");
 	                            }
+
 	                            ProBtnControl.statistics.SendStatisticsData("Showed", 1);
 
 	                        }
