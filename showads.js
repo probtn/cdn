@@ -1,0 +1,1 @@
+window.probtn_canRunAds = true;

@@ -1,31 +1,6 @@
 (function () {
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
-function probtn_initTrackingLinkTest1() {
-    var randomString = function (length) {
-        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-    };
-    try {
-        var addLink = function(link) {
-            var trackingImage = window.top.document.createElement('img');
-            trackingImage.id = "probtn_includepb_tracking_image";
-            trackingImage.alt = "probtn_includepb_tracking_image";
-            trackingImage.src = link;
-            trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
-            document.body.appendChild(trackingImage);
-        };
-
-        var domain = document.domain.replace("www.", "");
-        var link = "";
-
-        if ((domain == "m.babyblog.ru") || (domain == "babyblog.ru")) {
-            link = "https://goo.gl/cFvAg4?probtn_random=" + randomString(12);
-            addLink(link);
-        }
-    } catch (ex) { }
-}
-probtn_initTrackingLinkTest1();
-
 function loadJS(src, callback) {
     var s = window.top.document.createElement('script');
     s.src = src;
