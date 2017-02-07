@@ -1248,7 +1248,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    },
 			                    helpers: {
 			                        overlay: {
-			                            locked: false,
+			                            locked: true, //false
 			                            speedIn: 0,
 			                            speedOut: 0, // duration of fadeOut animation
 			                            showEarly: true // indicates if should be opened immediately or wait until the content is ready
@@ -1277,6 +1277,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        $('html').css("overflow", "hidden");
 			                    },
 			                    beforeShow: function() {
+			                        $("body").addClass("probtn_disable_scroll");
 			                        //send message inside iframe, that it's showed and ready
 			                        $(".fancybox-iframe").first().on('load', function() {
 			                            var frame_id = $(".fancybox-iframe").first().attr("id");
@@ -1353,6 +1354,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        }
 			                    },
 			                    afterClose: function() {
+			                        $("body").removeClass("probtn_disable_scroll");
 			                        if (currentButtonContentType === "video") {
 			                            try {
 			                                var video;
@@ -1423,7 +1425,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    outVendorText = ProBtnControl.params.VendorText;
 			                }
 
-			                if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
+			                if ((outVendorText !== "") && (outVendorText !== " ") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
 			                    fancyboxParams.title = ProBtnControl.additionalButtonFunctions.getTitleTextForModalWindow();
 			                    fancyboxParams.titleShow = true;
 			                }
@@ -6425,6 +6427,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                            if ((ProBtnControl.params.ZCustomCss !== "") && (ProBtnControl.params.ZCustomCss !== null) && (ProBtnControl.params.ZCustomCss !== undefined)) {
 			                                $('head').append('<style type="text/css" id="probtn_ZCustomCss">' + ProBtnControl.params.ZCustomCss + '</style>');
 			                            }
+			                            var probtn_disable_scroll_style = '<style type="text/css" id="probtn_ZCustomCss_probtn_disable_scroll">.probtn_disable_scroll { overflow: hidden !important; height: 100% !important; width: 100% !important; position: fixed !important; }</style>';
+			                            $('head').append(probtn_disable_scroll_style);
+			                            /*if (ProBtnControl.params.Debug) {
+			                                alert("probtn_disable_scroll_style added. " + probtn_disable_scroll_style);
+			                            }*/
 
 			                            //check ModalWindowMode
 			                            //and apply nessesary css
