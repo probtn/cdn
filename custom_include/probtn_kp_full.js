@@ -5707,6 +5707,8 @@ var loadProbtn = function (jQuery) {
 	            if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
 	                //init default params
 	                ProBtnControl.params = $.extend(true, {
+	                    LockBody: false, //when modal windows opened, using css to <body> we hide scrolls and set width and height to a 100% - to prevent strange things with keyboard ad input fields on ios
+
 	                    CloseButtonShowDelay: 0, //delay before showing close button when AlwaysShowCloseButton == true
 
 	                    SoundURL: "",
@@ -6474,10 +6476,9 @@ var loadProbtn = function (jQuery) {
 	                                $('head').append('<style type="text/css" id="probtn_ZCustomCss">' + ProBtnControl.params.ZCustomCss + '</style>');
 	                            }
 	                            var probtn_disable_scroll_style = '<style type="text/css" id="probtn_ZCustomCss_probtn_disable_scroll">.probtn_disable_scroll { overflow: hidden !important; height: 100% !important; width: 100% !important; position: fixed !important; }</style>';
-	                            $('head').append(probtn_disable_scroll_style);
-	                            /*if (ProBtnControl.params.Debug) {
-	                                alert("probtn_disable_scroll_style added. " + probtn_disable_scroll_style);
-	                            }*/
+	                            if (ProBtnControl.params.LockBody === true) {
+	                               $('head').append(probtn_disable_scroll_style); 
+	                            }
 
 	                            //check ModalWindowMode
 	                            //and apply nessesary css
