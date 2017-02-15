@@ -1249,6 +1249,7 @@ var loadProbtn = function (jQuery) {
 	                    },
 	                    helpers: {
 	                        overlay: {
+	                            //TODO: check and switch back to false
 	                            locked: true, //false
 	                            speedIn: 0,
 	                            speedOut: 0, // duration of fadeOut animation
@@ -5662,6 +5663,8 @@ var loadProbtn = function (jQuery) {
 	            if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
 	                //init default params
 	                ProBtnControl.params = $.extend(true, {
+
+	                    RoundButton: "none",
 	                    LockBody: false, //when modal windows opened, using css to <body> we hide scrolls and set width and height to a 100% - to prevent strange things with keyboard ad input fields on ios
 
 	                    CloseButtonShowDelay: 0, //delay before showing close button when AlwaysShowCloseButton == true
@@ -6430,10 +6433,43 @@ var loadProbtn = function (jQuery) {
 	                            if ((ProBtnControl.params.ZCustomCss !== "") && (ProBtnControl.params.ZCustomCss !== null) && (ProBtnControl.params.ZCustomCss !== undefined)) {
 	                                $('head').append('<style type="text/css" id="probtn_ZCustomCss">' + ProBtnControl.params.ZCustomCss + '</style>');
 	                            }
+
+	                            //Set styles for LockBody param
 	                            var probtn_disable_scroll_style = '<style type="text/css" id="probtn_ZCustomCss_probtn_disable_scroll">.probtn_disable_scroll { overflow: hidden !important; height: 100% !important; width: 100% !important; position: fixed !important; }</style>';
 	                            if (ProBtnControl.params.LockBody === true) {
 	                               $('head').append(probtn_disable_scroll_style); 
 	                            }
+
+	                            //Set styles for RoundButton param
+	                            var round_params = ProBtnControl.params.RoundButton.split('_');
+	                            console.log("round_params", round_params);
+	                            //var probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg { border-radius: 20px; }</style>';
+	                            var probtn_round_button_style = '';
+	                            var border_radius = 20;
+	                            switch (round_params[0]) {
+	                                case "auto":
+	                                    border_radius = ProBtnControl.params.ButtonSize.W / 2;
+	                                    if (ProBtnControl.params.ButtonSize.W > ProBtnControl.params.ButtonSize.H) {
+	                                        border_radius = ProBtnControl.params.ButtonSize.H / 2;
+	                                    }
+	                                    var addtional_css = "";
+	                                    if (round_params[1] === "fill") {
+	                                        addtional_css = '#probtn_button { background: ' + round_params[2] +
+	                                            '} #pizzabtnImg { width: 80% !important; height: 80% !important; margin-top: 10% !important; }';
+	                                        probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#probtn_button { border-radius: '+ border_radius +'px; overflow: hidden !important; } '+ addtional_css +'</style>';
+	                                    } else {
+	                                        probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: '+ border_radius +'px; '+ addtional_css +'}</style>';
+	                                    }
+	                                    break;
+	                                case "manual":
+	                                    border_radius = round_params[1];
+	                                    probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: '+ border_radius +'px; }</style>';
+	                                    break;
+	                                default:
+	                                    break;
+	                            }
+	                            /* box-shadow: inset 0 2px 14px 0 rgba(0,0,0,0.20); border-radius: 20px; */
+	                            $('head').append(probtn_round_button_style); 
 
 	                            //check ModalWindowMode
 	                            //and apply nessesary css
@@ -6799,6 +6835,7 @@ var loadProbtn = function (jQuery) {
 	                                //calll pixel if button already exists at page
 	                                var duplicatePixel = "https://goo.gl/ezDN1A?random=[RANDOM]";
 	                                ProBtnControl.statistics.createClickCounterImage(duplicatePixel);
+	                                ProBtnControl.statistics.SendStatisticsData("performedAction", "duplicateDetected");
 	                            }
 	                        } catch (ex) {
 	                            if (ProBtnControl.params.Debug) console.log(ex);
