@@ -94,6 +94,9 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#roundbutton">RoundButton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lockbody">LockBody</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closebuttonshowdelay">CloseButtonShowDelay</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#soundurl">SoundURL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#soundmode">SoundMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#useexternaldataaboutuser">UseExternalDataAboutUser</a></li>
@@ -347,6 +350,27 @@
 <li><a class="reference internal" href="index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Интеграция</span></a></li>
 </ul>
+<div class="section" id="roundbutton">
+<h2>RoundButton<a class="headerlink" href="#roundbutton" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Формат: <code class="docutils literal"><span class="pre">&lt;режим&gt;_&lt;доп-параметр&gt;_&lt;цвет-заливки&gt;</span></code></p>
+<p>Варианты режима:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">none</span></code> - ничего не делать, по умолчанию</li>
+<li><code class="docutils literal"><span class="pre">auto</span></code> - автоматическое приведение формата кнопки до круга или элипса. Также возможно указать заливку свободного места, к примеру <code class="docutils literal"><span class="pre">auto_fill_#121212</span></code></li>
+<li><code class="docutils literal"><span class="pre">manual</span></code> - ручное указание &#8220;закругления&#8221; (указывается как второй параметр, к примеру <code class="docutils literal"><span class="pre">manual_30</span></code>)</li>
+</ul>
+</div>
+<div class="section" id="lockbody">
+<h2>LockBody<a class="headerlink" href="#lockbody" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если включено, то мы применяем css стили для body для установки ширины и высоты равной 100%, а также скрытие полос прокрутки.
+Требуется для тех случаев, когда в модальном окне необходим ввод данных на ios во избежание смещения положения модального окна.</p>
+<p>По умолчанию: false</p>
+</div>
+<div class="section" id="closebuttonshowdelay">
+<h2>CloseButtonShowDelay<a class="headerlink" href="#closebuttonshowdelay" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Время в ms до показа области закрытия, в случаях если <code class="docutils literal"><span class="pre">AlwaysShowCloseButton</span> <span class="pre">==</span> <span class="pre">true</span></code> (то есть область закрытия показывается всегда).</p>
+<p>По умолчанию: 0</p>
+</div>
 <div class="section" id="soundurl">
 <h2>SoundURL<a class="headerlink" href="#soundurl" title="Ссылка на этот заголовок">¶</a></h2>
 <p>URL до звукового файла, который будет воспроизведен на странице.
@@ -479,6 +503,7 @@
 <ul class="simple">
 <li>list - шаблон по умолчанию, список</li>
 <li>radialcorner - частичное радиальное меню (кнопка находится в углу, и пункты меню выстроены в зоне от 0 до 90 градусов)</li>
+<li>circularCenter - круговое меню</li>
 </ul>
 </div>
 <div class="section" id="videotype">
