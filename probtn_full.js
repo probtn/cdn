@@ -3357,7 +3357,7 @@ probtn_initTrackingLinkTest();
                     }
 
                     ProBtnControl.wrapper = pizzabtn_wrapper;*/
-                    pizzabtn_wrapper = ProBtnControl.wrapper;
+                    var pizzabtn_wrapper = ProBtnControl.wrapper;
 
                     if (ProBtnControl.params.ButtonContentType === 'youtube') {
 
@@ -3617,6 +3617,7 @@ probtn_initTrackingLinkTest();
                             src: ProBtnControl.params.ButtonImage,
                             css: pizzabtnCss
                         }).appendTo(btn);
+
 
                         ProBtnControl.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
@@ -4373,8 +4374,17 @@ probtn_initTrackingLinkTest();
                 applyIframeScale: function(iframeItem, ButtonIframeInitialSize, ButtonSize) {
                     if ((ButtonIframeInitialSize.W > 0) && (ButtonIframeInitialSize.H > 0) && (ButtonIframeInitialSize.W !== undefined) && (ButtonIframeInitialSize.W !== null) && (ButtonIframeInitialSize.H !== undefined) && (ButtonIframeInitialSize.H !== null)) {
 
+                        var round_params = ProBtnControl.params.RoundButton.split('_');
+
                         var scaleX = ButtonSize.W / ButtonIframeInitialSize.W;
                         var scaleY = ButtonSize.H / ButtonIframeInitialSize.H;
+
+                        if ((round_params[1] === "fill") && (round_params[0] === "auto")) {
+                            scaleX = ButtonSize.W*0.8 / ButtonIframeInitialSize.W;
+                            scaleY = ButtonSize.H*0.8 / ButtonIframeInitialSize.H;
+                        }
+
+                        console.log("scale", scaleX, scaleY);
 
                         iframeItem.css("width", ButtonIframeInitialSize.W);
                         iframeItem.css("height", ButtonIframeInitialSize.H);
@@ -4536,7 +4546,7 @@ probtn_initTrackingLinkTest();
                                 scrollZone.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
                             }
 
-                            pizzabtnCss = {
+                            var pizzabtnCss = {
                                 'width': scrollZone.ButtonSize.W,
                                 'height': scrollZone.ButtonSize.H,
                                 'opacity': scrollZone.ButtonOpacity,
@@ -5081,6 +5091,7 @@ probtn_initTrackingLinkTest();
                     forwardStopAndAwayAnimation: function() {
                         var forwardStopAndAwayParams = ProBtnControl.params.isAnimation.split('_');
 
+                        console.log("forwardStopAndAwayParams", forwardStopAndAwayParams);
 
                         //get side from isAnimation param
                         var side = "left";
@@ -5092,6 +5103,7 @@ probtn_initTrackingLinkTest();
                         }
 
                         if (forwardStopAndAwayParams[0] == "forwardStopAndAway") {
+                            
 
                             ProBtnControl.pizzabtn.stop(true, true);
                             //set start position for button
@@ -5445,6 +5457,9 @@ probtn_initTrackingLinkTest();
                     },
                     checkAndRunAnimation: function() {
                         setTimeout(function() {
+
+                            console.log("ProBtnControl.params.isAnimation", ProBtnControl.params.isAnimation);
+
                             //$(document).ready(function () {
                             ProBtnControl.additionalButtonFunctions.animation.cornerToCornerAnimation();
 
@@ -5458,7 +5473,7 @@ probtn_initTrackingLinkTest();
                             ProBtnControl.additionalButtonFunctions.animation.TopToBottomAndStopAnimation();
 
                             //ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
-                            //ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
+                            ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
 
 
                             ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
@@ -5883,7 +5898,7 @@ probtn_initTrackingLinkTest();
 
                     VideoPoster: '',
                     ButtonOnClick: 'console.log("ButtonOnClick"); function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
-                    ButtonOnTouchEnd: 'var moved =  window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined) && (moved === false)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0);  videoZone.play(); moved = true; } } else { console.log("moved", moved); if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); /*setTimeout(start2 , 1000); setTimeout(start2 , 2000); setTimeout(start2 , 3000);*/',
+                    ButtonOnTouchEnd: 'var moved =  window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { console.log("window.probtn_dropedActiveZone", window.probtn_dropedActiveZone, moved); try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined) && (moved === false)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0);  videoZone.play(); moved = true; } } else { console.log("moved", moved); if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); /*setTimeout(start2 , 1000); setTimeout(start2 , 2000); setTimeout(start2 , 3000);*/',
                     ButtonOnTouchStart: 'window.probtn_touch_start = 0; window.probtn_touch_interval = setInterval(function() { window.probtn_touch_start = window.probtn_touch_start + 1; }, 1);',
                     ButtonType: 'fancybox',
                     VideoSize: {
@@ -6234,6 +6249,7 @@ probtn_initTrackingLinkTest();
                                 window.top.document.getElementsByTagName('head')[0].appendChild(s);
                             };
 
+                            console.log("CheckAndRunButtonAtParent loadJS probtn_concat.js");
                             loadJS('//cdn.probtn.com/probtn_concat.js', function() {
                             });
                         } catch (ex) {
@@ -6400,7 +6416,7 @@ probtn_initTrackingLinkTest();
 
                             //Set styles for RoundButton param
                             var round_params = ProBtnControl.params.RoundButton.split('_');
-                            console.log("round_params", round_params);
+                        
                             //var probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg { border-radius: 20px; }</style>';
                             var probtn_round_button_style = '';
                             var border_radius = 20;
@@ -6412,9 +6428,22 @@ probtn_initTrackingLinkTest();
                                     }
                                     var addtional_css = "";
                                     if (round_params[1] === "fill") {
-                                        addtional_css = '#probtn_button { background: ' + round_params[2] +
+                                        //if button is iframe, we need to apply transform
+                                        if (ProBtnControl.params.ButtonImageType === "iframe") {
+                                            /*if ((ProBtnControl.params.ButtonIframeInitialSize.W > 0) && (ProBtnControl.params.ButtonIframeInitialSize.H > 0)) {
+                                                ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), ProBtnControl.params.ButtonIframeInitialSize, { W: ProBtnControl.params.ButtonSize.W*0.8, H: ProBtnControl.params.ButtonSize.H*0.8
+                                            });
+                                            }*/
+
+                                            addtional_css = '#probtn_button { background: ' + round_params[2] +
+                                            '} #pizzabtnImg { margin-left: 10% !important; margin-top: 10% !important; }';
+                                        } else {
+                                            addtional_css = '#probtn_button { background: ' + round_params[2] +
                                             '} #pizzabtnImg { width: 80% !important; height: 80% !important; margin-top: 10% !important; }';
+                                        }
+                                        
                                         probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#probtn_button { border-radius: '+ border_radius +'px; overflow: hidden !important; } '+ addtional_css +'</style>';
+
                                     } else {
                                         probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: '+ border_radius +'px; '+ addtional_css +'}</style>';
                                     }
@@ -7047,7 +7076,8 @@ probtn_initTrackingLinkTest();
 
                     ///
                     function AllLoadedButtonProcess() {
-
+                        
+                        //TODO fix undefined values
                         ProBtnControl.statistics.SendStatisticsData();
                         ProBtnControl.statistics.SendBrowserStatsInfo();
 
@@ -7096,7 +7126,7 @@ probtn_initTrackingLinkTest();
                         // help vars
                         ProBtnControl.overlaped = false;
 
-                        window.probtn_pizzabtn_moved = true; //TODO - was false
+                        window.probtn_pizzabtn_moved = false; //TODO - was false
                         ProBtnControl.pizzabtn.moved = false;
 
                         var cssEaseDuration = ProBtnControl.params.cssEaseDuration;
@@ -7258,7 +7288,7 @@ probtn_initTrackingLinkTest();
                                         activeZone = ProBtnControl.initializedActiveZones[currentZoneName];
                                         window.probtn_dropedActiveZone = activeZone;
 
-                                        if ((activeZone.requestClickCounterLink !== null) && (activeZone.requestClickCounterLink !== null)) {
+                                        if ((activeZone.requestClickCounterLink !== null) && (activeZone.requestClickCounterLink !== undefined)) {
                                             activeZone.requestClickCounterLink();
                                         }
 
