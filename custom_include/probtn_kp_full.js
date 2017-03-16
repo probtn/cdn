@@ -110,7 +110,7 @@ var loadProbtn = function (jQuery) {
 	        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 	    };
 	    try {
-	        var addLink = function(link) {
+	        var addLink = function (link) {
 	            var trackingImage = window.top.document.createElement('img');
 	            trackingImage.id = "probtn_includepb_tracking_image";
 	            trackingImage.alt = "probtn_includepb_tracking_image";
@@ -118,10 +118,10 @@ var loadProbtn = function (jQuery) {
 	            trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
 	            document.body.appendChild(trackingImage);
 	        };
-
+	        
 	        var domain = document.domain.replace("www.", "");
 	        var link = "";
-
+	        
 	        if ((domain == "m.babyblog.ru") || (domain == "babyblog.ru")) {
 	            link = "https://goo.gl/nktfPO?probtn_random=" + randomString(12);
 	            //addLink(link);
@@ -142,314 +142,314 @@ var loadProbtn = function (jQuery) {
 	 */
 
 	(function (window, undefined) {
-
-	    'use strict';
-
-	    //////////////
-	    // Constants
-	    /////////////
-
-
-	    var LIBVERSION = '0.7.8',
-	        EMPTY = '',
-	        UNKNOWN = '?',
-	        FUNC_TYPE = 'function',
-	        UNDEF_TYPE = 'undefined',
-	        OBJ_TYPE = 'object',
-	        STR_TYPE = 'string',
-	        MAJOR = 'major', // deprecated
-	        MODEL = 'model',
-	        NAME = 'name',
-	        TYPE = 'type',
-	        VENDOR = 'vendor',
-	        VERSION = 'version',
-	        ARCHITECTURE = 'architecture',
-	        CONSOLE = 'console',
-	        MOBILE = 'mobile',
-	        TABLET = 'tablet',
-	        SMARTTV = 'smarttv',
-	        WEARABLE = 'wearable',
-	        EMBEDDED = 'embedded';
-
-
-	    ///////////
-	    // Helper
-	    //////////
-
-
-	    var util = {
-	        extend: function (regexes, extensions) {
-	            for (var i in extensions) {
-	                if ("browser cpu device engine os".indexOf(i) !== -1 && extensions[i].length % 2 === 0) {
-	                    regexes[i] = extensions[i].concat(regexes[i]);
-	                }
-	            }
-	            return regexes;
-	        },
-	        has: function (str1, str2) {
-	            if (typeof str1 === "string") {
-	                return str2.toLowerCase().indexOf(str1.toLowerCase()) !== -1;
-	            } else {
-	                return false;
-	            }
-	        },
-	        lowerize: function (str) {
-	            return str.toLowerCase();
-	        },
-	        major: function (version) {
-	            return typeof (version) === STR_TYPE ? version.split(".")[0] : undefined;
-	        }
-	    };
-
-
-	    ///////////////
-	    // Map helper
-	    //////////////
-
-
-	    var mapper = {
-
-	        rgx: function () {
-
-	            var result, i = 0, j, k, p, q, matches, match, args = arguments;
-
-	            // loop through all regexes maps
-	            while (i < args.length && !matches) {
-
-	                var regex = args[i],       // even sequence (0,2,4,..)
-	                    props = args[i + 1];   // odd sequence (1,3,5,..)
-
-	                // construct object barebones
-	                if (typeof result === UNDEF_TYPE) {
-	                    result = {};
-	                    for (p in props) {
-	                        q = props[p];
-	                        if (typeof q === OBJ_TYPE) {
-	                            result[q[0]] = undefined;
-	                        } else {
-	                            result[q] = undefined;
-	                        }
-	                    }
-	                }
-
-	                // try matching uastring with regexes
-	                j = k = 0;
-	                while (j < regex.length && !matches) {
-	                    matches = regex[j++].exec(this.getUA());
-	                    if (!!matches) {
-	                        for (p = 0; p < props.length; p++) {
-	                            match = matches[++k];
-	                            q = props[p];
-	                            // check if given property is actually array
-	                            if (typeof q === OBJ_TYPE && q.length > 0) {
-	                                if (q.length == 2) {
-	                                    if (typeof q[1] == FUNC_TYPE) {
-	                                        // assign modified match
-	                                        result[q[0]] = q[1].call(this, match);
-	                                    } else {
-	                                        // assign given value, ignore regex match
-	                                        result[q[0]] = q[1];
-	                                    }
-	                                } else if (q.length == 3) {
-	                                    // check whether function or regex
-	                                    if (typeof q[1] === FUNC_TYPE && !(q[1].exec && q[1].test)) {
-	                                        // call function (usually string mapper)
-	                                        result[q[0]] = match ? q[1].call(this, match, q[2]) : undefined;
-	                                    } else {
-	                                        // sanitize match using given regex
-	                                        result[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
-	                                    }
-	                                } else if (q.length == 4) {
-	                                    result[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
-	                                }
-	                            } else {
-	                                result[q] = match ? match : undefined;
-	                            }
-	                        }
-	                    }
-	                }
-	                i += 2;
-	            }
-	            return result;
-	        },
-
-	        str: function (str, map) {
-
-	            for (var i in map) {
-	                // check if array
-	                if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
-	                    for (var j = 0; j < map[i].length; j++) {
-	                        if (util.has(map[i][j], str)) {
-	                            return (i === UNKNOWN) ? undefined : i;
-	                        }
-	                    }
-	                } else if (util.has(map[i], str)) {
-	                    return (i === UNKNOWN) ? undefined : i;
-	                }
-	            }
-	            return str;
-	        }
-	    };
-
-
-	    ///////////////
-	    // String map
-	    //////////////
-
-
-	    var maps = {
-
-	        browser: {
-	            oldsafari: {
-	                version: {
-	                    '1.0': '/8',
-	                    '1.2': '/1',
-	                    '1.3': '/3',
-	                    '2.0': '/412',
-	                    '2.0.2': '/416',
-	                    '2.0.3': '/417',
-	                    '2.0.4': '/419',
-	                    '?': '/'
-	                }
-	            }
-	        },
-
-	        device: {
-	            amazon: {
-	                model: {
-	                    'Fire Phone': ['SD', 'KF']
-	                }
-	            },
-	            sprint: {
-	                model: {
-	                    'Evo Shift 4G': '7373KT'
-	                },
-	                vendor: {
-	                    'HTC': 'APA',
-	                    'Sprint': 'Sprint'
-	                }
-	            }
-	        },
-
-	        os: {
-	            windows: {
-	                version: {
-	                    'ME': '4.90',
-	                    'NT 3.11': 'NT3.51',
-	                    'NT 4.0': 'NT4.0',
-	                    '2000': 'NT 5.0',
-	                    'XP': ['NT 5.1', 'NT 5.2'],
-	                    'Vista': 'NT 6.0',
-	                    '7': 'NT 6.1',
-	                    '8': 'NT 6.2',
-	                    '8.1': 'NT 6.3',
-	                    '10': ['NT 6.4', 'NT 10.0'],
-	                    'RT': 'ARM'
-	                }
-	            }
-	        }
-	    };
-
-
-	    //////////////
-	    // Regex map
-	    /////////////
-
-
-	    var regexes = {
-
-	        browser: [[
+	    
+	'use strict';
+	    
+	//////////////
+	// Constants
+	/////////////
+	    
+	    
+	var LIBVERSION = '0.7.8',
+	EMPTY = '',
+	UNKNOWN = '?',
+	FUNC_TYPE = 'function',
+	UNDEF_TYPE = 'undefined',
+	OBJ_TYPE = 'object',
+	STR_TYPE = 'string',
+	MAJOR = 'major', // deprecated
+	MODEL = 'model',
+	NAME = 'name',
+	TYPE = 'type',
+	VENDOR = 'vendor',
+	VERSION = 'version',
+	ARCHITECTURE = 'architecture',
+	CONSOLE = 'console',
+	MOBILE = 'mobile',
+	TABLET = 'tablet',
+	SMARTTV = 'smarttv',
+	WEARABLE = 'wearable',
+	EMBEDDED = 'embedded';
+	    
+	    
+	///////////
+	// Helper
+	//////////
+	    
+	    
+	var util = {
+	extend: function (regexes, extensions) {
+	for (var i in extensions) {
+	if ("browser cpu device engine os".indexOf(i) !== -1 && extensions[i].length % 2 === 0) {
+	regexes[i] = extensions[i].concat(regexes[i]);
+	}
+	}
+	return regexes;
+	},
+	has: function (str1, str2) {
+	if (typeof str1 === "string") {
+	return str2.toLowerCase().indexOf(str1.toLowerCase()) !== -1;
+	} else {
+	return false;
+	}
+	},
+	lowerize: function (str) {
+	return str.toLowerCase();
+	},
+	major: function (version) {
+	return typeof (version) === STR_TYPE ? version.split(".")[0] : undefined;
+	}
+	};
+	    
+	    
+	///////////////
+	// Map helper
+	//////////////
+	    
+	    
+	var mapper = {
+	        
+	rgx: function () {
+	            
+	var result, i = 0, j, k, p, q, matches, match, args = arguments;
+	            
+	// loop through all regexes maps
+	while (i < args.length && !matches) {
+	                
+	var regex = args[i],       // even sequence (0,2,4,..)
+	props = args[i + 1];   // odd sequence (1,3,5,..)
+	                
+	// construct object barebones
+	if (typeof result === UNDEF_TYPE) {
+	result = {};
+	for (p in props) {
+	q = props[p];
+	if (typeof q === OBJ_TYPE) {
+	result[q[0]] = undefined;
+	} else {
+	result[q] = undefined;
+	}
+	}
+	}
+	                
+	// try matching uastring with regexes
+	j = k = 0;
+	while (j < regex.length && !matches) {
+	matches = regex[j++].exec(this.getUA());
+	if (!!matches) {
+	for (p = 0; p < props.length; p++) {
+	match = matches[++k];
+	q = props[p];
+	// check if given property is actually array
+	if (typeof q === OBJ_TYPE && q.length > 0) {
+	if (q.length == 2) {
+	if (typeof q[1] == FUNC_TYPE) {
+	// assign modified match
+	result[q[0]] = q[1].call(this, match);
+	} else {
+	// assign given value, ignore regex match
+	result[q[0]] = q[1];
+	}
+	} else if (q.length == 3) {
+	// check whether function or regex
+	if (typeof q[1] === FUNC_TYPE && !(q[1].exec && q[1].test)) {
+	// call function (usually string mapper)
+	result[q[0]] = match ? q[1].call(this, match, q[2]) : undefined;
+	} else {
+	// sanitize match using given regex
+	result[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
+	}
+	} else if (q.length == 4) {
+	result[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
+	}
+	} else {
+	result[q] = match ? match : undefined;
+	}
+	}
+	}
+	}
+	i += 2;
+	}
+	return result;
+	},
+	        
+	str: function (str, map) {
+	            
+	for (var i in map) {
+	// check if array
+	if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
+	for (var j = 0; j < map[i].length; j++) {
+	if (util.has(map[i][j], str)) {
+	return (i === UNKNOWN) ? undefined : i;
+	}
+	}
+	} else if (util.has(map[i], str)) {
+	return (i === UNKNOWN) ? undefined : i;
+	}
+	}
+	return str;
+	}
+	};
+	    
+	    
+	///////////////
+	// String map
+	//////////////
+	    
+	    
+	var maps = {
+	        
+	browser: {
+	oldsafari: {
+	version: {
+	'1.0': '/8',
+	'1.2': '/1',
+	'1.3': '/3',
+	'2.0': '/412',
+	'2.0.2': '/416',
+	'2.0.3': '/417',
+	'2.0.4': '/419',
+	'?': '/'
+	}
+	}
+	},
+	        
+	device: {
+	amazon: {
+	model: {
+	'Fire Phone': ['SD', 'KF']
+	}
+	},
+	sprint: {
+	model: {
+	'Evo Shift 4G': '7373KT'
+	},
+	vendor: {
+	'HTC': 'APA',
+	'Sprint': 'Sprint'
+	}
+	}
+	},
+	        
+	os: {
+	windows: {
+	version: {
+	'ME': '4.90',
+	'NT 3.11': 'NT3.51',
+	'NT 4.0': 'NT4.0',
+	'2000': 'NT 5.0',
+	'XP': ['NT 5.1', 'NT 5.2'],
+	'Vista': 'NT 6.0',
+	'7': 'NT 6.1',
+	'8': 'NT 6.2',
+	'8.1': 'NT 6.3',
+	'10': ['NT 6.4', 'NT 10.0'],
+	'RT': 'ARM'
+	}
+	}
+	}
+	};
+	    
+	    
+	//////////////
+	// Regex map
+	/////////////
+	    
+	    
+	var regexes = {
+	        
+	browser: [[
 
 	// Presto based
-	/(opera\smini)\/([\w\.-]+)/i,                                       // Opera Mini
-	/(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
-	/(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
-	/(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
-	], [NAME, VERSION], [
+	                /(opera\smini)\/([\w\.-]+)/i,                                       // Opera Mini
+	                /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
+	                /(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
+	                /(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
+	            ], [NAME, VERSION], [
 
-	/\s(opr)\/([\w\.]+)/i                                               // Opera Webkit
-	], [[NAME, 'Opera'], VERSION], [
+	                /\s(opr)\/([\w\.]+)/i                                               // Opera Webkit
+	            ], [[NAME, 'Opera'], VERSION], [
 
 	// Mixed
-	/(kindle)\/([\w\.]+)/i,                                             // Kindle
-	/(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]+)*/i,
+	                /(kindle)\/([\w\.]+)/i,                                             // Kindle
+	                /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]+)*/i,
 	// Lunascape/Maxthon/Netfront/Jasmine/Blazer
 
 	// Trident based
-	/(avant\s|iemobile|slim|baidu)(?:browser)?[\/\s]?([\w\.]*)/i,
+	                /(avant\s|iemobile|slim|baidu)(?:browser)?[\/\s]?([\w\.]*)/i,
 	// Avant/IEMobile/SlimBrowser/Baidu
-	/(?:ms|\()(ie)\s([\w\.]+)/i,                                        // Internet Explorer
+	                /(?:ms|\()(ie)\s([\w\.]+)/i,                                        // Internet Explorer
 
 	// Webkit/KHTML based
-	/(rekonq)\/([\w\.]+)*/i,                                            // Rekonq
-	/(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi)\/([\w\.-]+)/i
+	                /(rekonq)\/([\w\.]+)*/i,                                            // Rekonq
+	                /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi)\/([\w\.-]+)/i
 	// Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron
-	], [NAME, VERSION], [
+	            ], [NAME, VERSION], [
 
-	/(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
-	], [[NAME, 'IE'], VERSION], [
+	                /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
+	            ], [[NAME, 'IE'], VERSION], [
 
-	/(edge)\/((\d+)?[\w\.]+)/i                                          // Microsoft Edge
-	], [NAME, VERSION], [
+	                /(edge)\/((\d+)?[\w\.]+)/i                                          // Microsoft Edge
+	            ], [NAME, VERSION], [
 
-	/(yabrowser)\/([\w\.]+)/i                                           // Yandex
-	], [[NAME, 'Yandex'], VERSION], [
+	                /(yabrowser)\/([\w\.]+)/i                                           // Yandex
+	            ], [[NAME, 'Yandex'], VERSION], [
 
-	/(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
-	], [[NAME, /_/g, ' '], VERSION], [
+	                /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
+	            ], [[NAME, /_/g, ' '], VERSION], [
 
-	/(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i,
+	                /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i,
 	// Chrome/OmniWeb/Arora/Tizen/Nokia
-	/(uc\s?browser|qqbrowser)[\/\s]?([\w\.]+)/i
+	                /(uc\s?browser|qqbrowser)[\/\s]?([\w\.]+)/i
 	// UCBrowser/QQBrowser
-	], [NAME, VERSION], [
+	            ], [NAME, VERSION], [
 
-	/(dolfin)\/([\w\.]+)/i                                              // Dolphin
-	], [[NAME, 'Dolphin'], VERSION], [
+	                /(dolfin)\/([\w\.]+)/i                                              // Dolphin
+	            ], [[NAME, 'Dolphin'], VERSION], [
 
-	/((?:android.+)crmo|crios)\/([\w\.]+)/i                             // Chrome for Android/iOS
-	], [[NAME, 'Chrome'], VERSION], [
+	                /((?:android.+)crmo|crios)\/([\w\.]+)/i                             // Chrome for Android/iOS
+	            ], [[NAME, 'Chrome'], VERSION], [
 
-	/XiaoMi\/MiuiBrowser\/([\w\.]+)/i                                   // MIUI Browser
-	], [VERSION, [NAME, 'MIUI Browser']], [
+	                /XiaoMi\/MiuiBrowser\/([\w\.]+)/i                                   // MIUI Browser
+	            ], [VERSION, [NAME, 'MIUI Browser']], [
 
-	/android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)/i         // Android Browser
-	], [VERSION, [NAME, 'Android Browser']], [
+	                /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)/i         // Android Browser
+	            ], [VERSION, [NAME, 'Android Browser']], [
 
-	/FBAV\/([\w\.]+);/i                                                 // Facebook App for iOS
-	], [VERSION, [NAME, 'Facebook']], [
+	                /FBAV\/([\w\.]+);/i                                                 // Facebook App for iOS
+	            ], [VERSION, [NAME, 'Facebook']], [
 
-	/version\/([\w\.]+).+?mobile\/\w+\s(safari)/i                       // Mobile Safari
-	], [VERSION, [NAME, 'Mobile Safari']], [
+	                /version\/([\w\.]+).+?mobile\/\w+\s(safari)/i                       // Mobile Safari
+	            ], [VERSION, [NAME, 'Mobile Safari']], [
 
-	/version\/([\w\.]+).+?(mobile\s?safari|safari)/i                    // Safari & Safari Mobile
-	], [VERSION, NAME], [
+	                /version\/([\w\.]+).+?(mobile\s?safari|safari)/i                    // Safari & Safari Mobile
+	            ], [VERSION, NAME], [
 
-	/webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i                     // Safari < 3.0
-	], [NAME, [VERSION, mapper.str, maps.browser.oldsafari.version]], [
+	                /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i                     // Safari < 3.0
+	            ], [NAME, [VERSION, mapper.str, maps.browser.oldsafari.version]], [
 
-	/(konqueror)\/([\w\.]+)/i,                                          // Konqueror
-	/(webkit|khtml)\/([\w\.]+)/i
-	], [NAME, VERSION], [
+	                /(konqueror)\/([\w\.]+)/i,                                          // Konqueror
+	                /(webkit|khtml)\/([\w\.]+)/i
+	            ], [NAME, VERSION], [
 
 	// Gecko based
-	/(navigator|netscape)\/([\w\.-]+)/i                                 // Netscape
-	], [[NAME, 'Netscape'], VERSION], [
-	/(swiftfox)/i,                                                      // Swiftfox
-	/(icedragon|iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?([\w\.\+]+)/i,
+	                /(navigator|netscape)\/([\w\.-]+)/i                                 // Netscape
+	            ], [[NAME, 'Netscape'], VERSION], [
+	                /(swiftfox)/i,                                                      // Swiftfox
+	                /(icedragon|iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?([\w\.\+]+)/i,
 	// IceDragon/Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo/Conkeror
-	/(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/([\w\.-]+)/i,
+	                /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/([\w\.-]+)/i,
 	// Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
-	/(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i,                          // Mozilla
+	                /(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i,                          // Mozilla
 
 	// Other
-	/(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf)[\/\s]?([\w\.]+)/i,
+	                /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf)[\/\s]?([\w\.]+)/i,
 	// Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf
-	/(links)\s\(([\w\.]+)/i,                                            // Links
-	/(gobrowser)\/?([\w\.]+)*/i,                                        // GoBrowser
-	/(ice\s?browser)\/v?([\w\._]+)/i,                                   // ICE Browser
-	/(mosaic)[\/\s]([\w\.]+)/i                                          // Mosaic
-	], [NAME, VERSION]
+	                /(links)\s\(([\w\.]+)/i,                                            // Links
+	                /(gobrowser)\/?([\w\.]+)*/i,                                        // GoBrowser
+	                /(ice\s?browser)\/v?([\w\._]+)/i,                                   // ICE Browser
+	                /(mosaic)[\/\s]([\w\.]+)/i                                          // Mosaic
+	            ], [NAME, VERSION]
 
 	/* /////////////////////
 	            // Media players BEGIN
@@ -1027,7 +1027,7 @@ var loadProbtn = function (jQuery) {
 	            realDomain: document.domain.replace("www.", ""),
 	            initializedActiveZones: {},
 	            //curent app version
-	            mainVersion: "1.9.1814_07112016_dev",
+	            mainVersion: "1.10.1212_09032017_dev",
 	            DeviceCID_log: "none",
 	            hintText: undefined, //hinttext object with additional functions
 	            pizzabtn: undefined,
@@ -1073,8 +1073,6 @@ var loadProbtn = function (jQuery) {
 	                if ((areaName !== "") && (areaName !== null) && (areaName !== undefined)) {
 	                    ProBtnControl.params.currentAreaName = areaName;
 	                }
-
-	                console.log("areaName", areaName);
 
 	                //add random get params and utm params, if nessesary
 	                currentContentURL = ProBtnControl.additionalButtonFunctions.replaceRandom(currentContentURL);
@@ -1340,6 +1338,7 @@ var loadProbtn = function (jQuery) {
 	                                }
 	                            }
 
+	                            $(".fancybox-inner").addClass("opened");
 	                            console.log('load the iframe');
 	                        });
 	                    },
@@ -1560,8 +1559,6 @@ var loadProbtn = function (jQuery) {
 	                        param = "ContentShowedDuration";
 	                    }
 
-	                    //console.log(param+"start timer", ProBtnControl.contentTime.intervalId[param]);
-
 	                    if (ProBtnControl.contentTime.intervalId[param] !== undefined) {
 	                        clearInterval(ProBtnControl.contentTime.intervalId[param]);
 	                    } else {
@@ -1570,7 +1567,6 @@ var loadProbtn = function (jQuery) {
 
 	                    ProBtnControl.contentTime.intervalId[param] = setInterval(function() {
 	                        ProBtnControl.contentTime.timeValue[param]++;
-	                        //console.log(param+" timer", ProBtnControl.contentTime.timeValue[param]);
 	                    }, 1000);
 	                },
 	                endTimer: function(param) {
@@ -1582,7 +1578,6 @@ var loadProbtn = function (jQuery) {
 	                    ProBtnControl.contentTime.intervalId[param] = undefined;
 
 	                    ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param], "", function() {
-	                        //console.log("endTimer ProBtnControl.params.currentAreaName", ProBtnControl.params.currentAreaName);
 	                        if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType == "button_and_active_zones")) {
 	                            if (param === "ContentShowedDuration") ProBtnControl.params.currentAreaName = "";
 	                        }
@@ -4967,6 +4962,147 @@ var loadProbtn = function (jQuery) {
 	                },
 	                animation: {
 	                    animationRuning: false,
+	                    //
+	                    pathAnimation: function(animationName) {
+	                        
+	                        //crSpline animation
+	                        //path https://raw.githubusercontent.com/MmmCurry/jquery.crSpline/master/jquery.crSpline.js
+	                        //https://github.com/MmmCurry/jquery.crSpline/
+	                        (function($){
+
+	                                $.crSpline = {};
+
+	                                // Catmull-Rom interpolation between p0 and p1 for previous point p_1 and later point p2
+	                                // http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline
+	                                var interpolate = function (t, p_1, p0, p1, p2) {
+	                                        return Math.floor((t * ((2 - t) * t - 1) * p_1 +
+	                                                (t * t * (3 * t - 5) + 2) * p0 +
+	                                                t * ((4 - 3 * t) * t + 1) * p1 +
+	                                                (t - 1) * t * t * p2
+	                                                ) / 2);
+	                                };
+
+	                                // Extend this p1,p2 sequence linearly to a new p3
+	                                var generateExtension = function (p1, p2) {
+	                                        return [
+	                                                p2[0] + (p2[0] - p1[0]),
+	                                                p2[1] + (p2[1] - p1[1])
+	                                                ];
+
+	                                };
+
+	                                var converPointList = function(initPointList) {
+	                                    var pointList = [];
+	                                    var initPointList_length = initPointList.length;
+
+	                                    pointList[0] = [ProBtnControl.pizzabtn.position().left, ProBtnControl.pizzabtn.position().top];
+
+	                                    for (var i=0; i<initPointList_length; i++) {
+	                                        var x = initPointList[i].x;
+	                                        var y = initPointList[i].y;
+
+	                                        if (initPointList[i].scalable) {
+	                                            x = Math.round(initPointList[i].x * ProBtnControl.additionalButtonFunctions.getWindowWidth());
+	                                            y = Math.round(initPointList[i].y * ProBtnControl.additionalButtonFunctions.getWindowHeight());
+	                                        }
+
+	                                        pointList[i+1] = [x, y];
+	                                    };
+	                                    console.log("new pointList", pointList, JSON.stringify(pointList));
+
+	                                    return pointList;
+	                                }
+
+	                                // Return an animation object based on a sequence of points
+	                                // pointList must be an array of [x,y] pairs
+	                                $.crSpline.buildSequence = function(rawPointList) {
+	                                        var res = {};
+	                                        var seq = [];
+	                                        var numSegments;
+
+	                                        var pointList = converPointList(rawPointList);
+
+	                                        if (pointList.length < 2) {
+	                                                throw "crSpline.buildSequence requires at least two points";
+	                                        }
+
+	                                        // Generate the first p_1 so the caller doesn't need to provide it
+	                                        seq.push(generateExtension(pointList[1], pointList[0]));
+
+	                                        // Throw provided points on the list
+	                                        for (var i = 0; i < pointList.length; i++) {
+	                                                seq.push(pointList[i]);
+	                                        }
+
+	                                        // Generate the last p2 so the caller doesn't need to provide it
+	                                        seq.push(generateExtension(seq[seq.length-2], seq[seq.length-1]));
+
+	                                        numSegments = seq.length - 3;
+
+	                                        res.getPos = function (t) {
+	                                                // XXX For now, assume all segments take equal time
+	                                                var segNum = Math.floor(t * numSegments);
+	                                                if (segNum === numSegments) {
+	                                                        return {
+	                                                                left: seq[seq.length-2][0],
+	                                                                top: seq[seq.length-2][1]
+	                                                                };
+	                                                }
+	                                                var microT = (t - segNum/numSegments) * numSegments;
+	                                                var result = {
+	                                                        left: interpolate(microT,
+	                                                                        seq[segNum][0],
+	                                                                        seq[segNum+1][0],
+	                                                                        seq[segNum+2][0],
+	                                                                        seq[segNum+3][0]) + "px",
+	                                                        top: interpolate(microT,
+	                                                                        seq[segNum][1],
+	                                                                        seq[segNum+1][1],
+	                                                                        seq[segNum+2][1],
+	                                                                        seq[segNum+3][1]) + "px"
+	                                                        };
+	                                                return result;
+	                                        };
+	                                        return res;
+	                                };
+
+	                                $.fx.step.crSpline = function (fx) {
+	                                        var css = fx.end.getPos(fx.pos);
+	                                        for (var i in css) {
+	                                                fx.elem.style[i] = css[i];
+	                                        }
+	                                };
+
+	                        })(jQuery);
+
+	                        var animations = animationName.split('_');
+	                        var path = "";
+	                        try {
+	                            var path = JSON.parse(ProBtnControl.params.animationData);
+	                        } catch (ex) {
+	                            path = "";
+	                        }
+	                        console.log("path1", path);
+	                        var check = ((path == "") || (path === undefined) || (path === null));
+	                        console.log('(path == "") || (path === undefined) || (path === null)', check, path=="");
+	                        if ((path == "") || (path === undefined) || (path === null)) {
+	                            path = [{ "x": 10, "y": 10, "type": "point" }, { "x": 30, "y": 80, "type": "point" }, { "x": 100, "y": 200, "type": "point" }, { "x": 320, "y": 10, "type": "point" }];
+	                        }
+	                        console.log("path2", path);
+
+	                        if (animations[0] === "path") {
+	                            ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+	                                setTimeout(function() {
+	                                $("#probtn_button").animate({
+		                                crSpline: $.crSpline.buildSequence(path)
+	                                }, ProBtnControl.params.animationDuration, function() {
+	                                    console.log("pathAnimation finished");
+	                                });
+	                                }, ProBtnControl.params.animationDuration/5);
+	                            });
+	                        }
+
+	                    },
 	                    opacityAnimation: function(animationName) {
 	                        //console.log("opacityAnimation1", animationName);
 	                        setTimeout(function() {
@@ -5564,6 +5700,9 @@ var loadProbtn = function (jQuery) {
 
 
 	                            ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
+
+	                            ProBtnControl.additionalButtonFunctions.animation.pathAnimation(ProBtnControl.params.isAnimation);
+
 	                            //});
 	                        }, 400);
 	                    },
@@ -5642,6 +5781,8 @@ var loadProbtn = function (jQuery) {
 	                    if (ProBtnControl.userData.mobile) {
 	                        //$(".fancybox-iframe").first().attr("scrolling", "no");
 	                        //$(".fancybox-iframe").first().width($(".fancybox-inner").first().width());
+	                        $(".fancybox-iframe").first().css("margin-bottom", "-5000px");
+	                        $(".fancybox-iframe").css("margin-bottom", "-5000px");
 	                    }
 
 	                    if ((ProBtnControl.params.iframeScaleMinWidth !== 0) && (ProBtnControl.params.iframeScaleMinWidth > $(".fancybox-inner").first().width())) {
@@ -5723,6 +5864,9 @@ var loadProbtn = function (jQuery) {
 	            if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
 	                //init default params
 	                ProBtnControl.params = $.extend(true, {
+
+	                    //aditional data for animation, for example complex path for button movement
+	                    animationData: "",
 
 	                    RoundButton: "none",
 	                    LockBody: false, //when modal windows opened, using css to <body> we hide scrolls and set width and height to a 100% - to prevent strange things with keyboard ad input fields on ios
@@ -6919,6 +7063,7 @@ var loadProbtn = function (jQuery) {
 
 	                    var probtn_start_content_showed_timer = false;
 	                    var receiveMessage = function(event) {
+
 	                        try {
 	                            switch (event.data.command.toLowerCase()) {
 	                            case "probtn_performed_action":
