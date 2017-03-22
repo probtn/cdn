@@ -1,0 +1,240 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"bord",
+				"border-bottom"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"font",
+				"font-style"
+			],
+			[
+				"mess",
+				"messageContainer"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"tet",
+				"text-align"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 490.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 549.0
+	},
+	"console":
+	{
+		"height": 470.0,
+		"history":
+		[
+			"cd",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/m0rg0_001/Documents/GitHub/cdn"
+	],
+	"file_history":
+	[
+		"/F/projects/site-backups/krepysh76/view_edit/template/common/footer.tpl",
+		"/C/Users/m0rg0_001/Downloads/bootstrap/css/bootstrap.css",
+		"/C/Users/m0rg0_001/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/options.js",
+		"/C/Users/m0rg0_001/Documents/GitHub/HintButton/browsers_extensions/chrome_extension/background.js",
+		"/C/Users/m0rg0_001/Documents/GitHub/HintButton/browsers_extensions/chrome_extension/myScript.js",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/manifest.json",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/popup.html",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/background.html",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/devtools.js",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/panel.js",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/popup.js",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/panel.html",
+		"/C/Users/m0rg0_001/Documents/GitHub/chrome_probtn_check/devtools.html",
+		"/C/Users/m0rg0_001/Documents/GitHub/HintButton/browsers_extensions/chrome_extension/js/probtn.js",
+		"/F/projects/site-backups/krepysh76/view_edit/template/information/information.tpl",
+		"/C/Users/m0rg0_001/Documents/GitHub/HintButton/probtn.js",
+		"/F/projects/site-backups/krepysh76/view_edit/template/common/column_right.tpl",
+		"/F/projects/site-backups/krepysh76/view_edit/template/column_left.tpl",
+		"/F/projects/site-backups/krepysh76/view_edit/template/common/column_left.tpl",
+		"/F/projects/site-backups/krepysh76/view_edit/template/header.tpl",
+		"/F/projects/site-backups/krepysh76/view_edit/template/common/home.tpl",
+		"/C/Users/m0rg0_001/AppData/Roaming/Sublime Text 3/Packages/Gist/Default (Windows).sublime-keymap"
+	],
+	"find":
+	{
+		"height": 33.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"phone_box",
+			"main_text1",
+			"renderStatus",
+			"addToMessagesList",
+			"sendMessage",
+			"page",
+			"Large image",
+			"#menu > ul > li",
+			"background: url(../image/menu_default_item1.png);",
+			"#menu > ul > li",
+			".jumbotron"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 43.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 500.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "cdn-project.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 283.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

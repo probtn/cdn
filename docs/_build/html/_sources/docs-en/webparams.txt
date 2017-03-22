@@ -12,6 +12,30 @@ Description of the parameters used by the button (by application)
  
 If a parameter is used differently in different modes, it is specifically marked (including, the required modes)
 
+RoundButton
+----------------------------------
+
+Format: ``<mode>_<additional_param>_<fill_color>``
+
+Variants:
+
+- ``none`` - do nothing, by default
+- ``auto`` - automatic set button (banner) format to round or ellipse. Also it's possible to set fill color for free space for example ``auto_fill_#121212``
+- ``manual`` - manual set of border radius (set as second param, for example ``manual_30``)                 
+					
+LockBody
+----------------------------------
+If this param is ON, then we apply css styles for ``body`` to set width and height equal to 100%, an also hide scrollbars.
+It needed in cases when we need to input something in modal window and ios move modl window when showing keyboard.
+
+By default: false
+
+CloseButtonShowDelay
+----------------------------------
+Time in ms before showing close area, in case when ``AlwaysShowCloseButton == true`` (when close area showed all time).
+
+By default: 0
+
 SoundURL
 ----------------------------------
 URL to the sound file which would be played at page.

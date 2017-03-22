@@ -92,14 +92,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id17">Неиспользуемые параметры</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id21">Параметры по умолчания для кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../probtn_events.html">Получение событий кнопки на странице</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../postMessage_button_animation.html">Передача сообщений об этапах анимации</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reports_description.html">Отчеты admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../passback.html">Использование passback кода</a></li>
 </ul>
 
             
@@ -148,6 +150,27 @@
 <span id="webparams"></span><h1>Params description<a class="headerlink" href="#params-description" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Description of the parameters used by the button (by application)</p>
 <p>If a parameter is used differently in different modes, it is specifically marked (including, the required modes)</p>
+<div class="section" id="roundbutton">
+<h2>RoundButton<a class="headerlink" href="#roundbutton" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Format: <code class="docutils literal"><span class="pre">&lt;mode&gt;_&lt;additional_param&gt;_&lt;fill_color&gt;</span></code></p>
+<p>Variants:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">none</span></code> - do nothing, by default</li>
+<li><code class="docutils literal"><span class="pre">auto</span></code> - automatic set button (banner) format to round or ellipse. Also it&#8217;s possible to set fill color for free space for example <code class="docutils literal"><span class="pre">auto_fill_#121212</span></code></li>
+<li><code class="docutils literal"><span class="pre">manual</span></code> - manual set of border radius (set as second param, for example <code class="docutils literal"><span class="pre">manual_30</span></code>)</li>
+</ul>
+</div>
+<div class="section" id="lockbody">
+<h2>LockBody<a class="headerlink" href="#lockbody" title="Ссылка на этот заголовок">¶</a></h2>
+<p>If this param is ON, then we apply css styles for <code class="docutils literal"><span class="pre">body</span></code> to set width and height equal to 100%, an also hide scrollbars.
+It needed in cases when we need to input something in modal window and ios move modl window when showing keyboard.</p>
+<p>By default: false</p>
+</div>
+<div class="section" id="closebuttonshowdelay">
+<h2>CloseButtonShowDelay<a class="headerlink" href="#closebuttonshowdelay" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Time in ms before showing close area, in case when <code class="docutils literal"><span class="pre">AlwaysShowCloseButton</span> <span class="pre">==</span> <span class="pre">true</span></code> (when close area showed all time).</p>
+<p>By default: 0</p>
+</div>
 <div class="section" id="soundurl">
 <h2>SoundURL<a class="headerlink" href="#soundurl" title="Ссылка на этот заголовок">¶</a></h2>
 <p>URL to the sound file which would be played at page.
