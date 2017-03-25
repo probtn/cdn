@@ -30,7 +30,8 @@
   
 
   
-    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/> 
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="prev" title="Использование passback кода" href="passback.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,7 +81,7 @@
             
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
@@ -102,6 +103,22 @@
 <li class="toctree-l1"><a class="reference internal" href="button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reports_description.html">Отчеты admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="passback.html">Использование passback кода</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Неочевидные моменты, подсказки и иные дополнительные данные</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dom">Описание DOM модели кнопки</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-wrapper">#probtn_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iframe-probtn-guidiframe">iframe#probtn_guidIframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#div-probtn-additionalitemscontainer">div#probtn_additionalItemsContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#div-probtn-button">div#probtn_button</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pizzabtnimg">#pizzabtnImg</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-tricks">Tips&amp;tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fancybox-iframe">Добавление класса для fancybox при готовности страницы в iframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Скрытие кнопки закрытия модального окна</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -173,12 +190,37 @@
 <p>Картинка или iframe (c html креативом) кнопки</p>
 </div>
 </div>
+<div class="section" id="tips-tricks">
+<h2>Tips&amp;tricks<a class="headerlink" href="#tips-tricks" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="fancybox-iframe">
+<h3>Добавление класса для fancybox при готовности страницы в iframe<a class="headerlink" href="#fancybox-iframe" title="Ссылка на этот заголовок">¶</a></h3>
+<p>При открытии facybox модального окна после загрузки iframe страницы для div с классом fancybox-inner добавляется класс opened (для пометки того что страница в iframe загружена и мы можем изменить какие-либо стили, к примеру убрать фон)</p>
+</div>
+<div class="section" id="id2">
+<h3>Скрытие кнопки закрытия модального окна<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Для скрытия кнопки закрытия модального окна (к примеру в случае, если страница внутри iframe сама реализует закрытие моадльного окнакнопки используя механизм postMessage) можно добавить в параметр Z Custom CSS (или непосредственно на сайт) следующие CSS стили:</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="nc">.fancybox-close</span> <span class="p">{</span>
+        <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+        <span class="k">top</span><span class="o">:</span> <span class="m">0px</span> <span class="cp">!important</span><span class="p">;</span>
+        <span class="k">right</span><span class="o">:</span> <span class="m">0px</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="passback.html" class="btn btn-neutral" title="Использование passback кода" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

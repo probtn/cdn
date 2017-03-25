@@ -30,4 +30,5 @@ Profit Button
    button_additional_animations_param
    reports_description
    passback
+   hints_and_tricks
 
