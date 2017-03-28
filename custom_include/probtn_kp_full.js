@@ -94,8 +94,11 @@ var loadProbtn = function (jQuery) {
 	    if ((func === null) || (func === undefined)) {
 	        func = "playVideo";
 	    }
-	    var youtube_command = window.JSON.stringify({ event: "command", func: func });
-	    
+	    var youtube_command = window.JSON.stringify({
+	        event: "command",
+	        func: func
+	    });
+
 	    try {
 	        player = document.getElementById(frame_id);
 	        player.contentWindow.postMessage(youtube_command, 'https://www.youtube.com');
@@ -104,13 +107,16 @@ var loadProbtn = function (jQuery) {
 	    }
 	}
 
-
+	/**
+	 * function to add tracking link (using image) when code added to page
+	 * @return {[type]} [description]
+	 */
 	function probtn_initTrackingLinkTest() {
-	    var randomString = function (length) {
+	    var randomString = function(length) {
 	        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 	    };
 	    try {
-	        var addLink = function (link) {
+	        var addLink = function(link) {
 	            var trackingImage = window.top.document.createElement('img');
 	            trackingImage.id = "probtn_includepb_tracking_image";
 	            trackingImage.alt = "probtn_includepb_tracking_image";
@@ -118,15 +124,15 @@ var loadProbtn = function (jQuery) {
 	            trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
 	            document.body.appendChild(trackingImage);
 	        };
-	        
+
 	        var domain = document.domain.replace("www.", "");
 	        var link = "";
-	        
+
 	        if ((domain == "m.babyblog.ru") || (domain == "babyblog.ru")) {
 	            link = "https://goo.gl/nktfPO?probtn_random=" + randomString(12);
 	            //addLink(link);
 	        }
-	    } catch (ex) { }
+	    } catch (ex) {}
 	}
 	probtn_initTrackingLinkTest();
 
@@ -140,587 +146,820 @@ var loadProbtn = function (jQuery) {
 	 * Copyright © 2012-2015 Faisal Salman <fyzlman@gmail.com>
 	 * Dual licensed under GPLv2 & MIT
 	 */
+	(function(window, undefined) {
 
-	(function (window, undefined) {
-	    
-	'use strict';
-	    
-	//////////////
-	// Constants
-	/////////////
-	    
-	    
-	var LIBVERSION = '0.7.8',
-	EMPTY = '',
-	UNKNOWN = '?',
-	FUNC_TYPE = 'function',
-	UNDEF_TYPE = 'undefined',
-	OBJ_TYPE = 'object',
-	STR_TYPE = 'string',
-	MAJOR = 'major', // deprecated
-	MODEL = 'model',
-	NAME = 'name',
-	TYPE = 'type',
-	VENDOR = 'vendor',
-	VERSION = 'version',
-	ARCHITECTURE = 'architecture',
-	CONSOLE = 'console',
-	MOBILE = 'mobile',
-	TABLET = 'tablet',
-	SMARTTV = 'smarttv',
-	WEARABLE = 'wearable',
-	EMBEDDED = 'embedded';
-	    
-	    
-	///////////
-	// Helper
-	//////////
-	    
-	    
-	var util = {
-	extend: function (regexes, extensions) {
-	for (var i in extensions) {
-	if ("browser cpu device engine os".indexOf(i) !== -1 && extensions[i].length % 2 === 0) {
-	regexes[i] = extensions[i].concat(regexes[i]);
-	}
-	}
-	return regexes;
-	},
-	has: function (str1, str2) {
-	if (typeof str1 === "string") {
-	return str2.toLowerCase().indexOf(str1.toLowerCase()) !== -1;
-	} else {
-	return false;
-	}
-	},
-	lowerize: function (str) {
-	return str.toLowerCase();
-	},
-	major: function (version) {
-	return typeof (version) === STR_TYPE ? version.split(".")[0] : undefined;
-	}
-	};
-	    
-	    
-	///////////////
-	// Map helper
-	//////////////
-	    
-	    
-	var mapper = {
-	        
-	rgx: function () {
-	            
-	var result, i = 0, j, k, p, q, matches, match, args = arguments;
-	            
-	// loop through all regexes maps
-	while (i < args.length && !matches) {
-	                
-	var regex = args[i],       // even sequence (0,2,4,..)
-	props = args[i + 1];   // odd sequence (1,3,5,..)
-	                
-	// construct object barebones
-	if (typeof result === UNDEF_TYPE) {
-	result = {};
-	for (p in props) {
-	q = props[p];
-	if (typeof q === OBJ_TYPE) {
-	result[q[0]] = undefined;
-	} else {
-	result[q] = undefined;
-	}
-	}
-	}
-	                
-	// try matching uastring with regexes
-	j = k = 0;
-	while (j < regex.length && !matches) {
-	matches = regex[j++].exec(this.getUA());
-	if (!!matches) {
-	for (p = 0; p < props.length; p++) {
-	match = matches[++k];
-	q = props[p];
-	// check if given property is actually array
-	if (typeof q === OBJ_TYPE && q.length > 0) {
-	if (q.length == 2) {
-	if (typeof q[1] == FUNC_TYPE) {
-	// assign modified match
-	result[q[0]] = q[1].call(this, match);
-	} else {
-	// assign given value, ignore regex match
-	result[q[0]] = q[1];
-	}
-	} else if (q.length == 3) {
-	// check whether function or regex
-	if (typeof q[1] === FUNC_TYPE && !(q[1].exec && q[1].test)) {
-	// call function (usually string mapper)
-	result[q[0]] = match ? q[1].call(this, match, q[2]) : undefined;
-	} else {
-	// sanitize match using given regex
-	result[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
-	}
-	} else if (q.length == 4) {
-	result[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
-	}
-	} else {
-	result[q] = match ? match : undefined;
-	}
-	}
-	}
-	}
-	i += 2;
-	}
-	return result;
-	},
-	        
-	str: function (str, map) {
-	            
-	for (var i in map) {
-	// check if array
-	if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
-	for (var j = 0; j < map[i].length; j++) {
-	if (util.has(map[i][j], str)) {
-	return (i === UNKNOWN) ? undefined : i;
-	}
-	}
-	} else if (util.has(map[i], str)) {
-	return (i === UNKNOWN) ? undefined : i;
-	}
-	}
-	return str;
-	}
-	};
-	    
-	    
-	///////////////
-	// String map
-	//////////////
-	    
-	    
-	var maps = {
-	        
-	browser: {
-	oldsafari: {
-	version: {
-	'1.0': '/8',
-	'1.2': '/1',
-	'1.3': '/3',
-	'2.0': '/412',
-	'2.0.2': '/416',
-	'2.0.3': '/417',
-	'2.0.4': '/419',
-	'?': '/'
-	}
-	}
-	},
-	        
-	device: {
-	amazon: {
-	model: {
-	'Fire Phone': ['SD', 'KF']
-	}
-	},
-	sprint: {
-	model: {
-	'Evo Shift 4G': '7373KT'
-	},
-	vendor: {
-	'HTC': 'APA',
-	'Sprint': 'Sprint'
-	}
-	}
-	},
-	        
-	os: {
-	windows: {
-	version: {
-	'ME': '4.90',
-	'NT 3.11': 'NT3.51',
-	'NT 4.0': 'NT4.0',
-	'2000': 'NT 5.0',
-	'XP': ['NT 5.1', 'NT 5.2'],
-	'Vista': 'NT 6.0',
-	'7': 'NT 6.1',
-	'8': 'NT 6.2',
-	'8.1': 'NT 6.3',
-	'10': ['NT 6.4', 'NT 10.0'],
-	'RT': 'ARM'
-	}
-	}
-	}
-	};
-	    
-	    
-	//////////////
-	// Regex map
-	/////////////
-	    
-	    
-	var regexes = {
-	        
-	browser: [[
+	    'use strict';
 
-	// Presto based
-	                /(opera\smini)\/([\w\.-]+)/i,                                       // Opera Mini
-	                /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
-	                /(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
-	                /(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
-	            ], [NAME, VERSION], [
+	    //////////////
+	    // Constants
+	    /////////////
 
-	                /\s(opr)\/([\w\.]+)/i                                               // Opera Webkit
-	            ], [[NAME, 'Opera'], VERSION], [
 
-	// Mixed
-	                /(kindle)\/([\w\.]+)/i,                                             // Kindle
+	    var LIBVERSION = '0.7.8',
+	        EMPTY = '',
+	        UNKNOWN = '?',
+	        FUNC_TYPE = 'function',
+	        UNDEF_TYPE = 'undefined',
+	        OBJ_TYPE = 'object',
+	        STR_TYPE = 'string',
+	        MAJOR = 'major', // deprecated
+	        MODEL = 'model',
+	        NAME = 'name',
+	        TYPE = 'type',
+	        VENDOR = 'vendor',
+	        VERSION = 'version',
+	        ARCHITECTURE = 'architecture',
+	        CONSOLE = 'console',
+	        MOBILE = 'mobile',
+	        TABLET = 'tablet',
+	        SMARTTV = 'smarttv',
+	        WEARABLE = 'wearable',
+	        EMBEDDED = 'embedded';
+
+
+	    ///////////
+	    // Helper
+	    //////////
+
+
+	    var util = {
+	        extend: function(regexes, extensions) {
+	            for (var i in extensions) {
+	                if ("browser cpu device engine os".indexOf(i) !== -1 && extensions[i].length % 2 === 0) {
+	                    regexes[i] = extensions[i].concat(regexes[i]);
+	                }
+	            }
+	            return regexes;
+	        },
+	        has: function(str1, str2) {
+	            if (typeof str1 === "string") {
+	                return str2.toLowerCase().indexOf(str1.toLowerCase()) !== -1;
+	            } else {
+	                return false;
+	            }
+	        },
+	        lowerize: function(str) {
+	            return str.toLowerCase();
+	        },
+	        major: function(version) {
+	            return typeof(version) === STR_TYPE ? version.split(".")[0] : undefined;
+	        }
+	    };
+
+
+	    ///////////////
+	    // Map helper
+	    //////////////
+
+
+	    var mapper = {
+
+	        rgx: function() {
+
+	            var result, i = 0,
+	                j, k, p, q, matches, match, args = arguments;
+
+	            // loop through all regexes maps
+	            while (i < args.length && !matches) {
+
+	                var regex = args[i], // even sequence (0,2,4,..)
+	                    props = args[i + 1]; // odd sequence (1,3,5,..)
+
+	                // construct object barebones
+	                if (typeof result === UNDEF_TYPE) {
+	                    result = {};
+	                    for (p in props) {
+	                        q = props[p];
+	                        if (typeof q === OBJ_TYPE) {
+	                            result[q[0]] = undefined;
+	                        } else {
+	                            result[q] = undefined;
+	                        }
+	                    }
+	                }
+
+	                // try matching uastring with regexes
+	                j = k = 0;
+	                while (j < regex.length && !matches) {
+	                    matches = regex[j++].exec(this.getUA());
+	                    if (!!matches) {
+	                        for (p = 0; p < props.length; p++) {
+	                            match = matches[++k];
+	                            q = props[p];
+	                            // check if given property is actually array
+	                            if (typeof q === OBJ_TYPE && q.length > 0) {
+	                                if (q.length == 2) {
+	                                    if (typeof q[1] == FUNC_TYPE) {
+	                                        // assign modified match
+	                                        result[q[0]] = q[1].call(this, match);
+	                                    } else {
+	                                        // assign given value, ignore regex match
+	                                        result[q[0]] = q[1];
+	                                    }
+	                                } else if (q.length == 3) {
+	                                    // check whether function or regex
+	                                    if (typeof q[1] === FUNC_TYPE && !(q[1].exec && q[1].test)) {
+	                                        // call function (usually string mapper)
+	                                        result[q[0]] = match ? q[1].call(this, match, q[2]) : undefined;
+	                                    } else {
+	                                        // sanitize match using given regex
+	                                        result[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
+	                                    }
+	                                } else if (q.length == 4) {
+	                                    result[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
+	                                }
+	                            } else {
+	                                result[q] = match ? match : undefined;
+	                            }
+	                        }
+	                    }
+	                }
+	                i += 2;
+	            }
+	            return result;
+	        },
+
+	        str: function(str, map) {
+
+	            for (var i in map) {
+	                // check if array
+	                if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
+	                    for (var j = 0; j < map[i].length; j++) {
+	                        if (util.has(map[i][j], str)) {
+	                            return (i === UNKNOWN) ? undefined : i;
+	                        }
+	                    }
+	                } else if (util.has(map[i], str)) {
+	                    return (i === UNKNOWN) ? undefined : i;
+	                }
+	            }
+	            return str;
+	        }
+	    };
+
+
+	    ///////////////
+	    // String map
+	    //////////////
+
+
+	    var maps = {
+
+	        browser: {
+	            oldsafari: {
+	                version: {
+	                    '1.0': '/8',
+	                    '1.2': '/1',
+	                    '1.3': '/3',
+	                    '2.0': '/412',
+	                    '2.0.2': '/416',
+	                    '2.0.3': '/417',
+	                    '2.0.4': '/419',
+	                    '?': '/'
+	                }
+	            }
+	        },
+
+	        device: {
+	            amazon: {
+	                model: {
+	                    'Fire Phone': ['SD', 'KF']
+	                }
+	            },
+	            sprint: {
+	                model: {
+	                    'Evo Shift 4G': '7373KT'
+	                },
+	                vendor: {
+	                    'HTC': 'APA',
+	                    'Sprint': 'Sprint'
+	                }
+	            }
+	        },
+
+	        os: {
+	            windows: {
+	                version: {
+	                    'ME': '4.90',
+	                    'NT 3.11': 'NT3.51',
+	                    'NT 4.0': 'NT4.0',
+	                    '2000': 'NT 5.0',
+	                    'XP': ['NT 5.1', 'NT 5.2'],
+	                    'Vista': 'NT 6.0',
+	                    '7': 'NT 6.1',
+	                    '8': 'NT 6.2',
+	                    '8.1': 'NT 6.3',
+	                    '10': ['NT 6.4', 'NT 10.0'],
+	                    'RT': 'ARM'
+	                }
+	            }
+	        }
+	    };
+
+
+	    //////////////
+	    // Regex map
+	    /////////////
+
+
+	    var regexes = {
+
+	        browser: [
+	            [
+
+	                // Presto based
+	                /(opera\smini)\/([\w\.-]+)/i, // Opera Mini
+	                /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i, // Opera Mobi/Tablet
+	                /(opera).+version\/([\w\.]+)/i, // Opera > 9.80
+	                /(opera)[\/\s]+([\w\.]+)/i // Opera < 9.80
+	            ],
+	            [NAME, VERSION],
+	            [
+
+	                /\s(opr)\/([\w\.]+)/i // Opera Webkit
+	            ],
+	            [
+	                [NAME, 'Opera'], VERSION
+	            ],
+	            [
+
+	                // Mixed
+	                /(kindle)\/([\w\.]+)/i, // Kindle
 	                /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]+)*/i,
-	// Lunascape/Maxthon/Netfront/Jasmine/Blazer
+	                // Lunascape/Maxthon/Netfront/Jasmine/Blazer
 
-	// Trident based
+	                // Trident based
 	                /(avant\s|iemobile|slim|baidu)(?:browser)?[\/\s]?([\w\.]*)/i,
-	// Avant/IEMobile/SlimBrowser/Baidu
-	                /(?:ms|\()(ie)\s([\w\.]+)/i,                                        // Internet Explorer
+	                // Avant/IEMobile/SlimBrowser/Baidu
+	                /(?:ms|\()(ie)\s([\w\.]+)/i, // Internet Explorer
 
-	// Webkit/KHTML based
-	                /(rekonq)\/([\w\.]+)*/i,                                            // Rekonq
+	                // Webkit/KHTML based
+	                /(rekonq)\/([\w\.]+)*/i, // Rekonq
 	                /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi)\/([\w\.-]+)/i
-	// Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron
-	            ], [NAME, VERSION], [
+	                // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron
+	            ],
+	            [NAME, VERSION],
+	            [
 
-	                /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
-	            ], [[NAME, 'IE'], VERSION], [
+	                /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i // IE11
+	            ],
+	            [
+	                [NAME, 'IE'], VERSION
+	            ],
+	            [
 
-	                /(edge)\/((\d+)?[\w\.]+)/i                                          // Microsoft Edge
-	            ], [NAME, VERSION], [
+	                /(edge)\/((\d+)?[\w\.]+)/i // Microsoft Edge
+	            ],
+	            [NAME, VERSION],
+	            [
 
-	                /(yabrowser)\/([\w\.]+)/i                                           // Yandex
-	            ], [[NAME, 'Yandex'], VERSION], [
+	                /(yabrowser)\/([\w\.]+)/i // Yandex
+	            ],
+	            [
+	                [NAME, 'Yandex'], VERSION
+	            ],
+	            [
 
-	                /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
-	            ], [[NAME, /_/g, ' '], VERSION], [
+	                /(comodo_dragon)\/([\w\.]+)/i // Comodo Dragon
+	            ],
+	            [
+	                [NAME, /_/g, ' '], VERSION
+	            ],
+	            [
 
 	                /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i,
-	// Chrome/OmniWeb/Arora/Tizen/Nokia
+	                // Chrome/OmniWeb/Arora/Tizen/Nokia
 	                /(uc\s?browser|qqbrowser)[\/\s]?([\w\.]+)/i
-	// UCBrowser/QQBrowser
-	            ], [NAME, VERSION], [
+	                // UCBrowser/QQBrowser
+	            ],
+	            [NAME, VERSION],
+	            [
 
-	                /(dolfin)\/([\w\.]+)/i                                              // Dolphin
-	            ], [[NAME, 'Dolphin'], VERSION], [
+	                /(dolfin)\/([\w\.]+)/i // Dolphin
+	            ],
+	            [
+	                [NAME, 'Dolphin'], VERSION
+	            ],
+	            [
 
-	                /((?:android.+)crmo|crios)\/([\w\.]+)/i                             // Chrome for Android/iOS
-	            ], [[NAME, 'Chrome'], VERSION], [
+	                /((?:android.+)crmo|crios)\/([\w\.]+)/i // Chrome for Android/iOS
+	            ],
+	            [
+	                [NAME, 'Chrome'], VERSION
+	            ],
+	            [
 
-	                /XiaoMi\/MiuiBrowser\/([\w\.]+)/i                                   // MIUI Browser
-	            ], [VERSION, [NAME, 'MIUI Browser']], [
+	                /XiaoMi\/MiuiBrowser\/([\w\.]+)/i // MIUI Browser
+	            ],
+	            [VERSION, [NAME, 'MIUI Browser']],
+	            [
 
-	                /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)/i         // Android Browser
-	            ], [VERSION, [NAME, 'Android Browser']], [
+	                /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)/i // Android Browser
+	            ],
+	            [VERSION, [NAME, 'Android Browser']],
+	            [
 
-	                /FBAV\/([\w\.]+);/i                                                 // Facebook App for iOS
-	            ], [VERSION, [NAME, 'Facebook']], [
+	                /FBAV\/([\w\.]+);/i // Facebook App for iOS
+	            ],
+	            [VERSION, [NAME, 'Facebook']],
+	            [
 
-	                /version\/([\w\.]+).+?mobile\/\w+\s(safari)/i                       // Mobile Safari
-	            ], [VERSION, [NAME, 'Mobile Safari']], [
+	                /version\/([\w\.]+).+?mobile\/\w+\s(safari)/i // Mobile Safari
+	            ],
+	            [VERSION, [NAME, 'Mobile Safari']],
+	            [
 
-	                /version\/([\w\.]+).+?(mobile\s?safari|safari)/i                    // Safari & Safari Mobile
-	            ], [VERSION, NAME], [
+	                /version\/([\w\.]+).+?(mobile\s?safari|safari)/i // Safari & Safari Mobile
+	            ],
+	            [VERSION, NAME],
+	            [
 
-	                /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i                     // Safari < 3.0
-	            ], [NAME, [VERSION, mapper.str, maps.browser.oldsafari.version]], [
+	                /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i // Safari < 3.0
+	            ],
+	            [NAME, [VERSION, mapper.str, maps.browser.oldsafari.version]],
+	            [
 
-	                /(konqueror)\/([\w\.]+)/i,                                          // Konqueror
+	                /(konqueror)\/([\w\.]+)/i, // Konqueror
 	                /(webkit|khtml)\/([\w\.]+)/i
-	            ], [NAME, VERSION], [
+	            ],
+	            [NAME, VERSION],
+	            [
 
-	// Gecko based
-	                /(navigator|netscape)\/([\w\.-]+)/i                                 // Netscape
-	            ], [[NAME, 'Netscape'], VERSION], [
-	                /(swiftfox)/i,                                                      // Swiftfox
+	                // Gecko based
+	                /(navigator|netscape)\/([\w\.-]+)/i // Netscape
+	            ],
+	            [
+	                [NAME, 'Netscape'], VERSION
+	            ],
+	            [
+	                /(swiftfox)/i, // Swiftfox
 	                /(icedragon|iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?([\w\.\+]+)/i,
-	// IceDragon/Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo/Conkeror
+	                // IceDragon/Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo/Conkeror
 	                /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/([\w\.-]+)/i,
-	// Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
-	                /(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i,                          // Mozilla
+	                // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
+	                /(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i, // Mozilla
 
-	// Other
+	                // Other
 	                /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf)[\/\s]?([\w\.]+)/i,
-	// Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf
-	                /(links)\s\(([\w\.]+)/i,                                            // Links
-	                /(gobrowser)\/?([\w\.]+)*/i,                                        // GoBrowser
-	                /(ice\s?browser)\/v?([\w\._]+)/i,                                   // ICE Browser
-	                /(mosaic)[\/\s]([\w\.]+)/i                                          // Mosaic
-	            ], [NAME, VERSION]
+	                // Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf
+	                /(links)\s\(([\w\.]+)/i, // Links
+	                /(gobrowser)\/?([\w\.]+)*/i, // GoBrowser
+	                /(ice\s?browser)\/v?([\w\._]+)/i, // ICE Browser
+	                /(mosaic)[\/\s]([\w\.]+)/i // Mosaic
+	            ],
+	            [NAME, VERSION]
 
-	/* /////////////////////
-	            // Media players BEGIN
-	            ////////////////////////
+	            /* /////////////////////
+	                        // Media players BEGIN
+	                        ////////////////////////
 
-	            , [
+	                        , [
 
-	            /(apple(?:coremedia|))\/((\d+)[\w\._]+)/i,                          // Generic Apple CoreMedia
-	            /(coremedia) v((\d+)[\w\._]+)/i
-	            ], [NAME, VERSION], [
+	                        /(apple(?:coremedia|))\/((\d+)[\w\._]+)/i,                          // Generic Apple CoreMedia
+	                        /(coremedia) v((\d+)[\w\._]+)/i
+	                        ], [NAME, VERSION], [
 
-	            /(aqualung|lyssna|bsplayer)\/((\d+)?[\w\.-]+)/i                     // Aqualung/Lyssna/BSPlayer
-	            ], [NAME, VERSION], [
+	                        /(aqualung|lyssna|bsplayer)\/((\d+)?[\w\.-]+)/i                     // Aqualung/Lyssna/BSPlayer
+	                        ], [NAME, VERSION], [
 
-	            /(ares|ossproxy)\s((\d+)[\w\.-]+)/i                                 // Ares/OSSProxy
-	            ], [NAME, VERSION], [
+	                        /(ares|ossproxy)\s((\d+)[\w\.-]+)/i                                 // Ares/OSSProxy
+	                        ], [NAME, VERSION], [
 
-	            /(audacious|audimusicstream|amarok|bass|core|dalvik|gnomemplayer|music on console|nsplayer|psp-internetradioplayer|videos)\/((\d+)[\w\.-]+)/i,
-	                                                                                // Audacious/AudiMusicStream/Amarok/BASS/OpenCORE/Dalvik/GnomeMplayer/MoC
-	                                                                                // NSPlayer/PSP-InternetRadioPlayer/Videos
-	            /(clementine|music player daemon)\s((\d+)[\w\.-]+)/i,               // Clementine/MPD
-	            /(lg player|nexplayer)\s((\d+)[\d\.]+)/i,
-	            /player\/(nexplayer|lg player)\s((\d+)[\w\.-]+)/i                   // NexPlayer/LG Player
-	            ], [NAME, VERSION], [
-	            /(nexplayer)\s((\d+)[\w\.-]+)/i                                     // Nexplayer
-	            ], [NAME, VERSION], [
+	                        /(audacious|audimusicstream|amarok|bass|core|dalvik|gnomemplayer|music on console|nsplayer|psp-internetradioplayer|videos)\/((\d+)[\w\.-]+)/i,
+	                                                                                            // Audacious/AudiMusicStream/Amarok/BASS/OpenCORE/Dalvik/GnomeMplayer/MoC
+	                                                                                            // NSPlayer/PSP-InternetRadioPlayer/Videos
+	                        /(clementine|music player daemon)\s((\d+)[\w\.-]+)/i,               // Clementine/MPD
+	                        /(lg player|nexplayer)\s((\d+)[\d\.]+)/i,
+	                        /player\/(nexplayer|lg player)\s((\d+)[\w\.-]+)/i                   // NexPlayer/LG Player
+	                        ], [NAME, VERSION], [
+	                        /(nexplayer)\s((\d+)[\w\.-]+)/i                                     // Nexplayer
+	                        ], [NAME, VERSION], [
 
-	            /(flrp)\/((\d+)[\w\.-]+)/i                                          // Flip Player
-	            ], [[NAME, 'Flip Player'], VERSION], [
+	                        /(flrp)\/((\d+)[\w\.-]+)/i                                          // Flip Player
+	                        ], [[NAME, 'Flip Player'], VERSION], [
 
-	            /(fstream|nativehost|queryseekspider|ia-archiver|facebookexternalhit)/i
-	                                                                                // FStream/NativeHost/QuerySeekSpider/IA Archiver/facebookexternalhit
-	            ], [NAME], [
+	                        /(fstream|nativehost|queryseekspider|ia-archiver|facebookexternalhit)/i
+	                                                                                            // FStream/NativeHost/QuerySeekSpider/IA Archiver/facebookexternalhit
+	                        ], [NAME], [
 
-	            /(gstreamer) souphttpsrc (?:\([^\)]+\)){0,1} libsoup\/((\d+)[\w\.-]+)/i
-	                                                                                // Gstreamer
-	            ], [NAME, VERSION], [
+	                        /(gstreamer) souphttpsrc (?:\([^\)]+\)){0,1} libsoup\/((\d+)[\w\.-]+)/i
+	                                                                                            // Gstreamer
+	                        ], [NAME, VERSION], [
 
-	            /(htc streaming player)\s[\w_]+\s\/\s((\d+)[\d\.]+)/i,              // HTC Streaming Player
-	            /(java|python-urllib|python-requests|wget|libcurl)\/((\d+)[\w\.-_]+)/i,
-	                                                                                // Java/urllib/requests/wget/cURL
-	            /(lavf)((\d+)[\d\.]+)/i                                             // Lavf (FFMPEG)
-	            ], [NAME, VERSION], [
+	                        /(htc streaming player)\s[\w_]+\s\/\s((\d+)[\d\.]+)/i,              // HTC Streaming Player
+	                        /(java|python-urllib|python-requests|wget|libcurl)\/((\d+)[\w\.-_]+)/i,
+	                                                                                            // Java/urllib/requests/wget/cURL
+	                        /(lavf)((\d+)[\d\.]+)/i                                             // Lavf (FFMPEG)
+	                        ], [NAME, VERSION], [
 
-	            /(htc_one_s)\/((\d+)[\d\.]+)/i                                      // HTC One S
-	            ], [[NAME, /_/g, ' '], VERSION], [
+	                        /(htc_one_s)\/((\d+)[\d\.]+)/i                                      // HTC One S
+	                        ], [[NAME, /_/g, ' '], VERSION], [
 
-	            /(mplayer)(?:\s|\/)(?:(?:sherpya-){0,1}svn)(?:-|\s)(r\d+(?:-\d+[\w\.-]+){0,1})/i
-	                                                                                // MPlayer SVN
-	            ], [NAME, VERSION], [
+	                        /(mplayer)(?:\s|\/)(?:(?:sherpya-){0,1}svn)(?:-|\s)(r\d+(?:-\d+[\w\.-]+){0,1})/i
+	                                                                                            // MPlayer SVN
+	                        ], [NAME, VERSION], [
 
-	            /(mplayer)(?:\s|\/|[unkow-]+)((\d+)[\w\.-]+)/i                      // MPlayer
-	            ], [NAME, VERSION], [
+	                        /(mplayer)(?:\s|\/|[unkow-]+)((\d+)[\w\.-]+)/i                      // MPlayer
+	                        ], [NAME, VERSION], [
 
-	            /(mplayer)/i,                                                       // MPlayer (no other info)
-	            /(yourmuze)/i,                                                      // YourMuze
-	            /(media player classic|nero showtime)/i                             // Media Player Classic/Nero ShowTime
-	            ], [NAME], [
+	                        /(mplayer)/i,                                                       // MPlayer (no other info)
+	                        /(yourmuze)/i,                                                      // YourMuze
+	                        /(media player classic|nero showtime)/i                             // Media Player Classic/Nero ShowTime
+	                        ], [NAME], [
 
-	            /(nero (?:home|scout))\/((\d+)[\w\.-]+)/i                           // Nero Home/Nero Scout
-	            ], [NAME, VERSION], [
+	                        /(nero (?:home|scout))\/((\d+)[\w\.-]+)/i                           // Nero Home/Nero Scout
+	                        ], [NAME, VERSION], [
 
-	            /(nokia\d+)\/((\d+)[\w\.-]+)/i                                      // Nokia
-	            ], [NAME, VERSION], [
+	                        /(nokia\d+)\/((\d+)[\w\.-]+)/i                                      // Nokia
+	                        ], [NAME, VERSION], [
 
-	            /\s(songbird)\/((\d+)[\w\.-]+)/i                                    // Songbird/Philips-Songbird
-	            ], [NAME, VERSION], [
+	                        /\s(songbird)\/((\d+)[\w\.-]+)/i                                    // Songbird/Philips-Songbird
+	                        ], [NAME, VERSION], [
 
-	            /(winamp)3 version ((\d+)[\w\.-]+)/i,                               // Winamp
-	            /(winamp)\s((\d+)[\w\.-]+)/i,
-	            /(winamp)mpeg\/((\d+)[\w\.-]+)/i
-	            ], [NAME, VERSION], [
+	                        /(winamp)3 version ((\d+)[\w\.-]+)/i,                               // Winamp
+	                        /(winamp)\s((\d+)[\w\.-]+)/i,
+	                        /(winamp)mpeg\/((\d+)[\w\.-]+)/i
+	                        ], [NAME, VERSION], [
 
-	            /(ocms-bot|tapinradio|tunein radio|unknown|winamp|inlight radio)/i  // OCMS-bot/tap in radio/tunein/unknown/winamp (no other info)
-	                                                                                // inlight radio
-	            ], [NAME], [
+	                        /(ocms-bot|tapinradio|tunein radio|unknown|winamp|inlight radio)/i  // OCMS-bot/tap in radio/tunein/unknown/winamp (no other info)
+	                                                                                            // inlight radio
+	                        ], [NAME], [
 
-	            /(quicktime|rma|radioapp|radioclientapplication|soundtap|totem|stagefright|streamium)\/((\d+)[\w\.-]+)/i
-	                                                                                // QuickTime/RealMedia/RadioApp/RadioClientApplication/
-	                                                                                // SoundTap/Totem/Stagefright/Streamium
-	            ], [NAME, VERSION], [
+	                        /(quicktime|rma|radioapp|radioclientapplication|soundtap|totem|stagefright|streamium)\/((\d+)[\w\.-]+)/i
+	                                                                                            // QuickTime/RealMedia/RadioApp/RadioClientApplication/
+	                                                                                            // SoundTap/Totem/Stagefright/Streamium
+	                        ], [NAME, VERSION], [
 
-	            /(smp)((\d+)[\d\.]+)/i                                              // SMP
-	            ], [NAME, VERSION], [
+	                        /(smp)((\d+)[\d\.]+)/i                                              // SMP
+	                        ], [NAME, VERSION], [
 
-	            /(vlc) media player - version ((\d+)[\w\.]+)/i,                     // VLC Videolan
-	            /(vlc)\/((\d+)[\w\.-]+)/i,
-	            /(xbmc|gvfs|xine|xmms|irapp)\/((\d+)[\w\.-]+)/i,                    // XBMC/gvfs/Xine/XMMS/irapp
-	            /(foobar2000)\/((\d+)[\d\.]+)/i,                                    // Foobar2000
-	            /(itunes)\/((\d+)[\d\.]+)/i                                         // iTunes
-	            ], [NAME, VERSION], [
+	                        /(vlc) media player - version ((\d+)[\w\.]+)/i,                     // VLC Videolan
+	                        /(vlc)\/((\d+)[\w\.-]+)/i,
+	                        /(xbmc|gvfs|xine|xmms|irapp)\/((\d+)[\w\.-]+)/i,                    // XBMC/gvfs/Xine/XMMS/irapp
+	                        /(foobar2000)\/((\d+)[\d\.]+)/i,                                    // Foobar2000
+	                        /(itunes)\/((\d+)[\d\.]+)/i                                         // iTunes
+	                        ], [NAME, VERSION], [
 
-	            /(wmplayer)\/((\d+)[\w\.-]+)/i,                                     // Windows Media Player
-	            /(windows-media-player)\/((\d+)[\w\.-]+)/i
-	            ], [[NAME, /-/g, ' '], VERSION], [
+	                        /(wmplayer)\/((\d+)[\w\.-]+)/i,                                     // Windows Media Player
+	                        /(windows-media-player)\/((\d+)[\w\.-]+)/i
+	                        ], [[NAME, /-/g, ' '], VERSION], [
 
-	            /windows\/((\d+)[\w\.-]+) upnp\/[\d\.]+ dlnadoc\/[\d\.]+ (home media server)/i
-	                                                                                // Windows Media Server
-	            ], [VERSION, [NAME, 'Windows']], [
+	                        /windows\/((\d+)[\w\.-]+) upnp\/[\d\.]+ dlnadoc\/[\d\.]+ (home media server)/i
+	                                                                                            // Windows Media Server
+	                        ], [VERSION, [NAME, 'Windows']], [
 
-	            /(com\.riseupradioalarm)\/((\d+)[\d\.]*)/i                          // RiseUP Radio Alarm
-	            ], [NAME, VERSION], [
+	                        /(com\.riseupradioalarm)\/((\d+)[\d\.]*)/i                          // RiseUP Radio Alarm
+	                        ], [NAME, VERSION], [
 
-	            /(rad.io)\s((\d+)[\d\.]+)/i,                                        // Rad.io
-	            /(radio.(?:de|at|fr))\s((\d+)[\d\.]+)/i
-	            ], [[NAME, 'rad.io'], VERSION]
+	                        /(rad.io)\s((\d+)[\d\.]+)/i,                                        // Rad.io
+	                        /(radio.(?:de|at|fr))\s((\d+)[\d\.]+)/i
+	                        ], [[NAME, 'rad.io'], VERSION]
 
-	            //////////////////////
-	            // Media players END
-	            ////////////////////*/
+	                        //////////////////////
+	                        // Media players END
+	                        ////////////////////*/
 	        ],
-	        
-	        cpu: [[
 
-	                /(?:(amd|x(?:(?:86|64)[_-])?|wow|win)64)[;\)]/i                     // AMD64
-	            ], [[ARCHITECTURE, 'amd64']], [
+	        cpu: [
+	            [
 
-	                /(ia32(?=;))/i                                                      // IA32 (quicktime)
-	            ], [[ARCHITECTURE, util.lowerize]], [
+	                /(?:(amd|x(?:(?:86|64)[_-])?|wow|win)64)[;\)]/i // AMD64
+	            ],
+	            [
+	                [ARCHITECTURE, 'amd64']
+	            ],
+	            [
 
-	                /((?:i[346]|x)86)[;\)]/i                                            // IA32
-	            ], [[ARCHITECTURE, 'ia32']], [
+	                /(ia32(?=;))/i // IA32 (quicktime)
+	            ],
+	            [
+	                [ARCHITECTURE, util.lowerize]
+	            ],
+	            [
 
-	            // PocketPC mistakenly identified as PowerPC
+	                /((?:i[346]|x)86)[;\)]/i // IA32
+	            ],
+	            [
+	                [ARCHITECTURE, 'ia32']
+	            ],
+	            [
+
+	                // PocketPC mistakenly identified as PowerPC
 	                /windows\s(ce|mobile);\sppc;/i
-	            ], [[ARCHITECTURE, 'arm']], [
+	            ],
+	            [
+	                [ARCHITECTURE, 'arm']
+	            ],
+	            [
 
-	                /((?:ppc|powerpc)(?:64)?)(?:\smac|;|\))/i                           // PowerPC
-	            ], [[ARCHITECTURE, /ower/, '', util.lowerize]], [
+	                /((?:ppc|powerpc)(?:64)?)(?:\smac|;|\))/i // PowerPC
+	            ],
+	            [
+	                [ARCHITECTURE, /ower/, '', util.lowerize]
+	            ],
+	            [
 
-	                /(sun4\w)[;\)]/i                                                    // SPARC
-	            ], [[ARCHITECTURE, 'sparc']], [
+	                /(sun4\w)[;\)]/i // SPARC
+	            ],
+	            [
+	                [ARCHITECTURE, 'sparc']
+	            ],
+	            [
 
 	                /((?:avr32|ia64(?=;))|68k(?=\))|arm(?:64|(?=v\d+;))|(?=atmel\s)avr|(?:irix|mips|sparc)(?:64)?(?=;)|pa-risc)/i
-	                                                                                // IA64, 68K, ARM/64, AVR/32, IRIX/64, MIPS/64, SPARC/64, PA-RISC
-	            ], [[ARCHITECTURE, util.lowerize]]
+	                // IA64, 68K, ARM/64, AVR/32, IRIX/64, MIPS/64, SPARC/64, PA-RISC
+	            ],
+	            [
+	                [ARCHITECTURE, util.lowerize]
+	            ]
 	        ],
-	        
-	        device: [[
 
-	                /\((ipad|playbook);[\w\s\);-]+(rim|apple)/i                         // iPad/PlayBook
-	            ], [MODEL, VENDOR, [TYPE, TABLET]], [
+	        device: [
+	            [
 
-	                /applecoremedia\/[\w\.]+ \((ipad)/                                  // iPad
-	            ], [MODEL, [VENDOR, 'Apple'], [TYPE, TABLET]], [
+	                /\((ipad|playbook);[\w\s\);-]+(rim|apple)/i // iPad/PlayBook
+	            ],
+	            [MODEL, VENDOR, [TYPE, TABLET]],
+	            [
 
-	                /(apple\s{0,1}tv)/i                                                 // Apple TV
-	            ], [[MODEL, 'Apple TV'], [VENDOR, 'Apple']], [
+	                /applecoremedia\/[\w\.]+ \((ipad)/ // iPad
+	            ],
+	            [MODEL, [VENDOR, 'Apple'],
+	                [TYPE, TABLET]
+	            ],
+	            [
 
-	                /(archos)\s(gamepad2?)/i,                                           // Archos
-	                /(hp).+(touchpad)/i,                                                // HP TouchPad
-	                /(kindle)\/([\w\.]+)/i,                                             // Kindle
-	                /\s(nook)[\w\s]+build\/(\w+)/i,                                     // Nook
-	                /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
-	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+	                /(apple\s{0,1}tv)/i // Apple TV
+	            ],
+	            [
+	                [MODEL, 'Apple TV'],
+	                [VENDOR, 'Apple']
+	            ],
+	            [
 
-	                /(kf[A-z]+)\sbuild\/[\w\.]+.*silk\//i                               // Kindle Fire HD
-	            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
-	                /(sd|kf)[0349hijorstuw]+\sbuild\/[\w\.]+.*silk\//i                  // Fire Phone
-	            ], [[MODEL, mapper.str, maps.device.amazon.model], [VENDOR, 'Amazon'], [TYPE, MOBILE]], [
+	                /(archos)\s(gamepad2?)/i, // Archos
+	                /(hp).+(touchpad)/i, // HP TouchPad
+	                /(kindle)\/([\w\.]+)/i, // Kindle
+	                /\s(nook)[\w\s]+build\/(\w+)/i, // Nook
+	                /(dell)\s(strea[kpr\s\d]*[\dko])/i // Dell Streak
+	            ],
+	            [VENDOR, MODEL, [TYPE, TABLET]],
+	            [
 
-	                /\((ip[honed|\s\w*]+);.+(apple)/i                                   // iPod/iPhone
-	            ], [MODEL, VENDOR, [TYPE, MOBILE]], [
-	                /\((ip[honed|\s\w*]+);/i                                            // iPod/iPhone
-	            ], [MODEL, [VENDOR, 'Apple'], [TYPE, MOBILE]], [
+	                /(kf[A-z]+)\sbuild\/[\w\.]+.*silk\//i // Kindle Fire HD
+	            ],
+	            [MODEL, [VENDOR, 'Amazon'],
+	                [TYPE, TABLET]
+	            ],
+	            [
+	                /(sd|kf)[0349hijorstuw]+\sbuild\/[\w\.]+.*silk\//i // Fire Phone
+	            ],
+	            [
+	                [MODEL, mapper.str, maps.device.amazon.model],
+	                [VENDOR, 'Amazon'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 
-	                /(blackberry)[\s-]?(\w+)/i,                                         // BlackBerry
+	                /\((ip[honed|\s\w*]+);.+(apple)/i // iPod/iPhone
+	            ],
+	            [MODEL, VENDOR, [TYPE, MOBILE]],
+	            [
+	                /\((ip[honed|\s\w*]+);/i // iPod/iPhone
+	            ],
+	            [MODEL, [VENDOR, 'Apple'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
+
+	                /(blackberry)[\s-]?(\w+)/i, // BlackBerry
 	                /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|huawei|meizu|motorola|polytron)[\s_-]?([\w-]+)*/i,
-	                                                                                // BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Huawei/Meizu/Motorola/Polytron
-	                /(hp)\s([\w\s]+\w)/i,                                               // HP iPAQ
-	                /(asus)-?(\w+)/i                                                    // Asus
-	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
-	                /\(bb10;\s(\w+)/i                                                   // BlackBerry 10
-	            ], [MODEL, [VENDOR, 'BlackBerry'], [TYPE, MOBILE]], [
-	                                                                                // Asus Tablets
+	                // BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Huawei/Meizu/Motorola/Polytron
+	                /(hp)\s([\w\s]+\w)/i, // HP iPAQ
+	                /(asus)-?(\w+)/i // Asus
+	            ],
+	            [VENDOR, MODEL, [TYPE, MOBILE]],
+	            [
+	                /\(bb10;\s(\w+)/i // BlackBerry 10
+	            ],
+	            [MODEL, [VENDOR, 'BlackBerry'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
+	                // Asus Tablets
 	                /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7)/i
-	            ], [MODEL, [VENDOR, 'Asus'], [TYPE, TABLET]], [
+	            ],
+	            [MODEL, [VENDOR, 'Asus'],
+	                [TYPE, TABLET]
+	            ],
+	            [
 
-	                /(sony)\s(tablet\s[ps])\sbuild\//i,                                  // Sony
+	                /(sony)\s(tablet\s[ps])\sbuild\//i, // Sony
 	                /(sony)?(?:sgp.+)\sbuild\//i
-	            ], [[VENDOR, 'Sony'], [MODEL, 'Xperia Tablet'], [TYPE, TABLET]], [
+	            ],
+	            [
+	                [VENDOR, 'Sony'],
+	                [MODEL, 'Xperia Tablet'],
+	                [TYPE, TABLET]
+	            ],
+	            [
 	                /(?:sony)?(?:(?:(?:c|d)\d{4})|(?:so[-l].+))\sbuild\//i
-	            ], [[VENDOR, 'Sony'], [MODEL, 'Xperia Phone'], [TYPE, MOBILE]], [
+	            ],
+	            [
+	                [VENDOR, 'Sony'],
+	                [MODEL, 'Xperia Phone'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 
-	                /\s(ouya)\s/i,                                                      // Ouya
-	                /(nintendo)\s([wids3u]+)/i                                          // Nintendo
-	            ], [VENDOR, MODEL, [TYPE, CONSOLE]], [
+	                /\s(ouya)\s/i, // Ouya
+	                /(nintendo)\s([wids3u]+)/i // Nintendo
+	            ],
+	            [VENDOR, MODEL, [TYPE, CONSOLE]],
+	            [
 
-	                /android.+;\s(shield)\sbuild/i                                      // Nvidia
-	            ], [MODEL, [VENDOR, 'Nvidia'], [TYPE, CONSOLE]], [
+	                /android.+;\s(shield)\sbuild/i // Nvidia
+	            ],
+	            [MODEL, [VENDOR, 'Nvidia'],
+	                [TYPE, CONSOLE]
+	            ],
+	            [
 
-	                /(playstation\s[3portablevi]+)/i                                    // Playstation
-	            ], [MODEL, [VENDOR, 'Sony'], [TYPE, CONSOLE]], [
+	                /(playstation\s[3portablevi]+)/i // Playstation
+	            ],
+	            [MODEL, [VENDOR, 'Sony'],
+	                [TYPE, CONSOLE]
+	            ],
+	            [
 
-	                /(sprint\s(\w+))/i                                                  // Sprint Phones
-	            ], [[VENDOR, mapper.str, maps.device.sprint.vendor], [MODEL, mapper.str, maps.device.sprint.model], [TYPE, MOBILE]], [
+	                /(sprint\s(\w+))/i // Sprint Phones
+	            ],
+	            [
+	                [VENDOR, mapper.str, maps.device.sprint.vendor],
+	                [MODEL, mapper.str, maps.device.sprint.model],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 
-	                /(lenovo)\s?(S(?:5000|6000)+(?:[-][\w+]))/i                         // Lenovo tablets
-	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+	                /(lenovo)\s?(S(?:5000|6000)+(?:[-][\w+]))/i // Lenovo tablets
+	            ],
+	            [VENDOR, MODEL, [TYPE, TABLET]],
+	            [
 
-	                /(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i,                               // HTC
-	                /(zte)-(\w+)*/i,                                                    // ZTE
+	                /(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i, // HTC
+	                /(zte)-(\w+)*/i, // ZTE
 	                /(alcatel|geeksphone|huawei|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]+)*/i
-	                                                                                // Alcatel/GeeksPhone/Huawei/Lenovo/Nexian/Panasonic/Sony
-	            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
+	                // Alcatel/GeeksPhone/Huawei/Lenovo/Nexian/Panasonic/Sony
+	            ],
+	            [VENDOR, [MODEL, /_/g, ' '],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 
-	                /(nexus\s9)/i                                                       // HTC Nexus 9
-	            ], [MODEL, [VENDOR, 'HTC'], [TYPE, TABLET]], [
+	                /(nexus\s9)/i // HTC Nexus 9
+	            ],
+	            [MODEL, [VENDOR, 'HTC'],
+	                [TYPE, TABLET]
+	            ],
+	            [
 
-	                /[\s\(;](xbox(?:\sone)?)[\s\);]/i                                   // Microsoft Xbox
-	            ], [MODEL, [VENDOR, 'Microsoft'], [TYPE, CONSOLE]], [
-	                /(kin\.[onetw]{3})/i                                                // Microsoft Kin
-	            ], [[MODEL, /\./g, ' '], [VENDOR, 'Microsoft'], [TYPE, MOBILE]], [
+	                /[\s\(;](xbox(?:\sone)?)[\s\);]/i // Microsoft Xbox
+	            ],
+	            [MODEL, [VENDOR, 'Microsoft'],
+	                [TYPE, CONSOLE]
+	            ],
+	            [
+	                /(kin\.[onetw]{3})/i // Microsoft Kin
+	            ],
+	            [
+	                [MODEL, /\./g, ' '],
+	                [VENDOR, 'Microsoft'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 
-	                                                                                // Motorola
+	                // Motorola
 	                /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?(:?\s4g)?)[\w\s]+build\//i,
 	                /mot[\s-]?(\w+)*/i,
 	                /(XT\d{3,4}) build\//i
-	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, MOBILE]], [
+	            ],
+	            [MODEL, [VENDOR, 'Motorola'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 	                /android.+\s(mz60\d|xoom[\s2]{0,2})\sbuild\//i
-	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, TABLET]], [
+	            ],
+	            [MODEL, [VENDOR, 'Motorola'],
+	                [TYPE, TABLET]
+	            ],
+	            [
 
 	                /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n8000|sgh-t8[56]9|nexus 10))/i,
 	                /((SM-T\w+))/i
-	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
+	            ],
+	            [
+	                [VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]
+	            ],
+	            [ // Samsung
 	                /((s[cgp]h-\w+|gt-\w+|galaxy\snexus|sm-n900))/i,
 	                /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
 	                /sec-((sgh\w+))/i
-	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
+	            ],
+	            [
+	                [VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]
+	            ],
+	            [
 	                /(samsung);smarttv/i
-	            ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
+	            ],
+	            [VENDOR, MODEL, [TYPE, SMARTTV]],
+	            [
 
-	                /\(dtv[\);].+(aquos)/i                                              // Sharp
-	            ], [MODEL, [VENDOR, 'Sharp'], [TYPE, SMARTTV]], [
-	                /sie-(\w+)*/i                                                       // Siemens
-	            ], [MODEL, [VENDOR, 'Siemens'], [TYPE, MOBILE]], [
+	                /\(dtv[\);].+(aquos)/i // Sharp
+	            ],
+	            [MODEL, [VENDOR, 'Sharp'],
+	                [TYPE, SMARTTV]
+	            ],
+	            [
+	                /sie-(\w+)*/i // Siemens
+	            ],
+	            [MODEL, [VENDOR, 'Siemens'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 
-	                /(maemo|nokia).*(n900|lumia\s\d+)/i,                                // Nokia
+	                /(maemo|nokia).*(n900|lumia\s\d+)/i, // Nokia
 	                /(nokia)[\s_-]?([\w-]+)*/i
-	            ], [[VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]], [
+	            ],
+	            [
+	                [VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]
+	            ],
+	            [
 
-	                /android\s3\.[\s\w;-]{10}(a\d{3})/i                                 // Acer
-	            ], [MODEL, [VENDOR, 'Acer'], [TYPE, TABLET]], [
+	                /android\s3\.[\s\w;-]{10}(a\d{3})/i // Acer
+	            ],
+	            [MODEL, [VENDOR, 'Acer'],
+	                [TYPE, TABLET]
+	            ],
+	            [
 
-	                /android\s3\.[\s\w;-]{10}(lg?)-([06cv9]{3,4})/i                     // LG Tablet
-	            ], [[VENDOR, 'LG'], MODEL, [TYPE, TABLET]], [
-	                /(lg) netcast\.tv/i                                                 // LG SmartTV
-	            ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
-	                /(nexus\s[45])/i,                                                   // LG
+	                /android\s3\.[\s\w;-]{10}(lg?)-([06cv9]{3,4})/i // LG Tablet
+	            ],
+	            [
+	                [VENDOR, 'LG'], MODEL, [TYPE, TABLET]
+	            ],
+	            [
+	                /(lg) netcast\.tv/i // LG SmartTV
+	            ],
+	            [VENDOR, MODEL, [TYPE, SMARTTV]],
+	            [
+	                /(nexus\s[45])/i, // LG
 	                /lg[e;\s\/-]+(\w+)*/i
-	            ], [MODEL, [VENDOR, 'LG'], [TYPE, MOBILE]], [
+	            ],
+	            [MODEL, [VENDOR, 'LG'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 
-	                /android.+(ideatab[a-z0-9\-\s]+)/i                                  // Lenovo
-	            ], [MODEL, [VENDOR, 'Lenovo'], [TYPE, TABLET]], [
+	                /android.+(ideatab[a-z0-9\-\s]+)/i // Lenovo
+	            ],
+	            [MODEL, [VENDOR, 'Lenovo'],
+	                [TYPE, TABLET]
+	            ],
+	            [
 
-	                /linux;.+((jolla));/i                                               // Jolla
-	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+	                /linux;.+((jolla));/i // Jolla
+	            ],
+	            [VENDOR, MODEL, [TYPE, MOBILE]],
+	            [
 
-	                /((pebble))app\/[\d\.]+\s/i                                         // Pebble
-	            ], [VENDOR, MODEL, [TYPE, WEARABLE]], [
+	                /((pebble))app\/[\d\.]+\s/i // Pebble
+	            ],
+	            [VENDOR, MODEL, [TYPE, WEARABLE]],
+	            [
 
-	                /android.+;\s(glass)\s\d/i                                          // Google Glass
-	            ], [MODEL, [VENDOR, 'Google'], [TYPE, WEARABLE]], [
+	                /android.+;\s(glass)\s\d/i // Google Glass
+	            ],
+	            [MODEL, [VENDOR, 'Google'],
+	                [TYPE, WEARABLE]
+	            ],
+	            [
 
-	                /android.+(\w+)\s+build\/hm\1/i,                                        // Xiaomi Hongmi 'numeric' models
-	                /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,                   // Xiaomi Hongmi
-	                /android.+(mi[\s\-_]*(?:one|one[\s_]plus)?[\s_]*(?:\d\w)?)\s+build/i    // Xiaomi Mi
-	            ], [[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, MOBILE]], [
+	                /android.+(\w+)\s+build\/hm\1/i, // Xiaomi Hongmi 'numeric' models
+	                /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i, // Xiaomi Hongmi
+	                /android.+(mi[\s\-_]*(?:one|one[\s_]plus)?[\s_]*(?:\d\w)?)\s+build/i // Xiaomi Mi
+	            ],
+	            [
+	                [MODEL, /_/g, ' '],
+	                [VENDOR, 'Xiaomi'],
+	                [TYPE, MOBILE]
+	            ],
+	            [
 
-	                /(mobile|tablet);.+rv\:.+gecko\//i                                  // Unidentifiable
-	            ], [[TYPE, util.lowerize], VENDOR, MODEL] 
+	                /(mobile|tablet);.+rv\:.+gecko\//i // Unidentifiable
+	            ],
+	            [
+	                [TYPE, util.lowerize], VENDOR, MODEL
+	            ]
 
 	            /*//////////////////////////
 	            ////////////////////////////
@@ -784,87 +1023,142 @@ var loadProbtn = function (jQuery) {
 
 	        ],
 
-	        engine: [[
+	        engine: [
+	            [
 
-	            /windows.+\sedge\/([\w\.]+)/i                                       // EdgeHTML
-	        ], [VERSION, [NAME, 'EdgeHTML']], [
+	                /windows.+\sedge\/([\w\.]+)/i // EdgeHTML
+	            ],
+	            [VERSION, [NAME, 'EdgeHTML']],
+	            [
 
-	            /(presto)\/([\w\.]+)/i,                                             // Presto
-	            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m)\/([\w\.]+)/i,     // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m
-	            /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,                          // KHTML/Tasman/Links
-	            /(icab)[\/\s]([23]\.[\d\.]+)/i                                      // iCab
-	        ], [NAME, VERSION], [
+	                /(presto)\/([\w\.]+)/i, // Presto
+	                /(webkit|trident|netfront|netsurf|amaya|lynx|w3m)\/([\w\.]+)/i, // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m
+	                /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i, // KHTML/Tasman/Links
+	                /(icab)[\/\s]([23]\.[\d\.]+)/i // iCab
+	            ],
+	            [NAME, VERSION],
+	            [
 
-	            /rv\:([\w\.]+).*(gecko)/i                                           // Gecko
-	        ], [VERSION, NAME]
+	                /rv\:([\w\.]+).*(gecko)/i // Gecko
+	            ],
+	            [VERSION, NAME]
 	        ],
 
-	        os: [[
+	        os: [
+	            [
 
-	            // Windows based
-	            /microsoft\s(windows)\s(vista|xp)/i                                 // Windows (iTunes)
-	        ], [NAME, VERSION], [
-	            /(windows)\snt\s6\.2;\s(arm)/i,                                     // Windows RT
-	            /(windows\sphone(?:\sos)*|windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
-	        ], [NAME, [VERSION, mapper.str, maps.os.windows.version]], [
-	            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
-	        ], [[NAME, 'Windows'], [VERSION, mapper.str, maps.os.windows.version]], [
+	                // Windows based
+	                /microsoft\s(windows)\s(vista|xp)/i // Windows (iTunes)
+	            ],
+	            [NAME, VERSION],
+	            [
+	                /(windows)\snt\s6\.2;\s(arm)/i, // Windows RT
+	                /(windows\sphone(?:\sos)*|windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
+	            ],
+	            [NAME, [VERSION, mapper.str, maps.os.windows.version]],
+	            [
+	                /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
+	            ],
+	            [
+	                [NAME, 'Windows'],
+	                [VERSION, mapper.str, maps.os.windows.version]
+	            ],
+	            [
 
-	            // Mobile/Embedded OS
-	            /\((bb)(10);/i                                                      // BlackBerry 10
-	        ], [[NAME, 'BlackBerry'], VERSION], [
-	            /(blackberry)\w*\/?([\w\.]+)*/i,                                    // Blackberry
-	            /(tizen)[\/\s]([\w\.]+)/i,                                          // Tizen
-	            /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|contiki)[\/\s-]?([\w\.]+)*/i,
-	                                                                                // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo/Contiki
-	            /linux;.+(sailfish);/i                                              // Sailfish OS
-	        ], [NAME, VERSION], [
-	            /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]+)*/i                 // Symbian
-	        ], [[NAME, 'Symbian'], VERSION], [
-	            /\((series40);/i                                                    // Series 40
-	        ], [NAME], [
-	            /mozilla.+\(mobile;.+gecko.+firefox/i                               // Firefox OS
-	        ], [[NAME, 'Firefox OS'], VERSION], [
+	                // Mobile/Embedded OS
+	                /\((bb)(10);/i // BlackBerry 10
+	            ],
+	            [
+	                [NAME, 'BlackBerry'], VERSION
+	            ],
+	            [
+	                /(blackberry)\w*\/?([\w\.]+)*/i, // Blackberry
+	                /(tizen)[\/\s]([\w\.]+)/i, // Tizen
+	                /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|contiki)[\/\s-]?([\w\.]+)*/i,
+	                // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo/Contiki
+	                /linux;.+(sailfish);/i // Sailfish OS
+	            ],
+	            [NAME, VERSION],
+	            [
+	                /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]+)*/i // Symbian
+	            ],
+	            [
+	                [NAME, 'Symbian'], VERSION
+	            ],
+	            [
+	                /\((series40);/i // Series 40
+	            ],
+	            [NAME],
+	            [
+	                /mozilla.+\(mobile;.+gecko.+firefox/i // Firefox OS
+	            ],
+	            [
+	                [NAME, 'Firefox OS'], VERSION
+	            ],
+	            [
 
-	            // Console
-	            /(nintendo|playstation)\s([wids3portablevu]+)/i,                    // Nintendo/Playstation
+	                // Console
+	                /(nintendo|playstation)\s([wids3portablevu]+)/i, // Nintendo/Playstation
 
-	            // GNU/Linux based
-	            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
-	            /(mageia|vectorlinux)[;\s]/i,                                       // Mageia/VectorLinux
-	            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?([\w\.-]+)*/i,
-	                                                                                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
-	                                                                                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus
-	            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
-	            /(gnu)\s?([\w\.]+)*/i                                               // GNU
-	        ], [NAME, VERSION], [
+	                // GNU/Linux based
+	                /(mint)[\/\s\(]?(\w+)*/i, // Mint
+	                /(mageia|vectorlinux)[;\s]/i, // Mageia/VectorLinux
+	                /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?([\w\.-]+)*/i,
+	                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
+	                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus
+	                /(hurd|linux)\s?([\w\.]+)*/i, // Hurd/Linux
+	                /(gnu)\s?([\w\.]+)*/i // GNU
+	            ],
+	            [NAME, VERSION],
+	            [
 
-	            /(cros)\s[\w]+\s([\w\.]+\w)/i                                       // Chromium OS
-	        ], [[NAME, 'Chromium OS'], VERSION], [
+	                /(cros)\s[\w]+\s([\w\.]+\w)/i // Chromium OS
+	            ],
+	            [
+	                [NAME, 'Chromium OS'], VERSION
+	            ],
+	            [
 
-	            // Solaris
-	            /(sunos)\s?([\w\.]+\d)*/i                                           // Solaris
-	        ], [[NAME, 'Solaris'], VERSION], [
+	                // Solaris
+	                /(sunos)\s?([\w\.]+\d)*/i // Solaris
+	            ],
+	            [
+	                [NAME, 'Solaris'], VERSION
+	            ],
+	            [
 
-	            // BSD based
-	            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i                   // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
-	        ], [NAME, VERSION], [
+	                // BSD based
+	                /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
+	            ],
+	            [NAME, VERSION],
+	            [
 
-	            /(ip[honead]+)(?:.*os\s*([\w]+)*\slike\smac|;\sopera)/i             // iOS
-	        ], [[NAME, 'iOS'], [VERSION, /_/g, '.']], [
+	                /(ip[honead]+)(?:.*os\s*([\w]+)*\slike\smac|;\sopera)/i // iOS
+	            ],
+	            [
+	                [NAME, 'iOS'],
+	                [VERSION, /_/g, '.']
+	            ],
+	            [
 
-	            /(mac\sos\sx)\s?([\w\s\.]+\w)*/i,
-	            /(macintosh|mac(?=_powerpc)\s)/i                                    // Mac OS
-	        ], [[NAME, 'Mac OS'], [VERSION, /_/g, '.']], [
+	                /(mac\sos\sx)\s?([\w\s\.]+\w)*/i,
+	                /(macintosh|mac(?=_powerpc)\s)/i // Mac OS
+	            ],
+	            [
+	                [NAME, 'Mac OS'],
+	                [VERSION, /_/g, '.']
+	            ],
+	            [
 
-	            // Other
-	            /((?:open)?solaris)[\/\s-]?([\w\.]+)*/i,                            // Solaris
-	            /(haiku)\s(\w+)/i,                                                  // Haiku
-	            /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,                               // AIX
-	            /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms)/i,
-	                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS
-	            /(unix)\s?([\w\.]+)*/i                                              // UNIX
-	        ], [NAME, VERSION]
+	                // Other
+	                /((?:open)?solaris)[\/\s-]?([\w\.]+)*/i, // Solaris
+	                /(haiku)\s(\w+)/i, // Haiku
+	                /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i, // AIX
+	                /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms)/i,
+	                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS
+	                /(unix)\s?([\w\.]+)*/i // UNIX
+	            ],
+	            [NAME, VERSION]
 	        ]
 	    };
 
@@ -874,7 +1168,7 @@ var loadProbtn = function (jQuery) {
 	    ////////////////
 
 
-	    var UAParser = function (uastring, extensions) {
+	    var UAParser = function(uastring, extensions) {
 
 	        if (!(this instanceof UAParser)) {
 	            return new UAParser(uastring, extensions).getResult();
@@ -883,24 +1177,24 @@ var loadProbtn = function (jQuery) {
 	        var ua = uastring || ((window && window.navigator && window.navigator.userAgent) ? window.navigator.userAgent : EMPTY);
 	        var rgxmap = extensions ? util.extend(regexes, extensions) : regexes;
 
-	        this.getBrowser = function () {
+	        this.getBrowser = function() {
 	            var browser = mapper.rgx.apply(this, rgxmap.browser);
 	            browser.major = util.major(browser.version);
 	            return browser;
 	        };
-	        this.getCPU = function () {
+	        this.getCPU = function() {
 	            return mapper.rgx.apply(this, rgxmap.cpu);
 	        };
-	        this.getDevice = function () {
+	        this.getDevice = function() {
 	            return mapper.rgx.apply(this, rgxmap.device);
 	        };
-	        this.getEngine = function () {
+	        this.getEngine = function() {
 	            return mapper.rgx.apply(this, rgxmap.engine);
 	        };
-	        this.getOS = function () {
+	        this.getOS = function() {
 	            return mapper.rgx.apply(this, rgxmap.os);
 	        };
-	        this.getResult = function () {
+	        this.getResult = function() {
 	            return {
 	                ua: this.getUA(),
 	                browser: this.getBrowser(),
@@ -910,10 +1204,10 @@ var loadProbtn = function (jQuery) {
 	                cpu: this.getCPU()
 	            };
 	        };
-	        this.getUA = function () {
+	        this.getUA = function() {
 	            return ua;
 	        };
-	        this.setUA = function (uastring) {
+	        this.setUA = function(uastring) {
 	            ua = uastring;
 	            return this;
 	        };
@@ -957,7 +1251,7 @@ var loadProbtn = function (jQuery) {
 
 
 	    // check js environment
-	    if (typeof (exports) !== UNDEF_TYPE) {
+	    if (typeof(exports) !== UNDEF_TYPE) {
 	        // nodejs env
 	        if (typeof module !== UNDEF_TYPE && module.exports) {
 	            exports = module.exports = UAParser;
@@ -965,8 +1259,8 @@ var loadProbtn = function (jQuery) {
 	        exports.UAParser = UAParser;
 	    } else {
 	        // requirejs env (optional) ->> DON'T TO THIS
-	        if (false && typeof (define) === FUNC_TYPE && define.amd) {
-	            define(function () {
+	        if (false && typeof(define) === FUNC_TYPE && define.amd) {
+	            define(function() {
 	                return UAParser;
 	            });
 	        } else {
@@ -984,10 +1278,10 @@ var loadProbtn = function (jQuery) {
 	    if (typeof $ !== UNDEF_TYPE) {
 	        var parser = new UAParser();
 	        $.ua = parser.getResult();
-	        $.ua.get = function () {
+	        $.ua.get = function() {
 	            return parser.getUA();
 	        };
-	        $.ua.set = function (uastring) {
+	        $.ua.set = function(uastring) {
 	            parser.setUA(uastring);
 	            var result = parser.getResult();
 	            for (var prop in result) {
@@ -1000,7 +1294,7 @@ var loadProbtn = function (jQuery) {
 
 
 
-	(function ($) {
+	(function($) {
 
 	    //load nessesary libraries and show button
 	    $.fn.StartButton = function(options) {
@@ -1019,6 +1313,10 @@ var loadProbtn = function (jQuery) {
 	            return hash;
 	        };
 
+	        /**
+	         * Main object which include all nessesary functions for button functionality and params
+	         * @type {Object}
+	         */
 	        var ProBtnControl = {
 	            guidCookieControlPath: "https://cdn.probtn.com/cookie_iframe/cookie-iframe.html",
 	            //guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
@@ -1027,7 +1325,7 @@ var loadProbtn = function (jQuery) {
 	            realDomain: document.domain.replace("www.", ""),
 	            initializedActiveZones: {},
 	            //curent app version
-	            mainVersion: "1.10.1212_09032017_dev",
+	            mainVersion: "1.11.2243_16032017_dev",
 	            DeviceCID_log: "none",
 	            hintText: undefined, //hinttext object with additional functions
 	            pizzabtn: undefined,
@@ -1038,9 +1336,21 @@ var loadProbtn = function (jQuery) {
 	            buttonMainParams: {
 	                isEmpty: true
 	            },
-
+	            /**
+	             * status about loaded additional libs
+	             * @type {Object}
+	             */
+	            loadedStatus: {
+	                postscribe: false
+	            },
 	            onButtonTapCountCheck: 0,
-	            //main function called after button tap or active zone interaction
+	            /**
+	             * main function called after button tap or active zone interaction
+	             * @param  {[string]} currentContentURL - current url (or js code) to show on button click
+	             * @param  {[type]} areaName
+	             * @param  {[type]} currentButtonContentType 
+	             * @return {[type]}                         
+	             */
 	            onButtonTap: function(currentContentURL, areaName, currentButtonContentType) {
 	                if (ProBtnControl.params.Debug) console.log("onButtonTap");
 	                window.probtn_button_tap = true;
@@ -1053,8 +1363,7 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                }
 
-	                if ((currentContentURL !== null) && (currentContentURL !== undefined) && (currentContentURL !== "")) {
-	                } else {
+	                if ((currentContentURL !== null) && (currentContentURL !== undefined) && (currentContentURL !== "")) {} else {
 	                    currentContentURL = ProBtnControl.params.ContentURL;
 	                }
 
@@ -1098,7 +1407,30 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                }
 
+	                //TODO: refactor function and add elements for different types in separate functions
+	                if (ProBtnControl.params.ButtonType == "js") {
+	                    var waitForPostscribe = setInterval(function() {
+	                        if (ProBtnControl.loadedStatus.postscribe) {
+	                            clearInterval(waitForPostscribe);
 
+	                            var current_block_id = ProBtnControl.additionalButtonFunctions.randomString(12);
+	                            var code_block = $('<div/>', {
+	                                id: current_block_id,
+	                                css: {
+	                                    display: 'none'
+	                                }
+	                            }).prependTo(ProBtnControl.additionalItemsContainer);
+
+	                            postscribe("#"+current_block_id, '' + ProBtnControl.params.ContentURL + '');
+
+	                        } else {
+
+	                        }
+	                    }, 100);                    
+	                    return;
+	                }
+
+	                //TODO: refactor function and add elements for different types in separate functions
 	                if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck === 0)) {
 
 	                    ProBtnControl.onButtonTapCountCheck++;
@@ -1121,8 +1453,7 @@ var loadProbtn = function (jQuery) {
 
 	                    var animationParams = {
 	                        duration: 3000,
-	                        step: function(s) {
-	                        },
+	                        step: function(s) {},
 	                        complete: function() {
 
 	                            $(".fancybox-wrap").fadeIn();
@@ -1298,7 +1629,9 @@ var loadProbtn = function (jQuery) {
 	                            speedOut: 0, // duration of fadeOut animation
 	                            showEarly: true // indicates if should be opened immediately or wait until the content is ready
 	                        },
-	                        title: { type: 'inside' }
+	                        title: {
+	                            type: 'inside'
+	                        }
 	                    },
 	                    beforeLoad: function() {
 	                        ProBtnControl.hintText.hide();
@@ -1331,7 +1664,9 @@ var loadProbtn = function (jQuery) {
 	                                    var myIframe = document.getElementById(frame_id);
 	                                    if (myIframe.contentWindow !== null) {
 	                                        iframeLoadedSend = true;
-	                                        myIframe.contentWindow.postMessage({ message: "iframe_showed_and_loaded" }, '*');
+	                                        myIframe.contentWindow.postMessage({
+	                                            message: "iframe_showed_and_loaded"
+	                                        }, '*');
 	                                    }
 	                                } catch (ex) {
 
@@ -1355,8 +1690,7 @@ var loadProbtn = function (jQuery) {
 	                        $(".fancybox-iframe").first().attr("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
 	                        try {
 	                            $(".fancybox-iframe").first().contents().find("html").css("visibility", "visible !important");
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        var frame_id = $(".fancybox-iframe").first().attr("id");
 	                        ProBtnControl.additionalButtonFunctions.setIfameSizes();
@@ -1391,7 +1725,9 @@ var loadProbtn = function (jQuery) {
 	                                    var myIframe = document.getElementById(frame_id);
 	                                    if (myIframe.contentWindow !== null) {
 	                                        iframeLoadedSend = true;
-	                                        myIframe.contentWindow.postMessage({ message: "iframe_showed_and_loaded" }, '*');
+	                                        myIframe.contentWindow.postMessage({
+	                                            message: "iframe_showed_and_loaded"
+	                                        }, '*');
 	                                    }
 	                                } catch (ex) {
 
@@ -1411,13 +1747,11 @@ var loadProbtn = function (jQuery) {
 	                                    video = $("#video_probtn").get(0);
 	                                    video.pause();
 	                                }
-	                            } catch (ex) {
-	                            }
+	                            } catch (ex) {}
 	                        }
 
 	                        if (ProBtnControl.params.ButtonType !== "menu") {
-	                            ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function() {
-	                            }, ProBtnControl.params.MinimizeWrapperTime);
+	                            ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function() {}, ProBtnControl.params.MinimizeWrapperTime);
 	                        }
 
 	                        if (ProBtnControl.userData.os === "iOS") {
@@ -1456,8 +1790,7 @@ var loadProbtn = function (jQuery) {
 	                        } else {
 	                            fancyboxParams.href = "#video_item";
 	                        }
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 	                }
 
 	                function formatTitle() {
@@ -1550,8 +1883,19 @@ var loadProbtn = function (jQuery) {
 	            },
 
 	            //dropedActiveZone: null,
+	            /**
+	             * Timer control functions
+	             * @type {Object}
+	             */
 	            contentTime: {
-	                timeValue: { "ContentShowedDuration": 0, "MovedDuration": 0 },
+	                /**
+	                 * Different timer types
+	                 * @type {Object}
+	                 */
+	                timeValue: {
+	                    "ContentShowedDuration": 0,
+	                    "MovedDuration": 0
+	                },
 	                contentOpenedTime: 0,
 	                movedTime: 0, //button moved duration
 	                startTimer: function(param) {
@@ -1561,8 +1905,7 @@ var loadProbtn = function (jQuery) {
 
 	                    if (ProBtnControl.contentTime.intervalId[param] !== undefined) {
 	                        clearInterval(ProBtnControl.contentTime.intervalId[param]);
-	                    } else {
-	                    }
+	                    } else {}
 	                    ProBtnControl.contentTime.timeValue[param] = 0;
 
 	                    ProBtnControl.contentTime.intervalId[param] = setInterval(function() {
@@ -1591,6 +1934,10 @@ var loadProbtn = function (jQuery) {
 	                }
 	            },
 	            userData: {},
+	            /**
+	             * Geolocation functions
+	             * @type {Object}
+	             */
 	            geolocation: {
 	                getLocation: function(callback) {
 	                    try {
@@ -1703,34 +2050,85 @@ var loadProbtn = function (jQuery) {
 
 	                    // system
 	                    var os = unknown;
-	                    var clientStrings = [
-	                        { s: 'Windows 3.11', r: /Win16/ },
-	                        { s: 'Windows 95', r: /(Windows 95|Win95|Windows_95)/ },
-	                        { s: 'Windows ME', r: /(Win 9x 4.90|Windows ME)/ },
-	                        { s: 'Windows 98', r: /(Windows 98|Win98)/ },
-	                        { s: 'Windows CE', r: /Windows CE/ },
-	                        { s: 'Windows 2000', r: /(Windows NT 5.0|Windows 2000)/ },
-	                        { s: 'Windows XP', r: /(Windows NT 5.1|Windows XP)/ },
-	                        { s: 'Windows Server 2003', r: /Windows NT 5.2/ },
-	                        { s: 'Windows Vista', r: /Windows NT 6.0/ },
-	                        { s: 'Windows 7', r: /(Windows 7|Windows NT 6.1)/ },
-	                        { s: 'Windows 8.1', r: /(Windows 8.1|Windows NT 6.3)/ },
-	                        { s: 'Windows 8', r: /(Windows 8|Windows NT 6.2)/ },
-	                        { s: 'Windows NT 4.0', r: /(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)/ },
-	                        { s: 'Windows ME', r: /Windows ME/ },
-	                        { s: 'Android', r: /Android/ },
-	                        { s: 'Open BSD', r: /OpenBSD/ },
-	                        { s: 'Sun OS', r: /SunOS/ },
-	                        { s: 'Linux', r: /(Linux|X11)/ },
-	                        { s: 'iOS', r: /(iPhone|iPad|iPod)/ },
-	                        { s: 'Mac OS X', r: /Mac OS X/ },
-	                        { s: 'Mac OS', r: /(MacPPC|MacIntel|Mac_PowerPC|Macintosh)/ },
-	                        { s: 'QNX', r: /QNX/ },
-	                        { s: 'UNIX', r: /UNIX/ },
-	                        { s: 'BeOS', r: /BeOS/ },
-	                        { s: 'OS/2', r: /OS\/2/ },
-	                        { s: 'Search Bot', r: /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/ }
-	                    ];
+	                    var clientStrings = [{
+	                        s: 'Windows 3.11',
+	                        r: /Win16/
+	                    }, {
+	                        s: 'Windows 95',
+	                        r: /(Windows 95|Win95|Windows_95)/
+	                    }, {
+	                        s: 'Windows ME',
+	                        r: /(Win 9x 4.90|Windows ME)/
+	                    }, {
+	                        s: 'Windows 98',
+	                        r: /(Windows 98|Win98)/
+	                    }, {
+	                        s: 'Windows CE',
+	                        r: /Windows CE/
+	                    }, {
+	                        s: 'Windows 2000',
+	                        r: /(Windows NT 5.0|Windows 2000)/
+	                    }, {
+	                        s: 'Windows XP',
+	                        r: /(Windows NT 5.1|Windows XP)/
+	                    }, {
+	                        s: 'Windows Server 2003',
+	                        r: /Windows NT 5.2/
+	                    }, {
+	                        s: 'Windows Vista',
+	                        r: /Windows NT 6.0/
+	                    }, {
+	                        s: 'Windows 7',
+	                        r: /(Windows 7|Windows NT 6.1)/
+	                    }, {
+	                        s: 'Windows 8.1',
+	                        r: /(Windows 8.1|Windows NT 6.3)/
+	                    }, {
+	                        s: 'Windows 8',
+	                        r: /(Windows 8|Windows NT 6.2)/
+	                    }, {
+	                        s: 'Windows NT 4.0',
+	                        r: /(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)/
+	                    }, {
+	                        s: 'Windows ME',
+	                        r: /Windows ME/
+	                    }, {
+	                        s: 'Android',
+	                        r: /Android/
+	                    }, {
+	                        s: 'Open BSD',
+	                        r: /OpenBSD/
+	                    }, {
+	                        s: 'Sun OS',
+	                        r: /SunOS/
+	                    }, {
+	                        s: 'Linux',
+	                        r: /(Linux|X11)/
+	                    }, {
+	                        s: 'iOS',
+	                        r: /(iPhone|iPad|iPod)/
+	                    }, {
+	                        s: 'Mac OS X',
+	                        r: /Mac OS X/
+	                    }, {
+	                        s: 'Mac OS',
+	                        r: /(MacPPC|MacIntel|Mac_PowerPC|Macintosh)/
+	                    }, {
+	                        s: 'QNX',
+	                        r: /QNX/
+	                    }, {
+	                        s: 'UNIX',
+	                        r: /UNIX/
+	                    }, {
+	                        s: 'BeOS',
+	                        r: /BeOS/
+	                    }, {
+	                        s: 'OS/2',
+	                        r: /OS\/2/
+	                    }, {
+	                        s: 'Search Bot',
+	                        r: /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/
+	                    }];
 
 	                    var osVersion = unknown;
 	                    try {
@@ -1747,18 +2145,18 @@ var loadProbtn = function (jQuery) {
 	                            os = 'Windows';
 	                        }
 	                        switch (os) {
-	                        case 'Mac OS X':
-	                            osVersion = /Mac OS X (10[\.\_\d]+)/.exec(nAgt)[1];
-	                            break;
+	                            case 'Mac OS X':
+	                                osVersion = /Mac OS X (10[\.\_\d]+)/.exec(nAgt)[1];
+	                                break;
 
-	                        case 'Android':
-	                            osVersion = /Android ([\.\_\d]+)/.exec(nAgt)[1];
-	                            break;
+	                            case 'Android':
+	                                osVersion = /Android ([\.\_\d]+)/.exec(nAgt)[1];
+	                                break;
 
-	                        case 'iOS':
-	                            osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(nVer);
-	                            osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
-	                            break;
+	                            case 'iOS':
+	                                osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(nVer);
+	                                osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
+	                                break;
 
 	                        }
 	                    } catch (ex) {
@@ -1791,10 +2189,12 @@ var loadProbtn = function (jQuery) {
 	            XProBtnToken: "b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b",
 	            //main server url
 	            serverUrl: "https://admin.probtn.com",
+	            /**
+	             * Get user unique id at current site (and create it if needed)
+	             */
 	            GetDeviceUID: function() {
 	                var probtnId = "1234";
-	                if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {
-	                } else {
+	                if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {} else {
 	                    //set cookie
 	                    var currentdate = new Date();
 	                    currentdate = currentdate.getTime();
@@ -1822,7 +2222,10 @@ var loadProbtn = function (jQuery) {
 	                                if (isCordovaApp) {
 	                                    setTimeout(function() {
 	                                        var cookieName = "";
-	                                        var deviceCUID_item = { 'type': 'probtnCID', 'cid': cookieName };
+	                                        var deviceCUID_item = {
+	                                            'type': 'probtnCID',
+	                                            'cid': cookieName
+	                                        };
 	                                        console.log("deviceCUID_item", deviceCUID_item);
 	                                        window.top.postMessage(deviceCUID_item, "*");
 	                                        window.postMessage(deviceCUID_item, "*");
@@ -1846,7 +2249,10 @@ var loadProbtn = function (jQuery) {
 	                                console.log("send message without iframe");
 	                                console.log(ex);
 	                                var cookieName = "";
-	                                var deviceCUID_item = { 'type': 'probtnCID', 'cid': cookieName };
+	                                var deviceCUID_item = {
+	                                    'type': 'probtnCID',
+	                                    'cid': cookieName
+	                                };
 	                                console.log("deviceCUID_item", deviceCUID_item);
 	                                window.top.postMessage(deviceCUID_item, "*");
 	                                window.postMessage(deviceCUID_item, "*");
@@ -1868,8 +2274,7 @@ var loadProbtn = function (jQuery) {
 	                                        ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
 	                                        ProBtnControl.DeviceCID = event.data.cid;
 	                                        callback(event.data.cid);
-	                                    } else {
-	                                    }
+	                                    } else {}
 	                                };
 	                                window.self.addEventListener("message", receiveMessage, false);
 	                            } else {
@@ -1938,8 +2343,7 @@ var loadProbtn = function (jQuery) {
 	                                i = 1;
 	                            }
 	                            //ProBtnControl.params.hpmd.trackEvent("probtn" + i);
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 	                    }
 	                },
 	                closeHpmdTrack: function() {
@@ -1949,9 +2353,10 @@ var loadProbtn = function (jQuery) {
 	                            //fancybox closed
 	                            ProBtnControl.params.hpmd.trackEvent("hpmd.close");
 	                            //track opened time
-	                            ProBtnControl.params.hpmd.trackEvent("hpmd.time-expanded", { weight: ProBtnControl.contentTime.contentOpenedTime });
-	                        } catch (ex) {
-	                        }
+	                            ProBtnControl.params.hpmd.trackEvent("hpmd.time-expanded", {
+	                                weight: ProBtnControl.contentTime.contentOpenedTime
+	                            });
+	                        } catch (ex) {}
 	                    }
 	                },
 	                expandHpmdTrack: function() {
@@ -1968,7 +2373,16 @@ var loadProbtn = function (jQuery) {
 	            randomElements: {
 	                probtnId: "probtn_button_" //+ ProBtnControl.additionalButtonFunctions.randomString(12)
 	            },
+	            /**
+	             * Collection of statistics function
+	             * @type {Object}
+	             */
 	            statistics: {
+	                /**
+	                 * Check is adBlock active at current page.
+	                 * At current moment not useful, case cdn.probtn.com added to black list
+	                 * @return {[type]} [description]
+	                 */
 	                checkAdBlock: function() {
 	                    try {
 	                        $.ajax({
@@ -1978,11 +2392,11 @@ var loadProbtn = function (jQuery) {
 	                                console.log("Success:", data);
 	                            }
 	                        }).fail(function(xhr, status, error) {
-	                                if (xhr.status===0) {
-	                                    ProBtnControl.statistics.SendStatisticsData("performedAction", "adBlockDetected");
-	                                    console.log("probtn.js - adBlock detected");
-	                                }
-	                            });
+	                            if (xhr.status === 0) {
+	                                ProBtnControl.statistics.SendStatisticsData("performedAction", "adBlockDetected");
+	                                console.log("probtn.js - adBlock detected");
+	                            }
+	                        });
 	                    } catch (ex) {
 	                        console.log("ex", ex);
 	                    }
@@ -1999,7 +2413,10 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                },
 	                prepareObjectForEventHandler: function(object) {
-	                    var result_object = { AZName: "", Statistic: [] };
+	                    var result_object = {
+	                        AZName: "",
+	                        Statistic: []
+	                    };
 	                    try {
 	                        if ((object !== null) && (object !== "") && (object !== undefined)) {
 	                            for (var k in object) {
@@ -2020,16 +2437,21 @@ var loadProbtn = function (jQuery) {
 	                    try {
 	                        var superPixelPath = "https://pixel.probtn.com/1/from-ref";
 	                        ProBtnControl.statistics.createClickCounterImage(superPixelPath);
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 	                },
+	                /**
+	                 * Create image with tracking link 
+	                 * @param  {[type]} clickPath - tracking image path
+	                 * @param  {[type]} name - specific name in format probtn_ClickCounterLink_NAME, if not set would be random
+	                 * @return {[type]}
+	                 */
 	                createClickCounterImage: function(clickPath, name) {
 	                    try {
 	                        var clickCounterLink_random = clickPath;
 	                        clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
 	                        if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
 	                            clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
-	                        }
+	                        }"probtn_ClickCounterLink_" + currentName
 
 	                        var prependBlock = ProBtnControl.additionalItemsContainer;
 	                        if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
@@ -2045,8 +2467,7 @@ var loadProbtn = function (jQuery) {
 	                            style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
 	                        }).prependTo(prependBlock);
 	                        //console.log("probtn_TrackingLink", probtn_TrackingLink);
-	                    } catch(ex)
-	                    {
+	                    } catch (ex) {
 	                        console.log(ex);
 	                    }
 
@@ -2074,7 +2495,9 @@ var loadProbtn = function (jQuery) {
 	                        ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam + "&callback=?";
 
 	                    if ((params_object === null) || (params_object === undefined)) {
-	                        params_object = { "additional_params": additional_params };
+	                        params_object = {
+	                            "additional_params": additional_params
+	                        };
 	                    } else {
 	                        ProBtnControl.statistics.createEventHandler(params_object);
 	                    }
@@ -2092,7 +2515,13 @@ var loadProbtn = function (jQuery) {
 	                        ProBtnControl.params.currentAreaName = areaName;
 
 	                        //"&AZName=" + areaName +
-	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ContentShowed\": \"1\"}&", { AZName: areaName, Statistic: [{ "name": "ContentShowed", "value": 1 }] }),
+	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ContentShowed\": \"1\"}&", {
+	                                AZName: areaName,
+	                                Statistic: [{
+	                                    "name": "ContentShowed",
+	                                    "value": 1
+	                                }]
+	                            }),
 	                            function() {}).always(function() {
 	                            if ((callback !== null) && (callback !== undefined)) {
 	                                callback();
@@ -2118,9 +2547,14 @@ var loadProbtn = function (jQuery) {
 
 	                        ProBtnControl.params.currentAreaName = areaName;
 
-	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&", { AZName: areaName, Statistic: [{ "name": "ScrollZoneShowed", "value": 1 }] }),
-	                            function() {}).done(function() {
-	                        }).fail(function() {}).always(function() {
+	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&", {
+	                                AZName: areaName,
+	                                Statistic: [{
+	                                    "name": "ScrollZoneShowed",
+	                                    "value": 1
+	                                }]
+	                            }),
+	                            function() {}).done(function() {}).fail(function() {}).always(function() {
 	                            if ((callback !== null) && (callback !== undefined)) {
 	                                callback();
 	                            }
@@ -2145,16 +2579,25 @@ var loadProbtn = function (jQuery) {
 	                        if (ProBtnControl.params.Debug) console.log(ex);
 	                    }
 	                },
-	                ///
-	                /// Function used to send "custom" statistics
-	                /// for example information about resolution, OS, browser, browser version
-	                /// This information would be rewriten by last resived data for deviceUID each time when it send to server
-	                ///
+	                /**
+	                 * Function used to send "custom" statistics
+	                 * for example information about resolution, OS, browser, browser version
+	                 * This information would be rewriten by last resived data for deviceUID each time when it send to server
+	                 * @param {[type]} name          [description]
+	                 * @param {[type]} value         [description]
+	                 * @param {[type]} probtnId      [description]
+	                 * @param {[type]} currentDomain [description]
+	                 */
 	                SendCustomStat: function(name, value, probtnId, currentDomain) {
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
-
 	                        //&AZName=areaName
-	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", { AZName: areaName, Statistic: [{ "name": name, "value": value }] }),
+	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", {
+	                                AZName: areaName,
+	                                Statistic: [{
+	                                    "name": name,
+	                                    "value": value
+	                                }]
+	                            }),
 	                            function() {}).always(function() {
 	                            if ((callback !== null) && (callback !== undefined)) {
 	                                callback();
@@ -2162,14 +2605,13 @@ var loadProbtn = function (jQuery) {
 	                        });
 	                    }
 	                },
-	                ///
-	                /// Send stats to probtn
-	                /// <values>
-	                /// paramName - name for statistics parameter
-	                /// value - value of this paarameter. Default is 1
-	                /// custom - if set to 1, this param and it's value will be send as custom stats
-	                /// </values>
-	                ///
+	                /**
+	                 * Send stats to probtn
+	                 * @param {[string]}   paramName - name for statistics parameter
+	                 * @param {[string]}   value - value of this parameter. Default is 1
+	                 * @param {[type]}   custom - if set to 1, this param and it's value will be send as custom stats
+	                 * @param {Function} callback
+	                 */
 	                SendStatisticsData: function(paramName, value, custom, callback) {
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 	                        var probtnId = "1234";
@@ -2199,7 +2641,13 @@ var loadProbtn = function (jQuery) {
 	                        }
 	                        //console.log("AZName SendStat", AZName);
 
-	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", { AZName: AZName, Statistic: [{ "name": name, "value": value }] }),
+	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", {
+	                                AZName: AZName,
+	                                Statistic: [{
+	                                    "name": name,
+	                                    "value": value
+	                                }]
+	                            }),
 	                            function(data1) {}).always(function() {
 	                            if ((callback !== null) && (callback !== undefined)) {
 	                                callback();
@@ -2247,6 +2695,12 @@ var loadProbtn = function (jQuery) {
 	                }
 	            },
 	            videoFunctions: {
+	                /**
+	                 * Create block with video
+	                 * @param  {[type]} name - unique video block name
+	                 * @param  {[type]} path - url to video
+	                 * @return {[type]}
+	                 */
 	                createVideoItem: function(name, path) {
 
 	                    var videoItemNameBlock = "video_item";
@@ -2280,8 +2734,7 @@ var loadProbtn = function (jQuery) {
 	                            } else {
 	                                newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
 	                            }
-	                        } else {
-	                        }
+	                        } else {}
 
 	                        var videoHeight = 0;
 	                        var videoWidth = 0;
@@ -2299,6 +2752,10 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                }
 	            },
+	            /**
+	             * Init functions
+	             * @type {Object}
+	             */
 	            initFunctions: {
 	                stopWebAudio: function() {
 	                    ProBtnControl.initFunctions.stopedWebAudio = true;
@@ -2417,7 +2874,9 @@ var loadProbtn = function (jQuery) {
 	                                                        if (myIframe.contentWindow !== null) {
 
 	                                                            //console.log("probtn_web_audio_api_enabled");
-	                                                            myIframe.contentWindow.postMessage({ message: "probtn_web_audio_api_enabled" }, '*');
+	                                                            myIframe.contentWindow.postMessage({
+	                                                                message: "probtn_web_audio_api_enabled"
+	                                                            }, '*');
 	                                                        }
 	                                                    } catch (ex) {
 
@@ -2441,7 +2900,9 @@ var loadProbtn = function (jQuery) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
 	                                    if (myIframe.contentWindow !== null) {
 
-	                                        myIframe.contentWindow.postMessage({ message: "probtn_web_audio_api_enabled" }, '*');
+	                                        myIframe.contentWindow.postMessage({
+	                                            message: "probtn_web_audio_api_enabled"
+	                                        }, '*');
 	                                    }
 	                                } catch (ex) {
 
@@ -2466,21 +2927,21 @@ var loadProbtn = function (jQuery) {
 	                                parsed_ua.ua_device_type = parsed_ua.device.type.toLowerCase();
 	                            } else {
 	                                switch (parsed_ua.ua_os_name) {
-	                                case 'android':
-	                                    parsed_ua.ua_device_type = 'mobile';
-	                                    break;
-	                                case 'ios':
-	                                    parsed_ua.ua_device_type = 'mobile';
-	                                    break;
-	                                case 'windows phone':
-	                                    parsed_ua.ua_device_type = 'mobile';
-	                                    break;
-	                                case 'windows mobile':
-	                                    parsed_ua.ua_device_type = 'mobile';
-	                                    break;
-	                                default:
-	                                    parsed_ua.ua_device_type = 'console';
-	                                    break;
+	                                    case 'android':
+	                                        parsed_ua.ua_device_type = 'mobile';
+	                                        break;
+	                                    case 'ios':
+	                                        parsed_ua.ua_device_type = 'mobile';
+	                                        break;
+	                                    case 'windows phone':
+	                                        parsed_ua.ua_device_type = 'mobile';
+	                                        break;
+	                                    case 'windows mobile':
+	                                        parsed_ua.ua_device_type = 'mobile';
+	                                        break;
+	                                    default:
+	                                        parsed_ua.ua_device_type = 'console';
+	                                        break;
 	                                }
 	                            }
 	                            ProBtnControl.parsed_ua = parsed_ua;
@@ -2544,6 +3005,10 @@ var loadProbtn = function (jQuery) {
 	                        }).appendTo("body");
 	                    }
 	                },
+	                /**
+	                 * Init menu button mode and create all nessesary DOM elements
+	                 * @return {[type]} [description]
+	                 */
 	                initFloatingMenu: function() {
 	                    if ((ProBtnControl.params.ClickCounterLink) && (ProBtnControl.params.ClickCounterLink !== "")) {
 	                        try {
@@ -2589,7 +3054,9 @@ var loadProbtn = function (jQuery) {
 	                                        style: "opacity: 0.1"
 	                                    }).prependTo(ProBtnControl.wrapper);
 
-	                                    var menuUL = $("<ul/>", { id: 'probtn_menu_ul' }).prependTo(menu);
+	                                    var menuUL = $("<ul/>", {
+	                                        id: 'probtn_menu_ul'
+	                                    }).prependTo(menu);
 
 	                                    var menuRadius = "0";
 	                                    try {
@@ -2598,8 +3065,7 @@ var loadProbtn = function (jQuery) {
 	                                                menuRadius = menuType[1];
 	                                            }
 	                                        }
-	                                    } catch (ex) {
-	                                    }
+	                                    } catch (ex) {}
 
 	                                    if ((menuType[0] == "radialcorner") || (menuType[0] == "circularCenter")) {
 	                                        $('head').append('<style type="text/css">' +
@@ -2654,41 +3120,41 @@ var loadProbtn = function (jQuery) {
 	                                            var y = 0;
 	                                            var itemStyle = {};
 	                                            switch (menuType[0]) {
-	                                            case "radialcorner":
-	                                                if (ProBtnControl.params.MenuItems.length == 2) {
-	                                                    anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length + 1));
-	                                                    x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
-	                                                    y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
-	                                                } else {
-	                                                    anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
-	                                                    x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
-	                                                    y = (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
-	                                                }
+	                                                case "radialcorner":
+	                                                    if (ProBtnControl.params.MenuItems.length == 2) {
+	                                                        anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length + 1));
+	                                                        x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
+	                                                        y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
+	                                                    } else {
+	                                                        anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
+	                                                        x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
+	                                                        y = (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
+	                                                    }
 
-	                                                itemStyle = {
-	                                                    "position": "absolute",
-	                                                    "top": x,
-	                                                    "left": y
-	                                                };
-	                                                $(".menu_item_elem_count" + count).css(itemStyle);
-	                                                break;
-	                                            case "circularCenter":
-	                                                anglePart = toRadians(360 / (ProBtnControl.params.MenuItems.length - 0));
-	                                                x = animateTop + ProBtnControl.pizzabtn.height() / 4 - (menuRadius * 1.1) * Math.cos(anglePart * (count - 0));
-	                                                y = animateLeft + ProBtnControl.pizzabtn.width() / 4 + (menuRadius * 1.1) * Math.sin(anglePart * (count - 0));
+	                                                    itemStyle = {
+	                                                        "position": "absolute",
+	                                                        "top": x,
+	                                                        "left": y
+	                                                    };
+	                                                    $(".menu_item_elem_count" + count).css(itemStyle);
+	                                                    break;
+	                                                case "circularCenter":
+	                                                    anglePart = toRadians(360 / (ProBtnControl.params.MenuItems.length - 0));
+	                                                    x = animateTop + ProBtnControl.pizzabtn.height() / 4 - (menuRadius * 1.1) * Math.cos(anglePart * (count - 0));
+	                                                    y = animateLeft + ProBtnControl.pizzabtn.width() / 4 + (menuRadius * 1.1) * Math.sin(anglePart * (count - 0));
 
-	                                                itemStyle = {
-	                                                    "position": "absolute",
-	                                                    "top": x,
-	                                                    "left": y
-	                                                };
-	                                                $(".menu_item_elem_count" + count).css(itemStyle);
-	                                                break;
-	                                            default:
-	                                                $("#probtn_menu li:last").css({
-	                                                    "margin-left": -$("#probtn_menu li:last").width()
-	                                                });
-	                                                break;
+	                                                    itemStyle = {
+	                                                        "position": "absolute",
+	                                                        "top": x,
+	                                                        "left": y
+	                                                    };
+	                                                    $(".menu_item_elem_count" + count).css(itemStyle);
+	                                                    break;
+	                                                default:
+	                                                    $("#probtn_menu li:last").css({
+	                                                        "margin-left": -$("#probtn_menu li:last").width()
+	                                                    });
+	                                                    break;
 	                                            }
 	                                            count++;
 
@@ -2703,45 +3169,45 @@ var loadProbtn = function (jQuery) {
 	                                        var menuType = $(this).attr("rev");
 
 	                                        switch (menuType) {
-	                                        case "external":
-	                                            window.probtn_dropedActiveZone = {};
-	                                            window.probtn_dropedActiveZone.currentActiveZone = null;
-	                                            window.probtn_ButtonContentType = "external";
+	                                            case "external":
+	                                                window.probtn_dropedActiveZone = {};
+	                                                window.probtn_dropedActiveZone.currentActiveZone = null;
+	                                                window.probtn_ButtonContentType = "external";
 
-	                                            ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
-	                                            window.open($(this).attr("href"));
+	                                                ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
+	                                                window.open($(this).attr("href"));
 
-	                                            e.preventDefault();
-	                                            return false;
-	                                        //break;
-	                                        case "iframe":
-	                                            window.probtn_dropedActiveZone = {};
-	                                            window.probtn_dropedActiveZone.currentActiveZone = null;
-	                                            window.probtn_ButtonContentType = "iframe";
+	                                                e.preventDefault();
+	                                                return false;
+	                                                //break;
+	                                            case "iframe":
+	                                                window.probtn_dropedActiveZone = {};
+	                                                window.probtn_dropedActiveZone.currentActiveZone = null;
+	                                                window.probtn_ButtonContentType = "iframe";
 
-	                                            ProBtnControl.onButtonTap($(this).attr("href"), $(this).attr("rel"), "iframe");
+	                                                ProBtnControl.onButtonTap($(this).attr("href"), $(this).attr("rel"), "iframe");
 
-	                                            break;
-	                                        case "closeMenu":
-	                                            ProBtnControl.initFunctions.initRemoveMenu();
-	                                            return false;
-	                                        //break;
-	                                        case "video":
-	                                            window.probtn_dropedActiveZone = {};
-	                                            window.probtn_dropedActiveZone.currentActiveZone = {};
-	                                            window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType = "video";
-	                                            window.probtn_dropedActiveZone.currentActiveZone.Name = $(this).attr("rel");
-	                                            window.probtn_ButtonContentType = "video";
+	                                                break;
+	                                            case "closeMenu":
+	                                                ProBtnControl.initFunctions.initRemoveMenu();
+	                                                return false;
+	                                                //break;
+	                                            case "video":
+	                                                window.probtn_dropedActiveZone = {};
+	                                                window.probtn_dropedActiveZone.currentActiveZone = {};
+	                                                window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType = "video";
+	                                                window.probtn_dropedActiveZone.currentActiveZone.Name = $(this).attr("rel");
+	                                                window.probtn_ButtonContentType = "video";
 
-	                                            ProBtnControl.onButtonTap($(this).attr("href"), $(this).attr("rel"), "video");
-	                                            return false;
-	                                        //break;
-	                                        default:
-	                                            ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
-	                                            window.open($(this).attr("href"));
-	                                            e.preventDefault();
-	                                            return false;
-	                                            //break;
+	                                                ProBtnControl.onButtonTap($(this).attr("href"), $(this).attr("rel"), "video");
+	                                                return false;
+	                                                //break;
+	                                            default:
+	                                                ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
+	                                                window.open($(this).attr("href"));
+	                                                e.preventDefault();
+	                                                return false;
+	                                                //break;
 	                                        }
 	                                    });
 
@@ -2764,16 +3230,14 @@ var loadProbtn = function (jQuery) {
 	                                    menu.animate({
 	                                        left: 1,
 	                                        opacity: 1.0
-	                                    }, 500, function() {
-	                                    });
+	                                    }, 500, function() {});
 
 	                                    var countLi = 300;
 	                                    $.each($("#probtn_menu li"), function(index, value) {
 	                                        $(value).animate({
 	                                            "margin-left": 0,
 	                                            opacity: 1.0
-	                                        }, countLi, function() {
-	                                        });
+	                                        }, countLi, function() {});
 	                                        //});
 	                                        countLi = countLi + 300;
 	                                    });
@@ -2786,15 +3250,21 @@ var loadProbtn = function (jQuery) {
 	                    });
 
 	                },
+	                /**
+	                 * Remove menu block from page DOM
+	                 * @return 
+	                 */
 	                initRemoveMenu: function() {
 	                    var pizzabtn_wrapper = ProBtnControl.wrapper;
 	                    pizzabtn_wrapper.css("background", "rgba(0, 0, 0, 0)");
 	                    $("#probtn_menu").remove();
 	                },
 	                hintTextStyle: {
-	                
 	                },
-	                //show fullscreen
+	                /**
+	                 * Show fullscreen
+	                 * @return {[type]} [description]
+	                 */
 	                fullscreenInitAndShow: function() {
 	                    //if HideAfterFirstShow
 	                    var cookieHideAfterClose = null;
@@ -2862,11 +3332,13 @@ var loadProbtn = function (jQuery) {
 	                        if (ProBtnControl.params.HideAfterFirstShow === true) {
 	                            //and now add cookie to add flag that we are open fullscreen once
 	                            ProBtnControl.cookieFunctions.createCookie("probtnCloseFlag", true, 60);
-	                        } else {
-	                        }
+	                        } else {}
 	                    }
 	                },
-	                //init active zones if enabled in options
+	                /**
+	                 * init active zones if enabled in options
+	                 * @return {[type]} [description]
+	                 */
 	                initActiveZones: function() {
 	                    if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType == "button_and_active_zones")) {
 
@@ -2980,7 +3452,10 @@ var loadProbtn = function (jQuery) {
 	                                elementType = '<iframe/>';
 	                            }
 	                            if ((currentActiveZone.ButtonIframeInitialSize === null) || (currentActiveZone.ButtonIframeInitialSize === undefined)) {
-	                                currentActiveZone.ButtonIframeInitialSize = { W: 0, H: 0 };
+	                                currentActiveZone.ButtonIframeInitialSize = {
+	                                    W: 0,
+	                                    H: 0
+	                                };
 	                            }
 	                            var activeZoneBtn = $(elementType, {
 	                                id: 'probtn_active_zone_' + currentActiveZone.Name,
@@ -3029,9 +3504,12 @@ var loadProbtn = function (jQuery) {
 	                        }
 	                    }
 	                },
-
 	                scrollZoneFirstRun: false,
-	                //for button_and_scroll_zones buttonType add nessesary handlers
+	                /**
+	                 * for button_and_scroll_zones buttonType add nessesary handlers
+	                 * @param  {[type]} runOnScroll [description]
+	                 * @return {[type]} 
+	                 */
 	                initScrollChange: function(runOnScroll) {
 	                    var onScroll = function(e) {
 	                        var scrollZone = ProBtnControl.initFunctions.initStartScrollParams('get');
@@ -3099,8 +3577,7 @@ var loadProbtn = function (jQuery) {
 	                                //if ((scrollEvent !== undefined) && (scrollEvent !== null)) {
 	                                //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
 	                                if (ProBtnControl.currentScrollZone !== scrollZone) {
-	                                    if (scrollZone.ButtonImageType === "iframe") {
-	                                    } else {
+	                                    if (scrollZone.ButtonImageType === "iframe") {} else {
 	                                        $("#pizzabtnImg").attr("src", scrollZone.ButtonImage);
 	                                    }
 	                                }
@@ -3137,8 +3614,7 @@ var loadProbtn = function (jQuery) {
 	                                if (ProBtnControl.buttonMainParams.isEmpty === false) {
 
 	                                    if (ProBtnControl.currentScrollZone == scrollZone) {
-	                                        if (scrollZone.ButtonImageType === "iframe") {
-	                                        } else {
+	                                        if (scrollZone.ButtonImageType === "iframe") {} else {
 	                                            $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
 	                                        }
 	                                    }
@@ -3189,7 +3665,6 @@ var loadProbtn = function (jQuery) {
 	                    if (ProBtnControl.params.ButtonType == "button_and_scroll_zones") {
 	                        if ((runOnScroll !== null) && (runOnScroll !== undefined)) {
 	                            onScroll(null);
-	                            //ProBtnControl.statistics.sendScrollAreaShowedStats(ProBtnControl.currentScrollZone.Name);
 	                        } else {
 	                            $.each(ProBtnControl.params.ScrollZones, function(index, scrollZone) {
 	                                ProBtnControl.additionalButtonFunctions.preloadImage(scrollZone.ButtonImage);
@@ -3220,8 +3695,11 @@ var loadProbtn = function (jQuery) {
 	                        }
 	                    }
 	                },
-
-
+	                /**
+	                 * [initStartScrollParams description]
+	                 * @param  {[type]} position [description]
+	                 * @return {[type]}          [description]
+	                 */
 	                initStartScrollParams: function(position) {
 	                    if (ProBtnControl.params.ButtonType == "button_and_scroll_zones") {
 
@@ -3239,13 +3717,14 @@ var loadProbtn = function (jQuery) {
 	                        };
 
 	                        var getDocumentHeight = function() {
-	                            //return Math.max(document.compatMode != 'CSS1Compat' ? document.body.scrollHeight : document.documentElement.scrollHeight, getViewportHeight());
 	                            return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
 	                        };
 
 	                        //if all at one screen mode
 	                        if (ProBtnControl.params.ChangeScrollButtonAtFullSiteHeight === false) {
-	                            getDocumentHeight = function() { return window.innerHeight; };
+	                            getDocumentHeight = function() {
+	                                return window.innerHeight;
+	                            };
 	                            top = 0;
 	                        }
 
@@ -3290,8 +3769,7 @@ var loadProbtn = function (jQuery) {
 	                                    ProBtnControl.params.currentContentURL = scrollZone.CustomContentURL;
 	                                    ProBtnControl.params.currentButtonContentType = scrollZone.ButtonContentType;
 	                                    ProBtnControl.params.currentAreaName = scrollZone.Name;
-	                                } catch (ex) {
-	                                }
+	                                } catch (ex) {}
 	                                ProBtnControl.params.ButtonImage = scrollZone.ButtonImage;
 
 	                                var widgetHTML = "";
@@ -3330,10 +3808,12 @@ var loadProbtn = function (jQuery) {
 	                                    ProBtnControl.params.ButtonImageType = "image";
 	                                }
 
-
 	                                //set default values for ButtonIframeInitialSize
 	                                if ((scrollZone.ButtonIframeInitialSize === null) || (scrollZone.ButtonIframeInitialSize === undefined)) {
-	                                    scrollZone.ButtonIframeInitialSize = { W: 0, H: 0 };
+	                                    scrollZone.ButtonIframeInitialSize = {
+	                                        W: 0,
+	                                        H: 0
+	                                    };
 	                                }
 	                                if ((scrollZone.ButtonSize === null) || (scrollZone.ButtonSize === undefined)) {
 	                                    scrollZone.ButtonSize = ProBtnControl.params.ButtonSize;
@@ -3375,8 +3855,7 @@ var loadProbtn = function (jQuery) {
 	                                }
 
 	                                //if (Object.is(ProBtnControl.currentScrollZone, scrollZone)) {
-	                                if (false) {
-	                                } else {
+	                                if (false) {} else {
 	                                    if (scrollZone.CustomButtonParams) {
 	                                        //save main button params
 	                                        if (ProBtnControl.buttonMainParams.isEmpty) {
@@ -3420,25 +3899,8 @@ var loadProbtn = function (jQuery) {
 	                        return null;
 	                    }
 	                },
-	                // pizza button constructor
+	                //pizza button constructor
 	                initPizzaButton: function() {
-	                    //TODO
-	                    //ExtrusionMode with inserting wrapper inside specified block
-	                    /*switch (ProBtnControl.params.ExtrusionMode) {
-	                        case "insertBlock":
-	                            $('head').append('<style type="text/css">#probtn_wrapper { width: 100% !important; display: inline-block !important; position: relative !important; height:' + ProBtnControl.params.ButtonSize.H + 'px !important; } #probtn_button { top: 0px !important; left: 0px !important; width:100% !important; }</style>');
-	                            var pizzabtn_wrapper = $("<div/>", {
-	                                id: "probtn_wrapper"
-	                            }).prependTo(ProBtnControl.params.ExtrusionPath);
-	                            break;
-	                        default:
-	                            var pizzabtn_wrapper = $("<div/>", {
-	                                id: "probtn_wrapper"
-	                            }).prependTo('body');
-	                            break;
-	                    }
-
-	                    ProBtnControl.wrapper = pizzabtn_wrapper;*/
 	                    var pizzabtn_wrapper = ProBtnControl.wrapper;
 
 	                    if (ProBtnControl.params.ButtonContentType === 'youtube') {
@@ -3468,8 +3930,7 @@ var loadProbtn = function (jQuery) {
 	                            ProBtnControl.contentTime.endTimer();
 	                            ProBtnControl.HpmdFunctions.closeHpmdTrack();
 
-	                            ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function() {
-	                            }, ProBtnControl.params.MinimizeWrapperTime);
+	                            ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function() {}, ProBtnControl.params.MinimizeWrapperTime);
 
 	                            $.pep.toggleAll(true);
 	                            probtn_callPlayer("video_probtn", "pauseVideo");
@@ -3533,8 +3994,7 @@ var loadProbtn = function (jQuery) {
 	                            } else {
 	                                newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
 	                            }
-	                        } else {
-	                        }
+	                        } else {}
 
 	                        var videoHeight = 0;
 	                        var videoWidth = 0;
@@ -3581,8 +4041,6 @@ var loadProbtn = function (jQuery) {
 	                        if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
 	                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
 	                        }
-	                        ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");
-	                        
 	                        //console.log("probtn_TrackingLink", probtn_TrackingLink);
 	                    }
 	                    pizzabtn_wrapper.css(opts);
@@ -3669,22 +4127,25 @@ var loadProbtn = function (jQuery) {
 	                        };
 	                    }
 
-	                    //extrusion mode of button
+	                    /**
+	                     * extrusion mode of button
+	                     * @param  {[string]} ProBtnControl.params.ExtrusionMode - extrusion type
+	                     */
 	                    switch (ProBtnControl.params.ExtrusionMode) {
-	                    case "topButton":
-	                        $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
-	                        $('head').append('<style type="text/css">#probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
-	                        break;
-	                    case "insertBlock":
-	                        pizzabtnCss.width = "100%";
-	                        break;
-	                    case "fixedTop":
-	                        pizzabtnCss.width = "100%";
-	                        /*$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
-	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: fixed !important; }</style>');*/
-	                        break;
-	                    default:
-	                        break;
+	                        case "topButton":
+	                            $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
+	                            $('head').append('<style type="text/css">#probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
+	                            break;
+	                        case "insertBlock":
+	                            pizzabtnCss.width = "100%";
+	                            break;
+	                        case "fixedTop":
+	                            pizzabtnCss.width = "100%";
+	                            /*$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
+	                                $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: fixed !important; }</style>');*/
+	                            break;
+	                        default:
+	                            break;
 	                    }
 
 	                    var pizzabtnImg = null;
@@ -3932,7 +4393,14 @@ var loadProbtn = function (jQuery) {
 	                                var myIframeCheck = document.getElementById('pizzabtnImg');
 	                                window.addEventListener('deviceorientation', function(event) {
 	                                    if (myIframeCheck.contentWindow !== null) {
-	                                        myIframeCheck.contentWindow.postMessage({ message: "probtn_page_deviceorientation", dataEvent: { alpha: event.alpha, beta: event.beta, gamma: event.gamma } }, '*');
+	                                        myIframeCheck.contentWindow.postMessage({
+	                                            message: "probtn_page_deviceorientation",
+	                                            dataEvent: {
+	                                                alpha: event.alpha,
+	                                                beta: event.beta,
+	                                                gamma: event.gamma
+	                                            }
+	                                        }, '*');
 	                                    }
 	                                });
 	                            } catch (ex) {
@@ -4012,8 +4480,7 @@ var loadProbtn = function (jQuery) {
 	                        var closex = ProBtnControl.params.ClosePosition.X;
 	                        var closey = ProBtnControl.params.ClosePosition.Y;
 
-	                        if (ProBtnControl.params.ControlInIframeFromParent === true) {
-	                        }
+	                        if (ProBtnControl.params.ControlInIframeFromParent === true) {}
 
 	                        ProBtnControl.params.CloseSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseSize);
 
@@ -4093,8 +4560,8 @@ var loadProbtn = function (jQuery) {
 	                                opacity: ProBtnControl.params.CloseOpacity,
 	                                width: ProBtnControl.params.CloseSize.W,
 	                                height: ProBtnControl.params.CloseSize.H
-	                                //left: left,
-	                                //top: top
+	                                    //left: left,
+	                                    //top: top
 	                            };
 	                            me.css(options);
 	                        }, ProBtnControl.params.CloseUnactiveDelay * 1000);
@@ -4111,8 +4578,7 @@ var loadProbtn = function (jQuery) {
 	            interactionFunctions: {
 	                time: 0,
 	                initInteractionTimer: function() {
-	                    if (ProBtnControl.interactionFunctions.intervalId !== undefined) {
-	                    } else {
+	                    if (ProBtnControl.interactionFunctions.intervalId !== undefined) {} else {
 	                        clearInterval(ProBtnControl.interactionFunctions.intervalId);
 	                    }
 	                    ProBtnControl.interactionFunctions.time = 0;
@@ -4139,11 +4605,9 @@ var loadProbtn = function (jQuery) {
 	                                    try {
 	                                        $(".fancybox-overlay").remove();
 	                                        $("#fullscreen_probtn").remove();
-	                                    } catch (ex) {
-	                                    }
+	                                    } catch (ex) {}
 	                                }
-	                            } else {
-	                            }
+	                            } else {}
 	                        }, ProBtnControl.params.HideWithoutInteractionTime);
 	                    }
 	                },
@@ -4180,20 +4644,19 @@ var loadProbtn = function (jQuery) {
 	                            if (inObject.hasOwnProperty(property)) {
 	                                if (ProBtnControl.params.ButtonImageType == 'iframe') {
 	                                    switch (property) {
-	                                    case "ButtonImage":
-	                                    case "ButtonImage2x":
-	                                    case "ButtonDragImage":
-	                                    case "ButtonOpenImage":
-	                                        inObject[property] = ProBtnControl.additionalButtonFunctions.checkProtocolInUrl(inObject[property]);
-	                                        break;
-	                                    default:
-	                                        break;
+	                                        case "ButtonImage":
+	                                        case "ButtonImage2x":
+	                                        case "ButtonDragImage":
+	                                        case "ButtonOpenImage":
+	                                            inObject[property] = ProBtnControl.additionalButtonFunctions.checkProtocolInUrl(inObject[property]);
+	                                            break;
+	                                        default:
+	                                            break;
 	                                    }
 	                                }
 	                            }
 	                        }
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 	                },
 	                setButtonStartPosition: function(btn) {
 	                    try {
@@ -4214,12 +4677,12 @@ var loadProbtn = function (jQuery) {
 	                        }
 
 	                        switch (ProBtnControl.params.ExtrusionMode) {
-	                        case "insertBlock":
-	                            left = 0;
-	                            top = 0;
-	                            break;
-	                        default:
-	                            break;
+	                            case "insertBlock":
+	                                left = 0;
+	                                top = 0;
+	                                break;
+	                            default:
+	                                break;
 	                        }
 
 	                        btn.css({
@@ -4227,8 +4690,7 @@ var loadProbtn = function (jQuery) {
 	                            top: top,
 	                            position: 'absolute'
 	                        });
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 	                },
 	                //format title for fancybox\modal window
 	                getTitleTextForModalWindow: function() {
@@ -4243,8 +4705,7 @@ var loadProbtn = function (jQuery) {
 	                    if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
 	                        try {
 	                            title = "<style> .fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.self.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 	                    }
 
 	                    return title;
@@ -4255,7 +4716,7 @@ var loadProbtn = function (jQuery) {
 	                        var margins = ProBtnControl.additionalButtonFunctions.getFancyboxMargins();
 	                        var titleHeight = $(".fancybox-title").first().height();
 	                        var style = {
-	//t r b l
+	                            //t r b l
 	                            width: (window.innerWidth - margins[1] - margins[3]),
 	                            height: (window.innerHeight - margins[0] - margins[2] - titleHeight)
 	                        };
@@ -4276,16 +4737,16 @@ var loadProbtn = function (jQuery) {
 	                    //TODO: save and restore body margin to prevent errors with some custome sites
 	                    //check is extrusion mode enabled and restore body margin
 	                    switch (ProBtnControl.params.ExtrusionMode) {
-	                    case "topButton":
-	                        $('body').css("margin-top", "0px");
-	                        $('head').append('<style type="text/css">#probtn_wrapper { margin-top: 0px !important; position: absolute !important; }</style>');
-	                        break;
-	                    case "fixedTop":
-	                        $('body').css("margin-top", "0px");
-	                        $('head').append('<style type="text/css">#probtn_wrapper { margin-top: 0px !important; position: absolute !important; }</style>');
-	                        break;
-	                    default:
-	                        break;
+	                        case "topButton":
+	                            $('body').css("margin-top", "0px");
+	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top: 0px !important; position: absolute !important; }</style>');
+	                            break;
+	                        case "fixedTop":
+	                            $('body').css("margin-top", "0px");
+	                            $('head').append('<style type="text/css">#probtn_wrapper { margin-top: 0px !important; position: absolute !important; }</style>');
+	                            break;
+	                        default:
+	                            break;
 	                    }
 
 	                    ProBtnControl.statistics.SendStatObject({
@@ -4304,20 +4765,20 @@ var loadProbtn = function (jQuery) {
 	                },
 	                checkAndCorrentButtonPosition: function() {
 	                    switch (ProBtnControl.params.ExtrusionMode) {
-	                    case "insertBlock":
-	                        ProBtnControl.pizzabtn.css("top", 0);
-	                        ProBtnControl.pizzabtn.css("left", 0);
-	                        break;
-	                    default:
-	                        if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
-	                            if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
-	                                ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
+	                        case "insertBlock":
+	                            ProBtnControl.pizzabtn.css("top", 0);
+	                            ProBtnControl.pizzabtn.css("left", 0);
+	                            break;
+	                        default:
+	                            if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
+	                                if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
+	                                    ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
+	                                }
+	                                if (ProBtnControl.pizzabtn.css('top').replace('px', '') > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
+	                                    ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
+	                                }
 	                            }
-	                            if (ProBtnControl.pizzabtn.css('top').replace('px', '') > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
-	                                ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
-	                            }
-	                        }
-	                        break;
+	                            break;
 	                    }
 
 	                },
@@ -4411,8 +4872,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((parseFloat(newHeightInit) > 0) && (buttonSize.W.toString().indexOf('%') == -1)) {
 	                                newHeight = newWidth * parseFloat(newHeightInit);
 	                            }
-	                        } else {
-	                        }
+	                        } else {}
 	                        if ((newHeight.toString().indexOf('%') !== -1) || (parseFloat(newHeight) < 0)) {
 	                            if (parseFloat(newHeightInit) < 0) {
 	                                newHeight = Math.abs(parseFloat(newHeight));
@@ -4428,8 +4888,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((parseFloat(newWidthInit) > 0) && (buttonSize.H.toString().indexOf('%') == -1)) {
 	                                newWidth = parseFloat(newWidthInit) * newHeight;
 	                            }
-	                        } else {
-	                        }
+	                        } else {}
 	                        buttonSize.W = newWidth;
 	                        buttonSize.H = newHeight;
 
@@ -4444,8 +4903,7 @@ var loadProbtn = function (jQuery) {
 
 	                        }
 
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 	                    return buttonSize;
 	                },
 	                //check is ButtonIframeInitialSize exists and set properly
@@ -4462,8 +4920,8 @@ var loadProbtn = function (jQuery) {
 	                        var scaleY = ButtonSize.H / ButtonIframeInitialSize.H;
 
 	                        if ((round_params[1] === "fill") && (round_params[0] === "auto")) {
-	                            scaleX = ButtonSize.W*0.8 / ButtonIframeInitialSize.W;
-	                            scaleY = ButtonSize.H*0.8 / ButtonIframeInitialSize.H;
+	                            scaleX = ButtonSize.W * 0.8 / ButtonIframeInitialSize.W;
+	                            scaleY = ButtonSize.H * 0.8 / ButtonIframeInitialSize.H;
 	                        }
 
 	                        console.log("scale", scaleX, scaleY);
@@ -4494,7 +4952,7 @@ var loadProbtn = function (jQuery) {
 	                replaceRandom: function(contentURL) {
 	                    var output = contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
 	                    output = output.replace(/\%random\%/g, ProBtnControl.additionalButtonFunctions.randomString(12));
-	                    
+
 	                    return output;
 	                },
 	                replaceDeviceUID: function(contentURL) {
@@ -4770,8 +5228,7 @@ var loadProbtn = function (jQuery) {
 	                                $("#probtn_menu").css("left", 0);
 	                            }
 	                        }
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 
 	                    //check is fancybox is open at current moment
 	                    var isOpen = false;
@@ -4779,8 +5236,7 @@ var loadProbtn = function (jQuery) {
 	                        if ($.fancybox !== undefined) {
 	                            isOpen = $.fancybox.isOpen;
 	                        }
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 
 	                    if (($.fancybox !== undefined) || (ProBtnControl.params.ButtonType === "fullscreen")) {
 	                        if ((isOpen) || (ProBtnControl.params.ButtonType === "fullscreen")) {
@@ -4884,8 +5340,7 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                    try {
 	                        $('body').css(opts);
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 	                },
 
 	                MinimizeWrapper: function(callback1, time) {
@@ -4940,165 +5395,184 @@ var loadProbtn = function (jQuery) {
 	                        scrollLeft = $(window).scrollLeft();
 	                        if ((ProBtnControl.pizzabtn.offset().left - scrollLeft) > pizzabtn_wrapper.width()) {
 	                            var newleft = pizzabtn_wrapper.width() - ProBtnControl.pizzabtn.width();
-	                            ProBtnControl.pizzabtn.css({ left: newleft + 'px' });
+	                            ProBtnControl.pizzabtn.css({
+	                                left: newleft + 'px'
+	                            });
 	                        }
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 	                    try {
 	                        var scrollTop = 0;
 	                        scrollTop = $(window).scrollTop();
 
 	                        if ((ProBtnControl.pizzabtn.offset().top - scrollTop) > pizzabtn_wrapper.height()) {
 	                            var newtop = pizzabtn_wrapper.height() - ProBtnControl.pizzabtn.height();
-	                            ProBtnControl.pizzabtn.css({ top: newtop + 'px' });
+	                            ProBtnControl.pizzabtn.css({
+	                                top: newtop + 'px'
+	                            });
 	                        }
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 
 	                    try {
 	                        callback();
-	                    } catch (ex) {
-	                    }
+	                    } catch (ex) {}
 	                },
 	                animation: {
 	                    animationRuning: false,
 	                    //
 	                    pathAnimation: function(animationName) {
-	                        
+
 	                        //crSpline animation
 	                        //path https://raw.githubusercontent.com/MmmCurry/jquery.crSpline/master/jquery.crSpline.js
 	                        //https://github.com/MmmCurry/jquery.crSpline/
-	                        (function($){
+	                        (function($) {
 
-	                                $.crSpline = {};
+	                            $.crSpline = {};
 
-	                                // Catmull-Rom interpolation between p0 and p1 for previous point p_1 and later point p2
-	                                // http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline
-	                                var interpolate = function (t, p_1, p0, p1, p2) {
-	                                        return Math.floor((t * ((2 - t) * t - 1) * p_1 +
-	                                                (t * t * (3 * t - 5) + 2) * p0 +
-	                                                t * ((4 - 3 * t) * t + 1) * p1 +
-	                                                (t - 1) * t * t * p2
-	                                                ) / 2);
+	                            // Catmull-Rom interpolation between p0 and p1 for previous point p_1 and later point p2
+	                            // http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline
+	                            var interpolate = function(t, p_1, p0, p1, p2) {
+	                                return Math.floor((t * ((2 - t) * t - 1) * p_1 +
+	                                    (t * t * (3 * t - 5) + 2) * p0 +
+	                                    t * ((4 - 3 * t) * t + 1) * p1 +
+	                                    (t - 1) * t * t * p2
+	                                ) / 2);
+	                            };
+
+	                            // Extend this p1,p2 sequence linearly to a new p3
+	                            var generateExtension = function(p1, p2) {
+	                                return [
+	                                    p2[0] + (p2[0] - p1[0]),
+	                                    p2[1] + (p2[1] - p1[1])
+	                                ];
+
+	                            };
+
+	                            var converPointList = function(initPointList) {
+	                                var pointList = [];
+	                                var initPointList_length = initPointList.length;
+
+	                                pointList[0] = [ProBtnControl.pizzabtn.position().left, ProBtnControl.pizzabtn.position().top];
+
+	                                for (var i = 0; i < initPointList_length; i++) {
+	                                    var x = initPointList[i].x;
+	                                    var y = initPointList[i].y;
+
+	                                    if (initPointList[i].scalable) {
+	                                        x = Math.round(initPointList[i].x * ProBtnControl.additionalButtonFunctions.getWindowWidth());
+	                                        y = Math.round(initPointList[i].y * ProBtnControl.additionalButtonFunctions.getWindowHeight());
+	                                    }
+
+	                                    pointList[i + 1] = [x, y];
 	                                };
+	                                console.log("new pointList", pointList, JSON.stringify(pointList));
 
-	                                // Extend this p1,p2 sequence linearly to a new p3
-	                                var generateExtension = function (p1, p2) {
-	                                        return [
-	                                                p2[0] + (p2[0] - p1[0]),
-	                                                p2[1] + (p2[1] - p1[1])
-	                                                ];
+	                                return pointList;
+	                            }
 
-	                                };
+	                            // Return an animation object based on a sequence of points
+	                            // pointList must be an array of [x,y] pairs
+	                            $.crSpline.buildSequence = function(rawPointList) {
+	                                var res = {};
+	                                var seq = [];
+	                                var numSegments;
 
-	                                var converPointList = function(initPointList) {
-	                                    var pointList = [];
-	                                    var initPointList_length = initPointList.length;
+	                                var pointList = converPointList(rawPointList);
 
-	                                    pointList[0] = [ProBtnControl.pizzabtn.position().left, ProBtnControl.pizzabtn.position().top];
-
-	                                    for (var i=0; i<initPointList_length; i++) {
-	                                        var x = initPointList[i].x;
-	                                        var y = initPointList[i].y;
-
-	                                        if (initPointList[i].scalable) {
-	                                            x = Math.round(initPointList[i].x * ProBtnControl.additionalButtonFunctions.getWindowWidth());
-	                                            y = Math.round(initPointList[i].y * ProBtnControl.additionalButtonFunctions.getWindowHeight());
-	                                        }
-
-	                                        pointList[i+1] = [x, y];
-	                                    };
-	                                    console.log("new pointList", pointList, JSON.stringify(pointList));
-
-	                                    return pointList;
+	                                if (pointList.length < 2) {
+	                                    throw "crSpline.buildSequence requires at least two points";
 	                                }
 
-	                                // Return an animation object based on a sequence of points
-	                                // pointList must be an array of [x,y] pairs
-	                                $.crSpline.buildSequence = function(rawPointList) {
-	                                        var res = {};
-	                                        var seq = [];
-	                                        var numSegments;
+	                                // Generate the first p_1 so the caller doesn't need to provide it
+	                                seq.push(generateExtension(pointList[1], pointList[0]));
 
-	                                        var pointList = converPointList(rawPointList);
+	                                // Throw provided points on the list
+	                                for (var i = 0; i < pointList.length; i++) {
+	                                    seq.push(pointList[i]);
+	                                }
 
-	                                        if (pointList.length < 2) {
-	                                                throw "crSpline.buildSequence requires at least two points";
-	                                        }
+	                                // Generate the last p2 so the caller doesn't need to provide it
+	                                seq.push(generateExtension(seq[seq.length - 2], seq[seq.length - 1]));
 
-	                                        // Generate the first p_1 so the caller doesn't need to provide it
-	                                        seq.push(generateExtension(pointList[1], pointList[0]));
+	                                numSegments = seq.length - 3;
 
-	                                        // Throw provided points on the list
-	                                        for (var i = 0; i < pointList.length; i++) {
-	                                                seq.push(pointList[i]);
-	                                        }
-
-	                                        // Generate the last p2 so the caller doesn't need to provide it
-	                                        seq.push(generateExtension(seq[seq.length-2], seq[seq.length-1]));
-
-	                                        numSegments = seq.length - 3;
-
-	                                        res.getPos = function (t) {
-	                                                // XXX For now, assume all segments take equal time
-	                                                var segNum = Math.floor(t * numSegments);
-	                                                if (segNum === numSegments) {
-	                                                        return {
-	                                                                left: seq[seq.length-2][0],
-	                                                                top: seq[seq.length-2][1]
-	                                                                };
-	                                                }
-	                                                var microT = (t - segNum/numSegments) * numSegments;
-	                                                var result = {
-	                                                        left: interpolate(microT,
-	                                                                        seq[segNum][0],
-	                                                                        seq[segNum+1][0],
-	                                                                        seq[segNum+2][0],
-	                                                                        seq[segNum+3][0]) + "px",
-	                                                        top: interpolate(microT,
-	                                                                        seq[segNum][1],
-	                                                                        seq[segNum+1][1],
-	                                                                        seq[segNum+2][1],
-	                                                                        seq[segNum+3][1]) + "px"
-	                                                        };
-	                                                return result;
+	                                res.getPos = function(t) {
+	                                    // XXX For now, assume all segments take equal time
+	                                    var segNum = Math.floor(t * numSegments);
+	                                    if (segNum === numSegments) {
+	                                        return {
+	                                            left: seq[seq.length - 2][0],
+	                                            top: seq[seq.length - 2][1]
 	                                        };
-	                                        return res;
+	                                    }
+	                                    var microT = (t - segNum / numSegments) * numSegments;
+	                                    var result = {
+	                                        left: interpolate(microT,
+	                                            seq[segNum][0],
+	                                            seq[segNum + 1][0],
+	                                            seq[segNum + 2][0],
+	                                            seq[segNum + 3][0]) + "px",
+	                                        top: interpolate(microT,
+	                                            seq[segNum][1],
+	                                            seq[segNum + 1][1],
+	                                            seq[segNum + 2][1],
+	                                            seq[segNum + 3][1]) + "px"
+	                                    };
+	                                    return result;
 	                                };
+	                                return res;
+	                            };
 
-	                                $.fx.step.crSpline = function (fx) {
-	                                        var css = fx.end.getPos(fx.pos);
-	                                        for (var i in css) {
-	                                                fx.elem.style[i] = css[i];
-	                                        }
-	                                };
+	                            $.fx.step.crSpline = function(fx) {
+	                                var css = fx.end.getPos(fx.pos);
+	                                for (var i in css) {
+	                                    fx.elem.style[i] = css[i];
+	                                }
+	                            };
 
 	                        })(jQuery);
 
 	                        var animations = animationName.split('_');
 	                        var path = "";
 	                        try {
-	                            var path = JSON.parse(ProBtnControl.params.animationData);
+	                            console.log("ProBtnControl.params.animationData", ProBtnControl.params.animationData);
+	                            path = JSON.parse(ProBtnControl.params.animationData);
 	                        } catch (ex) {
+	                            console.log(ex);
 	                            path = "";
 	                        }
 	                        console.log("path1", path);
 	                        var check = ((path == "") || (path === undefined) || (path === null));
-	                        console.log('(path == "") || (path === undefined) || (path === null)', check, path=="");
+	                        console.log('(path == "") || (path === undefined) || (path === null)', check, path == "");
 	                        if ((path == "") || (path === undefined) || (path === null)) {
-	                            path = [{ "x": 10, "y": 10, "type": "point" }, { "x": 30, "y": 80, "type": "point" }, { "x": 100, "y": 200, "type": "point" }, { "x": 320, "y": 10, "type": "point" }];
+	                            path = [{
+	                                "x": 10,
+	                                "y": 10,
+	                                "type": "point"
+	                            }, {
+	                                "x": 30,
+	                                "y": 80,
+	                                "type": "point"
+	                            }, {
+	                                "x": 100,
+	                                "y": 200,
+	                                "type": "point"
+	                            }, {
+	                                "x": 320,
+	                                "y": 10,
+	                                "type": "point"
+	                            }];
 	                        }
 	                        console.log("path2", path);
 
 	                        if (animations[0] === "path") {
 	                            ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
 	                                setTimeout(function() {
-	                                $("#probtn_button").animate({
-		                                crSpline: $.crSpline.buildSequence(path)
-	                                }, ProBtnControl.params.animationDuration, function() {
-	                                    console.log("pathAnimation finished");
-	                                });
-	                                }, ProBtnControl.params.animationDuration/5);
+	                                    $("#probtn_button").animate({
+	                                        crSpline: $.crSpline.buildSequence(path)
+	                                    }, ProBtnControl.params.animationDuration, function() {
+	                                        console.log("pathAnimation finished");
+	                                    });
+	                                }, ProBtnControl.params.animationDuration / 5);
 	                            });
 	                        }
 
@@ -5110,8 +5584,7 @@ var loadProbtn = function (jQuery) {
 	                            var animations = animationName.split('_');
 	                            if (animations[0] == "opacity") {
 	                                var opacity_param = animations[1];
-	                                if ((opacity_param !== null) && (opacity_param !== undefined) && (!isNaN(opacity_param))) {
-	                                } else {
+	                                if ((opacity_param !== null) && (opacity_param !== undefined) && (!isNaN(opacity_param))) {} else {
 	                                    opacity_param = 0.5;
 	                                }
 	                                ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
@@ -5120,8 +5593,7 @@ var loadProbtn = function (jQuery) {
 	                                    opacity: opacity_param
 	                                }, {
 	                                    duration: ProBtnControl.params.animationDuration,
-	                                    step: function(now) {
-	                                    },
+	                                    step: function(now) {},
 	                                    complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
 	                                });
 	                            }
@@ -5135,8 +5607,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((rolloutParams[1] !== null) && (rolloutParams[1] !== undefined)) {
 	                                side = rolloutParams[1];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        if (rolloutParams[0] == "rollout") {
 
@@ -5150,7 +5621,9 @@ var loadProbtn = function (jQuery) {
 	                                //send message about scroll
 	                                if ($("#pizzabtnImg").is("iframe")) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
-	                                    myIframe.contentWindow.postMessage({ message: "probtn_page_scroll" }, '*');
+	                                    myIframe.contentWindow.postMessage({
+	                                        message: "probtn_page_scroll"
+	                                    }, '*');
 	                                }
 
 
@@ -5158,10 +5631,8 @@ var loadProbtn = function (jQuery) {
 	                                try {
 	                                    if ((rolloutParams[2] !== null) && (rolloutParams[2] !== undefined)) {
 	                                        rollOutPercent = rolloutParams[2];
-	                                    } else {
-	                                    }
-	                                } catch (ex) {
-	                                }
+	                                    } else {}
+	                                } catch (ex) {}
 
 	                                var doc = document.documentElement;
 	                                var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
@@ -5203,8 +5674,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((lookoutParams[1] !== null) && (lookoutParams[1] !== undefined)) {
 	                                side = lookoutParams[1];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        if (lookoutParams[0] == "lookout") {
 
@@ -5224,18 +5694,14 @@ var loadProbtn = function (jQuery) {
 	                            try {
 	                                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
 	                                    rollOutPercent = lookoutParams[2];
-	                                } else {
-	                                }
-	                            } catch (ex) {
-	                            }
+	                                } else {}
+	                            } catch (ex) {}
 
 	                            try {
 	                                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
 	                                    rollOutPercent = lookoutParams[2];
-	                                } else {
-	                                }
-	                            } catch (ex) {
-	                            }
+	                                } else {}
+	                            } catch (ex) {}
 
 	                            var onBackLookOut = function(e) {
 	                                setTimeout(function() {
@@ -5322,11 +5788,10 @@ var loadProbtn = function (jQuery) {
 	                            if ((forwardStopAndAwayParams[1] !== null) && (forwardStopAndAwayParams[1] !== undefined)) {
 	                                side = forwardStopAndAwayParams[1];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        if (forwardStopAndAwayParams[0] == "forwardStopAndAway") {
-	                            
+
 
 	                            ProBtnControl.pizzabtn.stop(true, true);
 	                            //set start position for button
@@ -5381,8 +5846,7 @@ var loadProbtn = function (jQuery) {
 	                                            ProBtnControl.pizzabtn.animate({
 	                                                left: left
 	                                            }, {
-	                                                step: function(now) {
-	                                                },
+	                                                step: function(now) {},
 	                                                duration: ProBtnControl.params.animationDuration,
 	                                                easing: "linear"
 	                                            });
@@ -5401,8 +5865,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((forwardAndStopParams[1] !== null) && (forwardAndStopParams[1] !== undefined)) {
 	                                side = forwardAndStopParams[1];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 
 	                        var firstPartDuration = ProBtnControl.params.animationDuration / 2;
@@ -5410,8 +5873,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((forwardAndStopParams[2] !== null) && (forwardAndStopParams[2] !== undefined)) {
 	                                firstPartDuration = forwardAndStopParams[2];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 
 	                        var additionalMode = "";
@@ -5419,8 +5881,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
 	                                additionalMode = forwardAndStopParams[3];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        if (forwardAndStopParams[0] == "forwardAndStop") {
 
@@ -5446,7 +5907,10 @@ var loadProbtn = function (jQuery) {
 	                            var probtnIframeEvent = function(name, data) {
 	                                if ($("#pizzabtnImg").is("iframe")) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
-	                                    myIframe.contentWindow.postMessage({ message: name, data: data }, '*');
+	                                    myIframe.contentWindow.postMessage({
+	                                        message: name,
+	                                        data: data
+	                                    }, '*');
 	                                }
 	                            };
 
@@ -5460,20 +5924,20 @@ var loadProbtn = function (jQuery) {
 	                                        probtnIframeEvent("probtn_forwardAndStop_stop", ProBtnControl.pizzabtn.position());
 
 	                                        switch (additionalMode) {
-	                                        case "maximizeButton":
-	                                            var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 0;
-	                                            var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 0;
+	                                            case "maximizeButton":
+	                                                var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 0;
+	                                                var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 0;
 
-	                                            ProBtnControl.pizzabtn.css("left", "0px");
-	                                            ProBtnControl.pizzabtn.css("top", "0px");
+	                                                ProBtnControl.pizzabtn.css("left", "0px");
+	                                                ProBtnControl.pizzabtn.css("top", "0px");
 
-	                                            ProBtnControl.pizzabtn.css("width", newWidth);
-	                                            ProBtnControl.pizzabtn.css("height", newHeight);
+	                                                ProBtnControl.pizzabtn.css("width", newWidth);
+	                                                ProBtnControl.pizzabtn.css("height", newHeight);
 
-	                                            $("#pizzabtnImg").css("width", newWidth);
-	                                            $("#pizzabtnImg").css("height", newHeight);
-	                                            break;
-	                                        default:
+	                                                $("#pizzabtnImg").css("width", newWidth);
+	                                                $("#pizzabtnImg").css("height", newHeight);
+	                                                break;
+	                                            default:
 	                                        }
 
 	                                        setTimeout(function() {
@@ -5499,24 +5963,21 @@ var loadProbtn = function (jQuery) {
 	                            if ((forwardAndBackParams[1] !== null) && (forwardAndBackParams[1] !== undefined)) {
 	                                side = forwardAndBackParams[1];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        var pauseDuration = ProBtnControl.params.animationDuration / 2;
 	                        try {
 	                            if ((forwardAndBackParams[2] !== null) && (forwardAndBackParams[2] !== undefined)) {
 	                                pauseDuration = forwardAndBackParams[2];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        var stopDuration = 0;
 	                        try {
 	                            if ((forwardAndBackParams[3] !== null) && (forwardAndBackParams[3] !== undefined)) {
 	                                stopDuration = forwardAndBackParams[3];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        if (forwardAndBackParams[0] == "forwardAndBack") {
 	                            //ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
@@ -5542,7 +6003,9 @@ var loadProbtn = function (jQuery) {
 	                            var probtnIframeEvent = function(name) {
 	                                if ($("#pizzabtnImg").is("iframe")) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
-	                                    myIframe.contentWindow.postMessage({ message: name }, '*');
+	                                    myIframe.contentWindow.postMessage({
+	                                        message: name
+	                                    }, '*');
 	                                }
 	                            };
 
@@ -5599,8 +6062,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((forwardAndStopParams[1] !== null) && (forwardAndStopParams[1] !== undefined)) {
 	                                side = forwardAndStopParams[1];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 
 	                        var firstPartDuration = ProBtnControl.params.animationDuration / 2;
@@ -5608,8 +6070,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((forwardAndStopParams[2] !== null) && (forwardAndStopParams[2] !== undefined)) {
 	                                firstPartDuration = forwardAndStopParams[2];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 
 	                        var additionalMode = "";
@@ -5617,8 +6078,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
 	                                additionalMode = forwardAndStopParams[3];
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        if (forwardAndStopParams[0].toLowerCase() == "TopToBottomAndStop".toLowerCase()) {
 
@@ -5644,7 +6104,10 @@ var loadProbtn = function (jQuery) {
 	                            var probtnIframeEvent = function(name, data) {
 	                                if ($("#pizzabtnImg").is("iframe")) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
-	                                    myIframe.contentWindow.postMessage({ message: name, data: data }, '*');
+	                                    myIframe.contentWindow.postMessage({
+	                                        message: name,
+	                                        data: data
+	                                    }, '*');
 	                                }
 	                            };
 
@@ -5659,9 +6122,9 @@ var loadProbtn = function (jQuery) {
 	                                        probtnIframeEvent("probtn_topToBottomAndStop_stop", ProBtnControl.pizzabtn.position());
 
 	                                        switch (additionalMode) {
-	                                        case "maximizeButton":
-	                                            break;
-	                                        default:
+	                                            case "maximizeButton":
+	                                                break;
+	                                            default:
 	                                        }
 
 	                                        setTimeout(function() {
@@ -5762,8 +6225,7 @@ var loadProbtn = function (jQuery) {
 	                    var margins = [70, 70, 70, 70];
 	                    if ((ProBtnControl.params.ContentInsets.T < 0) || (ProBtnControl.params.ContentInsets.B < 0) || (ProBtnControl.params.ContentInsets.L < 0) || (ProBtnControl.params.ContentInsets.R < 0)) {
 	                        var isMobileLandscape = (ProBtnControl.additionalButtonFunctions.isLandscape() && ProBtnControl.userData.mobile);
-	                        margins = (isMobileLandscape) ? [ProBtnControl.params.ButtonSize.H / 4, ProBtnControl.params.ButtonSize.H / 4 + 5, ProBtnControl.params.ButtonSize.H / 4, ProBtnControl.params.ButtonSize.H / 4 + 5]
-	                            : [ProBtnControl.params.ButtonSize.H + 5, ProBtnControl.params.ButtonSize.H / 2, ProBtnControl.params.ButtonSize.H + 5, ProBtnControl.params.ButtonSize.H / 2];
+	                        margins = (isMobileLandscape) ? [ProBtnControl.params.ButtonSize.H / 4, ProBtnControl.params.ButtonSize.H / 4 + 5, ProBtnControl.params.ButtonSize.H / 4, ProBtnControl.params.ButtonSize.H / 4 + 5] : [ProBtnControl.params.ButtonSize.H + 5, ProBtnControl.params.ButtonSize.H / 2, ProBtnControl.params.ButtonSize.H + 5, ProBtnControl.params.ButtonSize.H / 2];
 
 	                        if ((ProBtnControl.userData.mobile) && (ProBtnControl.params.ButtonSize.H > 70)) {
 	                            margins = [ProBtnControl.params.ButtonSize.H / 8, ProBtnControl.params.ButtonSize.H / 8, ProBtnControl.params.ButtonSize.H / 8, ProBtnControl.params.ButtonSize.H / 8];
@@ -5790,8 +6252,7 @@ var loadProbtn = function (jQuery) {
 
 	                        $(".fancybox-iframe").first().css("margin-bottom", "-5000px");
 	                        $(".fancybox-iframe").css("margin-bottom", "-5000px");
-	                    } else {
-	                    }
+	                    } else {}
 
 	                    var setIframeScale = function(iframeScale) {
 	                        $(".fancybox-iframe").first().css("transform", "scale(" + iframeScale + ")");
@@ -5812,21 +6273,21 @@ var loadProbtn = function (jQuery) {
 	                        setIframeScale(ProBtnControl.params.iframeScale);
 	                    } else {
 	                        switch (ProBtnControl.parsed_ua.ua_device_type) {
-	                        case 'mobile':
-	                            if ((ProBtnControl.params.iframeScaleMobile !== 1) && (ProBtnControl.params.iframeScaleMobile !== undefined) && (ProBtnControl.params.iframeScaleMobile !== null)) {
-	                                setIframeScale(ProBtnControl.params.iframeScaleMobile);
-	                            }
-	                            break;
-	                        case 'tablet':
-	                            if ((ProBtnControl.params.iframeScaleTablet !== 1) && (ProBtnControl.params.iframeScaleTablet !== undefined) && (ProBtnControl.params.iframeScaleTablet !== null)) {
-	                                setIframeScale(ProBtnControl.params.iframeScaleTablet);
-	                            }
-	                            break;
-	                        default:
-	                            if ((ProBtnControl.params.iframeScaleDesktop !== 1) && (ProBtnControl.params.iframeScaleDesktop !== undefined) && (ProBtnControl.params.iframeScaleDesktop !== null)) {
-	                                setIframeScale(ProBtnControl.params.iframeScaleDesktop);
-	                            }
-	                            break;
+	                            case 'mobile':
+	                                if ((ProBtnControl.params.iframeScaleMobile !== 1) && (ProBtnControl.params.iframeScaleMobile !== undefined) && (ProBtnControl.params.iframeScaleMobile !== null)) {
+	                                    setIframeScale(ProBtnControl.params.iframeScaleMobile);
+	                                }
+	                                break;
+	                            case 'tablet':
+	                                if ((ProBtnControl.params.iframeScaleTablet !== 1) && (ProBtnControl.params.iframeScaleTablet !== undefined) && (ProBtnControl.params.iframeScaleTablet !== null)) {
+	                                    setIframeScale(ProBtnControl.params.iframeScaleTablet);
+	                                }
+	                                break;
+	                            default:
+	                                if ((ProBtnControl.params.iframeScaleDesktop !== 1) && (ProBtnControl.params.iframeScaleDesktop !== undefined) && (ProBtnControl.params.iframeScaleDesktop !== null)) {
+	                                    setIframeScale(ProBtnControl.params.iframeScaleDesktop);
+	                                }
+	                                break;
 	                        }
 	                    }
 	                }
@@ -5878,23 +6339,19 @@ var loadProbtn = function (jQuery) {
 
 	                    ExternalData: {},
 
-	                    ExternalDataSources: [
-	                        {
-	                            Name: "ASource3",
-	                            Source: "https://demo.probtn.com/button_example4/externalData/iframe3/",
-	                            Priority: 13
-	                        },
-	                        {
-	                            Name: "Source1",
-	                            Source: "https://demo.probtn.com/button_example4/externalData/iframe1/",
-	                            Priority: 1
-	                        },
-	                        {
-	                            Name: "Source2",
-	                            Source: "https://demo.probtn.com/button_example4/externalData/iframe2/",
-	                            Priority: 2
-	                        }
-	                    ],
+	                    ExternalDataSources: [{
+	                        Name: "ASource3",
+	                        Source: "https://demo.probtn.com/button_example4/externalData/iframe3/",
+	                        Priority: 13
+	                    }, {
+	                        Name: "Source1",
+	                        Source: "https://demo.probtn.com/button_example4/externalData/iframe1/",
+	                        Priority: 1
+	                    }, {
+	                        Name: "Source2",
+	                        Source: "https://demo.probtn.com/button_example4/externalData/iframe2/",
+	                        Priority: 2
+	                    }],
 
 	                    UseExternalDataAboutUser: false,
 
@@ -5977,88 +6434,81 @@ var loadProbtn = function (jQuery) {
 	                        ForegroundColor: '#fff',
 	                        MenuHeight: "3.4em"
 	                    },
-	                    MenuItems: [
-	                        {
-	                            Name: "Menu1",
-	                            Text: "External1",
-	                            ActionURL: "http://yandex.ru",
-	                            Image: '//admin.probtn.com/eqwid_btn_nonpress.png',
-	                            Type: "external" //iframe, video
-	                        }
-	                    ],
+	                    MenuItems: [{
+	                        Name: "Menu1",
+	                        Text: "External1",
+	                        ActionURL: "http://yandex.ru",
+	                        Image: '//admin.probtn.com/eqwid_btn_nonpress.png',
+	                        Type: "external" //iframe, video
+	                    }],
 
-	                    ScrollZones: [
-	                        {
-	                            ZoneHeight: 0.5,
-	                            ButtonImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
-	                            ButtonDragImage: "",
-	                            HintText: "",
-	                            TrackingLink: "",
-	                            CustomButtonParams: false,
-	                            CustomContentURL: '',
-	                            ButtonContentType: '',
-	                            ButtonSize: {
-	// Размер
-	                                W: 64.0,
-	                                H: 64.0
-	                            },
-	                            ButtonDragSize: {
-	// Размер при перемещении
-	                                W: 68.0,
-	                                H: 68.0
-	                            },
-	                            ButtonOpacity: 0.8, // Прозрачность
-	                            ButtonDragOpacity: 1.0 // Прозрачность при перемещении
+	                    ScrollZones: [{
+	                        ZoneHeight: 0.5,
+	                        ButtonImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
+	                        ButtonDragImage: "",
+	                        HintText: "",
+	                        TrackingLink: "",
+	                        CustomButtonParams: false,
+	                        CustomContentURL: '',
+	                        ButtonContentType: '',
+	                        ButtonSize: {
+	                            // Размер
+	                            W: 64.0,
+	                            H: 64.0
 	                        },
-	                        {
-	                            ZoneHeight: 0.5,
-	                            ButtonImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
-	                            ButtonDragImage: "",
-	                            HintText: "",
-	                            TrackingLink: "",
-	                            CustomButtonParams: false,
-	                            ButtonSize: {
-	// Размер
-	                                W: 64.0,
-	                                H: 64.0
-	                            },
-	                            ButtonDragSize: {
-	// Размер при перемещении
-	                                W: 68.0,
-	                                H: 68.0
-	                            },
-	                            ButtonOpacity: 0.8, // Прозрачность
-	                            ButtonDragOpacity: 1.0 // Прозрачность при перемещении
-	                        }
-	                    ],
+	                        ButtonDragSize: {
+	                            // Размер при перемещении
+	                            W: 68.0,
+	                            H: 68.0
+	                        },
+	                        ButtonOpacity: 0.8, // Прозрачность
+	                        ButtonDragOpacity: 1.0 // Прозрачность при перемещении
+	                    }, {
+	                        ZoneHeight: 0.5,
+	                        ButtonImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/gray.png",
+	                        ButtonDragImage: "",
+	                        HintText: "",
+	                        TrackingLink: "",
+	                        CustomButtonParams: false,
+	                        ButtonSize: {
+	                            // Размер
+	                            W: 64.0,
+	                            H: 64.0
+	                        },
+	                        ButtonDragSize: {
+	                            // Размер при перемещении
+	                            W: 68.0,
+	                            H: 68.0
+	                        },
+	                        ButtonOpacity: 0.8, // Прозрачность
+	                        ButtonDragOpacity: 1.0 // Прозрачность при перемещении
+	                    }],
 	                    ChangeScrollButtonAtFullSiteHeight: true,
 	                    MainButtonClickable: true,
-	                    ActiveZones: [
-	                        {
-	                            Name: "Area1",
-	                            ButtonContentType: "iframe",
-	                            ButtonImageType: "image", //image or iframe
-	                            Position: {
-	                                X: 0.5,
-	                                Y: 0.5
-	                            },
-	                            ActiveImage: "https://admin.probtn.com/eqwid_btn_nonpress.png",
-	                            InactiveImage: "https://admin.probtn.com/eqwid_btn_nonpress.png",
-	                            ActiveSize: {
-	                                W: 64,
-	                                H: 64
-	                            },
-	                            InactiveSize: {
-	                                W: 64,
-	                                H: 64
-	                            },
-	                            ActionURL: "https://admin.probtn.com/probtn_demo_page.html",
-	                            ClickCounterLink: "",
-	                            VisibleOnlyInteraction: true,
-	                            InactiveOpacity: 0.8,
-	                            ActiveOpacity: 1
-	                        }
-	                    ],
+	                    ActiveZones: [{
+	                        Name: "Area1",
+	                        ButtonContentType: "iframe",
+	                        ButtonImageType: "image", //image or iframe
+	                        Position: {
+	                            X: 0.5,
+	                            Y: 0.5
+	                        },
+	                        ActiveImage: "https://admin.probtn.com/eqwid_btn_nonpress.png",
+	                        InactiveImage: "https://admin.probtn.com/eqwid_btn_nonpress.png",
+	                        ActiveSize: {
+	                            W: 64,
+	                            H: 64
+	                        },
+	                        InactiveSize: {
+	                            W: 64,
+	                            H: 64
+	                        },
+	                        ActionURL: "https://admin.probtn.com/probtn_demo_page.html",
+	                        ClickCounterLink: "",
+	                        VisibleOnlyInteraction: true,
+	                        InactiveOpacity: 0.8,
+	                        ActiveOpacity: 1
+	                    }],
 
 	                    hpmd: undefined, //main hpmd object
 
@@ -6168,7 +6618,7 @@ var loadProbtn = function (jQuery) {
 	                    //base params
 	                    ContentURL: "http://app.ecwid.com/jsp/2557212/m", //site url address
 	                    BaseInsets: {
-	// Базовое смещение от краев экрана с учетом статус бара
+	                        // Базовое смещение от краев экрана с учетом статус бара
 	                        T: 4.0,
 	                        B: 4.0,
 	                        L: 4.0,
@@ -6178,34 +6628,34 @@ var loadProbtn = function (jQuery) {
 	                    ButtonVisible: false, // видна / не видна
 	                    // Кнопка
 	                    ButtonOpenInsets: {
-	// Смещение в открытом состоянии
+	                        // Смещение в открытом состоянии
 	                        T: 32.0,
 	                        B: 32.0,
 	                        L: 32.0,
 	                        R: 32.0
 	                    },
 	                    ButtonPosition: {
-	// Позиция
+	                        // Позиция
 	                        X: 0.85, // По умолчанию центр экрана
 	                        Y: 0.15 // По умолчанию центр экрана
 	                    },
 	                    ButtonSize: {
-	// Размер
+	                        // Размер
 	                        W: 64.0,
 	                        H: 64.0
 	                    },
 	                    ButtonDragSize: {
-	// Размер при перемещении
+	                        // Размер при перемещении
 	                        W: 68.0,
 	                        H: 68.0
 	                    },
 	                    ButtonOpenSize: {
-	// Размер в открытом состоянии
+	                        // Размер в открытом состоянии
 	                        W: 64.0,
 	                        H: 64.0
 	                    },
 	                    ButtonInactiveSize: {
-	// Размер в неактивном состоянии
+	                        // Размер в неактивном состоянии
 	                        W: 64.0,
 	                        H: 64.0
 	                    },
@@ -6219,17 +6669,17 @@ var loadProbtn = function (jQuery) {
 	                    ButtonInactiveImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/drag_gray.png",
 
 	                    ClosePosition: {
-	// Позиция
+	                        // Позиция
 	                        X: 0.9, // По умолчанию центр экрана
 	                        Y: 0.9 // По умолчанию центр экрана
 	                    },
 	                    CloseSize: {
-	// Размер
+	                        // Размер
 	                        W: 64,
 	                        H: 64
 	                    },
 	                    CloseActiveSize: {
-	// Размер в активном состоянии
+	                        // Размер в активном состоянии
 	                        W: 72,
 	                        H: 72
 	                    },
@@ -6239,21 +6689,21 @@ var loadProbtn = function (jQuery) {
 	                    CloseActiveImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/close.png", // Ссылка на изображение в активном состоянии
 
 	                    HintInsets: {
-	// Смещение от краев
+	                        // Смещение от краев
 	                        T: 4.0,
 	                        B: 4.0,
 	                        L: 4.0,
 	                        R: 4.0
 	                    },
 	                    HintLabelInsets: {
-	// Смещение для текста
+	                        // Смещение для текста
 	                        T: 4.0,
 	                        B: 4.0,
 	                        L: 4.0,
 	                        R: 4.0
 	                    },
 	                    HintImageInsets: {
-	// Бордюры для изображения
+	                        // Бордюры для изображения
 	                        T: 8.0,
 	                        B: 8.0,
 	                        L: 8.0,
@@ -6261,12 +6711,12 @@ var loadProbtn = function (jQuery) {
 	                    },
 	                    HintText: "Press me", // Текст
 	                    HintFont: {
-	// Шрифт
+	                        // Шрифт
 	                        Family: "Arial",
 	                        Size: 18
 	                    },
 	                    HintFontColor: {
-	// Цвет
+	                        // Цвет
 	                        R: 1.0,
 	                        G: 1.0,
 	                        B: 1.0,
@@ -6274,21 +6724,34 @@ var loadProbtn = function (jQuery) {
 	                    },
 	                    VendorText: "",
 	                    VendorSite: "#",
-	                    VendorTextFont: { "Family": "Arial", "Size": 10 },
-	                    VendorTextColor: { "R": 1, "G": 1, "B": 1, "A": 1 },
+	                    VendorTextFont: {
+	                        "Family": "Arial",
+	                        "Size": 10
+	                    },
+	                    VendorTextColor: {
+	                        "R": 1,
+	                        "G": 1,
+	                        "B": 1,
+	                        "A": 1
+	                    },
 	                    VendorOpacity: 0.4,
-	                    VendorColor: { "R": 0, "G": 0, "B": 0, "A": 1 },
+	                    VendorColor: {
+	                        "R": 0,
+	                        "G": 0,
+	                        "B": 0,
+	                        "A": 1
+	                    },
 
 	                    HintOpacity: 0.8, // Прозрачность подсказки
 	                    HintImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/hint.png", // Ссылка на изображение
 
 	                    HintArrowSize: {
-	// Размер стрелки
+	                        // Размер стрелки
 	                        W: 8.0,
 	                        H: 8.0
 	                    },
 	                    HintArrowOffset: {
-	// Нахлест стрелки
+	                        // Нахлест стрелки
 	                        T: 0.0,
 	                        B: 0.0,
 	                        L: 0.0,
@@ -6309,21 +6772,21 @@ var loadProbtn = function (jQuery) {
 
 	                    // Контент
 	                    ContentInsets: {
-	// Смещение от краев
+	                        // Смещение от краев
 	                        T: -2.0,
 	                        B: -2.0,
 	                        L: -2.0,
 	                        R: -2.0
 	                    },
 	                    ContentWebViewInsets: {
-	// Смещение для WebView
+	                        // Смещение для WebView
 	                        T: 12.0,
 	                        B: 12.0,
 	                        L: 12.0,
 	                        R: 12.0
 	                    },
 	                    ContentImageInsets: {
-	// Бордюры для изображения
+	                        // Бордюры для изображения
 	                        T: 32.0,
 	                        B: 32.0,
 	                        L: 32.0,
@@ -6332,14 +6795,14 @@ var loadProbtn = function (jQuery) {
 	                    ContentOpacity: 1.0, // Прозрачность
 	                    ContentBackOpacity: 1.0, // Прозрачность фоновой части контента
 	                    ContentBackColor: {
-	// Цвет фоновой части контента
+	                        // Цвет фоновой части контента
 	                        R: 0.0,
 	                        G: 0.0,
 	                        B: 0.0,
 	                        A: 1.0
 	                    },
 	                    ContentActivityColor: {
-	// Цвет индикатора загрузки
+	                        // Цвет индикатора загрузки
 	                        R: 0.0,
 	                        G: 0.0,
 	                        B: 0.0,
@@ -6348,12 +6811,12 @@ var loadProbtn = function (jQuery) {
 	                    ContentImage: "", // Ссылка на изображение
 
 	                    ContentArrowSize: {
-	// Размер стрелки
+	                        // Размер стрелки
 	                        W: 14.0,
 	                        H: 14.0
 	                    },
 	                    ContentArrowOffset: {
-	// Нахлест стрелки
+	                        // Нахлест стрелки
 	                        T: 8.0,
 	                        B: 8.0,
 	                        L: 9.0,
@@ -6481,8 +6944,7 @@ var loadProbtn = function (jQuery) {
 	                            };
 
 	                            console.log("CheckAndRunButtonAtParent loadJS probtn_concat.js");
-	                            loadJS('//cdn.probtn.com/probtn_concat.js', function() {
-	                            });
+	                            loadJS('//cdn.probtn.com/probtn_concat.js', function() {});
 	                        } catch (ex) {
 	                            if (ProBtnControl.params.Debug) console.log(ex);
 	                        }
@@ -6602,7 +7064,9 @@ var loadProbtn = function (jQuery) {
 
 	                    try {
 	                        if (((ProBtnControl.params.UseExternalDataAboutUser === true)) && (document.getElementById("probtn_guidIframe") !== undefined)) {
-	                            document.getElementById("probtn_guidIframe").contentWindow.postMessage({ "command": "amber_matching" }, ProBtnControl.guidCookieControlPath); //ProBtnControl.guidCookieControlPath
+	                            document.getElementById("probtn_guidIframe").contentWindow.postMessage({
+	                                "command": "amber_matching"
+	                            }, ProBtnControl.guidCookieControlPath); //ProBtnControl.guidCookieControlPath
 	                        }
 	                    } catch (ex) {
 	                        console.log(ex);
@@ -6642,12 +7106,12 @@ var loadProbtn = function (jQuery) {
 	                            //Set styles for LockBody param
 	                            var probtn_disable_scroll_style = '<style type="text/css" id="probtn_ZCustomCss_probtn_disable_scroll">.probtn_disable_scroll { overflow: hidden !important; height: 100% !important; width: 100% !important; position: fixed !important; }</style>';
 	                            if (ProBtnControl.params.LockBody === true) {
-	                               $('head').append(probtn_disable_scroll_style); 
+	                                $('head').append(probtn_disable_scroll_style);
 	                            }
 
 	                            //Set styles for RoundButton param
 	                            var round_params = ProBtnControl.params.RoundButton.split('_');
-	                        
+
 	                            //var probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg { border-radius: 20px; }</style>';
 	                            var probtn_round_button_style = '';
 	                            var border_radius = 20;
@@ -6667,52 +7131,52 @@ var loadProbtn = function (jQuery) {
 	                                            }*/
 
 	                                            addtional_css = '#probtn_button { background: ' + round_params[2] +
-	                                            '} #pizzabtnImg { margin-left: 10% !important; margin-top: 10% !important; }';
+	                                                '} #pizzabtnImg { margin-left: 10% !important; margin-top: 10% !important; }';
 	                                        } else {
 	                                            addtional_css = '#probtn_button { background: ' + round_params[2] +
-	                                            '} #pizzabtnImg { width: 80% !important; height: 80% !important; margin-top: 10% !important; }';
+	                                                '} #pizzabtnImg { width: 80% !important; height: 80% !important; margin-top: 10% !important; }';
 	                                        }
-	                                        
-	                                        probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#probtn_button { border-radius: '+ border_radius +'px; overflow: hidden !important; } '+ addtional_css +'</style>';
+
+	                                        probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#probtn_button { border-radius: ' + border_radius + 'px; overflow: hidden !important; } ' + addtional_css + '</style>';
 
 	                                    } else {
-	                                        probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: '+ border_radius +'px; '+ addtional_css +'}</style>';
+	                                        probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: ' + border_radius + 'px; ' + addtional_css + '}</style>';
 	                                    }
 	                                    break;
 	                                case "manual":
 	                                    border_radius = round_params[1];
-	                                    probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: '+ border_radius +'px; }</style>';
+	                                    probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: ' + border_radius + 'px; }</style>';
 	                                    break;
 	                                default:
 	                                    break;
 	                            }
 	                            /* box-shadow: inset 0 2px 14px 0 rgba(0,0,0,0.20); border-radius: 20px; */
-	                            $('head').append(probtn_round_button_style); 
+	                            $('head').append(probtn_round_button_style);
 
 	                            //check ModalWindowMode
 	                            //and apply nessesary css
 	                            switch (ProBtnControl.params.ModalWindowMode) {
-	                            case "sidebarRight":
-	                                $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
-	                                    ".fancybox-wrap { top: 0px !important; right: 0px !important; left: initial !important; }" +
-	                                    ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
-	                                break;
-	                            case "sidebarLeft":
-	                                $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
-	                                    ".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
-	                                    ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
-	                                break;
-	                            case "sidebarTop":
-	                                $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { width: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
-	                                    ".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
-	                                    ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
-	                                break;
-	                            case "sidebarBottom":
-	                                $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { width: 100% !important; top: initial !important; } .fancybox-wrap  {position: fixed !important;}" +
-	                                    ".fancybox-wrap { bottom: 0px !important; left: 0px !important; }" +
-	                                    ".fancybox-close { bottom: 0px !important; right: 0px !important; }" + '</style>');
-	                                break;
-	                            default:
+	                                case "sidebarRight":
+	                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
+	                                        ".fancybox-wrap { top: 0px !important; right: 0px !important; left: initial !important; }" +
+	                                        ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+	                                    break;
+	                                case "sidebarLeft":
+	                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { height: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
+	                                        ".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
+	                                        ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+	                                    break;
+	                                case "sidebarTop":
+	                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { width: 100% !important; } .fancybox-wrap  {position: fixed !important;}" +
+	                                        ".fancybox-wrap { top: 0px !important; left: 0px !important; }" +
+	                                        ".fancybox-close { top: 0px !important; right: 0px !important; }" + '</style>');
+	                                    break;
+	                                case "sidebarBottom":
+	                                    $('head').append('<style type="text/css">' + ".fancybox-inner, .fancybox-outer, .fancybox-skin, .fancybox-wrap { width: 100% !important; top: initial !important; } .fancybox-wrap  {position: fixed !important;}" +
+	                                        ".fancybox-wrap { bottom: 0px !important; left: 0px !important; }" +
+	                                        ".fancybox-close { bottom: 0px !important; right: 0px !important; }" + '</style>');
+	                                    break;
+	                                default:
 	                            }
 
 	                            //init close button
@@ -6732,75 +7196,21 @@ var loadProbtn = function (jQuery) {
 	                            $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function() {
 	                                $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function() {
 
-
 	                                    $("body").append("<div id='probtn_passback'></div>");
 	                                    var addate = new Date();
-	                                    var scrheight = '', scrwidth = '';
+	                                    var scrheight = '',
+	                                        scrwidth = '';
 	                                    var jkit;
 	                                    var scrsize;
 	                                    var pr;
 
 	                                    switch (ProBtnControl.currentDomain) {
-	                                    /*case "justlady.ru":
-
-	                                        if (typeof (pr) === 'undefined') {
-	                                            pr = Math.floor(Math.random() * 4294967295) + 1;
-	                                        }
-	                                        if (typeof (document.referrer) != 'undefined') {
-	                                            if (typeof (afReferrer) == 'undefined') {
-	                                                afReferrer = encodeURIComponent(document.referrer);
-	                                            }
-	                                        } else {
-	                                            afReferrer = '';
-	                                        }
-
-	                                        if (self.screen) {
-	                                            scrwidth = screen.width;
-	                                            scrheight = screen.height;
-	                                        } else if (self.java) {
-	                                            jkit = java.awt.Toolkit.getDefaultToolkit();
-	                                            scrsize = jkit.getScreenSize();
-	                                            scrwidth = scrsize.width;
-	                                            scrheight = scrsize.height;
-	                                        }
-	                                        postscribe('#probtn_passback', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=vvq&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-	                                        //$("body").append();
-	                                        break;
-	                                    case "dev.kakprosto.ru":
-	                                    case "www.dev.new.kakprosto.ru":
-	                                    case "dev.new.kakprosto.ru":
-	                                        window.hpmd_adbutton_passback();
-	                                        break;
-	                                    case "pinme.ru":
-	                                    case "m.pinme.ru":
-	                                        if (typeof (pr) == 'undefined') {
-	                                            pr = Math.floor(Math.random() * 4294967295) + 1;
-	                                        }
-	                                        if (typeof (document.referrer) != 'undefined') {
-	                                            if (typeof (afReferrer) == 'undefined') {
-	                                                afReferrer = encodeURIComponent(document.referrer);
-	                                            }
-	                                        } else {
-	                                            afReferrer = '';
-	                                        }
-	                                        if (self.screen) {
-	                                            scrwidth = screen.width;
-	                                            scrheight = screen.height;
-	                                        } else if (self.java) {
-	                                            jkit = java.awt.Toolkit.getDefaultToolkit();
-	                                            scrsize = jkit.getScreenSize();
-	                                            scrwidth = scrsize.width;
-	                                            scrheight = scrsize.height;
-	                                        }
-	                                        postscribe('#probtn_passback', '<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/170600/prepareCode?pp=g&amp;ps=birg&amp;p2=eszb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pk=imho%20adbutton&amp;puid1=&amp;puid2=&amp;puid3=&amp;puid4=&amp;puid5=&amp;puid6=&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=&amp;puid12=&amp;puid13=&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
-	                                        break;*/
-	                                    default:
+	                                        default:
 	                                        //postscribe(ProBtnControl.params.PassbackCodeSelector, '<script type="text/javascript">' + ProBtnControl.params.PassbackCustomCode + '</script>');
-	                                        if ((ProBtnControl.params.PassbackCustomCode!==null) && (ProBtnControl.params.PassbackCustomCode!==undefined) && (ProBtnControl.params.PassbackCustomCode!==""))
-	                                    {
-	                                        postscribe(ProBtnControl.params.PassbackCodeSelector, '' + ProBtnControl.params.PassbackCustomCode + '');
-	                                    }
-	                                    break;
+	                                            if ((ProBtnControl.params.PassbackCustomCode !== null) && (ProBtnControl.params.PassbackCustomCode !== undefined) && (ProBtnControl.params.PassbackCustomCode !== "")) {
+	                                                postscribe(ProBtnControl.params.PassbackCodeSelector, '' + ProBtnControl.params.PassbackCustomCode + '');
+	                                            }
+	                                        break;
 	                                    }
 	                                });
 	                            });
@@ -6817,16 +7227,23 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                    ProBtnControl.userData.retina = retina;
 
+	                    /**
+	                     * parse results recieved from admin.probtn.com (or local source)
+	                     * @param  {[json]} data json data
+	                     * @return {[type]} 
+	                     */
 	                    function parseResultData(data) {
 	                        if (ProBtnControl.params.Debug) console.log(data);
 	                        try {
-	                            if (ProBtnControl.params.Debug) console.log(data);
-
 	                            try {
 	                                data.result.HintText = HintText;
-	                            } catch (ex) {
-	                            }
+	                            } catch (ex) {}
 
+	                            /**
+	                             * Modify recieved settings - convert percent sizes, etc.
+	                             * @param  {[json]} data 
+	                             * @return {[type]}
+	                             */
 	                            var parseResultDataStep2 = function(data) {
 
 	                                if (data.code == 100) {
@@ -6847,8 +7264,7 @@ var loadProbtn = function (jQuery) {
 	                                        if ((ProBtnControl.params.PassbackCodeSelector === "") || (ProBtnControl.params.PassbackCodeSelector === undefined) || (ProBtnControl.params.PassbackCodeSelector === null)) {
 	                                            ProBtnControl.params.PassbackCodeSelector = "#probtn_passback";
 	                                        }
-	                                    } catch (ex) {
-	                                    }
+	                                    } catch (ex) {}
 	                                    if (ProBtnControl.params.Debug) console.log("after server", ProBtnControl.params);
 	                                    ProBtnControl.params = $.extend(true, ProBtnControl.params, options);
 
@@ -6872,13 +7288,21 @@ var loadProbtn = function (jQuery) {
 	                                    }
 
 	                                    //check params for html code
+	                                    /**
+	                                     * check params for html code and remove unnessesary tags
+	                                     * @param  {[object]} inObject - button params object
+	                                     */
 	                                    var checkHtmlInObject = function(inObject) {
 	                                        try {
 	                                            for (var property in inObject) {
 	                                                if (inObject.hasOwnProperty(property)) {
-	                                                    if (typeof (inObject[property]) == "string") {
+	                                                    if (typeof(inObject[property]) == "string") {
 	                                                        try {
-	                                                            if (property !== "PassbackCustomCode") {
+	                                                            /**
+	                                                             * TODO: add check what ButtonType == js and only then except ContentURL from this check
+	                                                             * Added ContentURL param exception
+	                                                             */
+	                                                            if ((property !== "PassbackCustomCode") && ((property !== "ContentURL"))) {
 	                                                                var before = inObject[property];
 	                                                                //inObject[property] = inObject[property].replace(/<\/?[^>]+(>|$)/g, ""); //$(inObject[property]).text();
 	                                                                inObject[property] = inObject[property].split('<style>').join('')
@@ -6889,8 +7313,7 @@ var loadProbtn = function (jQuery) {
 	                                                                console.log("property", property);
 	                                                                console.log("inObject[property]", inObject[property]);
 	                                                            }
-	                                                        } catch
-	                                                        (ex) {
+	                                                        } catch (ex) {
 	                                                            if (ProBtnControl.params.Debug) console.log(ex);
 	                                                        }
 
@@ -6903,7 +7326,6 @@ var loadProbtn = function (jQuery) {
 	                                    };
 
 	                                    checkHtmlInObject(ProBtnControl.params);
-	                                    console.log("ProBtnControl.additionalButtonFunctions.checkProtocolLinks");
 	                                    ProBtnControl.additionalButtonFunctions.checkProtocolLinks(ProBtnControl.params);
 
 	                                    //show button if we have probtnDebug hash in url
@@ -6923,12 +7345,21 @@ var loadProbtn = function (jQuery) {
 	                                        "padding-right": ProBtnControl.params.HintLabelInsets.R,
 	                                        "padding-bottom": ProBtnControl.params.HintLabelInsets.B,
 	                                        "background": "url('" + ProBtnControl.params.HintImage + "')"
-	                                    };
+	                                    }
 	                                    if ((ProBtnControl.params.HintText === "") || (ProBtnControl.params.HintText === null)) {
 	                                        ProBtnControl.initFunctions.hintTextStyle.display = "none";
 	                                        ProBtnControl.initFunctions.hintTextStyle.opacity = "0.0";
 	                                    }
-	                                }
+
+	                                    //TODO - if it is js execute after click, then load additional libs - postsribe
+	                                    if (ProBtnControl.params.ButtonType == "js") {
+	                                        $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function() {
+	                                            $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function() {
+	                                                ProBtnControl.loadedStatus.postscribe = true;
+	                                            });
+	                                        });
+	                                    }
+	                                } //else end data.code==100
 	                            };
 
 	                            if (ProBtnControl.params.UseGeoLocation === true) {
@@ -6962,8 +7393,7 @@ var loadProbtn = function (jQuery) {
 
 	                        ProBtnControl.additionalButtonFunctions.testSpeed(function(kbs) {
 	                            ProBtnControl.userData.kbs = kbs; //add it to userData object to use it later on requests
-	                            if ((ProBtnControl.params.Debug) && (kbs > 0)) {
-	                            }
+	                            if ((ProBtnControl.params.Debug) && (kbs > 0)) {}
 
 	                            //get one more additional params
 	                            try {
@@ -7008,7 +7438,9 @@ var loadProbtn = function (jQuery) {
 	                                }
 
 	                                try {
-	                                    $.getJSON(settingsUrl, parseResultData).done(function() { if (ProBtnControl.params.Debug) console.log('done settings load'); }).fail(function(jqXHR, textStatus, errorThrown) {
+	                                    $.getJSON(settingsUrl, parseResultData).done(function() {
+	                                        if (ProBtnControl.params.Debug) console.log('done settings load');
+	                                    }).fail(function(jqXHR, textStatus, errorThrown) {
 	                                        if (ProBtnControl.params.Debug) console.log(errorThrown);
 	                                        if (ProBtnControl.params.Debug) console.log(textStatus);
 	                                    }).always(CheckInFrameAndEnabled);
@@ -7062,73 +7494,81 @@ var loadProbtn = function (jQuery) {
 	                    }
 
 	                    var probtn_start_content_showed_timer = false;
+	                    /**
+	                     * Recieve messages from iframe or other sources to execute some available commands
+	                     * List of commands available in our docs (readthedocs)
+	                     * @param  {[type]} event [description]
+	                     * @return {[type]} 
+	                     */
 	                    var receiveMessage = function(event) {
-
 	                        try {
 	                            switch (event.data.command.toLowerCase()) {
-	                            case "probtn_performed_action":
-	                                console.log("probtn_performed_action", event.data);
-	                                var actionValue = "buy";
-	                                if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value !== null)) {
-	                                    actionValue = event.data.value.toLowerCase();
-	                                }
-	                                ProBtnControl.statistics.SendStatisticsData("performedAction", actionValue);
-	                                break;
-	                            case "probtn_start_content_showed_timer":
-	                                if (!probtn_start_content_showed_timer) {
-	                                    ProBtnControl.contentTime.startTimer();
-	                                    probtn_start_content_showed_timer = true;
-	                                }
-	                                break;
-	                            case "probtn_stop_content_showed_timer":
-	                                probtn_start_content_showed_timer = false;
-	                                ProBtnControl.contentTime.endTimer();
-	                                break;
-	                            case "probtn_close":
-	                                window.proBtn.close();
-	                                break;
-	                            case "probtn_hide":
-	                                window.proBtn.hide();
-	                                break;
-	                            case "probtn_hide_content":
-	                                window.proBtn.hideContent();
-	                                break;
+	                                case "probtn_change_content_url":
+	                                    if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value !== null)) {
+	                                        ProBtnControl.params.ContentURL = event.data.value;
+	                                    }
+	                                    break;
+	                                case "probtn_performed_action":
+	                                    var actionValue = "buy";
+	                                    if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value !== null)) {
+	                                        actionValue = event.data.value.toLowerCase();
+	                                    }
+	                                    ProBtnControl.statistics.SendStatisticsData("performedAction", actionValue);
+	                                    break;
+	                                case "probtn_start_content_showed_timer":
+	                                    if (!probtn_start_content_showed_timer) {
+	                                        ProBtnControl.contentTime.startTimer();
+	                                        probtn_start_content_showed_timer = true;
+	                                    }
+	                                    break;
+	                                case "probtn_stop_content_showed_timer":
+	                                    probtn_start_content_showed_timer = false;
+	                                    ProBtnControl.contentTime.endTimer();
+	                                    break;
+	                                case "probtn_close":
+	                                    window.proBtn.close();
+	                                    break;
+	                                case "probtn_hide":
+	                                    window.proBtn.hide();
+	                                    break;
+	                                case "probtn_hide_content":
+	                                    window.proBtn.hideContent();
+	                                    break;
 
-	                            case "button_image_iframe_disable_overlay":
-	                                $("#pizzabtnIframeOverlay").hide();
-	                                break;
-	                            case "probtn_restore_button_size":
-	                                console.log("probtn_restore_button_size");
-	                                ProBtnControl.pizzabtn.css({
-	                                    'width': ProBtnControl.params.ButtonSize.W,
-	                                    'height': ProBtnControl.params.ButtonSize.H,
-	                                    'left': event.data.position.left,
-	                                    'top': event.data.position.top
-	                                });
-	                                console.log({
-	                                    'width': ProBtnControl.params.ButtonSize.W,
-	                                    'height': ProBtnControl.params.ButtonSize.H
-	                                });
-	                                $("#pizzabtnImg").css({
-	                                    'width': ProBtnControl.params.ButtonSize.W,
-	                                    'height': ProBtnControl.params.ButtonSize.H,
-	                                    'opacity': ProBtnControl.params.ButtonOpacity
-	                                });
-	                                break;
-	                            case "button_image_iframe_done":
-	                                $("#pizzabtnIframeOverlay").show();
-	                                break;
-	                            case "button_image_iframe_size":
-	                                $("#pizzabtnIframeOverlay").css({
-	                                    'width': event.data.size.w,
-	                                    'height': event.data.size.h
-	                                });
-	                                break;
-	                            default:
-	                                break;
+	                                case "button_image_iframe_disable_overlay":
+	                                    $("#pizzabtnIframeOverlay").hide();
+	                                    break;
+	                                case "probtn_restore_button_size":
+	                                    console.log("probtn_restore_button_size");
+	                                    ProBtnControl.pizzabtn.css({
+	                                        'width': ProBtnControl.params.ButtonSize.W,
+	                                        'height': ProBtnControl.params.ButtonSize.H,
+	                                        'left': event.data.position.left,
+	                                        'top': event.data.position.top
+	                                    });
+	                                    console.log({
+	                                        'width': ProBtnControl.params.ButtonSize.W,
+	                                        'height': ProBtnControl.params.ButtonSize.H
+	                                    });
+	                                    $("#pizzabtnImg").css({
+	                                        'width': ProBtnControl.params.ButtonSize.W,
+	                                        'height': ProBtnControl.params.ButtonSize.H,
+	                                        'opacity': ProBtnControl.params.ButtonOpacity
+	                                    });
+	                                    break;
+	                                case "button_image_iframe_done":
+	                                    $("#pizzabtnIframeOverlay").show();
+	                                    break;
+	                                case "button_image_iframe_size":
+	                                    $("#pizzabtnIframeOverlay").css({
+	                                        'width': event.data.size.w,
+	                                        'height': event.data.size.h
+	                                    });
+	                                    break;
+	                                default:
+	                                    break;
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        try {
 	                            ProBtnControl.params.ParentParams.width = event.data.width;
@@ -7168,18 +7608,18 @@ var loadProbtn = function (jQuery) {
 	                        id: "probtn_wrapper"
 	                    });
 	                    switch (ProBtnControl.params.ExtrusionMode) {
-	                    case "insertBlock":
-	                        $('head').append('<style type="text/css">#probtn_wrapper { width: 100% !important; display: inline-block !important; position: relative !important; height:' + ProBtnControl.params.ButtonSize.H + 'px !important; } #probtn_button { top: 0px !important; left: 0px !important; width:100% !important; }</style>');
-	                        pizzabtn_wrapper.prependTo(ProBtnControl.params.ExtrusionPath);
-	                        break;
-	                    case "fixedTop":
-	                        $('head').append('<style type="text/css">#probtn_wrapper { width: 100% !important; display: inline-block !important; position: fixed !important;  } #probtn_button { top: 0px !important; left: 0px !important; width:100% !important; }</style>');
-	                        //height:' + ProBtnControl.params.ButtonSize.H + 'px !important;
-	                        pizzabtn_wrapper.prependTo('body');
-	                        break;
-	                    default:
-	                        pizzabtn_wrapper.prependTo('body');
-	                        break;
+	                        case "insertBlock":
+	                            $('head').append('<style type="text/css">#probtn_wrapper { width: 100% !important; display: inline-block !important; position: relative !important; height:' + ProBtnControl.params.ButtonSize.H + 'px !important; } #probtn_button { top: 0px !important; left: 0px !important; width:100% !important; }</style>');
+	                            pizzabtn_wrapper.prependTo(ProBtnControl.params.ExtrusionPath);
+	                            break;
+	                        case "fixedTop":
+	                            $('head').append('<style type="text/css">#probtn_wrapper { width: 100% !important; display: inline-block !important; position: fixed !important;  } #probtn_button { top: 0px !important; left: 0px !important; width:100% !important; }</style>');
+	                            //height:' + ProBtnControl.params.ButtonSize.H + 'px !important;
+	                            pizzabtn_wrapper.prependTo('body');
+	                            break;
+	                        default:
+	                            pizzabtn_wrapper.prependTo('body');
+	                            break;
 	                    }
 	                    ProBtnControl.wrapper = pizzabtn_wrapper;
 	                    //create additionalItemsContainer - to store all additional probtn elements
@@ -7221,7 +7661,7 @@ var loadProbtn = function (jQuery) {
 	                    ProBtnControl.initFunctions.initActiveZones();
 
 
-	//if not fullscreen - load pep and fancybox
+	                    //if not fullscreen - load pep and fancybox
 	                    if (ProBtnControl.params.ButtonType !== "fullscreen") {
 
 	                        var fancyboxFunction = null;
@@ -7230,8 +7670,7 @@ var loadProbtn = function (jQuery) {
 	                            if ((fancyboxFunction !== null) && (fancyboxFunction !== undefined)) {
 	                                fancyboxFunction = jQuery.fancybox.open;
 	                            }
-	                        } catch (ex) {
-	                        }
+	                        } catch (ex) {}
 
 	                        // load fancybox and jquery.pep
 	                        if ((typeof fancyboxFunction === 'function') || (ProBtnControl.params.loadFancyboxJS === false)) {
@@ -7267,7 +7706,11 @@ var loadProbtn = function (jQuery) {
 
 	                                F.wrap.removeClass('fancybox-opened');
 
-	                                $({ deg: 0 }).animate({ deg: 7 * 50 }, {
+	                                $({
+	                                    deg: 0
+	                                }).animate({
+	                                    deg: 7 * 50
+	                                }, {
 	                                    duration: F.current.closeSpeed,
 	                                    step: function(now) {
 	                                        var transform = 'rotateX(' + now / 50 + 'deg) scaleX(' + (1 - now / 720) + ')';
@@ -7282,8 +7725,7 @@ var loadProbtn = function (jQuery) {
 	                                    }
 	                                });
 
-	                                F.wrap.removeClass('fancybox-opened').animate(
-	                                {
+	                                F.wrap.removeClass('fancybox-opened').animate({
 	                                    top: "-300px"
 	                                }, {
 	                                    duration: F.current.closeSpeed
@@ -7308,13 +7750,16 @@ var loadProbtn = function (jQuery) {
 
 	                    ///
 	                    function AllLoadedButtonProcess() {
-	                        
+
 	                        //TODO fix undefined values
 	                        ProBtnControl.statistics.SendStatisticsData();
 	                        ProBtnControl.statistics.SendBrowserStatsInfo();
 
 	                        // show button
 	                        if (ProBtnControl.params.ButtonEnabled && ProBtnControl.params.ButtonVisible) {
+
+	                            //if (ProBtnControl.params.Debug) alert("version - " + ProBtnControl.mainVersion);
+
 	                            ProBtnControl.statistics.checkAdBlock();
 
 	                            ProBtnControl.pizzabtn.show();
@@ -7364,8 +7809,7 @@ var loadProbtn = function (jQuery) {
 	                        var cssEaseDuration = ProBtnControl.params.cssEaseDuration;
 	                        if (ProBtnControl.params.ControlInIframeFromParent === true) {
 	                            cssEaseDuration = 0;
-	                        } else {
-	                        }
+	                        } else {}
 
 	                        //DisableButtonMove
 	                        ProBtnControl.pizzabtn.pep({
@@ -7440,8 +7884,7 @@ var loadProbtn = function (jQuery) {
 	                                    var pizzabtnRect = ProBtnControl.pizzabtn[0].getBoundingClientRect();
 	                                    var closeButtonRect = ProBtnControl.closeButton[0].getBoundingClientRect();
 
-	                                    if ((pizzabtnRect.top + pizzabtnRect.height) > window.innerHeight) {
-	                                    }
+	                                    if ((pizzabtnRect.top + pizzabtnRect.height) > window.innerHeight) {}
 
 	                                    var overlap = !(pizzabtnRect.right < closeButtonRect.left || pizzabtnRect.left > closeButtonRect.right || pizzabtnRect.bottom < closeButtonRect.top || pizzabtnRect.top > closeButtonRect.bottom);
 
@@ -7484,7 +7927,10 @@ var loadProbtn = function (jQuery) {
 	                                                activeZone.attr("src", activeZone.currentActiveZone.InactiveImage);
 	                                            }
 	                                            if ((activeZone.currentActiveZone.ButtonIframeInitialSize === null) || (activeZone.currentActiveZone.ButtonIframeInitialSize === undefined)) {
-	                                                activeZone.currentActiveZone.ButtonIframeInitialSize = { W: 0, H: 0 };
+	                                                activeZone.currentActiveZone.ButtonIframeInitialSize = {
+	                                                    W: 0,
+	                                                    H: 0
+	                                                };
 	                                            }
 
 	                                            if (ProBtnControl.additionalButtonFunctions.checkExistInitIframeSIze(activeZone)) {
@@ -7553,7 +7999,10 @@ var loadProbtn = function (jQuery) {
 	                                            activeZone.attr("src", activeZone.currentActiveZone.InactiveImage);
 	                                        }
 	                                        if ((activeZone.currentActiveZone.ButtonIframeInitialSize === null) || (activeZone.currentActiveZone.ButtonIframeInitialSize === undefined)) {
-	                                            activeZone.currentActiveZone.ButtonIframeInitialSize = { W: 0, H: 0 };
+	                                            activeZone.currentActiveZone.ButtonIframeInitialSize = {
+	                                                W: 0,
+	                                                H: 0
+	                                            };
 	                                        }
 
 	                                        if (ProBtnControl.additionalButtonFunctions.checkExistInitIframeSIze(activeZone)) {
@@ -7677,8 +8126,7 @@ var loadProbtn = function (jQuery) {
 	                    //HideButtonAfterAjaxUpdate
 	                    //Checking this to hide button if page is "changed" on some js app
 	                    if (ProBtnControl.params.CheckPageAjaxUpdate === true) {
-	                        if ("onhashchange" in window) {
-	                        }
+	                        if ("onhashchange" in window) {}
 
 	                        var locationHashChanged = function() {
 	                            if (ProBtnControl.params.HideButtonAfterAjaxUpdate === true) {
