@@ -3482,14 +3482,22 @@ var loadProbtn = function (jQuery) {
 	                            //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
 	                            if ((ProBtnControl.currentScrollZone.Name !== scrollZone.Name) || (!$("#pizzabtnImg", ProBtnControl.pizzabtn).hasClass("pizzabtnImg_iframe_cached"))) {
 
+	                                console.log("scrollZone.Name", scrollZone.Name);
+
 	                                //TODO: showing iframe from cahced items
 	                                if (scrollZone.ButtonImageType === "iframe") {
-	                                    if ((scrollZone.CustomContentURL !== ProBtnControl.currentScrollZone.CustomContentURL) || (scrollZone.ButtonImageType !== ProBtnControl.currentScrollZone.ButtonImageType)) {
+	                                    if ((scrollZone.CustomContentURL !== ProBtnControl.currentScrollZone.CustomContentURL) || (scrollZone.ButtonImageType !== ProBtnControl.currentScrollZone.ButtonImageType) || (scrollZone.ButtonImage !== ProBtnControl.currentScrollZone.ButtonImage)) {
 	                                        $("#pizzabtnImg", ProBtnControl.pizzabtn).hide();
 	                                        $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("id", "");
 
-	                                        $(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).attr("id", "pizzabtnImg");
-	                                        $(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).show();
+	                                        //
+	                                        if ($(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).length>0) {
+	                                            $(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).attr("id", "pizzabtnImg");
+	                                            $(".pizzabtnImg_iframe_cached[rel='" + scrollZone.Name + "']", ProBtnControl.pizzabtn).show();
+	                                        } else {
+	                                            $(".pizzabtnImg_iframe_cached." + scrollZone.Name + "", ProBtnControl.pizzabtn).attr("id", "pizzabtnImg");
+	                                            $(".pizzabtnImg_iframe_cached." + scrollZone.Name + "", ProBtnControl.pizzabtn).show();
+	                                        }
 	                                    }
 	                                } else {
 	                                    //$("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
@@ -4000,6 +4008,142 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                    pizzabtn_wrapper.css(opts);
 
+	                    /**
+	                     * extrusion mode of button
+	                     * @param  {[string]} ProBtnControl.params.ExtrusionMode - extrusion type
+	                     */
+	                    var extrusionMode_params = ProBtnControl.params.ExtrusionMode.split('_');
+	                    switch (extrusionMode_params[0]) {
+
+	                        case "topButton":
+	                            //$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
+	                            $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
+	                            break;
+	                        case "topButtonTimeout":
+	                            var time = extrusionMode_params[1];
+	                            var extrusionMode_width = parseInt(extrusionMode_params[2]);
+	                            var extrusionMode_height = parseInt(extrusionMode_params[3]);
+
+	                            //console.log("extrusionMode_params", extrusionMode_params, extrusionMode_width, extrusionMode_height);
+
+	                            //$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
+	                            $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
+	                            setTimeout(function() {
+	                                $("#extrusionMode_topButton").remove();
+	                                ProBtnControl.params.ButtonSize.W = extrusionMode_width;
+	                                ProBtnControl.params.ButtonSize.H = extrusionMode_height;
+	                                ProBtnControl.params.ButtonSize.Initial = {};
+
+	                                console.log("ProBtnControl.params.ButtonSize1", ProBtnControl.params.ButtonSize);
+
+	                                //ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
+
+	                                console.log("ProBtnControl.params.ButtonSize2", ProBtnControl.params.ButtonSize);
+
+	                                if (ProBtnControl.params.ButtonImageType == 'iframe') {
+	                                    ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
+	                                }
+
+	                                console.log("extrusionMode_params",extrusionMode_params);
+
+	                                $(ProBtnControl.pizzabtn).css({
+	                                    'width': ProBtnControl.params.ButtonSize.W,
+	                                    'height': ProBtnControl.params.ButtonSize.H
+	                                });
+
+	                                $("#pizzabtnIframeOverlay").css({
+	                                    'width': ProBtnControl.params.ButtonSize.W,
+	                                    'height': ProBtnControl.params.ButtonSize.H
+	                                });
+	                            }, time);
+	                            break;
+	                        case "topButtonScroll":
+	                            var percent = extrusionMode_params[1];
+	                            var extrusionMode_width = parseInt(extrusionMode_params[2]);
+	                            var extrusionMode_height = parseInt(extrusionMode_params[3]);
+
+	                            //$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
+	                            $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
+
+	                            var topButtonScrollTriggered = false;
+
+	                            var onScroll_topButtonScroll = function(e) {
+	                                //console.log("onScroll_topButtonScroll", e);
+
+	                                var doc = document.documentElement;
+	                                var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+	                                var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+
+	                                var topButton = (window.innerHeight - (ProBtnControl.params.ButtonSize.H / 2)) * (ProBtnControl.params.ButtonPosition.Y);
+
+	                                var ua = navigator.userAgent.toLowerCase();
+	                                var isOpera = (ua.indexOf('opera') > -1);
+	                                var isIE = (!isOpera && ua.indexOf('msie') > -1);
+
+	                                var getViewportHeight = function() {
+	                                    return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat') ? document.documentElement.clientHeight : document.body.clientHeight : (document.parentWindow || document.defaultView).innerHeight;
+	                                };
+
+	                                var getDocumentHeight = function() {
+	                                    return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
+	                                };
+
+	                                var currentButtonHeight = ProBtnControl.pizzabtn.position().top;
+	                                var buttonHeight = currentButtonHeight + top;
+
+	                                //console.log("top", top, top/getDocumentHeight());
+
+	                                if ((top/getDocumentHeight() > percent) && (topButtonScrollTriggered === false)) {
+
+	                                    topButtonScrollTriggered = true;
+
+	                                    ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+	                                        message: "probtn_banner_to_button"
+	                                    });
+
+	                                    $("#extrusionMode_topButton").remove();
+	                                    ProBtnControl.params.ButtonSize.W = extrusionMode_width;
+	                                    ProBtnControl.params.ButtonSize.H = extrusionMode_height;
+	                                    ProBtnControl.params.ButtonSize.Initial = {};
+
+	                                    //console.log("ProBtnControl.params.ButtonSize1", ProBtnControl.params.ButtonSize);
+
+	                                    //ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
+
+	                                    //console.log("ProBtnControl.params.ButtonSize2", ProBtnControl.params.ButtonSize);
+
+	                                    if (ProBtnControl.params.ButtonImageType == 'iframe') {
+	                                        ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
+	                                    }
+
+	                                    //console.log("extrusionMode_params",extrusionMode_params);
+
+	                                    $(ProBtnControl.pizzabtn).css({
+	                                        'width': ProBtnControl.params.ButtonSize.W,
+	                                        'height': ProBtnControl.params.ButtonSize.H
+	                                    });
+
+	                                    $("#pizzabtnIframeOverlay").css({
+	                                        'width': ProBtnControl.params.ButtonSize.W,
+	                                        'height': ProBtnControl.params.ButtonSize.H
+	                                    });
+	                                }
+	                            };
+
+	                            $(window).scroll(onScroll_topButtonScroll);
+	                            break;
+	                        case "insertBlock":
+	                            pizzabtnCss.width = "100%";
+	                            break;
+	                        case "fixedTop":
+	                            pizzabtnCss.width = "100%";
+	                            /*$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
+	                                $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: fixed !important; }</style>');*/
+	                            break;
+	                        default:
+	                            break;
+	                    }
+
 	                    //var btn = undefined;
 	                    var btn = $("#probtn_button");
 
@@ -4080,27 +4224,6 @@ var loadProbtn = function (jQuery) {
 	                            '-o-transition-property': 'opacity, width, height',
 	                            '-o-timing-function': 'linear'
 	                        };
-	                    }
-
-	                    /**
-	                     * extrusion mode of button
-	                     * @param  {[string]} ProBtnControl.params.ExtrusionMode - extrusion type
-	                     */
-	                    switch (ProBtnControl.params.ExtrusionMode) {
-	                        case "topButton":
-	                            $('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
-	                            $('head').append('<style type="text/css">#probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
-	                            break;
-	                        case "insertBlock":
-	                            pizzabtnCss.width = "100%";
-	                            break;
-	                        case "fixedTop":
-	                            pizzabtnCss.width = "100%";
-	                            /*$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
-	                                $('head').append('<style type="text/css">#probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: fixed !important; }</style>');*/
-	                            break;
-	                        default:
-	                            break;
 	                    }
 
 	                    var pizzabtnImg = null;
@@ -4879,7 +5002,7 @@ var loadProbtn = function (jQuery) {
 	                            scaleY = ButtonSize.H * 0.8 / ButtonIframeInitialSize.H;
 	                        }
 
-	                        console.log("scale", scaleX, scaleY);
+	                        //console.log("scale", scaleX, scaleY);
 
 	                        iframeItem.css("width", ButtonIframeInitialSize.W);
 	                        iframeItem.css("height", ButtonIframeInitialSize.H);
@@ -5058,6 +5181,7 @@ var loadProbtn = function (jQuery) {
 	                                for (var j = 0; j < ProBtnControl.params.ScrollZones.length; j++) {
 	                                    if (j !== i) {
 	                                        if ($(".pizzabtnImg_iframe_cached[rel='" + ProBtnControl.params.ScrollZones[j].Name + "']", ProBtnControl.pizzabtn).attr("src") === scrollZone.ButtonImage) {
+	                                            $(".pizzabtnImg_iframe_cached[rel='" + ProBtnControl.params.ScrollZones[j].Name + "']", ProBtnControl.pizzabtn).addClass(scrollZone.Name);
 	                                            duplicate = true;
 	                                        }
 
@@ -5065,7 +5189,7 @@ var loadProbtn = function (jQuery) {
 	                                }
 	                                if (duplicate === false) {
 	                                    pizzabtnImg = $("<iframe/>", {
-	                                        class: "pizzabtnImg_iframe_cached",
+	                                        class: "pizzabtnImg_iframe_cached " + scrollZone.Name,
 	                                        scrolling: 'no',
 	                                        //id: "pizzabtnImg",
 	                                        rel: scrollZone.Name,
@@ -5098,6 +5222,14 @@ var loadProbtn = function (jQuery) {
 	                        params: ProBtnControl.params,
 	                        button: ProBtnControl.pizzabtn.position()
 	                    });
+	                },
+	                sendMessageToCreative: function(object) {
+	                    if ($("#pizzabtnImg").is("iframe")) {
+
+	                        var myIframe = document.getElementById('pizzabtnImg');
+	                        console.log("myIframe", myIframe);
+	                        myIframe.contentWindow.postMessage(object, '*');
+	                    }
 	                },
 	                sendCustomMessageToParent: function(object) {
 	                    if (ProBtnControl.params.ControlInIframeFromParent === true) {
@@ -5574,13 +5706,16 @@ var loadProbtn = function (jQuery) {
 
 	                            var onScrollRollAnimation = function(e) {
 	                                //send message about scroll
-	                                if ($("#pizzabtnImg").is("iframe")) {
+	                                /*if ($("#pizzabtnImg").is("iframe")) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
 	                                    myIframe.contentWindow.postMessage({
 	                                        message: "probtn_page_scroll"
 	                                    }, '*');
-	                                }
-
+	                                }*/
+	                                //TODO: check new function
+	                                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+	                                    message: "probtn_page_scroll"
+	                                });
 
 	                                var rollOutPercent = 80;
 	                                try {
@@ -5860,13 +5995,17 @@ var loadProbtn = function (jQuery) {
 	                            ProBtnControl.pizzabtn.stop(true, true);
 
 	                            var probtnIframeEvent = function(name, data) {
-	                                if ($("#pizzabtnImg").is("iframe")) {
+	                                /*if ($("#pizzabtnImg").is("iframe")) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
 	                                    myIframe.contentWindow.postMessage({
 	                                        message: name,
 	                                        data: data
 	                                    }, '*');
-	                                }
+	                                }*/
+	                                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+	                                        message: name,
+	                                        data: data
+	                                });
 	                            };
 
 	                            setTimeout(function() {
@@ -5956,12 +6095,15 @@ var loadProbtn = function (jQuery) {
 	                            ProBtnControl.pizzabtn.stop(true, true);
 
 	                            var probtnIframeEvent = function(name) {
-	                                if ($("#pizzabtnImg").is("iframe")) {
+	                                /*if ($("#pizzabtnImg").is("iframe")) {
 	                                    var myIframe = document.getElementById('pizzabtnImg');
 	                                    myIframe.contentWindow.postMessage({
 	                                        message: name
 	                                    }, '*');
-	                                }
+	                                }*/
+	                                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+	                                        message: name
+	                                });
 	                            };
 
 	                            setTimeout(function() {
