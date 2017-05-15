@@ -1619,6 +1619,7 @@ var loadProbtn = function (jQuery) {
 	                                    var myIframe = document.getElementById(frame_id);
 	                                    if (myIframe.contentWindow !== null) {
 	                                        iframeLoadedSend = true;
+	                                        console.log("iframe_showed_and_loaded");
 	                                        myIframe.contentWindow.postMessage({
 	                                            message: "iframe_showed_and_loaded"
 	                                        }, '*');
@@ -1680,6 +1681,7 @@ var loadProbtn = function (jQuery) {
 	                                    var myIframe = document.getElementById(frame_id);
 	                                    if (myIframe.contentWindow !== null) {
 	                                        iframeLoadedSend = true;
+	                                        console.log("iframe_showed_and_loaded");
 	                                        myIframe.contentWindow.postMessage({
 	                                            message: "iframe_showed_and_loaded"
 	                                        }, '*');
@@ -5620,8 +5622,12 @@ var loadProbtn = function (jQuery) {
 
 	                        var animations = animationName.split('_');
 	                        var path = "";
+	                        var text = ProBtnControl.params.animationData;
+	                        ProBtnControl.params.animationData = $('<div/>').html(text).text();
+
 	                        try {
 	                            console.log("ProBtnControl.params.animationData", ProBtnControl.params.animationData);
+	                            console.log("decodeURI ProBtnControl.params.animationData",decodeURI(ProBtnControl.params.animationData));
 	                            path = JSON.parse(ProBtnControl.params.animationData);
 	                        } catch (ex) {
 	                            console.log(ex);
@@ -6806,7 +6812,7 @@ var loadProbtn = function (jQuery) {
 	                        L: 8.0,
 	                        R: 8.0
 	                    },
-	                    HintText: "Press me", // Текст
+	                    HintText: "", // Текст
 	                    HintFont: {
 	                        // Шрифт
 	                        Family: "Arial",
