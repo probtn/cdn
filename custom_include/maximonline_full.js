@@ -2408,7 +2408,8 @@ var loadProbtn = function (jQuery) {
 	                        clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
 	                        if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
 	                            clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
-	                        }"probtn_ClickCounterLink_" + currentName
+	                        }
+	                        //"probtn_ClickCounterLink_" + currentName
 
 	                        var prependBlock = ProBtnControl.additionalItemsContainer;
 	                        if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
