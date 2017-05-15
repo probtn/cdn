@@ -12,7 +12,7 @@ lib.properties = {
 	opacity: 0.00,
 	webfonts: {},
 	manifest: [
-		{src:"LS.png", id:"LS"}
+		{src:"ls.png", id:"LS"}
 	]
 };
 
