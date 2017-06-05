@@ -56,7 +56,10 @@ module.exports = function(grunt) {
 			//'bower/showinparent_concat.js': ['showinparent_concat.js'],
 			'custom_include/maximonline.js': ['custom_include/maximonline_full.js'],
 			'custom_include/maximonline.ru.js': ['custom_include/maximonline_full.js'],
-			'custom_include/probtn_kp.js': ['custom_include/probtn_kp_full.js']
+			'custom_include/probtn_kp.js': ['custom_include/probtn_kp_full.js'],
+			'libs/jquery.pep.min.js': ['libs/jquery.pep.js'],
+			'libs/postscribe/postscribe.js': ['libs/postscribe/postscribe_full.js'],
+			'libs/postscribe/htmlParser.js': ['libs/postscribe/htmlParser_full.js']
 			//'probtn_concat.js': ['probtn_concat_full.js']
           }
         },
