@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            html, body {
+                margin: 0px;
+                padding:  0px;
+            }
+            iframe {
+                position: absolute;
+                top: 0px;
+                left:  0px;
+                border: 0px;
+            }
+            #a3 {
+                display: block;
+                width: 200px;
+                height: 130px;
+            }
+        </style>
+    </head>
+    <body>
+        <iframe id="a1" scrolling="no" style="width: 200px; height: 130px;" src="index1.html" alt="a1"></iframe>
+        <iframe id="a2" scrolling="no" style="width: 200px; height: 130px; display: none;" src="index2.html" alt="a2"></iframe>
+        
+        <iframe id="a3" scrolling="no" style="width: 200px; height: 130px; display: none;" src="index3.html" alt="a3"></iframe>
+        <!--<div id="a3" style="display: none;">
+            <center>
+            <img src="car_4@2x.png" style="width: 200px; height: 59px;" />
+            <div id="text" style="display: none;">
+                <img src="text_1@2x.png" style="width: 160px; height: 22px;" />
+                <img src="text_2@2x.png" style="width: 180px; height: 20px;" />
+            </div>
+            </center>
+        </div>-->
+
+        <script>
+            $(document).ready(function () {
+                setTimeout(function () {
+                    $("#a1").hide();
+                    $("#a2").show();
+                }, 3500);
+            });
+
+            window.addEventListener("message", receiveMessage, false);
+            function receiveMessage(event) {
+                //console.log(event);
+                if (event.data.message == "probtn_forwardAndStop_stop") {
+                    var myIframe = document.getElementById('a3');
+                    myIframe.contentWindow.postMessage(event.data, '*');
+                    //$("body").append('<iframe id="a3" scrolling="no" style="width: 200px; height: 130px; display: none;" src="mers_anim_3/" alt="a3"></iframe>');
+                    //$("#a3").show();
+                    setTimeout(function () { 
+                        $("#a1").hide();
+                        $("#a2").hide();
+                        $("#a3").show();
+                    //$("#text").fadeIn(1000);
+                    }, 600);
+                    
+                }
+            }            
+        </script>
+    </body>
+</html>

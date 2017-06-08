@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>ProBtn video example</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		<style>
+			html, body {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			
+			#cached {
+				display: none;
+			}
+			.rotate {
+				/* Safari */
+				-webkit-transform: rotate(-90deg);
+
+				/* Firefox */
+				-moz-transform: rotate(-90deg);
+
+				/* IE */
+				-ms-transform: rotate(-90deg);
+
+				/* Opera */
+				-o-transform: rotate(-90deg);
+
+				/* Internet Explorer */
+				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+				
+				transform-origin: 0% 0%;
+				-ms-transform-origin: 0% 0%;
+				-webkit-transform-origin: 0% 0%;
+			}
+			
+			@font-face {
+			  font-family: LOKICOLA;
+			  src: url(LOKICOLA.TTF);
+			}
+			
+			.white {
+				color: white;
+				font-size: 26px;
+				position: absolute;
+				z-index: 2;
+				font-family: LOKICOLA;
+				margin-left: 22px;
+				padding: 0px;
+				margin-top: 100px;
+			}
+			
+			#wrapper {
+				width: 85px; height: 137px;
+				overflow: hidden;
+				display: inline-block;
+			}
+			
+			#input_wrapper {
+				display: inline-block;
+				margin: 0px;
+				width: 122px;
+				/* top: 0px; */
+				/* position: relative; */
+				height: 70px;
+				vertical-align: top;
+			}
+			
+			#name {
+				background: white;
+				border-radius: 4px;
+				border: 1px solid gray;
+				padding: 5px;
+				width: 102px; 
+				margin-left: 5px; 
+				margin-right: 5px;
+			}
+		</style>
+    </head>
+    <body>
+		
+		<div id="wrapper">
+			<img id="backImage" src="images/coca_2@2x.png" style="left: 0px; right: 0px; position: absolute; width: 85px; height: 137px;" alt="cocacola"/>
+			
+			<img id="mainImage" src="images/coca_1@2x.png" style="left: 0px; right: 0px; position: absolute; width: 85px; height: 137px;" alt="cocacola"/>
+			<span style="display: none;" class="white">font</span>
+		</div>
+		
+		<div id="input_wrapper">
+			<img src="images/text@2x.png" style="width:  122px; height: 45px; margin-bottom: 5px;" alt="what is your name"/><br/>
+			<input id="name" type="text" placeholder="name" style=""/><br/>
+			<a target="_blank" id="fb_share" style="display: none;" rel="http://www.facebook.com/sharer.php?u=http://demo.probtn.com/button_example2/cocacola_name/image.php?text=" href="">
+			<img src="images/fb_btn@2x.png" style="width: 101px; height: 31px; margin-top: 5px;" alt="fb"/>
+			</a>
+			<!--<button id="submit">Submit</button>-->
+		</div>
+		
+		<div id="cached">
+			<img src="images/coca_1@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+			<img src="images/coca_2@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+			<img src="images/coca_3@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+			<img src="images/coca_4@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+			<img src="images/coca_5@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+			<img src="images/coca_6@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+			<img src="images/coca_7@2x.png" style="width: 85px; height: 137px;" alt="cocacola"/>
+		</div>
+	
+		<script>
+      $(document).ready(function () {
+
+          //window.top.postMessage({command: "button_image_iframe_disable_overlay"}, "*");
+          window.top.postMessage({ command: "button_image_iframe_size", size: { w: 85, h: 137, l: 0, r: 0} }, "*");
+
+          var name = "";
+          var images = ["images/coca_1@2x.png", "images/coca_2@2x.png", "images/coca_3@2x.png",
+          "images/coca_4@2x.png", "images/coca_5@2x.png", "images/coca_7@2x.png"];
+
+          var startAnimation = function () {
+              var count = 1;
+              $("#text").remove();
+              var interval = setInterval(function () {
+                  var image = $("#mainImage");
+                  image.fadeOut(100, function () {
+                      image.attr('src', images[count]);
+                      count++;
+                      image.fadeIn(100, function () {
+                          if ((count) > images.length) {
+                              $("#backImage").hide();
+                          } else {
+                              $("#backImage").attr('src', images[count]);
+                          }
+                      });
+
+                      if (count > images.length) {
+                          if ($("#text").length < 1) {
+                              $("#wrapper").prepend("<span id='text' class='rotate white'>" + name + "</span>");
+                              $("#text").css({
+                                  "margin-top": (($("#mainImage").height() / 2) +
+                                    ($("#text").width() / 2) - 10) + "px"
+                              });
+
+                              setTimeout(function () { 
+                                  $("#text").css({
+                                      "margin-top": (($("#mainImage").height() / 2) +
+                                        ($("#text").width() / 2) - 10) + "px"
+                                  });
+                              }, 100);
+                          }
+
+                          clearInterval(interval);
+                      }
+                  });
+              }, 250);
+          }
+
+          var startButton = function () {
+              //$("#input_wrapper").hide();
+              //$("#wrapper").show();
+              name = $("#name").val();
+			  $("#fb_share").attr("href", $("#fb_share").attr("rel")+name);
+			  $("#fb_share").show();
+
+
+              window.top.postMessage({ command: "button_image_iframe_done" }, "*");
+
+              startAnimation();
+          }
+
+          $("#name").keypress(function (event) {
+              if (event.which == 13) {
+                  event.preventDefault();
+                  startButton();
+              } else {
+                  if ($("#name").val().length > 11) {
+                      $("#name").val($("#name").val().substring(0, 10));
+                  }
+              }
+
+          });
+
+          $("#submit").click(function () {
+              startButton();
+          });
+
+      });
+		</script>	
+	
+        <!--<img src="screencapture-tuko.jpg" style="width:  100%; margin:  0px;" alt="vesti"/>
+        <script>
+            $(document).ready(function () {
+                $.getScript('//demo.probtn.com/probtn.js', function () { 
+                    ////cdn.probtn.com/probtn.js
+                    $(document).StartButton({
+                        'mainStyleCss': '//demo.probtn.com/style.css',
+                        'MenuTemplateVariant': 'radialcorner'
+                    });
+                });
+            });
+		</script>-->
+    </body>
+</html>

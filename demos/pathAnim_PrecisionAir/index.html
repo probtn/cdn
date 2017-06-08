@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>ProBtn example</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            body {
+                margin: 0px;
+                padding:  0px;
+            }
+            #probtn_wrapper {
+            }
+        </style>
+    </head>
+
+    <body>
+        <img src="../../button_example/screencapture-m-tuko-2.jpg" style="width:  100%; margin:  0px;" alt="Tuko"/>
+        <script>
+            $(document).ready(function () {
+                $.getScript('//cdn.probtn.com/probtn.js', function () { 
+                    ////cdn.probtn.com/probtn.js
+                    $(document).StartButton({
+                        'domain': 'probtn.com'
+                    });
+                });
+            });
+    </script>
+    </body>
+</html>

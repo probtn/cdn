@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>Orienation and accelerometr</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            html, body {
+                margin: 0px;
+                padding: 0px;
+                height:  100%;
+                width: 100%;
+            }
+            #sphere {
+               display: inline-block;
+               width: 197px;
+               height: 300px; 
+               background: url(images/glass_snow_ball.png);
+               /*background-color: green;*/
+            }
+            .red {
+                /*background-color: red !important;*/
+            }            
+        </style>
+    </head>
+    <body>
+        <div id="image_container">
+            <img src="images/mandms_1.png" id="image" alt="mandms"/>
+        </div>
+
+        <div id="orientation" style="display: none;">
+            <span>alpha: <i id="alpha"></i></span><br/>
+            <span>beta: <i id="beta"></i></span><br/>
+            <span>gamma: <i id="gamma"></i></span><br/>
+            <span>orient: <i id="orient"></i></span><br/>
+            <span>orient: <i id="img_debug"></i></span><br/>
+        </div>
+
+        <div id="acceleration" style="display: none;">
+            <span>x: <i id="x"></i></span><br/>
+            <span>y: <i id="y"></i></span><br/>
+            <span>z: <i id="z"></i></span><br/>
+            <span>active: <i id="active"></i></span>
+        </div>
+
+        <script>
+            /*window.addEventListener('deviceorientation', function (event) {
+                if (event.alpha !== null) {
+                    var msg = "deviceorientation " + event.alpha + ' : ' + event.beta + ' : ' + event.gamma;
+                    console.log(msg);
+                    //$("#eventsList").prepend("<span>" + msg + "</span><br/>");
+                    $("#orientation #alpha").text(event.alpha);
+                    $("#orientation #beta").text(event.beta);
+                    $("#orientation #gamma").text(event.gamma);
+
+                    checkOrientation(event.gamma);
+                }
+            });*/
+
+            window.addEventListener("message", receiveMessage, false);
+
+            function receiveMessage(event)
+            {
+                if ((event.data!==null) && (event.data!==undefined)) {
+                    if (event.data.message === "probtn_page_deviceorientation") {
+
+                        $("#orientation #alpha").text(event.data.dataEvent.alpha);
+                        $("#orientation #beta").text(event.data.dataEvent.beta);
+                        $("#orientation #gamma").text(event.data.dataEvent.gamma);
+
+                        checkOrientation(event.data.dataEvent.gamma);
+                    }
+                }
+            }
+
+            function checkOrientation(orient) {
+                orient = Math.abs(orient);
+                console.log("orient");
+                $("#orient").text(orient);
+                if ((orient >= 0) && (orient < 15)) {
+                    $("#image").attr("src", "images/mandms_1.png");
+                    $("#img_debug").text("images/mandms_1.png");
+                }
+                if ((orient >= 15) && (orient < 30)) {
+                    $("#image").attr("src", "images/mandms_2.png");
+                    $("#img_debug").text("images/mandms_2.png");
+                }
+                if ((orient >= 30) && (orient < 45)) {
+                    $("#image").attr("src", "images/mandms_3.png");
+                    $("#img_debug").text("images/mandms_3.png");
+                }
+                if ((orient >= 45) && (orient < 60)) {
+                    $("#image").attr("src", "images/mandms_4.png");
+                    $("#img_debug").text("images/mandms_4.png");
+                }
+                if ((orient >= 60) && (orient < 90)) {
+                    $("#image").attr("src", "images/mandms_5.png");
+                    $("#img_debug").text("images/mandms_5.png");
+                }
+
+
+                /*if ((orient >= 90) && (orient < 105)) {                    
+                $("#image").attr("src", "images/mandms_1.png");
+                $("#img_debug").text("images/mandms_1.png");                    
+                }
+                if ((orient >= 105) && (orient < 120)) {
+                $("#image").attr("src", "images/mandms_2.png");
+                $("#img_debug").text("images/mandms_2.png");  
+                }
+                if ((orient >= 120) && (orient < 135)) {
+                $("#image").attr("src", "images/mandms_3.png");
+                $("#img_debug").text("images/mandms_3.png");  
+                }
+                if ((orient >= 135) && (orient < 150)) {
+                $("#image").attr("src", "images/mandms_4.png");
+                $("#img_debug").text("images/mandms_4.png");  
+                }
+                if ((orient >= 150) && (orient < 180)) {
+                $("#image").attr("src", "images/mandms_5.png");
+                $("#img_debug").text("images/mandms_5.png");  
+                }*/
+            }
+
+            function randomInteger(min, max) {
+                var rand = min + Math.random() * (max - min)
+                rand = Math.round(rand);
+                return rand;
+            }
+
+        </script>
+    </body>
+</html>

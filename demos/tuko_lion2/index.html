@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>ProBtn example</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            body {
+                margin: 0px;
+                padding:  0px;
+            }
+            #probtn_wrapper {
+            }
+        </style>
+    </head>
+    <body>
+        <img id="bg" style="width:  100%; margin:  0px;" alt="bazaar.ru"/>
+        <script src="https://demo.probtn.com/bg-change.js"></script>
+        <script>
+            function isFunction(functionToCheck) {
+             var getType = {};
+             return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+            }
+
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+            var context = new AudioContext();
+
+            var isUnlocked = false;
+            var isIOS = false;
+            function unlock(callback) {
+                try {
+                    console.log("unlock");
+                    if (isIOS || this.unlocked) {
+                        console.log("return");
+                        callback();
+                        return;
+                    }
+
+                    // create empty buffer and play it
+                    var buffer = context.createBuffer(1, 1, 22050);
+                    var source = context.createBufferSource();
+                    source.buffer = buffer;
+                    source.connect(context.destination);
+                    try {
+                        if (isFunction(source.noteOn)) {
+                            source.noteOn(0);
+                        } else {
+                            source.start(0); 
+                        }                        
+                    } catch (ex) {
+                        console.log(ex);
+                        source.start(0); 
+                    }
+
+
+                    // by checking the play state after some time, we know if we're really unlocked
+                    setTimeout(function () {
+                        console.log("source.playbackState", source.playbackState);
+                        if ((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
+                            isUnlocked = true;
+                            callback();
+                        } else {
+                            callback();
+                        }
+                    }, 0);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            }
+
+            function init() {
+                try {
+                    console.log("init");
+                    // Fix up for prefixing                    
+
+                    function loadDogSound(url) {
+                        var request = new XMLHttpRequest();
+                        request.open('GET', url, true);
+                        request.responseType = 'arraybuffer';
+
+                        function onError(e) {
+                            console.log(e);
+                        }
+
+                        // Decode asynchronously
+                        request.onload = function () {
+                            context.decodeAudioData(request.response, function (buffer) {
+                                dogBarkingBuffer = buffer;
+                                playSound(dogBarkingBuffer);
+                            }, onError);
+                        }
+                        request.send();
+                    }
+
+                    function playSound(buffer) {
+                        console.log("playSound");
+                        var source = context.createBufferSource(); // creates a sound source
+                        source.buffer = buffer;                    // tell the source which sound to play
+                        source.connect(context.destination);       // connect the source to the context's destination (the speakers)
+                        source.start(0);                           // play the source now
+                        // note: on older systems, may have to use deprecated noteOn(time);
+                    }
+
+                    loadDogSound("lion.mp3");
+                }
+                catch (e) {
+                    console.log(e);
+                    //alert('Web Audio API is not supported in this browser');
+                }
+            }
+
+            var notStarted = true;
+
+            /*window.addEventListener('touchstart', function () {
+                console.log(notStarted, "notStarted");
+                if (notStarted) {
+                    try {
+                        unlock(function () {
+                            if (notStarted) {
+                                console.log("start1");
+                                notStarted = false;
+                                init();
+                            }
+                        });
+
+                    } catch (ex) {
+                        //alert(ex);
+                    }
+                }
+            }, false);*/
+
+            $(document).ready(function () {
+                $.getScript('//cdn.probtn.com/probtn.js', function () {
+                    ////cdn.probtn.com/probtn.js
+                    $(document).StartButton({
+                        'domain': 'probtn.com'
+                    });
+                });
+            });
+    </script>
+    </body>
+</html>
