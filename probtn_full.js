@@ -5498,8 +5498,13 @@ probtn_initTrackingLinkTest();
                             var converPointList = function(initPointList) {
                                 var pointList = [];
                                 var initPointList_length = initPointList.length;
+                                    
+                                var ax, ab, countadd = 0;
 
-                                pointList[0] = [ProBtnControl.pizzabtn.position().left, ProBtnControl.pizzabtn.position().top];
+                                if (initPointList[0].relative !== true) {
+                                    pointList[0] = [ProBtnControl.pizzabtn.position().left, ProBtnControl.pizzabtn.position().top];
+                                    countadd = 1;
+                                }                                
 
                                 for (var i = 0; i < initPointList_length; i++) {
                                     var x = initPointList[i].x;
@@ -5510,7 +5515,23 @@ probtn_initTrackingLinkTest();
                                         y = Math.round(initPointList[i].y * ProBtnControl.additionalButtonFunctions.getWindowHeight());
                                     }
 
-                                    pointList[i + 1] = [x, y];
+                                    if (i===0) {
+                                        ax = ProBtnControl.pizzabtn.position().left - x;
+                                        ay = ProBtnControl.pizzabtn.position().top - y;
+                                        /*console.log("ax", ax);
+                                        console.log("ay", ay);
+                                        console.log("ProBtnControl.pizzabtn.position().left", ProBtnControl.pizzabtn.position().left);
+                                        console.log("ProBtnControl.pizzabtn.position().top", ProBtnControl.pizzabtn.position().top);
+                                        console.log("initPointList[i].relative", initPointList[i].relative);*/
+                                    }
+
+                                    if (initPointList[i].relative === true) {
+                                        //console.log("relative");
+                                        y = y + ay;
+                                        x = x + ax;
+                                    }
+
+                                    pointList[i + countadd] = [x, y];
                                 };
                                 console.log("new pointList", pointList, JSON.stringify(pointList));
 
@@ -5584,8 +5605,9 @@ probtn_initTrackingLinkTest();
                         var text = ProBtnControl.params.animationData;
                         ProBtnControl.params.animationData = $('<div/>').html(text).text();
 
+                        console.log("ProBtnControl.params.animationData", ProBtnControl.params.animationData);
                         try {
-                            console.log("ProBtnControl.params.animationData", ProBtnControl.params.animationData);
+                            
                             console.log("decodeURI ProBtnControl.params.animationData",decodeURI(ProBtnControl.params.animationData));
                             path = JSON.parse(ProBtnControl.params.animationData);
                         } catch (ex) {
