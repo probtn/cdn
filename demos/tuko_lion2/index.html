@@ -16,7 +16,7 @@
     </head>
     <body>
         <img id="bg" style="width:  100%; margin:  0px;" alt="bazaar.ru"/>
-        <script src="https://demo.probtn.com/bg-change.js"></script>
+        <script src="https://cdn.probtn.com/bg-change.js"></script>
         <script>
             function isFunction(functionToCheck) {
              var getType = {};
@@ -111,24 +111,6 @@
             }
 
             var notStarted = true;
-
-            /*window.addEventListener('touchstart', function () {
-                console.log(notStarted, "notStarted");
-                if (notStarted) {
-                    try {
-                        unlock(function () {
-                            if (notStarted) {
-                                console.log("start1");
-                                notStarted = false;
-                                init();
-                            }
-                        });
-
-                    } catch (ex) {
-                        //alert(ex);
-                    }
-                }
-            }, false);*/
 
             $(document).ready(function () {
                 $.getScript('//cdn.probtn.com/probtn.js', function () {
