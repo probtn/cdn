@@ -1,0 +1,146 @@
+@-webkit-keyframes animate {
+    0%{
+        -webkit-transform: translateX(0px) translateY(0px) rotate(0) scale(1.2);
+        transform: translateX(0px) translateY(0px) rotate(0) scale(1.2);
+    }
+    25%{
+        -webkit-transform: translateX(-20px) translateY(-10px) rotate(-5deg) scale(1);
+        transform: translateX(-20px) translateY(-10px) rotate(-5deg) scale(1);
+    }
+    50%{
+        -webkit-transform: translateX(0px) translateY(0px) rotate(5deg) scale(1.2);
+        transform: translateX(0px) translateY(0px) rotate(5deg) scale(1.2);
+    }
+    75%{
+        -webkit-transform: translateX(20px) translateY(-10px) rotate(10deg) scale(1);
+        transform: translateX(20px) translateY(-10px) rotate(10deg) scale(1);
+    }
+    100%{
+        -webkit-transform: translateX(0px) translateY(0px) rotate(0) scale(1.2);
+        transform: translateX(0px) translateY(0px) rotate(0) scale(1.2);
+    }
+}
+
+@keyframes animate {
+    0%{
+        -webkit-transform: translateX(0px) translateY(0px) rotate(0) scale(1.2);
+        transform: translateX(0px) translateY(0px) rotate(0) scale(1.2);
+    }
+    25%{
+        -webkit-transform: translateX(-20px) translateY(-10px) rotate(-5deg) scale(1);
+        transform: translateX(-20px) translateY(-10px) rotate(-5deg) scale(1);
+    }
+    50%{
+        -webkit-transform: translateX(0px) translateY(0px) rotate(5deg) scale(1.2);
+        transform: translateX(0px) translateY(0px) rotate(5deg) scale(1.2);
+    }
+    75%{
+        -webkit-transform: translateX(20px) translateY(-10px) rotate(10deg) scale(1);
+        transform: translateX(20px) translateY(-10px) rotate(10deg) scale(1);
+    }
+    100%{
+        -webkit-transform: translateX(0px) translateY(0px) rotate(0) scale(1.2);
+        transform: translateX(0px) translateY(0px) rotate(0) scale(1.2);
+    }
+}
+
+.ad__front{
+    -webkit-animation-name: animate;
+    animation-name: animate;
+    -webkit-animation-duration: 10s;
+    animation-duration: 10s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+
+.ad{
+    position: relative;
+}
+
+.ad,
+.ad__back,
+.ad__front,
+.ad__hover,
+.ad__txt{
+    width: 140px;
+    height: 140px;
+    display: block;
+}
+
+.ad__back,
+.ad__front,
+.ad__hover,
+.ad__txt{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: cover;
+}
+
+.ad__back, .ad__front{
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.4s ease;
+}
+
+.ad__back{
+    background-image: url(../images/back.png);
+}
+
+.ad__front{
+    background-image: url(../images/front.png);
+
+}
+.ad__txt._1{
+    background-image: url(../images/txt-1.png);
+}
+
+.ad__txt._2{
+    background-image: url(../images/txt-2.png);
+}
+.ad__txt._3{
+    background-image: url(../images/txt-3.png);
+}
+
+.ad__txt, .ad__hover{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.ad__txt{
+    transform: translateY(10px);
+}
+.ad__txt._1{
+    transition: all 0.3s ease;
+}
+.ad__txt._2{
+    transition: all 0.3s ease 0.1s;
+}
+.ad__txt._3{
+    transition: all 0.3s ease 0.2s;
+}
+.ad__hover{
+    transition: all 0.3s ease;
+}
+
+.ad:hover .ad__front{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.ad:hover .ad__hover,
+.ad:hover .ad__txt{
+    opacity: 1;
+    visibility: visible;
+}
+
+.ad:hover .ad__txt{
+    transform: translateY(0);
+}

@@ -130,17 +130,17 @@
     transition: all 0.3s ease;
 }
 
-.ad:hover .ad__front{
+#ad.hovered .ad__front{
     opacity: 0;
     visibility: hidden;
 }
 
-.ad:hover .ad__hover,
-.ad:hover .ad__txt{
+#ad.hovered .ad__hover,
+#ad.hovered .ad__txt{
     opacity: 1;
     visibility: visible;
 }
 
-.ad:hover .ad__txt{
+#ad.hovered .ad__txt{
     transform: translateY(0);
 }

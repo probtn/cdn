@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="ad">
+    <div class="ad" id="ad">
         <div class="ad__back"></div>
         <div class="ad__front"></div>
         <a href="#" class="ad__hover">
@@ -17,5 +17,23 @@
             <span class="ad__txt _3"></span>
         </a>
     </div>
+
+    <script>
+        window.addEventListener("message", function (event) {
+            var d = document.getElementById("ad");
+            //console.log(event.data);
+            switch (event.data.message) {
+                case "probtn_hover_started":
+                    
+                    d.className += " hovered";
+                    break;
+                case "probtn_hover_stoped":
+                    d.className = "ad";
+                    break;
+                default:
+                    break;
+            }
+        }, false);
+    </script>
 </body>
 </html>

@@ -2784,6 +2784,8 @@ probtn_initTrackingLinkTest();
 
                                                 loadSound(ProBtnControl.params.SoundURL);
 
+                                                //TODO
+                                                //replace by one universal function for such usercases
                                                 if ($("#pizzabtnImg").is("iframe")) {
                                                     try {
                                                         var myIframe = document.getElementById('pizzabtnImg');
@@ -4229,6 +4231,31 @@ probtn_initTrackingLinkTest();
 
                         }
 
+                        //add hover event
+                        //TODO:
+                        //replace with universal function
+                        try {
+                                $( "#pizzabtnIframeOverlay" ).hover(
+                                    function() { //hover          
+                                        var myIframe = document.getElementById('pizzabtnImg');
+                                        if (myIframe.contentWindow !== null) {
+                                            myIframe.contentWindow.postMessage({
+                                                message: "probtn_hover_started"
+                                            }, '*');
+                                        }                       
+                                    }, 
+                                    function() { //unhover
+                                        var myIframe = document.getElementById('pizzabtnImg');
+                                        if (myIframe.contentWindow !== null) {
+                                            myIframe.contentWindow.postMessage({
+                                                message: "probtn_hover_stoped"
+                                            }, '*');
+                                        }
+                                    }
+                                );
+                                
+                            } catch (ex) {
+                            }
                     } else {
                         // add image
                         pizzabtnImg = $("<img/>", {
@@ -5518,11 +5545,6 @@ probtn_initTrackingLinkTest();
                                     if (i===0) {
                                         ax = ProBtnControl.pizzabtn.position().left - x;
                                         ay = ProBtnControl.pizzabtn.position().top - y;
-                                        /*console.log("ax", ax);
-                                        console.log("ay", ay);
-                                        console.log("ProBtnControl.pizzabtn.position().left", ProBtnControl.pizzabtn.position().left);
-                                        console.log("ProBtnControl.pizzabtn.position().top", ProBtnControl.pizzabtn.position().top);
-                                        console.log("initPointList[i].relative", initPointList[i].relative);*/
                                     }
 
                                     if (initPointList[i].relative === true) {
@@ -5604,19 +5626,14 @@ probtn_initTrackingLinkTest();
                         var path = "";
                         var text = ProBtnControl.params.animationData;
                         ProBtnControl.params.animationData = $('<div/>').html(text).text();
-
-                        console.log("ProBtnControl.params.animationData", ProBtnControl.params.animationData);
+                        
                         try {
-                            
-                            console.log("decodeURI ProBtnControl.params.animationData",decodeURI(ProBtnControl.params.animationData));
                             path = JSON.parse(ProBtnControl.params.animationData);
                         } catch (ex) {
-                            console.log(ex);
+                            //console.log(ex);
                             path = "";
                         }
-                        console.log("path1", path);
                         var check = ((path == "") || (path === undefined) || (path === null));
-                        console.log('(path == "") || (path === undefined) || (path === null)', check, path == "");
                         if ((path == "") || (path === undefined) || (path === null)) {
                             path = [{
                                 "x": 10,
@@ -5636,7 +5653,7 @@ probtn_initTrackingLinkTest();
                                 "type": "point"
                             }];
                         }
-                        console.log("path2", path);
+                        //console.log("path2", path);
 
                         if (animations[0] === "path") {
                             ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
@@ -5857,7 +5874,7 @@ probtn_initTrackingLinkTest();
                     forwardStopAndAwayAnimation: function() {
                         var forwardStopAndAwayParams = ProBtnControl.params.isAnimation.split('_');
 
-                        console.log("forwardStopAndAwayParams", forwardStopAndAwayParams);
+                        //console.log("forwardStopAndAwayParams", forwardStopAndAwayParams);
 
                         //get side from isAnimation param
                         var side = "left";
@@ -6228,7 +6245,7 @@ probtn_initTrackingLinkTest();
                     checkAndRunAnimation: function() {
                         setTimeout(function() {
 
-                            console.log("ProBtnControl.params.isAnimation", ProBtnControl.params.isAnimation);
+                            //console.log("ProBtnControl.params.isAnimation", ProBtnControl.params.isAnimation);
 
                             //$(document).ready(function () {
                             ProBtnControl.additionalButtonFunctions.animation.cornerToCornerAnimation();
@@ -7738,6 +7755,9 @@ probtn_initTrackingLinkTest();
 
                     // get or create pizzabtn
                     ProBtnControl.pizzabtn = ProBtnControl.initFunctions.initPizzaButton();
+
+
+
                     window.probtn_ButtonContentType = ProBtnControl.params.ButtonContentType;
 
 
