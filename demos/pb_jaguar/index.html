@@ -15,22 +15,8 @@
     </head>
     <body>
 
-        <script>
-            $(document).ready(function () {
-                var parser = new UAParser();
-                var device = parser.getDevice();
-                console.log(device);
-                switch (device.type) {
-                    case "mobile":
-                        $("#bg").attr("src", "http://demo.probtn.com/all-site-backgrounds/template-landing-mobile-1.jpg");
-                        break;
-                    default:
-                        $("#bg").attr("src", "http://demo.probtn.com/all-site-backgrounds/template-landing-desktop-1.jpg");
-                        break;
-                }
-            })            
-        </script>
-        <img id="bg" src="" style="width:  100%; margin:  0px;" alt="Jaguar demo"/>
+        <img id="bg" style="width:  100%; margin: 0px;" alt="bazaar.ru"/>
+        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change.js"></script>
         <!--../screencapture-probtn/cosmo-1300.jpg-->
         <script>
             $(document).ready(function () {
