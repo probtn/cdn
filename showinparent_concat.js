@@ -42,6 +42,11 @@ if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
 	params.SelectAdSet = SelectAdSet;
 }
 
+var CreativeId = getParameterByName("CreativeId");
+if ((CreativeId!==null) && (CreativeId!==undefined) && (CreativeId!=="")) {
+	params.CreativeId = CreativeId;
+}
+
 var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
 paramsDiv.innerHTML = JSON.stringify(params);
