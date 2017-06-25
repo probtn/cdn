@@ -1552,10 +1552,20 @@ probtn_initTrackingLinkTest();
                         $(".fancybox-iframe").first().attr("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
 
                         ProBtnControl.pizzabtn.css(positionObj.property, positionObj.finishValue);
-                        if (positionObj.property == 'top') {
-                            ProBtnControl.pizzabtn.css('left', InitLeft + 'px');
-                        } else {
-                            ProBtnControl.pizzabtn.css('top', InitTop + 'px');
+                        
+                        //lookOutAndOut position
+                        try {
+                            var lookoutParams = ProBtnControl.params.isAnimation.split('_');
+                            if (lookoutParams[0] === "lookoutAndOut") {
+                            } else {
+                                if (positionObj.property == 'top') {
+                                    ProBtnControl.pizzabtn.css('left', InitLeft + 'px');
+                                } else {
+                                    ProBtnControl.pizzabtn.css('top', InitTop + 'px');
+                                }
+                            }
+                        } catch(ex) {
+                            console.log(ex);
                         }
 
                         if (ProBtnControl.userData.os === "iOS") {
@@ -1609,6 +1619,20 @@ probtn_initTrackingLinkTest();
                         var frame_id = $(".fancybox-iframe").first().attr("id");
                         ProBtnControl.additionalButtonFunctions.setIfameSizes();
                         ProBtnControl.pizzabtn.bind("click", $.fancybox.close);
+
+                        //lookOutAndOut position
+                        try {
+                            var lookoutParams = ProBtnControl.params.isAnimation.split('_');
+                            if (lookoutParams[0] === "lookoutAndOut") {
+                                var lookOutAndOut_left = $(".fancybox-wrap").position().left - ProBtnControl.params.ButtonSize.W/2;
+                                //console.log('$(".fancybox-wrap").position().left', $(".fancybox-wrap").position());
+                                ProBtnControl.pizzabtn.css('left', lookOutAndOut_left + 'px');
+                                ProBtnControl.pizzabtn.css('top', $(".fancybox-wrap").position().top + 'px');
+                            } else {
+                            }
+                        } catch(ex) {
+                            console.log(ex);
+                        }
 
                         if (currentButtonContentType === "video") {
                             ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
@@ -5759,6 +5783,105 @@ probtn_initTrackingLinkTest();
 
                             $(window).scroll(onScrollRollAnimation);
                         }
+                    },                    
+                    lookoutAndOutAnimation: function() {
+                        var lookoutParams = ProBtnControl.params.isAnimation.split('_');
+
+                        var side = "left";
+                        try {
+                            if ((lookoutParams[1] !== null) && (lookoutParams[1] !== undefined)) {
+                                side = lookoutParams[1];
+                            }
+                        } catch (ex) {}
+
+                        if (lookoutParams[0] == "lookoutAndOut") {
+
+                            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+                            ProBtnControl.pizzabtn.css("transition-property", "left, top");
+                            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+
+                            if (side == 'right') {
+                                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2));
+                            } else {
+                                ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8));
+                            }
+
+                            var rollOutPercent = 30;
+                            try {
+                                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
+                                    rollOutPercent = lookoutParams[2];
+                                } else {}
+                            } catch (ex) {}
+
+                            try {
+                                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
+                                    rollOutPercent = lookoutParams[2];
+                                } else {}
+                            } catch (ex) {}
+
+                            var lookoutCount = 0;
+
+                            var onBackLookOut = function(e) {
+
+                                setTimeout(function() {
+                                    var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
+                                    if (side === 'right') {
+                                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
+                                    }
+
+                                    ProBtnControl.pizzabtn.stop(true, true);
+                                    ProBtnControl.pizzabtn.animate({
+                                        left: left
+                                    }, {
+                                        duration: ProBtnControl.params.animationDuration,
+                                        easing: "linear",
+                                        complete: onLookOut
+                                    });
+                                }, ProBtnControl.params.animationDuration / 2);
+                            };
+
+                            var onLookOut = function(e) {
+                                lookoutCount++;
+                                if (lookoutCount<2) {
+                                //setTimeout(function() {
+                                    var left = -(ProBtnControl.params.ButtonSize.W * 0.1);
+                                    if (side == 'right') {
+                                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.9);
+                                    }
+
+                                    ProBtnControl.pizzabtn.stop(true, true);
+                                    ProBtnControl.pizzabtn.animate({
+                                        left: left
+                                    }, {
+                                        duration: ProBtnControl.params.animationDuration,
+                                        easing: "linear",
+                                        complete: onBackLookOut
+                                    });
+                                //}, ProBtnControl.params.animationDuration);
+                                } else {
+                                    var left = (ProBtnControl.params.ButtonSize.W * 0.2);
+                                    if (side == 'right') {
+                                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 1.2);
+                                    }
+                                    ProBtnControl.pizzabtn.animate({
+                                        left: left
+                                    }, {
+                                        duration: ProBtnControl.params.animationDuration,
+                                        easing: "linear",
+                                        complete: function(e) {
+                                            setTimeout(function() {
+                                                ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+                                                ProBtnControl.onButtonTap();
+                                            }, 10000);
+                                        }
+                                    });
+                                }
+                            };
+
+                            setTimeout(onLookOut, ProBtnControl.params.animationDuration / 2);
+                        }
                     },
                     lookoutAnimation: function() {
                         var lookoutParams = ProBtnControl.params.isAnimation.split('_');
@@ -6253,6 +6376,7 @@ probtn_initTrackingLinkTest();
                             ProBtnControl.additionalButtonFunctions.animation.rolloutAnimation();
                             ProBtnControl.additionalButtonFunctions.animation.lookoutAnimation();
 
+                            ProBtnControl.additionalButtonFunctions.animation.lookoutAndOutAnimation();
 
                             ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
                             ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
@@ -7528,7 +7652,7 @@ probtn_initTrackingLinkTest();
                                     }
 
                                     if ((ProBtnControl.params.CreativeId !== "") && (ProBtnControl.params.CreativeId !== null) && (ProBtnControl.params.CreativeId !== undefined)) {
-                                        settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "SelectCampaign=" + ProBtnControl.params.CreativeId + "&" + Details);
+                                        settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + "&" + Details);
                                     } else {
                                         settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + Details);
                                     }
