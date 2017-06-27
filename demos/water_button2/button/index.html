@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            #move {
+                display: none;
+                z-index: 10;
+            }
+            #stop {
+                z-index: 1;
+            }
+            iframe, html, body {
+                border: 0px;
+                margin: 0px;
+                padding: 0px;
+            }
+            iframe {
+                position: absolute;
+                top: 0px;
+                left:  0px;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <iframe id="stop" scrolling="no" style="width: 266px; height: 320px;" src="stop.html"></iframe>
+        <iframe id="move" scrolling="no" style="width: 266px; height: 320px;" src="move.html"></iframe>
+
+        <div id="orientation" style="display: none;">
+            <span>alpha: <i id="alpha"></i></span><br/>
+            <span>beta: <i id="beta"></i></span><br/>
+            <span>gamma: <i id="gamma"></i></span><br/>
+        </div>
+
+        <div id="acceleration" style="display: none;">
+            <span>x: <i id="x"></i></span><br/>
+            <span>y: <i id="y"></i></span><br/>
+            <span>z: <i id="z"></i></span><br/>
+            <span>active: <i id="active"></i></span>
+        </div>
+
+        <script>
+            var active = false;
+            var timeout = undefined;
+            window.addEventListener('devicemotion', function (event) {
+                if (event.acceleration.x != null) {
+                    var msg = "devicemotion " + event.acceleration.x + ' m/s2';
+                    //console.log(event.acceleration);
+                    //console.log(msg);
+                    //$("#eventsList").prepend("<span>" + msg + "</span><br/>");
+
+                    $("#acceleration #x").text(event.acceleration.x);
+                    $("#acceleration #y").text(event.acceleration.y);
+                    $("#acceleration #z").text(event.acceleration.z);
+                    $("#acceleration #active").text(active);
+
+                    var minValue = 3;
+                    if ((Math.abs(event.acceleration.x) > minValue) || (Math.abs(event.acceleration.y) > minValue) || (Math.abs(event.acceleration.z) > minValue)) {
+                        $("#move").fadeIn();
+                        $("#stop").fadeOut();
+                        active = true;
+                        try {
+                            clearTimeout(timeout);
+                            timeout = undefined;
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                    } else {
+                        if ((timeout === null) || (timeout === undefined)) {
+                        //alert(timeout);
+                        timeout = setTimeout(function () {
+                            $("#move").fadeOut();
+                            $("#stop").fadeIn();
+                            active = false;
+                        }, 1000);
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

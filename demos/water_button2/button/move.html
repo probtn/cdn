@@ -1,0 +1,57 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link type="text/css" href="js/screen.css" rel="stylesheet">
+  <link type="text/css" href="js/jquery-ui.css" rel="stylesheet">
+<style>
+    html, body {
+          height: 100%;
+          width: 100%;
+          margin: 0px;
+          padding: 0px;
+    }
+    .broadway, .broadway canvas {
+          width: 266px !important;
+          height: 320px !important;
+    }
+    .broadway>div{display: none;}
+</style>
+</head>
+<body>
+  
+
+        <div class="broadway" src="video1.mp4" width="266" height="320" style="float: left; position: relative;" workers="true" webgl="auto" render="false">
+            <!--<div style="z-index: 100; position: absolute; bottom: 0px; background-color: rgba(0,0,0,0.8); height: 30px; width: 100%; text-align: left;">
+                <div style="font-size: 14px; font-weight: bold; padding: 6px; color: lime;"></div>
+            </div>-->
+        </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script type="text/javascript" src="js/Decoder.js"></script>
+  <script type="text/javascript" src="js/YUVCanvas.js"></script>
+  <script type="text/javascript" src="js/Player.js"></script>  
+  <script type="text/javascript" src="js/stream.js"></script>  
+  <script type="text/javascript" src="js/mp4.js"></script>
+      <script type="text/javascript">
+    function load() {
+      /*var nodes = document.querySelectorAll('div.broadway');
+      for (var i = 0; i < nodes.length; i++) {
+        var broadway = new Broadway(nodes[i]);
+        // broadway.play();
+      }*/
+    }
+      jQuery(document).ready(function () {
+              try {
+                  console.log(Broadway);
+                  var nodes = document.querySelectorAll('div.broadway');
+                  for (var i = 0; i < nodes.length; i++) {
+                      var broadway = new Broadway(nodes[i]);
+                      // broadway.play();
+                  }
+              
+              } catch(ex) {
+                  console.log(ex);
+              }
+      });
+  </script>
+
+</body></html>
