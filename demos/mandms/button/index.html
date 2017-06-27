@@ -22,10 +22,20 @@
             }
             .red {
                 /*background-color: red !important;*/
-            }            
+            } 
+			#images_cache {
+				display: none !important;
+			}
         </style>
     </head>
     <body>
+		<div id="images_cache">
+			<img src="images/mandms_2.png" id="image" alt="mandms"/>
+			<img src="images/mandms_3.png" id="image" alt="mandms"/>
+			<img src="images/mandms_4.png" id="image" alt="mandms"/>
+			<img src="images/mandms_5.png" id="image" alt="mandms"/>
+		</div>
+		
         <div id="image_container">
             <img src="images/mandms_1.png" id="image" alt="mandms"/>
         </div>
@@ -46,18 +56,6 @@
         </div>
 
         <script>
-            /*window.addEventListener('deviceorientation', function (event) {
-                if (event.alpha !== null) {
-                    var msg = "deviceorientation " + event.alpha + ' : ' + event.beta + ' : ' + event.gamma;
-                    console.log(msg);
-                    //$("#eventsList").prepend("<span>" + msg + "</span><br/>");
-                    $("#orientation #alpha").text(event.alpha);
-                    $("#orientation #beta").text(event.beta);
-                    $("#orientation #gamma").text(event.gamma);
-
-                    checkOrientation(event.gamma);
-                }
-            });*/
 
             window.addEventListener("message", receiveMessage, false);
 
@@ -100,27 +98,6 @@
                     $("#img_debug").text("images/mandms_5.png");
                 }
 
-
-                /*if ((orient >= 90) && (orient < 105)) {                    
-                $("#image").attr("src", "images/mandms_1.png");
-                $("#img_debug").text("images/mandms_1.png");                    
-                }
-                if ((orient >= 105) && (orient < 120)) {
-                $("#image").attr("src", "images/mandms_2.png");
-                $("#img_debug").text("images/mandms_2.png");  
-                }
-                if ((orient >= 120) && (orient < 135)) {
-                $("#image").attr("src", "images/mandms_3.png");
-                $("#img_debug").text("images/mandms_3.png");  
-                }
-                if ((orient >= 135) && (orient < 150)) {
-                $("#image").attr("src", "images/mandms_4.png");
-                $("#img_debug").text("images/mandms_4.png");  
-                }
-                if ((orient >= 150) && (orient < 180)) {
-                $("#image").attr("src", "images/mandms_5.png");
-                $("#img_debug").text("images/mandms_5.png");  
-                }*/
             }
 
             function randomInteger(min, max) {
