@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>Tuko</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+	        body {
+	        	padding: 0;
+	        	margin: 0;
+	        }
+        </style>
+    </head>
+    <body>
+        <img src="../../screencapture-m-tuko-2.jpg" style="width: 100%; margin: 0px;" alt="Tuko"/>
+        <script>
+            $(document).ready(function () {
+                $.getScript('//probtnlandings1.azurewebsites.net/probtn.js', function () { 
+                    ////cdn.probtn.com/probtn.js
+                    $(document).StartButton({
+                        'mainStyleCss': '//demo.probtn.com/style.css'
+                    });
+
+                });
+            });
+    </script>
+    </body>
+</html>
