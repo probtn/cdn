@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+        <title>Fruto desktop</title>
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+        <script src="typed.min.js"></script>
+        <style>
+            @font-face {
+                font-family: IskraCYR1;
+                src: url("IskraCYR-Bold.otf") format("opentype");
+            }
+            @font-face {
+                font-family: IskraCYR2;
+                src: url("IskraCYR-Medium.otf") format("opentype");
+            }
+            
+            html, body {
+                margin:  0px;
+                padding: 0px;
+                min-width: 100%;
+                min-height: 100%;
+                height: 100%;
+                width: 100%;
+                background: transparent;
+                overflow: hidden;
+            }
+            #wrapper {
+                height: 100%;
+                width: 100%;               
+            }
+            #container2 {
+                height: 397px;
+                width: 649px;
+                margin: 0 auto;
+                padding-top: 46px;
+                position: relative;
+            }
+            #container {
+                height: 489px;
+                width: 741px;
+                background: url('bg1.png') no-repeat center center;
+                margin: 0 auto;
+            }           
+            #logo {
+                position: relative;
+                top: -40px;
+                left: -20px;
+            }
+            #logo2 {
+                position: absolute;
+                bottom: 10px;
+                right: -90px;
+            }
+            #intro-text {
+                position: relative;
+                top: -116px;
+            }
+            #intro-text p {
+                color: #3a84b8;
+                font-size: 14pt;
+                text-align: center;
+                font-family: IskraCYR2;
+                margin-left: 40px;
+                margin-right: 40px;
+                margin-top: 40px;
+            }
+            #text {
+                position: relative;
+                top: -150px;
+                height: 190px;
+            }
+            #text p {
+                color: #273778;
+                font-size: 18pt;
+                text-align: center;
+                font-family: IskraCYR1;
+                margin-left: 40px;
+                margin-right: 40px;
+                margin-top: 40px;
+            }             
+            #button {
+                text-decoration: none;
+                font-family: 'PT Sans', sans-serif;
+                text-transform: uppercase;
+                font-size: 14pt;
+                color: white;
+                background: #5a94c4;
+                border-radius: 30px;
+                height: 20px;
+                padding: 20px;
+                text-align: center;
+                margin-left: 180px;
+                margin-right: 180px;
+                position: relative;
+                top: -160px;
+                text-transform: uppercase;
+            }
+            #button a {
+                text-decoration: none;
+                font-size: 13pt;
+                color: white;
+                font-weight: bold;
+                text-transform: uppercase;
+                margin-top: -10px;
+                display: inline-block;
+            }            
+            .hidden {
+                opacity: 0;
+            }
+            .typed-cursor {
+                display: none;
+            }
+            #footer p {
+                font-size: 10px;
+                color: #9a9a9a;
+            }
+            #footer {
+                display: block;
+                position: relative;
+                bottom: 150px;
+                margin-left: 20px;
+                margin-right: 20px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+        <div id="container">
+            <div id="container2">
+            <div id="logo">
+                <img src="logo.png" alt="logo"/>
+            </div>
+            <div id="logo2">
+                <img src="logo2.png" alt="logo2"/>
+            </div>
+            <div id="intro-text">
+                <p>Создайте свой стишок!<br/>Победитель получит сертификат в «Детский мир»</p>
+            </div>
+            <div id="text" style="display: inline-block; width: 100%; ">
+                <p class="type"></p>
+            </div>
+
+            <div id="button" class="hidden">
+                <a href="http://сухиекаши.школамам.рф/?utm_source=babyblog&utm_medium=cpm&utm_content=expand_desktop&utm_campaign=sukhie-kashi_jun-jul17#fruto-contest" target="_blank">Отправить свой стишок</a>
+            </div>
+            <div id="footer">
+            <p>Сведения о возрастных ограничениях применения продукции «ФрутоНяня» смотрите на индивидуальной упаковке. Необходима консультация специалиста. Срок проведения конкурса: с 8 июня по 16 июля 2017 г. Информацию об Организаторе конкурса, полных правилах проведения, количестве призов, сроках и месте их получения смотри на сайте www.школамам.рф. Количество призов ограничено.</p>
+            </div>
+        </div>
+        </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+		        Typed.new(".type", {
+			        strings: ["Раз – <u>и Машенька красива.</u><br/>\
+                    Два – <u>бодра, сильна на диво.</u><br/>\
+                    Три – <u>здоровый аппетит.</u><br/>\
+                    <u>Кашку ест и не хандрит</u>"],
+			        typeSpeed: 1,
+                    callback: function() {
+                        document.getElementById("button").className = "";
+                    }
+		        });
+	        });
+        </script>
+    </body>
+</html>

@@ -1268,6 +1268,31 @@ probtn_initTrackingLinkTest();
                 if (ProBtnControl.params.Debug) console.log("onButtonTap");
                 window.probtn_button_tap = true;
 
+                var lookoutParams = ProBtnControl.params.isAnimation.split('_');
+                if (lookoutParams[0] === "lookoutAndOut") {
+                    if ($.fancybox.isOpen) {
+                        console.log("$.fancybox.isOpen", $.fancybox.isOpen);
+                        ProBtnControl.additionalButtonFunctions.hideAll();
+                        $.fancybox.close();
+
+                        return;
+                    }
+                };
+
+                try {
+                    if (ProBtnControl.lookOutTimeout !==undefined) {
+                        console.log("ProBtnControl.lookOutTimeout", ProBtnControl.lookOutTimeout);
+                        ProBtnControl.pizzabtn.stop(true, false);
+                        clearTimeout(ProBtnControl.lookOutTimeout);
+                    }
+                    if (ProBtnControl.lookOutTimeout2 !==undefined) {
+                        ProBtnControl.pizzabtn.stop(true, false);
+                        clearTimeout(ProBtnControl.lookOutTimeout2);
+                    }
+                } catch(ex) {
+                    console.log(ex);
+                }
+
                 if (ProBtnControl.params.MainButtonClickable === false) {
                     if (ProBtnControl.params.Debug) console.log("ProBtnControl.params.ActiveZoneMainButtonClickEnabled " + ProBtnControl.params.MainButtonClickable);
                     if ((areaName === "") || (areaName === null) || areaName === undefined) {
@@ -1550,14 +1575,15 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.hintText.hide();
 
                         $(".fancybox-iframe").first().attr("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-
-                        ProBtnControl.pizzabtn.css(positionObj.property, positionObj.finishValue);
                         
                         //lookOutAndOut position
                         try {
                             var lookoutParams = ProBtnControl.params.isAnimation.split('_');
                             if (lookoutParams[0] === "lookoutAndOut") {
                             } else {
+                                ProBtnControl.pizzabtn.css(positionObj.property, positionObj.finishValue);
+
+                                
                                 if (positionObj.property == 'top') {
                                     ProBtnControl.pizzabtn.css('left', InitLeft + 'px');
                                 } else {
@@ -1587,7 +1613,7 @@ probtn_initTrackingLinkTest();
                                     var myIframe = document.getElementById(frame_id);
                                     if (myIframe.contentWindow !== null) {
                                         iframeLoadedSend = true;
-                                        console.log("iframe_showed_and_loaded");
+                                        //console.log("iframe_showed_and_loaded");
                                         myIframe.contentWindow.postMessage({
                                             message: "iframe_showed_and_loaded"
                                         }, '*');
@@ -1598,7 +1624,7 @@ probtn_initTrackingLinkTest();
                             }
 
                             $(".fancybox-inner").addClass("opened");
-                            console.log('load the iframe');
+                            //console.log('load the iframe');
                         });
                     },
                     afterShow: function() {
@@ -1620,14 +1646,67 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.additionalButtonFunctions.setIfameSizes();
                         ProBtnControl.pizzabtn.bind("click", $.fancybox.close);
 
+
                         //lookOutAndOut position
                         try {
                             var lookoutParams = ProBtnControl.params.isAnimation.split('_');
                             if (lookoutParams[0] === "lookoutAndOut") {
-                                var lookOutAndOut_left = $(".fancybox-wrap").position().left - ProBtnControl.params.ButtonSize.W/2;
-                                //console.log('$(".fancybox-wrap").position().left', $(".fancybox-wrap").position());
-                                ProBtnControl.pizzabtn.css('left', lookOutAndOut_left + 'px');
-                                ProBtnControl.pizzabtn.css('top', $(".fancybox-wrap").position().top + 'px');
+
+                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper();
+
+                                var side = "left";
+                                if (lookoutParams[1]!==undefined) {
+                                    side = lookoutParams[1];
+                                }
+
+                                var top_diff = 0;
+                                    var left_diff = 0;
+                                    if (lookoutParams[3]!==undefined) {
+                                        top_diff = lookoutParams[3];
+                                    }
+                                    if (lookoutParams[4]!==undefined) {
+                                        left_diff = lookoutParams[4];
+                                }
+
+                                if (side === "right") {
+                                    var lookOutAndOut_right = $(".fancybox-wrap").position().left +
+                                        $(".fancybox-wrap").width() - ProBtnControl.params.ButtonSize.W/2;
+                                    console.log("lookOutAndOut_right", lookOutAndOut_right);                                    
+                                    
+                                    //console.log("lookoutParams", lookoutParams, (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff)));
+                                    ProBtnControl.pizzabtn.css("transition", "0s !important");
+
+                                    ProBtnControl.pizzabtn.stop(true, false);
+
+                                    ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                        message: "probtn_lookoutandout_start"
+                                    });
+                                    ProBtnControl.pizzabtn.animate({
+                                        left: (parseFloat(lookOutAndOut_right) + parseFloat(left_diff)),
+                                        top: (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff))
+                                    }, 3000, 
+                                    function() { 
+                                        setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100); 
+                                        ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                            message: "probtn_lookoutandout_stop"
+                                        });
+                                    });
+
+                                } else {
+                                    ProBtnControl.pizzabtn.stop(true, false);
+
+                                    var lookOutAndOut_left = $(".fancybox-wrap").position().left - ProBtnControl.params.ButtonSize.W/2;
+                        
+                                    //ProBtnControl.pizzabtn.css('left', lookOutAndOut_left + 'px');
+                                    //ProBtnControl.pizzabtn.css('top', $(".fancybox-wrap").position().top + 'px');    
+
+                                    ProBtnControl.pizzabtn.animate({
+                                        left: (parseFloat(lookOutAndOut_left) + parseFloat(left_diff)),
+                                        top: (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff))
+                                    }, 3000, function() { setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100); });
+                                }                              
+
+                                
                             } else {
                             }
                         } catch(ex) {
@@ -1663,7 +1742,7 @@ probtn_initTrackingLinkTest();
                                     var myIframe = document.getElementById(frame_id);
                                     if (myIframe.contentWindow !== null) {
                                         iframeLoadedSend = true;
-                                        console.log("iframe_showed_and_loaded");
+                                        //console.log("iframe_showed_and_loaded");
                                         myIframe.contentWindow.postMessage({
                                             message: "iframe_showed_and_loaded"
                                         }, '*');
@@ -4775,6 +4854,19 @@ probtn_initTrackingLinkTest();
                                 break;
                         }
 
+                        var lookoutParams = ProBtnControl.params.isAnimation.split('_');
+
+                        //button start position
+                        if (lookoutParams[0] === "lookoutAndOut") {
+                            var top_diff = 0;
+                            if (lookoutParams[3]!==undefined) {
+                                top_diff = lookoutParams[3];
+                            }
+
+                            top = (( window.innerHeight - ProBtnControl.params.ContentSize.H) / 2) + parseFloat(top_diff);
+                            console.log("lookoutAndOut top",top, ProBtnControl.params.ContentSize.H);
+                        };
+
                         btn.css({
                             left: left,
                             top: top,
@@ -5808,30 +5900,36 @@ probtn_initTrackingLinkTest();
                                 ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8));
                             }
 
-                            var rollOutPercent = 30;
+                            var rollOutPercent = 50;
                             try {
                                 if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
                                     rollOutPercent = lookoutParams[2];
                                 } else {}
-                            } catch (ex) {}
-
-                            try {
-                                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
-                                    rollOutPercent = lookoutParams[2];
-                                } else {}
-                            } catch (ex) {}
+                            } catch (ex) {
+                                console.log(ex);
+                            }
+                            rollOutPercent = rollOutPercent / 100;
 
                             var lookoutCount = 0;
 
                             var onBackLookOut = function(e) {
+                                console.log("onBackLookOut");
+                                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                        message: "probtn_lookoutandout_stop"
+                                });
 
-                                setTimeout(function() {
+                                ProBtnControl.lookOutTimeout2 = setTimeout(function() {
                                     var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
                                     if (side === 'right') {
                                         left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
                                     }
 
-                                    ProBtnControl.pizzabtn.stop(true, true);
+                                    ProBtnControl.pizzabtn.stop(true, false);
+
+                                    ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                        message: "probtn_lookoutandout_start"
+                                    });
+
                                     ProBtnControl.pizzabtn.animate({
                                         left: left
                                     }, {
@@ -5843,25 +5941,34 @@ probtn_initTrackingLinkTest();
                             };
 
                             var onLookOut = function(e) {
+                                console.log("onLookOut");
                                 lookoutCount++;
-                                if (lookoutCount<2) {
+                                if ((lookoutCount<2)) {
                                 //setTimeout(function() {
-                                    var left = -(ProBtnControl.params.ButtonSize.W * 0.1);
-                                    if (side == 'right') {
-                                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.9);
-                                    }
+                                    var left = -(ProBtnControl.params.ButtonSize.W * rollOutPercent);
 
-                                    ProBtnControl.pizzabtn.stop(true, true);
+                                    if (side == 'right') {
+                                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * rollOutPercent);
+                                    }
+                                    console.log("left", left);
+
+                                    ProBtnControl.pizzabtn.stop(true, false);
+
+                                    ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                        message: "probtn_lookoutandout_start"
+                                    });
+
                                     ProBtnControl.pizzabtn.animate({
                                         left: left
                                     }, {
                                         duration: ProBtnControl.params.animationDuration,
                                         easing: "linear",
-                                        complete: onBackLookOut
+                                        complete: onBackLookOut,
+                                        queue: true,
                                     });
                                 //}, ProBtnControl.params.animationDuration);
                                 } else {
-                                    var left = (ProBtnControl.params.ButtonSize.W * 0.2);
+                                    var left = (ProBtnControl.params.ButtonSize.W * 1.2);
                                     if (side == 'right') {
                                         left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 1.2);
                                     }
@@ -5871,7 +5978,13 @@ probtn_initTrackingLinkTest();
                                         duration: ProBtnControl.params.animationDuration,
                                         easing: "linear",
                                         complete: function(e) {
-                                            setTimeout(function() {
+
+                                            ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                                message: "probtn_lookoutandout_stop"
+                                            });
+
+                                            ProBtnControl.lookOutTimeout = setTimeout(function() {
+                                                console.log("lookout timeout click now");
                                                 ProBtnControl.statistics.SendStatisticsData("Showed", 1);
                                                 ProBtnControl.onButtonTap();
                                             }, 10000);
@@ -5880,7 +5993,9 @@ probtn_initTrackingLinkTest();
                                 }
                             };
 
-                            setTimeout(onLookOut, ProBtnControl.params.animationDuration / 2);
+                            //onLookOut();
+                            //FIX IT!!!
+                            ProBtnControl.lookOutTimeout2 = setTimeout(onLookOut, ProBtnControl.params.animationDuration / 2);
                         }
                     },
                     lookoutAnimation: function() {
@@ -6122,13 +6237,6 @@ probtn_initTrackingLinkTest();
                             ProBtnControl.pizzabtn.stop(true, true);
 
                             var probtnIframeEvent = function(name, data) {
-                                /*if ($("#pizzabtnImg").is("iframe")) {
-                                    var myIframe = document.getElementById('pizzabtnImg');
-                                    myIframe.contentWindow.postMessage({
-                                        message: name,
-                                        data: data
-                                    }, '*');
-                                }*/
                                 ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
                                         message: name,
                                         data: data
@@ -6222,12 +6330,6 @@ probtn_initTrackingLinkTest();
                             ProBtnControl.pizzabtn.stop(true, true);
 
                             var probtnIframeEvent = function(name) {
-                                /*if ($("#pizzabtnImg").is("iframe")) {
-                                    var myIframe = document.getElementById('pizzabtnImg');
-                                    myIframe.contentWindow.postMessage({
-                                        message: name
-                                    }, '*');
-                                }*/
                                 ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
                                         message: name
                                 });
@@ -8055,6 +8157,25 @@ probtn_initTrackingLinkTest();
                             droppable: '.probtn_active_zone',
                             initiate: ProBtnControl.additionalButtonFunctions.changeBodySize,
                             start: function() {
+                                try {
+                                    ProBtnControl.pizzabtn.stop(true, true);
+                                    if (ProBtnControl.lookOutTimeout !==undefined) {
+                                        console.log("ProBtnControl.lookOutTimeout", ProBtnControl.lookOutTimeout);
+                                        ProBtnControl.pizzabtn.stop(true, true);
+                                        clearTimeout(ProBtnControl.lookOutTimeout);
+                                    }
+                                    if (ProBtnControl.lookOutTimeout2 !==undefined) {
+                                        ProBtnControl.pizzabtn.stop(true, true);
+                                        clearTimeout(ProBtnControl.lookOutTimeout2);
+                                    }
+                                } catch(ex) {
+                                    console.log(ex);
+                                }
+
+                                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                    message: "probtn_lookoutandout_start"
+                                });
+
                                 ProBtnControl.interactionFunctions.wasInteraction = true;
                                 window.probtn_button_tap = false;
                                 //hide menu if button moved
@@ -8182,6 +8303,11 @@ probtn_initTrackingLinkTest();
 
                             },
                             stop: function() {
+
+                                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                        message: "probtn_lookoutandout_stop"
+                                });
+
                                 ProBtnControl.contentTime.endTimer("MovedDuration");
                                 var activeZone = null;
                                 //check is there is some active zone after we stop using button
