@@ -162,14 +162,14 @@
                 };
 
                 function addLink(link) {
-                        console.log("addLink");
+                        //console.log("addLink");
                         window.top.postMessage({ command: 'probtn_opened_and_showed' }, '*');
 
                         link = "http://ads.adfox.ru/164097/goLink?p1=bdhua&p2=v&p5=erote&pr=%RANDOM%";
                         link = link.replace(/\[RANDOM\]/g, randomString(12));
                         link = link.replace(/\%random\%/g, randomString(12));
                         
-                        var trackingImage = window.top.document.createElement('img');
+                        var trackingImage = document.createElement('img');
                         trackingImage.id = "probtn_includepb_tracking_image";
                         trackingImage.alt = "probtn_includepb_tracking_image";
                         trackingImage.src = link;
