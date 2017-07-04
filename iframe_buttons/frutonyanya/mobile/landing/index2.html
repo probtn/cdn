@@ -147,6 +147,27 @@
         </div>
         </div>
         <script>
+            window.top.postMessage({ command: 'probtn_performed_action', value: 'opened_popup' }, '*');
+
+                var randomString = function(length) {
+                    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+                };
+
+                var addLink = function(link) {
+                        window.top.postMessage({ command: 'probtn_opened_and_showed' }, '*');
+
+                        link = "http://ads.adfox.ru/164097/goLink?p1=bdhua&p2=v&p5=erotm&pr=%RANDOM%";
+                        link = link.replace(/\[RANDOM\]/g, randomString(12));
+                        link = link.replace(/\%random\%/g, randomString(12));
+                        
+                        var trackingImage = window.top.document.createElement('img');
+                        trackingImage.id = "probtn_includepb_tracking_image";
+                        trackingImage.alt = "probtn_includepb_tracking_image";
+                        trackingImage.src = link;
+                        trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+                        document.body.appendChild(trackingImage);
+                };
+
             document.addEventListener("DOMContentLoaded", function(){
                 var slide1 = true;
                 setInterval(function() {

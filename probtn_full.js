@@ -1884,7 +1884,15 @@ probtn_initTrackingLinkTest();
                             ProBtnControl.statistics.sendAreaActivatedStats(areaName);
                         } else {
                             // send content showed stat
-                            ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
+                            try {
+                                if (lookoutParams[0] === "lookoutAndOut") {
+                                } else {
+                                    ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
+                                } 
+                            } catch(ex) {
+                                ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
+                            }
+                            
                         }
 
                         var pizzabtn_wrapper = ProBtnControl.wrapper;
@@ -7830,6 +7838,9 @@ probtn_initTrackingLinkTest();
                     var receiveMessage = function(event) {
                         try {
                             switch (event.data.command.toLowerCase()) {
+                                case "probtn_opened_and_showed":
+                                    ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
+                                    break;                                
                                 case "probtn_change_content_url":
                                     if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value !== null)) {
                                         ProBtnControl.params.ContentURL = event.data.value;

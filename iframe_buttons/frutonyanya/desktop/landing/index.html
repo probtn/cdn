@@ -145,7 +145,8 @@
             </div>
 
             <div id="button" class="hidden">
-                <a href="http://сухиекаши.школамам.рф/?utm_source=babyblog&utm_medium=cpm&utm_content=expand_desktop&utm_campaign=sukhie-kashi_jun-jul17#fruto-contest" target="_blank">Отправить свой стишок</a>
+                <a onclick="addLink();" href="http://сухиекаши.школамам.рф/?utm_source=babyblog&utm_medium=cpm&utm_content=expand_desktop&utm_campaign=sukhie-kashi_jun-jul17#fruto-contest" target="_blank">Отправить свой стишок</a>
+                <!--<a href="http://сухиекаши.школамам.рф/?utm_source=babyblog&utm_medium=cpm&utm_content=expand_desktop&utm_campaign=sukhie-kashi_jun-jul17#fruto-contest" target="_blank">Отправить свой стишок</a>-->
             </div>
             <div id="footer">
             <p>Сведения о возрастных ограничениях применения продукции «ФрутоНяня» смотрите на индивидуальной упаковке. Необходима консультация специалиста. Срок проведения конкурса: с 8 июня по 16 июля 2017 г. Информацию об Организаторе конкурса, полных правилах проведения, количестве призов, сроках и месте их получения смотри на сайте www.школамам.рф. Количество призов ограничено.</p>
@@ -154,6 +155,28 @@
         </div>
         </div>
         <script>
+            window.top.postMessage({ command: 'probtn_performed_action', value: 'opened_popup' }, '*');
+                      
+                var randomString = function(length) {
+                    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+                };
+
+                function addLink(link) {
+                        console.log("addLink");
+                        window.top.postMessage({ command: 'probtn_opened_and_showed' }, '*');
+
+                        link = "http://ads.adfox.ru/164097/goLink?p1=bdhua&p2=v&p5=erote&pr=%RANDOM%";
+                        link = link.replace(/\[RANDOM\]/g, randomString(12));
+                        link = link.replace(/\%random\%/g, randomString(12));
+                        
+                        var trackingImage = window.top.document.createElement('img');
+                        trackingImage.id = "probtn_includepb_tracking_image";
+                        trackingImage.alt = "probtn_includepb_tracking_image";
+                        trackingImage.src = link;
+                        trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+                        document.body.appendChild(trackingImage);
+                };
+
             document.addEventListener("DOMContentLoaded", function(){
 		        Typed.new(".type", {
 			        strings: ["Раз – <u>и Машенька красива.</u><br/>\
