@@ -131,7 +131,7 @@
                     <p class="type"></p>
                 </div>
                 <div id="button" class="hidden">
-                    <a href="http://сухиекаши.школамам.рф/?utm_source=babyblog&utm_medium=cpm&utm_content=expand_mobile&utm_campaign=sukhie-kashi_jun-jul17#fruto-contest" target="_blank">Отправить свой стишок</a>
+                    <a onclick="addLink();" href="http://сухиекаши.школамам.рф/?utm_source=babyblog&utm_medium=cpm&utm_content=expand_mobile&utm_campaign=sukhie-kashi_jun-jul17#fruto-contest" target="_blank">Отправить свой стишок</a>
                 </div>
                 </div>
             </div>
@@ -153,7 +153,8 @@
                     return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
                 };
 
-                var addLink = function(link) {
+                function addLink(link) {
+                    //console.log('added');
                         window.top.postMessage({ command: 'probtn_opened_and_showed' }, '*');
 
                         link = "http://ads.adfox.ru/164097/goLink?p1=bdhua&p2=v&p5=erotm&pr=%RANDOM%";
