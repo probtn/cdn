@@ -121,7 +121,8 @@
     </head>
     <body>
         <div id="wrapper">
-        <div id="container">
+		
+        <div id="container" onclick="addLink();" style="cursor: pointer";>
             <div id="slide1">
                 <div id="logo">
                     <a href="#" target="_blank"><img src="logo.png" alt="logo"/></a>
@@ -145,7 +146,7 @@
             </div>
             </div>
         </div>
-        </div>
+
         <script>
             window.top.postMessage({ command: 'probtn_performed_action', value: 'opened_popup' }, '*');
 
@@ -167,6 +168,8 @@
                         trackingImage.src = link;
                         trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
                         document.body.appendChild(trackingImage);
+						
+						window.open("http://сухиекаши.школамам.рф/?utm_source=babyblog&utm_medium=cpm&utm_content=expand_mobile&utm_campaign=sukhie-kashi_jun-jul17#fruto-contest", "_blank");
                 };
 
             document.addEventListener("DOMContentLoaded", function(){

@@ -66,6 +66,7 @@
                 margin-left: 40px;
                 margin-right: 40px;
                 margin-top: 40px;
+				text-decoration: none !important;
             }
             #text {
                 position: relative;
@@ -129,6 +130,7 @@
     </head>
     <body>
         <div id="wrapper">
+		<a onclick="addLink();" href="http://сухиекаши.школамам.рф/?utm_source=babyblog&utm_medium=cpm&utm_content=expand_desktop&utm_campaign=sukhie-kashi_jun-jul17#fruto-contest" target="_blank" style="text-decoration: none !important;">
         <div id="container">
             <div id="container2">
             <div id="logo">
@@ -138,7 +140,8 @@
                 <img src="logo2.png" alt="logo2"/>
             </div>
             <div id="intro-text">
-                <p>Создайте свой стишок!<br/>Победитель получит сертификат в «Детский мир»</p>
+                <p>Создайте свой стишок!<br/>
+Победитель получит сертификат в «Детский мир»</p>
             </div>
             <div id="text" style="display: inline-block; width: 100%; ">
                 <p class="type"></p>
@@ -153,6 +156,7 @@
             </div>
         </div>
         </div>
+		</a>
         </div>
         <script>
             window.top.postMessage({ command: 'probtn_performed_action', value: 'opened_popup' }, '*');
