@@ -46,15 +46,7 @@
 	<!-- end text content: -->
 
       <script>
-        function MyFunctions(hypeDocument, element, event) {
-            console.log("element", element);
-            console.log("event", event);
-            console.log("hypeDocument.documentName()", hypeDocument.documentName());
-
-            console.log("hypeDocument.sceneNames()", hypeDocument.sceneNames());
-            /*setTimeout(function() {
-                hypeDocument.showNextScene();
-            }, 3600);*/
+        function MyFunctions(hypeDocument, element, event) {            
 
             var receiveMessage = function(event) {
                 if ((event.data.message === "probtn_lookoutandout_start")) {
@@ -73,6 +65,7 @@
           "type": "HypeSceneLoad",
           "callback": MyFunctions
         });
+        window.top.postMessage({ command: 'probtn_creative_loaded_message' }, '*');
       </script>
 
   </body>

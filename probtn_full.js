@@ -1247,7 +1247,8 @@ probtn_initTrackingLinkTest();
             closebutton: undefined,
             overlaped: false,
             buttonMainParams: {
-                isEmpty: true
+                isEmpty: true,
+                hidden: false,
             },
             /**
              * status about loaded additional libs
@@ -1696,9 +1697,6 @@ probtn_initTrackingLinkTest();
                                     ProBtnControl.pizzabtn.stop(true, false);
 
                                     var lookOutAndOut_left = $(".fancybox-wrap").position().left - ProBtnControl.params.ButtonSize.W/2;
-                        
-                                    //ProBtnControl.pizzabtn.css('left', lookOutAndOut_left + 'px');
-                                    //ProBtnControl.pizzabtn.css('top', $(".fancybox-wrap").position().top + 'px');    
 
                                     ProBtnControl.pizzabtn.animate({
                                         left: (parseFloat(lookOutAndOut_left) + parseFloat(left_diff)),
@@ -1891,8 +1889,7 @@ probtn_initTrackingLinkTest();
                                 } 
                             } catch(ex) {
                                 ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
-                            }
-                            
+                            }                            
                         }
 
                         var pizzabtn_wrapper = ProBtnControl.wrapper;
@@ -4339,7 +4336,6 @@ probtn_initTrackingLinkTest();
 
                             }
                         } else {
-
                         }
 
                         //add hover event
@@ -4435,7 +4431,10 @@ probtn_initTrackingLinkTest();
                     btn.hide = function() {
                         var me = jQuery("#probtn_button");
                         setTimeout(function() {
-                            me.stop(true, true).fadeOut(ProBtnControl.params.ButtonHideDuration * 1000);
+                            console.log("btn hide");
+                            me.stop(true, true); //.fadeOut(ProBtnControl.params.ButtonHideDuration * 1000);
+                            $("#probtn_wrapper").css("display", "none !important");
+                            me.css("display", "none !important");
                         }, ProBtnControl.params.ButtonHideDelay * 1000);
                     };
 
@@ -4586,6 +4585,17 @@ probtn_initTrackingLinkTest();
                         }
                     } catch (ex) {
                         console.log(ex);
+                    }
+
+                    console.log("ProBtnControl.params.waitIframeLoadedMsg", ProBtnControl.params.waitIframeLoadedMsg);
+                    if (ProBtnControl.params.waitIframeLoadedMsg) {
+                        console.log("waitIframeLoadedMsg hide1");
+                        //var myIframe = document.getElementById('pizzabtnImg');
+                        $('head').append('<style type="text/css" id="probtn_waitIframeLoadedMsg">#probtn_wrapper.hide {display: none !important;} #probtn_wrapper.show {display: inherit;}</style>');
+                        ProBtnControl.buttonMainParams.hidden = true;
+                        $("#probtn_wrapper").addClass('hide');
+                        btn.hide();
+                    } else {
                     }
 
                     return btn;
@@ -5339,7 +5349,6 @@ probtn_initTrackingLinkTest();
                     if ($("#pizzabtnImg").is("iframe")) {
 
                         var myIframe = document.getElementById('pizzabtnImg');
-                        console.log("myIframe", myIframe);
                         myIframe.contentWindow.postMessage(object, '*');
                     }
                 },
@@ -6661,6 +6670,9 @@ probtn_initTrackingLinkTest();
                 //init default params
                 ProBtnControl.params = $.extend(true, {
 
+                    waitIframeLoadedMsg: false,
+                    waitContentLoadedMsg: false,
+
                     //aditional data for animation, for example complex path for button movement
                     animationData: "",
 
@@ -7838,6 +7850,19 @@ probtn_initTrackingLinkTest();
                     var receiveMessage = function(event) {
                         try {
                             switch (event.data.command.toLowerCase()) {
+                                case "probtn_creative_loaded_message":
+                                    try {
+                                        console.log("probtn_creative_loaded_message", ProBtnControl.buttonMainParams.hidden);
+                                        if (ProBtnControl.buttonMainParams.hidden) {
+                                            ProBtnControl.pizzabtn.show();                                        
+                                            $("#probtn_wrapper").removeClass('hide');                                        
+                                            ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
+                                            ProBtnControl.buttonMainParams.hidden = false;
+                                        }
+                                    } catch(ex) { 
+                                        console.log(ex);
+                                    }
+                                    break;
                                 case "probtn_opened_and_showed":
                                     ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
                                     break;                                
@@ -8486,7 +8511,9 @@ probtn_initTrackingLinkTest();
 
                     ProBtnControl.initFunctions.initScrollChange(true);
 
-                    ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
+                    if (ProBtnControl.params.waitIframeLoadedMsg!==true) {
+                        ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
+                    }
 
                     //HideButtonAfterAjaxUpdate
                     //Checking this to hide button if page is "changed" on some js app
