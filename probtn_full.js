@@ -1271,6 +1271,7 @@ probtn_initTrackingLinkTest();
 
                 var lookoutParams = ProBtnControl.params.isAnimation.split('_');
                 if (lookoutParams[0] === "lookoutAndOut") {
+                    console.log("check is opened");
                     if ($.fancybox.isOpen) {
                         console.log("$.fancybox.isOpen", $.fancybox.isOpen);
                         ProBtnControl.additionalButtonFunctions.hideAll();
@@ -4432,9 +4433,9 @@ probtn_initTrackingLinkTest();
                         var me = jQuery("#probtn_button");
                         setTimeout(function() {
                             console.log("btn hide");
-                            me.stop(true, true); //.fadeOut(ProBtnControl.params.ButtonHideDuration * 1000);
-                            $("#probtn_wrapper").css("display", "none !important");
-                            me.css("display", "none !important");
+                            me.stop(true, true).fadeOut(ProBtnControl.params.ButtonHideDuration * 1000);
+                            //$("#probtn_wrapper").css("display", "none !important");
+                            //me.css("display", "none !important");
                         }, ProBtnControl.params.ButtonHideDelay * 1000);
                     };
 
