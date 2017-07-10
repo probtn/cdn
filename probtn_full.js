@@ -1787,6 +1787,11 @@ probtn_initTrackingLinkTest();
                         if (ProBtnControl.params.HideAfterFirstShow === true) {
                             ProBtnControl.additionalButtonFunctions.hideAll();
                         }
+                        if (lookoutParams[0] === "lookoutAndOut") {
+                            console.log("hide if lookoutAndOut");
+                                ProBtnControl.additionalButtonFunctions.hideAll();
+                                //$.fancybox.close();
+                        };
 
                         ProBtnControl.contentTime.endTimer();
                         ProBtnControl.HpmdFunctions.closeHpmdTrack();
