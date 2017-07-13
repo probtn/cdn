@@ -802,7 +802,7 @@ var wa=[Db,rb];var xa=[Eb,qb,sb,pb];var ya=[Fb,Ya,Xa,Fb];var za=[Gb,tb];return{_
           }else if (e.data.options.reuseMemory){
             reuseMemory = true;
             decoder.onPictureDecoded = function (buffer, width, height, infos) {
-                console.log("buffer2", buffer);
+                //console.log("buffer2", buffer);
               
               // buffer needs to be copied because we give up ownership
               var copyU8 = new Uint8Array(getMem(buffer.length));
@@ -820,7 +820,7 @@ var wa=[Db,rb];var xa=[Eb,qb,sb,pb];var ya=[Fb,Ya,Xa,Fb];var za=[Gb,tb];return{_
             
           }else{
               decoder.onPictureDecoded = function (buffer, width, height, infos) {
-                  console.log("buffer3", buffer);
+                  //console.log("buffer3", buffer);
 
               if (buffer) {
                 buffer = new Uint8Array(buffer);
