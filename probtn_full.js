@@ -1390,9 +1390,10 @@ probtn_initTrackingLinkTest();
                     };
 
                     $('head').append("<style type='text/css'> #pizzabtnImg { margin: 0px !important; } </style>");
+                    $("body").addClass("probtn_disable_scroll");
 
                     var animationParams = {
-                        duration: 3000,
+                        duration: 1000,
                         step: function(s) {},
                         complete: function() {
 
@@ -2521,8 +2522,14 @@ probtn_initTrackingLinkTest();
                         AZName = ProBtnControl.params.currentAreaName;
                     }
 
+                    var referer = "";
+                    if ((document.referrer !== null) && (document.referrer !== undefined)) {
+                        referer = document.referrer;
+                    }
+
                     var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&AZName=" + AZName + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
-                        ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam + "&callback=?";
+                        ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam + 
+                        "&OriginalReferer=" + referer + "&callback=?";
 
                     if ((params_object === null) || (params_object === undefined)) {
                         params_object = {
@@ -4455,6 +4462,8 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.statistics.SendStatObject({
                             "Closed": 1
                         });
+                        ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
+                        $("body").removeClass("probtn_disable_scroll");
                         ProBtnControl.additionalButtonFunctions.hideAll();
                     };
                     window.proBtn.performAction = function() {
@@ -4593,7 +4602,9 @@ probtn_initTrackingLinkTest();
                         console.log(ex);
                     }
 
-                    console.log("ProBtnControl.params.waitIframeLoadedMsg", ProBtnControl.params.waitIframeLoadedMsg);
+                    //TODO
+                    //move styles from js code to css file
+                    //hide button until we get message from iframe creative that it's ready to be shown
                     if (ProBtnControl.params.waitIframeLoadedMsg) {
                         console.log("waitIframeLoadedMsg hide1");
                         //var myIframe = document.getElementById('pizzabtnImg');
@@ -5402,7 +5413,26 @@ probtn_initTrackingLinkTest();
                 //when window is resized or changed orientation on device
                 onOrientationChange: function(e) {
                     try {
+                        if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck>0)) {
+                            var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 20;
+                            var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 20;
 
+                            if (ProBtnControl.params.ButtonType === "expansionVideo") {
+                                newHeight = newWidth * 0.5625;
+                            }
+                            if (ProBtnControl.onButtonTapCountCheck>0) {
+                                ProBtnControl.pizzabtn.css({
+                                    'width': newWidth,
+                                    'height': newHeight
+                                });
+                                $("#pizzabtnImg").css({
+                                    'width': newWidth,
+                                    'height': newHeight
+                                });
+                            }
+                            
+                            return;
+                        } else {
                         //update sizes for all percent values
                         ProBtnControl.additionalButtonFunctions.updateAllPercentSizes();
                         ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
@@ -5441,6 +5471,7 @@ probtn_initTrackingLinkTest();
 
                                 $("#probtn_menu").css("left", 0);
                             }
+                        }
                         }
                     } catch (ex) {}
 
