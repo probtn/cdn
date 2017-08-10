@@ -16,6 +16,22 @@
 * :ref:`index`
 * :ref:`description`
 
+waitIframeLoadedMsg
+----------------------------------
+
+Ожидать сообщения от креатива о завершении загрузки и инициализации креатива, в частности ``probtn_creative_loaded_message`` сообщение.
+
+:ref:`postMessage_button_control`
+
+По умолчанию: ``false``
+
+waitContentLoadedMsg
+----------------------------------
+
+animationData
+----------------------------------
+Дополнительные данные для анимации, в частности используется для добавления описания пути анимации кнопки (генерируется редактором http://probtn-animation-service.azurewebsites.net/ )
+
 
 RoundButton
 ----------------------------------
@@ -345,13 +361,16 @@ ButtonType
 
 Текущие варианты ButtonType:
 
-* button - кнопка с iframe в fancybox
-* menu - floating menu режим
-* smartbanner - показ смартбаннера
-* fullscreen - автозапуск содержимого после инициализации скрипта
-* button_and_active_zones - кнопка с использованием активных зон
-* button_and_scroll_zones - кнопка со сменой изображений с различными изображениями в разных зонах экрана (по высоте)
-* fullscreen_fancybox - автозапуск содержимого в fancybox после инициализации скрипта
+* ``button`` - кнопка с iframe в fancybox
+* ``menu`` - floating menu режим
+* ``smartbanner`` - показ смартбаннера
+* ``fullscreen`` - автозапуск содержимого после инициализации скрипта
+* ``button_and_active_zones`` - кнопка с использованием активных зон
+* ``button_and_scroll_zones`` - кнопка со сменой изображений с различными изображениями в разных зонах экрана (по высоте)
+* ``fullscreen_fancybox`` - автозапуск содержимого в fancybox после инициализации скрипта
+* ``fullscreen_and_button`` - одновременный показ кнопки и модального окна
+* ``expansionVideo`` - расширяющаяся кнопка после нажатия (для mp4 плеера)
+* ``expansionButton`` - расширяющаяся кнопка после нажатия
 
 ButtonContentType
 ----------------------------------

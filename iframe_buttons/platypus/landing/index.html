@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            html, body {
+                margin: 0px;
+                padding: 0px;
+                width: 100%;
+                height: 100%;
+                background: transparent !important;
+            }
+            #container {
+                color: black;
+                width: 409px;
+                height: 321px;
+                margin: 0px;
+                background: url('images/bg1.png') no-repeat top left transparent;
+                text-align: center;
+            }
+            #container img {
+                margin: 0 auto;
+                display: block;
+                text-align: center;
+                padding: 0px;
+                padding-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <a id="link" onclick="linkEvent();" href="https://probtn.com" target="_blank">
+        <div id="container">
+            <img src="images/text-1.png" alt="text-1"/>
+            <img src="images/text-2.png" alt="text-2" style="padding-top: 40px;"/>
+            
+                <img src="images/btn.png" alt="btn" style="padding-top: 50px;"/>            
+        </div>
+        </a>
+        <script>
+            var linkEvent = function () {
+                console.log("linkEvent");
+                window.top.postMessage({ "command": "probtn_opened_and_showed" }, '*');
+                setTimeout(function () {
+                    window.top.postMessage({ "command": "probtn_close" }, '*');
+                }, 600);
+                document.ontouchmove = function (event) {
+                    console.log("ontouchmove", event);
+                    event.preventDefault();
+                    event.stopPropagation(); event.stopImmediatePropagation();
+                }
+            }
+        </script>
+    </body>
+</html>

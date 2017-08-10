@@ -113,6 +113,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#button-image-iframe-size">button_image_iframe_size</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#probtn-change-content-url">probtn_change_content_url</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#probtn-performed-action">probtn_performed_action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-message-to-creative">probtn_message_to_creative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-creative-loaded-message">probtn_creative_loaded_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probtn-opened-and-showed">probtn_opened_and_showed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">Пример отправки сообщения</a></li>
@@ -122,6 +125,7 @@
 <li class="toctree-l1"><a class="reference internal" href="button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reports_description.html">Отчеты admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="passback.html">Использование passback кода</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hints_and_tricks.html">Неочевидные моменты, подсказки и иные дополнительные данные</a></li>
 </ul>
 
             
@@ -225,6 +229,20 @@
 <p>Пример:</p>
 <p><code class="docutils literal"><span class="pre">window.top.postMessage({</span> <span class="pre">command:</span> <span class="pre">'probtn_performed_action'</span> <span class="pre">},</span> <span class="pre">'*');</span></code></p>
 <p><code class="docutils literal"><span class="pre">window.top.postMessage({</span> <span class="pre">command:</span> <span class="pre">'probtn_performed_action',</span> <span class="pre">value:</span> <span class="pre">'booked'</span> <span class="pre">},</span> <span class="pre">'*');</span></code></p>
+</div>
+<div class="section" id="probtn-message-to-creative">
+<h3>probtn_message_to_creative<a class="headerlink" href="#probtn-message-to-creative" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Передача сообщения в креатив (к примеру отправка сообщения из модального окна в кнопку).
+В сообщении поле <code class="docutils literal"><span class="pre">object</span></code> передается как сообщение уже непосредственно в <code class="docutils literal"><span class="pre">iframe</span></code> креатив.</p>
+</div>
+<div class="section" id="probtn-creative-loaded-message">
+<h3>probtn_creative_loaded_message<a class="headerlink" href="#probtn-creative-loaded-message" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Сообщение от креатива кнопке о том, что креатив упешно загрузился и инициализировался. После чего кнопка будет показана на странице.
+Требует включенного параметра <code class="docutils literal"><span class="pre">waitIframeLoadedMsg</span></code></p>
+</div>
+<div class="section" id="probtn-opened-and-showed">
+<h3>probtn_opened_and_showed<a class="headerlink" href="#probtn-opened-and-showed" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Сообщение для произведения отправки сообщения об открытии ссылки - <code class="docutils literal"><span class="pre">ContentShowed</span></code></p>
 </div>
 </div>
 <div class="section" id="id3">

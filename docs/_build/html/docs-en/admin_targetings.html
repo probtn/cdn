@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Description of targeting variants at admin.probtn.com &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#id2">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Примеры режимов работы кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id19">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webparams.html#id21">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../offline.html">Оффлайн режим</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../probtn_events.html">Получение событий кнопки на странице</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postMessage_button_animation.html">Передача сообщений об этапах анимации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reports_description.html">Отчеты admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../passback.html">Использование passback кода</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hints_and_tricks.html">Неочевидные моменты, подсказки и иные дополнительные данные</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Description of targeting variants at admin.probtn.com</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/docs-en/admin_targetings.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="description-of-targeting-variants-at-admin-probtn-com">
+<span id="admin-targetings"></span><h1>Description of targeting variants at admin.probtn.com<a class="headerlink" href="#description-of-targeting-variants-at-admin-probtn-com" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="base-description">
+<h2>Base description<a class="headerlink" href="#base-description" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Using targetings possible to set nessesary restrictions for group or some specific creative (with possibility of creating logical constructions, nessesary for complex targeting).</p>
+</div>
+<div class="section" id="variants">
+<h2>Variants<a class="headerlink" href="#variants" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="always">
+<h3>Always<a class="headerlink" href="#always" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Default targeting.</p>
+<p>Show all time.</p>
+</div>
+<div class="section" id="country">
+<h3>Country<a class="headerlink" href="#country" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by user&#8217;s country.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>is</li>
+<li>is not</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>-Other-</li>
+<li>Russia</li>
+<li>USA</li>
+</ul>
+</div>
+<div class="section" id="mobile-operator">
+<h3>Mobile Operator<a class="headerlink" href="#mobile-operator" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by mobile operator.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>is</li>
+<li>is not</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>MTS RUS</li>
+<li>Beeline</li>
+<li>Megafon</li>
+</ul>
+</div>
+<div class="section" id="city">
+<h3>City<a class="headerlink" href="#city" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by user&#8217;s city.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>one of</li>
+<li>except</li>
+</ul>
+</div>
+<div class="section" id="schedule">
+<h3>Schedule<a class="headerlink" href="#schedule" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by schedule.
+Give calendar to set time periods for each day of the week.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>on</li>
+</ul>
+</div>
+<div class="section" id="once-in">
+<h3>Once in<a class="headerlink" href="#once-in" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting with show limit to user (show button once in period).</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>in</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>1 minute</li>
+<li>6 hours</li>
+<li>1 day</li>
+<li>2 day</li>
+<li>3 day</li>
+<li>4 day</li>
+<li>5 day</li>
+<li>6 day</li>
+<li>7 day</li>
+</ul>
+</div>
+<div class="section" id="campaign-shown">
+<h3>Campaign shown<a class="headerlink" href="#campaign-shown" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by showing this creative to user (works if this user never see this creative before).</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>for</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>first time</li>
+<li>more then once</li>
+</ul>
+</div>
+<div class="section" id="show-limit">
+<h3>Show limit<a class="headerlink" href="#show-limit" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Limit count of shows to user.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>=</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+<li>5</li>
+</ul>
+</div>
+<div class="section" id="target-action">
+<h3>Target action<a class="headerlink" href="#target-action" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>was</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>performed</li>
+<li>not performed</li>
+</ul>
+</div>
+<div class="section" id="device-platform">
+<h3>Device platform<a class="headerlink" href="#device-platform" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by device types.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>&#8211; Any Mobile &#8211;</li>
+<li>[mobile] iOS</li>
+<li>[mobile] Android</li>
+<li>[mobile] WinPhone</li>
+<li>[mobile] Other</li>
+<li>&#8211; Any Tablet &#8211;</li>
+<li>[tablet] iOS</li>
+<li>[tablet] Android</li>
+<li>[tablet] WinPhone</li>
+<li>[tablet] Other</li>
+<li>&#8211; Any Desktop &#8211;</li>
+<li>Mac OS X</li>
+<li>Ubuntu</li>
+<li>Windows</li>
+<li>Other</li>
+</ul>
+</div>
+<div class="section" id="site-pages">
+<h3>Site pages<a class="headerlink" href="#site-pages" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by relative page path where button shown.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>is exactly</li>
+<li>starts with</li>
+<li>is not</li>
+<li>doesnt start with</li>
+</ul>
+</div>
+<div class="section" id="ip-adress">
+<h3>IP adress<a class="headerlink" href="#ip-adress" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting base on user&#8217;s ID address.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>one of</li>
+<li>none of</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>ip address or list of IP adresses separated by comma.</li>
+</ul>
+</div>
+<div class="section" id="button-closing-max">
+<h3>Button closing max<a class="headerlink" href="#button-closing-max" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by button close count.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>once per campaign</li>
+<li>once per day</li>
+</ul>
+</div>
+<div class="section" id="overall-shows-limit">
+<h3>Overall shows limit<a class="headerlink" href="#overall-shows-limit" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by total shows.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>shows count</li>
+</ul>
+</div>
+<div class="section" id="daily-shows-limit">
+<h3>Daily shows limit<a class="headerlink" href="#daily-shows-limit" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by daily show count.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>is</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>shows count</li>
+</ul>
+</div>
+<div class="section" id="device-model">
+<h3>Device Model<a class="headerlink" href="#device-model" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by device model.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>is</li>
+<li>is not</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>iPhone 4 / 4s</li>
+<li>iPhone 5 / 5s / 6 (with display zoom)</li>
+<li>iPhone 6 / 6s (with display zoom)</li>
+<li>iPhone 6+</li>
+<li>&#8211; Other &#8211;</li>
+</ul>
+</div>
+<div class="section" id="domains">
+<h3>Domains<a class="headerlink" href="#domains" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by domain.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>one of</li>
+<li>none of</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>domain or list of domains separated by commas.</li>
+</ul>
+</div>
+<div class="section" id="start-at">
+<h3>Start at<a class="headerlink" href="#start-at" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by start date and time.</p>
+<p>Options:</p>
+<ul class="simple">
+<li>date and time in format yyyy/mm/dd HH:MM:SS</li>
+</ul>
+</div>
+<div class="section" id="stop-at">
+<h3>Stop at<a class="headerlink" href="#stop-at" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by end date and time.</p>
+<p>Options:</p>
+<ul class="simple">
+<li>date and time in format yyyy/mm/dd HH:MM:SS</li>
+</ul>
+</div>
+<div class="section" id="connection-speed">
+<h3>Connection speed<a class="headerlink" href="#connection-speed" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Targeting by connection speed (possible only in case if in probtn script manualy turned on mode which mesuares connection speed).</p>
+<p>Options:</p>
+<ul class="simple">
+<li>connetion speed range</li>
+</ul>
+</div>
+<div class="section" id="additional-parameter">
+<h3>Additional parameter<a class="headerlink" href="#additional-parameter" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Manualcustom targeting - allow to make targeting based on manual param set in probtn script.</p>
+<p>Possible conditions:</p>
+<ul class="simple">
+<li>equals</li>
+<li>contains</li>
+</ul>
+<p>Options:</p>
+<ul class="simple">
+<li>any param for custom targeting.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

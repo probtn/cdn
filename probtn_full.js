@@ -14,6 +14,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
     try {
         player = document.getElementById(frame_id);
+        console.log("probtn_callPlayer", frame_id, func, args);
         player.contentWindow.postMessage(youtube_command, 'https://www.youtube.com');
     } catch (ex) {
         console.log(ex);
@@ -1270,7 +1271,7 @@ probtn_initTrackingLinkTest();
                 window.probtn_button_tap = true;
 
                 var lookoutParams = ProBtnControl.params.isAnimation.split('_');
-                if (lookoutParams[0] === "lookoutAndOut") {
+                if ((lookoutParams[0].toLowerCase() === "lookoutAndOut".toLowerCase()) || (lookoutParams[0].toLowerCase() === "forwardAndStop".toLowerCase())) {
                     console.log("check is opened");
                     if ($.fancybox.isOpen) {
                         console.log("$.fancybox.isOpen", $.fancybox.isOpen);
@@ -1582,7 +1583,14 @@ probtn_initTrackingLinkTest();
                         //lookOutAndOut position
                         try {
                             var lookoutParams = ProBtnControl.params.isAnimation.split('_');
-                            if (lookoutParams[0] === "lookoutAndOut") {
+                            var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
+                            var additionalMode = "";
+                            try {
+                                if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
+                                    additionalMode = forwardAndStopParams[3].toLowerCase();
+                                }
+                            } catch (ex) {}
+                            if ((lookoutParams[0] === "lookoutAndOut") || (additionalMode === "openmodal")) {
                             } else {
                                 ProBtnControl.pizzabtn.css(positionObj.property, positionObj.finishValue);
 
@@ -1676,9 +1684,7 @@ probtn_initTrackingLinkTest();
                                         $(".fancybox-wrap").width() - ProBtnControl.params.ButtonSize.W/2;
                                     console.log("lookOutAndOut_right", lookOutAndOut_right);                                    
                                     
-                                    //console.log("lookoutParams", lookoutParams, (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff)));
                                     ProBtnControl.pizzabtn.css("transition", "0s !important");
-
                                     ProBtnControl.pizzabtn.stop(true, false);
 
                                     ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
@@ -1706,8 +1712,36 @@ probtn_initTrackingLinkTest();
                                     }, 3000, function() { setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100); });
                                 }                              
 
-                                
                             } else {
+                            }
+
+                            var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
+                            var additionalMode = "";
+                            try {
+                                if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
+                                    additionalMode = forwardAndStopParams[3].toLowerCase();
+                                }
+                            } catch (ex) {}
+                            if (additionalMode === "openmodal") {
+                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper();                           
+
+                                    var lookOutAndOut_right = $(".fancybox-wrap").position().left +
+                                        $(".fancybox-wrap").width() - ProBtnControl.params.ButtonSize.W/2;
+                                    console.log("lookOutAndOut_right", lookOutAndOut_right);                                    
+                                    
+                                    ProBtnControl.pizzabtn.css("transition", "0s !important");
+                                    ProBtnControl.pizzabtn.stop(true, false);
+
+                                    ProBtnControl.pizzabtn.animate({
+                                        //left: (parseFloat(lookOutAndOut_right) + parseFloat(left_diff)),
+                                        top: parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height())
+                                    }, 3000, 
+                                    function() { 
+                                        setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100); 
+                                        /*ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                            message: "probtn_lookoutandout_stop"
+                                        });*/
+                                    });
                             }
                         } catch(ex) {
                             console.log(ex);
@@ -1835,6 +1869,29 @@ probtn_initTrackingLinkTest();
                 if (ProBtnControl.params.IsManualSize === true) {
                     fancyboxParams.width = ProBtnControl.params.ContentSize.X;
                     fancyboxParams.height = ProBtnControl.params.ContentSize.Y;
+
+                            //TODO - check
+                            if (ProBtnControl.params.ContentSize.X.indexOf('%') !== -1) {
+                                fancyboxParams.width = window.innerWidth * (parseFloat(ProBtnControl.params.ContentSize.X) / 100);
+                            } else {
+                                fancyboxParams.width = ProBtnControl.params.ContentSize.X;
+                            }
+
+                            if (ProBtnControl.params.ContentSize.Y.indexOf('-') !== -1) {
+                                //console.log("fancyboxParams.width", fancyboxParams.width);
+                                fancyboxParams.height = fancyboxParams.width * Math.abs(ProBtnControl.params.ContentSize.H);
+                                //console.log("fancyboxParams.height", fancyboxParams.height, ProBtnControl.params.ContentSize.H, ProBtnControl.params.ContentSize);
+                                if (fancyboxParams.height > (window.innerHeight - ProBtnControl.pizzabtn.height())) {
+                                        fancyboxParams.height = window.innerHeight - ProBtnControl.pizzabtn.height();
+                                        fancyboxParams.width = fancyboxParams.height / Math.abs(ProBtnControl.params.ContentSize.H);
+                                }
+                            } else {
+                                if (ProBtnControl.params.ContentSize.Y.indexOf('%') !== -1) {
+                                    fancyboxParams.height = window.innerHeight * (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
+                                } else {
+                                    fancyboxParams.height = ProBtnControl.params.ContentSize.Y;
+                                }
+                            }
                     //fancyboxParams.autoScale = false;
                 } else {
                     //if IsManualSize is false, we set sizes in px
@@ -3305,6 +3362,7 @@ probtn_initTrackingLinkTest();
                  * @return {[type]} [description]
                  */
                 fullscreenInitAndShow: function() {
+                    console.log("fullscreenInitAndShow");
                     //if HideAfterFirstShow
                     var cookieHideAfterClose = null;
                     if (ProBtnControl.params.HideAfterFirstShow === true) {
@@ -3324,8 +3382,11 @@ probtn_initTrackingLinkTest();
                             //onclick="window.open(\'' + onclickIframe + '\')"
                         }
 
+                        if (ProBtnControl.params.ButtonType !== "fullscreen_and_button") {
                         //add ower own block (with applying fancybox styles to it)
                         $('body').append('<div class="fancybox-overlay fancybox-overlay-fixed" style="width: auto; height: auto; display: block;"></div>');
+                        }
+
                         $('body').append('<div id="fullscreen_probtn">' +
                             '<div class="fancybox-wrap fancybox-mobile fancybox-type-iframe fancybox-opened" tabindex="-1" ' +
                             'style="margin: 0 auto; height: auto; position: fixed; opacity: 1; overflow: visible;">' +
@@ -3367,6 +3428,8 @@ probtn_initTrackingLinkTest();
 
                             ProBtnControl.contentTime.endTimer();
                             ProBtnControl.HpmdFunctions.closeHpmdTrack();
+
+                            ProBtnControl.additionalButtonFunctions.hideAll();
                         });
                         if (ProBtnControl.params.HideAfterFirstShow === true) {
                             //and now add cookie to add flag that we are open fullscreen once
@@ -4979,6 +5042,8 @@ probtn_initTrackingLinkTest();
                     //ProBtnControl.wrapper.remove();
 
                     ProBtnControl.initFunctions.stopWebAudio();
+
+                    $("#fullscreen_probtn").remove();
                 },
                 checkAndCorrentButtonPosition: function() {
                     switch (ProBtnControl.params.ExtrusionMode) {
@@ -5369,6 +5434,21 @@ probtn_initTrackingLinkTest();
                         myIframe.contentWindow.postMessage(object, '*');
                     }
                 },
+                sendMessageToModal: function(object) {                    
+                    var frame_id = $(".fancybox-iframe").first().attr("id");
+                            if ($("#" + frame_id).is("iframe")) {
+                                try {
+                                    var myIframe = document.getElementById(frame_id);
+                                    if (myIframe.contentWindow !== null) {
+                                        iframeLoadedSend = true;
+                                        //console.log("iframe_showed_and_loaded");
+                                        myIframe.contentWindow.postMessage(object, '*');
+                                    }
+                                } catch (ex) {
+                                    console.log(ex);
+                                }
+                            }
+                },
                 sendCustomMessageToParent: function(object) {
                     if (ProBtnControl.params.ControlInIframeFromParent === true) {
                         if (window.self !== window.top) {
@@ -5504,12 +5584,30 @@ probtn_initTrackingLinkTest();
                                 } else {
                                     newFancyboxWidth = ProBtnControl.params.ContentSize.X;
                                 }
-                                if (ProBtnControl.params.ContentSize.Y.indexOf('%') !== -1) {
+
+                                if (ProBtnControl.params.ContentSize.Y.indexOf('-') !== -1) {
+                                    //console.log("fancyboxParams.width", newFancyboxWidth);
+                                    newFancyboxHeight = newFancyboxWidth * Math.abs(ProBtnControl.params.ContentSize.H);
+                                    //console.log("fancyboxParams.height", newFancyboxHeight, ProBtnControl.params.ContentSize.H, ProBtnControl.params.ContentSize);
+                                    if (newFancyboxHeight > (window.innerHeight - ProBtnControl.pizzabtn.height())) {
+                                        newFancyboxHeight = window.innerHeight - ProBtnControl.pizzabtn.height();
+                                        newFancyboxWidth = newFancyboxHeight / Math.abs(ProBtnControl.params.ContentSize.H);
+                                    }
+
+                                } else {
+                                    if (ProBtnControl.params.ContentSize.Y.indexOf('%') !== -1) {
+                                        newFancyboxHeight = window.innerHeight * (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
+                                    } else {
+                                        newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
+                                    }
+                                }    
+
+                                /*if (ProBtnControl.params.ContentSize.Y.indexOf('%') !== -1) {
                                     newFancyboxHeight = window.innerHeight * (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
                                     contentSizeY = (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
                                 } else {
                                     newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
-                                }
+                                }*/
                             } else {
                                 //if isManualSize is not set, then fancybox should be sized in px
                                 newFancyboxHeight = ProBtnControl.params.ContentSize.H;
@@ -5571,6 +5669,33 @@ probtn_initTrackingLinkTest();
                             $(".probtn_video").height(videoHeight);
 
                             setFancyboxSizes();
+
+
+                                setTimeout(function() {
+                                    //setFancyboxSizes();
+                                    
+
+                                    var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
+                                    var additionalMode = "";
+                                    try {
+                                        if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
+                                            additionalMode = forwardAndStopParams[3].toLowerCase();
+                                        }
+                                    } catch (ex) {}
+                                    if ((additionalMode === "openmodal")) {
+
+                                        ProBtnControl.additionalButtonFunctions.setIfameSizes();
+
+                                        $('.fancybox-skin').width($('.fancybox-wrap').width());
+                                        $('.fancybox-skin').height($('.fancybox-wrap').height());
+                                        
+                                        //console.log("newFancyboxHeight", newFancyboxHeight, newFancyboxWidth, $(".fancybox-wrap").width(), $(".fancybox-wrap").height());
+                                        //console.log("openmodal top", parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height()), $(".fancybox-wrap").position().top, $(".fancybox-wrap").height());
+                                        //console.log("openmodal top2", parseFloat(newFancyboxHeightInner/2 + newFancyboxHeight), newFancyboxHeightInner/2, newFancyboxHeight);
+                                        ProBtnControl.pizzabtn.css("top", parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height()));
+                                    }
+                                }, 500);
+
                         }
                     }
                 },
@@ -6269,6 +6394,13 @@ probtn_initTrackingLinkTest();
                             }
                         } catch (ex) {}
 
+                        var widthPercent = "1";
+                        try {
+                            if ((forwardAndStopParams[4] !== null) && (forwardAndStopParams[4] !== undefined)) {
+                                widthPercent = forwardAndStopParams[4];
+                            }
+                        } catch (ex) {}
+
                         if (forwardAndStopParams[0] == "forwardAndStop") {
 
                             if (side == 'right') {
@@ -6277,9 +6409,9 @@ probtn_initTrackingLinkTest();
                                 ProBtnControl.pizzabtn.css("left", 0);
                             }
 
-                            var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+                            var left = $('body').innerWidth()*widthPercent - (ProBtnControl.params.ButtonSize.W);
                             if (side === 'right') {
-                                left = 0;
+                                left = $('body').innerWidth()*(1 - widthPercent);
                             }
 
                             ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
@@ -6303,10 +6435,19 @@ probtn_initTrackingLinkTest();
                                     left: left
                                 }, {
                                     duration: ProBtnControl.params.animationDuration,
-                                    done: function() {
+                                    complete: function() {
+                                        console.log("compelete");
                                         probtnIframeEvent("probtn_forwardAndStop_stop", ProBtnControl.pizzabtn.position());
 
                                         switch (additionalMode) {
+                                            case "openModal":
+                                                console.log("ProBtnControl.once_moved", ProBtnControl.once_moved);
+                                                if (!ProBtnControl.once_moved) {
+                                                    console.log("open modal param");
+                                                    ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+                                                    ProBtnControl.onButtonTap();
+                                                }
+                                                break;
                                             case "maximizeButton":
                                                 var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 0;
                                                 var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 0;
@@ -6331,6 +6472,9 @@ probtn_initTrackingLinkTest();
 
                                             ProBtnControl.pizzabtn.stop(true, true);
                                         }, ProBtnControl.params.animationDuration);
+                                    },
+                                    done: function() {
+
                                     }
                                 });
                             }, firstPartDuration);
@@ -6628,6 +6772,7 @@ probtn_initTrackingLinkTest();
                         $(".fancybox-iframe").css("margin-bottom", "-5000px");
                     }
 
+                    console.log('$(".fancybox-inner").first().width()', $(".fancybox-inner").first().width());
                     if ((ProBtnControl.params.iframeScaleMinWidth !== 0) && (ProBtnControl.params.iframeScaleMinWidth > $(".fancybox-inner").first().width())) {
                         ProBtnControl.params.iframeScale = $(".fancybox-inner").first().width() / ProBtnControl.params.iframeScaleMinWidth;
 
@@ -6648,6 +6793,7 @@ probtn_initTrackingLinkTest();
 
                         $(".fancybox-iframe").first().width($(".fancybox-inner").first().width() / iframeScale);
                         $(".fancybox-iframe").first().height($(".fancybox-inner").first().height() / iframeScale);
+
                     };
 
                     if (ProBtnControl.params.iframeScale !== 1) {
@@ -7663,9 +7809,13 @@ probtn_initTrackingLinkTest();
                                     //get one more additional params
                                     try {
                                         if ($("#probtn_additional_params").length > 0) {
+                                            console.log("probtn_additional_params");
                                             var textData = $("#probtn_additional_params").text();
+                                            console.log("textData1", textData);
                                             textData = JSON.parse(textData);
+                                            console.log("textData2", textData);
                                             $.extend(true, ProBtnControl.params, ProBtnControl.params, textData);
+                                            console.log("ProBtnControl.params", ProBtnControl.params);
                                         }
                                     } catch (ex) {
                                         if (ProBtnControl.params.Debug) console.log(ex);
@@ -7886,7 +8036,14 @@ probtn_initTrackingLinkTest();
                      */
                     var receiveMessage = function(event) {
                         try {
+                            console.log("receiveMessage", event.data);
                             switch (event.data.command.toLowerCase()) {
+                                case "probtn_message_to_creative": 
+                                    console.log("probtn_message_to_creative", event.data);
+                                    if ((event.data.object!==null) && (event.data.object!==undefined)) {
+                                        ProBtnControl.additionalButtonFunctions.sendMessageToCreative(event.data.object);
+                                    }
+                                    break;
                                 case "probtn_creative_loaded_message":
                                     try {
                                         console.log("probtn_creative_loaded_message", ProBtnControl.buttonMainParams.hidden);
@@ -8186,6 +8343,11 @@ probtn_initTrackingLinkTest();
                             ProBtnControl.initFunctions.fullscreenInitAndShow();
                         }
 
+                        if (ProBtnControl.params.ButtonType === "fullscreen_and_button") {
+                            ProBtnControl.initFunctions.fullscreenInitAndShow();
+                        }
+
+
                         if (ProBtnControl.params.ButtonVisible) {
                             //m.babyblog.ru counter
                             if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
@@ -8230,6 +8392,7 @@ probtn_initTrackingLinkTest();
                             droppable: '.probtn_active_zone',
                             initiate: ProBtnControl.additionalButtonFunctions.changeBodySize,
                             start: function() {
+                                ProBtnControl.once_moved = true;
                                 try {
                                     ProBtnControl.pizzabtn.stop(true, true);
                                     if (ProBtnControl.lookOutTimeout !==undefined) {
@@ -8277,6 +8440,8 @@ probtn_initTrackingLinkTest();
                                     }
                                     window.probtn_pizzabtn_moved = true;
                                     ProBtnControl.pizzabtn.moved = true;
+                                    ProBtnControl.once_moved = true;
+
                                     //hide hint
                                     if (ProBtnControl.pizzabtn.hintTextActive) {
                                         ProBtnControl.pizzabtn.hideHint();
@@ -8305,6 +8470,14 @@ probtn_initTrackingLinkTest();
                                 ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
                                     var pizzabtnRect = ProBtnControl.pizzabtn[0].getBoundingClientRect();
                                     var closeButtonRect = ProBtnControl.closeButton[0].getBoundingClientRect();
+
+                                    if ($(".fancybox-inner").length>0) {
+                                        var modal_width = $(".fancybox-inner iframe").width();
+                                        var modal_height = $(".fancybox-inner iframe").height();
+                                        var modal_top = $(".fancybox-wrap").position().top;
+                                        var modal_left = $(".fancybox-wrap").position().left;
+                                        ProBtnControl.additionalButtonFunctions.sendMessageToModal({message: "probtn_drag_event", rect: { left: pizzabtnRect.left, right: pizzabtnRect.right, top: pizzabtnRect.top, bottom: pizzabtnRect.bottom }, modal: { width: modal_width, height: modal_height, top: modal_top, left: modal_left } });
+                                    }
 
                                     if ((pizzabtnRect.top + pizzabtnRect.height) > window.innerHeight) {}
 

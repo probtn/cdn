@@ -31,6 +31,7 @@
 
   
     <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="next" title="Отчеты admin.probtn.com" href="reports_description.html"/>
         <link rel="prev" title="Передача сообщений об этапах анимации" href="postMessage_button_animation.html"/> 
 
   
@@ -93,8 +94,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html">Описание параметров кнопки</a></li>
-<li class="toctree-l1"><a class="reference internal" href="webparams.html#id17">Неиспользуемые параметры</a></li>
-<li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#id21">Параметры по умолчания для кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
 <li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
 <li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
@@ -122,13 +123,25 @@
 <li class="toctree-l3"><a class="reference internal" href="#id8">&lt;начальное_положение&gt;</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id9">&lt;длительность_первого_этапа&gt;</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id10">&lt;дополнительный_режим&gt;</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">&lt;начальное_положение&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">&lt;ширина_выезда&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#forwardandback">forwardAndBack</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">&lt;начальное_положение&gt;</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pauseduration">&lt;pauseDuration&gt;</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stopduration">&lt;stopDuration&gt;</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#lookoutandout">lookOutAndOut</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id13">&lt;начальное_положение&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">&lt;ширина_выглядывания&gt;</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reports_description.html">Отчеты admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="passback.html">Использование passback кода</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hints_and_tricks.html">Неочевидные моменты, подсказки и иные дополнительные данные</a></li>
 </ul>
 
             
@@ -186,6 +199,7 @@
 <li><code class="docutils literal"><span class="pre">forwardStopAndAway</span></code></li>
 <li><code class="docutils literal"><span class="pre">cornerToCorner</span></code></li>
 <li><code class="docutils literal"><span class="pre">forwardAndStop</span></code></li>
+<li><code class="docutils literal"><span class="pre">lootOutAndOut</span></code></li>
 </ul>
 </div>
 <div class="section" id="opacity">
@@ -246,8 +260,8 @@
 </div>
 <div class="section" id="forwardandstop">
 <h2>forwardAndStop<a class="headerlink" href="#forwardandstop" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Формат: <code class="docutils literal"><span class="pre">forwardAndStop_&lt;начальное_положение&gt;_&lt;длительность_первого_этапа&gt;_&lt;дополнительный_режим&gt;</span></code></p>
-<p>Пример: <code class="docutils literal"><span class="pre">forwardAndStop_right_2000</span></code></p>
+<p>Формат: <code class="docutils literal"><span class="pre">forwardAndStop_&lt;начальное_положение&gt;_&lt;длительность_первого_этапа&gt;_&lt;дополнительный_режим&gt;_&lt;ширина_выезда&gt;</span></code></p>
+<p>Пример: <code class="docutils literal"><span class="pre">forwardAndStop_right_2000_0.9</span></code></p>
 <div class="section" id="id8">
 <h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Варианты:</p>
@@ -265,15 +279,21 @@
 <p>Варианты:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">maximizeButton</span></code> - увеличение размеров кнопки до размеров экрана по завершению перемещения</li>
+<li><code class="docutils literal"><span class="pre">openModal</span></code> - открытие модального окна по завершению анимации кнопки</li>
 </ul>
-<blockquote>
-<div>forwardAndBack</div></blockquote>
-<hr class="docutils" />
-<p>Формат: `` forwardAndBack_&lt;начальное_положение&gt;_&lt;pauseDuration&gt;_&lt;stopDuration&gt;``</p>
-<p>Пример: `` forwardAndBack_right_2000``</p>
 </div>
 <div class="section" id="id11">
-<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h3>
+<h3>&lt;ширина_выезда&gt;<a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Задается как число от 0 до 1 - соответсвует пропорциональной ширине (от ширины страницы) для точки завершения выезда кнопки.</p>
+<p>К примеру при 1 кнопка проедет всю щирину экрана, при 0.5 - только половину, после чего остановится.</p>
+</div>
+</div>
+<div class="section" id="forwardandback">
+<h2>forwardAndBack<a class="headerlink" href="#forwardandback" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Формат: `` forwardAndBack_&lt;начальное_положение&gt;_&lt;pauseDuration&gt;_&lt;stopDuration&gt;``</p>
+<p>Пример: `` forwardAndBack_right_2000``</p>
+<div class="section" id="id12">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Варианты:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">left</span></code></li>
@@ -289,6 +309,25 @@
 <p>Длительность задержки до уменьшения probtn_wrapper</p>
 </div>
 </div>
+<div class="section" id="lookoutandout">
+<h2>lookOutAndOut<a class="headerlink" href="#lookoutandout" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Анимация с выглядыванием кнопки (два раза), затем показом модального окна и выездом кнопки к боку модального окна.</p>
+<p>Формат: `` lookOutAndOut_&lt;начальное_положение&gt;_&lt;ширина_выглядывания&gt;``</p>
+<p>Пример формата: `` lookOutAndOut_right_50``</p>
+<p>Пример: <a class="reference external" href="http://demo.probtn.com/button_example4/fruto/desktop/">http://demo.probtn.com/button_example4/fruto/desktop/</a></p>
+<div class="section" id="id13">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">left</span></code></li>
+<li><code class="docutils literal"><span class="pre">right</span></code></li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h3>&lt;ширина_выглядывания&gt;<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Процент выглядывания кнопки</p>
+</div>
+</div>
 </div>
 
 
@@ -297,6 +336,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reports_description.html" class="btn btn-neutral float-right" title="Отчеты admin.probtn.com" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="postMessage_button_animation.html" class="btn btn-neutral" title="Передача сообщений об этапах анимации" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
