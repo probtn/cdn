@@ -39,7 +39,22 @@
             <img id="message" src="images/message.png" alt="message"/>
         </div>
         <script>
-            window.top.postMessage({ command: 'probtn_creative_loaded_message' }, '*');
+            var imgs = document.images,
+                len = imgs.length,
+                counter = 0;
+
+            [].forEach.call( imgs, function( img ) {
+                img.addEventListener( 'load', incrementCounter, false );
+            } );
+
+            function incrementCounter() {
+                counter++;
+                if ( counter === len ) {
+                    console.log( 'All images loaded!' );
+
+                    window.top.postMessage({ command: 'probtn_creative_loaded_message' }, '*');
+                }
+            }            
 
             var receiveMessage = function (event) {
                 if ((event.data.message === "probtn_forwardAndStop_start")) {

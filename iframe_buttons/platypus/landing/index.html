@@ -32,7 +32,7 @@
         </style>
     </head>
     <body>
-        <a id="link" onclick="linkEvent();" href="https://probtn.com" target="_blank">
+        <a id="link" onclick="linkEvent();" href="http://ads.adfox.ru/164097/goLink?p1=bdhua&p2=v&p5=etwkv&pr=%random%" target="_blank">
         <div id="container">
             <img src="images/text-1.png" alt="text-1"/>
             <img src="images/text-2.png" alt="text-2" style="padding-top: 40px;"/>
@@ -41,8 +41,16 @@
         </div>
         </a>
         <script>
+		
+			var randomString = function(length) {
+                    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+            };
+			
+			document.getElementById("link").href = "http://ads.adfox.ru/164097/goLink?p1=bdhua&p2=v&p5=etwkv&pr=" + randomString(12);
+		
+			window.top.postMessage({ command: 'probtn_performed_action', value: 'opened_popup' }, '*');
+		
             var linkEvent = function () {
-                console.log("linkEvent");
                 window.top.postMessage({ "command": "probtn_opened_and_showed" }, '*');
                 setTimeout(function () {
                     window.top.postMessage({ "command": "probtn_close" }, '*');

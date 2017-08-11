@@ -1272,6 +1272,15 @@ probtn_initTrackingLinkTest();
 
                 var lookoutParams = ProBtnControl.params.isAnimation.split('_');
                 if ((lookoutParams[0].toLowerCase() === "lookoutAndOut".toLowerCase()) || (lookoutParams[0].toLowerCase() === "forwardAndStop".toLowerCase())) {
+
+                    if ((lookoutParams[0].toLowerCase() === "forwardAndStop".toLowerCase())) {
+                        ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                            message: "probtn_forwardAndStop_stop",
+                            data: ProBtnControl.pizzabtn.position()
+                        });
+                    }
+                    
+
                     console.log("check is opened");
                     if ($.fancybox.isOpen) {
                         console.log("$.fancybox.isOpen", $.fancybox.isOpen);
@@ -1947,7 +1956,13 @@ probtn_initTrackingLinkTest();
                         } else {
                             // send content showed stat
                             try {
-                                if (lookoutParams[0] === "lookoutAndOut") {
+
+                                var additionalMode  = "";
+                                if ((lookoutParams[3] !== null) && (lookoutParams[3] !== undefined)) {
+                                    additionalMode = lookoutParams[3].toLowerCase();
+                                }
+
+                                if ((lookoutParams[0] === "lookoutAndOut") || (additionalMode.toLowerCase() === "openmodal")) {
                                 } else {
                                     ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
                                 } 
@@ -6438,11 +6453,15 @@ probtn_initTrackingLinkTest();
                                     complete: function() {
                                         console.log("compelete");
                                         probtnIframeEvent("probtn_forwardAndStop_stop", ProBtnControl.pizzabtn.position());
+                                        /*ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                                            message: "probtn_forwardAndStop_stop",
+                                            data: ProBtnControl.pizzabtn.position()
+                                        });*/
 
                                         switch (additionalMode) {
                                             case "openModal":
                                                 console.log("ProBtnControl.once_moved", ProBtnControl.once_moved);
-                                                if (!ProBtnControl.once_moved) {
+                                                if (true) { // !ProBtnControl.once_moved
                                                     console.log("open modal param");
                                                     ProBtnControl.statistics.SendStatisticsData("Showed", 1);
                                                     ProBtnControl.onButtonTap();
