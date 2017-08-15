@@ -1258,6 +1258,7 @@ probtn_initTrackingLinkTest();
             loadedStatus: {
                 postscribe: false
             },
+            closed: false, //is button closed
             onButtonTapCountCheck: 0,
             /**
              * main function called after button tap or active zone interaction
@@ -5029,6 +5030,8 @@ probtn_initTrackingLinkTest();
                     }
                 },
                 hideAll: function() {
+                    ProBtnControl.closed = true;
+
                     //TODO: save and restore body margin to prevent errors with some custome sites
                     //check is extrusion mode enabled and restore body margin
                     switch (ProBtnControl.params.ExtrusionMode) {
@@ -5048,6 +5051,9 @@ probtn_initTrackingLinkTest();
                         //"Closed": 1,
                         "Hidded": 1
                     });
+
+                    ProBtnControl.pizzabtn.stop(true, true);
+
                     ProBtnControl.pizzabtn.hide();
                     ProBtnControl.closeButton.remove();
                     ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
@@ -5704,9 +5710,6 @@ probtn_initTrackingLinkTest();
                                         $('.fancybox-skin').width($('.fancybox-wrap').width());
                                         $('.fancybox-skin').height($('.fancybox-wrap').height());
                                         
-                                        //console.log("newFancyboxHeight", newFancyboxHeight, newFancyboxWidth, $(".fancybox-wrap").width(), $(".fancybox-wrap").height());
-                                        //console.log("openmodal top", parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height()), $(".fancybox-wrap").position().top, $(".fancybox-wrap").height());
-                                        //console.log("openmodal top2", parseFloat(newFancyboxHeightInner/2 + newFancyboxHeight), newFancyboxHeightInner/2, newFancyboxHeight);
                                         ProBtnControl.pizzabtn.css("top", parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height()));
                                     }
                                 }, 500);
@@ -6458,13 +6461,16 @@ probtn_initTrackingLinkTest();
                                             data: ProBtnControl.pizzabtn.position()
                                         });*/
 
+
                                         switch (additionalMode) {
                                             case "openModal":
-                                                console.log("ProBtnControl.once_moved", ProBtnControl.once_moved);
-                                                if (true) { // !ProBtnControl.once_moved
-                                                    console.log("open modal param");
-                                                    ProBtnControl.statistics.SendStatisticsData("Showed", 1);
-                                                    ProBtnControl.onButtonTap();
+                                                if (!ProBtnControl.closed) {
+                                                    console.log("ProBtnControl.once_moved", ProBtnControl.once_moved);
+                                                    if (true) { // !ProBtnControl.once_moved
+                                                        console.log("open modal param");
+                                                        ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+                                                        ProBtnControl.onButtonTap();
+                                                    }
                                                 }
                                                 break;
                                             case "maximizeButton":
