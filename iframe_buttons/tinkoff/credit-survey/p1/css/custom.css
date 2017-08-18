@@ -1,0 +1,67 @@
+/* Background Fade */
+.fadeCustomBlue .content { background:#1A8DE7; outline:2px solid #1A8DE7); }
+.fadeCustomBlack .content { background:#111; outline:2px solid #111);}
+
+ul li.bulleted {
+  list-style-image: url("../assets/img/check@2x.png");
+  list-style-position: outside;
+  margin-left: 32px;
+}
+
+@media screen and (max-width: 768px) {
+
+  .enable-768 {
+    display: inline-block;
+  }
+
+  .disable-769 {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 769px) {
+
+  body {
+  font-size: 17px;
+  }
+
+  .disable-768 {
+    display: none;
+  }
+
+  .enable-769 {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 1023px) { 
+  .centerCustom, p, h1, h2, h3, h4, ul, li {
+    text-align: center !important;
+    margin: 0 auto;
+  }
+
+  .shiftImageMyCustom {
+    margin-bottom: 25px !important;
+  }
+
+  .disable {
+    display: none;
+  }
+
+  .centerAlign {
+    max-width: 335px;
+    margin: 0 auto;
+  }
+
+  .button {
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  h1, h2, h3, p {
+    text-align: left;
+  }
+}
