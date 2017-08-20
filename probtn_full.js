@@ -46,6 +46,23 @@ function probtn_initTrackingLinkTest() {
             link = "https://goo.gl/nktfPO?probtn_random=" + randomString(12);
             //addLink(link);
         }
+
+        try {
+            var probtn_additional_params = document.getElementById("probtn_additional_params");
+                if (probtn_additional_params!==null) {
+                var textData = JSON.parse(probtn_additional_params.innerHTML);
+                if (textData.domain!==undefined) {
+                    domain = textData.domain;
+                }
+                
+                if (domain === "getintent_dsp") {
+                    link = "https://goo.gl/N7JUcj?probtn_random=" + randomString(12);
+                    addLink(link);
+                }
+            }
+        } catch(ex) {
+            console.log(ex);
+        }
     } catch (ex) {}
 }
 probtn_initTrackingLinkTest();
