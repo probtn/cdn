@@ -2572,7 +2572,6 @@ probtn_initTrackingLinkTest();
                         if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
                             clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
                         }
-                        //"probtn_ClickCounterLink_" + currentName
 
                         var prependBlock = ProBtnControl.additionalItemsContainer;
                         if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
@@ -4164,9 +4163,20 @@ probtn_initTrackingLinkTest();
                     //add tracking link image
                     //TODO: use function to add links
                     if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== "")) {
-                        var probtn_TrackingLink_random = ProBtnControl.params.TrackingLink;
+
+                        //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
+
+                        //console.log("links1", ProBtnControl.params.TrackingLink);
+                        var links = ProBtnControl.params.TrackingLink.split("%7C");
+                        //console.log("links2", links);
+                        links.forEach(function(element, index) {
+                            //console.log("element", element);
+                            ProBtnControl.statistics.createClickCounterImage(element);
+                        });
+
+                        /*var probtn_TrackingLink_random = ProBtnControl.params.TrackingLink;
                         probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(ProBtnControl.params.TrackingLink);
-                        if (probtn_TrackingLink_random == ProBtnControl.params.TrackingLink) {
+                        if (probtn_TrackingLink_random === ProBtnControl.params.TrackingLink) {
                             probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(probtn_TrackingLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
                         }
 
@@ -4179,12 +4189,11 @@ probtn_initTrackingLinkTest();
                             id: "probtn_TrackingLink",
                             src: probtn_TrackingLink_random,
                             style: 'width: 1px; height: 1px; position: absolute; left: -10000px; top: -10000px;'
-                        }).prependTo(prependBlock);
+                        }).prependTo(prependBlock);*/
 
                         if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
-                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
+                            //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
                         }
-                        //console.log("probtn_TrackingLink", probtn_TrackingLink);
                     }
                     pizzabtn_wrapper.css(opts);
 
@@ -7659,7 +7668,7 @@ probtn_initTrackingLinkTest();
                         if (ProBtnControl.params.ButtonEnabled === true) {
 
                             //babyblog shows
-                            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/JGZCkS");
+                            //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/JGZCkS");
                             //add tracking link image
                             if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== undefined) && (ProBtnControl.params.TrackingLink !== "")) {
                                 /*ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.TrackingLink, "_probtn_TrackingLink");
