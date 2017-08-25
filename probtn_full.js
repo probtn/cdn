@@ -4174,23 +4174,6 @@ probtn_initTrackingLinkTest();
                             ProBtnControl.statistics.createClickCounterImage(element);
                         });
 
-                        /*var probtn_TrackingLink_random = ProBtnControl.params.TrackingLink;
-                        probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(ProBtnControl.params.TrackingLink);
-                        if (probtn_TrackingLink_random === ProBtnControl.params.TrackingLink) {
-                            probtn_TrackingLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(probtn_TrackingLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
-                        }
-
-                        var prependBlock = ProBtnControl.additionalItemsContainer;
-                        if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
-                            prependBlock = "body";
-                        }
-
-                        var probtn_TrackingLink = $("<img/>", {
-                            id: "probtn_TrackingLink",
-                            src: probtn_TrackingLink_random,
-                            style: 'width: 1px; height: 1px; position: absolute; left: -10000px; top: -10000px;'
-                        }).prependTo(prependBlock);*/
-
                         if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
                             //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
                         }
@@ -4205,7 +4188,6 @@ probtn_initTrackingLinkTest();
                     switch (extrusionMode_params[0]) {
 
                         case "topButton":
-                            //$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
                             $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
                             break;
                         case "topButtonTimeout":
@@ -4213,9 +4195,6 @@ probtn_initTrackingLinkTest();
                             var extrusionMode_width = parseInt(extrusionMode_params[2]);
                             var extrusionMode_height = parseInt(extrusionMode_params[3]);
 
-                            //console.log("extrusionMode_params", extrusionMode_params, extrusionMode_width, extrusionMode_height);
-
-                            //$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
                             $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
                             setTimeout(function() {
                                 $("#extrusionMode_topButton").remove();
@@ -4223,17 +4202,9 @@ probtn_initTrackingLinkTest();
                                 ProBtnControl.params.ButtonSize.H = extrusionMode_height;
                                 ProBtnControl.params.ButtonSize.Initial = {};
 
-                                console.log("ProBtnControl.params.ButtonSize1", ProBtnControl.params.ButtonSize);
-
-                                //ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
-
-                                console.log("ProBtnControl.params.ButtonSize2", ProBtnControl.params.ButtonSize);
-
                                 if (ProBtnControl.params.ButtonImageType == 'iframe') {
                                     ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
                                 }
-
-                                console.log("extrusionMode_params",extrusionMode_params);
 
                                 $(ProBtnControl.pizzabtn).css({
                                     'width': ProBtnControl.params.ButtonSize.W,
@@ -4251,13 +4222,11 @@ probtn_initTrackingLinkTest();
                             var extrusionMode_width = parseInt(extrusionMode_params[2]);
                             var extrusionMode_height = parseInt(extrusionMode_params[3]);
 
-                            //$('body').css("margin-top", ProBtnControl.params.ButtonSize.H + "px");
                             $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
 
                             var topButtonScrollTriggered = false;
 
                             var onScroll_topButtonScroll = function(e) {
-                                //console.log("onScroll_topButtonScroll", e);
 
                                 var doc = document.documentElement;
                                 var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
@@ -8022,6 +7991,10 @@ probtn_initTrackingLinkTest();
                                     settingsUrl = ProBtnControl.params.localSettingsPath;
                                 }
 
+                                //pixel
+                                if (ProBtnControl.currentDomain === "getintent_dsp") {
+                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/Fm9AUX");
+                                }
                                 try {
                                     $.getJSON(settingsUrl, parseResultData).done(function() {
                                         if (ProBtnControl.params.Debug) console.log('done settings load');
