@@ -87,7 +87,6 @@ var loadProbtn = function (jQuery) {
     //probtn.js
 	/*global _comma_separated_list_of_variables_*/
 	/// <reference path="libs/jquery.js" />
-	//"use strict";
 
 	function probtn_callPlayer(frame_id, func, args) {
 	    var player;
@@ -129,7 +128,7 @@ var loadProbtn = function (jQuery) {
 	        var domain = document.domain.replace("www.", "");
 	        var link = "";
 
-	        if ((domain == "m.babyblog.ru") || (domain == "babyblog.ru")) {
+	        if ((domain === "m.babyblog.ru") || (domain === "babyblog.ru")) {
 	            link = "https://goo.gl/nktfPO?probtn_random=" + randomString(12);
 	            //addLink(link);
 	        }
@@ -165,8 +164,6 @@ var loadProbtn = function (jQuery) {
 	 * Dual licensed under GPLv2 & MIT
 	 */
 	(function(window, undefined) {
-
-	    'use strict';
 
 	    //////////////
 	    // Constants
@@ -266,15 +263,15 @@ var loadProbtn = function (jQuery) {
 	                            q = props[p];
 	                            // check if given property is actually array
 	                            if (typeof q === OBJ_TYPE && q.length > 0) {
-	                                if (q.length == 2) {
-	                                    if (typeof q[1] == FUNC_TYPE) {
+	                                if (q.length === 2) {
+	                                    if (typeof q[1] === FUNC_TYPE) {
 	                                        // assign modified match
 	                                        result[q[0]] = q[1].call(this, match);
 	                                    } else {
 	                                        // assign given value, ignore regex match
 	                                        result[q[0]] = q[1];
 	                                    }
-	                                } else if (q.length == 3) {
+	                                } else if (q.length === 3) {
 	                                    // check whether function or regex
 	                                    if (typeof q[1] === FUNC_TYPE && !(q[1].exec && q[1].test)) {
 	                                        // call function (usually string mapper)
@@ -1313,6 +1310,7 @@ var loadProbtn = function (jQuery) {
 
 
 	(function($) {
+	    'use strict';
 
 	    //load nessesary libraries and show button
 	    $.fn.StartButton = function(options) {
@@ -1411,9 +1409,9 @@ var loadProbtn = function (jQuery) {
 	                }
 
 	                if (ProBtnControl.params.MainButtonClickable === false) {
-	                    if (ProBtnControl.params.Debug) console.log("ProBtnControl.params.ActiveZoneMainButtonClickEnabled " + ProBtnControl.params.MainButtonClickable);
+	                    if (ProBtnControl.params.Debug) { console.log("ProBtnControl.params.ActiveZoneMainButtonClickEnabled " + ProBtnControl.params.MainButtonClickable); }
 	                    if ((areaName === "") || (areaName === null) || areaName === undefined) {
-	                        if (ProBtnControl.params.Debug) console.log("areaname empty");
+	                        if (ProBtnControl.params.Debug) { console.log("areaname empty"); }
 	                        return;
 	                    }
 	                }
@@ -1422,7 +1420,7 @@ var loadProbtn = function (jQuery) {
 	                    currentContentURL = ProBtnControl.params.ContentURL;
 	                }
 
-	                if (ProBtnControl.params.ButtonType == "button_and_scroll_zones") {
+	                if (ProBtnControl.params.ButtonType === "button_and_scroll_zones") {
 	                    if ((ProBtnControl.params.currentContentURL !== "") && (ProBtnControl.params.currentContentURL !== null) && (ProBtnControl.params.currentContentURL !== undefined)) {
 	                        currentContentURL = ProBtnControl.params.currentContentURL;
 	                    }
@@ -1445,14 +1443,11 @@ var loadProbtn = function (jQuery) {
 	                currentContentURL = ProBtnControl.additionalButtonFunctions.getContentUrlWithUtm(currentContentURL);
 
 	                if ((currentButtonContentType !== null) && (currentButtonContentType !== undefined) && (currentButtonContentType !== "")) {
-	                    if (ProBtnControl.params.Debug) console.log("currentButtonContentType " + currentButtonContentType);
-	                    if (ProBtnControl.params.Debug) console.log("currentContentURL " + currentContentURL);
-
 	                } else {
 	                    currentButtonContentType = ProBtnControl.params.ButtonContentType;
 
 	                    //init menu mode
-	                    if (ProBtnControl.params.ButtonType == "menu") {
+	                    if (ProBtnControl.params.ButtonType === "menu") {
 	                        if ($("#probtn_menu_ul").length > 0) {
 	                            ProBtnControl.initFunctions.initRemoveMenu();
 	                        } else {
@@ -1771,7 +1766,7 @@ var loadProbtn = function (jQuery) {
 	                        ProBtnControl.additionalButtonFunctions.setIfameSizes();
 	                        ProBtnControl.pizzabtn.bind("click", $.fancybox.close);
 
-
+	                        var lookOutAndOut_right = 0;
 	                        //lookOutAndOut position
 	                        try {
 	                            var lookoutParams = ProBtnControl.params.isAnimation.split('_');
@@ -1839,7 +1834,7 @@ var loadProbtn = function (jQuery) {
 	                            if (additionalMode === "openmodal") {
 	                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper();                           
 
-	                                    var lookOutAndOut_right = $(".fancybox-wrap").position().left +
+	                                    lookOutAndOut_right = $(".fancybox-wrap").position().left +
 	                                        $(".fancybox-wrap").width() - ProBtnControl.params.ButtonSize.W/2;
 	                                    console.log("lookOutAndOut_right", lookOutAndOut_right);                                    
 	                                    
@@ -1877,7 +1872,7 @@ var loadProbtn = function (jQuery) {
 	                                    video.play();
 	                                }
 	                            } catch (ex) {
-	                                if (ProBtnControl.params.Debug) console.log(ex);
+	                                if (ProBtnControl.params.Debug) {console.log(ex);}
 	                            }
 	                        }
 
@@ -1940,7 +1935,7 @@ var loadProbtn = function (jQuery) {
 	                            console.log("hide if lookoutAndOut");
 	                                ProBtnControl.additionalButtonFunctions.hideAll();
 	                                //$.fancybox.close();
-	                        };
+	                        }
 
 	                        ProBtnControl.contentTime.endTimer();
 	                        ProBtnControl.HpmdFunctions.closeHpmdTrack();
@@ -2031,7 +2026,7 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                };
 
-	                if ((ProBtnControl.params.OpenExternal === true) || (currentButtonContentType == "anchor_external")) {
+	                if ((ProBtnControl.params.OpenExternal === true) || (currentButtonContentType === "anchor_external")) {
 
 	                    ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 	                    $.pep.toggleAll(true);
@@ -2041,8 +2036,8 @@ var loadProbtn = function (jQuery) {
 	                    hideButtonAfterFirstShow();
 
 	                } else {
-	                    if (currentButtonContentType == "anchor") {
-	                        if (currentContentURL.charAt(0) == "#") {
+	                    if (currentButtonContentType === "anchor") {
+	                        if (currentContentURL.charAt(0) === "#") {
 	                            $.pep.toggleAll(true);
 	                            window.location.hash = "";
 	                            window.location.hash = currentContentURL;
@@ -2128,8 +2123,8 @@ var loadProbtn = function (jQuery) {
 	                    ProBtnControl.contentTime.intervalId[param] = undefined;
 
 	                    ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param], "", function() {
-	                        if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType == "button_and_active_zones")) {
-	                            if (param === "ContentShowedDuration") ProBtnControl.params.currentAreaName = "";
+	                        if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType === "button_and_active_zones")) {
+	                            if (param === "ContentShowedDuration") {ProBtnControl.params.currentAreaName = "";}
 	                        }
 	                    });
 
@@ -2151,7 +2146,7 @@ var loadProbtn = function (jQuery) {
 	                        if (navigator.geolocation) {
 	                            navigator.geolocation.getCurrentPosition(callback); //ProBtnControl.geolocation.getPosition
 	                        } else {
-	                            if (ProBtnControl.params.Debug) console.log("Geolocation is not supported by this browser.");
+	                            if (ProBtnControl.params.Debug) {console.log("Geolocation is not supported by this browser.");}
 	                        }
 	                    } catch (ex) {
 	                        if (ProBtnControl.params.Debug) console.log(ex);
@@ -2159,7 +2154,7 @@ var loadProbtn = function (jQuery) {
 	                },
 	                getPosition: function(position) {
 	                    try {
-	                        if (ProBtnControl.params.Debug) console.log("position", position);
+	                        if (ProBtnControl.params.Debug) {console.log("position", position);}
 	                        ProBtnControl.geolocation.position = position;
 	                        ProBtnControl.geolocation.longitude = position.coords.latitude;
 	                        ProBtnControl.geolocation.latitude = position.coords.longitude;
@@ -2439,7 +2434,7 @@ var loadProbtn = function (jQuery) {
 	                                    }, 500);
 	                                }
 
-	                                var guidIframe = $("<iframe/>", {
+	                                $("<iframe/>", {
 	                                    id: "probtn_guidIframe",
 	                                    scrolling: 'no',
 	                                    'seamless': "seamless",
@@ -2598,7 +2593,7 @@ var loadProbtn = function (jQuery) {
 	                            success: function(data) {
 	                                console.log("Success:", data);
 	                            }
-	                        }).fail(function(xhr, status, error) {
+	                        }).fail(function(xhr) {
 	                            if (xhr.status === 0) {
 	                                ProBtnControl.statistics.SendStatisticsData("performedAction", "adBlockDetected");
 	                                console.log("probtn.js - adBlock detected");
@@ -2646,6 +2641,30 @@ var loadProbtn = function (jQuery) {
 	                        ProBtnControl.statistics.createClickCounterImage(superPixelPath);
 	                    } catch (ex) {}
 	                },
+	                callSuperPixelExt: function(param) {
+	                    try {
+	                        //console.log("callSuperPixelExt");
+	                        var domain = "";
+	                        var probtn_additional_params = document.getElementById("probtn_additional_params");
+	                        if (probtn_additional_params!==null) {
+	                            var textData = JSON.parse(probtn_additional_params.innerHTML);
+	                            if (textData.domain!==undefined) {
+	                                domain = textData.domain;
+	                            }
+	                        }
+
+	                        if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp")) {
+	                            var probtnId = "1234";
+	                            probtnId = ProBtnControl.GetDeviceUID();
+	                            var probtncid = ProBtnControl.DeviceCID;
+
+
+
+	                            var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID="+probtncid+"&localDomain="+ProBtnControl.realDomain+"&daction="+param;
+	                            ProBtnControl.statistics.createClickCounterImage(superPixelPath);
+	                        }
+	                    } catch (ex) { console.log(ex); }
+	                },
 	                /**
 	                 * Create image with tracking link 
 	                 * @param  {[type]} clickPath - tracking image path
@@ -2668,7 +2687,7 @@ var loadProbtn = function (jQuery) {
 	                        if ((name !== null) && (name !== undefined)) {
 	                            currentName = name;
 	                        }
-	                        var probtn_TrackingLink = $("<img/>", {
+	                        $("<img/>", {
 	                            id: "probtn_ClickCounterLink_" + currentName,
 	                            src: clickCounterLink_random,
 	                            style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
@@ -2721,12 +2740,7 @@ var loadProbtn = function (jQuery) {
 	                //check AZName value - correct using of areaName
 	                sendAreaActivatedStats: function(areaName, callback) {
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
-	                        var probtnId = "1234";
-	                        probtnId = ProBtnControl.GetDeviceUID();
-	                        var probtncid = ProBtnControl.DeviceCID;
-
 	                        ProBtnControl.params.currentAreaName = areaName;
-
 	                        //"&AZName=" + areaName +
 	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ContentShowed\": \"1\"}&", {
 	                                AZName: areaName,
@@ -2754,10 +2768,6 @@ var loadProbtn = function (jQuery) {
 	                    }
 
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
-	                        var probtnId = "1234";
-	                        probtnId = ProBtnControl.GetDeviceUID();
-	                        var probtncid = ProBtnControl.DeviceCID;
-
 	                        ProBtnControl.params.currentAreaName = areaName;
 
 	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&", {
@@ -2801,7 +2811,7 @@ var loadProbtn = function (jQuery) {
 	                 * @param {[type]} probtnId      [description]
 	                 * @param {[type]} currentDomain [description]
 	                 */
-	                SendCustomStat: function(name, value, probtnId, currentDomain) {
+	                SendCustomStat: function(name, value) {
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 	                        //&AZName=areaName
 	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", {
@@ -2827,17 +2837,17 @@ var loadProbtn = function (jQuery) {
 	                 */
 	                SendStatisticsData: function(paramName, value, custom, callback) {
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
-	                        var probtnId = "1234";
 
+	                        var probtnId = "1234";
+	                        probtnId = ProBtnControl.GetDeviceUID();
+	                        probtnId = ProBtnControl.DeviceCID;
+	                        
 	                        if (paramName === "" || paramName === null) {
 	                            paramName = "Opened";
 	                        }
 	                        if (value === "" || value === null) {
 	                            value = 1;
 	                        }
-	                        probtnId = ProBtnControl.GetDeviceUID();
-	                        var probtncid = ProBtnControl.DeviceCID;
-
 	                        if (custom === "" || custom === null || custom === undefined) {
 	                            ProBtnControl.statistics.SendStat(paramName, value, probtnId, ProBtnControl.currentDomain, callback);
 	                        } else {
@@ -2870,17 +2880,13 @@ var loadProbtn = function (jQuery) {
 	                },
 	                SendStatObject: function(object, callback) {
 	                    var statistic = JSON.stringify(object);
-	                    var probtnId = "1234";
-	                    probtnId = ProBtnControl.GetDeviceUID();
-	                    var probtncid = ProBtnControl.DeviceCID;
 
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 	                        var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
 	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + statistic + "&", converted_object),
 	                            function(data1) {
-	                                if (ProBtnControl.params.Debug) console.log(data1);
+	                                if (ProBtnControl.params.Debug) {console.log(data1);}
 	                            }).done(function() {}).fail(function() {}).always(function() {
-	                            if (ProBtnControl.params.Debug) console.log("SendStat always");
 	                            if ((callback !== null) && (callback !== undefined)) {
 	                                callback();
 	                            }
@@ -2888,18 +2894,14 @@ var loadProbtn = function (jQuery) {
 	                    }
 	                },
 	                SendStatisticsDataObject: function(object, callback) {
-	                    var probtnId = "1234";
-	                    probtnId = ProBtnControl.GetDeviceUID();
-	                    var probtncid = ProBtnControl.DeviceCID;
 
 	                    if (ProBtnControl.params.isServerCommunicationEnabled) {
 
 	                        var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
 	                        $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateCustomStatistic", "&Statistic=" + JSON.stringify(object) + "&", converted_object),
 	                            function(data1) {
-	                                if (ProBtnControl.params.Debug) console.log(data1);
+	                                if (ProBtnControl.params.Debug) {console.log(data1);}
 	                            }).done(function() {}).fail(function() {}).always(function() {
-	                            if (ProBtnControl.params.Debug) console.log("SendStat always");
 	                            if ((callback !== null) && (callback !== undefined)) {
 	                                callback();
 	                            }
@@ -3179,8 +3181,7 @@ var loadProbtn = function (jQuery) {
 	                                    }
 	                                );
 
-	                                var a1 = window.addEventListener("message", receiveMessage, false);
-
+	                                window.addEventListener("message", receiveMessage, false);
 	                                var receiveMessage = function(event) {
 	                                    var origin = event.origin || event.originalEvent.origin;
 	                                    origin = ProBtnControl.additionalButtonFunctions.extractDomain(origin);
@@ -3205,7 +3206,7 @@ var loadProbtn = function (jQuery) {
 
 	                    },
 	                    createExternalDataIframe: function(item) {
-	                        var externalDataIframe = $("<iframe/>", {
+	                        $("<iframe/>", {
 	                            id: item.Name,
 	                            scrolling: 'no',
 	                            'seamless': "seamless",
@@ -3254,7 +3255,7 @@ var loadProbtn = function (jQuery) {
 	                            var animateLeft = 0;
 	                            var animateTop = window.innerHeight - ProBtnControl.pizzabtn.height();
 	                            var menuType = ProBtnControl.params.MenuTemplateVariant.split('_');
-	                            if (menuType[0] == "circularCenter") {
+	                            if (menuType[0] === "circularCenter") {
 	                                animateTop = window.innerHeight / 2 - ProBtnControl.pizzabtn.height() / 2;
 	                                animateLeft = window.innerWidth / 2 - ProBtnControl.pizzabtn.width() / 2;
 	                            }
@@ -3275,14 +3276,14 @@ var loadProbtn = function (jQuery) {
 
 	                                    var menuRadius = "0";
 	                                    try {
-	                                        if ((menuType[0] == "radialcorner") || (menuType[0] == "circularCenter")) {
+	                                        if ((menuType[0] === "radialcorner") || (menuType[0] === "circularCenter")) {
 	                                            if ((menuType[1] !== null) && (menuType[1] !== undefined)) {
 	                                                menuRadius = menuType[1];
 	                                            }
 	                                        }
 	                                    } catch (ex) {}
 
-	                                    if ((menuType[0] == "radialcorner") || (menuType[0] == "circularCenter")) {
+	                                    if ((menuType[0] === "radialcorner") || (menuType[0] === "circularCenter")) {
 	                                        $('head').append('<style type="text/css">' +
 	                                            '#probtn_menu_ul li { ' +
 	                                            '    background:transparent!important; padding:0px!important; margin:0px!important; width:auto!important; display:inline-block!important; ' +
@@ -4272,15 +4273,16 @@ var loadProbtn = function (jQuery) {
 	                     * @param  {[string]} ProBtnControl.params.ExtrusionMode - extrusion type
 	                     */
 	                    var extrusionMode_params = ProBtnControl.params.ExtrusionMode.split('_');
+	                    var extrusionMode_width = 0;
+	                    var extrusionMode_height = 0;
 	                    switch (extrusionMode_params[0]) {
-
 	                        case "topButton":
 	                            $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
 	                            break;
 	                        case "topButtonTimeout":
 	                            var time = extrusionMode_params[1];
-	                            var extrusionMode_width = parseInt(extrusionMode_params[2]);
-	                            var extrusionMode_height = parseInt(extrusionMode_params[3]);
+	                            extrusionMode_width = parseInt(extrusionMode_params[2]);
+	                            extrusionMode_height = parseInt(extrusionMode_params[3]);
 
 	                            $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
 	                            setTimeout(function() {
@@ -4306,8 +4308,8 @@ var loadProbtn = function (jQuery) {
 	                            break;
 	                        case "topButtonScroll":
 	                            var percent = extrusionMode_params[1];
-	                            var extrusionMode_width = parseInt(extrusionMode_params[2]);
-	                            var extrusionMode_height = parseInt(extrusionMode_params[3]);
+	                            extrusionMode_width = parseInt(extrusionMode_params[2]);
+	                            extrusionMode_height = parseInt(extrusionMode_params[3]);
 
 	                            $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: '+ ProBtnControl.params.ButtonSize.H +'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
 
@@ -6028,8 +6030,8 @@ var loadProbtn = function (jQuery) {
 	                            //console.log(ex);
 	                            path = "";
 	                        }
-	                        var check = ((path == "") || (path === undefined) || (path === null));
-	                        if ((path == "") || (path === undefined) || (path === null)) {
+	                        var check = ((path === "") || (path === undefined) || (path === null));
+	                        if ((path === "") || (path === undefined) || (path === null)) {
 	                            path = [{
 	                                "x": 10,
 	                                "y": 10,
@@ -6222,9 +6224,10 @@ var loadProbtn = function (jQuery) {
 	                            var onLookOut = function(e) {
 	                                console.log("onLookOut");
 	                                lookoutCount++;
+	                                var left = 0;
 	                                if ((lookoutCount<2)) {
 	                                //setTimeout(function() {
-	                                    var left = -(ProBtnControl.params.ButtonSize.W * rollOutPercent);
+	                                    left = -(ProBtnControl.params.ButtonSize.W * rollOutPercent);
 
 	                                    if (side == 'right') {
 	                                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * rollOutPercent);
@@ -6247,7 +6250,7 @@ var loadProbtn = function (jQuery) {
 	                                    });
 	                                //}, ProBtnControl.params.animationDuration);
 	                                } else {
-	                                    var left = (ProBtnControl.params.ButtonSize.W * 1.2);
+	                                    left = (ProBtnControl.params.ButtonSize.W * 1.2);
 	                                    if (side == 'right') {
 	                                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 1.2);
 	                                    }
@@ -7990,7 +7993,7 @@ var loadProbtn = function (jQuery) {
 	                                    if ((ProBtnControl.params.HintText === "") || (ProBtnControl.params.HintText === null)) {
 	                                        ProBtnControl.initFunctions.hintTextStyle.display = "none";
 	                                        ProBtnControl.initFunctions.hintTextStyle.opacity = "0.0";
-	                                    }
+	                                    };
 
 	                                    //TODO - if it is js execute after click, then load additional libs - postsribe
 	                                    if (ProBtnControl.params.ButtonType == "js") {
@@ -8031,6 +8034,7 @@ var loadProbtn = function (jQuery) {
 	                    if ((ProBtnControl.params.isServerCommunicationEnabled) || (ProBtnControl.params.useLocalFileSettings)) {
 
 	                        ProBtnControl.statistics.callSuperPixel();
+	                        ProBtnControl.statistics.callSuperPixelExt("getSettingsAndLaunchButton");
 
 	                        ProBtnControl.additionalButtonFunctions.testSpeed(function(kbs) {
 	                            ProBtnControl.userData.kbs = kbs; //add it to userData object to use it later on requests
@@ -8082,6 +8086,9 @@ var loadProbtn = function (jQuery) {
 	                                if (ProBtnControl.currentDomain === "getintent_dsp") {
 	                                    ProBtnControl.statistics.createClickCounterImage("https://goo.gl/Fm9AUX");
 	                                }
+
+	                                ProBtnControl.statistics.callSuperPixelExt("getClientSettings");
+
 	                                try {
 	                                    $.getJSON(settingsUrl, parseResultData).done(function() {
 	                                        if (ProBtnControl.params.Debug) console.log('done settings load');
@@ -8123,7 +8130,9 @@ var loadProbtn = function (jQuery) {
 
 	                //BEGIN BUTTON PROCESS
 	                var BeginButtonProcess = function() {
+	                    ProBtnControl.statistics.callSuperPixelExt("BeginButtonProcess");
 	                    if ($("#probtn_wrapper").length > 0) {
+	                        ProBtnControl.statistics.callSuperPixelExt("buttonDuplicate");
 	                        //button already exist on page
 	                        try {
 	                            if (ProBtnControl.params.isServerCommunicationEnabled) {
@@ -8318,6 +8327,8 @@ var loadProbtn = function (jQuery) {
 	                        ProBtnControl.params.ButtonVisible = false;
 	                    }
 
+	                    ProBtnControl.statistics.callSuperPixelExt("BeginButtonProcess2");
+
 	                    ProBtnControl.initFunctions.initStartScrollParams();
 
 	                    // get or create pizzabtn
@@ -8407,6 +8418,7 @@ var loadProbtn = function (jQuery) {
 	                    }
 
 	                    function loadPep() {
+	                        ProBtnControl.statistics.callSuperPixelExt("loadPep");
 	                        addFancyboxAnimations();
 	                        try {
 	                            if ((typeof $.pep.toggleAll === 'function') || (ProBtnControl.params.loadJqueryPepJS === false)) {
@@ -8422,12 +8434,16 @@ var loadProbtn = function (jQuery) {
 	                    ///
 	                    function AllLoadedButtonProcess() {
 
+	                        ProBtnControl.statistics.callSuperPixelExt("AllLoadedButtonProcess");
+
 	                        //TODO fix undefined values
 	                        ProBtnControl.statistics.SendStatisticsData();
 	                        ProBtnControl.statistics.SendBrowserStatsInfo();
 
 	                        // show button
 	                        if (ProBtnControl.params.ButtonEnabled && ProBtnControl.params.ButtonVisible) {
+
+	                            ProBtnControl.statistics.callSuperPixelExt("ButtonEnabled");
 
 	                            //if (ProBtnControl.params.Debug) alert("version - " + ProBtnControl.mainVersion);
 
@@ -8952,7 +8968,7 @@ var loadJqueryPep = function (jQuery1) {
     } else {
 
         /* jquery.pep */
-		/*! cdn 2017-08-25 21:08:12 */
+		/*! cdn 2017-08-25 21:08:31 */
 		!function(a,b,c){"use strict";function d(b,c){return this.name=e,this.el=b,this.$el=a(b),this.options=a.extend({},f,c),this.$document=a(this.$el[0].ownerDocument),this.$body=this.$document.find("body"),this.moveTrigger="MSPointerMove pointermove touchmove mousemove",this.startTrigger="MSPointerDown pointerdown touchstart mousedown",this.stopTrigger="MSPointerUp pointerup touchend mouseup",this.startTriggerArray=this.startTrigger.split(" "),this.moveTriggerArray=this.moveTrigger.split(" "),this.stopTriggerArray=this.stopTrigger.split(" "),this.stopEvents=[this.stopTrigger,this.options.stopEvents].join(" "),"window"===this.options.constrainTo?this.$container=this.$document:this.options.constrainTo&&"parent"!==this.options.constrainTo?this.$container=a(this.options.constrainTo):this.$container=this.$el.parent(),this.isPointerEventCompatible()&&this.applyMSDefaults(),this.CSSEaseHash=this.getCSSEaseHash(),this.scale=1,this.started=!1,this.disabled=!1,this.activeDropRegions=[],this.resetVelocityQueue(),this.init(),this}var e="pep",f={initiate:function(){},start:function(){},drag:function(){},stop:function(){},easing:null,rest:function(){},moveTo:!1,callIfNotStarted:["stop","rest"],startThreshold:[0,0],grid:[1,1],debug:!1,activeClass:"pep-active",multiplier:1,velocityMultiplier:2.5,shouldPreventDefault:!0,allowDragEventPropagation:!0,stopEvents:"",hardwareAccelerate:!0,useCSSTranslation:!0,disableSelect:!0,cssEaseString:"cubic-bezier(0.190, 1.000, 0.220, 1.000)",cssEaseDuration:1e3,shouldEase:!0,droppable:!1,droppableActiveClass:"pep-dpa",overlapFunction:!1,constrainTo:!1,removeMargins:!0,place:!0,deferPlacement:!1,axis:null,forceNonCSS3Movement:!1,elementsWithInteraction:"input",revert:!1,revertAfter:"stop",revertIf:function(){return!0},ignoreRightClick:!0,startPos:{left:null,top:null}};d.prototype.init=function(){this.options.debug&&this.buildDebugDiv(),this.options.disableSelect&&this.disableSelect(),this.options.place&&!this.options.deferPlacement&&(this.positionParent(),this.placeObject()),this.ev={},this.pos={},this.subscribe()},d.prototype.subscribe=function(){var a=this;this.onStartEvent=function(b){a.handleStart(b)},this.$el.on(this.startTrigger,this.onStartEvent),this.onStartEventOnElementsWithInteraction=function(a){a.stopPropagation()},this.$el.on(this.startTrigger,this.options.elementsWithInteraction,this.onStartEventOnElementsWithInteraction),this.onStopEvents=function(b){a.handleStop(b)},this.$document.on(this.stopEvents,this.onStopEvents),this.onMoveEvents=function(b){a.moveEvent=b},this.$document.on(this.moveTrigger,this.onMoveEvents)},d.prototype.unsubscribe=function(){this.$el.off(this.startTrigger,this.onStartEvent),this.$el.off(this.startTrigger,this.options.elementsWithInteraction,this.onStartEventOnElementsWithInteraction),this.$document.off(this.stopEvents,this.onStopEvents),this.$document.off(this.moveTrigger,this.onMoveEvents)},d.prototype.handleStart=function(a){var b=this;if(this.isValidMoveEvent(a)&&!this.disabled&&(!this.options.ignoreRightClick||3!==a.which)){this.isPointerEventCompatible()&&a.preventManipulation&&a.preventManipulation(),a=this.normalizeEvent(a),this.options.place&&this.options.deferPlacement&&(this.positionParent(),this.placeObject()),this.log({type:"event",event:a.type}),this.options.hardwareAccelerate&&!this.hardwareAccelerated&&(this.hardwareAccelerate(),this.hardwareAccelerated=!0);var c=this.options.initiate.call(this,a,this);if(c===!1)return;clearTimeout(this.restTimeout),this.$el.addClass(this.options.activeClass),this.removeCSSEasing(),this.startX=this.ev.x=a.pep.x,this.startY=this.ev.y=a.pep.y,this.initialPosition=this.initialPosition||this.$el.position(),this.startEvent=this.moveEvent=a,this.active=!0,this.options.shouldPreventDefault&&a.preventDefault(),this.options.allowDragEventPropagation||a.stopPropagation(),function d(){b.active&&(b.handleMove(),b.requestAnimationFrame(d))}(),function e(){b.options.easing&&(b.easing&&b.options.easing.call(b,null,b),b.requestAnimationFrame(e))}()}},d.prototype.handleMove=function(){if("undefined"!=typeof this.moveEvent){var c=this.normalizeEvent(this.moveEvent),d=b.parseInt(c.pep.x/this.options.grid[0])*this.options.grid[0],e=b.parseInt(c.pep.y/this.options.grid[1])*this.options.grid[1];this.addToLIFO({time:c.timeStamp,x:d,y:e});var f,g;if(a.inArray(c.type,this.startTriggerArray)>-1?(f=0,g=0):(f=d-this.ev.x,g=e-this.ev.y),this.dx=f,this.dy=g,this.ev.x=d,this.ev.y=e,0===f&&0===g)return void this.log({type:"event",event:"** stopped **"});var h=Math.abs(this.startX-d),i=Math.abs(this.startY-e);!this.started&&(h>this.options.startThreshold[0]||i>this.options.startThreshold[1])&&(this.started=!0,this.$el.addClass("pep-start"),this.options.start.call(this,this.startEvent,this)),this.options.droppable&&this.calculateActiveDropRegions();var j=this.options.drag.call(this,c,this);if(j===!1)return void this.resetVelocityQueue();this.log({type:"event",event:c.type}),this.log({type:"event-coords",x:this.ev.x,y:this.ev.y}),this.log({type:"velocity"}),this.doMoveTo(f,g)}},d.prototype.doMoveTo=function(a,b){var c,d,e=this.handleConstraint(a,b);"function"==typeof this.options.moveTo?(c=a>=0?"+="+Math.abs(a/this.scale)*this.options.multiplier:"-="+Math.abs(a/this.scale)*this.options.multiplier,d=b>=0?"+="+Math.abs(b/this.scale)*this.options.multiplier:"-="+Math.abs(b/this.scale)*this.options.multiplier,this.options.constrainTo&&(c=e.x!==!1?e.x:c,d=e.y!==!1?e.y:d),"x"===this.options.axis&&(d=e.y),"y"===this.options.axis&&(c=e.x),this.options.moveTo.call(this,c,d)):this.shouldUseCSSTranslation()?(a=a/this.scale*this.options.multiplier,b=b/this.scale*this.options.multiplier,this.options.constrainTo&&(a=e.x===!1?a:0,b=e.y===!1?b:0),"x"===this.options.axis&&(b=0),"y"===this.options.axis&&(a=0),this.moveToUsingTransforms(a,b)):(c=a>=0?"+="+Math.abs(a/this.scale)*this.options.multiplier:"-="+Math.abs(a/this.scale)*this.options.multiplier,d=b>=0?"+="+Math.abs(b/this.scale)*this.options.multiplier:"-="+Math.abs(b/this.scale)*this.options.multiplier,this.options.constrainTo&&(c=e.x!==!1?e.x:c,d=e.y!==!1?e.y:d),"x"===this.options.axis&&(d=e.y),"y"===this.options.axis&&(c=e.x),this.moveTo(c,d))},d.prototype.handleStop=function(b){this.active&&(this.log({type:"event",event:b.type}),this.active=!1,this.easing=!0,this.$el.removeClass("pep-start").addClass("pep-ease"),this.options.droppable&&this.calculateActiveDropRegions(),(this.started||!this.started&&a.inArray("stop",this.options.callIfNotStarted)>-1)&&this.options.stop.call(this,b,this),this.options.shouldEase?this.ease(b,this.started):this.removeActiveClass(),this.options.revert&&("stop"===this.options.revertAfter||!this.options.shouldEase)&&this.options.revertIf&&this.options.revertIf.call(this)&&this.revert(),this.started=!1,this.resetVelocityQueue())},d.prototype.ease=function(b,c){var d=(this.$el.position(),this.velocity()),e=(this.dt,d.x/this.scale*this.options.multiplier),f=d.y/this.scale*this.options.multiplier,g=this.handleConstraint(e,f,!0);this.cssAnimationsSupported()&&this.$el.css(this.getCSSEaseHash());var h=d.x>0?"+="+e:"-="+Math.abs(e),i=d.y>0?"+="+f:"-="+Math.abs(f);this.options.constrainTo&&(h=g.x!==!1?g.x:h,i=g.y!==!1?g.y:i),"x"===this.options.axis&&(i="+=0"),"y"===this.options.axis&&(h="+=0");var j=!this.cssAnimationsSupported()||this.options.forceNonCSS3Movement;"function"==typeof this.options.moveTo?this.options.moveTo.call(this,h,i):this.moveTo(h,i,j);var k=this;this.restTimeout=setTimeout(function(){k.options.droppable&&k.calculateActiveDropRegions(),k.easing=!1,(c||!c&&a.inArray("rest",k.options.callIfNotStarted)>-1)&&k.options.rest.call(k,b,k),k.options.revert&&"ease"===k.options.revertAfter&&k.options.shouldEase&&k.options.revertIf&&k.options.revertIf.call(k)&&k.revert(),k.removeActiveClass()},this.options.cssEaseDuration)},d.prototype.normalizeEvent=function(a){return a.pep={},this.isTouch(a)?(a.pep.x=a.originalEvent.touches[0].pageX,a.pep.y=a.originalEvent.touches[0].pageY,a.pep.type=a.type):(this.isPointerEventCompatible()||!this.isTouch(a))&&(a.pageX?(a.pep.x=a.pageX,a.pep.y=a.pageY):(a.pep.x=a.originalEvent.pageX,a.pep.y=a.originalEvent.pageY),a.pep.type=a.type),a},d.prototype.resetVelocityQueue=function(){this.velocityQueue=new Array(5)},d.prototype.moveTo=function(a,b,c){this.log({type:"delta",x:a,y:b}),c?this.$el.animate({top:b,left:a},0,"easeOutQuad",{queue:!1}):this.$el.stop(!0,!1).css({top:b,left:a})},d.prototype.moveToUsingTransforms=function(a,b){var c=this.matrixToArray(this.matrixString());this.cssX||(this.cssX=this.xTranslation(c)),this.cssY||(this.cssY=this.yTranslation(c)),this.cssX=this.cssX+a,this.cssY=this.cssY+b,this.log({type:"delta",x:a,y:b}),c[4]=this.cssX,c[5]=this.cssY,this.translation=this.arrayToMatrix(c),this.transform(this.translation)},d.prototype.transform=function(a){this.$el.css({"-webkit-transform":a,"-moz-transform":a,"-ms-transform":a,"-o-transform":a,transform:a})},d.prototype.xTranslation=function(a){return a=a||this.matrixToArray(this.matrixString()),parseInt(a[4],10)},d.prototype.yTranslation=function(a){return a=a||this.matrixToArray(this.matrixString()),parseInt(a[5],10)},d.prototype.matrixString=function(){var a=function(a){return!(!a||"none"===a||a.indexOf("matrix")<0)},b="matrix(1, 0, 0, 1, 0, 0)";return a(this.$el.css("-webkit-transform"))&&(b=this.$el.css("-webkit-transform")),a(this.$el.css("-moz-transform"))&&(b=this.$el.css("-moz-transform")),a(this.$el.css("-ms-transform"))&&(b=this.$el.css("-ms-transform")),a(this.$el.css("-o-transform"))&&(b=this.$el.css("-o-transform")),a(this.$el.css("transform"))&&(b=this.$el.css("transform")),b},d.prototype.matrixToArray=function(a){return a.split("(")[1].split(")")[0].split(",")},d.prototype.arrayToMatrix=function(a){return"matrix("+a.join(",")+")"},d.prototype.addToLIFO=function(a){var b=this.velocityQueue;b=b.slice(1,b.length),b.push(a),this.velocityQueue=b},d.prototype.velocity=function(){for(var a=0,b=0,c=0;c<this.velocityQueue.length-1;c++)this.velocityQueue[c]&&(a+=this.velocityQueue[c+1].x-this.velocityQueue[c].x,b+=this.velocityQueue[c+1].y-this.velocityQueue[c].y,this.dt=this.velocityQueue[c+1].time-this.velocityQueue[c].time);return{x:a*this.options.velocityMultiplier,y:b*this.options.velocityMultiplier}},d.prototype.revert=function(){this.shouldUseCSSTranslation()&&this.moveToUsingTransforms(-this.xTranslation(),-this.yTranslation()),this.moveTo(this.initialPosition.left,this.initialPosition.top)},d.prototype.requestAnimationFrame=function(a){return b.requestAnimationFrame&&b.requestAnimationFrame(a)||b.webkitRequestAnimationFrame&&b.webkitRequestAnimationFrame(a)||b.mozRequestAnimationFrame&&b.mozRequestAnimationFrame(a)||b.oRequestAnimationFrame&&b.mozRequestAnimationFrame(a)||b.msRequestAnimationFrame&&b.msRequestAnimationFrame(a)||b.setTimeout(a,1e3/60)},d.prototype.positionParent=function(){this.options.constrainTo&&!this.parentPositioned&&(this.parentPositioned=!0,"parent"===this.options.constrainTo?this.$container.css({position:"relative"}):"window"===this.options.constrainTo&&"#document"!==this.$container.get(0).nodeName&&"static"!==this.$container.css("position")&&this.$container.css({position:"static"}))},d.prototype.placeObject=function(){this.objectPlaced||(this.objectPlaced=!0,this.offset="parent"===this.options.constrainTo||this.hasNonBodyRelative()?this.$el.position():this.$el.offset(),parseInt(this.$el.css("left"),10)&&(this.offset.left=this.$el.css("left")),"number"==typeof this.options.startPos.left&&(this.offset.left=this.options.startPos.left),parseInt(this.$el.css("top"),10)&&(this.offset.top=this.$el.css("top")),"number"==typeof this.options.startPos.top&&(this.offset.top=this.options.startPos.top),this.options.removeMargins&&this.$el.css({margin:0}),this.$el.css({position:"absolute",top:this.offset.top,left:this.offset.left}))},d.prototype.hasNonBodyRelative=function(){return this.$el.parents().filter(function(){var b=a(this);return b.is("body")||"relative"===b.css("position")}).length>1},d.prototype.setScale=function(a){this.scale=a},d.prototype.setMultiplier=function(a){this.options.multiplier=a},d.prototype.removeCSSEasing=function(){this.cssAnimationsSupported()&&this.$el.css(this.getCSSEaseHash(!0))},d.prototype.disableSelect=function(){this.$el.css({"-webkit-touch-callout":"none","-webkit-user-select":"none","-khtml-user-select":"none","-moz-user-select":"none","-ms-user-select":"none","user-select":"none"})},d.prototype.removeActiveClass=function(){this.$el.removeClass([this.options.activeClass,"pep-ease"].join(" "))},d.prototype.handleConstraint=function(b,d,e){var f=this.$el.position();this.pos.x=f.left,this.pos.y=f.top;var g,h,i,j,k={x:!1,y:!1};return this.log({type:"pos-coords",x:this.pos.x,y:this.pos.y}),a.isArray(this.options.constrainTo)?(this.options.constrainTo[3]!==c&&this.options.constrainTo[1]!==c&&(h=this.options.constrainTo[1]===!1?1/0:this.options.constrainTo[1],i=this.options.constrainTo[3]===!1?-(1/0):this.options.constrainTo[3]),this.options.constrainTo[0]!==!1&&this.options.constrainTo[2]!==!1&&(g=this.options.constrainTo[2]===!1?1/0:this.options.constrainTo[2],j=this.options.constrainTo[0]===!1?-(1/0):this.options.constrainTo[0]),this.pos.x+b<i&&(k.x=i),this.pos.y+d<j&&(k.y=j)):"string"==typeof this.options.constrainTo&&(i=0,j=0,h=this.$container.width()-this.$el.outerWidth(),g=this.$container.height()-this.$el.outerHeight(),this.pos.x+b<0&&(k.x=0),this.pos.y+d<0&&(k.y=0)),this.pos.x+b>h&&(k.x=h),this.pos.y+d>g&&(k.y=g),this.shouldUseCSSTranslation()&&e&&(k.x===i&&this.xTranslation()&&(k.x=i-this.xTranslation()),k.x===h&&this.xTranslation()&&(k.x=h-this.xTranslation()),k.y===j&&this.yTranslation()&&(k.y=j-this.yTranslation()),k.y===g&&this.yTranslation()&&(k.y=g-this.yTranslation())),k},d.prototype.getCSSEaseHash=function(a){"undefined"==typeof a&&(a=!1);var b;if(a)b="";else{if(this.CSSEaseHash)return this.CSSEaseHash;b=["all",this.options.cssEaseDuration+"ms",this.options.cssEaseString].join(" ")}return{"-webkit-transition":b,"-moz-transition":b,"-ms-transition":b,"-o-transition":b,transition:b}},d.prototype.calculateActiveDropRegions=function(){var b=this;this.activeDropRegions.length=0,a.each(a(this.options.droppable),function(c,d){var e=a(d);b.isOverlapping(e,b.$el)?(e.addClass(b.options.droppableActiveClass),b.activeDropRegions.push(e)):e.removeClass(b.options.droppableActiveClass)})},d.prototype.isOverlapping=function(a,b){if(this.options.overlapFunction)return this.options.overlapFunction(a,b);var c=a[0].getBoundingClientRect(),d=b[0].getBoundingClientRect();return!(c.right<d.left||c.left>d.right||c.bottom<d.top||c.top>d.bottom)},d.prototype.isTouch=function(a){return a.type.search("touch")>-1},d.prototype.isPointerEventCompatible=function(){return"MSPointerEvent"in b},d.prototype.applyMSDefaults=function(a){this.$el.css({"-ms-touch-action":"none","touch-action":"none","-ms-scroll-chaining":"none","-ms-scroll-limit":"0 0 0 0"})},d.prototype.isValidMoveEvent=function(a){return!this.isTouch(a)||this.isTouch(a)&&a.originalEvent&&a.originalEvent.touches&&1===a.originalEvent.touches.length},d.prototype.shouldUseCSSTranslation=function(){if(this.options.forceNonCSS3Movement)return!1;if("undefined"!=typeof this.useCSSTranslation)return this.useCSSTranslation;var a=!1;return a=!this.options.useCSSTranslation||"undefined"!=typeof Modernizr&&!Modernizr.csstransforms?!1:!0,this.useCSSTranslation=a,a},d.prototype.cssAnimationsSupported=function(){if("undefined"!=typeof this.cssAnimationsSupport)return this.cssAnimationsSupport;if("undefined"!=typeof Modernizr&&Modernizr.cssanimations)return this.cssAnimationsSupport=!0,!0;var a=!1,b=document.createElement("div"),d="animation",e="",f="Webkit Moz O ms Khtml".split(" "),g="";if(b.style.animationName&&(a=!0),a===!1)for(var h=0;h<f.length;h++)if(b.style[f[h]+"AnimationName"]!==c){g=f[h],d=g+"Animation",e="-"+g.toLowerCase()+"-",a=!0;break}return this.cssAnimationsSupport=a,a},d.prototype.hardwareAccelerate=function(){this.$el.css({"-webkit-perspective":1e3,perspective:1e3,"-webkit-backface-visibility":"hidden","backface-visibility":"hidden"})},d.prototype.getMovementValues=function(){return{ev:this.ev,pos:this.pos,velocity:this.velocity()}},d.prototype.buildDebugDiv=function(){var b;0===a("#pep-debug").length&&(b=a("<div></div>"),b.attr("id","pep-debug").append("<div style='font-weight:bold; background: red; color: white;'>DEBUG MODE</div>").append("<div id='pep-debug-event'>no event</div>").append("<div id='pep-debug-ev-coords'>event coords: <span class='pep-x'>-</span>, <span class='pep-y'>-</span></div>").append("<div id='pep-debug-pos-coords'>position coords: <span class='pep-x'>-</span>, <span class='pep-y'>-</span></div>").append("<div id='pep-debug-velocity'>velocity: <span class='pep-x'>-</span>, <span class='pep-y'>-</span></div>").append("<div id='pep-debug-delta'>&Delta; movement: <span class='pep-x'>-</span>, <span class='pep-y'>-</span></div>").css({position:"fixed",bottom:5,right:5,zIndex:99999,textAlign:"right",fontFamily:"Arial, sans",fontSize:10,border:"1px solid #DDD",padding:"3px",background:"white",color:"#333"}));var c=this;setTimeout(function(){c.debugElements={$event:a("#pep-debug-event"),$velocityX:a("#pep-debug-velocity .pep-x"),$velocityY:a("#pep-debug-velocity .pep-y"),$dX:a("#pep-debug-delta .pep-x"),$dY:a("#pep-debug-delta .pep-y"),$evCoordsX:a("#pep-debug-ev-coords .pep-x"),$evCoordsY:a("#pep-debug-ev-coords .pep-y"),$posCoordsX:a("#pep-debug-pos-coords .pep-x"),$posCoordsY:a("#pep-debug-pos-coords .pep-y")}},0),a("body").append(b)},d.prototype.log=function(a){if(this.options.debug)switch(a.type){case"event":this.debugElements.$event.text(a.event);break;case"pos-coords":this.debugElements.$posCoordsX.text(a.x),this.debugElements.$posCoordsY.text(a.y);break;case"event-coords":this.debugElements.$evCoordsX.text(a.x),this.debugElements.$evCoordsY.text(a.y);break;case"delta":this.debugElements.$dX.text(a.x),this.debugElements.$dY.text(a.y);break;case"velocity":var b=this.velocity();this.debugElements.$velocityX.text(Math.round(b.x)),this.debugElements.$velocityY.text(Math.round(b.y))}},d.prototype.toggle=function(a){"undefined"==typeof a?this.disabled=!this.disabled:this.disabled=!a},a.extend(a.easing,{easeOutQuad:function(a,b,c,d,e){return-d*(b/=e)*(b-2)+c},easeOutCirc:function(a,b,c,d,e){return d*Math.sqrt(1-(b=b/e-1)*b)+c},easeOutExpo:function(a,b,c,d,e){return b===e?c+d:d*(-Math.pow(2,-10*b/e)+1)+c}}),a.fn[e]=function(b){return this.each(function(){if(!a.data(this,"plugin_"+e)){var c=new d(this,b);a.data(this,"plugin_"+e,c),a.pep.peps.push(c)}})},a.pep={},a.pep.peps=[],a.pep.toggleAll=function(b){a.each(this.peps,function(a,c){c.toggle(b)})},a.pep.unbind=function(a){var b=a.data("plugin_"+e);"undefined"!=typeof b&&(b.toggle(!1),b.unsubscribe(),a.removeData("plugin_"+e))}}(jQuery,window);
 		
         loadFancybox(jQuery);
