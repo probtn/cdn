@@ -2389,13 +2389,14 @@ probtn_initTrackingLinkTest();
                             callback(probtnCID);
                         } else {
                             if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
+                                var recievedMessage =  false;
                                 var receiveMessage = function(event) {
                                     //console.log("DeviceCID event", event);
                                     try {
-                                        if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))) {
+                                        if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com")) && (recievedMessage===false)) {
+                                            recievedMessage = true;
 
                                             ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_6");
-ы
                                             ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
 
                                             ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
@@ -2406,6 +2407,13 @@ probtn_initTrackingLinkTest();
                                         ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_ex_" + ex);
                                     }
                                 };
+                                setTimeout(function(){
+                                    if (!recievedMessage) {
+                                        ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_timeout");
+                                        recievedMessage = true;
+                                        callback(null);
+                                    }
+                                }, 3000);//wait for 3000ms
                                 window.self.addEventListener("message", receiveMessage, false);
                             } else {
                                 ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
