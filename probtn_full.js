@@ -2395,7 +2395,7 @@ probtn_initTrackingLinkTest();
                                         if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))) {
 
                                             ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_6");
-
+ы
                                             ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
 
                                             ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
