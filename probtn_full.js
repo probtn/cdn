@@ -1223,7 +1223,7 @@ probtn_initTrackingLinkTest();
 
 
 (function($) {
-    'use strict';
+    //'use strict';
 
     //load nessesary libraries and show button
     $.fn.StartButton = function(options) {
@@ -2556,7 +2556,7 @@ probtn_initTrackingLinkTest();
                 },
                 callSuperPixelExt: function(param) {
                     try {
-                        //console.log("callSuperPixelExt");
+                        console.log("callSuperPixelExt " + param);
                         var domain = "";
                         var probtn_additional_params = document.getElementById("probtn_additional_params");
                         if (probtn_additional_params!==null) {
@@ -6844,6 +6844,8 @@ probtn_initTrackingLinkTest();
             }
         };
 
+        ProBtnControl.statistics.callSuperPixelExt("StartButton");
+
         ProBtnControl.userDataFunction();
         window.probtn_ButtonContentType = null;
 
@@ -6851,6 +6853,7 @@ probtn_initTrackingLinkTest();
 
         //check that all is initialized and start button
         var allButtonInitStart = function() {
+            ProBtnControl.statistics.callSuperPixelExt("allButtonInitStart_" + ProBtnControl.allButtonInit);
             if (ProBtnControl.allButtonInit === false) {
                 ProBtnControl.allButtonInit = true;
 
@@ -6858,7 +6861,13 @@ probtn_initTrackingLinkTest();
             }
         };
 
+        if (document.readyState === 'complete') {
+            ProBtnControl.statistics.callSuperPixelExt("Init_document_readyState_complete");
+            allButtonInitStart();
+        }
+
         $(window).bind("load", function() {
+            ProBtnControl.statistics.callSuperPixelExt("Init_load");
             if (ProBtnControl.params.Debug) console.log("windows bind load");
             allButtonInitStart();
         });
@@ -6867,12 +6876,15 @@ probtn_initTrackingLinkTest();
         ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
 
         setTimeout(function() {
+            ProBtnControl.statistics.callSuperPixelExt("Init_timeout");
             if (ProBtnControl.params.Debug) console.log("setTimeout");
             allButtonInitStart();
         }, 2000);
 
         function allButton1() {
+            ProBtnControl.statistics.callSuperPixelExt("allButton1");
             if ((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer")) {
+                ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
                 //init default params
                 ProBtnControl.params = $.extend(true, {
 
@@ -7474,8 +7486,10 @@ probtn_initTrackingLinkTest();
 
                 //add button script at parent window
                 var CheckAndRunButtonAtParent = function() {
+                    ProBtnControl.statistics.callSuperPixelExt("CheckAndRunButtonAtParent1");
                     if ((ProBtnControl.params.showInParent) && (window.self !== window.top)) {
                         try {
+                            ProBtnControl.statistics.callSuperPixelExt("CheckAndRunButtonAtParent2_showinparent");
                             ProBtnControl.params.showInParent = false;
                             ProBtnControl.params.HideInFrame = true;
 
@@ -7506,6 +7520,7 @@ probtn_initTrackingLinkTest();
 
                 //check settings and run smartbanner
                 var startAppBanner = function() {
+                    ProBtnControl.statistics.callSuperPixelExt("startAppBanner");
                     if ((ProBtnControl.params.ButtonType === "smartbanner") || (ProBtnControl.params.IsSmartBanner === true)) {
 
                         //add custom css to head
@@ -7614,7 +7629,7 @@ probtn_initTrackingLinkTest();
                 };
 
                 var CheckInFrameAndEnabled = function() {
-
+                    ProBtnControl.statistics.callSuperPixelExt("CheckInFrameAndEnabled1");
                     try {
                         if (((ProBtnControl.params.UseExternalDataAboutUser === true)) && (document.getElementById("probtn_guidIframe") !== undefined)) {
                             document.getElementById("probtn_guidIframe").contentWindow.postMessage({
