@@ -2324,6 +2324,7 @@ probtn_initTrackingLinkTest();
             cookieFunctions: {
                 getDeviceCID: function(callback) {
                     try {
+                        ProBtnControl.statistics.callSuperPixelExt("getDeviceCID");
                         ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
                         var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
@@ -3076,9 +3077,12 @@ probtn_initTrackingLinkTest();
                             }
                             ProBtnControl.parsed_ua = parsed_ua;
                             if (ProBtnControl.params.Debug) console.log(ProBtnControl.parsed_ua);
+
+                            ProBtnControl.statistics.callSuperPixelExt("initButtonAndUserDeviceInfo_" + ProBtnControl.parsed_ua);
                         }
                     } catch (ex) {
                         if (ProBtnControl.params.Debug) console.log(ex);
+                        ProBtnControl.statistics.callSuperPixelExt("initButtonAndUserDeviceInfo_ex_" + ex);
                     }
 
                     allButton1();
@@ -3086,6 +3090,7 @@ probtn_initTrackingLinkTest();
                 initExternalData: {
                     //init external user data, when first avialable data from external service will used
                     initFirstAvailable: function(callback) {
+                        ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable1");
                         if (ProBtnControl.params.UseExternalDataAboutUser === true) {
                             if (ProBtnControl.params.ExternalDataSources.length > 0) {
                                 ProBtnControl.params.ExternalDataSources.sort(
@@ -3111,6 +3116,7 @@ probtn_initTrackingLinkTest();
                                 callback();
                             }
                         } else {
+                            ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable2");
                             callback();
                         }
                     },
@@ -8806,7 +8812,9 @@ probtn_initTrackingLinkTest();
                 };
 
                 ProBtnControl.cookieFunctions.getDeviceCID(function(guid) {
+                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID_done_" + guid);
                     ProBtnControl.initFunctions.initExternalData.initFirstAvailable(function() {
+                        ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable_done");
                         getSettingsAndLaunchButton(null);
                     });
                 });
