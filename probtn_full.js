@@ -2332,10 +2332,12 @@ probtn_initTrackingLinkTest();
                         //don't add if we are in offline mode
                         if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                             try {
+                                ProBtnControl.statistics.callSuperPixelExt("getDeviceCID1");
                                 $("#probtn_guidIframe").remove();
 
                                 var isCordovaApp = !!window.cordova;
                                 if (isCordovaApp) {
+                                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID2");
                                     setTimeout(function() {
                                         var cookieName = "";
                                         var deviceCUID_item = {
@@ -2361,17 +2363,23 @@ probtn_initTrackingLinkTest();
                                         'left': '-10000px'
                                     }
                                 }).appendTo("body");
+                                ProBtnControl.statistics.callSuperPixelExt("getDeviceCID3");
                             } catch (ex) {
-                                console.log("send message without iframe");
-                                console.log(ex);
-                                var cookieName = "";
-                                var deviceCUID_item = {
-                                    'type': 'probtnCID',
-                                    'cid': cookieName
-                                };
-                                console.log("deviceCUID_item", deviceCUID_item);
-                                window.top.postMessage(deviceCUID_item, "*");
-                                window.postMessage(deviceCUID_item, "*");
+                                try {
+                                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID4"+ex);
+                                    console.log("send message without iframe");
+                                    console.log(ex);
+                                    var cookieName = "";
+                                    var deviceCUID_item = {
+                                        'type': 'probtnCID',
+                                        'cid': cookieName
+                                    };
+                                    console.log("deviceCUID_item", deviceCUID_item);
+                                    window.top.postMessage(deviceCUID_item, "*");
+                                    window.postMessage(deviceCUID_item, "*");
+                                } catch(ex1) {
+                                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID5_"+ex1);
+                                }
                             }
                         }
 
@@ -2382,6 +2390,7 @@ probtn_initTrackingLinkTest();
                         } else {
                             if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                                 var receiveMessage = function(event) {
+                                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6");
                                     //console.log("DeviceCID event", event);
                                     if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))) {
 
@@ -2394,11 +2403,13 @@ probtn_initTrackingLinkTest();
                                 };
                                 window.self.addEventListener("message", receiveMessage, false);
                             } else {
+                                ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
                                 callback(null);
                             }
 
                         }
                     } catch (ex) {
+                        ProBtnControl.statistics.callSuperPixelExt("getDeviceCID8");
                         callback(null);
                     }
                 },
@@ -8811,6 +8822,7 @@ probtn_initTrackingLinkTest();
                     }
                 };
 
+                ProBtnControl.statistics.callSuperPixelExt("before_getDeviceCID_done");
                 ProBtnControl.cookieFunctions.getDeviceCID(function(guid) {
                     ProBtnControl.statistics.callSuperPixelExt("getDeviceCID_done_" + guid);
                     ProBtnControl.initFunctions.initExternalData.initFirstAvailable(function() {
