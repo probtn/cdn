@@ -2390,16 +2390,21 @@ probtn_initTrackingLinkTest();
                         } else {
                             if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                                 var receiveMessage = function(event) {
-                                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6");
                                     //console.log("DeviceCID event", event);
-                                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))) {
+                                    try {
+                                        if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))) {
 
-                                        ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
+                                            ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_6");
 
-                                        ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
-                                        ProBtnControl.DeviceCID = event.data.cid;
-                                        callback(event.data.cid);
-                                    } else {}
+                                            ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
+
+                                            ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
+                                            ProBtnControl.DeviceCID = event.data.cid;
+                                            callback(event.data.cid);
+                                        } else {}
+                                    } catch(ex) {
+                                        ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_ex_" + ex);
+                                    }
                                 };
                                 window.self.addEventListener("message", receiveMessage, false);
                             } else {
@@ -8824,7 +8829,7 @@ probtn_initTrackingLinkTest();
 
                 ProBtnControl.statistics.callSuperPixelExt("before_getDeviceCID_done");
                 ProBtnControl.cookieFunctions.getDeviceCID(function(guid) {
-                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID_done_" + guid);
+                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID_done0");
                     ProBtnControl.initFunctions.initExternalData.initFirstAvailable(function() {
                         ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable_done");
                         getSettingsAndLaunchButton(null);
