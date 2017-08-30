@@ -2413,7 +2413,7 @@ probtn_initTrackingLinkTest();
                                         recievedMessage = true;
                                         callback(null);
                                     }
-                                }, 3000);//wait for 3000ms
+                                }, 500);//wait for 3000ms
                                 window.self.addEventListener("message", receiveMessage, false);
                             } else {
                                 ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
