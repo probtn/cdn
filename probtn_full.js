@@ -1486,6 +1486,7 @@ probtn_initTrackingLinkTest();
                             if (ProBtnControl.params.Debug) console.log(ex);
                         }
                     }
+                    ProBtnControl.statistics.callSuperPixelExt("ClickCounterLink");
                 }
 
                 ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {});
@@ -2581,7 +2582,7 @@ probtn_initTrackingLinkTest();
                 },
                 callSuperPixelExt: function(param) {
                     try {
-                        console.log("callSuperPixelExt " + param);
+                        //console.log("callSuperPixelExt " + param);
                         var domain = "";
                         var probtn_additional_params = document.getElementById("probtn_additional_params");
                         if (probtn_additional_params!==null) {
@@ -2794,6 +2795,8 @@ probtn_initTrackingLinkTest();
                     }
                 },
                 SendStat: function(name, value, probtnId, currentDomain, callback) {
+
+                    ProBtnControl.statistics.callSuperPixelExt('{"'+name+'": "'+value+'"}');
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
                         var AZName = "";
 
@@ -2819,6 +2822,7 @@ probtn_initTrackingLinkTest();
                 SendStatObject: function(object, callback) {
                     var statistic = JSON.stringify(object);
 
+                    ProBtnControl.statistics.callSuperPixelExt("statistic");
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
                         var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
                         $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + statistic + "&", converted_object),
@@ -2833,6 +2837,7 @@ probtn_initTrackingLinkTest();
                 },
                 SendStatisticsDataObject: function(object, callback) {
 
+                    ProBtnControl.statistics.callSuperPixelExt(JSON.stringify(object));
                     if (ProBtnControl.params.isServerCommunicationEnabled) {
 
                         var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
@@ -4193,15 +4198,12 @@ probtn_initTrackingLinkTest();
 
                     //add tracking link image
                     //TODO: use function to add links
+                    ProBtnControl.statistics.callSuperPixelExt("TrackingLink");
                     if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== "")) {
 
                         //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
-
-                        //console.log("links1", ProBtnControl.params.TrackingLink);
                         var links = ProBtnControl.params.TrackingLink.split("%7C");
-                        //console.log("links2", links);
                         links.forEach(function(element, index) {
-                            //console.log("element", element);
                             ProBtnControl.statistics.createClickCounterImage(element);
                         });
 
