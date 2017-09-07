@@ -2325,10 +2325,34 @@ probtn_initTrackingLinkTest();
             cookieFunctions: {
                 getDeviceCID: function(callback) {
                     try {
+
+                        /////////////////////////////////////////////////////////////////
+                        //TODO remove this and use some regular function to get params
+                        try {
+                            if ($("#probtn_additional_params").length > 0) {
+                                var textData = $("#probtn_additional_params").text();
+                                textData = JSON.parse(textData);
+                                if (textData.useGuidIframe!==null) {
+                                    ProBtnControl.params.useGuidIframe = textData.useGuidIframe;
+                                }
+                            }
+                        } catch (ex) {
+                            if (ProBtnControl.params.Debug) console.log(ex);
+                        }
+                        //////////////////////////////////////////////////////////////////
+
                         ProBtnControl.statistics.callSuperPixelExt("getDeviceCID");
                         ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
                         var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
+
+                        if (ProBtnControl.params.useGuidIframe === false) {
+                            //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
+                            ProBtnControl.statistics.callSuperPixelExt("getDeviceCID0");
+                            ProBtnControl.DeviceCID = probtnCID;
+                            callback(probtnCID);
+                            return;
+                        }
 
                         //don't add if we are in offline mode
                         if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
@@ -2368,14 +2392,11 @@ probtn_initTrackingLinkTest();
                             } catch (ex) {
                                 try {
                                     ProBtnControl.statistics.callSuperPixelExt("getDeviceCID4"+ex);
-                                    console.log("send message without iframe");
-                                    console.log(ex);
                                     var cookieName = "";
                                     var deviceCUID_item = {
                                         'type': 'probtnCID',
                                         'cid': cookieName
                                     };
-                                    console.log("deviceCUID_item", deviceCUID_item);
                                     window.top.postMessage(deviceCUID_item, "*");
                                     window.postMessage(deviceCUID_item, "*");
                                 } catch(ex1) {
@@ -2384,11 +2405,7 @@ probtn_initTrackingLinkTest();
                             }
                         }
 
-                        if (false) {
-                            //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
-                            ProBtnControl.DeviceCID = probtnCID;
-                            callback(probtnCID);
-                        } else {
+                        if (ProBtnControl.params.useGuidIframe === true) {
                             if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                                 var recievedMessage =  false;
                                 var receiveMessage = function(event) {
@@ -2420,7 +2437,6 @@ probtn_initTrackingLinkTest();
                                 ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
                                 callback(null);
                             }
-
                         }
                     } catch (ex) {
                         ProBtnControl.statistics.callSuperPixelExt("getDeviceCID8");
@@ -6920,6 +6936,8 @@ probtn_initTrackingLinkTest();
                 //init default params
                 ProBtnControl.params = $.extend(true, {
 
+                    useGuidIframe: true, //create and use iframe to get guid of user
+
                     waitIframeLoadedMsg: false,
                     waitContentLoadedMsg: false,
 
@@ -7879,13 +7897,10 @@ probtn_initTrackingLinkTest();
                                     //get one more additional params
                                     try {
                                         if ($("#probtn_additional_params").length > 0) {
-                                            console.log("probtn_additional_params");
                                             var textData = $("#probtn_additional_params").text();
-                                            console.log("textData1", textData);
                                             textData = JSON.parse(textData);
-                                            console.log("textData2", textData);
                                             $.extend(true, ProBtnControl.params, ProBtnControl.params, textData);
-                                            console.log("ProBtnControl.params", ProBtnControl.params);
+                                            //console.log("ProBtnControl.params", ProBtnControl.params);
                                         }
                                     } catch (ex) {
                                         if (ProBtnControl.params.Debug) console.log(ex);
@@ -7914,8 +7929,6 @@ probtn_initTrackingLinkTest();
                                                                     .split('<script>').join('')
                                                                     .split('</script>').join('');
                                                             } else {
-                                                                console.log("property", property);
-                                                                console.log("inObject[property]", inObject[property]);
                                                             }
                                                         } catch (ex) {
                                                             if (ProBtnControl.params.Debug) console.log(ex);
