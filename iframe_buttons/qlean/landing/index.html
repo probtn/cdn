@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <style>
+            html, body {
+                margin: 0px;
+                padding: 0px;
+                width: 100%;
+                height: 100%;
+                background: transparent !important;
+            }    
+            #send {
+                background: #13A14F;
+                color: white;
+                width:  100%;
+            }     
+        </style>
+    </head>
+    <body>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <center>
+                                <img src="images/logo.png" style="margin-top: 20px;"/>
+                                <h4>Помоем все окна в<br/>
+                                квартире за 990 рублей
+                                </h4>
+                                <p>Не важно, сколько их: 5, 7 или 10</p>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <form ACTION="http://m0rg0t.ru/clean/finish.php" method="POST">
+                        <!--<div class="form-group">
+                            <label>ФИО</label>
+                            <input class="form-control" type="text" id="fio"/>
+                        </div>-->
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input class="form-control" name="tel" placeholder="+79101234567" type="tel" id="tel"/>
+                        </div>
+                        <div class="checkbox form-group">
+                            <label>
+                              <input type="checkbox" name="additional" id="additional"> Добавить балконы за 700 рублей
+                            </label>
+                        </div>
+                        <button id="send" type="submit" class="btn btn-default">Оформить заказ</button>
+                        </form>
+                        <script>
+                            $(document).ready(function () {
+                                $("#send").click(function (e) {
+                                    var param = { "phone": $("#tel").val(),
+                                        "source": "partner",
+                                        "offer_data": { "partner_name": "*probtn*" }
+                                    };
+                                    /*$.ajax({
+                                        url: "https://api.qlean.ru/api/promo/v1/phone",
+                                        dataType: "json",
+                                        contentType: "application/json;charset=utf-8",
+                                        type: "POST",
+                                        method: "POST",
+                                        data: JSON.stringify(param),
+                                        success: function (msg) {
+                                            console.log(msg);
+                                        }
+                                    });*/
+
+                                    /*$.ajax({
+                                        url: "https://api.qlean.ru/api/promo/v1/phone",
+ 
+                                        // The name of the callback parameter, as specified by the YQL service
+                                        jsonp: "callback", 
+                                        contentType: "application/json;charset=utf-8",
+                                        // Tell jQuery we're expecting JSONP
+                                        dataType: "jsonp", 
+                                        type: "POST",
+                                        method: "POST",
+                                        // Tell YQL what we want and that we want JSON
+                                        data: param, 
+                                        // Work with the response
+                                        success: function( response ) {
+                                            console.log( response ); // server response
+                                        }
+                                    });*/
+
+                                    //e.preventDefault(e);
+                                    //return false;
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
