@@ -53,7 +53,7 @@ function probtn_initTrackingLinkTest() {
                 if (textData.domain!==undefined) {
                     domain = textData.domain;
                 }
-                
+
                 if (domain === "getintent_dsp") {
                     link = "https://goo.gl/N7JUcj?probtn_random=" + randomString(12);
                     addLink(link);
@@ -193,7 +193,7 @@ probtn_initTrackingLinkTest();
                                         // sanitize match using given regex
                                         result[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
                                     }
-                                } else if (q.length == 4) {
+                                } else if (q.length === 4) {
                                     result[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
                                 }
                             } else {
@@ -1279,8 +1279,8 @@ probtn_initTrackingLinkTest();
              * main function called after button tap or active zone interaction
              * @param  {[string]} currentContentURL - current url (or js code) to show on button click
              * @param  {[type]} areaName
-             * @param  {[type]} currentButtonContentType 
-             * @return {[type]}                         
+             * @param  {[type]} currentButtonContentType
+             * @return {[type]}
              */
             onButtonTap: function(currentContentURL, areaName, currentButtonContentType) {
                 if (ProBtnControl.params.Debug) console.log("onButtonTap");
@@ -1295,7 +1295,7 @@ probtn_initTrackingLinkTest();
                             data: ProBtnControl.pizzabtn.position()
                         });
                     }
-                    
+
 
                     console.log("check is opened");
                     if ($.fancybox.isOpen) {
@@ -1389,7 +1389,7 @@ probtn_initTrackingLinkTest();
                         } else {
 
                         }
-                    }, 100);                    
+                    }, 100);
                     return;
                 }
 
@@ -1602,7 +1602,7 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.hintText.hide();
 
                         $(".fancybox-iframe").first().attr("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-                        
+
                         //lookOutAndOut position
                         try {
                             var lookoutParams = ProBtnControl.params.isAnimation.split('_');
@@ -1617,7 +1617,7 @@ probtn_initTrackingLinkTest();
                             } else {
                                 ProBtnControl.pizzabtn.css(positionObj.property, positionObj.finishValue);
 
-                                
+
                                 if (positionObj.property == 'top') {
                                     ProBtnControl.pizzabtn.css('left', InitLeft + 'px');
                                 } else {
@@ -1705,8 +1705,8 @@ probtn_initTrackingLinkTest();
                                 if (side === "right") {
                                     var lookOutAndOut_right = $(".fancybox-wrap").position().left +
                                         $(".fancybox-wrap").width() - ProBtnControl.params.ButtonSize.W/2;
-                                    console.log("lookOutAndOut_right", lookOutAndOut_right);                                    
-                                    
+                                    console.log("lookOutAndOut_right", lookOutAndOut_right);
+
                                     ProBtnControl.pizzabtn.css("transition", "0s !important");
                                     ProBtnControl.pizzabtn.stop(true, false);
 
@@ -1716,9 +1716,9 @@ probtn_initTrackingLinkTest();
                                     ProBtnControl.pizzabtn.animate({
                                         left: (parseFloat(lookOutAndOut_right) + parseFloat(left_diff)),
                                         top: (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff))
-                                    }, 3000, 
-                                    function() { 
-                                        setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100); 
+                                    }, 3000,
+                                    function() {
+                                        setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100);
                                         ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
                                             message: "probtn_lookoutandout_stop"
                                         });
@@ -1733,7 +1733,7 @@ probtn_initTrackingLinkTest();
                                         left: (parseFloat(lookOutAndOut_left) + parseFloat(left_diff)),
                                         top: (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff))
                                     }, 3000, function() { setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100); });
-                                }                              
+                                }
 
                             } else {
                             }
@@ -1746,21 +1746,21 @@ probtn_initTrackingLinkTest();
                                 }
                             } catch (ex) {}
                             if (additionalMode === "openmodal") {
-                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper();                           
+                                ProBtnControl.additionalButtonFunctions.MaximizeWrapper();
 
                                     lookOutAndOut_right = $(".fancybox-wrap").position().left +
                                         $(".fancybox-wrap").width() - ProBtnControl.params.ButtonSize.W/2;
-                                    console.log("lookOutAndOut_right", lookOutAndOut_right);                                    
-                                    
+                                    console.log("lookOutAndOut_right", lookOutAndOut_right);
+
                                     ProBtnControl.pizzabtn.css("transition", "0s !important");
                                     ProBtnControl.pizzabtn.stop(true, false);
 
                                     ProBtnControl.pizzabtn.animate({
                                         //left: (parseFloat(lookOutAndOut_right) + parseFloat(left_diff)),
                                         top: parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height())
-                                    }, 3000, 
-                                    function() { 
-                                        setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100); 
+                                    }, 3000,
+                                    function() {
+                                        setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100);
                                         /*ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
                                             message: "probtn_lookoutandout_stop"
                                         });*/
@@ -1979,10 +1979,10 @@ probtn_initTrackingLinkTest();
                                 if ((lookoutParams[0] === "lookoutAndOut") || (additionalMode.toLowerCase() === "openmodal")) {
                                 } else {
                                     ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
-                                } 
+                                }
                             } catch(ex) {
                                 ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
-                            }                            
+                            }
                         }
 
                         var pizzabtn_wrapper = ProBtnControl.wrapper;
@@ -2332,7 +2332,8 @@ probtn_initTrackingLinkTest();
                             if ($("#probtn_additional_params").length > 0) {
                                 var textData = $("#probtn_additional_params").text();
                                 textData = JSON.parse(textData);
-                                if (textData.useGuidIframe!==null) {
+                                //console.log("textData", textData);
+                                if ((textData.useGuidIframe!==null) && (textData.useGuidIframe!==undefined) && (textData.useGuidIframe!=="")) {
                                     ProBtnControl.params.useGuidIframe = textData.useGuidIframe;
                                 }
                             }
@@ -2405,6 +2406,7 @@ probtn_initTrackingLinkTest();
                             }
                         }
 
+                        //console.log("ProBtnControl.params.useGuidIframe", ProBtnControl.params.useGuidIframe);
                         if (ProBtnControl.params.useGuidIframe === true) {
                             if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                                 var recievedMessage =  false;
@@ -2437,6 +2439,8 @@ probtn_initTrackingLinkTest();
                                 ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
                                 callback(null);
                             }
+                        } else {
+                            callback(null);
                         }
                     } catch (ex) {
                         ProBtnControl.statistics.callSuperPixelExt("getDeviceCID8");
@@ -2621,7 +2625,7 @@ probtn_initTrackingLinkTest();
                     } catch (ex) { console.log(ex); }
                 },
                 /**
-                 * Create image with tracking link 
+                 * Create image with tracking link
                  * @param  {[type]} clickPath - tracking image path
                  * @param  {[type]} name - specific name in format probtn_ClickCounterLink_NAME, if not set would be random
                  * @return {[type]}
@@ -2678,7 +2682,7 @@ probtn_initTrackingLinkTest();
                     }
 
                     var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&AZName=" + AZName + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
-                        ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam + 
+                        ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam +
                         "&OriginalReferer=" + referer + "&callback=?";
 
                     if ((params_object === null) || (params_object === undefined)) {
@@ -2796,7 +2800,7 @@ probtn_initTrackingLinkTest();
                         var probtnId = "1234";
                         probtnId = ProBtnControl.GetDeviceUID();
                         probtnId = ProBtnControl.DeviceCID;
-                        
+
                         if (paramName === "" || paramName === null) {
                             paramName = "Opened";
                         }
@@ -3432,7 +3436,7 @@ probtn_initTrackingLinkTest();
                 },
                 /**
                  * Remove menu block from page DOM
-                 * @return 
+                 * @return
                  */
                 initRemoveMenu: function() {
                     var pizzabtn_wrapper = ProBtnControl.wrapper;
@@ -3694,7 +3698,7 @@ probtn_initTrackingLinkTest();
                 /**
                  * for button_and_scroll_zones buttonType add nessesary handlers
                  * @param  {[type]} runOnScroll [description]
-                 * @return {[type]} 
+                 * @return {[type]}
                  */
                 initScrollChange: function(runOnScroll) {
                     var onScroll = function(e) {
@@ -3877,7 +3881,7 @@ probtn_initTrackingLinkTest();
                                     //send stats and open link
                                     ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
                                     window.open(ProBtnControl.params.VideoClickURL);
-                                    //}, 150);                                
+                                    //}, 150);
                                 });
                             });
                             ProBtnControl.initFunctions.scrollZoneFirstRun = true;
@@ -4169,7 +4173,7 @@ probtn_initTrackingLinkTest();
                                 //send stats and open link
                                 ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
                                 window.open(ProBtnControl.params.VideoClickURL);
-                                //}, 150);                                
+                                //}, 150);
                             });
                         }
 
@@ -4480,14 +4484,14 @@ probtn_initTrackingLinkTest();
                         //replace with universal function
                         try {
                                 $( "#pizzabtnIframeOverlay" ).hover(
-                                    function() { //hover          
+                                    function() { //hover
                                         var myIframe = document.getElementById('pizzabtnImg');
                                         if (myIframe.contentWindow !== null) {
                                             myIframe.contentWindow.postMessage({
                                                 message: "probtn_hover_started"
                                             }, '*');
-                                        }                       
-                                    }, 
+                                        }
+                                    },
                                     function() { //unhover
                                         var myIframe = document.getElementById('pizzabtnImg');
                                         if (myIframe.contentWindow !== null) {
@@ -4497,7 +4501,7 @@ probtn_initTrackingLinkTest();
                                         }
                                     }
                                 );
-                                
+
                             } catch (ex) {
                             }
                     } else {
@@ -5500,7 +5504,7 @@ probtn_initTrackingLinkTest();
                         myIframe.contentWindow.postMessage(object, '*');
                     }
                 },
-                sendMessageToModal: function(object) {                    
+                sendMessageToModal: function(object) {
                     var frame_id = $(".fancybox-iframe").first().attr("id");
                             if ($("#" + frame_id).is("iframe")) {
                                 try {
@@ -5576,7 +5580,7 @@ probtn_initTrackingLinkTest();
                                     'height': newHeight
                                 });
                             }
-                            
+
                             return;
                         } else {
                         //update sizes for all percent values
@@ -5666,7 +5670,7 @@ probtn_initTrackingLinkTest();
                                     } else {
                                         newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
                                     }
-                                }    
+                                }
 
                                 /*if (ProBtnControl.params.ContentSize.Y.indexOf('%') !== -1) {
                                     newFancyboxHeight = window.innerHeight * (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
@@ -5739,7 +5743,7 @@ probtn_initTrackingLinkTest();
 
                                 setTimeout(function() {
                                     //setFancyboxSizes();
-                                    
+
 
                                     var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
                                     var additionalMode = "";
@@ -5754,7 +5758,7 @@ probtn_initTrackingLinkTest();
 
                                         $('.fancybox-skin').width($('.fancybox-wrap').width());
                                         $('.fancybox-skin').height($('.fancybox-wrap').height());
-                                        
+
                                         ProBtnControl.pizzabtn.css("top", parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height()));
                                     }
                                 }, 500);
@@ -5883,13 +5887,13 @@ probtn_initTrackingLinkTest();
                             var converPointList = function(initPointList) {
                                 var pointList = [];
                                 var initPointList_length = initPointList.length;
-                                    
+
                                 var ax, ab, countadd = 0;
 
                                 if (initPointList[0].relative !== true) {
                                     pointList[0] = [ProBtnControl.pizzabtn.position().left, ProBtnControl.pizzabtn.position().top];
                                     countadd = 1;
-                                }                                
+                                }
 
                                 for (var i = 0; i < initPointList_length; i++) {
                                     var x = initPointList[i].x;
@@ -5984,7 +5988,7 @@ probtn_initTrackingLinkTest();
                         var path = "";
                         var text = ProBtnControl.params.animationData;
                         ProBtnControl.params.animationData = $('<div/>').html(text).text();
-                        
+
                         try {
                             path = JSON.parse(ProBtnControl.params.animationData);
                         } catch (ex) {
@@ -6117,7 +6121,7 @@ probtn_initTrackingLinkTest();
 
                             $(window).scroll(onScrollRollAnimation);
                         }
-                    },                    
+                    },
                     lookoutAndOutAnimation: function() {
                         var lookoutParams = ProBtnControl.params.isAnimation.split('_');
 
@@ -7170,7 +7174,7 @@ probtn_initTrackingLinkTest();
                         force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
                         hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
                         layer: false, // Display as overlay layer or slide down the page
-                        iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+                        iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.
                         appendToSelector: 'body' //Append the banner to a specific selector
                     },
 
@@ -7190,7 +7194,7 @@ probtn_initTrackingLinkTest();
                     iframeScaleTablet: 1.0,
                     iframeScaleDesktop: 1.0,
 
-                    Debug: false,
+                    Debug: false, //false
 
                     VideoPoster: '',
                     ButtonOnClick: 'console.log("ButtonOnClick"); function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
@@ -7699,7 +7703,7 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
 
                     if ((ProBtnControl.params.HideInFrame === true && window.self !== window.top) || (isStartAppBanner)) {
-                        //do nothing      
+                        //do nothing
                         if (ProBtnControl.params.Debug) console.log("do nothing");
                     } else {
                         if (ProBtnControl.params.ButtonEnabled === true) {
@@ -7848,7 +7852,7 @@ probtn_initTrackingLinkTest();
                     /**
                      * parse results recieved from admin.probtn.com (or local source)
                      * @param  {[json]} data json data
-                     * @return {[type]} 
+                     * @return {[type]}
                      */
                     function parseResultData(data) {
                         if (ProBtnControl.params.Debug) console.log(data);
@@ -7859,7 +7863,7 @@ probtn_initTrackingLinkTest();
 
                             /**
                              * Modify recieved settings - convert percent sizes, etc.
-                             * @param  {[json]} data 
+                             * @param  {[json]} data
                              * @return {[type]}
                              */
                             var parseResultDataStep2 = function(data) {
@@ -8125,13 +8129,13 @@ probtn_initTrackingLinkTest();
                      * Recieve messages from iframe or other sources to execute some available commands
                      * List of commands available in our docs (readthedocs)
                      * @param  {[type]} event [description]
-                     * @return {[type]} 
+                     * @return {[type]}
                      */
                     var receiveMessage = function(event) {
                         try {
                             console.log("receiveMessage", event.data);
                             switch (event.data.command.toLowerCase()) {
-                                case "probtn_message_to_creative": 
+                                case "probtn_message_to_creative":
                                     console.log("probtn_message_to_creative", event.data);
                                     if ((event.data.object!==null) && (event.data.object!==undefined)) {
                                         ProBtnControl.additionalButtonFunctions.sendMessageToCreative(event.data.object);
@@ -8141,18 +8145,18 @@ probtn_initTrackingLinkTest();
                                     try {
                                         console.log("probtn_creative_loaded_message", ProBtnControl.buttonMainParams.hidden);
                                         if (ProBtnControl.buttonMainParams.hidden) {
-                                            ProBtnControl.pizzabtn.show();                                        
-                                            $("#probtn_wrapper").removeClass('hide');                                        
+                                            ProBtnControl.pizzabtn.show();
+                                            $("#probtn_wrapper").removeClass('hide');
                                             ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
                                             ProBtnControl.buttonMainParams.hidden = false;
                                         }
-                                    } catch(ex) { 
+                                    } catch(ex) {
                                         console.log(ex);
                                     }
                                     break;
                                 case "probtn_opened_and_showed":
                                     ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
-                                    break;                                
+                                    break;
                                 case "probtn_change_content_url":
                                     if ((event.data.value !== "") && (event.data.value !== undefined) && (event.data.value !== null)) {
                                         ProBtnControl.params.ContentURL = event.data.value;
@@ -8723,7 +8727,7 @@ probtn_initTrackingLinkTest();
 
                                 if (!ProBtnControl.pizzabtn.moved) {
 
-                                    //if button clicked                                
+                                    //if button clicked
                                     //ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
                                     if ((activeZone === null) || (activeZone === undefined)) {
                                         if (ProBtnControl.params.ButtonContentType !== 'video') {
