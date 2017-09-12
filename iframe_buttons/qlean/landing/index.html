@@ -63,45 +63,41 @@
                         <button id="send" type="submit" class="btn btn-default">Оформить заказ</button>
                         </form>
                         <script>
+                            var checkPhone = function (e) {
+                                console.log("send click");
+                                var param = { "phone": $("#tel").val(),
+                                    "source": "partner",
+                                    "offer_data": { "partner_name": "*probtn*" }
+                                };
+
+                                function phonenumber(phone) {
+                                    console.log(phone);
+                                    phone = phone.replace("+","");
+                                    phone = phone.replace("-","");
+                                    phone = phone.replace("(","");
+                                    phone = phone.replace(")","");
+                                    console.log(phone);
+                                    var phoneno2 = /^\d{10}$/; //without 8 or 7
+                                    var phoneno3 = /^\d{11}$/;
+
+                                    if (phone.match(phoneno2) || phone.match(phoneno3)) {
+                                        return true;
+                                    }
+                                    else {
+                                        alert("Введите корректный номер телефона");
+                                        return false;
+                                    }
+                                }
+
+                                if (!phonenumber($("#tel").val())) {
+                                    e.preventDefault(e);
+                                    return false;
+                                }
+                                //e.preventDefault(e);
+                                //return false;
+                            }
                             $(document).ready(function () {
-                                $("#send").click(function (e) {
-                                    var param = { "phone": $("#tel").val(),
-                                        "source": "partner",
-                                        "offer_data": { "partner_name": "*probtn*" }
-                                    };
-                                    /*$.ajax({
-                                        url: "https://api.qlean.ru/api/promo/v1/phone",
-                                        dataType: "json",
-                                        contentType: "application/json;charset=utf-8",
-                                        type: "POST",
-                                        method: "POST",
-                                        data: JSON.stringify(param),
-                                        success: function (msg) {
-                                            console.log(msg);
-                                        }
-                                    });*/
-
-                                    /*$.ajax({
-                                        url: "https://api.qlean.ru/api/promo/v1/phone",
- 
-                                        // The name of the callback parameter, as specified by the YQL service
-                                        jsonp: "callback", 
-                                        contentType: "application/json;charset=utf-8",
-                                        // Tell jQuery we're expecting JSONP
-                                        dataType: "jsonp", 
-                                        type: "POST",
-                                        method: "POST",
-                                        // Tell YQL what we want and that we want JSON
-                                        data: param, 
-                                        // Work with the response
-                                        success: function( response ) {
-                                            console.log( response ); // server response
-                                        }
-                                    });*/
-
-                                    //e.preventDefault(e);
-                                    //return false;
-                                });
+                                $("#send").on("click", checkPhone);
                             });
                         </script>
                     </div>
