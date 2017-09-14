@@ -28,6 +28,13 @@ params.dfp.isDFP = true;
 params.dfp.clickUrlEsc = getParameterByName("click_url_esc");
 params.dfp.cacheBuster = getParameterByName("cacheBuster");
 
+var getParamFromUrl = function(name) {
+	var getParam = getParameterByName(name);
+	if ((getParam!==null) && (getParam!==undefined) && (getParam!=="")) {
+		params[name] = getParam;
+	}
+}
+
 var domain = getParameterByName("domain");
 if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
@@ -39,10 +46,9 @@ if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
 	params.SelectAdSet = SelectAdSet;
 }
 
-var CreativeId = getParameterByName("CreativeId");
-if ((CreativeId!==null) && (CreativeId!==undefined) && (CreativeId!=="")) {
-	params.CreativeId = CreativeId;
-}
+getParamFromUrl('CreativeId');
+getParamFromUrl('UseGeoLocation');
+getParamFromUrl('WaitForGeoLocation');
 
 var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
