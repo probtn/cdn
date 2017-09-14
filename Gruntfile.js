@@ -9,6 +9,7 @@ module.exports = function(grunt) {
 		default: {
 		  files: {
 			'probtn_concat_full.js': ['src/probtn_concat_template.js'], // Source files
+			'custom_include/location/probtn_location_concat_full.js': ['src/probtn_location_concat_template.js'], // Source files
 			'custom_include/maximonline_full.js': ['src/maximonline_template.js'],
 			'custom_include/probtn_kp_full.js': ['src/kp_probtn_template.js'],
 			'offline/probtn_concat_offline.js': ['src/probtn_concat_offline_template.js'], // Source files
@@ -51,6 +52,7 @@ module.exports = function(grunt) {
             'probtn.js': ['probtn_full.js'],
 			//['probtn_full.js'],
 			'probtn_concat.js': ['probtn_concat_full.js'],
+			'custom_include/location/probtn_location_concat.js': ['custom_include/location/probtn_location_concat_full.js'],
 			//TODO: restore bower
 			//'bower/probtn_concat.js': ['probtn_concat_full.js'],
 			//'bower/showinparent_concat.js': ['showinparent_concat.js'],

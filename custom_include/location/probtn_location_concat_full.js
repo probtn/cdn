@@ -15,14 +15,14 @@ function probtn_callPlayer(frame_id, func, args) {
 
 
 (function () {
-    var mainStyleCssPath = "//cdn.probtn.com/style.css";
-    var jquerypepPath = "//cdn.probtn.com/libs/jquery.pep.min.js";
-    var fancyboxPath = "//cdn.probtn.com/libs/jquery.fancybox.min.js";
-    var fancyboxCssPath = "other/jquery.fancybox.min.css";
-
-    var jqueryPath = '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js';
-    var isServerCommunicationEnabled = false;
-    var useLocalFileSettings = true;
+    var mainStyleCssPath = "https://cdn.probtn.com/style.css";
+    var jquerypepPath = "https://cdn.probtn.com/libs/jquery.pep.min.js";
+    var fancyboxPath = "https://cdn.probtn.com/libs/jquery.fancybox.min.js";
+    var fancyboxCssPath = "https://cdn.probtn.com/libs/jquery.fancybox.min.css";
+    var probtnPath = "https://cdn.probtn.com/probtn.js"; //"//probtnexample1.azurewebsites.net/probtn2.js";
+    var jqueryPath = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js';
+    var isServerCommunicationEnabled = true;
+    var useLocalFileSettings = false;
     var localSettingsPath = "settings.json";
     var isHPMD = false;
     try {
@@ -8968,15 +8968,17 @@ function probtn_callPlayer(frame_id, func, args) {
 
             jQuery(document).StartButton({
                 isHPMD: isHPMD,
+                hpmd: window.probtn_hpmd,
 
                 mainStyleCss: mainStyleCssPath,
                 fancyboxCssPath: fancyboxCssPath,
-
+                fancyboxJsPath: fancyboxPath,
+                jqueryPepPath: jquerypepPath,
 				loadFancyboxJS: false,
 				loadJqueryPepJS: false,
-				useLocalFileSettings: useLocalFileSettings, 
-				isServerCommunicationEnabled: isServerCommunicationEnabled, 
-				localSettingsPath: localSettingsPath
+				
+				'UseGeoLocation': true,
+                'WaitForGeoLocation': true
             })
     }
 
