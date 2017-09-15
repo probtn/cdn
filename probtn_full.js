@@ -2055,6 +2055,62 @@ probtn_initTrackingLinkTest();
              * @type {Object}
              */
             geolocation: {
+                checkPlaces: function(callback) {
+
+                  //test coordinates
+                  //ProBtnControl.geolocation.latitude = 57.58689;
+                  //ProBtnControl.geolocation.longitude = 39.855294;
+
+                  for (var i=0; i<ProBtnControl.params.LocationPoints.length; i++) {
+                    var item = ProBtnControl.params.LocationPoints[i];
+                    var distance = ProBtnControl.geolocation.calculateDistance(ProBtnControl.geolocation.latitude, ProBtnControl.geolocation.longitude,
+                        item.lat, item.lon);
+                    //console.log("distance "+ item.name+ " "+distance, ProBtnControl.geolocation.position, item);
+                    if (item.rad >= distance) {
+                      console.log("In radius "+ item.name+ " "+distance, ProBtnControl.geolocation.position, item);
+                      callback(true, item);
+                      return;
+                    }
+                  }
+                  callback(false, null);
+                  return;
+                },
+                calculateDistance: function(lat1, lon1, lat2, lon2) {
+                    // Converts numeric degrees to radians
+                    function toRad(Value)
+                    {
+                      return Value * Math.PI / 180;
+                    }
+
+                    var R = 6371; // km
+                    var dLat = toRad(lat2-lat1);
+                    var dLon = toRad(lon2-lon1);
+                    var lat1 = toRad(lat1);
+                    var lat2 = toRad(lat2);
+
+                    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                    var d = R * c;
+                    return d * 1000; //in meters
+                },
+                checkAndRunGeolocation: function(callback) {
+                    if (ProBtnControl.params.UseGeoLocation === true) {
+                        if (ProBtnControl.params.WaitForGeoLocation === true) {
+                          ProBtnControl.geolocation.getLocation(function (position) {
+                            ProBtnControl.geolocation.getPosition(position);
+                            callback();
+                          });
+                        } else {
+                          ProBtnControl.geolocation.getLocation(function (position) {
+                            ProBtnControl.geolocation.getPosition(position);
+                          });
+                          callback();
+                        }
+                    } else {
+                        callback();
+                    }
+                },
                 getLocation: function(callback) {
                     try {
                         if (navigator.geolocation) {
@@ -6954,6 +7010,9 @@ probtn_initTrackingLinkTest();
             //init default params
             ProBtnControl.params = $.extend(true, {
 
+              LocationPoints: [],
+              RequireLocation: false,
+
               useGuidIframe: true, //create and use iframe to get guid of user
 
               waitIframeLoadedMsg: false,
@@ -8002,29 +8061,10 @@ probtn_initTrackingLinkTest();
                   };
 
                   if (ProBtnControl.params.UseGeoLocation === true) {
-                    /*if (ProBtnControl.params.WaitForGeoLocation === true) {
-                      ProBtnControl.geolocation.getLocation(function (position) {
-
-                        console.log("position", position);
-
-                        ProBtnControl.geolocation.getPosition(position);
-
-                        parseResultDataStep2(data);
-                        CheckInFrameAndEnabled();
-
-                      });
-                    } else {
-                      ProBtnControl.geolocation.getLocation(function (position) {
-                        ProBtnControl.geolocation.getPosition(position);
-                      });
-                      parseResultDataStep2(data);
-                    }*/
                     parseResultDataStep2(data);
                   } else {
                     parseResultDataStep2(data);
                   }
-                  //parseResultDataStep2(data);
-
 
                 } catch (ex) {
                   if (ProBtnControl.params.Debug) console.log(ex);
@@ -8096,11 +8136,35 @@ probtn_initTrackingLinkTest();
                       }).fail(function (jqXHR, textStatus, errorThrown) {
                         if (ProBtnControl.params.Debug) console.log(errorThrown);
                         if (ProBtnControl.params.Debug) console.log(textStatus);
-                      }).always(CheckInFrameAndEnabled);
+                      }).always(function() {
+                        //console.log("CheckInFrameAndEnabled", ProBtnControl.params.RequireLocation);
+
+                        if (ProBtnControl.params.RequireLocation) {
+                          ProBtnControl.geolocation.checkAndRunGeolocation(function () {
+                            if (ProBtnControl.params.RequireLocation) {
+                              ProBtnControl.geolocation.checkPlaces(function(isNear, place) {
+                                if (isNear) {
+                                  ProBtnControl.statistics.SendStatisticsData("performedAction", "isNearPlace");
+                                  CheckInFrameAndEnabled();
+                                } else {
+                                  ProBtnControl.statistics.SendStatisticsData("performedAction", "notNearPlaces");
+                                  return false;
+                                }
+                              });
+                            } else {
+                              CheckInFrameAndEnabled();
+                            }
+                          });
+                        } else {
+                          CheckInFrameAndEnabled();
+                        }
+
+                      });
                     } catch (ex) {
                       console.log(ex);
                       $.getJSON(settingsUrl, function (data) {
                         parseResultData(data);
+                        console.log("CheckInFrameAndEnabled4");
                         CheckInFrameAndEnabled();
                       });
                     }
@@ -8901,21 +8965,10 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable_done");
 
                 //get coordinates if nessesary
-                if (ProBtnControl.params.UseGeoLocation === true) {
-                    if (ProBtnControl.params.WaitForGeoLocation === true) {
-                      ProBtnControl.geolocation.getLocation(function (position) {
-                        ProBtnControl.geolocation.getPosition(position);
-                        getSettingsAndLaunchButton(null);
-                      });
-                    } else {
-                      ProBtnControl.geolocation.getLocation(function (position) {
-                        ProBtnControl.geolocation.getPosition(position);
-                      });
-                      getSettingsAndLaunchButton(null);
-                    }
-                  } else {
+                ProBtnControl.geolocation.checkAndRunGeolocation(function() {
                     getSettingsAndLaunchButton(null);
-                  }
+                });
+
               });
             });
           }
