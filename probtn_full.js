@@ -4341,10 +4341,6 @@ probtn_initTrackingLinkTest();
             links.forEach(function (element, index) {
               ProBtnControl.statistics.createClickCounterImage(element);
             });
-
-            if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
-              //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
-            }
           }
           pizzabtn_wrapper.css(opts);
 
@@ -5066,6 +5062,29 @@ probtn_initTrackingLinkTest();
         wasInteraction: false
       },
       additionalButtonFunctions: {
+        callPassback: function() {
+          $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
+            $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function () {
+
+              $("body").append("<div id='probtn_passback'></div>");
+              var addate = new Date();
+              var scrheight = '',
+                scrwidth = '';
+              var jkit;
+              var scrsize;
+              var pr;
+
+              switch (ProBtnControl.currentDomain) {
+                default:
+                  //postscribe(ProBtnControl.params.PassbackCodeSelector, '<script type="text/javascript">' + ProBtnControl.params.PassbackCustomCode + '</script>');
+                  if ((ProBtnControl.params.PassbackCustomCode !== null) && (ProBtnControl.params.PassbackCustomCode !== undefined) && (ProBtnControl.params.PassbackCustomCode !== "")) {
+                    postscribe(ProBtnControl.params.PassbackCodeSelector, '' + ProBtnControl.params.PassbackCustomCode + '');
+                  }
+                  break;
+              }
+            });
+          });
+        },
         extractDomain: function (url) {
           var domain;
           //find & remove protocol (http, ftp, etc.) and get domain
@@ -7095,6 +7114,7 @@ probtn_initTrackingLinkTest();
 
     function allButton1() {
       ProBtnControl.statistics.callSuperPixelExt("allButton1");
+
       if (!((ProBtnControl.userData.browserMajorVersion > "8") || (ProBtnControl.userData.browser !== "Microsoft Internet Explorer"))) {
         //console.log("IE8 not supported.");
       } else {
@@ -7888,14 +7908,6 @@ probtn_initTrackingLinkTest();
           } else {
             if (ProBtnControl.params.ButtonEnabled === true) {
 
-              //babyblog shows
-              //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/JGZCkS");
-              //add tracking link image
-              if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== undefined) && (ProBtnControl.params.TrackingLink !== "")) {
-                /*ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.TrackingLink, "_probtn_TrackingLink");
-                                          ProBtnControl.statistics.SendStatisticsData("performedAction", "trackingLinkAdded");*/
-              }
-
               if (ProBtnControl.params.LoadFancyboxCSS === true) {
                 $('head').append('<link rel="stylesheet" href="' + ProBtnControl.params.fancyboxCssPath + '" type="text/css" />');
               }
@@ -7991,27 +8003,7 @@ probtn_initTrackingLinkTest();
               }
 
             } else {
-              $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
-                $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function () {
-
-                  $("body").append("<div id='probtn_passback'></div>");
-                  var addate = new Date();
-                  var scrheight = '',
-                    scrwidth = '';
-                  var jkit;
-                  var scrsize;
-                  var pr;
-
-                  switch (ProBtnControl.currentDomain) {
-                    default:
-                      //postscribe(ProBtnControl.params.PassbackCodeSelector, '<script type="text/javascript">' + ProBtnControl.params.PassbackCustomCode + '</script>');
-                      if ((ProBtnControl.params.PassbackCustomCode !== null) && (ProBtnControl.params.PassbackCustomCode !== undefined) && (ProBtnControl.params.PassbackCustomCode !== "")) {
-                        postscribe(ProBtnControl.params.PassbackCodeSelector, '' + ProBtnControl.params.PassbackCustomCode + '');
-                      }
-                      break;
-                  }
-                });
-              });
+              ProBtnControl.additionalButtonFunctions.callPassback();
             }
           }
         };
@@ -8242,6 +8234,7 @@ probtn_initTrackingLinkTest();
                     //console.log("CheckInFrameAndEnabled", ProBtnControl.params.RequireLocation);
 
                     if (ProBtnControl.params.RequireLocation) {
+                      ProBtnControl.statistics.SendStatisticsData("performedAction", "checkLocation");
                       ProBtnControl.geolocation.checkAndRunGeolocation(function () {
                         if (ProBtnControl.params.RequireLocation) {
                           ProBtnControl.geolocation.checkPlaces(function (isNear, place) {
@@ -8250,6 +8243,9 @@ probtn_initTrackingLinkTest();
                               CheckInFrameAndEnabled();
                             } else {
                               ProBtnControl.statistics.SendStatisticsData("performedAction", "notNearPlaces");
+                              //button not enabled, so show passback code
+                              ProBtnControl.additionalButtonFunctions.callPassback();
+
                               return false;
                             }
                           });
