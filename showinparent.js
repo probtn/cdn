@@ -35,7 +35,7 @@ var getParamFromUrl = function(name) {
 	}
 }
 
-var domain = getParameterByName("domain");
+/*var domain = getParameterByName("domain");
 if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 	params.domain = domain;
 }
@@ -44,8 +44,10 @@ if ((domain!==null) && (domain!==undefined) && (domain!=="")) {
 var SelectAdSet = getParameterByName("SelectAdSet");
 if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
 	params.SelectAdSet = SelectAdSet;
-}
+}*/
 
+var domain = getParamFromUrl('domain');
+var SelectAdSet = getParamFromUrl('SelectAdSet');
 getParamFromUrl('CreativeId');
 getParamFromUrl('UseGeoLocation');
 getParamFromUrl('WaitForGeoLocation');

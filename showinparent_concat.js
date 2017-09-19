@@ -41,7 +41,7 @@ var getParamFromUrl = function(name) {
 }
 
 var domain = getParamFromUrl('domain');
-getParamFromUrl('SelectAdSet');
+var SelectAdSet = getParamFromUrl('SelectAdSet');
 getParamFromUrl('CreativeId');
 getParamFromUrl('UseGeoLocation');
 getParamFromUrl('WaitForGeoLocation');
