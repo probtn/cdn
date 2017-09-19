@@ -36,10 +36,11 @@ var getParamFromUrl = function(name) {
 	var getParam = getParameterByName(name);
 	if ((getParam!==null) && (getParam!==undefined) && (getParam!=="")) {
 		params[name] = getParam;
+		return getParam;
 	}
 }
 
-getParamFromUrl('domain');
+var domain = getParamFromUrl('domain');
 getParamFromUrl('SelectAdSet');
 getParamFromUrl('CreativeId');
 getParamFromUrl('UseGeoLocation');
