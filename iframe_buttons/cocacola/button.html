@@ -137,7 +137,7 @@
             </div> 
 
             <div style="width: 148px;">
-			<a target="_blank" id="fb_share" style="display: none; cursor: pointer; float: left; width: auto; height: auto;" rel='http://www.facebook.com/sharer.php?u=http://share-a-coke-share-a-feeling.com/image_page.php?param=' href=''>
+			<a target="_blank" id="fb_share" style="display: none; cursor: pointer; float: left; width: auto; height: auto;" rel='http://www.facebook.com/sharer.php?u=https://demo.probtn.com/button_example2/cocacola_name2/image_page.php?param=' href=''>
             <img src="images_new/fb_btn@2x.png" style="margin-left: 5px; width: 69px; height: 31px; margin-top: 5px;" alt="fb"/>
 			</a>
 
@@ -278,7 +278,7 @@
               currentEmoji = emoji;
 
               $("#fb_share").attr("href", $("#fb_share").attr("rel") + name + "$" + currentEmoji.text);
-              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page.php?param=" + name + "$" + currentEmoji.text));
+              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("https://demo.probtn.com/button_example2/cocacola_name2/image_page.php?param=" + name + "$" + currentEmoji.text));
 
               var newEmoji = emoji.pic;
               var newEmojiText = emoji.text;
@@ -348,7 +348,7 @@
               }
               $("#fb_share").attr("href", $("#fb_share").attr("rel") + name + "$" + currentEmoji.text);
 
-              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("http://share-a-coke-share-a-feeling.com/image_page.php?param=" + name + "$" + currentEmoji.text));
+              $("#twitter_share").attr("href", $("#twitter_share").attr("rel") + encodeURIComponent("https://demo.probtn.com/button_example2/cocacola_name2/image_page.php?param=" + name + "$" + currentEmoji.text));
               		  
               window.top.postMessage({ command: "button_image_iframe_done" }, "*");
 

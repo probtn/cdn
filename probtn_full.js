@@ -1570,6 +1570,8 @@ probtn_initTrackingLinkTest();
           sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
           type: 'iframe',
 
+          parent: ProBtnControl.params.ButtonInjectPath,
+
           autoCenter: true,
           titlePosition: 'inside',
           scrolling: 'yes',
