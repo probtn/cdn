@@ -32,6 +32,7 @@ var getParamFromUrl = function(name) {
 	var getParam = getParameterByName(name);
 	if ((getParam!==null) && (getParam!==undefined) && (getParam!=="")) {
 		params[name] = getParam;
+		return getParam;
 	}
 }
 
