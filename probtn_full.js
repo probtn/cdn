@@ -3316,7 +3316,6 @@ probtn_initTrackingLinkTest();
           ProBtnControl.initFunctions.initRemoveMenu();
           ProBtnControl.hintText.makeInvisible();
 
-          //$.pep.toggleAll(false);
           ProBtnControl.pizzabtn.stop(true, true);
 
           ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
@@ -3330,6 +3329,7 @@ probtn_initTrackingLinkTest();
               var animateLeft = 0;
               var animateTop = window.innerHeight - ProBtnControl.pizzabtn.height();
               var menuType = ProBtnControl.params.MenuTemplateVariant.split('_');
+              console.log("ProBtnControl.params.MenuTemplateVariant", ProBtnControl.params.MenuTemplateVariant);
               if (menuType[0] === "circularCenter") {
                 animateTop = window.innerHeight / 2 - ProBtnControl.pizzabtn.height() / 2;
                 animateLeft = window.innerWidth / 2 - ProBtnControl.pizzabtn.width() / 2;
@@ -3349,17 +3349,12 @@ probtn_initTrackingLinkTest();
                     id: 'probtn_menu_ul'
                   }).prependTo(menu);
 
-                  var menuRadius = "0";
-                  try {
-                    if ((menuType[0] === "radialcorner") || (menuType[0] === "circularCenter")) {
-                      if ((menuType[1] !== null) && (menuType[1] !== undefined)) {
-                        menuRadius = menuType[1];
-                      }
-                    }
-                  } catch (ex) {
+                  var menuRadius = 0;
+                  if (ProBtnControl.params.MenuOptions.MenuRadius > 0) {
+                    menuRadius = ProBtnControl.params.MenuOptions.MenuRadius;
                   }
 
-                  if ((menuType[0] === "radialcorner") || (menuType[0] === "circularCenter")) {
+                  if ((menuType[0].toLowerCase() === "radialcorner".toLowerCase()) || (menuType[0].toLowerCase() === "circularcenter".toLowerCase())) {
                     $('head').append('<style type="text/css">' +
                       '#probtn_menu_ul li { ' +
                       '    background:transparent!important; padding:0px!important; margin:0px!important; width:auto!important; display:inline-block!important; ' +
@@ -3384,12 +3379,12 @@ probtn_initTrackingLinkTest();
                       }
 
                       var actionURL = menuItem.ActionURL;
-                      if (menuItem.Type == "video") {
+                      if (menuItem.Type === "video") {
                         actionURL = "#video_item_" + menuItem.Name;
                       }
 
                       var onclick = 'return false;'; //return false
-                      if ((menuItem.Type == "video") && (ProBtnControl.userData.mobile)) {
+                      if ((menuItem.Type === "video") && (ProBtnControl.userData.mobile)) {
                         onclick = ProBtnControl.params.ButtonOnClick + ' return false';
                       }
 
@@ -3403,22 +3398,27 @@ probtn_initTrackingLinkTest();
                         return angle * (Math.PI / 180);
                       }
 
-                      if (menuRadius === 0) {
+                      console.log("menuRadius1", menuRadius);
+                      if (menuRadius < 1) {
                         menuRadius = ProBtnControl.pizzabtn.height();
+                        console.log("menuRadius2", menuRadius);
                       }
 
                       var anglePart = 0;
                       var x = 0;
                       var y = 0;
                       var itemStyle = {};
+                      console.log("enuType[0]", menuType[0]);
                       switch (menuType[0]) {
                         case "radialcorner":
-                          if (ProBtnControl.params.MenuItems.length == 2) {
+                          if (ProBtnControl.params.MenuItems.length === 2) {
                             anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length + 1));
                             x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
                             y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
                           } else {
+                            console.log("menuRadius", menuRadius);
                             anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
+                            console.log("anglePart", anglePart);
                             x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
                             y = (menuRadius * 1.1) * Math.sin(anglePart * (count - 1));
                           }
@@ -3428,6 +3428,7 @@ probtn_initTrackingLinkTest();
                             "top": x,
                             "left": y
                           };
+                          console.log("itemStyle", itemStyle);
                           $(".menu_item_elem_count" + count).css(itemStyle);
                           break;
                         case "circularCenter":
@@ -7252,7 +7253,8 @@ probtn_initTrackingLinkTest();
             FontFamily: '"Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif',
             BackgroundColor: 'rgba(49,55,61,.95)',
             ForegroundColor: '#fff',
-            MenuHeight: "3.4em"
+            MenuHeight: "3.4em",
+            MenuRadius: 0
           },
           MenuItems: [{
             Name: "Menu1",
@@ -8852,6 +8854,9 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
                   message: "probtn_lookoutandout_stop"
                 });
+
+                //event that button stoped (for example to get in postion for some interactions and so on)
+                ProBtnControl.additionalButtonFunctions.sendMessageToModal({ message: "probtn_stop_event" });
 
                 ProBtnControl.contentTime.endTimer("MovedDuration");
                 var activeZone = null;
