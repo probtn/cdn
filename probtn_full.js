@@ -3350,8 +3350,14 @@ probtn_initTrackingLinkTest();
                   }).prependTo(menu);
 
                   var menuRadius = 0;
+                  var itemWidth = 0;
+
                   if (ProBtnControl.params.MenuOptions.MenuRadius > 0) {
                     menuRadius = ProBtnControl.params.MenuOptions.MenuRadius;
+                  }
+
+                  if (ProBtnControl.params.MenuOptions.ItemWidth > 0) {
+                    itemWidth = ProBtnControl.params.MenuOptions.ItemWidth;
                   }
 
                   if ((menuType[0].toLowerCase() === "radialcorner".toLowerCase()) || (menuType[0].toLowerCase() === "circularcenter".toLowerCase())) {
@@ -3360,7 +3366,7 @@ probtn_initTrackingLinkTest();
                       '    background:transparent!important; padding:0px!important; margin:0px!important; width:auto!important; display:inline-block!important; ' +
                       '}' +
                       '#probtn_menu_ul { position: absolute; } ' +
-                      '#probtn_menu_ul img { height: 60px !important; } ' +
+                      '#probtn_menu_ul img { height: '+ itemWidth +'px !important; } ' +
                       '#probtn_menu_ul {padding-left: 0px; }' +
                       '#probtn_menu_ul li a span { display: none; } ' +
                       '<\/style>');
@@ -3397,18 +3403,15 @@ probtn_initTrackingLinkTest();
                       function toRadians(angle) {
                         return angle * (Math.PI / 180);
                       }
-
-                      console.log("menuRadius1", menuRadius);
+                      
                       if (menuRadius < 1) {
                         menuRadius = ProBtnControl.pizzabtn.height();
-                        console.log("menuRadius2", menuRadius);
                       }
 
                       var anglePart = 0;
                       var x = 0;
                       var y = 0;
                       var itemStyle = {};
-                      console.log("enuType[0]", menuType[0]);
                       switch (menuType[0]) {
                         case "radialcorner":
                           if (ProBtnControl.params.MenuItems.length === 2) {
@@ -3416,7 +3419,6 @@ probtn_initTrackingLinkTest();
                             x = -(menuRadius * 1.1) * Math.cos(anglePart * (count + 0));
                             y = (menuRadius * 1.1) * Math.sin(anglePart * (count + 0));
                           } else {
-                            console.log("menuRadius", menuRadius);
                             anglePart = toRadians(90 / (ProBtnControl.params.MenuItems.length - 1));
                             console.log("anglePart", anglePart);
                             x = -(menuRadius * 1.1) * Math.cos(anglePart * (count - 1));
@@ -3432,9 +3434,10 @@ probtn_initTrackingLinkTest();
                           $(".menu_item_elem_count" + count).css(itemStyle);
                           break;
                         case "circularCenter":
-                          anglePart = toRadians(360 / (ProBtnControl.params.MenuItems.length - 0));
-                          x = animateTop + ProBtnControl.pizzabtn.height() / 4 - (menuRadius * 1.1) * Math.cos(anglePart * (count - 0));
-                          y = animateLeft + ProBtnControl.pizzabtn.width() / 4 + (menuRadius * 1.1) * Math.sin(anglePart * (count - 0));
+                          anglePart = toRadians(360 / (ProBtnControl.params.MenuItems.length));
+
+                          x = animateTop + ProBtnControl.pizzabtn.height() / 2 - itemWidth/2 - (menuRadius * 1.1) * Math.cos(anglePart * (count));
+                          y = animateLeft + ProBtnControl.pizzabtn.width() / 2 - itemWidth/2 + (menuRadius * 1.1) * Math.sin(anglePart * (count));
 
                           itemStyle = {
                             "position": "absolute",
@@ -7254,7 +7257,8 @@ probtn_initTrackingLinkTest();
             BackgroundColor: 'rgba(49,55,61,.95)',
             ForegroundColor: '#fff',
             MenuHeight: "3.4em",
-            MenuRadius: 0
+            MenuRadius: 0, 
+            ItemWidth: 60
           },
           MenuItems: [{
             Name: "Menu1",
@@ -8323,7 +8327,6 @@ probtn_initTrackingLinkTest();
            */
           var receiveMessage = function (event) {
             try {
-              console.log("receiveMessage", event.data);
               switch (event.data.command.toLowerCase()) {
                 case "probtn_message_to_creative":
                   if ((event.data.object !== null) && (event.data.object !== undefined)) {
