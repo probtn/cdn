@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            html, body {
+                margin: 0px;
+                padding: 0px;
+                width: 100%;
+                height: 100%;
+                
+                background: #DC2219;
+            }
+            #container {
+                max-width: 440px;
+                display: block;
+                           
+                
+                background: #DC2219;
+                color: black;
+                width: 100%;
+                height: 100%;
+                margin: 0 auto;     
+            }
+            #logo {
+                max-width: 46px;
+                max-height: 46px;
+                width: 23px;
+                display: inline-block;
+                float: left;
+                line-height: 46px;
+            }
+            #header {
+                display: inline-block;
+                height: auto;
+                width: 100%;
+            }
+            #digits_table.hide {
+                display:  none;
+            }
+            #digits_tr.hide {
+                display: none;
+            }
+            #digits_table td {
+                width: 20%;
+                background: white;
+                text-align: center;
+                height: 68px;
+                vertical-align: middle;
+            }
+            #digits_table td img {
+                width: 70%;
+            }
+            #digits_table {
+                width: 100%;
+            }
+            #text {
+                width: 80%;
+                margin-left: 20px;
+            }
+            #text2 {
+                width: 80%;
+                margin-left: 20px;
+                display: none;
+            }
+            #text.hide {
+                display: none;
+            }
+            #text2.show {
+                display: inherit;
+                opacity: 0;
+            }
+            #final {
+                margin: 0 auto;
+                display: none;
+                text-align: center;
+            }
+            #final.show {
+                display: block;       
+            }
+            #final img {
+                width: 90%; 
+                margin: 0 auto;
+                display: none;
+            }
+            #finalLink {
+                display: inline-block;
+                margin: 0 auto;
+                width: 100%;
+                text-align: center;
+            }
+            #dsc {
+                color: white;
+                font-size: 8px;
+                line-height: 9px;
+                font-family: Arial;
+            }
+            #td_dsc {
+                background: transparent !important;
+                height: 50px !important;
+            }
+            #phone, #phone a {
+                text-decoration: none;
+                color: #fff;
+            }            
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <header id="header">
+                <table style="vertical-align: middle; height: 38px; width: 95%; margin: 0 auto;">
+                    <tr>
+                        <td valign="middle" style=" height: 46px;">
+                            <img src="images/logo.png" alt="logo" id="logo"/>                            
+                        </td>
+                        <td valign="middle" style="vertical-align: middle; ">
+                            <img src="images/text-1.png" alt="text" id="text"/>
+                            <img src="images/text-2.png" alt="text2" id="text2"/>
+                        </td>
+                    </tr>
+                </table>                
+            </header>
+                <a id="final" onclick="window.top.postMessage({ command: 'probtn_performed_action', value: 'button_clicked' }, '*');" id="finalLink" href="https://stolotoru.solution.weborama.fr/fcgi-bin/dispatch.fcgi?a.A=cl&a.si=2746&a.te=139&a.aap=126&a.agi=163&g.lu=" target="_blank">
+                    <img src="images/btn-final.png" alt="final"/>
+                </a>
+                <table id="digits_table" style="vertical-align: middle; height: 38px; margin: 0 auto;">
+                    <tr id="digits_tr">
+                        <td valign="middle">
+                            <img src="images/digit-37.png" alt="erase" id="digit37" class="digit"/>
+                        </td>
+                        <td valign="middle">
+                            <img src="images/digit-78.png" alt="erase" id="digit78" class="digit"/>
+                        </td>
+                        <td valign="middle">
+                            &nbsp;
+                        </td>
+                        <td valign="middle" id="td_d23">
+                            <img src="images/digit-23.png" alt="erase" id="digit23" class="digit"/>
+                        </td>
+                        <td valign="middle">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" id="td_dsc">
+                            <p id="dsc">Срок проведения лотереи: до 31 декабря 2029 г. Информация об организаторе, о правилах проведения лотереи, количестве призов (выигрышей) по результатам лотереи, сроках, месте и порядке их получения на сайте: www.stoloto.ru  или по тел.&nbsp;<span id="phone">+7&nbsp;(499)&nbsp;270-27-27</span></p>
+                        </td>
+                    </tr>
+                </table>                 
+        </div>
+        <script>
+            var current_step = 1;
+            var timeout = false;
+            var isInPlace = false;
+
+            var receiveMessage = function (event) {
+
+                if (event.data.message === 'probtn_stop_event') {
+
+                    if (isInPlace) {
+                        console.log("isInPlace");
+
+                        window.top.postMessage({ command: 'probtn_performed_action', value: 'isInPlace' }, '*');
+
+                        document.getElementById("text").className="hide";
+                        document.getElementById("digits_tr").className="hide";
+                        document.getElementById("digits_table").className="hide";
+                        document.getElementById("final").className="show";
+
+                        $( "#text2" ).fadeIn( "slow", function() {
+                            $( "#final img" ).fadeIn( "slow", function() {
+                                // Animation complete
+                                $( "#digits_table" ).fadeIn( "slow", function() {
+                                    // Animation complete
+                                });
+                            });
+                        });
+                                                
+                        //window.top.postMessage({ command: "probtn_message_to_creative", object: { message: "probtn_hide"} }, '*');
+                        window.top.postMessage({ command: "probtn_hide" }, '*');
+                    }
+                }
+
+                if (event.data.message === 'probtn_drag_event') {
+
+                    function findTopLeft(element) {
+                        var rec = document.getElementById(element).getBoundingClientRect();
+                        return { top: rec.top + window.scrollY, left: rec.left + window.scrollX, height: rec.height, width: rec.width };
+                    }
+
+                    var modal = event.data.modal;
+                    var rect = event.data.rect;
+                    var digit = findTopLeft("td_d23");
+
+                    digit.left = modal.left + digit.left;
+                    digit.top = modal.top + digit.top;
+                    digit.right = modal.left + digit.left + digit.width;
+                    digit.bottom = modal.top + digit.top + digit.height;
+
+                    var check = !(rect.right < digit.left ||
+                        rect.left > digit.right ||
+                        rect.bottom < digit.top ||
+                        rect.top > digit.bottom);
+
+                    if (check) //width check
+                    {
+                        //in modal
+                        isInPlace = true;
+                    } else {
+                        isInPlace = false;
+                    }
+                }
+            }
+
+
+            if (window.addEventListener) {
+                window.addEventListener("message", receiveMessage, false);
+            } else {
+                window.attachEvent("onmessage", receiveMessage);
+            }
+        </script>
+    </body>
+</html>
