@@ -7397,7 +7397,7 @@ probtn_initTrackingLinkTest();
           },
           MenuClose: {
               MenuCloseEnabled: false,
-              MenuCloseImage: "",
+              MenuCloseImage: "https://cdn.probtn.com/images/close-menu-btn@2x.png",
               MenuCloseSize: {
                 W: 72,
                 H: 72
