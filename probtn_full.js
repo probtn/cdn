@@ -3464,7 +3464,7 @@ probtn_initTrackingLinkTest();
                       '    background:transparent!important; padding:0px!important; margin:0px!important; width:auto!important; display:inline-block!important; ' +
                       '}' +
                       '#probtn_menu_ul { position: absolute; } ' +
-                      '#probtn_menu_ul img { height: '+ itemWidth +'px !important; } ' +
+                      '#probtn_menu_ul img { height: '+ itemWidth +'px !important; width: '+ itemWidth +'px !important;     max-width: inherit !important; } ' +
                       '#probtn_menu_ul {padding-left: 0px; }' +
                       '#probtn_menu_ul li a span { display: none; } ' +
                       '<\/style>');
