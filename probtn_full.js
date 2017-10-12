@@ -6742,6 +6742,80 @@ probtn_initTrackingLinkTest();
               }, ProBtnControl.params.animationDuration);
             }
           },
+          upToDownAnimation: function () {
+            var upToDownParams = ProBtnControl.params.isAnimation.split('_');
+
+            var side = "up";
+            try {
+              if ((upToDownParams[1] !== null) && (upToDownParams[1] !== undefined)) {
+                side = upToDownParams[1];
+              }
+            } catch (ex) {
+            }
+
+
+            var firstPartDuration = ProBtnControl.params.animationDuration / 2;
+            try {
+              if ((upToDownParams[2] !== null) && (upToDownParams[2] !== undefined)) {
+                firstPartDuration = upToDownParams[2];
+              }
+            } catch (ex) {
+            }
+
+            var additionalMode = "";
+            var heightPercent = "1";
+
+            if (upToDownParams[0].toLowerCase() === "upToDown".toLowerCase()) {
+
+              if (side === 'down') {
+                ProBtnControl.pizzabtn.css("top", window.innerHeight - (ProBtnControl.params.ButtonSize.H));
+              } else {
+                ProBtnControl.pizzabtn.css("top", 0);
+              }
+
+              var vertical = window.innerHeight * heightPercent - (ProBtnControl.params.ButtonSize.H);
+              if (side === 'down') {
+                vertical = window.innerHeight * (1 - heightPercent);
+              }
+
+              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+              ProBtnControl.pizzabtn.css("transition-property", "left, top");
+              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+
+              ProBtnControl.pizzabtn.stop(true, true);
+
+              var probtnIframeEvent = function (name, data) {
+                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                  message: name,
+                  data: data
+                });
+              };
+
+              setTimeout(function () {
+                probtnIframeEvent("probtn_upToDown_start");
+                ProBtnControl.pizzabtn.animate({
+                  top: vertical
+                }, {
+                  duration: ProBtnControl.params.animationDuration,
+                  complete: function () {
+                    console.log("compelete");
+                    probtnIframeEvent("probtn_upToDown_stop", ProBtnControl.pizzabtn.position());
+
+                    setTimeout(function () {
+
+                      ProBtnControl.pizzabtn.stop(true, true);
+                    }, ProBtnControl.params.animationDuration);
+                  },
+                  done: function () {
+
+                  }
+                });
+              }, firstPartDuration);
+
+            }
+          },
           forwardAndStopAnimation: function () {
             var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
 
@@ -7071,6 +7145,8 @@ probtn_initTrackingLinkTest();
 
               ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
               ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
+              ProBtnControl.additionalButtonFunctions.animation.upToDownAnimation();
+
 
               ProBtnControl.additionalButtonFunctions.animation.TopToBottomAndStopAnimation();
 
