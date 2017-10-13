@@ -2522,7 +2522,7 @@ probtn_initTrackingLinkTest();
                     callback(null);
                   }
                 }, 500);//wait for 3000ms
-                window.self.addEventListener("message", receiveMessage, false);
+                window.window.addEventListener("message", receiveMessage, false);
               } else {
                 ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
                 callback(null);
@@ -5303,7 +5303,7 @@ probtn_initTrackingLinkTest();
 
           if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
             try {
-              title = "<style> .fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.self.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
+              title = "<style> .fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
             } catch (ex) {
             }
           }
@@ -5779,7 +5779,7 @@ probtn_initTrackingLinkTest();
         },
         sendCustomMessageToParent: function (object) {
           if (ProBtnControl.params.ControlInIframeFromParent === true) {
-            if (window.self !== window.top) {
+            if (window.window !== window.top) {
               window.top.postMessage(object, "*");
             }
           }
@@ -7971,7 +7971,7 @@ probtn_initTrackingLinkTest();
         //add button script at parent window
         var CheckAndRunButtonAtParent = function () {
           ProBtnControl.statistics.callSuperPixelExt("CheckAndRunButtonAtParent1");
-          if ((ProBtnControl.params.showInParent) && (window.self !== window.top)) {
+          if ((ProBtnControl.params.showInParent) && (window.window !== window.top)) {
             try {
               ProBtnControl.statistics.callSuperPixelExt("CheckAndRunButtonAtParent2_showinparent");
               ProBtnControl.params.showInParent = false;
@@ -8133,7 +8133,7 @@ probtn_initTrackingLinkTest();
           ProBtnControl.params.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
           ProBtnControl.params.ButtonDragSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonDragSize);
 
-          if ((ProBtnControl.params.HideInFrame === true && window.self !== window.top) || (isStartAppBanner)) {
+          if ((ProBtnControl.params.HideInFrame === true && window.window !== window.top) || (isStartAppBanner)) {
             //do nothing
             if (ProBtnControl.params.Debug) console.log("do nothing");
           } else {
