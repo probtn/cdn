@@ -1252,6 +1252,7 @@ probtn_initTrackingLinkTest();
       guidCookieControlPath: "https://cdn.probtn.com/cookie_iframe/cookie-iframe.html",
       //guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
       uaParserPath: 'https://cdn.probtn.com/libs/ua-parser.js',
+      atlasPath: 'https://cdn.probtn.com/libs/atlas.js',
       currentDomain: document.domain.replace("www.", ""),
       realDomain: document.domain.replace("www.", ""),
       initializedActiveZones: {},
@@ -1267,7 +1268,7 @@ probtn_initTrackingLinkTest();
       overlaped: false,
       buttonMainParams: {
         isEmpty: true,
-        hidden: false,
+        hidden: false
       },
       /**
        * status about loaded additional libs
@@ -1299,10 +1300,8 @@ probtn_initTrackingLinkTest();
             });
           }
 
-
-          console.log("check is opened");
           if ($.fancybox.isOpen) {
-            console.log("$.fancybox.isOpen", $.fancybox.isOpen);
+            //console.log("$.fancybox.isOpen", $.fancybox.isOpen);
             ProBtnControl.additionalButtonFunctions.hideAll();
             $.fancybox.close();
 
@@ -1313,7 +1312,7 @@ probtn_initTrackingLinkTest();
 
         try {
           if (ProBtnControl.lookOutTimeout !== undefined) {
-            console.log("ProBtnControl.lookOutTimeout", ProBtnControl.lookOutTimeout);
+            //console.log("ProBtnControl.lookOutTimeout", ProBtnControl.lookOutTimeout);
             ProBtnControl.pizzabtn.stop(true, false);
             clearTimeout(ProBtnControl.lookOutTimeout);
           }
@@ -2168,7 +2167,7 @@ probtn_initTrackingLinkTest();
         latitude: 0
       },
       //get user data - information about browser, os and so on
-      userDataFunction: function () {
+      userDataFunction: function (callback) {
         try {
           var unknown = 'Unbekannt';
 
@@ -2366,7 +2365,11 @@ probtn_initTrackingLinkTest();
           }
 
           var isiPad = navigator.userAgent.match(/iPad/i) !== null;
-
+          var daProps = "";
+          if (typeof DeviceAtlas !== "undefined") {
+            daProps = DeviceAtlas.getPropertiesAsString();
+          }
+          
           var result = {
             screen: screenSize,
             screenWidth: width,
@@ -2380,11 +2383,15 @@ probtn_initTrackingLinkTest();
             cookies: cookieEnabled,
             isiPad: isiPad,
             retina: 1,
-            kbs: 0
+            kbs: 0,
+            DAPROPS: daProps
           };
           ProBtnControl.userData = result;
+
+          callback(result);
           return result;
         } catch (ex) {
+          callback(undefined);
           return undefined;
         }
       },
@@ -2775,7 +2782,7 @@ probtn_initTrackingLinkTest();
 
           var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&AZName=" + AZName + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
             ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam +
-            "&OriginalReferer=" + referer + "&callback=?";
+            "&OriginalReferer=" + referer +  "&DAPROPS=" + ProBtnControl.userData.DAPROPS + "&callback=?";
 
           if ((params_object === null) || (params_object === undefined)) {
             params_object = {
@@ -6510,7 +6517,7 @@ probtn_initTrackingLinkTest();
                     duration: ProBtnControl.params.animationDuration,
                     easing: "linear",
                     complete: onBackLookOut,
-                    queue: true,
+                    queue: true
                   });
                   //}, ProBtnControl.params.animationDuration);
                 } else {
@@ -7291,11 +7298,6 @@ probtn_initTrackingLinkTest();
 
     ProBtnControl.statistics.callSuperPixelExt("StartButton");
 
-    ProBtnControl.userDataFunction();
-    window.probtn_ButtonContentType = null;
-
-    ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
-
     //check that all is initialized and start button
     var allButtonInitStart = function () {
       ProBtnControl.statistics.callSuperPixelExt("allButtonInitStart_" + ProBtnControl.allButtonInit);
@@ -7306,25 +7308,45 @@ probtn_initTrackingLinkTest();
       }
     };
 
-    if (document.readyState === 'complete') {
-      ProBtnControl.statistics.callSuperPixelExt("Init_document_readyState_complete");
-      allButtonInitStart();
+    var getUserDataFunction = function() {
+      ProBtnControl.userDataFunction(function () {
+        window.probtn_ButtonContentType = null;
+
+        ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
+
+        if (document.readyState === 'complete') {
+          ProBtnControl.statistics.callSuperPixelExt("Init_document_readyState_complete");
+          allButtonInitStart();
+        }
+
+        $(window).bind("load", function () {
+          ProBtnControl.statistics.callSuperPixelExt("Init_load");
+          if (ProBtnControl.params.Debug) console.log("windows bind load");
+          allButtonInitStart();
+        });
+
+        //start hpmd tracking event
+        ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
+
+        setTimeout(function () {
+          ProBtnControl.statistics.callSuperPixelExt("Init_timeout");
+          if (ProBtnControl.params.Debug) console.log("setTimeout");
+          allButtonInitStart();
+        }, 2000);
+      });
     }
 
-    $(window).bind("load", function () {
-      ProBtnControl.statistics.callSuperPixelExt("Init_load");
-      if (ProBtnControl.params.Debug) console.log("windows bind load");
-      allButtonInitStart();
-    });
-
-    //start hpmd tracking event
-    ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
-
-    setTimeout(function () {
-      ProBtnControl.statistics.callSuperPixelExt("Init_timeout");
-      if (ProBtnControl.params.Debug) console.log("setTimeout");
-      allButtonInitStart();
-    }, 2000);
+    try {
+      if (typeof DeviceAtlas !== 'undefined') {
+        getUserDataFunction(null);
+      } else {
+        $.getScript(ProBtnControl.atlasPath, getUserDataFunction);
+        //getUserDataFunction(null);
+      }
+    } catch (ex) {
+      console.log("ex deviceatlas",ex);
+      getUserDataFunction(null);
+    }
 
     function allButton1() {
       ProBtnControl.statistics.callSuperPixelExt("allButton1");
@@ -7337,7 +7359,7 @@ probtn_initTrackingLinkTest();
           if ($("#probtn_additional_params").length > 0) {
             var textData = $("#probtn_additional_params").text();
             textData = JSON.parse(textData);
-            console.log("textData", textData);
+            //console.log("textData", textData);
             options = $.extend(true, {}, textData, options);
           }
         } catch (ex) {
@@ -7469,7 +7491,7 @@ probtn_initTrackingLinkTest();
             ForegroundColor: '#fff',
             MenuHeight: "3.4em",
             MenuRadius: 0,
-            ItemWidth: 60,
+            ItemWidth: 60
           },
           MenuClose: {
               MenuCloseEnabled: false,
@@ -8911,7 +8933,7 @@ probtn_initTrackingLinkTest();
                 try {
                   ProBtnControl.pizzabtn.stop(true, true);
                   if (ProBtnControl.lookOutTimeout !== undefined) {
-                    console.log("ProBtnControl.lookOutTimeout", ProBtnControl.lookOutTimeout);
+                    //console.log("ProBtnControl.lookOutTimeout", ProBtnControl.lookOutTimeout);
                     ProBtnControl.pizzabtn.stop(true, true);
                     clearTimeout(ProBtnControl.lookOutTimeout);
                   }
@@ -9219,7 +9241,7 @@ probtn_initTrackingLinkTest();
 
                           //check for VideoClickURL not empty
                           if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
-                            console.log("ProBtnControl.params.VideoClickURL", ProBtnControl.params.VideoClickURL);
+                            //console.log("ProBtnControl.params.VideoClickURL", ProBtnControl.params.VideoClickURL);
                             if ((ProBtnControl.params.VideoClickURL.indexOf("#blank") > -1) || (ProBtnControl.params.OpenExternal === true)) {
                               //setTimeout(function () {
                               ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
@@ -9250,7 +9272,7 @@ probtn_initTrackingLinkTest();
                   var moved = window.probtn_pizzabtn_moved;
                   if ((window.probtn_dropedActiveZone !== null) && (window.probtn_dropedActiveZone !== undefined) && (moved === false)) {
                     if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType == "video") {
-                      console.log("pause video zone");
+                      //console.log("pause video zone");
                       var videoZone = jQuery("#video_probtn_" + window.probtn_dropedActiveZone.currentActiveZone.Name).get(0);
                       videoZone.pause();
                     }

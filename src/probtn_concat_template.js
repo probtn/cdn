@@ -36,6 +36,9 @@ function probtn_callPlayer(frame_id, func, args) {
         vernums = jQuery.fn.jquery.split('.');
     } catch (ex) { }
 
+    /*atlas lib*/
+    include "../libs/atlas.js"
+
     var loadProbtn = function (jQuery) {
 
 			/* probtn.js */			

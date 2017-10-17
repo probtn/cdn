@@ -37,6 +37,9 @@ try {
     vernums = jQuery.fn.jquery.split('.');
 } catch(ex) { }
 
+/*atlas lib*/
+    include "../libs/atlas.js"
+
 var loadProbtn = function (jQuery) {
 
     //probtn.js
