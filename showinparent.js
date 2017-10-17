@@ -48,6 +48,13 @@ if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
 }*/
 
 var domain = getParamFromUrl('domain');
+
+var current_params = document.getElementById("probtn_additional_params");
+if ((current_params!==null) && (current_params!==undefined)) {
+	var json = JSON.parse(current_params.innerText);
+	params = json;
+}
+
 var SelectAdSet = getParamFromUrl('SelectAdSet');
 getParamFromUrl('CreativeId');
 getParamFromUrl('UseGeoLocation');

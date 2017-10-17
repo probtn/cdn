@@ -27,6 +27,13 @@ function getParameterByName(name) {
 }
 
 var params = {};
+
+var current_params = document.getElementById("probtn_additional_params");
+if ((current_params!==null) && (current_params!==undefined)) {
+	var json = JSON.parse(current_params.innerText);
+	params = json;
+}
+
 params.dfp = {};
 params.dfp.isDFP = true;
 params.dfp.clickUrlEsc = getParameterByName("click_url_esc");

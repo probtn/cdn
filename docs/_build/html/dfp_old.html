@@ -30,9 +30,7 @@
   
 
   
-    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
-        <link rel="next" title="HPMD баннер" href="hpmd.html"/>
-        <link rel="prev" title="Интеграция с AdFox" href="adfox.html"/> 
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -82,7 +80,7 @@
             
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
@@ -91,19 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Интеграция с DFP</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dfp-safeframe">Интеграция с DFP - без safeframe</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#step-0">Step 0</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#dfp-c-safeframe">Интеграция с DFP - c safeframe</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#step-1">Step 1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-2">Step 2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Указание кампании (опционально)</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html">Описание параметров кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Неиспользуемые параметры</a></li>
@@ -151,7 +137,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/dfp.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/dfp_old.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -165,27 +151,8 @@
 <span id="id1"></span><h1>Интеграция с DFP<a class="headerlink" href="#dfp" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Для  такого рода интеграции, необходимо произвести следующие действия:
 Создайте кампанию на <a class="reference external" href="https://admin.probtn.com">https://admin.probtn.com</a></p>
-<div class="section" id="dfp-safeframe">
-<h2>Интеграция с DFP - без safeframe<a class="headerlink" href="#dfp-safeframe" title="Ссылка на этот заголовок">¶</a></h2>
-<div class="section" id="step-0">
-<h3>Step 0<a class="headerlink" href="#step-0" title="Ссылка на этот заголовок">¶</a></h3>
-<p>Добавьте следующий код в ваше DFP объявление</p>
-<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
-<p>и не указывайте пункт &#8220;Показывать в SafeFrame&#8221;</p>
-<img alt="images/adriver/safeframe1.png" src="images/adriver/safeframe1.png" />
-<p>Для указания дополнительных параметров к коду объявления можно добавить блок c настройками кнопки (домен и кампания указаны для примера):</p>
-<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;probtn_additional_params&quot;</span> <span class="na">style=</span><span class="s">&quot;display: none;&quot;</span><span class="nt">&gt;</span>{ &quot;domain&quot;: &quot;example.com&quot;, &quot;SelectAdSet&quot;: &quot;campaign_id&quot;}<span class="nt">&lt;/div&gt;</span>
-</pre></div>
-</div>
-<p>Такой код бдет выглядеть так:</p>
-<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;probtn_additional_params&quot;</span> <span class="na">style=</span><span class="s">&quot;display: none;&quot;</span><span class="nt">&gt;</span>{ &quot;domain&quot;: &quot;example.com&quot;, &quot;SelectAdSet&quot;: &quot;campaign_id&quot;}<span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdn.probtn.com/showinparent_concat.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="dfp-c-safeframe">
-<h2>Интеграция с DFP - c safeframe<a class="headerlink" href="#dfp-c-safeframe" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id2">
+<h2>Интеграция с DFP - асинхронный код<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <div class="section" id="step-1">
 <h3>Step 1<a class="headerlink" href="#step-1" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Создайте страницу, доступную по адресу с тем же доменом, где вы хотите показывать  кнопку.
@@ -217,8 +184,8 @@
 <blockquote>
 <div>Также значение GET параметра domain (для примера указано) <code class="docutils literal"><span class="pre">nessasary_example_app_domain.test</span></code> нужно заменить на необходимый домен (идентификатор), используемый в нужном аппе в admin.probtn.com</div></blockquote>
 </div>
-<div class="section" id="id2">
-<h3>Указание кампании (опционально)<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id3">
+<h3>Указание кампании (опционально)<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Также возможно указать идентификатор кампании, по которому кнопка будет показывать креативы только указанной кампании для аппа.
 Для этого необходимо</p>
 <p>Создать объявление с кодом
@@ -230,21 +197,20 @@
 <img alt="_images/adriver2_step3_2.png" src="_images/adriver2_step3_2.png" />
 </div>
 </div>
+<div class="section" id="id4">
+<h2>Интеграция с DFP - синхронный код<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="step-0">
+<h3>Step 0<a class="headerlink" href="#step-0" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Добавьте следующий код в ваше  объявление</p>
+<p><code class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;//cdn.probtn.com/showinparent_concat.js&quot;&gt;&lt;/script&gt;</span></code></p>
+</div>
+</div>
 </div>
 
 
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="hpmd.html" class="btn btn-neutral float-right" title="HPMD баннер" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="adfox.html" class="btn btn-neutral" title="Интеграция с AdFox" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
