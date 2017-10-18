@@ -2920,7 +2920,8 @@ probtn_initTrackingLinkTest();
         },
         SendStat: function (name, value, probtnId, currentDomain, callback) {
 
-          ProBtnControl.statistics.callSuperPixelExt('{"' + name + '": "' + value + '"}');
+          ProBtnControl.statistics.callSuperPixelExt("SendStat");
+          //ProBtnControl.statistics.callSuperPixelExt('{"' + name + '": "' + value + '"}');
           if (ProBtnControl.params.isServerCommunicationEnabled) {
             var AZName = "";
 
@@ -2947,7 +2948,7 @@ probtn_initTrackingLinkTest();
         SendStatObject: function (object, callback) {
           var statistic = JSON.stringify(object);
 
-          ProBtnControl.statistics.callSuperPixelExt("statistic");
+          ProBtnControl.statistics.callSuperPixelExt("SendStatObject");
           if (ProBtnControl.params.isServerCommunicationEnabled) {
             var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
             $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + statistic + "&", converted_object),
@@ -2966,7 +2967,7 @@ probtn_initTrackingLinkTest();
         },
         SendStatisticsDataObject: function (object, callback) {
 
-          ProBtnControl.statistics.callSuperPixelExt(JSON.stringify(object));
+          ProBtnControl.statistics.callSuperPixelExt("SendStatisticsDataObject");
           if (ProBtnControl.params.isServerCommunicationEnabled) {
 
             var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
@@ -8276,6 +8277,7 @@ probtn_initTrackingLinkTest();
            * @return {[type]}
            */
           function parseResultData(data) {
+            ProBtnControl.statistics.callSuperPixelExt("parseResultData");
             if (ProBtnControl.params.Debug) console.log(data);
             try {
               try {
@@ -8481,6 +8483,7 @@ probtn_initTrackingLinkTest();
 
                 try {
                   $.getJSON(settingsUrl, parseResultData).done(function () {
+                    ProBtnControl.statistics.callSuperPixelExt("getClientSettings_loaded");
                     if (ProBtnControl.params.Debug) console.log('done settings load');
                   }).fail(function (jqXHR, textStatus, errorThrown) {
                     if (ProBtnControl.params.Debug) console.log(errorThrown);
@@ -8829,7 +8832,7 @@ probtn_initTrackingLinkTest();
           }
 
           function loadPep() {
-            ProBtnControl.statistics.callSuperPixelExt("loadPep");
+            //ProBtnControl.statistics.callSuperPixelExt("loadPep");
             addFancyboxAnimations();
             try {
               if ((typeof $.pep.toggleAll === 'function') || (ProBtnControl.params.loadJqueryPepJS === false)) {
@@ -9347,10 +9350,11 @@ probtn_initTrackingLinkTest();
           }
         };
 
-        ProBtnControl.statistics.callSuperPixelExt("before_getDeviceCID_done");
+        //ProBtnControl.statistics.callSuperPixelExt("before_getDeviceCID_done");
         ProBtnControl.cookieFunctions.getDeviceCID(function (guid) {
-          ProBtnControl.statistics.callSuperPixelExt("getDeviceCID_done0");
+          //ProBtnControl.statistics.callSuperPixelExt("getDeviceCID_done0");
           ProBtnControl.initFunctions.initExternalData.initFirstAvailable(function () {
+            
             ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable_done");
 
             //get coordinates if nessesary
