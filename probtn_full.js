@@ -4618,7 +4618,9 @@ probtn_initTrackingLinkTest();
             pizzabtnCss = {
               'width': ProBtnControl.params.ButtonSize.W,
               'height': ProBtnControl.params.ButtonSize.H,
-              'opacity': ProBtnControl.params.ButtonOpacity
+              'opacity': ProBtnControl.params.ButtonOpacity,
+              'max-width': 'inherit !important',
+              'max-height': 'inherit !important'
             };
           } else {
             btn.css({
@@ -4654,6 +4656,9 @@ probtn_initTrackingLinkTest();
               'height': ProBtnControl.params.ButtonSize.H,
               'opacity': ProBtnControl.params.ButtonOpacity,
 
+              'max-width': 'inherit !important',
+              'max-height': 'inherit !important',
+
               'transition-property': 'opacity, width, height',
               'timing-function': 'linear',
 
@@ -4668,9 +4673,14 @@ probtn_initTrackingLinkTest();
             };
           }
 
+          console.log("pizzabtnCss", pizzabtnCss);
+
           var pizzabtnImg = null;
-          if (ProBtnControl.params.ButtonImageType == 'iframe') {
+          if (ProBtnControl.params.ButtonImageType === 'iframe') {
             //init iframe button
+            //
+            console.log("pizzabtnCss", pizzabtnCss);
+
             pizzabtnCss.border = '0px';
             pizzabtnCss.overflow = 'hidden';
             pizzabtnImg = $("<iframe/>", {
@@ -4679,8 +4689,7 @@ probtn_initTrackingLinkTest();
               'seamless': "seamless",
               src: ProBtnControl.params.ButtonImage,
               css: pizzabtnCss
-            }).appendTo(btn);
-
+            }).appendTo(btn);            
 
             ProBtnControl.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
@@ -4743,7 +4752,6 @@ probtn_initTrackingLinkTest();
             }).appendTo(btn);
             $("#pizzabtnImg").attr("src", ProBtnControl.params.ButtonImage);
           }
-
 
           ProBtnControl.additionalButtonFunctions.preloadImage(ProBtnControl.params.ButtonDragImage);
 
@@ -8176,6 +8184,9 @@ probtn_initTrackingLinkTest();
               if (ProBtnControl.params.LockBody === true) {
                 $('head').append(probtn_disable_scroll_style);
               }
+
+              //TODO: move to styles file later
+              $('head').append('<style type="text/css" id="probtn_ZCustomCss_probtnImg_max">#pizzabtnImg { max-width: inherit !important; max-height: inherit !important;}</style>');
 
               //Set styles for RoundButton param
               var round_params = ProBtnControl.params.RoundButton.split('_');
