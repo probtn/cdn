@@ -94,6 +94,11 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#onnoshowpixel">OnNoShowPixel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#onshowpixel">OnShowPixel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#locationpoints">LocationPoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirelocation">RequireLocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#buttoninjectpath">ButtonInjectPath</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#waitiframeloadedmsg">waitIframeLoadedMsg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#waitcontentloadedmsg">waitContentLoadedMsg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#animationdata">animationData</a></li>
@@ -354,6 +359,36 @@
 <li><a class="reference internal" href="docs-en/index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Интеграция</span></a></li>
 </ul>
+<div class="section" id="onnoshowpixel">
+<h2>OnNoShowPixel<a class="headerlink" href="#onnoshowpixel" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Пиксель вызываемый если кнопка НЕ показывается (в админке задается для всего аппа).</p>
+</div>
+<div class="section" id="onshowpixel">
+<h2>OnShowPixel<a class="headerlink" href="#onshowpixel" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Пиксель вызываемый если кнопка показывается (в админке задается для всего аппа).</p>
+</div>
+<div class="section" id="locationpoints">
+<h2>LocationPoints<a class="headerlink" href="#locationpoints" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Массив точек, для которых (в случае получения данных о геолокации) мы проверяем, находится ли пользователь в радиусе одной из них.</p>
+<p>Массив состоит из обхектов формата <code class="docutils literal"><span class="pre">{&quot;rad&quot;:</span> <span class="pre">500,</span> <span class="pre">&quot;lat&quot;:</span> <span class="pre">33.33,</span> <span class="pre">&quot;lon&quot;:</span> <span class="pre">55.55}</span></code></p>
+<p>Где соответственно:</p>
+<ul class="simple">
+<li>rad - радиус от точки, азадется в метрах</li>
+<li>lat - широта</li>
+<li>lon - долгота</li>
+</ul>
+</div>
+<div class="section" id="requirelocation">
+<h2>RequireLocation<a class="headerlink" href="#requirelocation" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Требуется ли для работы кнопки данные геолокации.</p>
+<p>По умолчанию: <code class="docutils literal"><span class="pre">false</span></code></p>
+</div>
+<div class="section" id="buttoninjectpath">
+<h2>ButtonInjectPath<a class="headerlink" href="#buttoninjectpath" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Путь по которому будет добавляться <code class="docutils literal"><span class="pre">#probtn_wrapper</span></code> блок кнопки, а также код модального окна.</p>
+<p>По умолчанию:
+<code class="docutils literal"><span class="pre">body</span></code></p>
+</div>
 <div class="section" id="waitiframeloadedmsg">
 <h2>waitIframeLoadedMsg<a class="headerlink" href="#waitiframeloadedmsg" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Ожидать сообщения от креатива о завершении загрузки и инициализации креатива, в частности <code class="docutils literal"><span class="pre">probtn_creative_loaded_message</span></code> сообщение.</p>

@@ -4673,14 +4673,10 @@ probtn_initTrackingLinkTest();
             };
           }
 
-          console.log("pizzabtnCss", pizzabtnCss);
-
           var pizzabtnImg = null;
           if (ProBtnControl.params.ButtonImageType === 'iframe') {
             //init iframe button
             //
-            console.log("pizzabtnCss", pizzabtnCss);
-
             pizzabtnCss.border = '0px';
             pizzabtnCss.overflow = 'hidden';
             pizzabtnImg = $("<iframe/>", {
@@ -6918,7 +6914,7 @@ probtn_initTrackingLinkTest();
                           console.log("ProBtnControl.once_moved", ProBtnControl.once_moved);
                           if (true) { // !ProBtnControl.once_moved
                             console.log("open modal param");
-                            ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+                            //ProBtnControl.statistics.SendStatisticsData("Showed", 1);
                             ProBtnControl.onButtonTap();
                           }
                         }

@@ -31,6 +31,7 @@
 
   
     <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="next" title="Неочевидные моменты, подсказки и иные дополнительные данные" href="hints_and_tricks.html"/>
         <link rel="prev" title="Отчеты admin.probtn.com" href="reports_description.html"/> 
 
   
@@ -93,8 +94,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html">Описание параметров кнопки</a></li>
-<li class="toctree-l1"><a class="reference internal" href="webparams.html#id17">Неиспользуемые параметры</a></li>
-<li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#id21">Параметры по умолчания для кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
 <li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
 <li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
@@ -109,6 +110,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="hints_and_tricks.html">Неочевидные моменты, подсказки и иные дополнительные данные</a></li>
 </ul>
 
             
@@ -157,6 +159,8 @@
 <span id="id1"></span><h1>Использование passback кода<a class="headerlink" href="#passback" title="Ссылка на этот заголовок">¶</a></h1>
 <p>В кнопке есть возможность использовать passback код, который будет добавлен на страницу в случае, если кнопка выключена (от admin.probtn.com пришли данные о том что она выключена).</p>
 <p>В частности в редактировании аппа мы можем добавить в поля <code class="docutils literal"><span class="pre">Passback</span> <span class="pre">Code</span></code> HTML код, который будет добавлен на страницу (если passback код был получен в виде JS кода, то нужно обрамить его в <code class="docutils literal"><span class="pre">&lt;script&gt;&lt;/script&gt;</span></code>).</p>
+<p>Также для случая, если такой функционал нужен только для того, чтобы подсчитывать количество показов можно воспользоваться двумя полями <code class="docutils literal"><span class="pre">OnShowPixel</span></code> и <code class="docutils literal"><span class="pre">OnNoShowPixel</span></code> в которых можно указать пиксели на посчет показов и не показов соответственно.</p>
+<p><a class="reference internal" href="webparams.html#webparams"><span>Описание параметров кнопки</span></a></p>
 <p>В поле <code class="docutils literal"><span class="pre">Passback</span> <span class="pre">Code</span> <span class="pre">Selector</span></code> можно указать путь, куда будет добавлен passback код. По умолчанию используется <code class="docutils literal"><span class="pre">#probtn_passback</span></code></p>
 <img alt="_images/16.png" src="_images/16.png" />
 <div class="section" id="dfp-passback">
@@ -182,6 +186,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hints_and_tricks.html" class="btn btn-neutral float-right" title="Неочевидные моменты, подсказки и иные дополнительные данные" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="reports_description.html" class="btn btn-neutral" title="Отчеты admin.probtn.com" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
