@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html ⚡>
+    <head>
+        <meta charset="utf-8" />
+        <script async src="https://cdn.ampproject.org/v0.js"></script>
+        <link rel="canonical" href="https://demo.probtn.com/button_example4/worldclass/landing/">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+        <title></title>
+        <style amp-custom>
+         .header {
+           position: relative;
+           box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+           padding-top: 82px;
+         }
+         .header {
+           background-color: #ED1C25;
+         }
+         .red {
+         	color: #ED1C25;
+         }
+         .header #sample-logo {
+           position:absolute;
+           top: 20px;
+           left:16px;
+           font-size: 18px;
+           font-weight: 400;
+           color: white;
+           text-transform: uppercase;
+           margin: 0 16px;
+           height: 32px;
+           text-decoration: none;
+           line-height: 52px;
+           height: 57px;
+         }     
+         
+         .header #header-phone {
+         	position:absolute;
+         	top: 35px;
+         	right:16px;
+         }     
+         @media (min-width: 600px) {
+           .header input[type=search] {
+             width: 100px;
+           }
+           .header input[type=search]:focus {
+             width: 600px;
+           }
+         }
+
+         #text1 {
+         	width: 100%;
+         	display: inline-block;
+
+         	padding-right: 30%;
+         }
+         #container a {
+         	margin-top: 10px;
+	    	display: inline-block;
+	    	width: 100%;
+			height: auto;
+         }
+
+         #container {
+         	margin-left: 15px;
+         	margin-right: 15px;
+
+         	font-family: Arial;
+         }
+            
+         #phone_button, .top10px {
+            margin-top: 10px;     
+         }
+         .bottom10px {
+            margin-bottom: 10px;    
+         }
+
+         @media (min-width: 500px) {
+            #logo {
+                width:  204px !important; 
+            }
+            #phone {
+                width:  208px !important; 
+            }
+            #phone_img {
+                width:  452px !important; 
+                margin: 0 auto;
+            }
+            #more_img {
+                width:  452px !important;   
+                margin: 0 auto;              
+            }
+         }
+         }
+     </style>
+        <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    </head>
+    <body>
+		<div class="header">
+			<a id="sample-logo"	href="/">
+				<amp-img src="images/logo@2x.png" id="logo"
+	        		height="57"
+					width="204"
+					sizes="35vw"
+			  		layout="responsive"></amp-img>
+
+			</a>
+			<a id="header-phone" href="tel:+7495780000">
+			<amp-img src="images/phone-number@2x.png" id="phone"
+	        		height="18"
+					width="209"
+					sizes="45vw"
+			  		layout="responsive"></amp-img>
+			</a>
+		</div>
+
+        <amp-img src="images/image@2x.png"
+        	height="480"
+		  width="1080"
+		  layout="responsive"></amp-img>
+
+		<div id="container">
+			<h2 class="bottom10px">Карта <span class="red">&laquo;Ультра&raquo;</span></h2>
+			<p class="top10px">3 месяца членства + подарки</p>
+
+			<a onclick="window.top.postMessage({ command: 'probtn_performed_action', value: 'button_clicked_phone' }, '*');" href="tel:+74957880000" target="_blank" id="phone_button" class="top10px">
+				<amp-img src="images/call-btn@2x.png" id="phone_img"
+		        	height="137"
+					width="906"
+					layout="responsive"></amp-img>
+			</a>
+			<a id="more" href="https://www.worldclass.ru/special/" target="_blank" class="top10px">
+				<amp-img src="images/more-btn@2x.png" id="more_img"
+		        	height="137"
+					width="906"
+					layout="responsive"></amp-img>
+			</a>
+
+            <script>
+                /*var postMessage = function() {
+                    console.log("postMessage");
+                    window.top.postMessage({ command: 'probtn_performed_action', value: 'button_clicked_more' }, '*');
+                    //return false;
+                }*/
+                var el = document.getElementById('more');
+                el.onclick = function() {
+                    console.log("postMessage");
+                    window.top.postMessage({ command: 'probtn_performed_action', value: 'button_clicked_more' }, '*');
+                };
+            </script>
+		</div>
+    </body>
+</html>
