@@ -4470,6 +4470,8 @@ probtn_initTrackingLinkTest();
           var extrusionMode_params = ProBtnControl.params.ExtrusionMode.split('_');
           var extrusionMode_width = 0;
           var extrusionMode_height = 0;
+          var pizzabtnCss = {};
+          
           switch (extrusionMode_params[0]) {
             case "topButton":
               $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: ' + ProBtnControl.params.ButtonSize.H + 'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
@@ -4603,10 +4605,7 @@ probtn_initTrackingLinkTest();
 
             btn.attr("ontouchend", ProBtnControl.params.ButtonOnTouchEnd);
             btn.attr("ontouchstart", ProBtnControl.params.ButtonOnTouchStart);
-          }
-
-          var pizzabtnCss = {};
-
+          }         
 
           if (ProBtnControl.params.ControlInIframeFromParent === true) {
             btn.css({
@@ -7761,9 +7760,8 @@ probtn_initTrackingLinkTest();
           },
           CloseOpacity: 0.6, // Прозрачность
           CloseActiveOpacity: 1.0, // Прозрачность в активном состоянии
-          CloseImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/close.png", // Ссылка на изображение
-          CloseActiveImage: "https://cdnjs.cloudflare.com/ajax/libs/probtn/1.0.0/images/probtn/close.png", // Ссылка на изображение в активном состоянии
-
+          CloseImage: "http://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение
+          CloseActiveImage: "http://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение в активном состоянии
           HintInsets: {
             // Смещение от краев
             T: 4.0,
