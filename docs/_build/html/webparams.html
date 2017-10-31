@@ -32,7 +32,7 @@
   
     <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
         <link rel="next" title="Оффлайн режим" href="offline.html"/>
-        <link rel="prev" title="HPMD баннер" href="hpmd.html"/> 
+        <link rel="prev" title="Интеграция с DSP (на примере getintent)" href="dsp.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -93,6 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">Интеграция с DSP (на примере getintent)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#onnoshowpixel">OnNoShowPixel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#onshowpixel">OnShowPixel</a></li>
@@ -121,6 +122,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#lookout">Анимация lookout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#forwardandback">Анимация forwardAndBack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#forwardstopandaway">Анимация forwardStopAndAway</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uptodown">Анимация upToDown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#toptobottomandstop">topToBottomAndStop</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#animationduration">animationDuration</a></li>
@@ -356,7 +359,7 @@
 В случае, если параметр используется несколько отличным способом в разных режимах, этот будет помечено (включая искомые режимы).</p>
 <p>Другие страницы:</p>
 <ul class="simple">
-<li><a class="reference internal" href="docs-en/index.html#index"><span>Profit Button</span></a></li>
+<li><a class="reference internal" href="index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Интеграция</span></a></li>
 </ul>
 <div class="section" id="onnoshowpixel">
@@ -506,14 +509,15 @@
 <p>Значения параметра:</p>
 <ul class="simple">
 <li>opacity</li>
-<li>rollout_left</li>
-<li>rollout_right</li>
-<li>lookout_left</li>
-<li>lookout_right</li>
+<li>rollout</li>
+<li>lookout</li>
 <li>forwardAndBack</li>
 <li>forwardStopAndAway</li>
 <li>anim1</li>
 <li>anim2</li>
+<li>upToDown</li>
+<li>topToBottomAndStop</li>
+<li>lookoutAndOut</li>
 </ul>
 <div class="section" id="opacity">
 <h3>Анимация opacity<a class="headerlink" href="#opacity" title="Ссылка на этот заголовок">¶</a></h3>
@@ -541,6 +545,16 @@
 <h3>Анимация forwardStopAndAway<a class="headerlink" href="#forwardstopandaway" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Кнопка перемещается из-за левого края до середины, останавливается и затем перемещается за правый край.
 Длительность каждого этапа задается параметром <code class="docutils literal"><span class="pre">animationDuration</span></code></p>
+</div>
+<div class="section" id="uptodown">
+<h3>Анимация upToDown<a class="headerlink" href="#uptodown" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Перемещение кнопки сверху к низу экрана (либо наоборот, указав дополнительный параметр направления анимации)</p>
+<p><code class="docutils literal"><span class="pre">upToDown_&lt;сторона_up_или_down&gt;_&lt;длительность_ожидания_перед_запуском_анимации_в_мс&gt;</span></code></p>
+</div>
+<div class="section" id="toptobottomandstop">
+<h3>topToBottomAndStop<a class="headerlink" href="#toptobottomandstop" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Перемещение кнопки сверху к низу экрана (либо наоборот, указав дополнительный параметр направления анимации).
+В последствии <code class="docutils literal"><span class="pre">topToBottomAndStop</span></code> и <code class="docutils literal"><span class="pre">upToDown</span></code> будут объеденины для исключения дублирования.</p>
 </div>
 </div>
 <div class="section" id="animationduration">
@@ -1544,7 +1558,7 @@ ActiveSize: { W: 64, H: 64 }
         <a href="offline.html" class="btn btn-neutral float-right" title="Оффлайн режим" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="hpmd.html" class="btn btn-neutral" title="HPMD баннер" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dsp.html" class="btn btn-neutral" title="Интеграция с DSP (на примере getintent)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

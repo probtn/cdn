@@ -93,6 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">Интеграция с DSP (на примере getintent)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html">Описание параметров кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Неиспользуемые параметры</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webparams.html#id21">Параметры по умолчания для кнопки</a></li>
@@ -126,15 +127,20 @@
 <li class="toctree-l3"><a class="reference internal" href="#id11">&lt;ширина_выезда&gt;</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#uptodown">upToDown</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#up-down">&lt;сторона_up_или_down&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">&lt;длительность_ожидания_перед_запуском_анимации_в_мс&gt;</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#forwardandback">forwardAndBack</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id12">&lt;начальное_положение&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">&lt;начальное_положение&gt;</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pauseduration">&lt;pauseDuration&gt;</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stopduration">&lt;stopDuration&gt;</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lookoutandout">lookOutAndOut</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id13">&lt;начальное_положение&gt;</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">&lt;ширина_выглядывания&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">&lt;начальное_положение&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">&lt;ширина_выглядывания&gt;</a></li>
 </ul>
 </li>
 </ul>
@@ -200,6 +206,8 @@
 <li><code class="docutils literal"><span class="pre">cornerToCorner</span></code></li>
 <li><code class="docutils literal"><span class="pre">forwardAndStop</span></code></li>
 <li><code class="docutils literal"><span class="pre">lootOutAndOut</span></code></li>
+<li><code class="docutils literal"><span class="pre">topToBottomAndStop</span></code></li>
+<li><code class="docutils literal"><span class="pre">upToDown</span></code></li>
 </ul>
 </div>
 <div class="section" id="opacity">
@@ -288,12 +296,29 @@
 <p>К примеру при 1 кнопка проедет всю щирину экрана, при 0.5 - только половину, после чего остановится.</p>
 </div>
 </div>
+<div class="section" id="uptodown">
+<h2>upToDown<a class="headerlink" href="#uptodown" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Формат: <code class="docutils literal"><span class="pre">upToDown_&lt;сторона_up_или_down&gt;_&lt;длительность_ожидания_перед_запуском_анимации_в_мс&gt;</span></code></p>
+<p>Пример: `` upToDown_up_2000``</p>
+<div class="section" id="up-down">
+<h3>&lt;сторона_up_или_down&gt;<a class="headerlink" href="#up-down" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Варианты:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">up</span></code></li>
+<li><code class="docutils literal"><span class="pre">down</span></code></li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>&lt;длительность_ожидания_перед_запуском_анимации_в_мс&gt;<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Длительность паузы (в мс) после первого проезда кнопки в противоположной части экрана</p>
+</div>
+</div>
 <div class="section" id="forwardandback">
 <h2>forwardAndBack<a class="headerlink" href="#forwardandback" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Формат: `` forwardAndBack_&lt;начальное_положение&gt;_&lt;pauseDuration&gt;_&lt;stopDuration&gt;``</p>
 <p>Пример: `` forwardAndBack_right_2000``</p>
-<div class="section" id="id12">
-<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id13">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Варианты:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">left</span></code></li>
@@ -315,16 +340,16 @@
 <p>Формат: `` lookOutAndOut_&lt;начальное_положение&gt;_&lt;ширина_выглядывания&gt;``</p>
 <p>Пример формата: `` lookOutAndOut_right_50``</p>
 <p>Пример: <a class="reference external" href="http://demo.probtn.com/button_example4/fruto/desktop/">http://demo.probtn.com/button_example4/fruto/desktop/</a></p>
-<div class="section" id="id13">
-<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id14">
+<h3>&lt;начальное_положение&gt;<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Варианты:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">left</span></code></li>
 <li><code class="docutils literal"><span class="pre">right</span></code></li>
 </ul>
 </div>
-<div class="section" id="id14">
-<h3>&lt;ширина_выглядывания&gt;<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="section" id="id15">
+<h3>&lt;ширина_выглядывания&gt;<a class="headerlink" href="#id15" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Процент выглядывания кнопки</p>
 </div>
 </div>

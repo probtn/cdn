@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Интеграция с DSP (на примере getintent) &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="next" title="Описание параметров кнопки" href="webparams.html"/>
+        <link rel="prev" title="HPMD баннер" href="hpmd.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Profit Button
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.1335_31102015_dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Содержание</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="createbutton.html">Создание кампании и креатива</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Примеры режимов работы кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Иерархия сущностей admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adriver.html">Интеграция с AdRiver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfox.html">Интеграция с AdFox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dfp.html">Интеграция с DFP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Интеграция с DSP (на примере getintent)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Общее описание</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Пример кода для объявления в DSP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Описание терминов</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#safeframe">safeFrame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#friendly-frame">Friendly frame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iframe">Без iframe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html">Описание параметров кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#id19">Неиспользуемые параметры</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparams.html#id21">Параметры по умолчания для кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Оффлайн режим</a></li>
+<li class="toctree-l1"><a class="reference internal" href="probtn_events.html">Получение событий кнопки на странице</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin_targetings.html">Описание вариантов таргетинга в админке</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postMessage_button_control.html">Управление кнопкой посредстовм postMessage сообщений из iframe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postMessage_button_animation.html">Передача сообщений об этапах анимации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="button_additional_animations_param.html">Дополнительные параметры анимации кнопки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reports_description.html">Отчеты admin.probtn.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="passback.html">Использование passback кода</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hints_and_tricks.html">Неочевидные моменты, подсказки и иные дополнительные данные</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Profit Button</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Интеграция с DSP (на примере getintent)</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/dsp.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dsp-getintent">
+<span id="dsp"></span><h1>Интеграция с DSP (на примере getintent)<a class="headerlink" href="#dsp-getintent" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id1">
+<h2>Общее описание<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для интеграции с DSP сервисами в первую очередь необходимо установить как именно будут показываться объявлениякреативы, в частности в safeframe или в friendly frameбез iframe.</p>
+<p>Для корректной работы кнопки необходим вариант показа объявлений внутри friendly frame или без iframe.</p>
+<p>Если информация о способе показа недоступна, ее можно собрать вручную, используя код креатива и запуская его для различных сайтовSSP - посредством трекинговых ссылок будет собираться информация о типе объявления, в котором показывается код, посредством чего можно исключить сайты и SSP с показом в safeFrame.</p>
+</div>
+<div class="section" id="id2">
+<h2>Пример кода для объявления в DSP<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для реального запуска необходимо заменить в блоке <code class="docutils literal"><span class="pre">#probtn_additional_params</span></code> параметр <code class="docutils literal"><span class="pre">domain</span></code> с <code class="docutils literal"><span class="pre">getintent_dsp</span></code> на реальный идентификатор аппа из admin.probtn.com</p>
+<p>Также заменить в <code class="docutils literal"><span class="pre">addLink(&quot;https://pixel.probtn.com/1/from-ref?pbdebug=getintent&amp;DeviceUID=&amp;localDomain=&quot;+document.domain.replace(&quot;www.&quot;,</span> <span class="pre">&quot;&quot;)+&quot;&amp;daction=&quot;</span> <span class="pre">+</span> <span class="pre">param</span> <span class="pre">+</span> <span class="pre">suf);</span></code> <code class="docutils literal"><span class="pre">pbdebug</span></code> параметр с <code class="docutils literal"><span class="pre">getintent</span></code> на реальный идентификатор аппа из admin.probtn.com</p>
+<p>Или возможно воспользоваться сервисом для генерации кодов интеграции для автоматического создания кода с заданными параметрами (ссылка будет добавлена позднее после релиза сервиса).</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;probtn_content1&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;probtn_additional_params&quot;</span> <span class="na">style=</span><span class="s">&quot;display: none;&quot;</span><span class="nt">&gt;</span>{ &quot;domain&quot;: &quot;getintent_dsp&quot;, &quot;HideInFrame&quot;: false, &quot;useGuidIframe&quot;: false}<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">addLink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">link</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">trackingImage</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">self</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span>
+            <span class="nx">trackingImage</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;probtn_getintent_includepb_tracking_image&quot;</span><span class="p">;</span>
+            <span class="nx">trackingImage</span><span class="p">.</span><span class="nx">alt</span> <span class="o">=</span> <span class="s2">&quot;probtn_getintent_includepb_tracking_image&quot;</span><span class="p">;</span>
+            <span class="nx">trackingImage</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">link</span><span class="p">;</span>
+            <span class="nx">trackingImage</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">=</span> <span class="s2">&quot;position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;&quot;</span><span class="p">;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">trackingImage</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">addSuperPixelLink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">param</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">param</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">suf</span> <span class="o">=</span> <span class="s2">&quot;_ECLICK&quot;</span><span class="p">;</span>
+        <span class="nx">addLink</span><span class="p">(</span><span class="s2">&quot;https://pixel.probtn.com/1/from-ref?pbdebug=getintent&amp;DeviceUID=&amp;localDomain=&quot;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;www.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;&amp;daction=&quot;</span> <span class="o">+</span> <span class="nx">param</span> <span class="o">+</span> <span class="nx">suf</span><span class="p">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">loadJS</span><span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">current</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">;</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">readyState</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">callback</span><span class="p">.</span><span class="nx">done</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">!</span><span class="nx">state</span> <span class="o">||</span> <span class="sr">/loaded|complete/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">state</span><span class="p">)))</span> <span class="p">{</span>
+            <span class="nx">callback</span><span class="p">.</span><span class="nx">done</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="nx">callback</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">current</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">NO_IFRAME</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">IFRAME</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nx">UNKNOWN</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nx">XD_IFRAME</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">};</span>
+<span class="kd">function</span> <span class="nx">checkIframe</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">top</span> <span class="o">==</span> <span class="nb">window</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;NO_IFRAME&quot;</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">window</span><span class="p">,</span> <span class="nx">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">parent</span> <span class="o">!=</span> <span class="nx">a</span> <span class="o">&amp;&amp;</span> <span class="mi">1</span><span class="nx">E3</span> <span class="o">&gt;</span> <span class="nx">f</span><span class="p">;)</span> <span class="p">{</span>
+        <span class="nx">f</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span> <span class="o">!=</span> <span class="nx">a</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;XD_IFRAME&quot;</span><span class="p">;</span>
+        <span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">parent</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="s2">&quot;IFRAME&quot;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="k">return</span> <span class="s2">&quot;XD_IFRAME&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">addSuperPixelLink</span><span class="p">(</span><span class="nx">checkIframe</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="s2">&quot;[[SSP]]&quot;</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="s2">&quot;[[DOMAIN]]&quot;</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">top</span> <span class="o">!==</span> <span class="nb">window</span><span class="p">.</span><span class="nx">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+                <span class="nx">addSuperPixelLink</span><span class="p">(</span><span class="s2">&quot;inIframe&quot;</span><span class="p">);</span>
+
+                <span class="kd">var</span> <span class="nx">probtn_content1</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+                <span class="nx">probtn_content1</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;probtn_content1&quot;</span><span class="p">;</span>
+                <span class="nx">probtn_content1</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;probtn_content1&quot;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="p">;</span>
+                <span class="nx">probtn_content1</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">=</span> <span class="s2">&quot;display: none;&quot;</span><span class="p">;</span>
+                <span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">probtn_content1</span><span class="p">);</span>
+
+                <span class="nx">loadJS</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span> <span class="s2">&quot;https://cdn.probtn.com/probtn_concat.js&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">addSuperPixelLink</span><span class="p">(</span><span class="s2">&quot;probtn_concat_loaded_to_top&quot;</span><span class="p">);</span>
+                <span class="p">});</span>
+        <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;cant go to top&quot;</span><span class="p">);</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ex</span><span class="p">);</span>
+                <span class="nx">addSuperPixelLink</span><span class="p">(</span><span class="s2">&quot;CantGo_Error_&quot;</span><span class="o">+</span> <span class="nx">ex</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+                <span class="nx">addSuperPixelLink</span><span class="p">(</span><span class="s2">&quot;CantGoToTopFromIframe&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">loadJS</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">self</span><span class="p">,</span> <span class="s2">&quot;https://cdn.probtn.com/probtn_concat.js&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">addSuperPixelLink</span><span class="p">(</span><span class="s2">&quot;probtn_concat_loaded_to_self&quot;</span><span class="p">);</span>
+        <span class="p">});</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Описание терминов<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="safeframe">
+<h3>safeFrame<a class="headerlink" href="#safeframe" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Iframe c url страницы где домен страницы отличается от домена страницы-родителя (на которой показывается данный iframe).</p>
+<p>Соответственно в связи с <a class="reference external" href="http://example.com/">Same Origin Policy</a> из такой iframe страницы невозможно запустить код кнопки на странице-родителе.</p>
+</div>
+<div class="section" id="friendly-frame">
+<h3>Friendly frame<a class="headerlink" href="#friendly-frame" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Iframe с url страницы где домен страницы совпадает с доменом страницы родителя либо url iframe отсутствует.</p>
+<p>И из такого iframe мы можем запустить код кнопки на странице родителе.</p>
+</div>
+<div class="section" id="iframe">
+<h3>Без iframe<a class="headerlink" href="#iframe" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Размещение кода непосредственно на странице родителе.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="webparams.html" class="btn btn-neutral float-right" title="Описание параметров кнопки" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hpmd.html" class="btn btn-neutral" title="HPMD баннер" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Profit Button LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.4.1335_31102015_dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
