@@ -1278,6 +1278,8 @@ probtn_initTrackingLinkTest();
         postscribe: false
       },
       closed: false, //is button closed
+      //movedFirstTime: false, 
+      once_moved: false, //is button was moved first time or not. False - button yet wasn't moved
       onButtonTapCountCheck: 0,
       /**
        * main function called after button tap or active zone interaction
@@ -5040,6 +5042,7 @@ probtn_initTrackingLinkTest();
             '-o-timing-function': 'linear'
           });
 
+          //set close button position
           btn.center = function () {
             var body = $('body');
             var closex = ProBtnControl.params.ClosePosition.X;
@@ -5185,7 +5188,11 @@ probtn_initTrackingLinkTest();
       },
       additionalButtonFunctions: {
         callPassback: function() {
-          ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.OnNoShowPixel);
+          if ((ProBtnControl.params.OnNoShowPixel !== undefined) 
+                && (ProBtnControl.params.OnNoShowPixel !== null) 
+                && (ProBtnControl.params.OnNoShowPixel !== "")) {
+            ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.OnNoShowPixel);
+          }
 
           $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
             $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function () {
@@ -5381,24 +5388,31 @@ probtn_initTrackingLinkTest();
 
           $("#fullscreen_probtn").remove();
         },
+        //TODO
+        //fix incorrect written word Correct (insted of Corrent)
         checkAndCorrentButtonPosition: function () {
+
           switch (ProBtnControl.params.ExtrusionMode) {
             case "insertBlock":
               ProBtnControl.pizzabtn.css("top", 0);
               ProBtnControl.pizzabtn.css("left", 0);
               break;
             default:
-              if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
-                if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
-                  ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
-                }
-                if (ProBtnControl.pizzabtn.css('top').replace('px', '') > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
-                  ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
+              //check is button was moved and if nessesary correct it start position, overwise just correct it's position
+              if ((ProBtnControl.params.CorrectPositionBeforeMove === true) && (ProBtnControl.once_moved === false)) {
+                ProBtnControl.additionalButtonFunctions.setButtonStartPosition(ProBtnControl.pizzabtn);
+              } else {
+                if ((ProBtnControl.pizzabtn !== undefined) && (ProBtnControl.pizzabtn !== null)) {
+                  if (ProBtnControl.pizzabtn.position().left > (window.innerWidth - ProBtnControl.params.ButtonSize.W)) {
+                    ProBtnControl.pizzabtn.css("left", window.innerWidth - ProBtnControl.params.ButtonSize.W);
+                  }
+                  if (ProBtnControl.pizzabtn.css('top').replace('px', '') > (window.innerHeight - ProBtnControl.params.ButtonSize.H)) {
+                    ProBtnControl.pizzabtn.css("top", window.innerHeight - ProBtnControl.params.ButtonSize.H);
+                  }
                 }
               }
               break;
           }
-
         },
         //update values for all percent params
         updateAllPercentSizes: function () {
@@ -5876,11 +5890,7 @@ probtn_initTrackingLinkTest();
                   ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
                   });
 
-                  /*if (ProBtnControl.params.MenuTemplateVariant === "radialcorner") {
-                    $("#probtn_menu").css("top", window.innerHeight - $("#probtn_menu").height());
-                  } else {
-                    $("#probtn_menu").css("top", (window.innerHeight - $("#probtn_menu").height() - ProBtnControl.params.ButtonSize.H));
-                  }*/
+                  //fix button position for menu varians
                   switch (ProBtnControl.params.MenuTemplateVariant) {
                     case "radialcorner":
                       $("#probtn_menu").css("left", 0);
@@ -7250,7 +7260,6 @@ probtn_initTrackingLinkTest();
             $(".fancybox-iframe").css("margin-bottom", "-5000px");
           }
 
-          console.log('$(".fancybox-inner").first().width()', $(".fancybox-inner").first().width());
           if ((ProBtnControl.params.iframeScaleMinWidth !== 0) && (ProBtnControl.params.iframeScaleMinWidth > $(".fancybox-inner").first().width())) {
             ProBtnControl.params.iframeScale = $(".fancybox-inner").first().width() / ProBtnControl.params.iframeScaleMinWidth;
 
@@ -7373,6 +7382,8 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
+
+          CorrectPositionBeforeMove: true, //should we coreect button position before button moves first time
 
           OnNoShowPixel: "", //pixel when button is disabled
           OnShowPixel: "", //pixel when button is showed
@@ -7758,7 +7769,7 @@ probtn_initTrackingLinkTest();
             W: 72,
             H: 72
           },
-          CloseOpacity: 0.6, // Прозрачность
+          CloseOpacity: 1.0, // Прозрачность
           CloseActiveOpacity: 1.0, // Прозрачность в активном состоянии
           CloseImage: "http://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение
           CloseActiveImage: "http://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение в активном состоянии
@@ -8725,8 +8736,7 @@ probtn_initTrackingLinkTest();
 
           //init close button
           ProBtnControl.closeButton = ProBtnControl.initFunctions.initCloseButton();
-          //var closeButton = initCloseButton();
-          $('#probtn_closeButton').attr('src', ProBtnControl.params.CloseImage);
+          ProBtnControl.closeButton.attr('src', ProBtnControl.params.CloseImage);
 
           // append pizzabtn and close btn styles
           if (ProBtnControl.params.NeverClose === false) {
@@ -8938,6 +8948,7 @@ probtn_initTrackingLinkTest();
               initiate: ProBtnControl.additionalButtonFunctions.changeBodySize,
               start: function () {
                 ProBtnControl.once_moved = true;
+
                 try {
                   ProBtnControl.pizzabtn.stop(true, true);
                   if (ProBtnControl.lookOutTimeout !== undefined) {
@@ -8963,7 +8974,6 @@ probtn_initTrackingLinkTest();
                 if (ProBtnControl.params.MainButtonClickable === false) {
                   if ($("#probtn_menu").length>0) {
                     //hide menu if button moved
-                    console.log("remove menu");
                     ProBtnControl.initFunctions.initRemoveMenu();
                   }
                 } else {
@@ -9188,8 +9198,8 @@ probtn_initTrackingLinkTest();
                   }
                 });
 
+                //for menu check variant if main button is still clickable and update her position
                 if (ProBtnControl.params.MainButtonClickable === true) {
-                  console.log("ProBtnControl.params.MainButtonClickable1", ProBtnControl.params.MainButtonClickable);
 
                   if ($("#probtn_menu").length > 0) {
                     ProBtnControl.additionalButtonFunctions.MaximizeWrapper();
