@@ -95,6 +95,8 @@
 <li class="toctree-l1"><a class="reference internal" href="hpmd.html">HPMD баннер</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dsp.html">Интеграция с DSP (на примере getintent)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Описание параметров кнопки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#brandingimage">BrandingImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#correctpositionbeforemove">CorrectPositionBeforeMove</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#onnoshowpixel">OnNoShowPixel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#onshowpixel">OnShowPixel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#locationpoints">LocationPoints</a></li>
@@ -362,6 +364,18 @@
 <li><a class="reference internal" href="index.html#index"><span>Profit Button</span></a></li>
 <li><a class="reference internal" href="description.html#description"><span>Интеграция</span></a></li>
 </ul>
+<div class="section" id="brandingimage">
+<h2>BrandingImage<a class="headerlink" href="#brandingimage" title="Ссылка на этот заголовок">¶</a></h2>
+<p>URL изображения, которое будет использоваться для брендинга страницы при перемещении кнопки.
+(Изображение будет использоваться как background-image для <code class="docutils literal"><span class="pre">#probtn_wrapper</span></code> элемента).</p>
+<p>По умолчанию: &#8220;&#8221;</p>
+</div>
+<div class="section" id="correctpositionbeforemove">
+<h2>CorrectPositionBeforeMove<a class="headerlink" href="#correctpositionbeforemove" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Параметр, отвечающий за то корректировать ли положение кнопки до ее первого перемещения или нет.
+Если установлен в true, то в случае изменения ориентации устройства или же изменения размера окна бразуера позиция кнопки будет обновления в соответствии со стартовой позицией <code class="docutils literal"><span class="pre">ButtonPosition</span></code></p>
+<p>По умолчанию: <code class="docutils literal"><span class="pre">true</span></code></p>
+</div>
 <div class="section" id="onnoshowpixel">
 <h2>OnNoShowPixel<a class="headerlink" href="#onnoshowpixel" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Пиксель вызываемый если кнопка НЕ показывается (в админке задается для всего аппа).</p>
@@ -376,9 +390,9 @@
 <p>Массив состоит из обхектов формата <code class="docutils literal"><span class="pre">{&quot;rad&quot;:</span> <span class="pre">500,</span> <span class="pre">&quot;lat&quot;:</span> <span class="pre">33.33,</span> <span class="pre">&quot;lon&quot;:</span> <span class="pre">55.55}</span></code></p>
 <p>Где соответственно:</p>
 <ul class="simple">
-<li>rad - радиус от точки, азадется в метрах</li>
-<li>lat - широта</li>
-<li>lon - долгота</li>
+<li><code class="docutils literal"><span class="pre">rad</span></code> - радиус от точки, азадется в метрах</li>
+<li><code class="docutils literal"><span class="pre">lat</span></code> - широта</li>
+<li><code class="docutils literal"><span class="pre">lon</span></code> - долгота</li>
 </ul>
 </div>
 <div class="section" id="requirelocation">

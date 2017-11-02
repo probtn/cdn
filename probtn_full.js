@@ -1257,7 +1257,7 @@ probtn_initTrackingLinkTest();
       realDomain: document.domain.replace("www.", ""),
       initializedActiveZones: {},
       //curent app version
-      mainVersion: "1.11.2243_16032017_dev",
+      mainVersion: "1.40.1814_02112017_dev",
       DeviceCID_log: "none",
       hintText: undefined, //hinttext object with additional functions
       pizzabtn: undefined,
@@ -7383,6 +7383,8 @@ probtn_initTrackingLinkTest();
         //init default params
         ProBtnControl.params = $.extend(true, {
 
+          BrandingImage: "", //image which would be used as background-image for #probtn_wrapper
+
           CorrectPositionBeforeMove: true, //should we coreect button position before button moves first time
 
           OnNoShowPixel: "", //pixel when button is disabled
@@ -8182,6 +8184,10 @@ probtn_initTrackingLinkTest();
               //add custom css to head
               if ((ProBtnControl.params.ZCustomCss !== "") && (ProBtnControl.params.ZCustomCss !== null) && (ProBtnControl.params.ZCustomCss !== undefined)) {
                 $('head').append('<style type="text/css" id="probtn_ZCustomCss">' + ProBtnControl.params.ZCustomCss + '</style>');
+              }
+
+              if ((ProBtnControl.params.BrandingImage !== "") && (ProBtnControl.params.BrandingImage !== null) && (ProBtnControl.params.BrandingImage !== undefined)) {
+                $('head').append('<style type="text/css" id="probtn_BrandingImage">#probtn_wrapper { background: url("' + ProBtnControl.params.BrandingImage + '") no-repeat top center; background-size: 100% !important; }</style>');
               }
 
               //Set styles for LockBody param
