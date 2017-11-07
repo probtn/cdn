@@ -7773,8 +7773,8 @@ probtn_initTrackingLinkTest();
           },
           CloseOpacity: 1.0, // Прозрачность
           CloseActiveOpacity: 1.0, // Прозрачность в активном состоянии
-          CloseImage: "http://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение
-          CloseActiveImage: "http://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение в активном состоянии
+          CloseImage: "https://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение
+          CloseActiveImage: "https://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение в активном состоянии
           HintInsets: {
             // Смещение от краев
             T: 4.0,
