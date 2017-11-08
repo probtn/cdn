@@ -6388,12 +6388,6 @@ probtn_initTrackingLinkTest();
 
               var onScrollRollAnimation = function (e) {
                 //send message about scroll
-                /*if ($("#pizzabtnImg").is("iframe")) {
-                                    var myIframe = document.getElementById('pizzabtnImg');
-                                    myIframe.contentWindow.postMessage({
-                                        message: "probtn_page_scroll"
-                                    }, '*');
-                                }*/
                 //TODO: check new function
                 ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
                   message: "probtn_page_scroll"
@@ -8547,22 +8541,6 @@ probtn_initTrackingLinkTest();
                 }
               };
 
-              //location before getting settings from server
-              /*if (ProBtnControl.params.UseGeoLocation === true) {
-                    if (ProBtnControl.params.WaitForGeoLocation === true) {
-                      ProBtnControl.geolocation.getLocation(function (position) {
-                        ProBtnControl.geolocation.getPosition(position);
-                        loadSettings();
-                      });
-                    } else {
-                      ProBtnControl.geolocation.getLocation(function (position) {
-                        ProBtnControl.geolocation.getPosition(position);
-                      });
-                      loadSettings();
-                    }
-                  } else {
-                    loadSettings();
-                  }*/
               loadSettings();
 
             });
@@ -9024,6 +9002,10 @@ probtn_initTrackingLinkTest();
                   }
                   ProBtnControl.statistics.SendStatisticsData("Moved", 1);
                   ProBtnControl.contentTime.startTimer("MovedDuration");
+
+                  ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                    message: "probtn_start_move"
+                  });
                 });
               },
               drag: function (ev, obj) {
