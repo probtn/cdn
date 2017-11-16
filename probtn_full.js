@@ -7145,7 +7145,56 @@ probtn_initTrackingLinkTest();
 
             }
           },
+          ToCenterAnimation: function () {
+            var ToCenterAnimationParams = ProBtnControl.params.isAnimation.split('_');
+
+            var delay = 1000;
+            try {
+              if ((ToCenterAnimationParams[2] !== null) && (ToCenterAnimationParams[2] !== undefined)) {
+                delay = ToCenterAnimationParams[1];
+              }
+            } catch (ex) {
+            }
+
+            if (ToCenterAnimationParams[0].toLowerCase() == "ToCenter".toLowerCase()) {
+
+              var top = (ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H))/2;
+              var left = (ProBtnControl.additionalButtonFunctions.getWindowWidth() - (ProBtnControl.params.ButtonSize.W))/2;
+
+              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+              ProBtnControl.pizzabtn.css("transition-property", "left, top");
+              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+
+              ProBtnControl.pizzabtn.stop(true, true);
+
+              var probtnIframeEvent = function (name, data) {
+                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                  message: name,
+                  data: data
+                });
+              };
+
+              setTimeout(function() {
+                probtnIframeEvent("probtn_topToCenter_start");
+
+                ProBtnControl.pizzabtn.animate({
+                  top: top,
+                  left: left
+                }, {
+                  duration: ProBtnControl.params.animationDuration,
+                  done: function () {
+                    probtnIframeEvent("probtn_topToCenter_stop", ProBtnControl.pizzabtn.position());
+                  }
+                });
+              }, delay);
+
+            }
+          },
           checkAndRunAnimation: function () {
+            console.log("checkAndRunAnimation");
+
             setTimeout(function () {
 
               //console.log("ProBtnControl.params.isAnimation", ProBtnControl.params.isAnimation);
@@ -7172,6 +7221,8 @@ probtn_initTrackingLinkTest();
               ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
 
               ProBtnControl.additionalButtonFunctions.animation.pathAnimation(ProBtnControl.params.isAnimation);
+
+              ProBtnControl.additionalButtonFunctions.animation.ToCenterAnimation(ProBtnControl.params.isAnimation);
 
               //});
             }, 400);
@@ -8577,6 +8628,7 @@ probtn_initTrackingLinkTest();
            */
           var receiveMessage = function (event) {
             try {
+              console.log("receiveMessage", event.data.command.toLowerCase());
               switch (event.data.command.toLowerCase()) {
                 case "probtn_message_to_creative":
                   if ((event.data.object !== null) && (event.data.object !== undefined)) {
@@ -8584,12 +8636,15 @@ probtn_initTrackingLinkTest();
                   }
                   break;
                 case "probtn_creative_loaded_message":
+                  console.log("probtn_creative_loaded_message recieved");
                   try {
                     if (ProBtnControl.buttonMainParams.hidden) {
                       ProBtnControl.pizzabtn.show();
                       ProBtnControl.wrapper.removeClass('hide');
                       ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
                       ProBtnControl.buttonMainParams.hidden = false;
+                    } else {
+
                     }
                   } catch (ex) {
                     console.log(ex);
@@ -8654,6 +8709,11 @@ probtn_initTrackingLinkTest();
                     'width': event.data.size.w,
                     'height': event.data.size.h
                   });
+                  if (event.data.size.top !== undefined) {
+                    $("#pizzabtnIframeOverlay").css({
+                      'top': event.data.size.top
+                    });  
+                  }
                   break;
                 default:
                   break;
@@ -8669,6 +8729,7 @@ probtn_initTrackingLinkTest();
               if (ProBtnControl.params.Debug) console.log(ex);
             }
           };
+          console.log("add receiveMessage function");
           if (window.addEventListener) {
             window.addEventListener("message", receiveMessage, false);
           } else {
