@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>3d cube</title>
+        <link rel="stylesheet" href="main.css?r=26" type="text/css"></link>
+        <style>
+            .none { display: none; left: -1000px; top: -1000px; position: absolute; }
+        </style>
+    </head>
+    <body>
+        <script>
+            var count = 0;
+            var max_images = 3;
+            var checkImages = function () {
+                count++;
+
+                if (count >= max_images) {
+                    window.top.postMessage({ command: "probtn_creative_loaded_message" }, '*');
+
+                }
+            }
+
+            var receiveMessage = function (event) {
+                try {
+                    console.log("receiveMessage", event.data);
+                    if (event.data.message.toLowerCase() === "probtn_topToCenter_stop".toLowerCase()) {
+                        setTimeout(function () {
+                            console.log("timeout done");
+                            document.getElementById("modalCard").className += " show";
+                            window.top.postMessage({ command: "button_image_iframe_size", size: { w: 150, h: 100, top: 50} }, '*');
+                        }, 3000);
+                    }
+                    if (event.data.message.toLowerCase() === "probtn_topToCenter_start".toLowerCase()) {
+                            document.getElementById("cube").className += " start";                        
+                    }
+                } catch (ex) {
+                    console.log(ex);
+                }
+            }
+
+            if (window.addEventListener) {
+                window.addEventListener("message", receiveMessage, false);
+            } else {
+                window.attachEvent("onmessage", receiveMessage);
+            }
+
+            //document.getElementById("close").onclick
+        </script>
+
+        <img src="images/image_1.png" onload="checkImages();" class="none"/>
+        <img src="images/image_2.png" onload="checkImages();" class="none"/>
+        <img src="images/image_3.png" onload="checkImages();" class="none"/>
+
+        <div class="container" id="cube">
+            <div class="back side" style="z-index: 2;"></div>
+
+            <div class="left side"></div>
+
+            <div class="right side"></div>
+
+            <div class="top side"></div>
+
+            <div class="bottom side"></div>
+
+            <div class="front side"></div>
+        </div>
+
+
+
+        <div class="container2" id="modalCard" style="display: none;">
+            <img src="images/close-icon.png" onclick="window.top.postMessage({ command: 'probtn_close' }, '*');" id="close" alt=""/>
+            <img src="images/text.png" id="text" alt=""/>
+            <img src="images/btn.png" id="btn" alt=""/>
+        </div>
+    </body>
+</html>
