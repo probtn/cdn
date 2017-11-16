@@ -1,0 +1,24 @@
+/* background image */
+body {
+	background: #121418 url(../img/background-1.jpg) 50% 0;
+	}
+
+/* font */
+body {
+	font-family: Lato,Arial,sans-serif;
+	}
+	
+/* link color */
+a {
+	color: #0099FF;
+	}
+
+/* buy button color */
+.buy {
+	background-color: #0099FF;
+	}
+
+/* buy button hover shadow (using the same color as above recommended) */
+.buy:hover {
+	box-shadow: 0 0 2px rgba(0,0,0,0.4), 0 0 0 5px rgba(255,255,255,0.025), 0 0 12px #0099FF, 0 0 12px rgba(255,255,255,0.6) inset;
+	}
