@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>3d cube</title>
-        <link rel="stylesheet" href="main.css?r=26" type="text/css"></link>
+        <link rel="stylesheet" href="main.css?r=27" type="text/css"></link>
         <style>
             .none { display: none; left: -1000px; top: -1000px; position: absolute; }
         </style>
@@ -31,7 +31,7 @@
                         setTimeout(function () {
                             console.log("timeout done");
                             document.getElementById("modalCard").className += " show";
-                            window.top.postMessage({ command: "button_image_iframe_size", size: { w: 150, h: 100, top: 50} }, '*');
+                            window.top.postMessage({ command: "button_image_iframe_size", size: { w: 130, h: 100, top: 30} }, '*');
                         }, 3000);
                     }
                     if (event.data.message.toLowerCase() === "probtn_topToCenter_start".toLowerCase()) {
