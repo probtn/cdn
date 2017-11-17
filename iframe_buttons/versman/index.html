@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>HTML-5</title>
+
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" var logo href="css/jquery.fancybox.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic">
+
+  <script src="js/respond.min.js"></script>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <style type="text/css">
+    body {
+      font-family: sans-serif;
+      background: transparent;
+
+    }
+
+    #ifr {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .main {
+      border: 1px solid black;
+      box-shadow: 10px 10px 5px #888;
+      border-radius: 12px;
+      padding: 50px;
+      background-color: #ddd;
+
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .logo {
+      width: 275px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      padding: 0px;
+    }
+
+    .container {
+      -webkit-perspective: 300;
+      perspective: 300;
+    }
+  </style>
+
+</head>
+<body>
+<style type="text/css">
+  @-webkit-keyframes spincube {
+    from, to {
+      -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    16% {
+      -webkit-transform: rotateY(-90deg);
+    }
+    33% {
+      -webkit-transform: rotateY(-90deg) rotateZ(90deg);
+    }
+    50% {
+      -webkit-transform: rotateY(-180deg) rotateZ(90deg);
+    }
+    66% {
+      -webkit-transform: rotateY(-270deg) rotateX(90deg);
+    }
+    83% {
+      -webkit-transform: rotateX(90deg);
+    }
+    100% {
+      -webkit-transform: rotate(0deg);
+    }
+  }
+
+  @keyframes spincube {
+    from, to {
+      -moz-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    16% {
+      -moz-transform: rotateY(-90deg);
+      -ms-transform: rotateY(-90deg);
+      transform: rotateY(-90deg);
+    }
+    33% {
+      -moz-transform: rotateY(-90deg) rotateZ(90deg);
+      -ms-transform: rotateY(-90deg) rotateZ(90deg);
+      transform: rotateY(-90deg) rotateZ(90deg);
+    }
+    50% {
+      -moz-transform: rotateY(-180deg) rotateZ(90deg);
+      -ms-transform: rotateY(-180deg) rotateZ(90deg);
+      transform: rotateY(-180deg) rotateZ(90deg);
+    }
+    66% {
+      -moz-transform: rotateY(-270deg) rotateX(90deg);
+      -ms-transform: rotateY(-270deg) rotateX(90deg);
+      transform: rotateY(-270deg) rotateX(90deg);
+    }
+    83% {
+      -moz-transform: rotateX(90deg);
+      -ms-transform: rotateX(90deg);
+      transform: rotateX(90deg);
+    }
+    100% {
+      -moz-transform: rotateX(0deg);
+      -ms-transform: rotateX(0deg);
+      transform: rotateX(0deg);
+    }
+  }
+
+  .cubespinner {
+    -webkit-animation-name: spincube;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 12s;
+    -webkit-animation-delay: 3s;
+    animation-name: spincube;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 12s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50px 50px 0;
+    -moz-transform-origin: 50px 50px 0;
+    -ms-transform-origin: 50px 50px 0;
+    transform-origin: 50px 50px 0;
+  }
+
+  .cubespinner div {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.6);
+    line-height: 100px;
+    text-align: center;
+    font-size: 100px;
+    border: 1px solid #8ECBDE;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 0 20px #8ECBDE;
+    line-height: 100px;
+    text-align: center;
+    font-size: 100px;
+    color: #55BEDE;
+  }
+
+  .cubespinner .face1 {
+    -webkit-transform: translateZ(50px);
+    -moz-transform: translateZ(50px);
+    -ms-transform: translateZ(50px);
+    transform: translateZ(50px);
+  }
+
+  .cubespinner .face2 {
+    -webkit-transform: rotateY(90deg) translateZ(50px);
+    -moz-transform: rotateY(90deg) translateZ(50px);
+    -ms-transform: rotateY(90deg) translateZ(50px);
+    transform: rotateY(90deg) translateZ(50px);
+  }
+
+  .cubespinner .face3 {
+    -webkit-transform: rotateY(90deg) rotateX(90deg) translateZ(50px);
+    -moz-transform: rotateY(90deg) rotateX(90deg) translateZ(50px);
+    -ms-transform: rotateY(90deg) rotateX(90deg) translateZ(50px);
+    transform: rotateY(90deg) rotateX(90deg) translateZ(50px);
+  }
+
+  .cubespinner .face4 {
+    -webkit-transform: rotateY(180deg) rotateZ(90deg) translateZ(50px);
+    -moz-transform: rotateY(180deg) rotateZ(90deg) translateZ(50px);
+    -ms-transform: rotateY(180deg) rotateZ(90deg) translateZ(50px);
+    transform: rotateY(180deg) rotateZ(90deg) translateZ(50px);
+  }
+
+  .cubespinner .face5 {
+    -webkit-transform: rotateY(-90deg) rotateZ(90deg) translateZ(50px);
+    -moz-transform: rotateY(-90deg) rotateZ(90deg) translateZ(50px);
+    -ms-transform: rotateY(-90deg) rotateZ(90deg) translateZ(50px);
+    transform: rotateY(-90deg) rotateZ(90deg) translateZ(50px);
+  }
+
+  .cubespinner .face6 {
+    -webkit-transform: rotateX(-90deg) translateZ(50px);
+    -moz-transform: rotateX(-90deg) translateZ(50px);
+    -ms-transform: rotateX(-90deg) translateZ(50px);
+    transform: rotateX(-90deg) translateZ(50px);
+  }
+</style>
+<div class="stage container"
+     style="width: 100px; height: 100px; margin:25px auto;-webkit-perspective: 300; perspective: 300;">
+  <div class="cubespinner">
+    <div class="face1">
+      <img alt="1" src="img/image_1@2x.png" class="logo"></div>
+    <div class="face2">
+      <img alt="1" src="img/image_2@2x.png" class="logo"></div>
+    <div class="face3">
+      <img alt="1" src="img/image_3@2x.png" class="logo">
+    </div>
+    <div class="face4">
+      <img alt="1" src="img/image_4@2x.png" class="logo">
+    </div>
+    <div class="face5">
+      <img alt="1" src="img/image_5@2x.png" class="logo"></div>
+    <div class="face6">
+      <img alt="1" src="img/image_6@2x.png" class="logo"></div>
+  </div>
+</div>
+<div class="main" style="display: none;">
+  <h2>Device Orientation</h2>
+  <table>
+    <tr>
+      <td>Event Supported</td>
+      <td id="doEvent"></td>
+    </tr>
+    <tr>
+      <td>Tilt Left/Right [gamma]</td>
+      <td id="doTiltLR"></td>
+    </tr>
+    <tr>
+      <td>Tilt Front/Back [beta]</td>
+      <td id="doTiltFB"></td>
+    </tr>
+    <tr>
+      <td>Direction [alpha]</td>
+      <td id="doDirection"></td>
+    </tr>
+  </table>
+</div>
+<!--<div style="text-align: center; display: inline-block; margin: 0 auto; width: 100%; height: auto;">
+    <img style="text-align: center; margin: 0 auto;" src="img/text_1.png" alt="text"/>
+</div>-->
+</script>
+<script
+type = "text/javascript" >
+  init();
+var count = 0;
+
+function init() {
+  if (window.DeviceOrientationEvent) {
+    document.getElementById("doEvent").innerHTML = "DeviceOrientation";
+    // Listen for the deviceorientation event and handle the raw data
+    window.addEventListener('deviceorientation', function (eventData) {
+      // gamma is the left-to-right tilt in degrees, where right is positive
+      var tiltLR = eventData.gamma;
+
+      // beta is the front-to-back tilt in degrees, where front is positive
+      var tiltFB = eventData.beta;
+
+      // alpha is the compass direction the device is facing in degrees
+      var dir = eventData.alpha
+
+      // call our orientation event handler
+      deviceOrientationHandler(tiltLR, tiltFB, dir);
+    }, false);
+  } else {
+    document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
+  }
+}
+
+function deviceOrientationHandler(tiltLR, tiltFB, dir) {
+  document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
+  document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
+  document.getElementById("doDirection").innerHTML = Math.round(dir);
+
+  // Apply the transform to the image
+  var logo = document.getElementById("imgLogo");
+  if ((logo !== undefined) && (logo !== null)) {
+    logo.style.webkitTransform = "rotate(" + tiltLR + "deg) rotate3d(1,0,0, " + (tiltFB * -1) + "deg)";
+    logo.style.MozTransform = "rotate(" + tiltLR + "deg)";
+    logo.style.transform = "rotate(" + tiltLR + "deg) rotate3d(1,0,0, " + (tiltFB * -1) + "deg)";
+  }
+}
+
+
+// Some other fun rotations to try...
+//var rotation = "rotate3d(0,1,0, "+ (tiltLR*-1)+"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
+//var rotation = "rotate("+ tiltLR +"deg) rotate3d(0,1,0, "+ (tiltLR*-1)+"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
+</script>
+</body>
+</html>
