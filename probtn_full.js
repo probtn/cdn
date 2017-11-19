@@ -5194,9 +5194,7 @@ probtn_initTrackingLinkTest();
             ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.OnNoShowPixel);
           }
 
-          $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
-            $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function () {
-
+          var postscribeCall = function () {
               $("body").append("<div id='probtn_passback'></div>");
               var addate = new Date();
               var scrheight = '',
@@ -5213,8 +5211,14 @@ probtn_initTrackingLinkTest();
                   }
                   break;
               }
+          };
+          if (typeof postscribe === "undefined") {
+            $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
+              $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", postscribeCall);
             });
-          });
+          } else {
+            postscribeCall();
+          }
         },
         extractDomain: function (url) {
           var domain;

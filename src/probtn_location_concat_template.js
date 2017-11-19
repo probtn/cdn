@@ -38,6 +38,10 @@ function probtn_callPlayer(frame_id, func, args) {
 
     /*atlas lib*/
     include "../libs/atlas.js"
+	
+	/*postscribe lib*/
+    include "../libs/postscribe/postscribe.js"
+	include "../libs/postscribe/htmlParser.js"
 
     var loadProbtn = function (jQuery) {
 
