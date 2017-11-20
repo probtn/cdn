@@ -27,9 +27,9 @@
 </head>
 <body>
 <style type="text/css">
-  /*@-webkit-keyframes spincube {
+  @-webkit-keyframes spincube {   
     0% {
-      -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
     }
     16% {
       -webkit-transform: rotateX(0deg) rotateY(-90deg) rotateZ(0deg);
@@ -38,25 +38,20 @@
       -webkit-transform: rotateX(0deg) rotateY(-90deg) rotateZ(90deg);
     }
     50% {
-      -webkit-transform: rotateX(0deg) rotateY(-180deg)  rotateZ(90deg);
+      -webkit-transform: rotateX(0deg) rotateY(-179deg) rotateZ(90deg);
     }
     66% {
-      -webkit-transform: rotateX(0deg) rotateY(-270deg) rotateX(90deg);
+      -webkit-transform: rotateX(-90deg) rotateY(-180deg) rotateZ(90deg);
     }
     83% {
-      -webkit-transform: rotateX(90deg) rotateY(0deg) rotateX(0deg);
+      -webkit-transform: rotateX(90deg);
     }
     100% {
-      -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      -webkit-transform: rotateX(0deg)
     }
-  }*/
+  }
 
   @keyframes spincube {
-    /*from, to {
-      -moz-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-      -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-      transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-    }*/
     0% {
         -moz-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
         -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
@@ -80,11 +75,6 @@
       -ms-transform: rotateX(0deg) rotateY(-179deg) rotateZ(90deg);
       transform: rotateX(0deg) rotateY(-179deg) rotateZ(90deg);
     }
-    /*58% {
-     -moz-transform: rotateX(-45deg) rotateY(-180deg) rotateZ(90deg);
-     -ms-transform: rotateX(-45deg) rotateY(-180deg) rotateZ(90deg);
-      transform: rotateX(-45deg) rotateY(-180deg) rotateZ(90deg);
-    }*/
     66% {
       -moz-transform: rotateX(-90deg) rotateY(-180deg) rotateZ(90deg);
       -ms-transform: rotateX(-90deg) rotateY(-180deg) rotateZ(90deg);
