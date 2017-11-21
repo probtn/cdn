@@ -5,7 +5,7 @@ var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 function loadJS(src, callback) {
     var s = window.top.document.createElement('script');
     s.src = src;
-    //s.async = true;
+    s.async = true;
     s.onreadystatechange = s.onload = function () {
         var state = s.readyState;
         if (!callback.done && (!state || /loaded|complete/.test(state))) {

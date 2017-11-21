@@ -70,6 +70,9 @@ function probtn_initTrackingLinkTest() {
 probtn_initTrackingLinkTest();
 
 
+(function ($) {
+  //'use strict';
+  
 /**
  * UAParser.js v0.7.8
  * Lightweight JavaScript-based User-Agent string parser
@@ -1223,9 +1226,6 @@ probtn_initTrackingLinkTest();
 
 })(typeof window === 'object' ? window : this);
 
-
-(function ($) {
-  //'use strict';
 
   //load nessesary libraries and show button
   $.fn.StartButton = function (options) {
