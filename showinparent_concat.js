@@ -9,7 +9,7 @@ function loadJS(src, callback) {
 		var timeout = setTimeout(function() {
 			console.log(1);
 			startAddingJS(src, callback);
-		}, 9000);
+		}, 20000);
 		
 		window.top.document.onreadystatechange = function () {
 			console.log(3);
