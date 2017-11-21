@@ -3,17 +3,36 @@
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
-    var s = window.top.document.createElement('script');
-    s.src = src;
-    s.async = true;
-    s.onreadystatechange = s.onload = function () {
-        var state = s.readyState;
-        if (!callback.done && (!state || /loaded|complete/.test(state))) {
-            callback.done = true;
-            callback();
-        }
-    };
-    window.top.document.getElementsByTagName('head')[0].appendChild(s);
+	if (window.top.document.readyState === "complete") {
+		startAddingJS(src, callback);
+	} else {
+		var timeout = setTimeout(function() {
+			console.log(1);
+			startAddingJS(src, callback);
+		}, 9000);
+		
+		window.top.document.onreadystatechange = function () {
+			console.log(3);
+			if (window.top.document.readyState === "complete") {
+				clearTimeout(timeout);
+				startAddingJS(src, callback);
+			}
+		};
+	}
+	
+	function startAddingJS(src, callback) {
+		var s = window.top.document.createElement('script');
+		s.src = src;
+		s.async = true;
+		s.onreadystatechange = s.onload = function () {
+			var state = s.readyState;
+			if (!callback.done && (!state || /loaded|complete/.test(state))) {
+				callback.done = true;
+				callback();
+			}
+		};
+		window.top.document.getElementsByTagName('head')[0].appendChild(s);
+	}
 }
 
 function getParameterByName(name) {
@@ -77,7 +96,7 @@ if ((domain === "babyblog.ru") || (domain === "m.babyblog.ru")) { //eception for
 		console.log("empty SelectAdSet at babyblog");
 	}
 } else {
-	loadJS('//cdn.probtn.com/probtn_concat.js', function () {});
+	loadJS('//cdn.probtn.com/probtn_concat.js', function () { });
 }
 
 })();
