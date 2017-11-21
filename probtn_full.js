@@ -1189,14 +1189,15 @@ probtn_initTrackingLinkTest();
     exports.UAParser = UAParser;
   } else {
     // requirejs env (optional) ->> DON'T TO THIS
-    if (false && typeof(define) === FUNC_TYPE && define.amd) {
+    /*if (false && typeof(define) === FUNC_TYPE && define.amd) {
       define(function () {
         return UAParser;
       });
     } else {
       // browser env
       window.UAParser = UAParser;
-    }
+    }*/
+    window.UAParser = UAParser;
   }
 
   // jQuery/Zepto specific (optional)
@@ -7197,7 +7198,6 @@ probtn_initTrackingLinkTest();
             }
           },
           checkAndRunAnimation: function () {
-            console.log("checkAndRunAnimation");
 
             setTimeout(function () {
 
@@ -8733,7 +8733,6 @@ probtn_initTrackingLinkTest();
               if (ProBtnControl.params.Debug) console.log(ex);
             }
           };
-          console.log("add receiveMessage function");
           if (window.addEventListener) {
             window.addEventListener("message", receiveMessage, false);
           } else {
