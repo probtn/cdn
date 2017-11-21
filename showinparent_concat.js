@@ -53,6 +53,10 @@ getParamFromUrl('CreativeId');
 getParamFromUrl('UseGeoLocation');
 getParamFromUrl('WaitForGeoLocation');
 
+if ((domain===null) || (domain===undefined) || (domain==="")) {
+	domain = document.domain.replace("www.", "");
+}
+
 if ((domain === "baby.ru") || (domain === "m.baby.ru")) {
 	console.log("test - check without interaction with window.top");
 	return;
@@ -69,10 +73,6 @@ try {
 		window.frameElement.style.cssText = "display: none; border: 0px; width: 0px; height: 0px; margin: 0px; padding: 0px;";
 	}
 } catch (ex) {
-}
-
-if ((domain===null) || (domain===undefined) || (domain==="")) {
-	domain = document.domain.replace("www.", "");
 }
 
 if ((domain === "babyblog.ru") || (domain === "m.babyblog.ru")) { //eception for babyblog
