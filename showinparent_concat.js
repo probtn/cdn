@@ -57,11 +57,6 @@ if ((domain===null) || (domain===undefined) || (domain==="")) {
 	domain = document.domain.replace("www.", "");
 }
 
-if ((domain === "baby.ru") || (domain === "m.baby.ru")) {
-	console.log("test - check without interaction with window.top");
-	return;
-}
-
 var paramsDiv = window.top.document.createElement('div');
 paramsDiv.id = "probtn_additional_params";
 paramsDiv.innerHTML = JSON.stringify(params);
