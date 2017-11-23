@@ -39,5 +39,43 @@
 
 	<!-- end text content: -->
 
+	<script>
+        function randomInteger(min, max) {
+            var rand = min + Math.random() * (max - min)
+            rand = Math.round(rand);
+            return rand;
+        }
+
+        var hypeDocument = null;
+        var scene2 = false;
+
+        window.addEventListener("message", receiveMessage, false);
+
+        function receiveMessage(event) {
+            if ((event.data !== null) && (event.data !== undefined)) {
+                if ((event.data.message === "probtn_start_move") && (hypeDocument !== null)) {
+                    if (!scene2) {
+                        scene2 = true;
+                        //checkOrientation(event.data.dataEvent.gamma);
+                        hypeDocument.showSceneNamed("scene-2");
+                    }
+                }
+            }
+        }
+
+        function MyFunctions(hypeDocument_local, element, event) {
+            console.log("hypeDocument.sceneNames()", hypeDocument_local.sceneNames());
+
+            hypeDocument = hypeDocument_local;
+        }
+        if ("HYPE_eventListeners" in window === false) {
+            window.HYPE_eventListeners = Array();
+        }
+        window.HYPE_eventListeners.push({
+            "type": "HypeSceneLoad",
+            "callback": MyFunctions
+        });
+</script>
+
   </body>
 </html>
