@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>barbie</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=180" />
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="barbie_hype_container" style="margin:auto;position:relative;width:180px;height:180px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="barbie.hyperesources/barbie_hype_generated_script.js?15413"></script>
+	</div>
+
+	<!-- end copy -->
+	
+
+
+	<!-- text content for search engines: -->
+
+	<div style="display:none" aria-hidden=true>
+
+
+	</div>
+
+	<!-- end text content: -->
+
+                  <script>
+                var last = false;
+                var hypeDocument = null;
+
+                var receiveMessage = function (event) {
+                    if ((!last) && (hypeDocument!==null)) {
+                        console.log(event.data);
+                        if ((event.data.message === "probtn_lookoutandout_start")) {
+                            hypeDocument.showSceneNamed('scene-2');
+                        }
+                        if ((event.data.message === "probtn_lookoutandout_stop")) {
+                            if (event.data.step === "last") {
+                                hypeDocument.showSceneNamed('scene-3');
+                                last = true;
+                            }
+                            //hypeDocument.showNextScene();
+                        }
+                    }
+                };
+                window.self.addEventListener("message", receiveMessage, false);
+
+                function MyFunctions(hypeDocument1, element, event) {
+                    hypeDocument = hypeDocument1;
+                }
+                if ("HYPE_eventListeners" in window === false) {
+                    window.HYPE_eventListeners = Array();
+                }
+                window.HYPE_eventListeners.push({
+                    "type": "HypeSceneLoad",
+                    "callback": MyFunctions
+                });
+                window.top.postMessage({ command: 'probtn_creative_loaded_message' }, '*');
+      </script>
+
+  </body>
+</html>
