@@ -5171,6 +5171,28 @@ probtn_initTrackingLinkTest();
           }
 
           var postscribeCall = function () {
+
+            var sendDuplicateInfo = function(name) {
+                if (name === undefined) {
+                    name = "duplicateDetected";
+                }
+                ProBtnControl.statistics.callSuperPixelExt(name);
+                //button already exist on page
+                try {
+                  if (ProBtnControl.params.isServerCommunicationEnabled) {
+                    ProBtnControl.statistics.SendStatisticsData("performedAction", name);
+                  }
+                } catch (ex) {
+                  if (ProBtnControl.params.Debug) console.log(ex);
+                }
+            }
+
+            if ($("#probtn_passback").length > 0) {
+                sendDuplicateInfo("duplicateDetected");
+                sendDuplicateInfo("duplicateByPassback");
+                return;
+            }
+
               $("body").append("<div id='probtn_passback'></div>");
               var addate = new Date();
               var scrheight = '',
@@ -5183,6 +5205,7 @@ probtn_initTrackingLinkTest();
                 default:
                   //postscribe(ProBtnControl.params.PassbackCodeSelector, '<script type="text/javascript">' + ProBtnControl.params.PassbackCustomCode + '</script>');
                   if ((ProBtnControl.params.PassbackCustomCode !== null) && (ProBtnControl.params.PassbackCustomCode !== undefined) && (ProBtnControl.params.PassbackCustomCode !== "")) {
+                    ProBtnControl.statistics.SendStatisticsData("performedAction", "passback_added");
                     postscribe(ProBtnControl.params.PassbackCodeSelector, '' + ProBtnControl.params.PassbackCustomCode + '');
                   }
                   break;
