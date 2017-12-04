@@ -1831,13 +1831,7 @@ probtn_initTrackingLinkTest();
 
         var hideButtonAfterFirstShow = function () {
           if (ProBtnControl.params.HideAfterFirstShow === true) {
-            ProBtnControl.statistics.SendStatObject({
-              //"Closed": 1,
-              "Hidded": 1
-            });
-            ProBtnControl.pizzabtn.hide();
-            ProBtnControl.closeButton.remove();
-            ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
+            ProBtnControl.additionalButtonFunctions.hideAll();
           }
         };
 
@@ -2884,7 +2878,7 @@ probtn_initTrackingLinkTest();
           if ($("#" + videoItemNameBlock).length < 1) {
 
             var content = '<div id="' + videoItemNameBlock + '" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
-              '<table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0 auto;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline id="' + videoItemNameVideo + '" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
+              '<table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0 auto;"><tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline id="' + videoItemNameVideo + '" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
               '<source src="' + path + '" type="video/mp4">' +
               'Your browser does not support the video tag.' +
               '</video></td></tr></table></div>';
@@ -3085,7 +3079,7 @@ probtn_initTrackingLinkTest();
               };
 
               var checkndStartAudio = function () {
-                //console.log("checkndStartAudio");
+                //alert("checkndStartAudio");
                 if (audioUnlocked) {
                   try {
                     unlock(function () {
@@ -3120,6 +3114,7 @@ probtn_initTrackingLinkTest();
 
               window.addEventListener('touchstart', checkndStartAudio, false);
               window.addEventListener('click', checkndStartAudio, false);
+              //ProBtnControl.pizzabtn.addEventListener('touchstart', checkndStartAudio, false);
             } else {
               loadSound(ProBtnControl.params.SoundURL);
 
@@ -4315,7 +4310,7 @@ probtn_initTrackingLinkTest();
 
             // replace with video item
             content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
-              '<table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;"><tr><td style="vertical-align: middle; text-align: center;"><video webkit-playsinline onclick="' + videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
+              '<table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;"><tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="' + videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
               '<source src="' + ProBtnControl.params.ContentURL + '" type="video/mp4">' +
               'Your browser does not support the video tag. ' +
               '</video></td></tr></table></div>';
@@ -4727,6 +4722,14 @@ probtn_initTrackingLinkTest();
             this.css('opacity', 0);
           };
 
+          btn.startShowedTimer = function() {
+            ProBtnControl.contentTime.startTimer("ButtonShowedDuration");
+          }
+
+          btn.stopShowedTimer = function() {
+            ProBtnControl.contentTime.endTimer("ButtonShowedDuration");
+          }
+
           btn.center = function () {
             var body = ProBtnControl.wrapper;
             this.css('top', (window.innerHeight - this.height()) / 2 + $(window).scrollTop() + 'px');
@@ -4741,7 +4744,7 @@ probtn_initTrackingLinkTest();
           };
 
           btn.hide = function () {
-            var me = jQuery("#probtn_button");
+            var me = this; //jQuery("#probtn_button");
             setTimeout(function () {
               console.log("btn hide");
               me.stop(true, true).fadeOut(ProBtnControl.params.ButtonHideDuration * 1000);
@@ -5142,20 +5145,8 @@ probtn_initTrackingLinkTest();
 
             ProBtnControl.contentTime.intervalId = setTimeout(function () {
               if ((ProBtnControl.interactionFunctions.wasInteraction === false) || (ProBtnControl.interactionFunctions.wasInteraction === undefined)) {
-
-                ProBtnControl.statistics.SendStatObject({
-                  //"Closed": 1,
-                  "Hidded": 1
-                });
-
-                try {
-                  ProBtnControl.pizzabtn.hide();
-                  ProBtnControl.closeButton.remove();
-                  ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
-                } catch (ex) {
-                  if (ProBtnControl.params.Debug) console.log(ex);
-                }
-
+                    //hide button
+                    ProBtnControl.additionalButtonFunctions.hideAll();
                 if (ProBtnControl.params.ButtonType === "fullscreen") {
                   try {
                     $(".fancybox-overlay").remove();
@@ -5378,6 +5369,8 @@ probtn_initTrackingLinkTest();
           ProBtnControl.pizzabtn.stop(true, true);
 
           ProBtnControl.pizzabtn.hide();
+          ProBtnControl.pizzabtn.stopShowedTimer();
+
           ProBtnControl.closeButton.remove();
           ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
 
@@ -7759,7 +7752,7 @@ probtn_initTrackingLinkTest();
 
           VideoPoster: '',
           ButtonOnClick: 'console.log("ButtonOnClick"); function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
-          ButtonOnTouchEnd: 'var moved = window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { console.log("window.probtn_dropedActiveZone", window.probtn_dropedActiveZone, moved); try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined) && (moved === false)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = document.getElementById("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name); videoZone.play(); moved = true; } } else { console.log("moved", moved); if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = document.getElementById("video_probtn"); video.play(); probtn_callPlayer("video_probtn", "playVideo");  } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2();',
+          ButtonOnTouchEnd: 'var moved = window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { console.log("window.probtn_dropedActiveZone", window.probtn_dropedActiveZone, moved); try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined) && (moved === false)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = document.getElementById("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name); videoZone.play(); moved = true; } } else { console.log("moved", moved); if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = document.getElementById("video_probtn"); video.play(); probtn_callPlayer("video_probtn", "playVideo");  } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } window.probtn_pizzabtn_moved = false; }; start2();',
           ButtonOnTouchStart: 'window.probtn_touch_start = 0; window.probtn_touch_interval = setInterval(function() { window.probtn_touch_start = window.probtn_touch_start + 1; }, 1);',
           ButtonType: 'fancybox',
           VideoSize: {
@@ -8650,19 +8643,33 @@ probtn_initTrackingLinkTest();
         //BEGIN BUTTON PROCESS
         var BeginButtonProcess = function () {
           ProBtnControl.statistics.callSuperPixelExt("BeginButtonProcess");
-          if ($("#probtn_wrapper").length > 0) {
-            ProBtnControl.statistics.callSuperPixelExt("buttonDuplicate");
+
+          var sendDuplicateInfo = function(name) {
+            if (name === undefined) {
+                name = "duplicateDetected";
+            }
+            ProBtnControl.statistics.callSuperPixelExt(name);
             //button already exist on page
             try {
               if (ProBtnControl.params.isServerCommunicationEnabled) {
                 //calll pixel if button already exists at page
                 var duplicatePixel = "https://goo.gl/ezDN1A?random=[RANDOM]";
                 ProBtnControl.statistics.createClickCounterImage(duplicatePixel);
-                ProBtnControl.statistics.SendStatisticsData("performedAction", "duplicateDetected");
+                ProBtnControl.statistics.SendStatisticsData("performedAction", name);
               }
             } catch (ex) {
               if (ProBtnControl.params.Debug) console.log(ex);
             }
+          }
+
+          if ($("#probtn_wrapper").length > 0) {
+            sendDuplicateInfo("duplicateDetected");
+            return;
+          }
+
+          if ($("#probtn_passback").length > 0) {
+            sendDuplicateInfo("duplicateDetected");
+            sendDuplicateInfo("duplicateByPassback");
             return;
           }
 
@@ -8798,9 +8805,9 @@ probtn_initTrackingLinkTest();
           }
 
           if ((ProBtnControl.userData.mobile)) {
-            $('head').append("<style type='text/css'> .fancybox-inner { -webkit-overflow-scrolling: touch !important; overflow: scroll !important; } </style>");
+            $('head').append("<style type='text/css'> .fancybox-inner { -webkit-overflow-scrolling: touch; overflow: scroll !important; } </style>");
           } else {
-            $('head').append("<style type='text/css'> .fancybox-inner { -webkit-overflow-scrolling: touch !important; overflow: hidden !important; } </style>");
+            $('head').append("<style type='text/css'> .fancybox-inner { -webkit-overflow-scrolling: touch; overflow: hidden !important; } </style>");
           }
 
           var pizzabtn_wrapper = $("<div/>", {
@@ -9041,6 +9048,9 @@ probtn_initTrackingLinkTest();
               start: function () {
                 ProBtnControl.once_moved = true;
 
+                window.probtn_pizzabtn_moved = false;
+                console.log("start - window.probtn_pizzabtn_moved", window.probtn_pizzabtn_moved);
+
                 try {
                   ProBtnControl.pizzabtn.stop(true, true);
                   if (ProBtnControl.lookOutTimeout !== undefined) {
@@ -9092,7 +9102,7 @@ probtn_initTrackingLinkTest();
                   if (ProBtnControl.pizzabtn.moved === false) {
                     ProBtnControl.pizzabtn.dragAnimate();
                   }
-                  window.probtn_pizzabtn_moved = true;
+                  /*window.probtn_pizzabtn_moved = true;*/
                   ProBtnControl.pizzabtn.moved = true;
                   ProBtnControl.once_moved = true;
 
@@ -9117,6 +9127,8 @@ probtn_initTrackingLinkTest();
                 });
               },
               drag: function (ev, obj) {
+                window.probtn_pizzabtn_moved = true;
+
                 ProBtnControl.initFunctions.initScrollChange(true);
 
                 //if set, disable button move
@@ -9248,11 +9260,12 @@ probtn_initTrackingLinkTest();
                       ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZone.currentActiveZone.ButtonContentType);
                     } else {
                       if (ProBtnControl.params.Debug) console.log("ProBtnControl.userData.isiPad - " + ProBtnControl.userData.isiPad);
-                      if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad !== false)) {
+                      if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad !== false) || true) {
+                        console.log("video1");
                         ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZone.currentActiveZone.ButtonContentType);
                       } else {
+                        console.log("video2");
                         if (ProBtnControl.params.VideoClickURL !== "") {
-
                         }
                       }
                     }
@@ -9328,7 +9341,7 @@ probtn_initTrackingLinkTest();
                       });
                     } else {
                       //if VIDEO mode
-                      if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad)) {
+                      if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad) || true) {
                         ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
                           ProBtnControl.onButtonTap();
                         });
@@ -9360,7 +9373,7 @@ probtn_initTrackingLinkTest();
                               //setTimeout(function () {
                               ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
                               ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'anchor_external');
-                              //}, 1500);
+                              //}, 1000);
                             } else {
                               setTimeout(function () {
                                 ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
@@ -9383,7 +9396,7 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
                   }
 
-                  var moved = window.probtn_pizzabtn_moved;
+                  var moved = ProBtnControl.pizzabtn.moved = false; //window.probtn_pizzabtn_moved;
                   if ((window.probtn_dropedActiveZone !== null) && (window.probtn_dropedActiveZone !== undefined) && (moved === false)) {
                     if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType == "video") {
                       //console.log("pause video zone");
@@ -9395,15 +9408,8 @@ probtn_initTrackingLinkTest();
                   if (ProBtnControl.overlaped) {
                     //send close statistics
                     ProBtnControl.statistics.SendStatObject({
-                      "Closed": 1,
-                      "Hidded": 1
+                      "Closed": 1
                     });
-
-                    //remove close button, main button and active zones
-                    ProBtnControl.pizzabtn.hide();
-                    ProBtnControl.closeButton.remove();
-                    ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
-
                     ProBtnControl.additionalButtonFunctions.hideAll();
 
                   } else {
@@ -9413,8 +9419,8 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.closeButton.hide();
 
                 ProBtnControl.pizzabtn.moved = false;
-                //check moved and ontouchend event
-                window.probtn_pizzabtn_moved = false;
+                /*window.probtn_pizzabtn_moved = false;*/
+
                 ProBtnControl.overlaped = false;
 
                 if (ProBtnControl.params.MainButtonClickable === true) {
