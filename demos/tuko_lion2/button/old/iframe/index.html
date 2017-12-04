@@ -49,10 +49,12 @@
 		<!--<script type="text/javascript" charset="utf-8" src="lion-anim.hyperesources/lionanim_hype_generated_script.js?35364"></script>-->
 
          <script>
+			var started = false;
                     function receiveMessage(event) {
                         console.log("event", event.data);
-                        if (event.data.message === "probtn_web_audio_api_enabled") {
+                        if (event.data.message === "probtn_web_audio_api_enabled") || (event.data.message === "probtn_start_move") || !started) {
                             console.log(event);
+							started = true;
 
 //	HYPE.documents["lion-anim"]
 

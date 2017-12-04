@@ -1,81 +1,62 @@
 <!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>lions-den</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title></title>
-        <style>
-            body, html {
-                margin: 0px;
-                padding: 0px;
-            }
-        </style>
+	<meta name="viewport" content="user-scalable=yes, width=220" />
 
-        <script>
-            var context;
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
 
-            function receiveMessage(event) {
-                //console.log("event", event.data);
-                if (event.data.message === "probtn_web_audio_api_enabled") {
-                    //console.log(event);                           
+	<div id="lionsden_hype_container" style="margin:auto;position:relative;width:220px;height:220px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="lions-den.hyperesources/lionsden_hype_generated_script.js?95196"></script>
+	</div>
+	
+	<script>
+		var hypeDocument = null;
+		var scene2 = false;
 
-                    var myIframe = document.getElementById('iframe');
-                    var pic = document.getElementById('pic');
+        window.addEventListener("message", receiveMessage, false);
 
-                    myIframe.contentWindow.postMessage({message: "probtn_web_audio_api_enabled"}, '*');
-
-                    setTimeout(function() {
-                        pic.style.display = 'none';
-                        myIframe.style.display = 'block';
-                    }, 700);
-                    
+        function receiveMessage(event) {
+            if ((event.data !== null) && (event.data !== undefined)) {
+                if (((event.data.message === "probtn_web_audio_api_enabled") || (event.data.message === "probtn_start_move")) && (hypeDocument !== null)) {
+                    if (!scene2) {
+						scene2 = true;
+                        hypeDocument.showSceneNamed("scene-2");
+                    }
                 }
             }
-            window.addEventListener("message", receiveMessage, false);
-        </script>
-    </head>
-    <body>
-        <img src="iframe/lion-anim.hyperesources/1_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/11_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/12_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/13_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/14-with-logo_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/14-with-logo.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/15_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/16_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/17_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/19_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/2_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/3_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/4_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/5_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/6_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/7_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/8_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/9_2x.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
+        }
+	
+	    function MyFunctions(hypeDocument_local, element, event) {
+            console.log("hypeDocument.sceneNames()", hypeDocument_local.sceneNames());
 
-        <img src="iframe/lion-anim.hyperesources/1.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-       
-        <img src="iframe/lion-anim.hyperesources/3.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/4.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        
-        <img src="iframe/lion-anim.hyperesources/7.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/8.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/9.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/10.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        
-        <img src="iframe/lion-anim.hyperesources/12.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/13.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        
-        <img src="iframe/lion-anim.hyperesources/15.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/16.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        <img src="iframe/lion-anim.hyperesources/17.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-        
-        <img src="iframe/lion-anim.hyperesources/19.png" style="left: -1000px; top: -1000px; position: absolute; width: 1px; height: 1px;" alt="cache" />
-                
+            hypeDocument = hypeDocument_local;
+        }
+        if ("HYPE_eventListeners" in window === false) {
+            window.HYPE_eventListeners = Array();
+        }
+        window.HYPE_eventListeners.push({
+            "type": "HypeSceneLoad",
+            "callback": MyFunctions
+        });
+    </script>
 
-        <img src="1.png" alt="lion" style="width: 220px; height: 220px;" id="pic" />
-        <iframe src="iframe/index.html" style="width: 220px; height: 220px; border: 0px; display: none;" id="iframe"></iframe>
-
-    </body>
+	<!-- end copy -->
+  </body>
 </html>
