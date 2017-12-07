@@ -87,6 +87,7 @@ class Footer extends React.Component {
 			//	window.open("https://itunes.apple.com/us/app/yandex-browser/id483693909?mt=8", "_blank");
 			//} else {
 			//	window.top.postMessage({ command: 'probtn_performed_action', value: 'download_clicked_android' }, '*');
+				window.top.postMessage({ command: 'probtn_performed_action', value: 'download_clicked' }, '*');
 				window.open("https://redirect.appmetrica.yandex.com/serve/169488861431366701?c=CAMPAIGNID", "_blank");
 			//}
 		}
