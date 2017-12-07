@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>yandex</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=160" />
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="yandex_hype_container" style="margin:auto;position:relative;width:160px;height:180px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="yandex.hyperesources/yandex_hype_generated_script.js?9564"></script>
+	</div>
+
+	<!-- end copy -->
+	
+
+
+	<!-- text content for search engines: -->
+
+	<div style="display:none" aria-hidden=true>
+
+
+	</div>
+
+	<!-- end text content: -->
+	
+	<script>
+		 function MyFunctions(hypeDocument, element, event) {
+			 setTimeout(function () {
+				 window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+			 }, 50);
+			 
+			 // run your functions that require a loaded Hype scene here. 
+			 window.self.addEventListener("message", receiveMessage, false);
+		 }
+		 if ("HYPE_eventListeners" in window === false) {
+			 window.HYPE_eventListeners = Array();
+		 }
+		 window.HYPE_eventListeners.push({
+			 "type": "HypeSceneLoad",
+			 "callback": MyFunctions
+		 });
+	</script>
+
+  </body>
+</html>

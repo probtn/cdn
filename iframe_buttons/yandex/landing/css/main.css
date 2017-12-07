@@ -1,0 +1,162 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  /*background-color: #f5f5f5;*/
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+  text-align: center;
+}
+
+code {
+  font-size: 80%;
+}
+
+.container-fluid {
+  margin-left:0px;
+  margin-right: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.avatar {
+  margin-bottom: 5px;
+
+}
+.avatar img {
+  width:29px;
+  height:29px;
+}
+.text img {
+  display: inline-block;
+  width: 65%;
+  height: auto;
+}
+
+.message {
+  opacity: 0;
+  margin-top: 10px;
+}
+.message.show {
+  opacity: 1;
+  transition: all 0.75s ease-out 0.5s;
+  -webkit-transition: all 0.75s ease-out 0.5s;
+  -moz-transition: all 0.75s ease-out 0.5s;
+  -o-transition: all 0.75s ease-out 0.5s;
+  margin-top: 10px;
+}
+
+.message .right {
+  text-align: right;
+}
+.message.hide {
+  margin: 0px;
+  /*margin-top: -10px;*/
+  height: 0px;
+}
+.message.hide img, .message.hide div {
+  height: 0px;
+  margin: 0px;  
+}
+
+.message.hide {
+  opacity: 0;
+  /*display: none;*/
+}
+
+.button {
+  opacity: 0;
+  display: inline-block;
+}
+.button.hide {
+  /*display: none;*/
+  height: 0px;
+  margin: 0px;
+  opacity: 0;
+  transform: scale(0.7);  
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
+}
+.button.show img {
+  height: auto;
+  display: inline-block;
+  width: auto;
+  cursor: pointer;
+}
+
+.avatar.hide {
+  display: none;
+}
+
+.button.show {  
+  width: auto;
+  height: auto;
+  margin: 5px;
+
+  opacity: 1;
+  transition: all 0.75s ease-out 0.5s;
+  -webkit-transition: all 0.75s ease-out 0.5s;
+  -moz-transition: all 0.75s ease-out 0.5s;
+  -o-transition: all 0.75s ease-out 0.5s;
+  transform: scale(1.0);
+  -moz-transform: scale(1.0);
+  -o-transform: scale(1.0);
+}
+
+.inactiveAvatar {
+  opacity: 0;
+}
+.inactiveAvatar.hide {
+  opacity: 1;
+  transition: opacity 0.75s ease-out 0.5s;
+  -webkit-transition: opacity 0.75s ease-out 0.5s;
+  -moz-transition: opacity 0.75s ease-out 0.5s;
+  -o-transition: opacity 0.75s ease-out 0.5s;
+  transition-delay: 0.8s;
+  -webkit-transition-delay: 0.8s;
+}
+.activeAvatar.hide {
+  opacity: 0;
+}
+.activeAvatar {
+  opacity: 1;
+  transition: opacity 0.75s ease-out 0.5s;
+  -webkit-transition: opacity 0.75s ease-out 0.5s;
+  -moz-transition: opacity 0.75s ease-out 0.5s;
+  -o-transition: opacity 0.75s ease-out 0.5s;
+  transition-delay: 0.8s;
+  -webkit-transition-delay: 0.8s;
+}
