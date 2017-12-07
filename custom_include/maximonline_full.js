@@ -117,7 +117,7 @@ var loadProbtn = function (jQuery) {
 
 	(function ($) {
 	  //'use strict';
-	  
+
 	/**
 	 * UAParser.js v0.7.17
 	 * Lightweight JavaScript-based User-Agent string parser
@@ -1196,7 +1196,7 @@ var loadProbtn = function (jQuery) {
 	        postscribe: false
 	      },
 	      closed: false, //is button closed
-	      //movedFirstTime: false, 
+	      //movedFirstTime: false,
 	      once_moved: false, //is button was moved first time or not. False - button yet wasn't moved
 	      onButtonTapCountCheck: 0,
 	      /**
@@ -1452,7 +1452,8 @@ var loadProbtn = function (jQuery) {
 	        var InitLeft = 0;
 	        var InitTop = 0;
 	        try {
-	          if ($("#probtn_button").offset() !== undefined) {
+	        //&&              ((ProBtnControl.params.isAnimation.trim() === "") || (ProBtnControl.params.isAnimation.trim() === undefined) || (ProBtnControl.params.isAnimation.trim() === null))
+	          if (($("#probtn_button").offset() !== undefined)) {
 	            InitLeft = $("#probtn_button").offset().left;
 	            InitTop = $("#probtn_button").offset().top;
 	          }
@@ -1548,13 +1549,23 @@ var loadProbtn = function (jQuery) {
 	              }
 	              if (((lookoutParams[0] === "lookoutAndOut") && (lookoutParams[4]!=="noAuto")) || (additionalMode === "openmodal")) {
 	              } else {
-	                ProBtnControl.pizzabtn.css(positionObj.property, positionObj.finishValue);
 
-	                if (positionObj.property == 'top') {
-	                  ProBtnControl.pizzabtn.css('left', InitLeft + 'px');
+	                //move button top edge of the screen then modal is opened
+	                if (((ProBtnControl.params.isAnimation.trim() === "") || (ProBtnControl.params.isAnimation.trim() === undefined) || (ProBtnControl.params.isAnimation.trim() === null))) {
+
+	                  ProBtnControl.pizzabtn.css(positionObj.property, positionObj.finishValue);
+
+	                  //move only if there is no button animations
+	                  console.log("move button");
+	                  if (positionObj.property == 'top') {
+	                    ProBtnControl.pizzabtn.css('left', InitLeft + 'px');
+	                  } else {
+	                    ProBtnControl.pizzabtn.css('top', InitTop + 'px');
+	                  }
 	                } else {
-	                  ProBtnControl.pizzabtn.css('top', InitTop + 'px');
+	                  console.log("not move - animation exist", positionObj, ProBtnControl.pizzabtn.position());
 	                }
+
 	              }
 	            } catch (ex) {
 	              console.log(ex);
@@ -1606,7 +1617,7 @@ var loadProbtn = function (jQuery) {
 	            /*setTimeout(function() {
 	                ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
 	            }, 500);*/
-	            
+
 
 	            $(".fancybox-iframe").first().attr("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
 	            try {
@@ -1784,6 +1795,7 @@ var loadProbtn = function (jQuery) {
 	              ProBtnControl.pizzabtn.center();
 	              ProBtnControl.additionalButtonFunctions.closeAfterOrientationChange = false;
 	            } else {
+	              console.log("move button2 positionObj");
 	              ProBtnControl.pizzabtn.css(positionObj.property, positionObj.currentValue + 'px');
 	            }
 
@@ -1798,6 +1810,10 @@ var loadProbtn = function (jQuery) {
 
 	            ProBtnControl.contentTime.endTimer();
 	            ProBtnControl.HpmdFunctions.closeHpmdTrack();
+	          },
+	          onUpdate: function() {
+	            console.log("onUpdate called");
+	            ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
 	          }
 	        };
 
@@ -1864,8 +1880,10 @@ var loadProbtn = function (jQuery) {
 	          //fancyboxParams.autoScale = false;
 	        } else {
 	          //if IsManualSize is false, we set sizes in px
-	          fancyboxParams.width = ProBtnControl.params.ContentSize.W;
-	          fancyboxParams.height = ProBtnControl.params.ContentSize.H;
+	          fancyboxParams.width = ProBtnControl.params.ContentSize.W; //W;
+	          fancyboxParams.height = ProBtnControl.params.ContentSize.H; //H;
+
+	          //console.log("fancyboxParams", fancyboxParams);
 	        }
 	        if (ProBtnControl.params.MaxWidth > 0) {
 	          fancyboxParams.maxWidth = ProBtnControl.params.MaxWidth;
@@ -2287,7 +2305,7 @@ var loadProbtn = function (jQuery) {
 	          if (typeof DeviceAtlas !== "undefined") {
 	            daProps = DeviceAtlas.getPropertiesAsString();
 	          }
-	          
+
 	          var result = {
 	            screen: screenSize,
 	            screenWidth: width,
@@ -2995,7 +3013,7 @@ var loadProbtn = function (jQuery) {
 	                     * @param  {string} positionsParams[1] - horizontal options
 	                     */
 	                    switch (positionsParams[1]) {
-	                        case "left": 
+	                        case "left":
 	                            left = 0;
 	                            break;
 	                        case "center":
@@ -3013,8 +3031,8 @@ var loadProbtn = function (jQuery) {
 	                        src: ProBtnControl.params.BadgeImage,
 	                        style: "margin: 0 auto; display: block; top: " + top +
 	                            "px; position: absolute;" +
-	                            "width:" +ProBtnControl.params.BadgeSize.W + "px;" + 
-	                            "height:" +ProBtnControl.params.BadgeSize.H + "px;" + 
+	                            "width:" +ProBtnControl.params.BadgeSize.W + "px;" +
+	                            "height:" +ProBtnControl.params.BadgeSize.H + "px;" +
 	                            "left: " + left + "px;"
 	                    }).appendTo(btn);
 	                }
@@ -4444,7 +4462,7 @@ var loadProbtn = function (jQuery) {
 	          var extrusionMode_width = 0;
 	          var extrusionMode_height = 0;
 	          var pizzabtnCss = {};
-	          
+
 	          switch (extrusionMode_params[0]) {
 	            case "topButton":
 	              $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: ' + ProBtnControl.params.ButtonSize.H + 'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
@@ -4578,7 +4596,7 @@ var loadProbtn = function (jQuery) {
 
 	            btn.attr("ontouchend", ProBtnControl.params.ButtonOnTouchEnd);
 	            btn.attr("ontouchstart", ProBtnControl.params.ButtonOnTouchStart);
-	          }         
+	          }
 
 	          if (ProBtnControl.params.ControlInIframeFromParent === true) {
 	            btn.css({
@@ -4657,7 +4675,7 @@ var loadProbtn = function (jQuery) {
 	              'seamless': "seamless",
 	              src: ProBtnControl.params.ButtonImage,
 	              css: pizzabtnCss
-	            }).appendTo(btn);            
+	            }).appendTo(btn);
 
 	            ProBtnControl.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
@@ -5209,8 +5227,8 @@ var loadProbtn = function (jQuery) {
 	      },
 	      additionalButtonFunctions: {
 	        callPassback: function() {
-	          if ((ProBtnControl.params.OnNoShowPixel !== undefined) 
-	                && (ProBtnControl.params.OnNoShowPixel !== null) 
+	          if ((ProBtnControl.params.OnNoShowPixel !== undefined)
+	                && (ProBtnControl.params.OnNoShowPixel !== null)
 	                && (ProBtnControl.params.OnNoShowPixel !== "")) {
 	            ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.OnNoShowPixel);
 	          }
@@ -5381,7 +5399,7 @@ var loadProbtn = function (jQuery) {
 
 	          if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
 	            try {
-	              title = "<style> .fancybox-title-inside-wrap {color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
+	              title = "<style> .fancybox-title-inside-wrap { padding-top: 0px; color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
 	            } catch (ex) {
 	            }
 	          }
@@ -6010,7 +6028,6 @@ var loadProbtn = function (jQuery) {
 
 	          if (($.fancybox !== undefined) || (ProBtnControl.params.ButtonType === "fullscreen")) {
 	            if ((isOpen) || (ProBtnControl.params.ButtonType === "fullscreen")) {
-	              //resizefancybox
 
 	              var contentSizeX = ProBtnControl.params.ContentSize.X;
 	              var contentSizeY = ProBtnControl.params.ContentSize.Y;
@@ -6018,13 +6035,13 @@ var loadProbtn = function (jQuery) {
 	              //get fancybox margins
 	              var margins = ProBtnControl.additionalButtonFunctions.getFancyboxMargins();
 
-	              var newFancyboxWidth = window.innerWidth - margins[1] - margins[3];
-	              var newFancyboxHeight = window.innerHeight - margins[0] - margins[2];
+	              var newFancyboxWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - margins[1] - margins[3];
+	              var newFancyboxHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - margins[0] - margins[2];
 
 	              //get fancybox sizes
 	              if (ProBtnControl.params.IsManualSize === true) {
 	                if (ProBtnControl.params.ContentSize.X.indexOf('%') !== -1) {
-	                  newFancyboxWidth = window.innerWidth * (parseFloat(ProBtnControl.params.ContentSize.X) / 100);
+	                  newFancyboxWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() * (parseFloat(ProBtnControl.params.ContentSize.X) / 100);
 	                  contentSizeX = (parseFloat(ProBtnControl.params.ContentSize.X) / 100);
 	                } else {
 	                  newFancyboxWidth = ProBtnControl.params.ContentSize.X;
@@ -6033,26 +6050,18 @@ var loadProbtn = function (jQuery) {
 	                if (ProBtnControl.params.ContentSize.Y.indexOf('-') !== -1) {
 	                  //console.log("fancyboxParams.width", newFancyboxWidth);
 	                  newFancyboxHeight = newFancyboxWidth * Math.abs(ProBtnControl.params.ContentSize.H);
-	                  //console.log("fancyboxParams.height", newFancyboxHeight, ProBtnControl.params.ContentSize.H, ProBtnControl.params.ContentSize);
-	                  if (newFancyboxHeight > (window.innerHeight - ProBtnControl.pizzabtn.height())) {
-	                    newFancyboxHeight = window.innerHeight - ProBtnControl.pizzabtn.height();
+	                  if (newFancyboxHeight > (ProBtnControl.additionalButtonFunctions.getWindowHeight() - ProBtnControl.pizzabtn.height())) {
+	                    newFancyboxHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - ProBtnControl.pizzabtn.height();
 	                    newFancyboxWidth = newFancyboxHeight / Math.abs(ProBtnControl.params.ContentSize.H);
 	                  }
 
 	                } else {
 	                  if (ProBtnControl.params.ContentSize.Y.indexOf('%') !== -1) {
-	                    newFancyboxHeight = window.innerHeight * (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
+	                    newFancyboxHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() * (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
 	                  } else {
 	                    newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
 	                  }
 	                }
-
-	                /*if (ProBtnControl.params.ContentSize.Y.indexOf('%') !== -1) {
-	                                    newFancyboxHeight = window.innerHeight * (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
-	                                    contentSizeY = (parseFloat(ProBtnControl.params.ContentSize.Y) / 100);
-	                                } else {
-	                                    newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
-	                                }*/
 	              } else {
 	                //if isManualSize is not set, then fancybox should be sized in px
 	                newFancyboxHeight = ProBtnControl.params.ContentSize.H;
@@ -6062,20 +6071,24 @@ var loadProbtn = function (jQuery) {
 	              newFancyboxHeight = newFancyboxHeight - margins[0] - margins[2];
 	              newFancyboxWidth = newFancyboxWidth - margins[1] - margins[3];
 
-	              var setFancyboxSizes = function () {
+	              var setFancyboxSizes = function (fancyboxHeight, fancyboxWidth, fancyboxHeightInner, margins) {
 	                //if (params.IsManualSize === true) {
-	                $('.fancybox-wrap').width(newFancyboxWidth);
-	                $('.fancybox-wrap').height(newFancyboxHeight);
+	                $('.fancybox-wrap').width(fancyboxWidth);
+	                $('.fancybox-wrap').height(fancyboxHeight);
 
-	                $('.fancybox-inner').width(newFancyboxWidth);
-	                $('.fancybox-inner').height(newFancyboxHeightInner);
+	                $('.fancybox-inner').width(fancyboxWidth);
+	                $('.fancybox-inner').height(fancyboxHeightInner);
 	                //}
 
-	                if (ProBtnControl.params.ButtonType == "fullscreen") {
+	                if ((ProBtnControl.params.ButtonType == "fullscreen") 
+	                    || (margins[0]===0) || (margins[1]===0) || (margins[2]===0) || (margins[3]===0)) {
 	                  $('.fancybox-wrap').css("left", margins[1]);
 	                  $('.fancybox-wrap').css("top", margins[0]);
 	                  $('.fancybox-wrap').css("bottom", margins[2]);
 	                  $('.fancybox-wrap').css("right", margins[3]);
+	                }
+	                if (document.documentElement.clientHeight > ProBtnControl.additionalButtonFunctions.getWindowHeight()) {
+	                    $('.fancybox-wrap').css("top", margins[0] + (document.documentElement.clientHeight - ProBtnControl.additionalButtonFunctions.getWindowHeight()));
 	                }
 
 	                ProBtnControl.additionalButtonFunctions.setIfameSizes();
@@ -6084,7 +6097,7 @@ var loadProbtn = function (jQuery) {
 	              var newFancyboxWidthInner = newFancyboxWidth - $(".fancybox-title").width();
 	              var newFancyboxHeightInner = newFancyboxHeight - $(".fancybox-title").height();
 
-	              setFancyboxSizes();
+	              setFancyboxSizes(newFancyboxHeight, newFancyboxWidth, newFancyboxHeightInner, margins);
 
 	              var videoHeight = 0;
 	              var videoWidth = 0;
@@ -6113,16 +6126,9 @@ var loadProbtn = function (jQuery) {
 	              $(".probtn_video").width(videoWidth);
 	              $(".probtn_video").height(videoHeight);
 
-	              /*console.log("videoWidth", videoWidth);
-	              console.log("newFancyboxWidth", newFancyboxWidth);
-	              console.log("document.getElementsByClassName(\"fancybox-inner\")[0].offsetWidth", document.getElementsByClassName("fancybox-inner")[0].offsetWidth);*/
-
-	              setFancyboxSizes();
-
+	              setFancyboxSizes(newFancyboxHeight, newFancyboxWidth, newFancyboxHeightInner, margins);
 
 	              setTimeout(function () {
-	                //setFancyboxSizes();
-
 
 	                var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
 	                var additionalMode = "";
@@ -6550,7 +6556,7 @@ var loadProbtn = function (jQuery) {
 	              if (side == 'right') {
 	                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2));
 	              } else {
-	                //if (autostartContent) {                  
+	                //if (autostartContent) {
 	                  ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8));
 	                //} else {
 	                  //ProBtnControl.pizzabtn.css("left", (ProBtnControl.params.ButtonSize.W * 1.2));
@@ -6616,7 +6622,7 @@ var loadProbtn = function (jQuery) {
 	                  });
 	                  //}, ProBtnControl.params.animationDuration);
 	                } else {
-	                  if (autostartContent) {  
+	                  if (autostartContent) {
 	                    left = (ProBtnControl.params.ButtonSize.W * 1.2);
 	                    if (side == 'right') {
 	                      left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 1.2);
@@ -8834,7 +8840,7 @@ var loadProbtn = function (jQuery) {
 	                  if (event.data.size.top !== undefined) {
 	                    $("#pizzabtnIframeOverlay").css({
 	                      'top': event.data.size.top
-	                    });  
+	                    });
 	                  }
 	                  break;
 	                default:
@@ -8904,7 +8910,7 @@ var loadProbtn = function (jQuery) {
 	          //init close button
 	          ProBtnControl.closeButton = ProBtnControl.initFunctions.initCloseButton();
 	          ProBtnControl.closeButton.attr('src', ProBtnControl.params.CloseImage);
-	          
+
 	          // append pizzabtn and close btn styles
 	          if (ProBtnControl.params.NeverClose === false) {
 	            $('head').append(
@@ -9539,7 +9545,7 @@ var loadProbtn = function (jQuery) {
 	        ProBtnControl.cookieFunctions.getDeviceCID(function (guid) {
 	          //ProBtnControl.statistics.callSuperPixelExt("getDeviceCID_done0");
 	          ProBtnControl.initFunctions.initExternalData.initFirstAvailable(function () {
-	            
+
 	            ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable_done");
 
 	            //get coordinates if nessesary
