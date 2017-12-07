@@ -109,6 +109,7 @@ code {
   -webkit-transform: scale(0.7);
   -moz-transform: scale(0.7);
   -o-transform: scale(0.7);
+  width: 0px !important;
 }
 .button.show img {
   height: auto;
