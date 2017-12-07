@@ -78,17 +78,17 @@ class Footer extends React.Component {
 			this.setState({"active": ["false", "false", "true"]});
 			this.props.buttonClicked(item, buttonVal);
 		} else {
-			let parser = new UAParser();
+			//let parser = new UAParser();
 		    // by default it takes ua string from current browser's window.navigator.userAgent
-		    let parserResult = parser.getResult();
-		    console.log(parserResult);
-		    if (parserResult.os.name==="iOS") {
-		    	window.top.postMessage({ command: 'probtn_performed_action', value: 'download_clicked_ios' }, '*');
-				window.open("https://itunes.apple.com/us/app/yandex-browser/id483693909?mt=8", "_blank");
-			} else {
-				window.top.postMessage({ command: 'probtn_performed_action', value: 'download_clicked_android' }, '*');
-				window.open("https://play.google.com/store/apps/details?id=com.yandex.browser&hl=en", "_blank");
-			}
+		    //let parserResult = parser.getResult();
+		    //console.log(parserResult);
+		    //if (parserResult.os.name==="iOS") {
+		    //	window.top.postMessage({ command: 'probtn_performed_action', value: 'download_clicked_ios' }, '*');
+			//	window.open("https://itunes.apple.com/us/app/yandex-browser/id483693909?mt=8", "_blank");
+			//} else {
+			//	window.top.postMessage({ command: 'probtn_performed_action', value: 'download_clicked_android' }, '*');
+				window.open("https://redirect.appmetrica.yandex.com/serve/169488861431366701?c=CAMPAIGNID", "_blank");
+			//}
 		}
 	}
 	render() {
