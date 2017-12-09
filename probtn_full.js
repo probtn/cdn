@@ -1506,20 +1506,20 @@ probtn_initTrackingLinkTest();
               } else {
 
                 //move button top edge of the screen then modal is opened
-                if (((ProBtnControl.params.isAnimation.trim() === "") || (ProBtnControl.params.isAnimation.trim() === undefined) || (ProBtnControl.params.isAnimation.trim() === null))) {
+                //if (((ProBtnControl.params.isAnimation.trim() === "") || (ProBtnControl.params.isAnimation.trim() === undefined) || (ProBtnControl.params.isAnimation.trim() === null))) {
 
                   ProBtnControl.pizzabtn.css(positionObj.property, positionObj.finishValue);
 
                   //move only if there is no button animations
-                  console.log("move button");
+                  //console.log("move button");
                   if (positionObj.property == 'top') {
                     ProBtnControl.pizzabtn.css('left', InitLeft + 'px');
                   } else {
                     ProBtnControl.pizzabtn.css('top', InitTop + 'px');
                   }
-                } else {
-                  console.log("not move - animation exist", positionObj, ProBtnControl.pizzabtn.position());
-                }
+                //} else {
+                //  console.log("not move - animation exist", positionObj, ProBtnControl.pizzabtn.position());
+                //}
 
               }
             } catch (ex) {
@@ -1750,7 +1750,6 @@ probtn_initTrackingLinkTest();
               ProBtnControl.pizzabtn.center();
               ProBtnControl.additionalButtonFunctions.closeAfterOrientationChange = false;
             } else {
-              console.log("move button2 positionObj");
               ProBtnControl.pizzabtn.css(positionObj.property, positionObj.currentValue + 'px');
             }
 
@@ -1767,7 +1766,6 @@ probtn_initTrackingLinkTest();
             ProBtnControl.HpmdFunctions.closeHpmdTrack();
           },
           onUpdate: function() {
-            console.log("onUpdate called");
             ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
           }
         };
@@ -1924,7 +1922,8 @@ probtn_initTrackingLinkTest();
          */
         timeValue: {
           "ContentShowedDuration": 0,
-          "MovedDuration": 0
+          "MovedDuration": 0,
+          "ButtonShowedDuration": 0
         },
         contentOpenedTime: 0,
         movedTime: 0, //button moved duration
@@ -1951,15 +1950,29 @@ probtn_initTrackingLinkTest();
           clearInterval(ProBtnControl.contentTime.intervalId[param]);
           ProBtnControl.contentTime.intervalId[param] = undefined;
 
-          ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param], "", function () {
+          var callbackAfterStat = function () {
             if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType === "button_and_active_zones")) {
               if (param === "ContentShowedDuration") {
                 ProBtnControl.params.currentAreaName = "";
               }
             }
-          });
+          };
 
 
+
+          if ((param === "ContentShowedDuration") && (ProBtnControl.params.ButtonContentType === "video")) {
+            var videoDuration = 0;
+            try {
+                videoDuration = Math.floor(document.getElementById("video_probtn").duration);
+            } catch(ex) {
+            }
+            ProBtnControl.statistics.SendStatObject({
+                "ContentShowedDuration": ProBtnControl.contentTime.timeValue[param],
+                "VideoFullDuration": videoDuration
+            }, callbackAfterStat);
+          } else {
+            ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param], "", callbackAfterStat);
+          }
         },
         intervalId: {
           "ContentShowedDuration": undefined,
@@ -4756,6 +4769,7 @@ probtn_initTrackingLinkTest();
 
           btn.show = function () {
             var me = this;
+            me.startShowedTimer();
             setTimeout(function () {
               me.stop(true, true).fadeIn(ProBtnControl.params.ButtonShowDuration * 1000);
             }, ProBtnControl.params.ButtonShowDelay * 1000);
@@ -9078,7 +9092,6 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.once_moved = true;
 
                 window.probtn_pizzabtn_moved = false;
-                console.log("start - window.probtn_pizzabtn_moved", window.probtn_pizzabtn_moved);
 
                 try {
                   ProBtnControl.pizzabtn.stop(true, true);
