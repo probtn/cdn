@@ -3903,8 +3903,6 @@ probtn_initTrackingLinkTest();
               //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
               if ((ProBtnControl.currentScrollZone.Name !== scrollZone.Name) || (!$("#pizzabtnImg", ProBtnControl.pizzabtn).hasClass("pizzabtnImg_iframe_cached"))) {
 
-                console.log("scrollZone.Name", scrollZone.Name);
-
                 //TODO: showing iframe from cahced items
                 if (scrollZone.ButtonImageType === "iframe") {
                   if ((scrollZone.CustomContentURL !== ProBtnControl.currentScrollZone.CustomContentURL) || (scrollZone.ButtonImageType !== ProBtnControl.currentScrollZone.ButtonImageType) || (scrollZone.ButtonImage !== ProBtnControl.currentScrollZone.ButtonImage)) {
@@ -4141,10 +4139,11 @@ probtn_initTrackingLinkTest();
               if ((buttonHeight <= areaHeight) && (buttonHeight > currentFullTop)) {
 
                 window.probtn_dropedActiveZone = {};
-                window.probtn_dropedActiveZone.currentActiveZone = null;
+                window.probtn_dropedActiveZone["currentActiveZone"] = null;
 
                 currentZone = scrollZone;
-                window.probtn_dropedActiveZone.currentActiveZone = scrollZone;
+                //console.log("currentZone", currentZone);
+                window.probtn_dropedActiveZone["currentActiveZone"] = scrollZone;
 
 
                 if ((ProBtnControl.currentScrollZone === null) || (ProBtnControl.currentScrollZone === undefined)) {
@@ -4339,9 +4338,19 @@ probtn_initTrackingLinkTest();
 
             var content = '';
 
+            var headerImage = "";
+            if (ProBtnControl.params.VideoItemHeaderImage!=="")
+            {
+                headerImage = "<tr id=\"probtn_video_header_tr\"><td id=\"probtn_video_header_td\" style=\"height: 1px;text-align: center;\"><img src=\""+ ProBtnControl.params.VideoItemHeaderImage +"\" id=\"probtn_video_header_img\" alt=\"\" style=\"width: 70%; margin-top: 5%;\"></td></tr>";
+            }
+
             // replace with video item
             content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
-              '<table class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;"><tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="' + videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
+              '<table cellspacing="0" cellpadding="0" class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;">'+ 
+              headerImage +
+              '<tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="' + 
+              videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + 
+              '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
               '<source src="' + ProBtnControl.params.ContentURL + '" type="video/mp4">' +
               'Your browser does not support the video tag. ' +
               '</video></td></tr></table></div>';
@@ -7497,6 +7506,8 @@ probtn_initTrackingLinkTest();
         //init default params
         ProBtnControl.params = $.extend(true, {
 
+          VideoItemHeaderImage: "",
+
           /////////////////////////////////////////
           //badges params
           /**
@@ -7506,7 +7517,7 @@ probtn_initTrackingLinkTest();
           BadgeImage: "https://cdn.probtn.com/images/probtnad.png",
           BadgePosition: "bottom_center",
           BadgeSize: {
-            W: 110, H: 24
+            W: 60, H: 13
           },
           BadgeActive: false,
           /////////////////////////////////////////
@@ -7795,7 +7806,7 @@ probtn_initTrackingLinkTest();
 
           VideoPoster: '',
           ButtonOnClick: 'console.log("ButtonOnClick"); function start1() { console.log("start1"); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var video = jQuery("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery("#video_probtn").get(0); var frame_id = jQuery(".fancybox-iframe").first().attr("id"); probtn_callPlayer("video_probtn", "playVideo"); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);',
-          ButtonOnTouchEnd: 'var moved = window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { console.log("window.probtn_dropedActiveZone", window.probtn_dropedActiveZone, moved); try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined) && (moved === false)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = document.getElementById("#video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name); videoZone.play(); moved = true; } } else { console.log("moved", moved); if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = document.getElementById("video_probtn"); video.play(); probtn_callPlayer("video_probtn", "playVideo");  } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } window.probtn_pizzabtn_moved = false; }; start2();',
+          ButtonOnTouchEnd: 'var moved = window.probtn_pizzabtn_moved; clearInterval(window.probtn_touch_interval); function start2() { console.log("window.probtn_dropedActiveZone", window.probtn_dropedActiveZone, moved); try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined) && (moved === false)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=="video") { var videoZone = document.getElementById("video_probtn_"+window.probtn_dropedActiveZone.currentActiveZone.Name); videoZone.play(); moved = true; } } else { console.log("moved", moved); if (moved === false) { try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=="video") { moved = true; var video = document.getElementById("video_probtn"); video.play(); probtn_callPlayer("video_probtn", "playVideo");  } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } window.probtn_pizzabtn_moved = false; }; start2();',
           ButtonOnTouchStart: 'window.probtn_touch_start = 0; window.probtn_touch_interval = setInterval(function() { window.probtn_touch_start = window.probtn_touch_start + 1; }, 1);',
           ButtonType: 'fancybox',
           VideoSize: {
