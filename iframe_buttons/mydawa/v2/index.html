@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>Default</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=180" />
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="default_hype_container" style="margin:auto;position:relative;width:180px;height:210px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="Default.hyperesources/default_hype_generated_script.js?47522"></script>
+	</div>
+
+	<!-- end copy -->
+
+	<script>
+            var shaked = false;
+            var getData = false;
+            function MyFunctions(hypeDocument, element, event) {
+                setTimeout(function () {
+                    window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+                }, 100);
+
+                /*window.addEventListener('devicemotion', function (e) {
+                alert('devicemotion');
+                }, false);*/
+
+                //if (typeof window.DeviceMotionEvent != 'undefined') {
+                // Shake sensitivity (a lower number is more)
+                var sensitivity = 4;
+
+                // Position variables
+                var x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0;
+
+                // Listen to motion events and update the position
+                window.addEventListener('devicemotion', function (e) {
+                    x1 = e.accelerationIncludingGravity.x;
+                    y1 = e.accelerationIncludingGravity.y;
+                    z1 = e.accelerationIncludingGravity.z;
+                    //console.log("e.accelerationIncludingGravity", e.accelerationIncludingGravity);
+                }, false);
+
+                // Periodically check the position and fire
+                // if the change is greater than the sensitivity
+                setInterval(function () {
+                    if (getData) {
+                        var change = Math.abs(x1 - x2 + y1 - y2 + z1 - z2);
+                        //console.log("change", change);
+
+                        if ((change > sensitivity) && (!shaked)) {
+                            //alert('Shake!');
+                            shaked = true;
+                            hypeDocument.showNextScene();
+                        }
+                    }
+
+                    // Update new position
+                    x2 = x1;
+                    y2 = y1;
+                    z2 = z1;
+                    getData = true;
+                }, 150);
+                //}
+
+                var receiveMessage = function (event) {
+                }
+                // run your functions that require a loaded Hype scene here. 
+                window.self.addEventListener("message", receiveMessage, false);
+            }
+            if ("HYPE_eventListeners" in window === false) {
+                window.HYPE_eventListeners = Array();
+            }
+            window.HYPE_eventListeners.push({
+                "type": "HypeSceneLoad",
+                "callback": MyFunctions
+            });
+        </script>
+  </body>
+</html>
