@@ -28,33 +28,18 @@
 
 	<!-- end copy -->
 
-	<script>
+        <script>
             var shaked = false;
             var getData = false;
+
+            var sensitivity = 4;
+            var x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0;
+
             function MyFunctions(hypeDocument, element, event) {
                 setTimeout(function () {
                     window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
                 }, 100);
-
-                /*window.addEventListener('devicemotion', function (e) {
-                alert('devicemotion');
-                }, false);*/
-
-                //if (typeof window.DeviceMotionEvent != 'undefined') {
-                // Shake sensitivity (a lower number is more)
-                var sensitivity = 4;
-
-                // Position variables
-                var x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0;
-
-                // Listen to motion events and update the position
-                window.addEventListener('devicemotion', function (e) {
-                    x1 = e.accelerationIncludingGravity.x;
-                    y1 = e.accelerationIncludingGravity.y;
-                    z1 = e.accelerationIncludingGravity.z;
-                    //console.log("e.accelerationIncludingGravity", e.accelerationIncludingGravity);
-                }, false);
-
+                
                 // Periodically check the position and fire
                 // if the change is greater than the sensitivity
                 setInterval(function () {
@@ -78,6 +63,14 @@
                 //}
 
                 var receiveMessage = function (event) {
+                    if ((event.data!==null) && (event.data!==undefined)) {
+                        if (event.data.message === "probtn_page_devicemotion") {
+                            x1 = event.data.dataEvent.x;
+                            y1 = event.data.dataEvent.y;
+                            z1 = event.data.dataEvent.z;
+                            //console.log("e.accelerationIncludingGravity", event.data.dataEvent);
+                        }
+                    }
                 }
                 // run your functions that require a loaded Hype scene here. 
                 window.self.addEventListener("message", receiveMessage, false);

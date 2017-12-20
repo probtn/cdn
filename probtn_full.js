@@ -4936,6 +4936,21 @@ probtn_initTrackingLinkTest();
                     }, '*');
                   }
                 });
+
+                window.addEventListener('devicemotion', function (e) {
+                    //console.log("e.accelerationIncludingGravity1", e.accelerationIncludingGravity);
+                    if (myIframeCheck.contentWindow !== null) {
+                        myIframeCheck.contentWindow.postMessage({
+                          message: "probtn_page_devicemotion",
+                          dataEvent: {
+                            x: e.accelerationIncludingGravity.x,
+                            y: e.accelerationIncludingGravity.y,
+                            z: e.accelerationIncludingGravity.z
+                          }
+                        }, '*');
+                      }
+
+                }, false);
               } catch (ex) {
 
               }
