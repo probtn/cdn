@@ -96,14 +96,17 @@
 					var deviceCUID_item = {'type': 'probtnCID', 'cid': cookieName};
 					console.log("deviceCUID_item", deviceCUID_item);
 					window.top.postMessage(deviceCUID_item, "*");
+					
+					//make global matching
+					console.log("init adcm", {profileId: cookieName});
+					window.adcm.call({profileId: cookieName});
 				}
 				
 				var receiveMessage = function (event) {
 					if ((event.data.command !== undefined) && (event.data.command !== null) && (event.data.command === "amber_matching")) {
 						try {
-							console.log("init adcm", {profileId: cookieName});
-
-							window.adcm.call({profileId: cookieName});
+							//console.log("init adcm", {profileId: cookieName});
+							//window.adcm.call({profileId: cookieName});
 						  } catch(ex) {
 							console.log(ex);
 						  }
