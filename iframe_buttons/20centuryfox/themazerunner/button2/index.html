@@ -23,24 +23,29 @@
 	<!-- copy these lines to your document: -->
 
 	<div id="index_hype_container" style="margin:auto;position:relative;width:180px;height:210px;overflow:hidden;">
-		<script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?26112"></script>
+		<script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?86125"></script>
 	</div>
 
 	<!-- end copy -->
+	<script>
+     function MyFunctions(hypeDocument, element, event) {
+         setTimeout(function () {
+             window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+         }, 100);
 
-        <script>
-        function MyFunctions(hypeDocument, element, event) {
-            setTimeout(function () {
-                window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
-            }, 50);
-        }
-        if ("HYPE_eventListeners" in window === false) {
-            window.HYPE_eventListeners = Array();
-        }
-        window.HYPE_eventListeners.push({
-            "type": "HypeSceneLoad",
-            "callback": MyFunctions
-        });
-        </script>
+         var receiveMessage = function (event) {
+         }
+         // run your functions that require a loaded Hype scene here. 
+         window.self.addEventListener("message", receiveMessage, false);
+     }
+     if ("HYPE_eventListeners" in window === false) {
+         window.HYPE_eventListeners = Array();
+     }
+     window.HYPE_eventListeners.push({
+         "type": "HypeSceneLoad",
+         "callback": MyFunctions
+     });
+    </script>
+
   </body>
 </html>
