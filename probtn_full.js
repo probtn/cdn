@@ -1124,6 +1124,8 @@ probtn_initTrackingLinkTest();
     ProBtnControl = {
       guidCookieControlPath: "https://cdn.probtn.com/cookie_iframe/cookie-iframe.html",
       //guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
+      //uaParserPath: 'https://cdn.probtn.com/libs/ua-parser.js',
+      //atlasPath: 'https://cdn.probtn.com/libs/atlas.js',
       uaParserPath: 'https://cdn.probtn.com/libs/ua-parser.js',
       atlasPath: 'https://cdn.probtn.com/libs/atlas.js',
       currentDomain: document.domain.replace("www.", ""),
@@ -4346,10 +4348,10 @@ probtn_initTrackingLinkTest();
 
             // replace with video item
             content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
-              '<table cellspacing="0" cellpadding="0" class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;">'+ 
+              '<table cellspacing="0" cellpadding="0" class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;">'+
               headerImage +
-              '<tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="' + 
-              videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster + 
+              '<tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="' +
+              videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster +
               '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
               '<source src="' + ProBtnControl.params.ContentURL + '" type="video/mp4">' +
               'Your browser does not support the video tag. ' +
@@ -5218,6 +5220,7 @@ probtn_initTrackingLinkTest();
         intervalId: undefined,
         wasInteraction: false
       },
+      // #additionalButtonFunctions
       additionalButtonFunctions: {
         callPassback: function() {
           if ((ProBtnControl.params.OnNoShowPixel !== undefined)
@@ -5392,7 +5395,7 @@ probtn_initTrackingLinkTest();
 
           if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
             try {
-              title = "<style> .fancybox-title-inside-wrap { padding-top: 0px; color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
+              title = "<style> .fancybox-title-inside-wrap { padding-top: 0px; color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); try { document.getElementById('video_probtn').pause(); } catch(ex) { console.log(ex); };\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
             } catch (ex) {
             }
           }
@@ -6073,7 +6076,7 @@ probtn_initTrackingLinkTest();
                 $('.fancybox-inner').height(fancyboxHeightInner);
                 //}
 
-                if ((ProBtnControl.params.ButtonType == "fullscreen") 
+                if ((ProBtnControl.params.ButtonType == "fullscreen")
                     || (margins[0]===0) || (margins[1]===0) || (margins[2]===0) || (margins[3]===0)) {
                   $('.fancybox-wrap').css("left", margins[1]);
                   $('.fancybox-wrap').css("top", margins[0]);
@@ -6416,42 +6419,35 @@ probtn_initTrackingLinkTest();
           },
           opacityAnimation: function (animationName) {
             //console.log("opacityAnimation1", animationName);
+            var params = {
+              finalOpacity : 0.5
+            };
+            params = this._checkAndGetActualParams(params);
+            if (params.name == "opacity") {
             setTimeout(function () {
-              //console.log("opacityAnimation2", animationName);
-              var animations = animationName.split('_');
-              if (animations[0] == "opacity") {
-                var opacity_param = animations[1];
-                if ((opacity_param !== null) && (opacity_param !== undefined) && (!isNaN(opacity_param))) {
-                } else {
-                  opacity_param = 0.5;
-                }
                 ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
 
                 ProBtnControl.pizzabtn.animate({
-                  opacity: opacity_param
+                  opacity: params.finalOpacity
                 }, {
                   duration: ProBtnControl.params.animationDuration,
                   step: function (now) {
                   },
                   complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
                 });
-              }
             }, ProBtnControl.params.animationDuration / 2);
+          }
           },
           rolloutAnimation: function () {
-            var rolloutParams = ProBtnControl.params.isAnimation.split('_');
+            var params = {
+              side : "left",
+              rollOutPercent : 80
+            };
+            params = this._checkAndGetActualParams(params);
 
-            var side = "left";
-            try {
-              if ((rolloutParams[1] !== null) && (rolloutParams[1] !== undefined)) {
-                side = rolloutParams[1];
-              }
-            } catch (ex) {
-            }
+            if (params.name == "rollout") {
 
-            if (rolloutParams[0] == "rollout") {
-
-              if (side == 'right') {
+              if (params.side == 'right') {
                 ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2));
               } else {
                 ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8));
@@ -6463,15 +6459,6 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
                   message: "probtn_page_scroll"
                 });
-
-                var rollOutPercent = 80;
-                try {
-                  if ((rolloutParams[2] !== null) && (rolloutParams[2] !== undefined)) {
-                    rollOutPercent = rolloutParams[2];
-                  } else {
-                  }
-                } catch (ex) {
-                }
 
                 var doc = document.documentElement;
                 var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
@@ -6494,10 +6481,10 @@ probtn_initTrackingLinkTest();
                 var currentButtonHeight = ProBtnControl.pizzabtn.position().top;
                 var buttonHeight = currentButtonHeight + top;
 
-                if (side === 'right') {
-                  ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2) - ((rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
+                if (params.side === 'right') {
+                  ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2) - ((params.rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
                 } else {
-                  ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8) + ((rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
+                  ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8) + ((params.rollOutPercent / 100) * $('body').innerWidth()) * ((buttonHeight - topButton) / getDocumentHeight()));
                 }
 
               };
@@ -6506,47 +6493,19 @@ probtn_initTrackingLinkTest();
             }
           },
           lookoutAndOutAnimation: function () {
-            var lookoutParams = ProBtnControl.params.isAnimation.split('_');
+            var params = {
+              side : "left",
+              rollOutPercent : 50
+            };
+            params = this._checkAndGetActualParams(params);
+            if (params.name == "lookoutAndOut") {
 
-            var side = "left";
-            try {
-              if ((lookoutParams[1] !== null) && (lookoutParams[1] !== undefined)) {
-                side = lookoutParams[1];
-              }
-            } catch (ex) {
-            }
-
-            if (lookoutParams[0] == "lookoutAndOut") {
-
-              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transition-property", "left, top");
-              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
-
-              var rollOutPercent = 50;
-              try {
-                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
-                  rollOutPercent = lookoutParams[2];
-                } else {
-                }
-              } catch (ex) {
-                console.log(ex);
-              }
-              rollOutPercent = rollOutPercent / 100;
+              this._setAnimationCSS();
+              params.rollOutPercent = params.rollOutPercent / 100;
 
               var autostartContent = true;
-              try {
-                if ((lookoutParams[4] !== null) && (lookoutParams[4] !== undefined)) {
-                  if (lookoutParams[4] === "noAuto") {
-                    autostartContent = false;
-                  }
-                }
-              } catch (ex) {
-                console.log(ex);
-              }
 
-              if (side == 'right') {
+              if (params.side == 'right') {
                 ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2));
               } else {
                 //if (autostartContent) {
@@ -6566,7 +6525,7 @@ probtn_initTrackingLinkTest();
 
                 ProBtnControl.lookOutTimeout2 = setTimeout(function () {
                   var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
-                  if (side === 'right') {
+                  if (params.side === 'right') {
                     left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
                   }
 
@@ -6592,10 +6551,10 @@ probtn_initTrackingLinkTest();
                 var left = 0;
                 if ((lookoutCount < 2)) {
                   //setTimeout(function() {
-                  left = -(ProBtnControl.params.ButtonSize.W * rollOutPercent);
+                  left = -(ProBtnControl.params.ButtonSize.W * params.rollOutPercent);
 
-                  if (side == 'right') {
-                    left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * rollOutPercent);
+                  if (params.side == 'right') {
+                    left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * params.rollOutPercent);
                   }
                   console.log("left", left);
 
@@ -6617,7 +6576,7 @@ probtn_initTrackingLinkTest();
                 } else {
                   if (autostartContent) {
                     left = (ProBtnControl.params.ButtonSize.W * 1.2);
-                    if (side == 'right') {
+                    if (params.side == 'right') {
                       left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 1.2);
                     }
                   } else {
@@ -6654,51 +6613,24 @@ probtn_initTrackingLinkTest();
             }
           },
           lookoutAnimation: function () {
-            var lookoutParams = ProBtnControl.params.isAnimation.split('_');
-
-            var side = "left";
-            try {
-              if ((lookoutParams[1] !== null) && (lookoutParams[1] !== undefined)) {
-                side = lookoutParams[1];
-              }
-            } catch (ex) {
+            var params = {
+              side : "left"
             }
+            params = this._checkAndGetActualParams(params);
+            if (params.name == "lookout") {
 
-            if (lookoutParams[0] == "lookout") {
+              this._setAnimationCSS();
 
-              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transition-property", "left, top");
-              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
-
-              if (side == 'right') {
+              if (params.side == 'right') {
                 ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2));
               } else {
                 ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8));
               }
 
-              var rollOutPercent = 30;
-              try {
-                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
-                  rollOutPercent = lookoutParams[2];
-                } else {
-                }
-              } catch (ex) {
-              }
-
-              try {
-                if ((lookoutParams[2] !== null) && (lookoutParams[2] !== undefined)) {
-                  rollOutPercent = lookoutParams[2];
-                } else {
-                }
-              } catch (ex) {
-              }
-
               var onBackLookOut = function (e) {
                 setTimeout(function () {
                   var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
-                  if (side === 'right') {
+                  if (params.side === 'right') {
                     left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
                   }
 
@@ -6716,7 +6648,7 @@ probtn_initTrackingLinkTest();
               var onLookOut = function (e) {
                 setTimeout(function () {
                   var left = -(ProBtnControl.params.ButtonSize.W * 0.1);
-                  if (side == 'right') {
+                  if (params.side == 'right') {
                     left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.9);
                   }
 
@@ -6769,26 +6701,70 @@ probtn_initTrackingLinkTest();
 
             }
           },
-          forwardStopAndAwayAnimation: function () {
-            var forwardStopAndAwayParams = ProBtnControl.params.isAnimation.split('_');
-
-            //console.log("forwardStopAndAwayParams", forwardStopAndAwayParams);
-
-            //get side from isAnimation param
-            var side = "left";
+          _setAnimationCSS : function() {
+            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+            ProBtnControl.pizzabtn.css("transition-property", "left, top");
+            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+          },
+          _checkAndGetActualParams : function (params) {
+            var paramAnims;
+            var text = ProBtnControl.params.animationData;
+            ProBtnControl.params.animationData = $('<div/>').html(text).text();
             try {
-              if ((forwardStopAndAwayParams[1] !== null) && (forwardStopAndAwayParams[1] !== undefined)) {
-                side = forwardStopAndAwayParams[1];
-              }
+              paramAnims = JSON.parse(ProBtnControl.params.animationData);
             } catch (ex) {
+              //console.log(ex);
+              paramAnims = null;
             }
+            if ((paramAnims !== null) || (paramAnims === undefined))
+              { // parameters in animationData field - new style
+                for (var par in params)
+                {
+                  if ((paramAnims[par] !== undefined) && (paramAnims[par] !== null))
+                  {
+                    params[par] = paramAnims[par];
+                  }
+                }
+                try {
+                      //var name = ProBtnControl.params.isAnimation.split('_').first;
+                      params.name = ProBtnControl.params.isAnimation.split('_')[0];
+                    } catch (ex) {
+                      params.nameAnimation = null;
+                    };
+              }
+              else
+              { // parameters in isAnimation field - old style
+                var oldFormatParams = ProBtnControl.params.isAnimation.split('_');
+                var i = 1;  // index of current param
+                   for (var par in params)
+                   {
+                     if ((oldFormatParams[i] !== undefined) && (oldFormatParams[i] !== null))
+                     params[par] = oldFormatParams[i];
+                     i++;
+                   }
+                try {
+                        params.name = oldFormatParams[0];
+                    } catch (ex) {
+                      params.name = null;  // just 4 lulz
+                    }
+              }
 
-            if (forwardStopAndAwayParams[0] == "forwardStopAndAway") {
+              return params;
+          },
+          forwardStopAndAwayAnimation: function () {
+            var params = {
+              side : "left"
+            };
+            params = this._checkAndGetActualParams(params);
+
+            if (params.name == "forwardStopAndAway") {
 
 
               ProBtnControl.pizzabtn.stop(true, true);
               //set start position for button
-              if (side === 'right') {
+              if (params.side === 'right') {
                 ProBtnControl.pizzabtn.css("left", $('body').innerWidth());
               } else {
                 ProBtnControl.pizzabtn.css("left", -ProBtnControl.params.ButtonSize.W - 10);
@@ -6799,15 +6775,11 @@ probtn_initTrackingLinkTest();
 
                 var left = $('body').innerWidth() / 2 - (ProBtnControl.params.ButtonSize.W) / 2;
                 //set first stop position for button
-                if (side === 'right') {
+                if (params.side === 'right') {
                   left = $('body').innerWidth() / 2 - (ProBtnControl.params.ButtonSize.W) / 2;
                 }
 
-                ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-                ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-                ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-                ProBtnControl.pizzabtn.css("transition-property", "left, top");
-                ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+                ProBtnControl.additionalButtonFunctions.animation._setAnimationCSS();
 
                 ProBtnControl.pizzabtn.stop(true, true);
 
@@ -6827,7 +6799,7 @@ probtn_initTrackingLinkTest();
                     }
                     window.setTimeout(function () {
                       var left = $('body').innerWidth() + (ProBtnControl.params.ButtonSize.W) + 20;
-                      if (side === 'right') {
+                      if (params.side === 'right') {
                         left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W) - 20;
                       }
 
@@ -6851,135 +6823,34 @@ probtn_initTrackingLinkTest();
               }, ProBtnControl.params.animationDuration);
             }
           },
-          upToDownAnimation: function () {
-            var upToDownParams = ProBtnControl.params.isAnimation.split('_');
-
-            var side = "up";
-            try {
-              if ((upToDownParams[1] !== null) && (upToDownParams[1] !== undefined)) {
-                side = upToDownParams[1];
-              }
-            } catch (ex) {
-            }
-
-
-            var firstPartDuration = ProBtnControl.params.animationDuration / 2;
-            try {
-              if ((upToDownParams[2] !== null) && (upToDownParams[2] !== undefined)) {
-                firstPartDuration = upToDownParams[2];
-              }
-            } catch (ex) {
-            }
-
-            var additionalMode = "";
-            var heightPercent = "1";
-
-            if (upToDownParams[0].toLowerCase() === "upToDown".toLowerCase()) {
-
-              if (side === 'down') {
-                ProBtnControl.pizzabtn.css("top", window.innerHeight - (ProBtnControl.params.ButtonSize.H));
-              } else {
-                ProBtnControl.pizzabtn.css("top", 0);
-              }
-
-              var vertical = window.innerHeight * heightPercent - (ProBtnControl.params.ButtonSize.H);
-              if (side === 'down') {
-                vertical = window.innerHeight * (1 - heightPercent);
-              }
-
-              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transition-property", "left, top");
-              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
-
-              ProBtnControl.pizzabtn.stop(true, true);
-
-              var probtnIframeEvent = function (name, data) {
-                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
-                  message: name,
-                  data: data
-                });
-              };
-
-              setTimeout(function () {
-                probtnIframeEvent("probtn_upToDown_start");
-                ProBtnControl.pizzabtn.animate({
-                  top: vertical
-                }, {
-                  duration: ProBtnControl.params.animationDuration,
-                  complete: function () {
-                    console.log("compelete");
-                    probtnIframeEvent("probtn_upToDown_stop", ProBtnControl.pizzabtn.position());
-
-                    setTimeout(function () {
-
-                      ProBtnControl.pizzabtn.stop(true, true);
-                    }, ProBtnControl.params.animationDuration);
-                  },
-                  done: function () {
-
-                  }
-                });
-              }, firstPartDuration);
-
-            }
-          },
           forwardAndStopAnimation: function () {
             var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
+            var params = {
+              side : "left",
+              waitDuration : ProBtnControl.params.animationDuration / 2
+            };
+            params = this._checkAndGetActualParams(params);
 
-            var side = "left";
-            try {
-              if ((forwardAndStopParams[1] !== null) && (forwardAndStopParams[1] !== undefined)) {
-                side = forwardAndStopParams[1];
-              }
-            } catch (ex) {
-            }
-
-
-            var firstPartDuration = ProBtnControl.params.animationDuration / 2;
-            try {
-              if ((forwardAndStopParams[2] !== null) && (forwardAndStopParams[2] !== undefined)) {
-                firstPartDuration = forwardAndStopParams[2];
-              }
-            } catch (ex) {
-            }
-
-
+            // to do in the future
             var additionalMode = "";
-            try {
-              if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
-                additionalMode = forwardAndStopParams[3];
-              }
-            } catch (ex) {
-            }
 
+            // to do in the future
             var widthPercent = "1";
-            try {
-              if ((forwardAndStopParams[4] !== null) && (forwardAndStopParams[4] !== undefined)) {
-                widthPercent = forwardAndStopParams[4];
-              }
-            } catch (ex) {
-            }
 
-            if (forwardAndStopParams[0] == "forwardAndStop") {
+            if (params.name == "forwardAndStop") {
 
-              if (side == 'right') {
+              if (params.side == 'right') {
                 ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W));
               } else {
                 ProBtnControl.pizzabtn.css("left", 0);
               }
 
               var left = $('body').innerWidth() * widthPercent - (ProBtnControl.params.ButtonSize.W);
-              if (side === 'right') {
+              if (params.side === 'right') {
                 left = $('body').innerWidth() * (1 - widthPercent);
               }
 
-              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transition-property", "left, top");
-              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+              this._setAnimationCSS();
 
               ProBtnControl.pizzabtn.stop(true, true);
 
@@ -7034,7 +6905,7 @@ probtn_initTrackingLinkTest();
 
                     setTimeout(function () {
                       var left = 0;
-                      if (side == 'right') {
+                      if (params.side == 'right') {
                         left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
                       }
 
@@ -7045,56 +6916,32 @@ probtn_initTrackingLinkTest();
 
                   }
                 });
-              }, firstPartDuration);
+              }, params.waitDuration);
 
             }
           },
           forwardAndBackAnimation: function () {
-
-            var forwardAndBackParams = ProBtnControl.params.isAnimation.split('_');
-
-            var side = "left";
-            try {
-              if ((forwardAndBackParams[1] !== null) && (forwardAndBackParams[1] !== undefined)) {
-                side = forwardAndBackParams[1];
-              }
-            } catch (ex) {
-            }
-
-            var pauseDuration = ProBtnControl.params.animationDuration / 2;
-            try {
-              if ((forwardAndBackParams[2] !== null) && (forwardAndBackParams[2] !== undefined)) {
-                pauseDuration = forwardAndBackParams[2];
-              }
-            } catch (ex) {
-            }
-
-            var stopDuration = 0;
-            try {
-              if ((forwardAndBackParams[3] !== null) && (forwardAndBackParams[3] !== undefined)) {
-                stopDuration = forwardAndBackParams[3];
-              }
-            } catch (ex) {
-            }
-
-            if (forwardAndBackParams[0] == "forwardAndBack") {
+            var params = {
+              side : "left",
+              pauseDuration : 0,
+              stopDuration : 0,
+            };
+            params.pauseDuration = ProBtnControl.params.animationDuration / 2;
+            params = this._checkAndGetActualParams(params);
+            if (params.name == "forwardAndBack") {
               //ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
-              if (side == 'right') {
+              if (params.side == 'right') {
                 ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W));
               } else {
                 ProBtnControl.pizzabtn.css("left", 0);
               }
 
               var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
-              if (side == 'right') {
+              if (params.side == 'right') {
                 left = 0;
               }
 
-              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transition-property", "left, top");
-              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+              this._setAnimationCSS();
 
               ProBtnControl.pizzabtn.stop(true, true);
 
@@ -7118,7 +6965,7 @@ probtn_initTrackingLinkTest();
                       probtnIframeEvent("probtn_forwardAndBack_stop");
                       window.setTimeout(function () {
                         var left = 0;
-                        if (side == 'right') {
+                        if (params.side == 'right') {
                           left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
                         }
 
@@ -7137,11 +6984,11 @@ probtn_initTrackingLinkTest();
 
                             setTimeout(function () {
                               ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
-                            }, stopDuration);
+                            }, params.stopDuration);
 
                           }
                         });
-                      }, pauseDuration);
+                      }, params.pauseDuration);
                     }
                   });
                 }, 50);
@@ -7150,52 +6997,39 @@ probtn_initTrackingLinkTest();
             }
           },
           TopToBottomAndStopAnimation: function () {
-            var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
-
-            var side = "top";
-            try {
-              if ((forwardAndStopParams[1] !== null) && (forwardAndStopParams[1] !== undefined)) {
-                side = forwardAndStopParams[1];
-              }
-            } catch (ex) {
+            var params = {
+              side : "top",
+              waitDuration : ProBtnControl.params.animationDuration / 2
             }
-
-
-            var firstPartDuration = ProBtnControl.params.animationDuration / 2;
-            try {
-              if ((forwardAndStopParams[2] !== null) && (forwardAndStopParams[2] !== undefined)) {
-                firstPartDuration = forwardAndStopParams[2];
-              }
-            } catch (ex) {
+            params = this._checkAndGetActualParams(params);
+            if (params.side == "down")
+            {
+              params.side = "bottom";
             }
-
 
             var additionalMode = "";
-            try {
+            /*try {
               if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
                 additionalMode = forwardAndStopParams[3];
               }
             } catch (ex) {
-            }
+            }*/
 
-            if (forwardAndStopParams[0].toLowerCase() == "TopToBottomAndStop".toLowerCase()) {
+            if ((params.name.toLowerCase() == "TopToBottom".toLowerCase()) ||
+            (params.name.toLowerCase() =="upToDown".toLowerCase())) {
 
-              if (side == 'bottom') {
+              if (params.side == 'bottom') {
                 ProBtnControl.pizzabtn.css("top", ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H));
               } else {
                 ProBtnControl.pizzabtn.css("top", 0);
               }
 
               var top = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H);
-              if (side == 'bottom') {
+              if (params.side == 'bottom') {
                 top = 0;
               }
 
-              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transition-property", "left, top");
-              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+              this._setAnimationCSS();
 
               ProBtnControl.pizzabtn.stop(true, true);
 
@@ -7211,6 +7045,7 @@ probtn_initTrackingLinkTest();
 
               setTimeout(function () {
                 probtnIframeEvent("probtn_topToBottomAndStop_start");
+                probtnIframeEvent("probtn_upToDown_start");
 
                 ProBtnControl.pizzabtn.animate({
                   top: top
@@ -7218,6 +7053,7 @@ probtn_initTrackingLinkTest();
                   duration: ProBtnControl.params.animationDuration,
                   done: function () {
                     probtnIframeEvent("probtn_topToBottomAndStop_stop", ProBtnControl.pizzabtn.position());
+                    probtnIframeEvent("probtn_upToDown_stop", ProBtnControl.pizzabtn.position());
 
                     switch (additionalMode) {
                       case "maximizeButton":
@@ -7227,7 +7063,7 @@ probtn_initTrackingLinkTest();
 
                     setTimeout(function () {
                       var top = 0;
-                      if (side == 'bottom') {
+                      if (params.side == 'bottom') {
                         top = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H);
                       }
 
@@ -7235,31 +7071,21 @@ probtn_initTrackingLinkTest();
                     }, ProBtnControl.params.animationDuration);
                   }
                 });
-              }, firstPartDuration);
+              }, params.waitDuration);
 
             }
           },
           ToCenterAnimation: function () {
-            var ToCenterAnimationParams = ProBtnControl.params.isAnimation.split('_');
+            var params = {
+              waitDuration : 1000
+            };
+            params = this._checkAndGetActualParams(params);
 
-            var delay = 1000;
-            try {
-              if ((ToCenterAnimationParams[2] !== null) && (ToCenterAnimationParams[2] !== undefined)) {
-                delay = ToCenterAnimationParams[1];
-              }
-            } catch (ex) {
-            }
-
-            if (ToCenterAnimationParams[0].toLowerCase() == "ToCenter".toLowerCase()) {
-
+            if (params.name.toLowerCase() == "ToCenter".toLowerCase()) {
               var top = (ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H))/2;
               var left = (ProBtnControl.additionalButtonFunctions.getWindowWidth() - (ProBtnControl.params.ButtonSize.W))/2;
 
-              ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-              ProBtnControl.pizzabtn.css("transition-property", "left, top");
-              ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+              this._setAnimationCSS();
 
               ProBtnControl.pizzabtn.stop(true, true);
 
@@ -7282,7 +7108,7 @@ probtn_initTrackingLinkTest();
                     probtnIframeEvent("probtn_topToCenter_stop", ProBtnControl.pizzabtn.position());
                   }
                 });
-              }, delay);
+              }, params.waitDuration);
 
             }
           },
@@ -7302,8 +7128,6 @@ probtn_initTrackingLinkTest();
 
               ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
               ProBtnControl.additionalButtonFunctions.animation.forwardAndStopAnimation();
-              ProBtnControl.additionalButtonFunctions.animation.upToDownAnimation();
-
 
               ProBtnControl.additionalButtonFunctions.animation.TopToBottomAndStopAnimation();
 
@@ -7529,10 +7353,10 @@ probtn_initTrackingLinkTest();
            * URL to badge image
            * @type {String}
            */
-          BadgeImage: "https://cdn.probtn.com/images/probtnad.png",
+          BadgeImage: "https://cdn.probtn.com/images/viewst-ad-1.png",
           BadgePosition: "bottom_center",
           BadgeSize: {
-            W: 60, H: 13
+            W: 106, H: 34
           },
           BadgeActive: false,
           /////////////////////////////////////////
@@ -7703,7 +7527,7 @@ probtn_initTrackingLinkTest();
               W: 68.0,
               H: 68.0
             },
-            ButtonOpacity: 0.8, // Прозрачность
+            ButtonOpacity: 1.0, // Прозрачность
             ButtonDragOpacity: 1.0 // Прозрачность при перемещении
           }, {
             ZoneHeight: 0.5,
@@ -7835,7 +7659,7 @@ probtn_initTrackingLinkTest();
 
           TrackingLink: null,
           MinimizeWrapperTime: 600,
-          OpenExternal: false,
+          OpenExternal: true,
           CampaignID: null,
           NeverClose: true,
           MaxHeight: 0,
