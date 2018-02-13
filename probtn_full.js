@@ -4424,13 +4424,19 @@ probtn_initTrackingLinkTest();
           //TODO: use function to add links
           ProBtnControl.statistics.callSuperPixelExt("TrackingLink");
           if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== "")) {
-
-            //ProBtnControl.statistics.createClickCounterImage("https://goo.gl/n3bnly");
             var links = ProBtnControl.params.TrackingLink.split("%7C");
             links.forEach(function (element, index) {
               ProBtnControl.statistics.createClickCounterImage(element);
-            });
+            });           
           }
+          //ProbtnControl.params.JsImpressionCode
+          console.log('JsImpressionCode', ProBtnControl.params.JsImpressionCode);
+          ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
+            if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
+              ProBtnControl.statistics.SendStatisticsData("performedAction", "jsImpressionCode_started");
+              postscribe("#probtn_button", '' + ProBtnControl.params.JsImpressionCode + '');
+            }
+          });
           pizzabtn_wrapper.css(opts);
 
           /**
@@ -5222,6 +5228,15 @@ probtn_initTrackingLinkTest();
       },
       // #additionalButtonFunctions
       additionalButtonFunctions: {
+        checkPostscribe: function (callback) {
+          if (typeof postscribe === "undefined") {
+            $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
+              $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", callback);
+            });
+          } else {
+            callback();
+          }
+        },
         callPassback: function() {
           if ((ProBtnControl.params.OnNoShowPixel !== undefined)
                 && (ProBtnControl.params.OnNoShowPixel !== null)
@@ -5270,13 +5285,14 @@ probtn_initTrackingLinkTest();
                   break;
               }
           };
-          if (typeof postscribe === "undefined") {
+          /*if (typeof postscribe === "undefined") {
             $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
               $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", postscribeCall);
             });
           } else {
             postscribeCall();
-          }
+          }*/
+          ProBtnControl.additionalButtonFunctions.checkPostscribe(postscribeCall);
         },
         extractDomain: function (url) {
           var domain;
@@ -7335,6 +7351,7 @@ probtn_initTrackingLinkTest();
             var textData = $("#probtn_additional_params").text();
             textData = JSON.parse(textData);
             //console.log("textData", textData);
+            console.log("options", options);
             options = $.extend(true, {}, textData, options);
           }
         } catch (ex) {
@@ -7344,6 +7361,11 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
+
+          /*
+          js code in <script>...</script> which run on button start
+           */
+          JsImpressionCode: "",
 
           VideoItemHeaderImage: "",
 
@@ -7546,7 +7568,7 @@ probtn_initTrackingLinkTest();
               W: 68.0,
               H: 68.0
             },
-            ButtonOpacity: 0.8, // Прозрачность
+            ButtonOpacity: 1.0, // Прозрачность
             ButtonDragOpacity: 1.0 // Прозрачность при перемещении
           }],
           ChangeScrollButtonAtFullSiteHeight: true,
@@ -7725,7 +7747,7 @@ probtn_initTrackingLinkTest();
             W: 64.0,
             H: 64.0
           },
-          ButtonOpacity: 0.8, // Прозрачность
+          ButtonOpacity: 1.0, // Прозрачность
           ButtonDragOpacity: 1.0, // Прозрачность при перемещении
           ButtonOpenOpacity: 1.0, // Прозрачность в открытом состоянии
           ButtonInactiveOpacity: 0.5, // Прозрачность в неактивном состоянии
@@ -8352,7 +8374,7 @@ probtn_initTrackingLinkTest();
                                * TODO: add check what ButtonType == js and only then except ContentURL from this check
                                * Added ContentURL param exception
                                */
-                              if ((property !== "PassbackCustomCode") && ((property !== "ContentURL"))) {
+                              if ((property !== "PassbackCustomCode") && (property !== "JsImpressionCode") && ((property !== "ContentURL"))) {
                                 var before = inObject[property];
                                 //inObject[property] = inObject[property].replace(/<\/?[^>]+(>|$)/g, ""); //$(inObject[property]).text();
                                 inObject[property] = inObject[property].split('<style>').join('')
@@ -8373,6 +8395,7 @@ probtn_initTrackingLinkTest();
                     }
                   };
 
+                  console.log("ProBtnControl.params beofre check", ProBtnControl.params);
                   checkHtmlInObject(ProBtnControl.params);
                   ProBtnControl.additionalButtonFunctions.checkProtocolLinks(ProBtnControl.params);
 
