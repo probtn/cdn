@@ -77,19 +77,7 @@
 				var cookieName = cookieFunctions.GetDeviceCUID(); //cookieFunctions.readCookie("probtnCID");
 				if (cookieName == null) {
 					cookieName = cookieFunctions.GetDeviceCUID();
-				}
-				
-				/*if ((cookieName !== null) && (cookieName !== undefined) && (cookieName !== "")) {
-					
-				} else {
-					cookieName = cookieFunctions.GetDeviceCUID();
-					cookieFunctions.createCookie("probtnCID", cookieName, 365);
-					
-					var firstUserCountLink = window.document.createElement('img');
-					firstUserCountLink.id = "firstUserCountLink";
-					firstUserCountLink.src = "https://goo.gl/1KhtnJ";
-					window.document.body.appendChild(firstUserCountLink);
-				}*/            
+				}         
 
 				if (window.self !== window.top) {
 					
@@ -97,9 +85,13 @@
 					console.log("deviceCUID_item", deviceCUID_item);
 					window.top.postMessage(deviceCUID_item, "*");
 					
+					try {
 					//make global matching
 					console.log("init adcm", {profileId: cookieName});
 					window.adcm.call({profileId: cookieName});
+					} catch(ex) {
+						consolr.log("probtn adcm call", ex);
+					}
 				}
 				
 				var receiveMessage = function (event) {

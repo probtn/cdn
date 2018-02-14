@@ -2346,6 +2346,7 @@ probtn_initTrackingLinkTest();
             ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
             var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
+            //console.log("probtnCID from local cookie", probtnCID, useGuidIframe);
 
             if (ProBtnControl.params.useGuidIframe === false) {
               //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
@@ -2406,12 +2407,12 @@ probtn_initTrackingLinkTest();
               }
             }
 
-            //console.log("ProBtnControl.params.useGuidIframe", ProBtnControl.params.useGuidIframe);
+            console.log("ProBtnControl.params.useGuidIframe", ProBtnControl.params.useGuidIframe);
             if (ProBtnControl.params.useGuidIframe === true) {
               if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                 var recievedMessage = false;
                 var receiveMessage = function (event) {
-                  //console.log("DeviceCID event", event);
+                  console.log("DeviceCID event", event);
                   try {
                     if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com")) && (recievedMessage === false)) {
                       recievedMessage = true;
@@ -2432,20 +2433,20 @@ probtn_initTrackingLinkTest();
                   if (!recievedMessage) {
                     ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_timeout");
                     recievedMessage = true;
-                    callback(null);
+                    callback(probtnCID);
                   }
-                }, 500);//wait for 3000ms
+                }, 1500);//wait for 1500ms
                 window.window.addEventListener("message", receiveMessage, false);
               } else {
                 ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
-                callback(null);
+                callback(probtnCID);
               }
             } else {
-              callback(null);
+              callback(probtnCID);
             }
           } catch (ex) {
             ProBtnControl.statistics.callSuperPixelExt("getDeviceCID8");
-            callback(null);
+            callback(probtnCID);
           }
         },
         setHashCookie: function () {
@@ -4427,10 +4428,9 @@ probtn_initTrackingLinkTest();
             var links = ProBtnControl.params.TrackingLink.split("%7C");
             links.forEach(function (element, index) {
               ProBtnControl.statistics.createClickCounterImage(element);
-            });           
+            });
           }
           //ProbtnControl.params.JsImpressionCode
-          console.log('JsImpressionCode', ProBtnControl.params.JsImpressionCode);
           ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
             if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
               ProBtnControl.statistics.SendStatisticsData("performedAction", "jsImpressionCode_started");
@@ -8395,7 +8395,6 @@ probtn_initTrackingLinkTest();
                     }
                   };
 
-                  console.log("ProBtnControl.params beofre check", ProBtnControl.params);
                   checkHtmlInObject(ProBtnControl.params);
                   ProBtnControl.additionalButtonFunctions.checkProtocolLinks(ProBtnControl.params);
 
@@ -9382,9 +9381,9 @@ probtn_initTrackingLinkTest();
           }
         };
 
-        //ProBtnControl.statistics.callSuperPixelExt("before_getDeviceCID_done");
         ProBtnControl.cookieFunctions.getDeviceCID(function (guid) {
-          //ProBtnControl.statistics.callSuperPixelExt("getDeviceCID_done0");
+          console.log("guid", guid);
+          ProBtnControl.DeviceCID = guid;
           ProBtnControl.initFunctions.initExternalData.initFirstAvailable(function () {
 
             ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable_done");
