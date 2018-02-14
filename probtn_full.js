@@ -7378,7 +7378,7 @@ probtn_initTrackingLinkTest();
           BadgeImage: "https://cdn.probtn.com/images/viewst-ad-1.png",
           BadgePosition: "bottom_center",
           BadgeSize: {
-            W: 72, H: 23
+            W: 59, H: 19
           },
           BadgeActive: false,
           /////////////////////////////////////////
