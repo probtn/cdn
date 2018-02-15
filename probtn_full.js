@@ -2412,7 +2412,7 @@ probtn_initTrackingLinkTest();
               if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                 var recievedMessage = false;
                 var receiveMessage = function (event) {
-                  console.log("DeviceCID event", event);
+                  //console.log("DeviceCID event", event);
                   try {
                     if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com")) && (recievedMessage === false)) {
                       recievedMessage = true;
