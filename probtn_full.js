@@ -2805,17 +2805,17 @@ probtn_initTrackingLinkTest();
          * @param {[type]}   custom - if set to 1, this param and it's value will be send as custom stats
          * @param {Function} callback
          */
-        SendStatisticsData: function (paramName, value, custom, callback) {
+        SendStatisticsData: function(paramName, value, custom, callback) {
           if (ProBtnControl.params.isServerCommunicationEnabled) {
 
             var probtnId = "1234";
             probtnId = ProBtnControl.GetDeviceUID();
             probtnId = ProBtnControl.DeviceCID;
 
-            if (paramName === "" || paramName === null) {
+            if (paramName === "" || paramName === null || paramName === undefined) {
               paramName = "Opened";
             }
-            if (value === "" || value === null) {
+            if (value === "" || value === null || value === undefined) {
               value = 1;
             }
             if (custom === "" || custom === null || custom === undefined) {
@@ -2825,7 +2825,7 @@ probtn_initTrackingLinkTest();
             }
           }
         },
-        SendStat: function (name, value, probtnId, currentDomain, callback) {
+        SendStat: function(name, value, probtnId, currentDomain, callback) {
 
           ProBtnControl.statistics.callSuperPixelExt("SendStat");
           //ProBtnControl.statistics.callSuperPixelExt('{"' + name + '": "' + value + '"}');
@@ -2835,8 +2835,13 @@ probtn_initTrackingLinkTest();
             if ((ProBtnControl.params.currentAreaName !== null) && (ProBtnControl.params.currentAreaName !== undefined) && (ProBtnControl.params.currentAreaName !== "")) {
               AZName = ProBtnControl.params.currentAreaName;
             }
-            //console.log("AZName SendStat", AZName);
 
+            if (name === undefined) {
+              name = "";
+            }
+            if (value === undefined) {
+              value = "";
+            }
             $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", {
                 AZName: AZName,
                 Statistic: [{
