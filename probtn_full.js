@@ -6748,7 +6748,7 @@ probtn_initTrackingLinkTest();
             } catch (ex) {
               paramAnims = null;
             }
-            if ((paramAnims !== null) || (paramAnims !== undefined))
+            if ((paramAnims !== null) && (paramAnims !== undefined))
               { // parameters in animationData field - new style
                 for (var par in params)
                 {
