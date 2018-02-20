@@ -6441,22 +6441,32 @@ probtn_initTrackingLinkTest();
           opacityAnimation: function (animationName) {
             //console.log("opacityAnimation1", animationName);
             var params = {
-              finalOpacity : 0.5
+              finalOpacity : 0.5,
+              startType: "",
+              delay: ProBtnControl.params.animationDuration / 2
             };
             params = this._checkAndGetActualParams(params);
-            if (params.name == "opacity") {
-            setTimeout(function () {
-                ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
-
-                ProBtnControl.pizzabtn.animate({
-                  opacity: params.finalOpacity
-                }, {
-                  duration: ProBtnControl.params.animationDuration,
-                  step: function (now) {
-                  },
-                  complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
-                });
-            }, ProBtnControl.params.animationDuration / 2);
+            if (params.name == "opacity") {                
+                var startOpacityAnimation = function() {
+                    setTimeout(function () {
+                        ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
+                        //ProBtnControl.pizzabtn
+                        $("#pizzabtnImg").animate({
+                          opacity: params.finalOpacity
+                        }, {
+                          duration: ProBtnControl.params.animationDuration,
+                          step: function (now) {
+                            //console.log("step", now);
+                          },
+                          complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
+                        });
+                    }, params.delay);
+                };
+                if (params.startType == "scroll") {
+                    $(window).scroll(startOpacityAnimation);
+                } else {
+                    startOpacityAnimation();
+                }
           }
           },
           rolloutAnimation: function () {
@@ -6736,10 +6746,9 @@ probtn_initTrackingLinkTest();
             try {
               paramAnims = JSON.parse(ProBtnControl.params.animationData);
             } catch (ex) {
-              //console.log(ex);
               paramAnims = null;
             }
-            if ((paramAnims !== null) || (paramAnims === undefined))
+            if ((paramAnims !== null) || (paramAnims !== undefined))
               { // parameters in animationData field - new style
                 for (var par in params)
                 {
