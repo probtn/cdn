@@ -5000,8 +5000,9 @@ probtn_initTrackingLinkTest();
           //ProbtnControl.params.JsImpressionCode
           ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
             if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
+                var jscode = $('<textarea/>').html(ProBtnControl.params.JsImpressionCode).text();
               ProBtnControl.statistics.SendStatisticsData("performedAction", "jsImpressionCode_started");
-              postscribe("#probtn_button", '' + ProBtnControl.params.JsImpressionCode + '');
+              postscribe("#probtn_button", '' + jscode + '');
             }
           });
 
