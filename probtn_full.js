@@ -1101,7 +1101,6 @@ probtn_initTrackingLinkTest();
 
   //load nessesary libraries and show button
   $.fn.StartButton = function (options) {
-
     String.prototype.ProBtnHashCode = function () {
       var hash = 0;
       //, i, char;
@@ -1924,8 +1923,18 @@ probtn_initTrackingLinkTest();
          */
         timeValue: {
           "ContentShowedDuration": 0,
+          /**
+           * How long button was moved
+           */
           "MovedDuration": 0,
-          "ButtonShowedDuration": 0
+          /**
+           * How long button was showned
+           */
+          "ButtonShowedDuration": 0,
+          /**
+           * Duration from moment when code start it's work
+           */
+          "ButtonFromInitDuration": 0
         },
         contentOpenedTime: 0,
         movedTime: 0, //button moved duration
@@ -1941,8 +1950,8 @@ probtn_initTrackingLinkTest();
           ProBtnControl.contentTime.timeValue[param] = 0;
 
           ProBtnControl.contentTime.intervalId[param] = setInterval(function () {
-            ProBtnControl.contentTime.timeValue[param]++;
-          }, 1000);
+            ProBtnControl.contentTime.timeValue[param] += 0.01;            
+          }, 10);
         },
         endTimer: function (param) {
           if ((param === null) || (param === undefined)) {
@@ -1969,11 +1978,11 @@ probtn_initTrackingLinkTest();
             } catch(ex) {
             }
             ProBtnControl.statistics.SendStatObject({
-                "ContentShowedDuration": ProBtnControl.contentTime.timeValue[param],
-                "VideoFullDuration": videoDuration
+                "ContentShowedDuration": ProBtnControl.contentTime.timeValue[param].toFixed(2),
+                "VideoFullDuration": videoDuration.toFixed(2)
             }, callbackAfterStat);
           } else {
-            ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param], "", callbackAfterStat);
+            ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param].toFixed(2), "", callbackAfterStat);
           }
         },
         intervalId: {
@@ -2686,9 +2695,11 @@ probtn_initTrackingLinkTest();
           if ((document.referrer !== null) && (document.referrer !== undefined)) {
             referer = document.referrer;
           }
+          var initDuration = ProBtnControl.contentTime.timeValue["ButtonFromInitDuration"].toFixed(2);
 
           var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&AZName=" + AZName + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
             ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam +
+            "&ButtonFromInitDuration=" + initDuration +
             "&OriginalReferer=" + referer +  "&DAPROPS=" + ProBtnControl.userData.DAPROPS + "&callback=?";
 
           if ((params_object === null) || (params_object === undefined)) {
@@ -3977,7 +3988,10 @@ probtn_initTrackingLinkTest();
                   if (scrollZone.CustomButtonParams) {
                     $("#pizzabtnImg").css({
                       'width': scrollZone.ButtonIframeInitialSize.W,
-                      'height': scrollZone.ButtonIframeInitialSize.H,
+                      'height': scrollZone.ButtonIframeInitialSize.H
+                    });
+
+                    $(ProBtnControl.pizzabtn).css({
                       'opacity': ProBtnControl.params.ButtonOpacity
                     });
                   }
@@ -3986,14 +4000,14 @@ probtn_initTrackingLinkTest();
                 } else {
                   $("#pizzabtnImg").css({
                     'width': ProBtnControl.params.ButtonSize.W,
-                    'height': ProBtnControl.params.ButtonSize.H,
-                    'opacity': ProBtnControl.params.ButtonOpacity
+                    'height': ProBtnControl.params.ButtonSize.H
                   });
                 }
 
                 $(ProBtnControl.pizzabtn).css({
                   'width': ProBtnControl.params.ButtonSize.W,
-                  'height': ProBtnControl.params.ButtonSize.H
+                  'height': ProBtnControl.params.ButtonSize.H,
+                  'opacity': ProBtnControl.params.ButtonOpacity
                 });
 
                 if ((scrollZone.ButtonIframeInitialSize.W > 0) && (scrollZone.ButtonIframeInitialSize.H > 0)) {
@@ -4012,14 +4026,14 @@ probtn_initTrackingLinkTest();
                   }
                   $("#pizzabtnImg").css({
                     'width': ProBtnControl.params.ButtonSize.W,
-                    'height': ProBtnControl.params.ButtonSize.H,
-                    'opacity': ProBtnControl.params.ButtonOpacity
+                    'height': ProBtnControl.params.ButtonSize.H
                   });
 
                   //$(ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
                   $(ProBtnControl.pizzabtn).css({
                     'width': ProBtnControl.params.ButtonSize.W,
-                    'height': ProBtnControl.params.ButtonSize.H
+                    'height': ProBtnControl.params.ButtonSize.H,
+                    'opacity': ProBtnControl.params.ButtonOpacity
                   });
                 } else {
                   //TODO make better check
@@ -4027,12 +4041,12 @@ probtn_initTrackingLinkTest();
                     $("#pizzabtnImg").css({
                       'width': ProBtnControl.params.ButtonSize.W,
                       'height': ProBtnControl.params.ButtonSize.H,
-                      'opacity': ProBtnControl.params.ButtonOpacity
                     });
 
                     $(ProBtnControl.pizzabtn).css({
                       'width': ProBtnControl.params.ButtonSize.W,
-                      'height': ProBtnControl.params.ButtonSize.H
+                      'height': ProBtnControl.params.ButtonSize.H,
+                      'opacity': ProBtnControl.params.ButtonOpacity
                     });
                   }
                 }
@@ -4435,13 +4449,6 @@ probtn_initTrackingLinkTest();
               ProBtnControl.statistics.createClickCounterImage(element);
             });
           }
-          //ProbtnControl.params.JsImpressionCode
-          ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
-            if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
-              ProBtnControl.statistics.SendStatisticsData("performedAction", "jsImpressionCode_started");
-              postscribe("#probtn_button", '' + ProBtnControl.params.JsImpressionCode + '');
-            }
-          });
           pizzabtn_wrapper.css(opts);
 
           /**
@@ -4592,20 +4599,20 @@ probtn_initTrackingLinkTest();
             btn.css({
               'display': 'none',
               'width': ProBtnControl.params.ButtonSize.W,
-              'height': ProBtnControl.params.ButtonSize.H
+              'height': ProBtnControl.params.ButtonSize.H,
+              'opacity': ProBtnControl.params.ButtonOpacity
             });
 
             pizzabtnCss = {
               'width': ProBtnControl.params.ButtonSize.W,
               'height': ProBtnControl.params.ButtonSize.H,
-              'opacity': ProBtnControl.params.ButtonOpacity,
               'max-width': 'inherit !important',
               'max-height': 'inherit !important'
             };
           } else {
             btn.css({
               'display': 'none',
-
+              'opacity': ProBtnControl.params.ButtonOpacity,
               '-webkit-transform': 'translateZ(0)',
               '-moz-transform': 'translateZ(0)',
               '-ms-transform': 'translateZ(0)',
@@ -4634,7 +4641,7 @@ probtn_initTrackingLinkTest();
             pizzabtnCss = {
               'width': ProBtnControl.params.ButtonSize.W,
               'height': ProBtnControl.params.ButtonSize.H,
-              'opacity': ProBtnControl.params.ButtonOpacity,
+            
 
               'max-width': 'inherit !important',
               'max-height': 'inherit !important',
@@ -4873,10 +4880,13 @@ probtn_initTrackingLinkTest();
 
               if (ProBtnControl.params.ButtonImageType !== 'iframe') {
                 pizzabtnImg.css({
-                  opacity: ProBtnControl.params.ButtonOpacity,
                   width: ProBtnControl.params.ButtonSize.W,
                   height: ProBtnControl.params.ButtonSize.H
                 });
+                $(ProBtnControl.pizzabtn).css({
+                  'opacity': ProBtnControl.params.ButtonOpacity
+                });
+
               }
 
             }, ProBtnControl.params.ButtonUndragDelay * 1000);
@@ -4986,6 +4996,14 @@ probtn_initTrackingLinkTest();
           }
 
           ProBtnControl.initFunctions.initProbtnBadge(btn);
+
+          //ProbtnControl.params.JsImpressionCode
+          ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
+            if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
+              ProBtnControl.statistics.SendStatisticsData("performedAction", "jsImpressionCode_started");
+              postscribe("#probtn_button", '' + ProBtnControl.params.JsImpressionCode + '');
+            }
+          });
 
           return btn;
         },
@@ -5525,6 +5543,8 @@ probtn_initTrackingLinkTest();
           $("#pizzabtnImg", ProBtnControl.pizzabtn).css({
             'width': ProBtnControl.params.ButtonSize.W,
             'height': ProBtnControl.params.ButtonSize.H,
+          });
+          $(ProBtnControl.pizzabtn).css({
             'opacity': ProBtnControl.params.ButtonOpacity
           });
           if (ProBtnControl.params.ButtonImageType == 'iframe') {
@@ -5821,7 +5841,7 @@ probtn_initTrackingLinkTest();
               var pizzabtnCss = {
                 'width': scrollZone.ButtonSize.W,
                 'height': scrollZone.ButtonSize.H,
-                'opacity': scrollZone.ButtonOpacity,
+//                'opacity': scrollZone.ButtonOpacity,
                 'display': 'none',
                 'border': '0px'
               };
@@ -6446,12 +6466,12 @@ probtn_initTrackingLinkTest();
               delay: ProBtnControl.params.animationDuration / 2
             };
             params = this._checkAndGetActualParams(params);
-            if (params.name == "opacity") {                
+            if (params.name == "opacity") {
                 var startOpacityAnimation = function() {
                     setTimeout(function () {
                         ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
                         //ProBtnControl.pizzabtn
-                        $("#pizzabtnImg").animate({
+                          ProBtnControl.pizzabtn.animate({
                           opacity: params.finalOpacity
                         }, {
                           duration: ProBtnControl.params.animationDuration,
@@ -7309,6 +7329,7 @@ probtn_initTrackingLinkTest();
       if (ProBtnControl.allButtonInit === false) {
         ProBtnControl.allButtonInit = true;
 
+        ProBtnControl.contentTime.startTimer("ButtonFromInitDuration");
         ProBtnControl.initFunctions.initButtonAndUserDeviceInfo();
       }
     };
@@ -8680,7 +8701,9 @@ probtn_initTrackingLinkTest();
                   });
                   $("#pizzabtnImg").css({
                     'width': ProBtnControl.params.ButtonSize.W,
-                    'height': ProBtnControl.params.ButtonSize.H,
+                    'height': ProBtnControl.params.ButtonSize.H
+                  });
+                  $(ProBtnControl.pizzabtn).css({
                     'opacity': ProBtnControl.params.ButtonOpacity
                   });
                   break;
