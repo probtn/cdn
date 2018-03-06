@@ -1950,7 +1950,7 @@ probtn_initTrackingLinkTest();
           ProBtnControl.contentTime.timeValue[param] = 0;
 
           ProBtnControl.contentTime.intervalId[param] = setInterval(function () {
-            ProBtnControl.contentTime.timeValue[param] += 0.01;            
+            ProBtnControl.contentTime.timeValue[param] += 0.01;
           }, 10);
         },
         endTimer: function (param) {
@@ -2355,7 +2355,6 @@ probtn_initTrackingLinkTest();
             ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
             var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
-            //console.log("probtnCID from local cookie", probtnCID, useGuidIframe);
 
             if (ProBtnControl.params.useGuidIframe === false) {
               //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
@@ -2429,7 +2428,8 @@ probtn_initTrackingLinkTest();
                       ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_6");
                       ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
 
-                      ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 365);
+                      //set temporary cookie to one day
+                      ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 1);
                       ProBtnControl.DeviceCID = event.data.cid;
                       callback(event.data.cid);
                     } else {
@@ -2964,7 +2964,6 @@ probtn_initTrackingLinkTest();
 
             $("#" + videoItemNameVideo).width(videoWidth);
             $("#" + videoItemNameVideo).height(videoHeight);
-
           }
         }
       },
@@ -3217,6 +3216,7 @@ probtn_initTrackingLinkTest();
                     break;
                 }
               }
+              
               ProBtnControl.parsed_ua = parsed_ua;
               if (ProBtnControl.params.Debug) console.log(ProBtnControl.parsed_ua);
 
@@ -4641,7 +4641,7 @@ probtn_initTrackingLinkTest();
             pizzabtnCss = {
               'width': ProBtnControl.params.ButtonSize.W,
               'height': ProBtnControl.params.ButtonSize.H,
-            
+
 
               'max-width': 'inherit !important',
               'max-height': 'inherit !important',
@@ -4968,7 +4968,11 @@ probtn_initTrackingLinkTest();
                           dataEvent: {
                             x: e.accelerationIncludingGravity.x,
                             y: e.accelerationIncludingGravity.y,
-                            z: e.accelerationIncludingGravity.z
+                            z: e.accelerationIncludingGravity.z,
+                            alpha: e.rotationRate.alpha,
+                            beta: e.rotationRate.beta,
+                            gamma: e.rotationRate.gamma,
+                            uaparser: ProBtnControl.parsed_ua
                           }
                         }, '*');
                       }
