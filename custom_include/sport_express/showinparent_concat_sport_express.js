@@ -1,5 +1,5 @@
 (function () {
-document.domain = "sport-express.ru";
+document.domain = "m.sport-express.ru";
 var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 function loadJS(src, callback) {
