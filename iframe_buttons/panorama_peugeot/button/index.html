@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <title>Peugeot panorama</title>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="pannellum.js"></script>
+    <link rel="stylesheet" href="pannellum.css">
+    <style>
+    html, body {
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+    }
+
+    #background_title {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+    }
+
+    #btn {
+        margin-top: 80%;
+        margin-left: 13%;
+        height: 32px;
+        width: 149px;
+        z-index: 7;
+        position: absolute;
+        opacity: 0;
+    }
+
+    #badge {
+        margin-top: 10%;
+        margin-left: 5%;
+        height: 33px;
+        width: 182px;
+        z-index: 7;
+        position: absolute;
+    }
+
+    #background_panorama {
+        background-image: url("glow.png");
+        background-size: 100% 100%;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+        position: relative;
+        overflow-x: hidden !important;
+    }
+
+    #panorama_wrapper {
+        margin-left: 10%;
+        margin-top: 10%;
+        height: 80%;
+        width: 80%;
+        -moz-border-radius: 50% !important;
+        -webkit-border-radius: 50% !important;
+        -ms-border-radius: 50% !important;
+        -o-border-radius: 50% !important;
+        border-radius: 50% !important;
+        z-index: 2;
+        position: relative;
+        overflow-x: hidden !important;
+    }
+
+    #panorama {
+        height: 100%;
+        width: 140%;
+        z-index: 1;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="index_hype_container" style="margin:auto;position:relative;width:190px;height:190px;overflow:hidden;">
+        <script type="text/javascript" charset="utf-8" src="Index.hyperesources/index_hype_generated_script.js?20009"></script>
+    </div>
+    <div id="background_title">
+        <img src="text@2x.png" id="badge">
+        <img src="btn@2x.png" id="btn">
+        <div id="background_panorama">
+            <div id="panorama_wrapper">
+                <div id="panorama">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        function MyFunctions(hypeDocument, element, event) {
+            setTimeout(function () {
+                console.log("send command");
+                window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+            }, 100);
+
+            var receiveMessage = function (event) {
+            }
+            // run your functions that require a loaded Hype scene here. 
+            window.self.addEventListener("message", receiveMessage, false);
+        }
+        if ("HYPE_eventListeners" in window === false) {
+            window.HYPE_eventListeners = Array();
+        }
+        window.HYPE_eventListeners.push({
+            "type": "HypeSceneLoad",
+            "callback": MyFunctions
+        });
+
+        var viewer = pannellum.viewer('panorama', {
+            "type": "equirectangular",
+            "panorama": "auto_equirectangular.jpg",
+            "autoLoad": true,
+            "showControls": false,
+            "yaw": 103,
+            "pitch": -10,
+            "minYaw": 20
+            //  "maxYaw": 210
+        });
+        var C_KOEF_IOS_SAFARI = 0.05;
+        var C_KOEF_IOS_CHROME = 0.2;
+        var C_KOEF_ANDROID_CHROME = 10;
+        // orientation constants
+        var C_PORTRAIT_PRIMARY = "portrait-primary";
+        var C_PORTRAIT_SECONDARY = "portrait-secondary";
+        var C_LANDSCAPE_PRIMARY = "landscape-primary";
+        var C_LANDSCAPE_SECONDARY = "landscape-secondary";
+
+        var _speedKoef = C_KOEF_IOS_SAFARI;
+        var _value = 0;
+        var _isMoving = true;
+        var _isOnce = true;
+        var _uaparser = null;
+        var _valueLndsc = 0;
+        var _curOrientation = C_PORTRAIT_PRIMARY;
+        _x = 0;
+        _y = 0;
+
+        var detectOrientation = function () {
+            var delta = Math.abs(_y) - Math.abs(_x);
+            if (delta > 0) {
+                if (_valueLndsc > 0) {
+                    _curOrientation = C_PORTRAIT_PRIMARY;
+                } else {
+                    _curOrientation = C_PORTRAIT_SECONDARY;
+                }
+            } else {
+                if (_value > 0) {
+                    _curOrientation = C_LANDSCAPE_PRIMARY;
+                } else {
+                    _curOrientation = C_LANDSCAPE_SECONDARY;
+                }
+            }
+        }
+        /*
+        $("#background_title").fadeOut(5000, function() {
+        // Animation complete
+        });*/
+
+        //  }, 5000);
+
+        setTimeout(function () {
+            $("#index_hype_container").remove();
+            $("#background_title").fadeTo(1000, 1, function () {
+                _isMoving = false;
+
+                setTimeout(function () {
+                    $("#badge").fadeTo(1000, 0, function () { });
+                    $("#btn").fadeTo(1000, 1, function () { });
+                }, 5000);
+            });
+        }, 6350);
+
+        setInterval(function () {
+            if (_isOnce) {
+                if ((_uaparser !== null) && (_uaparser !== undefined)) {
+                    if (_uaparser.browser.name.toLowerCase() === "Chrome".toLowerCase()) {
+                        _speedKoef = C_KOEF_IOS_CHROME
+                    }
+                    if (_uaparser.ua_os_name === "android") {
+                        _speedKoef = C_KOEF_ANDROID_CHROME;
+                    }
+
+                    _isOnce = false;
+                }
+            }
+            if (!_isMoving) {
+                detectOrientation();
+                _isMoving = true;
+                if ((_curOrientation === C_LANDSCAPE_PRIMARY) || (_curOrientation === C_LANDSCAPE_SECONDARY)) {
+                    _value = _valueLndsc;
+                }
+
+                viewer.setYaw(viewer.getYaw() - _value * _speedKoef, 10, function () { _isMoving = false });
+            }
+        }, 100);
+
+        var receiveMessage = function (event) {
+            if ((event.data !== null) && (event.data !== undefined)) {
+                if (event.data.message === "probtn_page_devicemotion") {
+                    _value = event.data.dataEvent.beta;
+                    _valueLndsc = event.data.dataEvent.alpha;
+                    _uaparser = event.data.dataEvent.uaparser;
+                    _x = event.data.dataEvent.x;
+                    _y = event.data.dataEvent.y;
+
+                }
+            }
+        }
+        // run your functions that require a loaded Hype scene here.
+        window.self.addEventListener("message", receiveMessage, false);
+    </script>
+</body>
+
+</html>
