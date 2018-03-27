@@ -2162,6 +2162,60 @@ probtn_initTrackingLinkTest();
                   ProBtnControl.statistics.SendStatisticsData("VideoSeeked", curTime);
                 });
 
+                if ((ProBtnControl.params.VideoPixels !== null) && (ProBtnControl.params.VideoPixels !== undefined) &&
+              (ProBtnControl.params.VideoPixels !== ""))
+              {
+                if (ProBtnControl.params.VideoPixels.length === 0)
+                  return;
+
+                  var text = ProBtnControl.params.VideoPixels;
+                  ProBtnControl.params.VideoPixels = $('<div/>').html(text).text();
+                  var vpixels = null;
+                  try {
+                    vpixels = JSON.parse(ProBtnControl.params.VideoPixels);
+                  } catch (ex) {
+                    //console.log(ex);
+                    vpixels = null;
+                  }
+                  
+                if (vpixels === null)
+                {
+                  return;
+                };
+                var isOk = true;
+                vpixels.forEach(function(vpixel)
+                {
+                  if ((vpixel.StartPosition > 1) || (vpixel.StartPosition < 0) || (vpixel.EndPosition > 1) || (vpixel.EndPosition < 0))
+                  {
+                      isOk = false;
+                  };
+
+                  vpixel.StartPosition = vpixel.StartPosition * video.duration;
+                  vpixel.EndPosition = vpixel.EndPosition * video.duration;
+                });
+
+                if (!isOk)
+                  return;
+
+                var curVideoPixel = null;
+
+                $(video).on("timeupdate", function() {
+                  vpixels.forEach(function (vpixel, index)
+                  {
+                    if ((video.currentTime > vpixel.StartPosition) && (video.currentTime < vpixel.EndPosition))
+                    {
+                      if (curVideoPixel !== index)
+                      {
+                        //console.log(index);
+                        ProBtnControl.statistics.createClickCounterImage(vpixel.TrackingLink);
+                        curVideoPixel = index;
+                      }
+                    }
+                  });
+                });
+
+              }
+
                 $('.fancybox-wrap').on("close", function() {
                   alert();
                 });
@@ -7816,10 +7870,18 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
-
+          /*
+          pixels for video parts
+          */
+          VideoPixels: [
+          /*  {"TrackingLink": "1", StartPosition: 0.0, EndPosition: 0.25},
+            {"TrackingLink": "2", StartPosition: 0.25, EndPosition: 0.5},
+            {"TrackingLink": "3", StartPosition: 0.5, EndPosition: 0.75},
+            {"TrackingLink": "4", StartPosition: 0.75, EndPosition: 1},*/
+          ],
           /*
           js code in <script>...</script> which run on button start
-           */
+          */
           JsImpressionCode: "",
 
           VideoItemHeaderImage: "",
@@ -8935,8 +8997,20 @@ probtn_initTrackingLinkTest();
                     Details = "Details=" + JSON.stringify(ProBtnControl.params.ExternalData) + "&";
                   }
 
+                  var networktype = ""; 
+                  try {
+                      if ((navigator.connection!==undefined) && (navigator.connection!==null)) {
+                        if ((navigator.connection.effectiveType!==undefined) && (navigator.connection.effectiveType!==null)) {
+                            networktype= "&NetworkType="+ navigator.connection.effectiveType;
+                        }
+                        if (ProBtnControl.userData.kbs === 0) {
+                            ProBtnControl.userData.kbs = navigator.connection.downlink * 1024;
+                        }
+                      }
+                  } catch(ex) {
+                  }
                   if ((ProBtnControl.params.CreativeId !== "") && (ProBtnControl.params.CreativeId !== null) && (ProBtnControl.params.CreativeId !== undefined)) {
-                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + "&" + Details);
+                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + "&" + Details + networktype);
                   } else {
                     settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + Details);
                   }
