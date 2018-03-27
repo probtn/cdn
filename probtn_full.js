@@ -9001,7 +9001,7 @@ probtn_initTrackingLinkTest();
                   try {
                       if ((navigator.connection!==undefined) && (navigator.connection!==null)) {
                         if ((navigator.connection.effectiveType!==undefined) && (navigator.connection.effectiveType!==null)) {
-                            networktype= "&NetworkType="+ navigator.connection.effectiveType;
+                            networktype= "&NetworkType="+ navigator.connection.effectiveType + "&";
                         }
                         if (ProBtnControl.userData.kbs === 0) {
                             ProBtnControl.userData.kbs = navigator.connection.downlink * 1024;
@@ -9010,7 +9010,7 @@ probtn_initTrackingLinkTest();
                   } catch(ex) {
                   }
                   if ((ProBtnControl.params.CreativeId !== "") && (ProBtnControl.params.CreativeId !== null) && (ProBtnControl.params.CreativeId !== undefined)) {
-                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + networktype + "&" + Details );
+                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + networktype + Details );
                   } else {
                     settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + Details);
                   }
