@@ -2206,6 +2206,11 @@ probtn_initTrackingLinkTest();
                     {
                       if (curVideoPixel !== index)
                       {
+                        try {
+                            ProBtnControl.statistics.SendStatisticsData("performedAction", "videoPixel_" + index + "_from(" + vpixel.StartPosition.toFixed(2) + ")_to(" + vpixel.EndPosition.toFixed(2) + ")");
+                        } catch(ex) {
+                            console.log(ex);
+                        }
                         //console.log(index);
                         ProBtnControl.statistics.createClickCounterImage(vpixel.TrackingLink);
                         curVideoPixel = index;
@@ -7874,7 +7879,8 @@ probtn_initTrackingLinkTest();
           pixels for video parts
           */
           VideoPixels: [
-          /*  {"TrackingLink": "1", StartPosition: 0.0, EndPosition: 0.25},
+          /* example
+            {"TrackingLink": "1", StartPosition: 0.0, EndPosition: 0.25},
             {"TrackingLink": "2", StartPosition: 0.25, EndPosition: 0.5},
             {"TrackingLink": "3", StartPosition: 0.5, EndPosition: 0.75},
             {"TrackingLink": "4", StartPosition: 0.75, EndPosition: 1},*/
