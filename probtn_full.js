@@ -2127,105 +2127,151 @@ probtn_initTrackingLinkTest();
               console.log(ex);
             }
 
-            if (currentButtonContentType === "video") {
-              ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
-              try {
-                var video;
-                if ((areaName !== null) && (areaName !== undefined)) {
-                  try {
-                    video = $("#video_probtn_" + areaName).get(0);
-                    video.play();
-                  } catch (ex) {
-                    console.log("video error1", ex);
-                  }
-                } else {
-                  video = $("#video_probtn").get(0);
-                  video.play();
-                }
-              } catch (ex) {
-                if (ProBtnControl.params.Debug) {
-                  console.log(ex);
-                }
-              } finally {
-                $(video).on("pause", function() {
-                  var curTime = video.currentTime.toFixed(2);
-                  ProBtnControl.statistics.SendStatisticsData("VideoPaused", curTime);
-                });
-
-                $(video).on("playing", function() {
-                  var curTime = video.currentTime.toFixed(2);
-                  ProBtnControl.statistics.SendStatisticsData("VideoStarted", curTime);
-                });
-
-                $(video).on("seeked", function() {
-                  var curTime = video.currentTime.toFixed(2);
-                  ProBtnControl.statistics.SendStatisticsData("VideoSeeked", curTime);
-                });
-
-                if ((ProBtnControl.params.VideoPixels !== null) && (ProBtnControl.params.VideoPixels !== undefined) &&
-              (ProBtnControl.params.VideoPixels !== ""))
-              {
-                if (ProBtnControl.params.VideoPixels.length === 0)
-                  return;
-
-                  var text = ProBtnControl.params.VideoPixels;
-                  ProBtnControl.params.VideoPixels = $('<div/>').html(text).text();
-                  var vpixels = null;
-                  try {
-                    vpixels = JSON.parse(ProBtnControl.params.VideoPixels);
-                  } catch (ex) {
-                    //console.log(ex);
-                    vpixels = null;
-                  }
-                  
-                if (vpixels === null)
-                {
-                  return;
-                };
-                var isOk = true;
-                vpixels.forEach(function(vpixel)
-                {
-                  if ((vpixel.StartPosition > 1) || (vpixel.StartPosition < 0) || (vpixel.EndPosition > 1) || (vpixel.EndPosition < 0))
-                  {
-                      isOk = false;
-                  };
-
-                  vpixel.StartPosition = vpixel.StartPosition * video.duration;
-                  vpixel.EndPosition = vpixel.EndPosition * video.duration;
-                });
-
-                if (!isOk)
-                  return;
-
-                var curVideoPixel = null;
-
-                $(video).on("timeupdate", function() {
-                  vpixels.forEach(function (vpixel, index)
-                  {
-                    if ((video.currentTime > vpixel.StartPosition) && (video.currentTime < vpixel.EndPosition))
-                    {
-                      if (curVideoPixel !== index)
-                      {
-                        try {
-                            ProBtnControl.statistics.SendStatisticsData("performedAction", "videoPixel_" + index + "_from(" + vpixel.StartPosition.toFixed(2) + ")_to(" + vpixel.EndPosition.toFixed(2) + ")");
-                        } catch(ex) {
-                            console.log(ex);
-                        }
-                        //console.log(index);
-                        ProBtnControl.statistics.createClickCounterImage(vpixel.TrackingLink);
-                        curVideoPixel = index;
-                      }
+            /**
+             * TODO - add this video events in separate function
+             * Send Video statistics during play
+             * @param  {[type]} currentButtonContentType [description]
+             * @return {[type]}                          [description]
+             */
+            var videoEventsInit = function() {
+              if (currentButtonContentType === "video") {
+                ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
+                try {
+                  var video;
+                  if ((areaName !== null) && (areaName !== undefined)) {
+                    try {
+                      video = $("#video_probtn_" + areaName).get(0);
+                      video.play();
+                    } catch (ex) {
+                      console.log("video error1", ex);
                     }
+                  } else {
+                    video = $("#video_probtn").get(0);
+                    video.play();
+                  }
+                } catch (ex) {
+                  if (ProBtnControl.params.Debug) {
+                    console.log(ex);
+                  }
+                } finally {
+                  $(video).on("pause", function() {
+                    var curTime = video.currentTime.toFixed(2);
+                    ProBtnControl.statistics.SendStatisticsData("VideoPaused", curTime);
                   });
-                });
 
+                  $(video).on("playing", function() {
+                    var curTime = video.currentTime.toFixed(2);
+                    ProBtnControl.statistics.SendStatisticsData("VideoStarted", curTime);
+                  });
+
+                  $(video).on("seeked", function() {
+                    var curTime = video.currentTime.toFixed(2);
+                    ProBtnControl.statistics.SendStatisticsData("VideoSeeked", curTime);
+                  });
+
+                  if ((ProBtnControl.params.VideoPixels !== null) && (ProBtnControl.params.VideoPixels !== undefined) &&
+                    (ProBtnControl.params.VideoPixels !== "")) {
+                    if (ProBtnControl.params.VideoPixels.length === 0)
+                      return;
+
+                    var text = ProBtnControl.params.VideoPixels;
+                    ProBtnControl.params.VideoPixels = $('<div/>').html(text).text();
+                    var vpixels = [];
+                    try {
+                      vpixels = JSON.parse(ProBtnControl.params.VideoPixels);
+                    } catch (ex) {
+                      vpixels = [];
+                    }
+
+                    var isOk = true;
+                    /**
+                     * recalculate video zones from "percents" to actual seconds
+                     * @param  {[type]} vpixels array of objects with StartPosition and EndPosition
+                     * @return {[type]} uopdated vpixels array
+                     */
+                    var recalculateVideoPositions = function(vpixels) {
+                      vpixels.forEach(function(vpixel) {
+                        if ((vpixel.StartPosition > 1) || (vpixel.StartPosition < 0) || (vpixel.EndPosition > 1) || (vpixel.EndPosition < 0)) {
+                          isOk = false;
+                        };
+
+                        vpixel.StartPosition = vpixel.StartPosition * video.duration;
+                        vpixel.EndPosition = vpixel.EndPosition * video.duration;
+                      });
+                      return vpixels;
+                    };
+
+                    var quarters = [
+                      {"StartPosition": 0.0, "EndPosition": 0.05},
+                      { "StartPosition": 0.25, "EndPosition": 0.5},
+                      {"StartPosition": 0.5, "EndPosition": 0.75},
+                      {"StartPosition": 0.75, "EndPosition": 0.95},
+                      {"StartPosition": 0.95, "EndPosition": 1}
+                    ];
+
+                    vpixels = recalculateVideoPositions(vpixels);
+                    quarters = recalculateVideoPositions(quarters);
+
+                    console.log("quarters", quarters);
+                    console.log("vpixels", vpixels);
+
+                    if (!isOk)
+                      return;
+
+                    var curVideoPixel = null;
+                    var currentQuartIndex = null;
+
+                    $(video).on("timeupdate", function() {
+
+                      var checkVideoPeriods = function(currentIndex, vpixels, callback) {
+                        vpixels.forEach(function(vpixel, index) {
+                          if ((video.currentTime > vpixel.StartPosition) && (video.currentTime < vpixel.EndPosition)) {
+                            if (curVideoPixel !== index) {
+                              callback(vpixel, index);
+                              //curVideoPixel = index;
+                            }
+                          }
+                        });
+                      }
+
+                      checkVideoPeriods(currentQuartIndex, quarters, function(vpixel, index) {
+                        try {
+                          ProBtnControl.statistics.SendStatisticsDataObject({
+                            "VideoPart": index,
+                            "VideoFullDuration": video.duration.toFixed(2)
+                          });
+                          currentQuartIndex = index;
+                        } catch (ex) {
+                          console.log(ex);
+                        }
+                      });
+
+                      /**
+                       * Call video pixels depending from duration
+                       */
+                      checkVideoPeriods(curVideoPixel, vpixels, function(vpixel, index) {
+                        try {
+                          ProBtnControl.statistics.SendStatisticsData("performedAction", "videoPixel_" + index + "_from(" + vpixel.StartPosition.toFixed(2) + ")_to(" + vpixel.EndPosition.toFixed(2) + ")");
+                          ProBtnControl.statistics.createClickCounterImage(vpixel.TrackingLink);
+                        } catch (ex) {
+                          console.log(ex);
+                        }
+                        curVideoPixel = index;
+                      });
+                    });
+
+                  }
+
+                  $('.fancybox-wrap').on("close", function() {
+                    //WHY THIS? Alert?
+                    //Sergey, why?
+                    //alert();
+                  });
+                }
               }
 
-                $('.fancybox-wrap').on("close", function() {
-                  alert();
-                });
-              }
-            }
+            };
+            videoEventsInit();
 
             if (iframeLoadedSend === false) {
               iframeLoadedSend = true;
@@ -3494,7 +3540,7 @@ probtn_initTrackingLinkTest();
           if (btn.length !== 0) {
             var badge = $("#probtn_badge");
 
-            if ((badge.length === 0) && (ProBtnControl.params.BadgeActive)) {
+            if ((badge.length === 0) && (ProBtnControl.params.BadgeActive) && (ProBtnControl.params.BadgeImage!=="")) {
 
               var positionsParams = ProBtnControl.params.BadgePosition.split("_");
 
@@ -7879,11 +7925,11 @@ probtn_initTrackingLinkTest();
           pixels for video parts
           */
           VideoPixels: [
-          /* example
-            {"TrackingLink": "1", StartPosition: 0.0, EndPosition: 0.25},
-            {"TrackingLink": "2", StartPosition: 0.25, EndPosition: 0.5},
-            {"TrackingLink": "3", StartPosition: 0.5, EndPosition: 0.75},
-            {"TrackingLink": "4", StartPosition: 0.75, EndPosition: 1},*/
+            /* example
+              {"TrackingLink": "1", StartPosition: 0.0, EndPosition: 0.25},
+              {"TrackingLink": "2", StartPosition: 0.25, EndPosition: 0.5},
+              {"TrackingLink": "3", StartPosition: 0.5, EndPosition: 0.75},
+              {"TrackingLink": "4", StartPosition: 0.75, EndPosition: 1},*/
           ],
           /*
           js code in <script>...</script> which run on button start
@@ -9003,20 +9049,19 @@ probtn_initTrackingLinkTest();
                     Details = "Details=" + JSON.stringify(ProBtnControl.params.ExternalData) + "&";
                   }
 
-                  var networktype = ""; 
+                  var networktype = "";
                   try {
-                      if ((navigator.connection!==undefined) && (navigator.connection!==null)) {
-                        if ((navigator.connection.effectiveType!==undefined) && (navigator.connection.effectiveType!==null)) {
-                            networktype= "&NetworkType="+ navigator.connection.effectiveType + "&";
-                        }
-                        if (ProBtnControl.userData.kbs === 0) {
-                            ProBtnControl.userData.kbs = navigator.connection.downlink * 1024;
-                        }
+                    if ((navigator.connection !== undefined) && (navigator.connection !== null)) {
+                      if ((navigator.connection.effectiveType !== undefined) && (navigator.connection.effectiveType !== null)) {
+                        networktype = "&NetworkType=" + navigator.connection.effectiveType + "&";
                       }
-                  } catch(ex) {
-                  }
+                      if (ProBtnControl.userData.kbs === 0) {
+                        ProBtnControl.userData.kbs = navigator.connection.downlink * 1024;
+                      }
+                    }
+                  } catch (ex) {}
                   if ((ProBtnControl.params.CreativeId !== "") && (ProBtnControl.params.CreativeId !== null) && (ProBtnControl.params.CreativeId !== undefined)) {
-                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + networktype + Details );
+                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + networktype + Details);
                   } else {
                     settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + Details);
                   }
