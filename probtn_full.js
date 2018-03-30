@@ -2169,10 +2169,15 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.statistics.SendStatisticsData("VideoSeeked", curTime);
                   });
 
-                  if ((ProBtnControl.params.VideoPixels !== null) && (ProBtnControl.params.VideoPixels !== undefined) &&
-                    (ProBtnControl.params.VideoPixels !== "")) {
-                    if (ProBtnControl.params.VideoPixels.length === 0)
-                      return;
+                  /**
+                   * Set VideoPixel to empty array if tit's value is npt set
+                   */
+                  if ((ProBtnControl.params.VideoPixels === null) && (ProBtnControl.params.VideoPixels === undefined) &&
+                    (ProBtnControl.params.VideoPixels === "")) {
+                    ProBtnControl.params.VideoPixels = [];
+                  }
+                    /*if (ProBtnControl.params.VideoPixels.length === 0)
+                      return;*/
 
                     var text = ProBtnControl.params.VideoPixels;
                     ProBtnControl.params.VideoPixels = $('<div/>').html(text).text();
@@ -2260,7 +2265,7 @@ probtn_initTrackingLinkTest();
                       });
                     });
 
-                  }
+                  //}
 
                   $('.fancybox-wrap').on("close", function() {
                     //WHY THIS? Alert?
@@ -3121,6 +3126,13 @@ probtn_initTrackingLinkTest();
        * @type {Object}
        */
       statistics: {
+        _currentSessionID: null,
+        getCurrentSessionID: function() {
+            if (this._currentSessionID === null) {
+                this._currentSessionID = new Date().getTime().toString() + navigator.userAgent.toString().ProBtnHashCode() + ProBtnControl.additionalButtonFunctions.randomString(12);
+            }
+            return this._currentSessionID;
+        },
         /**
          * Check is adBlock active at current page.
          * At current moment not useful, case cdn.probtn.com added to black list
@@ -3264,10 +3276,11 @@ probtn_initTrackingLinkTest();
             referer = document.referrer;
           }
           var initDuration = ProBtnControl.contentTime.timeValue["ButtonFromInitDuration"].toFixed(2);
+          var sessionId = ProBtnControl.statistics.getCurrentSessionID();
 
           var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&AZName=" + AZName + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
             ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam +
-            "&ButtonFromInitDuration=" + initDuration +
+            "&ButtonFromInitDuration=" + initDuration + "&SessionID=" + sessionId +
             "&OriginalReferer=" + referer + "&DAPROPS=" + ProBtnControl.userData.DAPROPS + "&callback=?";
 
           if ((params_object === null) || (params_object === undefined)) {
