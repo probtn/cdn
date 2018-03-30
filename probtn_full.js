@@ -2241,7 +2241,7 @@ probtn_initTrackingLinkTest();
 
                       checkVideoPeriods(currentQuartIndex, quarters, function(vpixel, index) {
                         try {
-                          ProBtnControl.statistics.SendStatisticsDataObject({
+                          ProBtnControl.statistics.SendStatObject({
                             "VideoPart": index,
                             "VideoFullDuration": video.duration.toFixed(2)
                           });
