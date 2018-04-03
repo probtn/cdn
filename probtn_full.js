@@ -2169,15 +2169,10 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.statistics.SendStatisticsData("VideoSeeked", curTime);
                   });
 
-                  /**
-                   * Set VideoPixel to empty array if tit's value is npt set
-                   */
-                  if ((ProBtnControl.params.VideoPixels === null) && (ProBtnControl.params.VideoPixels === undefined) &&
-                    (ProBtnControl.params.VideoPixels === "")) {
-                    ProBtnControl.params.VideoPixels = [];
-                  }
-                    /*if (ProBtnControl.params.VideoPixels.length === 0)
-                      return;*/
+                  if ((ProBtnControl.params.VideoPixels !== null) && (ProBtnControl.params.VideoPixels !== undefined) &&
+                    (ProBtnControl.params.VideoPixels !== "")) {
+                    if (ProBtnControl.params.VideoPixels.length === 0)
+                      return;
 
                     var text = ProBtnControl.params.VideoPixels;
                     ProBtnControl.params.VideoPixels = $('<div/>').html(text).text();
@@ -2207,11 +2202,11 @@ probtn_initTrackingLinkTest();
                     };
 
                     var quarters = [
-                      {"StartPosition": 0.0, "EndPosition": 0.05},
-                      { "StartPosition": 0.25, "EndPosition": 0.5},
-                      {"StartPosition": 0.5, "EndPosition": 0.75},
-                      {"StartPosition": 0.75, "EndPosition": 0.95},
-                      {"StartPosition": 0.95, "EndPosition": 1}
+                      { "StartPosition": 0.0, "EndPosition": 0.05 },
+                      { "StartPosition": 0.25, "EndPosition": 0.5 },
+                      { "StartPosition": 0.5, "EndPosition": 0.75 },
+                      { "StartPosition": 0.75, "EndPosition": 0.95 },
+                      { "StartPosition": 0.95, "EndPosition": 1 }
                     ];
 
                     vpixels = recalculateVideoPositions(vpixels);
@@ -2265,7 +2260,7 @@ probtn_initTrackingLinkTest();
                       });
                     });
 
-                  //}
+                  }
 
                   $('.fancybox-wrap').on("close", function() {
                     //WHY THIS? Alert?
@@ -3126,13 +3121,6 @@ probtn_initTrackingLinkTest();
        * @type {Object}
        */
       statistics: {
-        _currentSessionID: null,
-        getCurrentSessionID: function() {
-            if (this._currentSessionID === null) {
-                this._currentSessionID = new Date().getTime().toString() + navigator.userAgent.toString().ProBtnHashCode() + ProBtnControl.additionalButtonFunctions.randomString(12);
-            }
-            return this._currentSessionID;
-        },
         /**
          * Check is adBlock active at current page.
          * At current moment not useful, case cdn.probtn.com added to black list
@@ -3276,11 +3264,10 @@ probtn_initTrackingLinkTest();
             referer = document.referrer;
           }
           var initDuration = ProBtnControl.contentTime.timeValue["ButtonFromInitDuration"].toFixed(2);
-          var sessionId = ProBtnControl.statistics.getCurrentSessionID();
 
           var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&AZName=" + AZName + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
             ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam +
-            "&ButtonFromInitDuration=" + initDuration + "&SessionID=" + sessionId +
+            "&ButtonFromInitDuration=" + initDuration +
             "&OriginalReferer=" + referer + "&DAPROPS=" + ProBtnControl.userData.DAPROPS + "&callback=?";
 
           if ((params_object === null) || (params_object === undefined)) {
@@ -3553,7 +3540,7 @@ probtn_initTrackingLinkTest();
           if (btn.length !== 0) {
             var badge = $("#probtn_badge");
 
-            if ((badge.length === 0) && (ProBtnControl.params.BadgeActive) && (ProBtnControl.params.BadgeImage!=="")) {
+            if ((badge.length === 0) && (ProBtnControl.params.BadgeActive)) {
 
               var positionsParams = ProBtnControl.params.BadgePosition.split("_");
 
@@ -3594,6 +3581,13 @@ probtn_initTrackingLinkTest();
             }
           } else {
             console.log("probtn element is not exist. Couldn't add probtn badge");
+          }
+        },
+        initProbtnClosingArea: function(btn) {
+          if ((ProBtnControl.params.CloseAreaType!=="") && (ProBtnControl.params.CloseAreaType!=="default") && (ProBtnControl.params.CloseAreaType!==undefined)) {
+            ProBtnControl.closeButton.appendTo(btn);
+          } else {
+            ProBtnControl.closeButton.prependTo(ProBtnControl.additionalItemsContainer);
           }
         },
         stopWebAudio: function() {
@@ -5557,6 +5551,7 @@ probtn_initTrackingLinkTest();
           } else {}
 
           ProBtnControl.initFunctions.initProbtnBadge(btn);
+          ProBtnControl.initFunctions.initProbtnClosingArea(btn);
 
           //ProbtnControl.params.JsImpressionCode
           ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
@@ -5573,15 +5568,55 @@ probtn_initTrackingLinkTest();
 
         // close button constructor
         initCloseButton: function() {
-          var btn = $('<img/>', {
-            id: 'probtn_closeButton',
-            'src': ProBtnControl.params.CloseImage,
-            'class': 'close_pro_button_normal probtn_active_zone',
-            css: {
-              position: 'fixed',
-              display: 'none'
-            }
-          }).prependTo(ProBtnControl.additionalItemsContainer);
+            var btn = $('<img/>', {
+                id: 'probtn_closeButton',
+                'src': ProBtnControl.params.CloseImage,
+                'class': 'close_pro_button_normal probtn_active_zone',
+                css: {
+                      position: 'fixed',
+                      display: 'none'
+                }
+            });
+          //    }).prependTo(ProBtnControl.additionalItemsContainer);
+          //  }).appendTo(probtn);
+          var top = 0;
+          var left = 0;
+
+          /**
+           * Set params for attached close button
+           */
+          if ((ProBtnControl.params.CloseAreaType==="attached") && (ProBtnControl.params.AttachedClosePosition !== "") && (ProBtnControl.params.AttachedClosePosition !== null) && (ProBtnControl.params.AttachedClosePosition !== undefined)) {
+
+            var closingAreaParams = ProBtnControl.params.AttachedClosePosition.split("_");
+            //if (closingAreaParams[0] === "attached") {
+              var left = ProBtnControl.params.CloseSize.W / 2;
+              var top = ProBtnControl.params.ButtonSize.H - ProBtnControl.params.CloseSize.H / 2;
+
+              if (closingAreaParams[0] === "top") {
+                top = -ProBtnControl.params.CloseSize.H / 2;
+              }
+              switch (closingAreaParams[1]) {
+                case "center":
+                  left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.CloseSize.W) / 2;
+                  break;
+                case "right":
+                  left = (ProBtnControl.params.ButtonSize.W - (ProBtnControl.params.CloseSize.W /2));
+                  break;
+                default:
+                  left = - ProBtnControl.params.CloseSize.W / 2;
+                  break;
+              }
+            //}
+
+            btn.css({
+              "margin": "0 auto",
+              "display": "block",
+              "top": top + "px",
+              "position": "absolute",
+              "left": left + "px",
+              "z-index": "9999"
+            });
+          }
 
           btn.ready = false;
 
@@ -5636,6 +5671,10 @@ probtn_initTrackingLinkTest();
 
           //set close button position
           btn.center = function() {
+            if ((ProBtnControl.params.CloseAreaType !== "") && (ProBtnControl.params.CloseAreaType !== "default")) {
+              return;
+            }
+
             var body = $('body');
             var closex = ProBtnControl.params.ClosePosition.X;
             var closey = ProBtnControl.params.ClosePosition.Y;
@@ -5716,6 +5755,10 @@ probtn_initTrackingLinkTest();
 
           // Animation when close button become active - change size and opacity
           btn.overlayActive = function() {
+            if ((ProBtnControl.params.CloseAreaType!=="") && (ProBtnControl.params.CloseAreaType!=="default")) {
+              return;
+            }
+
             var me = this;
             var position = me.position();
             me.setTransitionDuration(ProBtnControl.params.CloseActiveDuration);
@@ -7957,16 +8000,18 @@ probtn_initTrackingLinkTest();
            * URL to badge image
            * @type {String}
            */
-          BadgeImage: "https://cdn.probtn.com/images/viewst-ad-1.png",
+          BadgeImage: "https://cdn.probtn.com/images/viewst-ad-2.png",
           BadgePosition: "bottom_center",
           BadgeSize: {
-            W: 59,
-            H: 19
+            W: 54,
+            H: 21
           },
           BadgeActive: false,
           /////////////////////////////////////////
-
           BrandingImage: "", //image which would be used as background-image for #probtn_wrapper
+
+          CloseAreaType: "",
+          AttachedClosePosition: "",
 
           CorrectPositionBeforeMove: true, //should we coreect button position before button moves first time
 
@@ -8061,8 +8106,8 @@ probtn_initTrackingLinkTest();
             H: 0
           },
 
-          ClickOnCloseButton: false,
-          AlwaysShowCloseButton: false,
+          ClickOnCloseButton: true,
+          AlwaysShowCloseButton: true,
 
           FullscreenClickLink: '',
 
@@ -8341,23 +8386,23 @@ probtn_initTrackingLinkTest();
 
           ClosePosition: {
             // Позиция
-            X: 0.9, // По умолчанию центр экрана
-            Y: 0.9 // По умолчанию центр экрана
+            X: 0.05, // По умолчанию центр экрана
+            Y: 0.97 // По умолчанию центр экрана
           },
           CloseSize: {
             // Размер
-            W: 64,
-            H: 64
+            W: 40,
+            H: 40
           },
           CloseActiveSize: {
             // Размер в активном состоянии
-            W: 72,
-            H: 72
+            W: 44,
+            H: 44
           },
           CloseOpacity: 1.0, // Прозрачность
           CloseActiveOpacity: 1.0, // Прозрачность в активном состоянии
-          CloseImage: "https://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение
-          CloseActiveImage: "https://cdn.probtn.com/libs/close_btn.png", // Ссылка на изображение в активном состоянии
+          CloseImage: "https://cdn.probtn.com/images/close-new.png", // Ссылка на изображение
+          CloseActiveImage: "https://cdn.probtn.com/images/close-new.png", // Ссылка на изображение в активном состоянии
           HintInsets: {
             // Смещение от краев
             T: 4.0,
@@ -8902,6 +8947,11 @@ probtn_initTrackingLinkTest();
                   }
                 } else {
                   if (ProBtnControl.params.Debug) console.log(ProBtnControl.params);
+
+                  if (data.result.CloseImage=="") {
+                    data.result.CloseImage = ProBtnControl.params.CloseImage;
+                  }
+
                   var params1 = $.extend(true, {}, ProBtnControl.params, data.result);
                   ProBtnControl.params = params1;
 
@@ -9545,6 +9595,7 @@ probtn_initTrackingLinkTest();
               velocityMultiplier: 1.0,
               startThreshold: [1, 1],
               droppable: '.probtn_active_zone',
+              elementsWithInteraction: '#probtn_closeButton',
               initiate: ProBtnControl.additionalButtonFunctions.changeBodySize,
               start: function() {
                 ProBtnControl.once_moved = true;
@@ -9661,20 +9712,22 @@ probtn_initTrackingLinkTest();
 
                   if ((pizzabtnRect.top + pizzabtnRect.height) > window.innerHeight) {}
 
-                  var overlap = !(pizzabtnRect.right < closeButtonRect.left || pizzabtnRect.left > closeButtonRect.right || pizzabtnRect.bottom < closeButtonRect.top || pizzabtnRect.top > closeButtonRect.bottom);
+                  if ((ProBtnControl.params.CloseAreaType==="") || (ProBtnControl.params.CloseAreaType==="default")) {
+                    var overlap = !(pizzabtnRect.right < closeButtonRect.left || pizzabtnRect.left > closeButtonRect.right || pizzabtnRect.bottom < closeButtonRect.top || pizzabtnRect.top > closeButtonRect.bottom);
 
-                  if (overlap && closeButtonRect.width !== 0) {
-                    if (!ProBtnControl.overlaped) {
-                      ProBtnControl.closeButton.overlayActive();
-                      ProBtnControl.overlaped = true;
-                    }
-                  } else {
-                    if (ProBtnControl.overlaped) {
-                      try {
-                        ProBtnControl.closeButton.overlayUnactive();
-                        ProBtnControl.overlaped = false;
-                      } catch (ex) {
-                        if (ProBtnControl.params.Debug) console.log(ex);
+                    if (overlap && closeButtonRect.width !== 0) {
+                      if (!ProBtnControl.overlaped) {
+                        ProBtnControl.closeButton.overlayActive();
+                        ProBtnControl.overlaped = true;
+                      }
+                    } else {
+                      if (ProBtnControl.overlaped) {
+                        try {
+                          ProBtnControl.closeButton.overlayUnactive();
+                          ProBtnControl.overlaped = false;
+                        } catch (ex) {
+                          if (ProBtnControl.params.Debug) console.log(ex);
+                        }
                       }
                     }
                   }
@@ -9913,8 +9966,10 @@ probtn_initTrackingLinkTest();
                     ProBtnControl.pizzabtn.undragAnimate();
                   }
                 }
-                ProBtnControl.closeButton.hide();
-
+                //
+                if ((ProBtnControl.params.CloseAreaType==="") || (ProBtnControl.params.CloseAreaType==="default")) {
+                  ProBtnControl.closeButton.hide();
+                }
                 ProBtnControl.pizzabtn.moved = false;
                 /*window.probtn_pizzabtn_moved = false;*/
 
