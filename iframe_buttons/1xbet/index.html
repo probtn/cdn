@@ -26,5 +26,26 @@
 <body style="margin:0;padding:0;">
 	<div id="Stage" class="EDGE-1128601304">
 	</div>
+	<script>
+	window.addEventListener("message", receiveMessage, false);
+
+	function receiveMessage(event)
+	{
+		if ((event.data!==null) && (event.data!==undefined)) {
+				if (event.data.message === "probtn_hover_started") {
+	/*				var event_ = new CustomEvent("hello", {
+    detail: { name: "Вася" }
+  });
+*/
+  					AdobeEdge.HoverOn();
+
+				};
+
+				if (event.data.message === "probtn_hover_stoped") {
+						AdobeEdge.HoverOff();
+				};
+		}
+	}
+	</script>
 </body>
 </html>
