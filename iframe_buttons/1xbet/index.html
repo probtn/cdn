@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+	<title>Untitled</title>
+<!--Adobe Edge Runtime-->
+    <script type="text/javascript" charset="utf-8" src="edge_includes/edge.6.0.0.min.js"></script>
+    <style>
+        .edgeLoad-EDGE-1128601304 { visibility:hidden; }
+        #Stage { background: transparent !important; }
+    </style>
+<script>
+   AdobeEdge.loadComposition('profit_button_500x500_%402x', 'EDGE-1128601304', {
+    scaleToFit: "none",
+    centerStage: "none",
+    minW: "0px",
+    maxW: "undefined",
+    width: "500px",
+    height: "500px"
+}, {dom: [ ]}, {dom: [ ]});
+</script>
+<!--Adobe Edge Runtime End-->
+
+</head>
+<body style="margin:0;padding:0;">
+	<div id="Stage" class="EDGE-1128601304">
+	</div>
+	<script>
+	window.addEventListener("message", receiveMessage, false);
+
+	function receiveMessage(event)
+	{
+		if ((event.data!==null) && (event.data!==undefined)) {
+				if (event.data.message === "probtn_hover_started") {
+	/*				var event_ = new CustomEvent("hello", {
+    detail: { name: "Вася" }
+  });
+*/
+  					AdobeEdge.HoverOn();
+
+				};
+
+				if (event.data.message === "probtn_hover_stoped") {
+						AdobeEdge.HoverOff();
+				};
+		}
+	}
+	</script>
+</body>
+</html>
