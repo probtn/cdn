@@ -2229,8 +2229,9 @@ probtn_initTrackingLinkTest();
                       var checkVideoPeriods = function(currentIndex, vpixels, callback) {
                         vpixels.forEach(function(vpixel, index) {
                           if ((video.currentTime > vpixel.StartPosition) && (video.currentTime < vpixel.EndPosition)) {
-                            if (curVideoPixel !== index) {
+                            if (currentIndex !== index) {
                               callback(vpixel, index);
+                              return;
                               //curVideoPixel = index;
                             }
                           }
@@ -3212,6 +3213,8 @@ probtn_initTrackingLinkTest();
 
               var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
               ProBtnControl.statistics.createClickCounterImage(superPixelPath);
+
+              ProBtnControl.statistics.SendStatisticsData("performedAction", "superpixel_"+ProBtnControl.realDomain+"_daction="+param);
             }
           } catch (ex) {
             console.log(ex);
@@ -5683,6 +5686,11 @@ probtn_initTrackingLinkTest();
           //set close button position
           btn.center = function() {
             if ((ProBtnControl.params.CloseAreaType !== "") && (ProBtnControl.params.CloseAreaType !== "default")) {
+              if (ProBtnControl.params.CloseAreaType === "corner")
+              {
+                this.css('display','none');
+              }
+
               return;
             }
 
@@ -5745,7 +5753,13 @@ probtn_initTrackingLinkTest();
                 me.setUnactiveSize();
 
                 setTimeout(function() {
-                  $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
+                  var par = 'block';
+                  if (ProBtnControl.params.CloseAreaType === "corner")
+                  {
+                    par = 'none';
+                  }
+
+                  $('head').append('<style type="text/css">#probtn_closeButton { display: ' + par + ' !important; }</style>');
                 }, ProBtnControl.params.CloseButtonShowDelay);
               }
             }
@@ -9592,11 +9606,17 @@ probtn_initTrackingLinkTest();
               cssEaseDuration = 0;
             } else {}
 
-            //DisableButtonMove
+            var constrainObj = 'parent';
+            if (ProBtnControl.params.CloseAreaType === "corner")
+            {
+              constrainObj = '';
+            }
+
+            var isButtonOutsideScreen = false;
             ProBtnControl.pizzabtn.pep({
               // hardwareAccelerate: false,
               useCSSTranslation: false,
-              constrainTo: 'parent',
+              constrainTo: constrainObj,
               // cssEaseString: 'cubic-bezier(0, 0, .58, 1)', // ease-out
               cssEaseString: 'cubic-bezier(0, .50, .50, 1)',
               cssEaseDuration: cssEaseDuration,
@@ -9693,7 +9713,8 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.initFunctions.initScrollChange(true);
 
                 //if set, disable button move
-                if (ProBtnControl.params.DisableButtonMove === true) {
+                if ((ProBtnControl.params.DisableButtonMove === true) || (isButtonOutsideScreen)) {
+                  window.probtn_pizzabtn_moved = false;
                   return false;
                 }
 
@@ -9791,6 +9812,33 @@ probtn_initTrackingLinkTest();
                   console.log(ex);
                 }
 
+                if ((ProBtnControl.params.CloseAreaType === "corner") && (!isButtonOutsideScreen))
+                {
+                  var x0 = 0, y0 = 0;
+                  var x1 = document.documentElement.clientWidth;
+                  var y1 = document.documentElement.clientHeight;
+                  var x_pos = parseInt(ProBtnControl.pizzabtn.css("left"));
+                  var y_pos = parseInt(ProBtnControl.pizzabtn.css("top"));
+
+                  x_pos += ProBtnControl.params.ButtonSize.W / 2;
+                  y_pos += ProBtnControl.params.ButtonSize.H / 2;
+
+                  var isOutsideScreen = false;
+                  if ((x_pos > x1) || (x_pos < x0) || (y_pos > y1) || (y_pos < y0))
+                  {
+                    isOutsideScreen = true;
+                  }
+
+                  if (isOutsideScreen)
+                  {
+                    ProBtnControl.statistics.SendStatObject({
+                      "Closed": 1
+                    });
+                    ProBtnControl.additionalButtonFunctions.hideAll();
+                    isButtonOutsideScreen = true;
+                    $.pep.toggleAll(false);
+                  };
+                }
               },
               stop: function() {
 
