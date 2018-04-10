@@ -2895,7 +2895,8 @@ probtn_initTrackingLinkTest();
        */
       GetDeviceUID: function() {
         var probtnId = "1234";
-        if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {} else {
+        if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {            
+        } else {
           //set cookie
           var currentdate = new Date();
           currentdate = currentdate.getTime();
@@ -2908,6 +2909,10 @@ probtn_initTrackingLinkTest();
       },
       DeviceCID: "",
       cookieFunctions: {
+        /**
+         * Get global cookie for user
+         * @param  {Function} callback callback function wich return string with user's id
+         */
         getDeviceCID: function(callback) {
           try {
 
@@ -2917,7 +2922,6 @@ probtn_initTrackingLinkTest();
               if ($("#probtn_additional_params").length > 0) {
                 var textData = $("#probtn_additional_params").text();
                 textData = JSON.parse(textData);
-                //console.log("textData", textData);
                 if ((textData.useGuidIframe !== null) && (textData.useGuidIframe !== undefined) && (textData.useGuidIframe !== "")) {
                   ProBtnControl.params.useGuidIframe = textData.useGuidIframe;
                 }
@@ -2930,7 +2934,8 @@ probtn_initTrackingLinkTest();
             ProBtnControl.statistics.callSuperPixelExt("getDeviceCID");
             ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
-            var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
+            //var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");      
+            var probtnCID = ProBtnControl.GetDeviceUID();      
 
             if (ProBtnControl.params.useGuidIframe === false) {
               //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
@@ -2946,6 +2951,10 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.statistics.callSuperPixelExt("getDeviceCID1");
                 $("#probtn_guidIframe").remove();
 
+                /**
+                 * check if our code is inside cordova app
+                 * at current moment we don't integrate in cordova apps
+                 */
                 var isCordovaApp = !!window.cordova;
                 if (isCordovaApp) {
                   ProBtnControl.statistics.callSuperPixelExt("getDeviceCID2");
@@ -2961,6 +2970,10 @@ probtn_initTrackingLinkTest();
                   }, 500);
                 }
 
+                /**
+                 * Create iframe page to work with global user id
+                 * @type {String}
+                 */
                 $("<iframe/>", {
                   id: "probtn_guidIframe",
                   scrolling: 'no',
@@ -2990,8 +3003,7 @@ probtn_initTrackingLinkTest();
                 }
               }
             }
-
-            console.log("ProBtnControl.params.useGuidIframe", ProBtnControl.params.useGuidIframe);
+            
             if (ProBtnControl.params.useGuidIframe === true) {
               if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                 var recievedMessage = false;
@@ -3209,7 +3221,6 @@ probtn_initTrackingLinkTest();
               var probtnId = "1234";
               probtnId = ProBtnControl.GetDeviceUID();
               var probtncid = ProBtnControl.DeviceCID;
-
 
               var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
               ProBtnControl.statistics.createClickCounterImage(superPixelPath);
