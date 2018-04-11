@@ -5608,7 +5608,11 @@ probtn_initTrackingLinkTest();
           /**
            * Set params for attached close button
            */
-          if ((ProBtnControl.params.CloseAreaType==="attached") && (ProBtnControl.params.AttachedClosePosition !== "") && (ProBtnControl.params.AttachedClosePosition !== null) && (ProBtnControl.params.AttachedClosePosition !== undefined)) {
+          if ((ProBtnControl.params.CloseAreaType==="attached")) {
+
+            if ((ProBtnControl.params.AttachedClosePosition !== "") && (ProBtnControl.params.AttachedClosePosition !== null) && (ProBtnControl.params.AttachedClosePosition !== undefined)) {
+                ProBtnControl.params.AttachedClosePosition = "top_left";
+            }
 
             var closingAreaParams = ProBtnControl.params.AttachedClosePosition.split("_");
             //if (closingAreaParams[0] === "attached") {
@@ -5624,6 +5628,9 @@ probtn_initTrackingLinkTest();
                   break;
                 case "right":
                   left = (ProBtnControl.params.ButtonSize.W - (ProBtnControl.params.CloseSize.W /2));
+                  break;
+                case "left":
+                  left = - ProBtnControl.params.CloseSize.W / 2;
                   break;
                 default:
                   left = - ProBtnControl.params.CloseSize.W / 2;
@@ -8040,12 +8047,12 @@ probtn_initTrackingLinkTest();
             W: 54,
             H: 21
           },
-          BadgeActive: false,
+          BadgeActive: true,
           /////////////////////////////////////////
           BrandingImage: "", //image which would be used as background-image for #probtn_wrapper
 
           CloseAreaType: "",
-          AttachedClosePosition: "",
+          AttachedClosePosition: "top_left",
 
           CorrectPositionBeforeMove: true, //should we coreect button position before button moves first time
 
