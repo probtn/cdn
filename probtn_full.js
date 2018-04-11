@@ -3224,8 +3224,6 @@ probtn_initTrackingLinkTest();
 
               var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
               ProBtnControl.statistics.createClickCounterImage(superPixelPath);
-
-              ProBtnControl.statistics.SendStatisticsData("performedAction", "superpixel_"+ProBtnControl.realDomain+"_daction="+param);
             }
           } catch (ex) {
             console.log(ex);
