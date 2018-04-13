@@ -2895,7 +2895,7 @@ probtn_initTrackingLinkTest();
        */
       GetDeviceUID: function() {
         var probtnId = "1234";
-        if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {            
+        if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {
         } else {
           //set cookie
           var currentdate = new Date();
@@ -2934,8 +2934,8 @@ probtn_initTrackingLinkTest();
             ProBtnControl.statistics.callSuperPixelExt("getDeviceCID");
             ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
-            //var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");      
-            var probtnCID = ProBtnControl.GetDeviceUID();      
+            //var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
+            var probtnCID = ProBtnControl.GetDeviceUID();
 
             if (ProBtnControl.params.useGuidIframe === false) {
               //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
@@ -3003,7 +3003,7 @@ probtn_initTrackingLinkTest();
                 }
               }
             }
-            
+
             if (ProBtnControl.params.useGuidIframe === true) {
               if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                 var recievedMessage = false;
@@ -3595,12 +3595,22 @@ probtn_initTrackingLinkTest();
               badge = $("<img/>", {
                 id: "probtn_badge",
                 src: ProBtnControl.params.BadgeImage,
-                style: "margin: 0 auto; display: block; top: " + top +
+                style: "margin: 0 auto; display: none; top: " + top +
                   "px; position: absolute;" +
                   "width:" + ProBtnControl.params.BadgeSize.W + "px;" +
                   "height:" + ProBtnControl.params.BadgeSize.H + "px;" +
                   "left: " + left + "px;"
               }).appendTo(btn);
+
+              if ((ProBtnControl.params.BadgeDelayBeforeShow === null) || (ProBtnControl.params.BadgeDelayBeforeShow === undefined))
+              {
+                ProBtnControl.params.BadgeDelayBeforeShow = 0;
+              }
+
+              setInterval(function() {
+                badge.css("display", "block");
+              }, ProBtnControl.params.BadgeDelayBeforeShow);
+
             }
           } else {
             console.log("probtn element is not exist. Couldn't add probtn badge");
@@ -6019,7 +6029,12 @@ probtn_initTrackingLinkTest();
             if ((left + ProBtnControl.params.ButtonSize.W) >= window.innerWidth) {
               left = window.innerWidth - ProBtnControl.params.ButtonSize.W;
             }
-
+            //if button width after previous fixes made left smaller then 0, then set left to 0
+            //WARNING - need to take attention
+            if (left < 0) {
+              left = 0;
+            }
+            //-------
             switch (ProBtnControl.params.ExtrusionMode) {
               case "insertBlock":
                 left = 0;
@@ -8048,6 +8063,11 @@ probtn_initTrackingLinkTest();
             H: 21
           },
           BadgeActive: true,
+          /**
+           * Delay before showing button badge
+           * @type {Number} in ms
+           */
+          BadgeDelayBeforeShow: 0,
           /////////////////////////////////////////
           BrandingImage: "", //image which would be used as background-image for #probtn_wrapper
 
