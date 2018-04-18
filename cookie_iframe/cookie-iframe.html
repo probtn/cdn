@@ -23,7 +23,7 @@
 				document.getElementsByTagName('head')[0].appendChild(s);
 			}
 		</script>	
-		<!--<script src="https://tag.digitaltarget.ru/adcm.js" async></script>-->
+		<script src="https://tag.digitaltarget.ru/adcm.js" async></script>
     </head>
     <body>
 		<img src="https://goo.gl/Sq1njd" alt="google pixel"/>		
@@ -100,14 +100,14 @@
 					window.top.postMessage(deviceCUID_item, "*");
 					
 					//make global matching with amber data
-					loadJS('https://tag.digitaltarget.ru/adcm.js', function () {
+					//loadJS('https://tag.digitaltarget.ru/adcm.js', function () {
 						try {
 							console.log("init adcm", {profileId: cookieName});
 							window.adcm.call({profileId: cookieName});
 						} catch(ex) {
 							console.log("probtn adcm call", ex);
 						}
-					});			
+					//});			
 					
 					try {
 						var elem = document.createElement('script');
