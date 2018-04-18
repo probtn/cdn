@@ -5738,8 +5738,6 @@ probtn_initTrackingLinkTest();
               closeWidth = ProBtnControl.params.CloseSize.W;
             }
 
-            console.log("top", ProBtnControl.additionalButtonFunctions.getWindowHeight(), (ProBtnControl.additionalButtonFunctions.getWindowHeight() - closeHeight) * closey + 'px' );
-
             this.css('top', (ProBtnControl.additionalButtonFunctions.getWindowHeight() - closeHeight) * closey + 'px');
             this.css('left', (ProBtnControl.additionalButtonFunctions.getWindowWidth() - closeWidth) * closex + $(window).scrollLeft() + 'px');
           };
@@ -6587,7 +6585,7 @@ probtn_initTrackingLinkTest();
         },
         getWindowHeight: function() {
           var height = window.innerHeight;
-          //if (height > screen.height) { height = screen.height };
+          if ((height > window.outerHeight) && (ProBtnControl.params.UseScreenSizes)) { height = window.outerHeight };
           if (ProBtnControl.params.ControlInIframeFromParent === true) {
             if ((ProBtnControl.params.ParentParams.height > 0) && (ProBtnControl.params.ParentParams.height !== undefined) && (ProBtnControl.params.ParentParams.height !== null)) {
               return ProBtnControl.params.ParentParams.height;
@@ -6601,8 +6599,8 @@ probtn_initTrackingLinkTest();
         },
         getWindowWidth: function() {
           var width = window.innerWidth;
-          console.log("width", width);
-          //if (width > screen.width) { width = screen.width };
+          //console.log("width", width);
+          if ((width > window.outerWidth) && (ProBtnControl.params.UseScreenSizes)) { width = window.outerWidth };
           if (ProBtnControl.params.ControlInIframeFromParent === true) {
             if ((ProBtnControl.params.ParentParams.width > 0) && (ProBtnControl.params.ParentParams.width !== undefined) && (ProBtnControl.params.ParentParams.width !== null)) {
               return ProBtnControl.params.ParentParams.width;
@@ -8040,6 +8038,11 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
+          /**
+           * use screen sizes insteed of window.innerHeight
+           * @type {Boolean}
+           */
+          UseScreenSizes: false,
           /*
           pixels for video parts
           */
@@ -8420,8 +8423,8 @@ probtn_initTrackingLinkTest();
           },
           ButtonPosition: {
             // Позиция
-            X: 0.85, // По умолчанию центр экрана
-            Y: 0.15 // По умолчанию центр экрана
+            X: 0.80, // По умолчанию центр экрана
+            Y: 0.77 // По умолчанию центр экрана
           },
           ButtonSize: {
             // Размер
