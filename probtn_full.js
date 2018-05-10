@@ -1896,7 +1896,7 @@ probtn_initTrackingLinkTest();
         var iframeLoadedSend = false;
 
         var fancyboxParams = {
-          href: currentContentURL, //ProBtnControl.params.ContentURL,
+          href: currentContentURL,
           sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
           type: 'iframe',
 
@@ -1989,9 +1989,9 @@ probtn_initTrackingLinkTest();
             $('html').css("overflow", "hidden");
           },
           beforeShow: function() {
-            $("body").addClass("probtn_disable_scroll");
+          //  $("body").addClass("probtn_disable_scroll");
             //send message inside iframe, that it's showed and ready
-            $(".fancybox-iframe").first().on('load', function() {
+        /*    $(".fancybox-iframe").first().on('load', function() {
               var frame_id = $(".fancybox-iframe").first().attr("id");
               if ($("#" + frame_id).is("iframe")) {
                 try {
@@ -2010,7 +2010,7 @@ probtn_initTrackingLinkTest();
 
               $(".fancybox-inner").addClass("opened");
               //console.log('load the iframe');
-            });
+            });*/
           },
           afterShow: function() {
             var pizzabtn_wrapper = ProBtnControl.wrapper;
@@ -2134,7 +2134,7 @@ probtn_initTrackingLinkTest();
              * @return {[type]}                          [description]
              */
             var videoEventsInit = function() {
-              if (currentButtonContentType === "video") {
+              if ((currentButtonContentType === "video") || (currentButtonContentType === "video_and_iframe")) {
                 ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
                 try {
                   var video;
@@ -2168,6 +2168,21 @@ probtn_initTrackingLinkTest();
                     var curTime = video.currentTime.toFixed(2);
                     ProBtnControl.statistics.SendStatisticsData("VideoSeeked", curTime);
                   });
+
+                  if (currentButtonContentType === "video_and_iframe")
+                  {
+                    var video_item = "#video_item";
+                    var skip_video_btn = "#skip_video_btn";
+                    if ((areaName !== null) && (areaName !== undefined)) {
+                      video_item = "#video_item_" + areaName;
+                      skip_video_btn = "#skip_video_btn_" + areaName;
+                    }
+
+                    $(video).on("ended", function() {
+                      $(video_item).remove();
+                      $(skip_video_btn).remove();
+                    });
+                  }
 
                   /**
                   * Set VideoPixel to empty array if tit's value is npt set
@@ -2350,18 +2365,34 @@ probtn_initTrackingLinkTest();
         };
 
         fancyboxParams.type = ProBtnControl.params.FancyboxType;
-        if (currentButtonContentType === "video") {
+        if ((currentButtonContentType === "video") || (currentButtonContentType === "video_and_iframe")) {
           fancyboxParams.type = "inline";
 
           try {
             if ((areaName !== null) && (areaName !== undefined)) {
               //if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType == "video") {
               //var video = $("#video_probtn_" + window.probtn_dropedActiveZone.currentActiveZone.Name).get(0);
-              fancyboxParams.href = '#video_item_' + areaName;
+              var item = document.getElementById("video_and_iframe_item_" + areaName);
+              if (item === null)
+              {
+                item = '#video_item_' + areaName;
+              }
+              fancyboxParams.href = item;
               console.log("fancyboxParams.href", fancyboxParams.href);
               //}
             } else {
-              fancyboxParams.href = "#video_item";
+              var item;
+              if (currentButtonContentType === "video")
+              {
+                item = "#video_item";
+              }
+
+              if (currentButtonContentType === "video_and_iframe")
+              {
+                  item = "#video_and_iframe_item"
+              }
+
+              fancyboxParams.href = item;
             }
           } catch (ex) {}
         }
@@ -2410,9 +2441,13 @@ probtn_initTrackingLinkTest();
           }
           //fancyboxParams.autoScale = false;
         } else {
+          //debugger;
+
           //if IsManualSize is false, we set sizes in px
           fancyboxParams.width = ProBtnControl.params.ContentSize.W; //W;
           fancyboxParams.height = ProBtnControl.params.ContentSize.H; //H;
+
+          //delete fancyboxParams.margin;
 
           //console.log("fancyboxParams", fancyboxParams);
         }
@@ -2931,7 +2966,7 @@ probtn_initTrackingLinkTest();
             }
             //////////////////////////////////////////////////////////////////
 
-            ProBtnControl.statistics.callSuperPixelExt("getDeviceCID");
+            //ProBtnControl.statistics.callSuperPixelExt("getDeviceCID");
             ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
             //var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
@@ -2939,10 +2974,48 @@ probtn_initTrackingLinkTest();
 
             if (ProBtnControl.params.useGuidIframe === false) {
               //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
-              ProBtnControl.statistics.callSuperPixelExt("getDeviceCID0");
+              //ProBtnControl.statistics.callSuperPixelExt("getDeviceCID0");
               ProBtnControl.DeviceCID = probtnCID;
               callback(probtnCID);
               return;
+            }
+
+            if (ProBtnControl.params.useGuidIframe === true) {
+              if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
+                var recievedMessage = false;
+                var receiveMessage = function(event) {
+                  //console.log("DeviceCID event", event);
+                  try {
+                    //(event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))
+                    if ((event.data.type !== undefined) && (event.data.type !== null) && (recievedMessage === false)) {
+                      recievedMessage = true;
+
+                      ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_6");
+                      ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
+
+
+                      ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 1);
+                      ProBtnControl.DeviceCID = event.data.cid;
+                      callback(event.data.cid);
+                    } else {}
+                  } catch (ex) {
+                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_ex_" + ex);
+                  }
+                };
+                setTimeout(function() {
+                  if (!recievedMessage) {
+                    console.log("getDeviceCID6_timeout");
+                    recievedMessage = true;
+                    callback(probtnCID);
+                  }
+                }, 11500); //wait for 10500ms
+                window.window.addEventListener("message", receiveMessage, false);
+              } else {
+                ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
+                callback(probtnCID);
+              }
+            } else {
+              callback(probtnCID);
             }
 
             //don't add if we are in offline mode
@@ -2987,10 +3060,10 @@ probtn_initTrackingLinkTest();
                     'left': '-10000px'
                   }
                 }).appendTo("body");
-                ProBtnControl.statistics.callSuperPixelExt("getDeviceCID3");
+                //ProBtnControl.statistics.callSuperPixelExt("getDeviceCID3");
               } catch (ex) {
                 try {
-                  ProBtnControl.statistics.callSuperPixelExt("getDeviceCID4" + ex);
+                  console.log("getDeviceCID4" + ex);
                   var cookieName = "";
                   var deviceCUID_item = {
                     'type': 'probtnCID',
@@ -2999,49 +3072,11 @@ probtn_initTrackingLinkTest();
                   window.top.postMessage(deviceCUID_item, "*");
                   window.postMessage(deviceCUID_item, "*");
                 } catch (ex1) {
-                  ProBtnControl.statistics.callSuperPixelExt("getDeviceCID5_" + ex1);
+                    console.log(ex1);
                 }
               }
             }
-
-            if (ProBtnControl.params.useGuidIframe === true) {
-              if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
-                var recievedMessage = false;
-                var receiveMessage = function(event) {
-                  //console.log("DeviceCID event", event);
-                  try {
-                    if ((event.data.type !== undefined) && (event.data.type !== null) && (event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com")) && (recievedMessage === false)) {
-                      recievedMessage = true;
-
-                      ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_6");
-                      ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
-
-
-                      ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 1);
-                      ProBtnControl.DeviceCID = event.data.cid;
-                      callback(event.data.cid);
-                    } else {}
-                  } catch (ex) {
-                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_ex_" + ex);
-                  }
-                };
-                setTimeout(function() {
-                  if (!recievedMessage) {
-                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_timeout");
-                    recievedMessage = true;
-                    callback(probtnCID);
-                  }
-                }, 1500); //wait for 1500ms
-                window.window.addEventListener("message", receiveMessage, false);
-              } else {
-                ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
-                callback(probtnCID);
-              }
-            } else {
-              callback(probtnCID);
-            }
           } catch (ex) {
-            ProBtnControl.statistics.callSuperPixelExt("getDeviceCID8");
             callback(probtnCID);
           }
         },
@@ -3545,7 +3580,43 @@ probtn_initTrackingLinkTest();
             $("#" + videoItemNameVideo).width(videoWidth);
             $("#" + videoItemNameVideo).height(videoHeight);
           }
-        }
+        },
+        /**
+         * Create item containing video and iframe button at the same time
+         * @param  {[type]} contentUrl - url to video and html page separated with |
+         * @param  {[type]} name       zone name
+         * @return {[type]}            [description]
+         */
+        createVideoAndIframeItem: function(contentUrl, name)
+        {
+          var params = contentUrl.split("|");
+
+          var videoAndIframeItemNameBlock = "video_and_iframe_item";
+          var videoItemNameBlock = "video_item";
+          var videoItemNameVideo = "video_probtn";
+          var skipVideoBtnName = "skip_video_btn";
+
+          if ((name !== null) && (name !== undefined) && (name !== "")) {
+            videoItemNameBlock = "video_item_" + name;
+            videoAndIframeItemNameBlock = "video_and_iframe_item_" + name;
+            videoItemNameVideo = "video_probtn_" + name;
+            skipVideoBtnName = "skip_video_btn_" + name;
+          }
+
+          if ($("#" + videoAndIframeItemNameBlock).length < 1) {
+
+          var content = '<div id="' + videoAndIframeItemNameBlock + '" style="display:none"><div id="' + videoItemNameBlock +'" class="probtn_video_wrapper2" style="display: inline-block; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
+              '<table cellspacing="0" cellpadding="0" class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;">' +
+            //  headerImage +
+              '<tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="" id="' + videoItemNameVideo +'" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
+              '<source src="' + params[0] + '" type="video/mp4">' +
+              'Your browser does not support the video tag. ' +
+              '</video></td><td>test</td></tr></table> +</div><button id="' + skipVideoBtnName + '"style="position: absolute; z-index: 7; left: 45%; top:90%;" onclick=\'document.getElementById("' + videoItemNameBlock + '").remove(); document.getElementById("' + skipVideoBtnName + '").remove();\'>Press Button</button><iframe src="' + params[1] +
+              '" class="video_iframe" scrolling="auto"></iframe></div>';
+
+              ProBtnControl.additionalItemsContainer.append(content);
+            }
+          }
       },
       /**
        * Init functions
@@ -4473,6 +4544,10 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.videoFunctions.createVideoItem(currentActiveZone.Name, currentActiveZone.ActionURL);
               }
 
+              if (currentActiveZone.ButtonContentType === "video_and_iframe") {
+                ProBtnControl.videoFunctions.createVideoAndIframeItem(currentActiveZone.ActionURL, currentActiveZone.Name);
+              }
+
               if (currentActiveZone.VisibleOnlyInteraction) {
                 activeZoneBtn.hide();
               }
@@ -4744,8 +4819,10 @@ probtn_initTrackingLinkTest();
 
               if (scrollZone.ButtonContentType === "video") {
                 ProBtnControl.videoFunctions.createVideoItem(scrollZone.Name, scrollZone.CustomContentURL);
+              }
 
-
+              if (scrollZone.ButtonContentType === "video_and_iframe") {
+                ProBtnControl.videoFunctions.createVideoAndIframeItem(scrollZone.CustomContentURL, scrollZone.Name);
               }
 
               var areaHeight = currentFullTop + getDocumentHeight() * scrollZone.ZoneHeight;
@@ -4964,7 +5041,8 @@ probtn_initTrackingLinkTest();
               '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
               '<source src="' + ProBtnControl.params.ContentURL + '" type="video/mp4">' +
               'Your browser does not support the video tag. ' +
-              '</video></td></tr></table></div>';
+              '</video></td></tr></table>' +
+              '</div>';
 
             //$('body').append(content);
             ProBtnControl.additionalItemsContainer.append(content);
@@ -5020,6 +5098,10 @@ probtn_initTrackingLinkTest();
             $(".probtn_video_wrapper").height(newFancyboxHeight);
             $(".probtn_video").width(videoWidth);
             $(".probtn_video").height(videoHeight);
+          }
+
+          if (ProBtnControl.params.ButtonContentType === 'video_and_iframe') {
+            ProBtnControl.videoFunctions.createVideoAndIframeItem(ProBtnControl.params.ContentURL);
           }
 
           var opts = {
@@ -6762,6 +6844,7 @@ probtn_initTrackingLinkTest();
               newFancyboxWidth = newFancyboxWidth - margins[1] - margins[3];
 
               var setFancyboxSizes = function(fancyboxHeight, fancyboxWidth, fancyboxHeightInner, margins) {
+
                 //if (params.IsManualSize === true) {
                 $('.fancybox-wrap').width(fancyboxWidth);
                 $('.fancybox-wrap').height(fancyboxHeight);
@@ -6816,6 +6899,17 @@ probtn_initTrackingLinkTest();
               $(".probtn_video").width(videoWidth);
               $(".probtn_video").height(videoHeight);
 
+
+
+              var elements = document.getElementsByClassName("video_iframe");
+              if (elements.length > 0)
+              {
+                Array.prototype.forEach.call(elements, function(element)
+                {
+                  element.setAttribute("width", $('.fancybox-inner').width());
+                  element.setAttribute("height", $('.fancybox-inner').height());
+                });
+              }
               setFancyboxSizes(newFancyboxHeight, newFancyboxWidth, newFancyboxHeightInner, margins);
 
               setTimeout(function() {
