@@ -20,6 +20,7 @@
     "grunt-githooks": "^0.6.0",
     "grunt-includes": "^1.0.0",
     "grunt-newer": "^1.3.0",
-    "jshint-html-reporter": "^0.2.4"
+    "jshint-html-reporter": "^0.2.4",
+    "sync-exec": "^0.6.2"
   }
 }

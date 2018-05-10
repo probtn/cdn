@@ -1,5 +1,4 @@
 /*global _comma_separated_list_of_variables_*/
-
 /// <reference path="libs/jquery.js" />
 
 function probtn_callPlayer(frame_id, func, args) {
