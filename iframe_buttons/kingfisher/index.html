@@ -36,7 +36,6 @@
             }, 3600);*/
             var receiveMessage = function (event) {
                 try {
-                    console.log("baby_event", event);
                     if (event.data.message === "probtn_forwardAndStop_stop") {
                         hypeDocument.showNextScene();
                     } 
