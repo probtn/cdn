@@ -106,8 +106,12 @@
 					//make global matching with amber data
 					//loadJS('https://tag.digitaltarget.ru/adcm.js', function () {
 						try {
-							console.log("init adcm", {profileId: cookieName});
-							window.adcm.call({profileId: cookieName});
+							if (typeof window.adcm.call === "function") {
+								console.log("init adcm", {profileId: cookieName});
+								window.adcm.call({profileId: cookieName});
+							} else {
+								console.log("init adcm is not a function", {profileId: cookieName});
+							}
 						} catch(ex) {
 							console.log("probtn adcm call", ex);
 						}
