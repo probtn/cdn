@@ -1,4 +1,5 @@
 /*global _comma_separated_list_of_variables_*/
+
 /// <reference path="libs/jquery.js" />
 
 function probtn_callPlayer(frame_id, func, args) {
@@ -2593,7 +2594,14 @@ probtn_initTrackingLinkTest();
               "VideoFullDuration": videoDuration.toFixed(2)
             }, callbackAfterStat);
           } else {
-            ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param].toFixed(2), "", callbackAfterStat);
+
+            if (param === "MovedDuration") {
+              if (ProBtnControl.contentTime.timeValue[param]>0.01) {
+                ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param].toFixed(2), "", callbackAfterStat);
+              }  
+            } else {
+              ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param].toFixed(2), "", callbackAfterStat);
+            }                      
           }
         },
         intervalId: {
@@ -5700,12 +5708,13 @@ probtn_initTrackingLinkTest();
            * Set params for attached close button
            */
           if ((ProBtnControl.params.CloseAreaType==="attached")) {
-
-            if ((ProBtnControl.params.AttachedClosePosition !== "") && (ProBtnControl.params.AttachedClosePosition !== null) && (ProBtnControl.params.AttachedClosePosition !== undefined)) {
+            //console.log("ProBtnControl.params.AttachedClosePosition", ProBtnControl.params.AttachedClosePosition);
+            if ((ProBtnControl.params.AttachedClosePosition === "") && (ProBtnControl.params.AttachedClosePosition === null) && (ProBtnControl.params.AttachedClosePosition === undefined)) {
                 ProBtnControl.params.AttachedClosePosition = "top_left";
             }
 
             var closingAreaParams = ProBtnControl.params.AttachedClosePosition.split("_");
+            //console.log(ProBtnControl.params.AttachedClosePosition, closingAreaParams);
             //if (closingAreaParams[0] === "attached") {
               var left = ProBtnControl.params.CloseSize.W / 2;
               var top = ProBtnControl.params.ButtonSize.H - ProBtnControl.params.CloseSize.H / 2;
