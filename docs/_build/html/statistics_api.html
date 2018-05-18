@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Поиск &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
+  <title>Использование API для получения статистики &mdash; Документация Profit Button 1.4.1335_31102015_dev</title>
   
 
   
@@ -30,7 +30,8 @@
   
 
   
-    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/> 
+    <link rel="top" title="Документация Profit Button 1.4.1335_31102015_dev" href="index.html"/>
+        <link rel="prev" title="Неочевидные моменты, подсказки и иные дополнительные данные" href="hints_and_tricks.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +66,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -80,7 +81,7 @@
             
             
                 <p class="caption"><span class="caption-text">Содержание</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="description.html">Интеграция</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#id2">Общее описание кнопки</a></li>
 <li class="toctree-l1"><a class="reference internal" href="description.html#probtn">Объединенный probtn</a></li>
@@ -104,7 +105,12 @@
 <li class="toctree-l1"><a class="reference internal" href="reports_description.html">Отчеты admin.probtn.com</a></li>
 <li class="toctree-l1"><a class="reference internal" href="passback.html">Использование passback кода</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hints_and_tricks.html">Неочевидные моменты, подсказки и иные дополнительные данные</a></li>
-<li class="toctree-l1"><a class="reference internal" href="statistics_api.html">Использование API для получения статистики</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Использование API для получения статистики</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#get">GET-параметры запроса</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Ответ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Пример запроса</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -135,8 +141,12 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Использование API для получения статистики</li>
       <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/statistics_api.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
@@ -145,23 +155,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="api">
+<span id="statistics-api"></span><h1>Использование API для получения статистики<a class="headerlink" href="#api" title="Ссылка на этот заголовок">¶</a></h1>
+<p>API статистики позволяет произвести интеграцию admin.probtn.com со сторонними сервисами (к примеру DSP).</p>
+<div class="section" id="get">
+<h2>GET-параметры запроса<a class="headerlink" href="#get" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Параметры:</p>
+<blockquote>
+<div><ul class="simple">
+<li>AuthKey - ключ авторизации. обязательный. определяет доступ к площадкам и кампаниям</li>
+<li>AppName - список площадок, для дополнительной фильтрации</li>
+<li>AdSet - список идентификаторов кампаний. можно получить из админки admin.probtn.com.</li>
+<li>DateStart - дата в формате YYYY-MM-DD</li>
+<li>DateEnd - дата в формате YYYY-MM-DD</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id1">
+<h2>Ответ<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В ответе приходит статистика по запрошенным данным в виде JSON.</p>
+<p>Описание:</p>
+<blockquote>
+<div><ul class="simple">
+<li>adset_id - кампания</li>
+<li>bundle_id - идентификатор аппа</li>
+<li>datetime - дата и время в timestamp формате</li>
+<li>content_showed - количество кликов по кнопке</li>
+<li>content_showed_duration - длительность видимости кнопки</li>
+<li>hided - количество закрытий кнопки</li>
+<li>moved - количество перемещений кнопки</li>
+<li>moved_duration - среднее время перемещения кнопки</li>
+<li>opened - количество показов кнопки</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>Пример запроса<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p><a class="reference external" href="http://stats.probtn.com/api_reports">http://stats.probtn.com/api_reports</a>?AuthKey=&lt;SOME_KEY&gt;&amp;AppName=jgjh.ghjg&amp;AdSet=76786786876</p>
+</div>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="hints_and_tricks.html" class="btn btn-neutral" title="Неочевидные моменты, подсказки и иные дополнительные данные" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -200,7 +244,6 @@
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
       <script type="text/javascript" src="_static/translations.js"></script>
-      <script type="text/javascript" src="_static/searchtools.js"></script>
 
   
 
@@ -216,14 +259,7 @@
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

@@ -31,4 +31,5 @@ Profit Button
    reports_description
    passback
    hints_and_tricks
+   statistics_api
 
