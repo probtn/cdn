@@ -2598,10 +2598,10 @@ probtn_initTrackingLinkTest();
             if (param === "MovedDuration") {
               if (ProBtnControl.contentTime.timeValue[param]>0.01) {
                 ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param].toFixed(2), "", callbackAfterStat);
-              }  
+              }
             } else {
               ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param].toFixed(2), "", callbackAfterStat);
-            }                      
+            }
           }
         },
         intervalId: {
@@ -5481,6 +5481,9 @@ probtn_initTrackingLinkTest();
           btn.hide = function() {
             var me = this; //jQuery("#probtn_button");
             setTimeout(function() {
+              ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                message: "probtn_closed"
+              });
               console.log("btn hide");
               me.stop(true, true).fadeOut(ProBtnControl.params.ButtonHideDuration * 1000);
 
@@ -6246,6 +6249,22 @@ probtn_initTrackingLinkTest();
           ProBtnControl.initFunctions.stopWebAudio();
 
           $("#fullscreen_probtn").remove();
+
+          //TODO
+          //Stop current video
+          //create common function
+          if (ProBtnControl.params.ButtonContentType === "video") {
+              try {
+                var video;
+                if ((ProBtnControl.params.currentAreaName !== null) && (ProBtnControl.params.currentAreaName !== undefined)) {
+                  video = $("#video_probtn_" + ProBtnControl.params.currentAreaName).get(0);
+                  video.pause();
+                } else {
+                  video = $("#video_probtn").get(0);
+                  video.pause();
+                }
+              } catch (ex) {} finally {}
+            }
         },
         //TODO
         //fix incorrect written word Correct (insted of Corrent)
@@ -6445,6 +6464,7 @@ probtn_initTrackingLinkTest();
         replaceRandom: function(contentURL) {
           var output = contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
           output = output.replace(/\%random\%/g, ProBtnControl.additionalButtonFunctions.randomString(12));
+          output = output.replace(/\%RANDOM\%/g, ProBtnControl.additionalButtonFunctions.randomString(12));
 
           return output;
         },
@@ -9285,7 +9305,7 @@ probtn_initTrackingLinkTest();
                     Details = "Details=" + JSON.stringify(ProBtnControl.params.ExternalData) + "&";
                   }
 
-                  var networktype = "";
+                  var networktype = "&";
                   try {
                     if ((navigator.connection !== undefined) && (navigator.connection !== null)) {
                       if ((navigator.connection.effectiveType !== undefined) && (navigator.connection.effectiveType !== null)) {
@@ -9295,11 +9315,14 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.userData.kbs = navigator.connection.downlink * 1024;
                       }
                     }
-                  } catch (ex) {}
+                  } catch (ex) {
+                    networktype = "&";
+                    console.log(ex);
+                  }
                   if ((ProBtnControl.params.CreativeId !== "") && (ProBtnControl.params.CreativeId !== null) && (ProBtnControl.params.CreativeId !== undefined)) {
                     settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + "ForceCampaign=" + ProBtnControl.params.CreativeId + networktype + Details);
                   } else {
-                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + "&" + Details);
+                    settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + networktype + Details);
                   }
 
 
