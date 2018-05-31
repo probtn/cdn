@@ -1,33 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
-	<title>index</title>
-	<style>
-		html {
-			height:100%;
-		}
-		body {
-			margin:0;
-			height:100%;
-		}
-	</style>
-	<!-- copy these lines to your document head: -->
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>Citroen C3 (eng)</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <img id="bg" src="" style="width:  100%; margin:  0px;" alt="Demo"/>
+        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change-snow.js"></script>
 
-	<meta name="viewport" content="user-scalable=yes, width=160" />
-
-	<!-- end copy -->
-  </head>
-  <body>
-	<!-- copy these lines to your document: -->
-
-	<div id="index_hype_container" style="margin:auto;position:relative;width:160px;height:150px;overflow:hidden;">
-		<script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?47195"></script>
-	</div>
-
-	<!-- end copy -->
-
-	<script src="https://cdn.probtn.com/libs/hypeLoadEvent.js"></script>
-  </body>
+        <script>
+            $(document).ready(function () {
+                $.getScript('//cdn.probtn.com/probtn.js', function () { 
+                    $(document).StartButton({
+                        'domain': 'probtn.com'
+                    });
+                });
+            });
+    </script>
+    </body>
 </html>
