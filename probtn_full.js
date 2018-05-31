@@ -5740,15 +5740,30 @@ probtn_initTrackingLinkTest();
                   break;
               }
             //}
+            
+
 
             btn.css({
               "margin": "0 auto",
-              "display": "block",
+              "display": "none",
               "top": top + "px",
               "position": "absolute",
               "left": left + "px",
               "z-index": "9999"
             });
+
+            //CloseButtonShowDelay for attached close position
+            if (ProBtnControl.params.CloseButtonShowDelay>0) {
+              setTimeout(function() {
+                btn.css({
+                  "display": "block"
+                });
+              }, ProBtnControl.params.CloseButtonShowDelay);
+            } else {
+              btn.css({
+                "display": "block"
+              });
+            }
           }
 
           btn.ready = false;
@@ -8188,11 +8203,11 @@ probtn_initTrackingLinkTest();
            * URL to badge image
            * @type {String}
            */
-          BadgeImage: "https://cdn.probtn.com/images/viewst-ad-2.png",
+          BadgeImage: "https://cdn.probtn.com/images/viewst-ad-3.png",
           BadgePosition: "bottom_center",
           BadgeSize: {
-            W: 54,
-            H: 21
+            W: 46,
+            H: 18
           },
           BadgeActive: true,
           /**
@@ -8203,8 +8218,8 @@ probtn_initTrackingLinkTest();
           /////////////////////////////////////////
           BrandingImage: "", //image which would be used as background-image for #probtn_wrapper
 
-          CloseAreaType: "",
-          AttachedClosePosition: "top_left",
+          CloseAreaType: "attached",
+          AttachedClosePosition: "top_right",
 
           CorrectPositionBeforeMove: true, //should we coreect button position before button moves first time
 
@@ -8545,7 +8560,7 @@ probtn_initTrackingLinkTest();
           },
           ButtonPosition: {
             // Позиция
-            X: 0.80, // По умолчанию центр экрана
+            X: 0.10, // По умолчанию центр экрана
             Y: 0.77 // По умолчанию центр экрана
           },
           ButtonSize: {
@@ -8584,13 +8599,13 @@ probtn_initTrackingLinkTest();
           },
           CloseSize: {
             // Размер
-            W: 40,
-            H: 40
+            W: 32,
+            H: 32
           },
           CloseActiveSize: {
             // Размер в активном состоянии
-            W: 44,
-            H: 44
+            W: 32,
+            H: 32
           },
           CloseOpacity: 1.0, // Прозрачность
           CloseActiveOpacity: 1.0, // Прозрачность в активном состоянии
