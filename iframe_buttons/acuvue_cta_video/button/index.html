@@ -1,0 +1,241 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" href="js/screen.css" rel="stylesheet">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=608">
+    <link href="js/jquery-ui.css" rel="stylesheet" type="text/css">
+    <style>
+        html, body {
+            width: 190px;
+            height: 112px;
+            margin: 0;
+            padding: 0px;
+        }
+
+        .broadway {
+            width: 190px;
+            height: 112px;
+        }
+        canvas {
+            width:  190px;
+            height:  112px;
+        }
+
+        #progressbar {
+            position: absolute;
+            height: 5px;
+            background-color: white;
+            width: 0;
+            bottom: 0px;
+            display: block;
+            left: 0px;
+        }
+        #poster {
+            width: 190px;
+            height: 112px;
+            display: inline-block;
+            z-index: 20;
+        }
+        #poster_img {
+            width: 190px;
+            height: 112px;
+            z-index: 18;
+        }
+        #loader {
+            display: inline-block;
+            margin: 0 auto;
+            width: 20%;
+            z-index: 19;
+            position: fixed;
+            /*top: 50%;
+            left: 40%;*/
+
+            top: 150px;
+            left: 140px;
+
+        }
+        #play {
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            top: 30%;
+            display: none;
+            cursor: pointer;
+        }
+
+            #play.active {
+                display: block;
+            }
+
+        #volume {
+            position: absolute;
+            left: 5px;
+            bottom: 8px;
+            /*display: none;*/
+        }
+
+        #close {
+            position: absolute;
+            right: 5px;
+            bottom: 8px;
+            z-index: 30;
+            /*display: none;*/
+        }
+        #close_img {
+            display: none;
+            cursor: pointer;
+            width:  28px;
+            height:  28px;
+        }
+
+        #volume_on, #volume_off {
+            display: none;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            z-index: 30;
+        }
+        #volume_on.active, #volume_off.active {
+            display: block;
+        }
+        canvas {
+            /*border-radius: 10px !important;
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.22) !important;*/
+            background: transparent !important;
+        }
+        #link {
+            background: url(images/go-min.png) no-repeat left center;
+            width: 50%;
+            height: 28px;
+            position: absolute;
+            bottom: 10px;
+            left: 25%;
+            color: white;
+            font-size: 20px;
+            padding-left: 30px;
+            text-shadow: 2px 1px 5px black;
+            display: none;
+            z-index: 30;
+            background-size: contain;
+            font-weight: normal;
+            font-family: Arial;
+
+            display: none !important;
+        }
+
+        #click_button {
+            width: 131px;
+            height: 39px;
+            z-index: 100;
+            position: absolute;
+            top: 110px;
+            left: 29px;
+            /*display: none !important;*/
+        }
+
+        #replay_button {
+          position: absolute;
+          left: 40%;
+          width: 20%;
+          top: 30%;
+          display: block;
+          cursor: pointer;
+          background-image: url(images/replay.png);
+        }
+
+        #controls {
+            /*display: none;*/
+        }
+
+        @-webkit-keyframes scale-in-center {
+          0% {
+            -webkit-transform: scale(0);
+                    transform: scale(0);
+            opacity: 1;
+          }
+          100% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        @keyframes scale-in-center {
+          0% {
+            -webkit-transform: scale(0);
+                    transform: scale(0);
+            opacity: 1;
+          }
+          100% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        .scale-in-center {
+	        -webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s both;
+	                animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s both;
+        }
+
+        .img_btn_disabled {
+          display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="broadway" videoparts="true" url="" text="" audio="audio.mp3?rnd=123" poster="poster.jpg?rnd=13" src="video.mp4?rnd=12" width="190" height="112" style="float: left; position: relative;" workers="true" webgl="auto" render="false" repeatmode="hand" >
+    <!-- videopixels='[
+    { "StartPosition": 0.0, "EndPosition": 0.05, "TrackingLink": "https://goo.gl/PedWM5" },
+    { "StartPosition": 0.25, "EndPosition": 0.5, "TrackingLink": "https://goo.gl/PedWM5" },
+    { "StartPosition": 0.5, "EndPosition": 0.75, "TrackingLink": "https://goo.gl/PedWM5" },
+    { "StartPosition": 0.75, "EndPosition": 0.95, "TrackingLink": "https://goo.gl/PedWM5" },
+    { "StartPosition": 0.95, "EndPosition": 1, "TrackingLink": "https://goo.gl/PedWM5" }
+  ]'-->
+
+        <img src="cta@2x.png" id="click_button" class="img_btn_disabled" alt="cta" />
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="js/Decoder.js"></script>
+    <script type="text/javascript" src="js/YUVCanvas.js"></script>
+    <script type="text/javascript" src="js/Player.js"></script>
+    <script type="text/javascript" src="js/stream.js"></script>
+    <script type="text/javascript" src="js/mp4.js?random=552335"></script><!--https://probtnlandings1.azurewebsites.net/button_example4/mp4_player/js/mp4.js-->
+    <script type="text/javascript">
+        function load() {
+            window.top.postMessage({ command: 'button_image_iframe_size', size: {w: 190, h: 39, top: 112} }, '*');
+            jQuery(document).ready(function () {
+                try {
+
+                    window.onresize = function (event) {
+                        console.log("window.onresize", window.innerWidth);
+                        if (window.innerWidth > 200) {
+                            document.getElementById("link").style.display = "block";
+                            document.getElementById("volume").style.display = "block";
+                            document.getElementById("close").style.display = "block";
+                        }
+                    };
+
+                    console.log(Broadway);
+                    var nodes = document.querySelectorAll('div.broadway');
+                    for (var i = 0; i < nodes.length; i++) {
+                        var broadway = new Broadway(nodes[i]);
+                    }
+
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+        load();
+
+        setTimeout(function () {
+            document.getElementById("click_button").className = "scale-in-center";
+        }, 5000);
+    </script>
+
+</body>
+</html>

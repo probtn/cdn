@@ -5710,6 +5710,7 @@ probtn_initTrackingLinkTest();
           /**
            * Set params for attached close button
            */
+     
           if ((ProBtnControl.params.CloseAreaType==="attached")) {
             //console.log("ProBtnControl.params.AttachedClosePosition", ProBtnControl.params.AttachedClosePosition);
             if ((ProBtnControl.params.AttachedClosePosition === "") && (ProBtnControl.params.AttachedClosePosition === null) && (ProBtnControl.params.AttachedClosePosition === undefined)) {
@@ -8560,8 +8561,8 @@ probtn_initTrackingLinkTest();
           },
           ButtonPosition: {
             // Позиция
-            X: 0.10, // По умолчанию центр экрана
-            Y: 0.77 // По умолчанию центр экрана
+            X: 0.10, 
+            Y: 0.77 
           },
           ButtonSize: {
             // Размер
@@ -9534,6 +9535,13 @@ probtn_initTrackingLinkTest();
                       'top': event.data.size.top
                     });
                   }
+                  break;
+                //VideoParts event 
+                case 'probtn_video_part_event': 
+                  ProBtnControl.statistics.SendStatObject({
+                      "VideoPart": event.data.videoPart,
+                      "VideoFullDuration": event.data.videoFullDuration
+                    });
                   break;
                 default:
                   break;
