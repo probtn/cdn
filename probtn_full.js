@@ -55,7 +55,7 @@ function probtn_initTrackingLinkTest() {
           domain = textData.domain;
         }
 
-        if (domain === "getintent_dsp") {
+        if ((domain === "getintent_dsp") || (domain === "Africa_KTB_getintent")) {
           link = "https://goo.gl/N7JUcj?probtn_random=" + randomString(12);
           addLink(link);
         }
@@ -3266,7 +3266,7 @@ probtn_initTrackingLinkTest();
               }
             }
 
-            if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp")) {
+            if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp") || (domain === "Africa_KTB_getintent")) {
               var probtnId = "1234";
               probtnId = ProBtnControl.GetDeviceUID();
               var probtncid = ProBtnControl.DeviceCID;
@@ -9408,7 +9408,7 @@ probtn_initTrackingLinkTest();
                 }
 
                 //pixel
-                if (ProBtnControl.currentDomain === "getintent_dsp") {
+                if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "Africa_KTB_getintent")) {
                   ProBtnControl.statistics.createClickCounterImage("https://goo.gl/Fm9AUX");
                 }
 
