@@ -6286,12 +6286,15 @@ probtn_initTrackingLinkTest();
             "Hidded": 1
           });
 
-          ProBtnControl.pizzabtn.stop(true, true);
+          console.log("hideall");
+          
 
           ProBtnControl.pizzabtn.hide();
           ProBtnControl.pizzabtn.stopShowedTimer();
 
           ProBtnControl.closeButton.remove();
+          $("#pizzabtnImg", ProBtnControl.pizzabtn).remove();
+
           ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
 
           ProBtnControl.initFunctions.initRemoveMenu();
@@ -6301,6 +6304,8 @@ probtn_initTrackingLinkTest();
           ProBtnControl.initFunctions.stopWebAudio();
 
           $("#fullscreen_probtn").remove();
+
+          ProBtnControl.pizzabtn.stop(true, true);
 
           //TODO
           //Stop current video
