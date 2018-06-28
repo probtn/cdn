@@ -6287,13 +6287,20 @@ probtn_initTrackingLinkTest();
           });
 
           console.log("hideall");
+
+          ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
           
 
           ProBtnControl.pizzabtn.hide();
           ProBtnControl.pizzabtn.stopShowedTimer();
 
           ProBtnControl.closeButton.remove();
-          $("#pizzabtnImg", ProBtnControl.pizzabtn).remove();
+          $("#pizzabtnImg").remove();
+          ProBtnControl.pizzabtn.css("display", "none !important;");
+          /*$("#probtn_badge").css("display", "none !important;");
+          $("#probtn_wrapper").css("display", "none !important;");*/  
+          $('head').append('<style type="text/css">#probtn_wrapper, #probtn_badge, #pizzabtnImg { display: none !important; }</style>');     
+          
 
           ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
 
