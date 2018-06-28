@@ -1598,6 +1598,7 @@ probtn_initTrackingLinkTest();
       wrapper: undefined,
       additionalItemsContainer: undefined,
       closebutton: undefined,
+      closeButtonClicked: false,
       overlaped: false,
       buttonMainParams: {
         isEmpty: true,
@@ -1622,6 +1623,12 @@ probtn_initTrackingLinkTest();
        * @return {[type]}
        */
       onButtonTap: function(currentContentURL, areaName, currentButtonContentType) {
+
+        if (ProBtnControl.closeButtonClicked) {
+          console.log("onButtonTap after close");
+          return;
+        }
+
         if (ProBtnControl.params.Debug) console.log("onButtonTap");
         window.probtn_button_tap = true;
 
@@ -3696,9 +3703,11 @@ probtn_initTrackingLinkTest();
         },
         initProbtnClosingArea: function(btn) {
           if ((ProBtnControl.params.CloseAreaType!=="") && (ProBtnControl.params.CloseAreaType!=="default") && (ProBtnControl.params.CloseAreaType!==undefined)) {
-            ProBtnControl.closeButton.appendTo(btn);
+            ProBtnControl.closeButton.prependTo(btn);
+            ProBtnControl.closeButton.clickOnCloseButton();
           } else {
             ProBtnControl.closeButton.prependTo(ProBtnControl.additionalItemsContainer);
+            ProBtnControl.closeButton.clickOnCloseButton();
           }
         },
         stopWebAudio: function() {
@@ -5697,6 +5706,7 @@ probtn_initTrackingLinkTest();
                 id: 'probtn_closeButton',
                 'src': ProBtnControl.params.CloseImage,
                 'class': 'close_pro_button_normal probtn_active_zone',
+                'onclick': 'console.log("onclick");',
                 css: {
                       position: 'fixed',
                       display: 'none'
@@ -5774,15 +5784,41 @@ probtn_initTrackingLinkTest();
             $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
           }*/
 
-          //hide button on close area click
-          if (ProBtnControl.params.ClickOnCloseButton === true) {
-            btn.css("cursor", "pointer");
-            $(document).on('click', '#probtn_closeButton', function() {
-              ProBtnControl.statistics.SendStatObject({
-                "Closed": 1
-              });
-              ProBtnControl.additionalButtonFunctions.hideAll();
-            });
+          btn.clickOnCloseButton = function() {
+            //hide button on close area click
+            if (ProBtnControl.params.ClickOnCloseButton === true) {
+              btn.css("cursor", "pointer");
+              console.log("probtn_closeButton click set");
+
+              var closeClickFunction = function() {
+                console.log("probtn_closeButton clicked");
+                ProBtnControl.statistics.SendStatObject({
+                  "Closed": 1
+                });
+                ProBtnControl.additionalButtonFunctions.hideAll();
+              }
+              ProBtnControl.closeButtonClicked = false;
+
+              /*$(document).on('click', '#probtn_closeButton', function() {
+                closeClickFunction();
+              });*/
+              document.getElementById("probtn_closeButton").addEventListener('click', function(e) { 
+                if (!ProBtnControl.closeButtonClicked) {
+                  ProBtnControl.closeButtonClicked = true;
+                  closeClickFunction();
+                  e.preventDefault();
+                  return false; 
+                }
+              }, false);
+              document.getElementById("probtn_closeButton").addEventListener('touchstart', function(e) { 
+                if (!ProBtnControl.closeButtonClicked) {
+                  ProBtnControl.closeButtonClicked = true;
+                  closeClickFunction();
+                  e.preventDefault();
+                  return false; 
+                }
+              }, false);
+            }
           }
 
           btn.active = false;
@@ -6479,6 +6515,7 @@ probtn_initTrackingLinkTest();
         },
         replaceRandom: function(contentURL) {
           var output = contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
+          output = contentURL.replace(/\[DOMAIN\]/g, ProBtnControl.realDomain);
           output = output.replace(/\%random\%/g, ProBtnControl.additionalButtonFunctions.randomString(12));
           output = output.replace(/\%RANDOM\%/g, ProBtnControl.additionalButtonFunctions.randomString(12));
 
@@ -6884,28 +6921,52 @@ probtn_initTrackingLinkTest();
                 newFancyboxWidth = ProBtnControl.params.ContentSize.W;
               }
 
-              newFancyboxHeight = newFancyboxHeight - margins[0] - margins[2];
-              newFancyboxWidth = newFancyboxWidth - margins[1] - margins[3];
+              if ((margins[0] > 0) && (margins[2]>0)) {
+                newFancyboxHeight = newFancyboxHeight - margins[0] - margins[2];
+              } else {
+              }
+              if ((margins[1] > 0) && (margins[3]>0)) {
+                newFancyboxWidth = newFancyboxWidth - margins[1] - margins[3];
+              } else {
+              }
 
               var setFancyboxSizes = function(fancyboxHeight, fancyboxWidth, fancyboxHeightInner, margins) {
 
-                //if (params.IsManualSize === true) {
-                $('.fancybox-wrap').width(fancyboxWidth);
-                $('.fancybox-wrap').height(fancyboxHeight);
+                if (ProBtnControl.params.IsManualSize === true) {
+                  $('.fancybox-wrap').width(fancyboxWidth);
+                  $('.fancybox-wrap').height(fancyboxHeight);
 
-                $('.fancybox-inner').width(fancyboxWidth);
-                $('.fancybox-inner').height(fancyboxHeightInner);
-                //}
+                  $('.fancybox-inner').width(fancyboxWidth);
+                  $('.fancybox-inner').height(fancyboxHeightInner);
+                  //}
 
-                if ((ProBtnControl.params.ButtonType == "fullscreen") ||
-                  (margins[0] === 0) || (margins[1] === 0) || (margins[2] === 0) || (margins[3] === 0)) {
-                  $('.fancybox-wrap').css("left", margins[1]);
-                  $('.fancybox-wrap').css("top", margins[0]);
-                  $('.fancybox-wrap').css("bottom", margins[2]);
-                  $('.fancybox-wrap').css("right", margins[3]);
-                }
-                if (document.documentElement.clientHeight > ProBtnControl.additionalButtonFunctions.getWindowHeight()) {
-                  $('.fancybox-wrap').css("top", margins[0] + (document.documentElement.clientHeight - ProBtnControl.additionalButtonFunctions.getWindowHeight()));
+                  if ((ProBtnControl.params.ButtonType == "fullscreen") ||
+                    (margins[0] === 0) || (margins[1] === 0) || (margins[2] === 0) || (margins[3] === 0)) {
+                    $('.fancybox-wrap').css("left", margins[1]);
+                    $('.fancybox-wrap').css("top", margins[0]);
+                    $('.fancybox-wrap').css("bottom", margins[2]);
+                    $('.fancybox-wrap').css("right", margins[3]);
+                  }
+                  if (document.documentElement.clientHeight > ProBtnControl.additionalButtonFunctions.getWindowHeight()) {
+                    $('.fancybox-wrap').css("top", margins[0] + (document.documentElement.clientHeight - ProBtnControl.additionalButtonFunctions.getWindowHeight()));
+                  }
+                } else {
+                  console.log("IsManualSize", ProBtnControl.params.IsManualSize);
+                  console.log("margins", margins);
+                  //fancybox is in px sizes
+                  //but if margins if more then 0 - then we'll try to apply them
+                  if ((margins[0] > 0) || (margins[1] > 0) || (margins[2] > 0) || (margins[3] > 0)) {
+                    $('.fancybox-wrap').css("left", margins[1]);
+                    $('.fancybox-wrap').css("top", margins[0]);
+                    $('.fancybox-wrap').css("bottom", margins[2]);
+                    $('.fancybox-wrap').css("right", margins[3]);
+                  } else {
+                    //center fancybox
+                    //
+                    console.log("fancyboxWidth and fancyboxHeight", fancyboxWidth, fancyboxHeight);
+                    $('.fancybox-wrap').css("left", (ProBtnControl.additionalButtonFunctions.getWindowWidth() - fancyboxWidth)/2);
+                    $('.fancybox-wrap').css("top", (ProBtnControl.additionalButtonFunctions.getWindowHeight() - fancyboxHeight)/2);
+                  }
                 }
 
                 ProBtnControl.additionalButtonFunctions.setIfameSizes();
@@ -8029,7 +8090,7 @@ probtn_initTrackingLinkTest();
         },
         getFancyboxMargins: function() {
           var margins = [70, 70, 70, 70];
-          if ((ProBtnControl.params.ContentInsets.T < 0) || (ProBtnControl.params.ContentInsets.B < 0) || (ProBtnControl.params.ContentInsets.L < 0) || (ProBtnControl.params.ContentInsets.R < 0)) {
+          if (((ProBtnControl.params.ContentInsets.T < 0) || (ProBtnControl.params.ContentInsets.B < 0) || (ProBtnControl.params.ContentInsets.L < 0) || (ProBtnControl.params.ContentInsets.R < 0)) && (ProBtnControl.params.isManualSize === true)) {
             var isMobileLandscape = (ProBtnControl.additionalButtonFunctions.isLandscape() && ProBtnControl.userData.mobile);
             margins = (isMobileLandscape) ? [ProBtnControl.params.ButtonSize.H / 4, ProBtnControl.params.ButtonSize.H / 4 + 5, ProBtnControl.params.ButtonSize.H / 4, ProBtnControl.params.ButtonSize.H / 4 + 5] : [ProBtnControl.params.ButtonSize.H + 5, ProBtnControl.params.ButtonSize.H / 2, ProBtnControl.params.ButtonSize.H + 5, ProBtnControl.params.ButtonSize.H / 2];
 
