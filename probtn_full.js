@@ -55,7 +55,7 @@ function probtn_initTrackingLinkTest() {
           domain = textData.domain;
         }
 
-        if ((domain === "getintent_dsp") || (domain === "Africa_KTB_getintent")) {
+        if ((domain === "getintent_dsp") || (domain.toLowerCase() === "Africa_KTB_getintent".toLowerCase())) {
           link = "https://goo.gl/N7JUcj?probtn_random=" + randomString(12);
           addLink(link);
         }
@@ -3266,7 +3266,7 @@ probtn_initTrackingLinkTest();
               }
             }
 
-            if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp") || (domain === "Africa_KTB_getintent")) {
+            if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp") || (domain.toLowerCase() === "Africa_KTB_getintent".toLowerCase()) || (ProBtnControl.currentDomain === "Africa_KTB_getintent")) {
               var probtnId = "1234";
               probtnId = ProBtnControl.GetDeviceUID();
               var probtncid = ProBtnControl.DeviceCID;
@@ -9420,7 +9420,7 @@ probtn_initTrackingLinkTest();
                 }
 
                 //pixel
-                if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "Africa_KTB_getintent")) {
+                if ((ProBtnControl.currentDomain === "getintent_dsp") || (ProBtnControl.currentDomain.toLowerCase() === "Africa_KTB_getintent".toLowerCase())) {
                   ProBtnControl.statistics.createClickCounterImage("https://goo.gl/Fm9AUX");
                 }
 
