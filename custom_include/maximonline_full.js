@@ -87,22 +87,12 @@ var loadProbtn = function (jQuery) {
 	    var domain = document.domain.replace("www.", "");
 	    var link = "";
 
-	    if ((domain === "m.babyblog.ru") || (domain === "babyblog.ru")) {
-	      link = "https://goo.gl/nktfPO?probtn_random=" + randomString(12);
-	      //addLink(link);
-	    }
-
 	    try {
 	      var probtn_additional_params = document.getElementById("probtn_additional_params");
 	      if (probtn_additional_params !== null) {
 	        var textData = JSON.parse(probtn_additional_params.innerHTML);
 	        if (textData.domain !== undefined) {
 	          domain = textData.domain;
-	        }
-
-	        if ((domain === "getintent_dsp") || (domain.toLowerCase() === "Africa_KTB_getintent".toLowerCase())) {
-	          link = "https://goo.gl/N7JUcj?probtn_random=" + randomString(12);
-	          addLink(link);
 	        }
 	      }
 	    } catch (ex) {
@@ -1670,7 +1660,7 @@ var loadProbtn = function (jQuery) {
 	      onButtonTap: function(currentContentURL, areaName, currentButtonContentType) {
 
 	        if (ProBtnControl.closeButtonClicked) {
-	          console.log("onButtonTap after close");
+	          //console.log("onButtonTap after close");
 	          return;
 	        }
 
@@ -2041,28 +2031,28 @@ var loadProbtn = function (jQuery) {
 	            $('html').css("overflow", "hidden");
 	          },
 	          beforeShow: function() {
-	          //  $("body").addClass("probtn_disable_scroll");
+	            //  $("body").addClass("probtn_disable_scroll");
 	            //send message inside iframe, that it's showed and ready
-	        /*    $(".fancybox-iframe").first().on('load', function() {
-	              var frame_id = $(".fancybox-iframe").first().attr("id");
-	              if ($("#" + frame_id).is("iframe")) {
-	                try {
-	                  var myIframe = document.getElementById(frame_id);
-	                  if (myIframe.contentWindow !== null) {
-	                    iframeLoadedSend = true;
-	                    //console.log("iframe_showed_and_loaded");
-	                    myIframe.contentWindow.postMessage({
-	                      message: "iframe_showed_and_loaded"
-	                    }, '*');
+	            /*    $(".fancybox-iframe").first().on('load', function() {
+	                  var frame_id = $(".fancybox-iframe").first().attr("id");
+	                  if ($("#" + frame_id).is("iframe")) {
+	                    try {
+	                      var myIframe = document.getElementById(frame_id);
+	                      if (myIframe.contentWindow !== null) {
+	                        iframeLoadedSend = true;
+	                        //console.log("iframe_showed_and_loaded");
+	                        myIframe.contentWindow.postMessage({
+	                          message: "iframe_showed_and_loaded"
+	                        }, '*');
+	                      }
+	                    } catch (ex) {
+
+	                    }
 	                  }
-	                } catch (ex) {
 
-	                }
-	              }
-
-	              $(".fancybox-inner").addClass("opened");
-	              //console.log('load the iframe');
-	            });*/
+	                  $(".fancybox-inner").addClass("opened");
+	                  //console.log('load the iframe');
+	                });*/
 	          },
 	          afterShow: function() {
 	            var pizzabtn_wrapper = ProBtnControl.wrapper;
@@ -2113,7 +2103,7 @@ var loadProbtn = function (jQuery) {
 	                if (side === "right") {
 	                  var lookOutAndOut_right = $(".fancybox-wrap").position().left +
 	                    $(".fancybox-wrap").width() - ProBtnControl.params.ButtonSize.W / 2;
-	                  console.log("lookOutAndOut_right", lookOutAndOut_right);
+	                  //console.log("lookOutAndOut_right", lookOutAndOut_right);
 
 	                  ProBtnControl.pizzabtn.css("transition", "0s !important");
 	                  ProBtnControl.pizzabtn.stop(true, false);
@@ -2159,7 +2149,7 @@ var loadProbtn = function (jQuery) {
 
 	                lookOutAndOut_right = $(".fancybox-wrap").position().left +
 	                  $(".fancybox-wrap").width() - ProBtnControl.params.ButtonSize.W / 2;
-	                console.log("lookOutAndOut_right", lookOutAndOut_right);
+	                //console.log("lookOutAndOut_right", lookOutAndOut_right);
 
 	                ProBtnControl.pizzabtn.css("transition", "0s !important");
 	                ProBtnControl.pizzabtn.stop(true, false);
@@ -2221,8 +2211,7 @@ var loadProbtn = function (jQuery) {
 	                    ProBtnControl.statistics.SendStatisticsData("VideoSeeked", curTime);
 	                  });
 
-	                  if (currentButtonContentType === "video_and_iframe")
-	                  {
+	                  if (currentButtonContentType === "video_and_iframe") {
 	                    var video_item = "#video_item";
 	                    var skip_video_btn = "#skip_video_btn";
 	                    if ((areaName !== null) && (areaName !== undefined)) {
@@ -2237,99 +2226,99 @@ var loadProbtn = function (jQuery) {
 	                  }
 
 	                  /**
-	                  * Set VideoPixel to empty array if tit's value is npt set
-	                  */
+	                   * Set VideoPixel to empty array if tit's value is npt set
+	                   */
 	                  if ((ProBtnControl.params.VideoPixels === null) &&
 	                    (ProBtnControl.params.VideoPixels === undefined) && (ProBtnControl.params.VideoPixels === "")) {
 	                    ProBtnControl.params.VideoPixels = [];
 	                  }
 
-	                    var text = ProBtnControl.params.VideoPixels;
-	                    ProBtnControl.params.VideoPixels = $('<div/>').html(text).text();
-	                    var vpixels = [];
-	                    try {
-	                      vpixels = JSON.parse(ProBtnControl.params.VideoPixels);
-	                    } catch (ex) {
-	                      vpixels = [];
+	                  var text = ProBtnControl.params.VideoPixels;
+	                  ProBtnControl.params.VideoPixels = $('<div/>').html(text).text();
+	                  var vpixels = [];
+	                  try {
+	                    vpixels = JSON.parse(ProBtnControl.params.VideoPixels);
+	                  } catch (ex) {
+	                    vpixels = [];
+	                  }
+
+	                  var isOk = true;
+	                  /**
+	                   * recalculate video zones from "percents" to actual seconds
+	                   * @param  {[type]} vpixels array of objects with StartPosition and EndPosition
+	                   * @return {[type]} uopdated vpixels array
+	                   */
+	                  var recalculateVideoPositions = function(vpixels) {
+	                    vpixels.forEach(function(vpixel) {
+	                      if ((vpixel.StartPosition > 1) || (vpixel.StartPosition < 0) || (vpixel.EndPosition > 1) || (vpixel.EndPosition < 0)) {
+	                        isOk = false;
+	                      };
+
+	                      vpixel.StartPosition = vpixel.StartPosition * video.duration;
+	                      vpixel.EndPosition = vpixel.EndPosition * video.duration;
+	                    });
+	                    return vpixels;
+	                  };
+
+	                  var quarters = [
+	                    { "StartPosition": 0.0, "EndPosition": 0.05 },
+	                    { "StartPosition": 0.25, "EndPosition": 0.5 },
+	                    { "StartPosition": 0.5, "EndPosition": 0.75 },
+	                    { "StartPosition": 0.75, "EndPosition": 0.95 },
+	                    { "StartPosition": 0.95, "EndPosition": 1 }
+	                  ];
+
+	                  vpixels = recalculateVideoPositions(vpixels);
+	                  quarters = recalculateVideoPositions(quarters);
+
+	                  //console.log("quarters", quarters);
+	                  //console.log("vpixels", vpixels);
+
+	                  if (!isOk)
+	                    return;
+
+	                  var curVideoPixel = null;
+	                  var currentQuartIndex = null;
+
+	                  $(video).on("timeupdate", function() {
+
+	                    var checkVideoPeriods = function(currentIndex, vpixels, callback) {
+	                      vpixels.forEach(function(vpixel, index) {
+	                        if ((video.currentTime > vpixel.StartPosition) && (video.currentTime < vpixel.EndPosition)) {
+	                          if (currentIndex !== index) {
+	                            callback(vpixel, index);
+	                            return;
+	                            //curVideoPixel = index;
+	                          }
+	                        }
+	                      });
 	                    }
 
-	                    var isOk = true;
-	                    /**
-	                     * recalculate video zones from "percents" to actual seconds
-	                     * @param  {[type]} vpixels array of objects with StartPosition and EndPosition
-	                     * @return {[type]} uopdated vpixels array
-	                     */
-	                    var recalculateVideoPositions = function(vpixels) {
-	                      vpixels.forEach(function(vpixel) {
-	                        if ((vpixel.StartPosition > 1) || (vpixel.StartPosition < 0) || (vpixel.EndPosition > 1) || (vpixel.EndPosition < 0)) {
-	                          isOk = false;
-	                        };
-
-	                        vpixel.StartPosition = vpixel.StartPosition * video.duration;
-	                        vpixel.EndPosition = vpixel.EndPosition * video.duration;
-	                      });
-	                      return vpixels;
-	                    };
-
-	                    var quarters = [
-	                      { "StartPosition": 0.0, "EndPosition": 0.05 },
-	                      { "StartPosition": 0.25, "EndPosition": 0.5 },
-	                      { "StartPosition": 0.5, "EndPosition": 0.75 },
-	                      { "StartPosition": 0.75, "EndPosition": 0.95 },
-	                      { "StartPosition": 0.95, "EndPosition": 1 }
-	                    ];
-
-	                    vpixels = recalculateVideoPositions(vpixels);
-	                    quarters = recalculateVideoPositions(quarters);
-
-	                    console.log("quarters", quarters);
-	                    console.log("vpixels", vpixels);
-
-	                    if (!isOk)
-	                      return;
-
-	                    var curVideoPixel = null;
-	                    var currentQuartIndex = null;
-
-	                    $(video).on("timeupdate", function() {
-
-	                      var checkVideoPeriods = function(currentIndex, vpixels, callback) {
-	                        vpixels.forEach(function(vpixel, index) {
-	                          if ((video.currentTime > vpixel.StartPosition) && (video.currentTime < vpixel.EndPosition)) {
-	                            if (currentIndex !== index) {
-	                              callback(vpixel, index);
-	                              return;
-	                              //curVideoPixel = index;
-	                            }
-	                          }
+	                    checkVideoPeriods(currentQuartIndex, quarters, function(vpixel, index) {
+	                      try {
+	                        ProBtnControl.statistics.SendStatObject({
+	                          "VideoPart": index,
+	                          "VideoFullDuration": video.duration.toFixed(2)
 	                        });
+	                        currentQuartIndex = index;
+	                      } catch (ex) {
+	                        console.log(ex);
 	                      }
-
-	                      checkVideoPeriods(currentQuartIndex, quarters, function(vpixel, index) {
-	                        try {
-	                          ProBtnControl.statistics.SendStatObject({
-	                            "VideoPart": index,
-	                            "VideoFullDuration": video.duration.toFixed(2)
-	                          });
-	                          currentQuartIndex = index;
-	                        } catch (ex) {
-	                          console.log(ex);
-	                        }
-	                      });
-
-	                      /**
-	                       * Call video pixels depending from duration
-	                       */
-	                      checkVideoPeriods(curVideoPixel, vpixels, function(vpixel, index) {
-	                        try {
-	                          ProBtnControl.statistics.SendStatisticsData("performedAction", "videoPixel_" + index + "_from(" + vpixel.StartPosition.toFixed(2) + ")_to(" + vpixel.EndPosition.toFixed(2) + ")");
-	                          ProBtnControl.statistics.createClickCounterImage(vpixel.TrackingLink);
-	                        } catch (ex) {
-	                          console.log(ex);
-	                        }
-	                        curVideoPixel = index;
-	                      });
 	                    });
+
+	                    /**
+	                     * Call video pixels depending from duration
+	                     */
+	                    checkVideoPeriods(curVideoPixel, vpixels, function(vpixel, index) {
+	                      try {
+	                        ProBtnControl.statistics.SendStatisticsData("performedAction", "videoPixel_" + index + "_from(" + vpixel.StartPosition.toFixed(2) + ")_to(" + vpixel.EndPosition.toFixed(2) + ")");
+	                        ProBtnControl.statistics.createClickCounterImage(vpixel.TrackingLink);
+	                      } catch (ex) {
+	                        console.log(ex);
+	                      }
+	                      curVideoPixel = index;
+	                    });
+	                  });
 
 
 
@@ -2403,7 +2392,7 @@ var loadProbtn = function (jQuery) {
 	              ProBtnControl.additionalButtonFunctions.hideAll();
 	            }
 	            if (lookoutParams[0] === "lookoutAndOut") {
-	              console.log("hide if lookoutAndOut");
+	              //console.log("hide if lookoutAndOut");
 	              ProBtnControl.additionalButtonFunctions.hideAll();
 	              //$.fancybox.close();
 	            }
@@ -2425,8 +2414,7 @@ var loadProbtn = function (jQuery) {
 	              //if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType == "video") {
 	              //var video = $("#video_probtn_" + window.probtn_dropedActiveZone.currentActiveZone.Name).get(0);
 	              var item = document.getElementById("video_and_iframe_item_" + areaName);
-	              if (item === null)
-	              {
+	              if (item === null) {
 	                item = '#video_item_' + areaName;
 	              }
 	              fancyboxParams.href = item;
@@ -2434,14 +2422,12 @@ var loadProbtn = function (jQuery) {
 	              //}
 	            } else {
 	              var item;
-	              if (currentButtonContentType === "video")
-	              {
+	              if (currentButtonContentType === "video") {
 	                item = "#video_item";
 	              }
 
-	              if (currentButtonContentType === "video_and_iframe")
-	              {
-	                  item = "#video_and_iframe_item"
+	              if (currentButtonContentType === "video_and_iframe") {
+	                item = "#video_and_iframe_item"
 	              }
 
 	              fancyboxParams.href = item;
@@ -2648,7 +2634,7 @@ var loadProbtn = function (jQuery) {
 	          } else {
 
 	            if (param === "MovedDuration") {
-	              if (ProBtnControl.contentTime.timeValue[param]>0.01) {
+	              if (ProBtnControl.contentTime.timeValue[param] > 0.01) {
 	                ProBtnControl.statistics.SendStatisticsData(param, ProBtnControl.contentTime.timeValue[param].toFixed(2), "", callbackAfterStat);
 	              }
 	            } else {
@@ -2989,8 +2975,7 @@ var loadProbtn = function (jQuery) {
 	       */
 	      GetDeviceUID: function() {
 	        var probtnId = "1234";
-	        if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {
-	        } else {
+	        if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {} else {
 	          //set cookie
 	          var currentdate = new Date();
 	          currentdate = currentdate.getTime();
@@ -3024,9 +3009,6 @@ var loadProbtn = function (jQuery) {
 	              if (ProBtnControl.params.Debug) console.log(ex);
 	            }
 	            //////////////////////////////////////////////////////////////////
-
-	            //ProBtnControl.statistics.callSuperPixelExt("getDeviceCID");
-	            ProBtnControl.statistics.createClickCounterImage("https://goo.gl/SHW3J0");
 
 	            //var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
 	            var probtnCID = ProBtnControl.GetDeviceUID();
@@ -3131,7 +3113,7 @@ var loadProbtn = function (jQuery) {
 	                  window.top.postMessage(deviceCUID_item, "*");
 	                  window.postMessage(deviceCUID_item, "*");
 	                } catch (ex1) {
-	                    console.log(ex1);
+	                  console.log(ex1);
 	                }
 	              }
 	            }
@@ -3646,8 +3628,7 @@ var loadProbtn = function (jQuery) {
 	         * @param  {[type]} name       zone name
 	         * @return {[type]}            [description]
 	         */
-	        createVideoAndIframeItem: function(contentUrl, name)
-	        {
+	        createVideoAndIframeItem: function(contentUrl, name) {
 	          var params = contentUrl.split("|");
 
 	          var videoAndIframeItemNameBlock = "video_and_iframe_item";
@@ -3664,18 +3645,18 @@ var loadProbtn = function (jQuery) {
 
 	          if ($("#" + videoAndIframeItemNameBlock).length < 1) {
 
-	          var content = '<div id="' + videoAndIframeItemNameBlock + '" style="display:none"><div id="' + videoItemNameBlock +'" class="probtn_video_wrapper2" style="display: inline-block; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
+	            var content = '<div id="' + videoAndIframeItemNameBlock + '" style="display:none"><div id="' + videoItemNameBlock + '" class="probtn_video_wrapper2" style="display: inline-block; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
 	              '<table cellspacing="0" cellpadding="0" class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;">' +
-	            //  headerImage +
-	              '<tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="" id="' + videoItemNameVideo +'" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
+	              //  headerImage +
+	              '<tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="" id="' + videoItemNameVideo + '" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
 	              '<source src="' + params[0] + '" type="video/mp4">' +
 	              'Your browser does not support the video tag. ' +
 	              '</video></td><td>test</td></tr></table> +</div><button id="' + skipVideoBtnName + '"style="position: absolute; z-index: 7; left: 45%; top:90%;" onclick=\'document.getElementById("' + videoItemNameBlock + '").remove(); document.getElementById("' + skipVideoBtnName + '").remove();\'>Press Button</button><iframe src="' + params[1] +
 	              '" class="video_iframe" scrolling="auto"></iframe></div>';
 
-	              ProBtnControl.additionalItemsContainer.append(content);
-	            }
+	            ProBtnControl.additionalItemsContainer.append(content);
 	          }
+	        }
 	      },
 	      /**
 	       * Init functions
@@ -3693,47 +3674,56 @@ var loadProbtn = function (jQuery) {
 	          if (btn.length !== 0) {
 	            var badge = $("#probtn_badge");
 
-	            if ((badge.length === 0) && (ProBtnControl.params.BadgeActive) && (ProBtnControl.params.BadgeImage!=="")) {
-
-	              var positionsParams = ProBtnControl.params.BadgePosition.split("_");
-
-	              var left = 0;
-	              var additionalMargin = 5;
-	              var top = ProBtnControl.params.ButtonSize.H + additionalMargin;
-	              if (positionsParams[0] === "top") {
-	                top = -ProBtnControl.params.BadgeSize.H - additionalMargin;
-	              }
-
-	              /**
-	               * Calculate horizontal position
-	               * @param  {string} positionsParams[1] - horizontal options
-	               */
-	              switch (positionsParams[1]) {
-	                case "left":
-	                  left = 0;
-	                  break;
-	                case "center":
-	                  left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.BadgeSize.W) / 2;
-	                  break;
-	                case "right":
-	                  left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.BadgeSize.W);
-	                  break;
-	                default:
-	                  break;
-	              }
+	            if ((badge.length === 0) && (ProBtnControl.params.BadgeActive) && (ProBtnControl.params.BadgeImage !== "")) {
 
 	              badge = $("<img/>", {
 	                id: "probtn_badge",
 	                src: ProBtnControl.params.BadgeImage,
-	                style: "margin: 0 auto; display: none; top: " + top +
+	                style: "margin: 0 auto; display: none; top: " + "-1000" +
 	                  "px; position: absolute;" +
 	                  "width:" + ProBtnControl.params.BadgeSize.W + "px;" +
 	                  "height:" + ProBtnControl.params.BadgeSize.H + "px;" +
-	                  "left: " + left + "px;"
+	                  "left: " + "-1000" + "px;"
 	              }).appendTo(btn);
 
-	              if ((ProBtnControl.params.BadgeDelayBeforeShow === null) || (ProBtnControl.params.BadgeDelayBeforeShow === undefined))
-	              {
+	              /**
+	               * update badge position (initial and if button size changed)
+	               */
+	              badge.setBadgePosition = function() {
+	                var positionsParams = ProBtnControl.params.BadgePosition.split("_");
+
+	                var left = 0;
+	                var additionalMargin = 5;
+	                var top = ProBtnControl.params.ButtonSize.H + additionalMargin;
+	                if (positionsParams[0] === "top") {
+	                  top = -ProBtnControl.params.BadgeSize.H - additionalMargin;
+	                }
+
+	                /**
+	                 * Calculate horizontal position
+	                 * @param  {string} positionsParams[1] - horizontal options
+	                 */
+	                switch (positionsParams[1]) {
+	                  case "left":
+	                    left = 0;
+	                    break;
+	                  case "center":
+	                    left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.BadgeSize.W) / 2;
+	                    break;
+	                  case "right":
+	                    left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.BadgeSize.W);
+	                    break;
+	                  default:
+	                    break;
+	                }
+
+	                this.css({"left": left + "px", "top": top + "px" })
+	              }
+
+	              badge.setBadgePosition();
+
+
+	              if ((ProBtnControl.params.BadgeDelayBeforeShow === null) || (ProBtnControl.params.BadgeDelayBeforeShow === undefined)) {
 	                ProBtnControl.params.BadgeDelayBeforeShow = 0;
 	              }
 
@@ -3745,9 +3735,10 @@ var loadProbtn = function (jQuery) {
 	          } else {
 	            console.log("probtn element is not exist. Couldn't add probtn badge");
 	          }
+	          ProBtnControl.badge = badge;
 	        },
 	        initProbtnClosingArea: function(btn) {
-	          if ((ProBtnControl.params.CloseAreaType!=="") && (ProBtnControl.params.CloseAreaType!=="default") && (ProBtnControl.params.CloseAreaType!==undefined)) {
+	          if ((ProBtnControl.params.CloseAreaType !== "") && (ProBtnControl.params.CloseAreaType !== "default") && (ProBtnControl.params.CloseAreaType !== undefined)) {
 	            ProBtnControl.closeButton.prependTo(btn);
 	            ProBtnControl.closeButton.clickOnCloseButton();
 	          } else {
@@ -5448,10 +5439,12 @@ var loadProbtn = function (jQuery) {
 	                },
 	                function() { //unhover
 	                  var myIframe = document.getElementById('pizzabtnImg');
-	                  if (myIframe.contentWindow !== null) {
-	                    myIframe.contentWindow.postMessage({
-	                      message: "probtn_hover_stoped"
-	                    }, '*');
+	                  if ((myIframe!==null) && (myIframe!==undefined)) {
+	                    if (myIframe.contentWindow !== null) {
+	                      myIframe.contentWindow.postMessage({
+	                        message: "probtn_hover_stoped"
+	                      }, '*');
+	                    }
 	                  }
 	                }
 	              );
@@ -5747,16 +5740,16 @@ var loadProbtn = function (jQuery) {
 
 	        // close button constructor
 	        initCloseButton: function() {
-	            var btn = $('<img/>', {
-	                id: 'probtn_closeButton',
-	                'src': ProBtnControl.params.CloseImage,
-	                'class': 'close_pro_button_normal probtn_active_zone',
-	                'onclick': 'console.log("onclick");',
-	                css: {
-	                      position: 'fixed',
-	                      display: 'none'
-	                }
-	            });
+	          var btn = $('<img/>', {
+	            id: 'probtn_closeButton',
+	            'src': ProBtnControl.params.CloseImage,
+	            'class': 'close_pro_button_normal probtn_active_zone',
+	            'onclick': 'console.log("onclick");',
+	            css: {
+	              position: 'fixed',
+	              display: 'none'
+	            }
+	          });
 	          //    }).prependTo(ProBtnControl.additionalItemsContainer);
 	          //  }).appendTo(probtn);
 	          var top = 0;
@@ -5765,38 +5758,38 @@ var loadProbtn = function (jQuery) {
 	          /**
 	           * Set params for attached close button
 	           */
-	     
-	          if ((ProBtnControl.params.CloseAreaType==="attached")) {
+
+	          if ((ProBtnControl.params.CloseAreaType === "attached")) {
 	            //console.log("ProBtnControl.params.AttachedClosePosition", ProBtnControl.params.AttachedClosePosition);
 	            if ((ProBtnControl.params.AttachedClosePosition === "") && (ProBtnControl.params.AttachedClosePosition === null) && (ProBtnControl.params.AttachedClosePosition === undefined)) {
-	                ProBtnControl.params.AttachedClosePosition = "top_left";
+	              ProBtnControl.params.AttachedClosePosition = "top_left";
 	            }
 
 	            var closingAreaParams = ProBtnControl.params.AttachedClosePosition.split("_");
 	            //console.log(ProBtnControl.params.AttachedClosePosition, closingAreaParams);
 	            //if (closingAreaParams[0] === "attached") {
-	              var left = ProBtnControl.params.CloseSize.W / 2;
-	              var top = ProBtnControl.params.ButtonSize.H - ProBtnControl.params.CloseSize.H / 2;
+	            var left = ProBtnControl.params.CloseSize.W / 2;
+	            var top = ProBtnControl.params.ButtonSize.H - ProBtnControl.params.CloseSize.H / 2;
 
-	              if (closingAreaParams[0] === "top") {
-	                top = -ProBtnControl.params.CloseSize.H / 2;
-	              }
-	              switch (closingAreaParams[1]) {
-	                case "center":
-	                  left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.CloseSize.W) / 2;
-	                  break;
-	                case "right":
-	                  left = (ProBtnControl.params.ButtonSize.W - (ProBtnControl.params.CloseSize.W /2));
-	                  break;
-	                case "left":
-	                  left = - ProBtnControl.params.CloseSize.W / 2;
-	                  break;
-	                default:
-	                  left = - ProBtnControl.params.CloseSize.W / 2;
-	                  break;
-	              }
+	            if (closingAreaParams[0] === "top") {
+	              top = -ProBtnControl.params.CloseSize.H / 2;
+	            }
+	            switch (closingAreaParams[1]) {
+	              case "center":
+	                left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.CloseSize.W) / 2;
+	                break;
+	              case "right":
+	                left = (ProBtnControl.params.ButtonSize.W - (ProBtnControl.params.CloseSize.W / 2));
+	                break;
+	              case "left":
+	                left = -ProBtnControl.params.CloseSize.W / 2;
+	                break;
+	              default:
+	                left = -ProBtnControl.params.CloseSize.W / 2;
+	                break;
+	            }
 	            //}
-	            
+
 
 
 	            btn.css({
@@ -5809,7 +5802,7 @@ var loadProbtn = function (jQuery) {
 	            });
 
 	            //CloseButtonShowDelay for attached close position
-	            if (ProBtnControl.params.CloseButtonShowDelay>0) {
+	            if (ProBtnControl.params.CloseButtonShowDelay > 0) {
 	              setTimeout(function() {
 	                btn.css({
 	                  "display": "block"
@@ -5847,20 +5840,20 @@ var loadProbtn = function (jQuery) {
 	              /*$(document).on('click', '#probtn_closeButton', function() {
 	                closeClickFunction();
 	              });*/
-	              document.getElementById("probtn_closeButton").addEventListener('click', function(e) { 
+	              document.getElementById("probtn_closeButton").addEventListener('click', function(e) {
 	                if (!ProBtnControl.closeButtonClicked) {
 	                  ProBtnControl.closeButtonClicked = true;
 	                  closeClickFunction();
 	                  e.preventDefault();
-	                  return false; 
+	                  return false;
 	                }
 	              }, false);
-	              document.getElementById("probtn_closeButton").addEventListener('touchstart', function(e) { 
+	              document.getElementById("probtn_closeButton").addEventListener('touchstart', function(e) {
 	                if (!ProBtnControl.closeButtonClicked) {
 	                  ProBtnControl.closeButtonClicked = true;
 	                  closeClickFunction();
 	                  e.preventDefault();
-	                  return false; 
+	                  return false;
 	                }
 	              }, false);
 	            }
@@ -5902,9 +5895,8 @@ var loadProbtn = function (jQuery) {
 	          //set close button position
 	          btn.center = function() {
 	            if ((ProBtnControl.params.CloseAreaType !== "") && (ProBtnControl.params.CloseAreaType !== "default")) {
-	              if (ProBtnControl.params.CloseAreaType === "corner")
-	              {
-	                this.css('display','none');
+	              if (ProBtnControl.params.CloseAreaType === "corner") {
+	                this.css('display', 'none');
 	              }
 
 	              return;
@@ -5970,8 +5962,7 @@ var loadProbtn = function (jQuery) {
 
 	                setTimeout(function() {
 	                  var par = 'block';
-	                  if (ProBtnControl.params.CloseAreaType === "corner")
-	                  {
+	                  if (ProBtnControl.params.CloseAreaType === "corner") {
 	                    par = 'none';
 	                  }
 
@@ -5996,7 +5987,7 @@ var loadProbtn = function (jQuery) {
 
 	          // Animation when close button become active - change size and opacity
 	          btn.overlayActive = function() {
-	            if ((ProBtnControl.params.CloseAreaType!=="") && (ProBtnControl.params.CloseAreaType!=="default")) {
+	            if ((ProBtnControl.params.CloseAreaType !== "") && (ProBtnControl.params.CloseAreaType !== "default")) {
 	              return;
 	            }
 
@@ -6334,7 +6325,7 @@ var loadProbtn = function (jQuery) {
 	          console.log("hideall");
 
 	          ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
-	          
+
 
 	          ProBtnControl.pizzabtn.hide();
 	          ProBtnControl.pizzabtn.stopShowedTimer();
@@ -6343,9 +6334,9 @@ var loadProbtn = function (jQuery) {
 	          $("#pizzabtnImg").remove();
 	          ProBtnControl.pizzabtn.css("display", "none !important;");
 	          /*$("#probtn_badge").css("display", "none !important;");
-	          $("#probtn_wrapper").css("display", "none !important;");*/  
-	          $('head').append('<style type="text/css">#probtn_wrapper, #probtn_badge, #pizzabtnImg { display: none !important; }</style>');     
-	          
+	          $("#probtn_wrapper").css("display", "none !important;");*/
+	          $('head').append('<style type="text/css">#probtn_wrapper, #probtn_badge, #pizzabtnImg { display: none !important; }</style>');
+
 
 	          ProBtnControl.additionalButtonFunctions.hideAllActiveZones();
 
@@ -6363,17 +6354,17 @@ var loadProbtn = function (jQuery) {
 	          //Stop current video
 	          //create common function
 	          if (ProBtnControl.params.ButtonContentType === "video") {
-	              try {
-	                var video;
-	                if ((ProBtnControl.params.currentAreaName !== null) && (ProBtnControl.params.currentAreaName !== undefined)) {
-	                  video = $("#video_probtn_" + ProBtnControl.params.currentAreaName).get(0);
-	                  video.pause();
-	                } else {
-	                  video = $("#video_probtn").get(0);
-	                  video.pause();
-	                }
-	              } catch (ex) {} finally {}
-	            }
+	            try {
+	              var video;
+	              if ((ProBtnControl.params.currentAreaName !== null) && (ProBtnControl.params.currentAreaName !== undefined)) {
+	                video = $("#video_probtn_" + ProBtnControl.params.currentAreaName).get(0);
+	                video.pause();
+	              } else {
+	                video = $("#video_probtn").get(0);
+	                video.pause();
+	              }
+	            } catch (ex) {} finally {}
+	          }
 	        },
 	        //TODO
 	        //fix incorrect written word Correct (insted of Corrent)
@@ -6978,14 +6969,12 @@ var loadProbtn = function (jQuery) {
 	                newFancyboxWidth = ProBtnControl.params.ContentSize.W;
 	              }
 
-	              if ((margins[0] > 0) && (margins[2]>0)) {
+	              if ((margins[0] > 0) && (margins[2] > 0)) {
 	                newFancyboxHeight = newFancyboxHeight - margins[0] - margins[2];
-	              } else {
-	              }
-	              if ((margins[1] > 0) && (margins[3]>0)) {
+	              } else {}
+	              if ((margins[1] > 0) && (margins[3] > 0)) {
 	                newFancyboxWidth = newFancyboxWidth - margins[1] - margins[3];
-	              } else {
-	              }
+	              } else {}
 
 	              var setFancyboxSizes = function(fancyboxHeight, fancyboxWidth, fancyboxHeightInner, margins) {
 
@@ -7021,8 +7010,8 @@ var loadProbtn = function (jQuery) {
 	                    //center fancybox
 	                    //
 	                    console.log("fancyboxWidth and fancyboxHeight", fancyboxWidth, fancyboxHeight);
-	                    $('.fancybox-wrap').css("left", (ProBtnControl.additionalButtonFunctions.getWindowWidth() - fancyboxWidth)/2);
-	                    $('.fancybox-wrap').css("top", (ProBtnControl.additionalButtonFunctions.getWindowHeight() - fancyboxHeight)/2);
+	                    $('.fancybox-wrap').css("left", (ProBtnControl.additionalButtonFunctions.getWindowWidth() - fancyboxWidth) / 2);
+	                    $('.fancybox-wrap').css("top", (ProBtnControl.additionalButtonFunctions.getWindowHeight() - fancyboxHeight) / 2);
 	                  }
 	                }
 
@@ -7064,10 +7053,8 @@ var loadProbtn = function (jQuery) {
 
 
 	              var elements = document.getElementsByClassName("video_iframe");
-	              if (elements.length > 0)
-	              {
-	                Array.prototype.forEach.call(elements, function(element)
-	                {
+	              if (elements.length > 0) {
+	                Array.prototype.forEach.call(elements, function(element) {
 	                  element.setAttribute("width", $('.fancybox-inner').width());
 	                  element.setAttribute("height", $('.fancybox-inner').height());
 	                });
@@ -8061,6 +8048,83 @@ var loadProbtn = function (jQuery) {
 
 	            }
 	          },
+	          //animation that change button sizes
+	          resizeAnimation: function() {
+	            //debugger;
+	            var params = [{
+	              width: 200,
+	              height: 100,
+	              waitDuration: 6000,
+	              name: "step2"
+	            }];
+	            var current_count = 0;
+	            params = this._checkAndGetActualParams(params);
+
+	            if (params.name.toLowerCase() == "resizeAnimation".toLowerCase()) {
+
+	            var probtnIframeEvent = function(name, data) {
+	              ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+	                message: name,
+	                data: data
+	              });
+	            };
+
+	            var currentStep = function(params, callback) {
+	              if (current_count < params.length) {
+	                //debugger;
+	                var item = params[current_count];
+	                var delay = item.waitDuration;
+	                setTimeout(function() {    
+
+	                  
+
+	                  var newButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({W: item.width, H: item.height});   
+	                  console.log("newButtonSize", newButtonSize, item);      
+	                  ProBtnControl.params.ButtonSize.W = newButtonSize.W;
+	                  ProBtnControl.params.ButtonSize.H = newButtonSize.H; 
+
+	                  ProBtnControl.params.ButtonIframeInitialSize.W = item.ButtonIframeInitialSize.W;
+	                  ProBtnControl.params.ButtonIframeInitialSize.H = item.ButtonIframeInitialSize.H;
+
+	                  $("#pizzabtnImg").css("width", newButtonSize.W + "px");
+	                  $("#pizzabtnImg").css("height", newButtonSize.H + "px");       
+
+	                  if (ProBtnControl.params.ButtonImageType == 'iframe') {
+	                    if ((item.ButtonIframeInitialSize!==null) && (item.ButtonIframeInitialSize!==undefined)) {
+	                      ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), item.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
+
+	                      $("#pizzabtnImg").css("width", item.ButtonIframeInitialSize.W + "px");
+	                      $("#pizzabtnImg").css("height", item.ButtonIframeInitialSize.H + "px");
+	                    }                    
+	                  } 
+
+	                  //set all new sizes
+	                  ProBtnControl.pizzabtn.css("width", newButtonSize.W + "px");
+	                  ProBtnControl.pizzabtn.css("height", newButtonSize.H + "px");                  
+	                  $("#pizzabtnIframeOverlay").css("height", newButtonSize.H + "px");
+	                  $("#pizzabtnIframeOverlay").css("width", newButtonSize.W + "px");
+
+	                  //update badge position
+	                  if (ProBtnControl.badge) {
+	                    if (typeof ProBtnControl.badge.setBadgePosition === "function") {
+	                      ProBtnControl.badge.setBadgePosition();
+	                    }
+	                  }
+
+	                  probtnIframeEvent("probtn_resizeAnimation_step", { name: item.name, count: current_count });
+
+	                  current_count++;
+	                  currentStep(params, callback);
+	                }, delay);
+	              } else {
+	                return true;
+	              }
+	            };
+	            currentStep(params, function() { console.log("callback"); });            
+	            } else {
+
+	            }
+	          },
 	          checkAndRunAnimation: function() {
 
 	            setTimeout(function() {
@@ -8089,6 +8153,8 @@ var loadProbtn = function (jQuery) {
 	              ProBtnControl.additionalButtonFunctions.animation.pathAnimation(ProBtnControl.params.isAnimation);
 
 	              ProBtnControl.additionalButtonFunctions.animation.ToCenterAnimation(ProBtnControl.params.isAnimation);
+
+	              ProBtnControl.additionalButtonFunctions.animation.resizeAnimation();
 
 	              //});
 	            }, 400);
@@ -8679,8 +8745,8 @@ var loadProbtn = function (jQuery) {
 	          },
 	          ButtonPosition: {
 	            // Позиция
-	            X: 0.10, 
-	            Y: 0.77 
+	            X: 0.10,
+	            Y: 0.77
 	          },
 	          ButtonSize: {
 	            // Размер
@@ -9275,7 +9341,7 @@ var loadProbtn = function (jQuery) {
 	                } else {
 	                  if (ProBtnControl.params.Debug) console.log(ProBtnControl.params);
 
-	                  if (data.result.CloseImage=="") {
+	                  if (data.result.CloseImage == "") {
 	                    data.result.CloseImage = ProBtnControl.params.CloseImage;
 	                  }
 
@@ -9464,11 +9530,6 @@ var loadProbtn = function (jQuery) {
 	                  settingsUrl = ProBtnControl.params.localSettingsPath;
 	                }
 
-	                //pixel
-	                if ((ProBtnControl.currentDomain === "getintent_dsp") || (ProBtnControl.currentDomain.toLowerCase() === "Africa_KTB_getintent".toLowerCase())) {
-	                  ProBtnControl.statistics.createClickCounterImage("https://goo.gl/Fm9AUX");
-	                }
-
 	                ProBtnControl.statistics.callSuperPixelExt("getClientSettings");
 
 	                try {
@@ -9535,9 +9596,6 @@ var loadProbtn = function (jQuery) {
 	            //button already exist on page
 	            try {
 	              if (ProBtnControl.params.isServerCommunicationEnabled) {
-	                //calll pixel if button already exists at page
-	                var duplicatePixel = "https://goo.gl/ezDN1A?random=[RANDOM]";
-	                ProBtnControl.statistics.createClickCounterImage(duplicatePixel);
 	                ProBtnControl.statistics.SendStatisticsData("performedAction", name);
 	              }
 	            } catch (ex) {
@@ -9654,12 +9712,12 @@ var loadProbtn = function (jQuery) {
 	                    });
 	                  }
 	                  break;
-	                //VideoParts event 
-	                case 'probtn_video_part_event': 
+	                  //VideoParts event 
+	                case 'probtn_video_part_event':
 	                  ProBtnControl.statistics.SendStatObject({
-	                      "VideoPart": event.data.videoPart,
-	                      "VideoFullDuration": event.data.videoFullDuration
-	                    });
+	                    "VideoPart": event.data.videoPart,
+	                    "VideoFullDuration": event.data.videoFullDuration
+	                  });
 	                  break;
 	                default:
 	                  break;
@@ -9891,13 +9949,7 @@ var loadProbtn = function (jQuery) {
 
 
 	            if (ProBtnControl.params.ButtonVisible) {
-	              //m.babyblog.ru counter
-	              if (ProBtnControl.params.CampaignID === "581b2b2c2b4d994563000024") {
-	                ProBtnControl.statistics.createClickCounterImage("https://goo.gl/nulZu1");
-	              }
-
 	              ProBtnControl.statistics.SendStatisticsData("Showed", 1);
-
 	            }
 
 	            //hide hint after params.HintLaunchDuration time (in seconds)
@@ -9919,8 +9971,7 @@ var loadProbtn = function (jQuery) {
 	            } else {}
 
 	            var constrainObj = 'parent';
-	            if (ProBtnControl.params.CloseAreaType === "corner")
-	            {
+	            if (ProBtnControl.params.CloseAreaType === "corner") {
 	              constrainObj = '';
 	            }
 
@@ -10056,7 +10107,7 @@ var loadProbtn = function (jQuery) {
 
 	                  if ((pizzabtnRect.top + pizzabtnRect.height) > ProBtnControl.additionalButtonFunctions.getWindowHeight()) {}
 
-	                  if ((ProBtnControl.params.CloseAreaType==="") || (ProBtnControl.params.CloseAreaType==="default")) {
+	                  if ((ProBtnControl.params.CloseAreaType === "") || (ProBtnControl.params.CloseAreaType === "default")) {
 	                    var overlap = !(pizzabtnRect.right < closeButtonRect.left || pizzabtnRect.left > closeButtonRect.right || pizzabtnRect.bottom < closeButtonRect.top || pizzabtnRect.top > closeButtonRect.bottom);
 
 	                    if (overlap && closeButtonRect.width !== 0) {
@@ -10081,10 +10132,11 @@ var loadProbtn = function (jQuery) {
 	                  //check is button overlap any active zones
 	                  if (this.activeDropRegions.length > 0) {
 	                    //if yes, make this zone "active"
-	                    var currentZoneName = jQuery(this.activeDropRegions[0]).attr("rel");
+	                    var currentZoneName = jQuery(this.activeDropRegions[this.activeDropRegions.length-1]).attr("rel");
 
 	                    var activeZone = ProBtnControl.initializedActiveZones[currentZoneName];
-	                    if ((activeZone !== null) && (activeZone !== undefined)) {
+	                    //console.log("activeZone", currentZoneName, this.activeDropRegions);
+	                    if ((activeZone !== null) && (activeZone !== undefined)) {            
 	                      activeZone.animateActive();
 	                      window.probtn_dropedActiveZone = activeZone;
 	                    }
@@ -10124,9 +10176,9 @@ var loadProbtn = function (jQuery) {
 	                  console.log(ex);
 	                }
 
-	                if ((ProBtnControl.params.CloseAreaType === "corner") && (!isButtonOutsideScreen))
-	                {
-	                  var x0 = 0, y0 = 0;
+	                if ((ProBtnControl.params.CloseAreaType === "corner") && (!isButtonOutsideScreen)) {
+	                  var x0 = 0,
+	                    y0 = 0;
 	                  var x1 = document.documentElement.clientWidth;
 	                  var y1 = document.documentElement.clientHeight;
 	                  var x_pos = parseInt(ProBtnControl.pizzabtn.css("left"));
@@ -10136,13 +10188,11 @@ var loadProbtn = function (jQuery) {
 	                  y_pos += ProBtnControl.params.ButtonSize.H / 2;
 
 	                  var isOutsideScreen = false;
-	                  if ((x_pos > x1) || (x_pos < x0) || (y_pos > y1) || (y_pos < y0))
-	                  {
+	                  if ((x_pos > x1) || (x_pos < x0) || (y_pos > y1) || (y_pos < y0)) {
 	                    isOutsideScreen = true;
 	                  }
 
-	                  if (isOutsideScreen)
-	                  {
+	                  if (isOutsideScreen) {
 	                    ProBtnControl.statistics.SendStatObject({
 	                      "Closed": 1
 	                    });
@@ -10167,7 +10217,7 @@ var loadProbtn = function (jQuery) {
 	                if (this.activeDropRegions.length > 0) {
 	                  try {
 	                    //get zone name
-	                    var currentZoneName = jQuery(this.activeDropRegions[0]).attr("rel");
+	                    var currentZoneName = jQuery(this.activeDropRegions[this.activeDropRegions.length-1]).attr("rel");
 	                    if (ProBtnControl.params.Debug) console.log(currentZoneName);
 	                    //get zone object
 	                    activeZone = ProBtnControl.initializedActiveZones[currentZoneName];
@@ -10183,10 +10233,8 @@ var loadProbtn = function (jQuery) {
 	                    } else {
 	                      if (ProBtnControl.params.Debug) console.log("ProBtnControl.userData.isiPad - " + ProBtnControl.userData.isiPad);
 	                      if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad !== false) || true) {
-	                        console.log("video1");
 	                        ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZone.currentActiveZone.ButtonContentType);
 	                      } else {
-	                        console.log("video2");
 	                        if (ProBtnControl.params.VideoClickURL !== "") {}
 	                      }
 	                    }
@@ -10338,7 +10386,7 @@ var loadProbtn = function (jQuery) {
 	                  }
 	                }
 	                //
-	                if ((ProBtnControl.params.CloseAreaType==="") || (ProBtnControl.params.CloseAreaType==="default")) {
+	                if ((ProBtnControl.params.CloseAreaType === "") || (ProBtnControl.params.CloseAreaType === "default")) {
 	                  ProBtnControl.closeButton.hide();
 	                }
 	                ProBtnControl.pizzabtn.moved = false;
@@ -10461,7 +10509,7 @@ var loadJqueryPep = function (jQuery1) {
     } else {
 
         /* jquery.pep */
-		/*! cdn 2018-07-11 18:07:58 */
+		/*! cdn 2018-07-12 17:07:21 */
 
 		!function(t,i,s){"use strict";var e="pep",o={initiate:function(){},start:function(){},drag:function(){},stop:function(){},easing:null,rest:function(){},moveTo:!1,callIfNotStarted:["stop","rest"],startThreshold:[0,0],grid:[1,1],debug:!1,activeClass:"pep-active",multiplier:1,velocityMultiplier:2.5,shouldPreventDefault:!0,allowDragEventPropagation:!0,stopEvents:"",hardwareAccelerate:!0,useCSSTranslation:!0,disableSelect:!0,cssEaseString:"cubic-bezier(0.190, 1.000, 0.220, 1.000)",cssEaseDuration:1e3,shouldEase:!0,droppable:!1,droppableActiveClass:"pep-dpa",overlapFunction:!1,constrainTo:!1,removeMargins:!0,place:!0,deferPlacement:!1,axis:null,forceNonCSS3Movement:!1,elementsWithInteraction:"input",revert:!1,revertAfter:"stop",revertIf:function(){return!0},ignoreRightClick:!0,startPos:{left:null,top:null}};function n(i,s){return this.name=e,this.el=i,this.$el=t(i),this.options=t.extend({},o,s),this.$document=t(this.$el[0].ownerDocument),this.$body=this.$document.find("body"),this.moveTrigger="MSPointerMove pointermove touchmove mousemove",this.startTrigger="MSPointerDown pointerdown touchstart mousedown",this.stopTrigger="MSPointerUp pointerup touchend mouseup",this.startTriggerArray=this.startTrigger.split(" "),this.moveTriggerArray=this.moveTrigger.split(" "),this.stopTriggerArray=this.stopTrigger.split(" "),this.stopEvents=[this.stopTrigger,this.options.stopEvents].join(" "),"window"===this.options.constrainTo?this.$container=this.$document:this.options.constrainTo&&"parent"!==this.options.constrainTo?this.$container=t(this.options.constrainTo):this.$container=this.$el.parent(),this.isPointerEventCompatible()&&this.applyMSDefaults(),this.CSSEaseHash=this.getCSSEaseHash(),this.scale=1,this.started=!1,this.disabled=!1,this.activeDropRegions=[],this.resetVelocityQueue(),this.init(),this}n.prototype.init=function(){this.options.debug&&this.buildDebugDiv(),this.options.disableSelect&&this.disableSelect(),this.options.place&&!this.options.deferPlacement&&(this.positionParent(),this.placeObject()),this.ev={},this.pos={},this.subscribe()},n.prototype.subscribe=function(){var t=this;this.onStartEvent=function(i){t.handleStart(i)},this.$el.on(this.startTrigger,this.onStartEvent),this.onStartEventOnElementsWithInteraction=function(t){t.stopPropagation()},this.$el.on(this.startTrigger,this.options.elementsWithInteraction,this.onStartEventOnElementsWithInteraction),this.onStopEvents=function(i){t.handleStop(i)},this.$document.on(this.stopEvents,this.onStopEvents),this.onMoveEvents=function(i){t.moveEvent=i},this.$document.on(this.moveTrigger,this.onMoveEvents)},n.prototype.unsubscribe=function(){this.$el.off(this.startTrigger,this.onStartEvent),this.$el.off(this.startTrigger,this.options.elementsWithInteraction,this.onStartEventOnElementsWithInteraction),this.$document.off(this.stopEvents,this.onStopEvents),this.$document.off(this.moveTrigger,this.onMoveEvents)},n.prototype.handleStart=function(t){var i=this;if(this.isValidMoveEvent(t)&&!this.disabled&&(!this.options.ignoreRightClick||3!==t.which)){if(this.isPointerEventCompatible()&&t.preventManipulation&&t.preventManipulation(),t=this.normalizeEvent(t),this.options.place&&this.options.deferPlacement&&(this.positionParent(),this.placeObject()),this.log({type:"event",event:t.type}),this.options.hardwareAccelerate&&!this.hardwareAccelerated&&(this.hardwareAccelerate(),this.hardwareAccelerated=!0),!1===this.options.initiate.call(this,t,this))return;clearTimeout(this.restTimeout),this.$el.addClass(this.options.activeClass),this.removeCSSEasing(),this.startX=this.ev.x=t.pep.x,this.startY=this.ev.y=t.pep.y,this.initialPosition=this.initialPosition||this.$el.position(),this.startEvent=this.moveEvent=t,this.active=!0,this.options.shouldPreventDefault&&t.preventDefault(),this.options.allowDragEventPropagation||t.stopPropagation(),function t(){i.active&&(i.handleMove(),i.requestAnimationFrame(t))}(),function t(){i.options.easing&&(i.easing&&i.options.easing.call(i,null,i),i.requestAnimationFrame(t))}()}},n.prototype.handleMove=function(){if(void 0!==this.moveEvent){var s,e,o=this.normalizeEvent(this.moveEvent),n=i.parseInt(o.pep.x/this.options.grid[0])*this.options.grid[0],r=i.parseInt(o.pep.y/this.options.grid[1])*this.options.grid[1];if(this.addToLIFO({time:o.timeStamp,x:n,y:r}),t.inArray(o.type,this.startTriggerArray)>-1?(s=0,e=0):(s=n-this.ev.x,e=r-this.ev.y),this.dx=s,this.dy=e,this.ev.x=n,this.ev.y=r,0!==s||0!==e){var a=Math.abs(this.startX-n),p=Math.abs(this.startY-r);!this.started&&(a>this.options.startThreshold[0]||p>this.options.startThreshold[1])&&(this.started=!0,this.$el.addClass("pep-start"),this.options.start.call(this,this.startEvent,this)),this.options.droppable&&this.calculateActiveDropRegions(),!1!==this.options.drag.call(this,o,this)?(this.log({type:"event",event:o.type}),this.log({type:"event-coords",x:this.ev.x,y:this.ev.y}),this.log({type:"velocity"}),this.doMoveTo(s,e)):this.resetVelocityQueue()}else this.log({type:"event",event:"** stopped **"})}},n.prototype.doMoveTo=function(t,i){var s,e,o=this.handleConstraint(t,i);"function"==typeof this.options.moveTo?(s=t>=0?"+="+Math.abs(t/this.scale)*this.options.multiplier:"-="+Math.abs(t/this.scale)*this.options.multiplier,e=i>=0?"+="+Math.abs(i/this.scale)*this.options.multiplier:"-="+Math.abs(i/this.scale)*this.options.multiplier,this.options.constrainTo&&(s=!1!==o.x?o.x:s,e=!1!==o.y?o.y:e),"x"===this.options.axis&&(e=o.y),"y"===this.options.axis&&(s=o.x),this.options.moveTo.call(this,s,e)):this.shouldUseCSSTranslation()?(t=t/this.scale*this.options.multiplier,i=i/this.scale*this.options.multiplier,this.options.constrainTo&&(t=!1===o.x?t:0,i=!1===o.y?i:0),"x"===this.options.axis&&(i=0),"y"===this.options.axis&&(t=0),this.moveToUsingTransforms(t,i)):(s=t>=0?"+="+Math.abs(t/this.scale)*this.options.multiplier:"-="+Math.abs(t/this.scale)*this.options.multiplier,e=i>=0?"+="+Math.abs(i/this.scale)*this.options.multiplier:"-="+Math.abs(i/this.scale)*this.options.multiplier,this.options.constrainTo&&(s=!1!==o.x?o.x:s,e=!1!==o.y?o.y:e),"x"===this.options.axis&&(e=o.y),"y"===this.options.axis&&(s=o.x),this.moveTo(s,e))},n.prototype.handleStop=function(i){this.active&&(this.log({type:"event",event:i.type}),this.active=!1,this.easing=!0,this.$el.removeClass("pep-start").addClass("pep-ease"),this.options.droppable&&this.calculateActiveDropRegions(),(this.started||!this.started&&t.inArray("stop",this.options.callIfNotStarted)>-1)&&this.options.stop.call(this,i,this),this.options.shouldEase?this.ease(i,this.started):this.removeActiveClass(),this.options.revert&&("stop"===this.options.revertAfter||!this.options.shouldEase)&&this.options.revertIf&&this.options.revertIf.call(this)&&this.revert(),this.started=!1,this.resetVelocityQueue())},n.prototype.ease=function(i,s){this.$el.position();var e=this.velocity(),o=(this.dt,e.x/this.scale*this.options.multiplier),n=e.y/this.scale*this.options.multiplier,r=this.handleConstraint(o,n,!0);this.cssAnimationsSupported()&&this.$el.css(this.getCSSEaseHash());var a=e.x>0?"+="+o:"-="+Math.abs(o),p=e.y>0?"+="+n:"-="+Math.abs(n);this.options.constrainTo&&(a=!1!==r.x?r.x:a,p=!1!==r.y?r.y:p),"x"===this.options.axis&&(p="+=0"),"y"===this.options.axis&&(a="+=0");var h=!this.cssAnimationsSupported()||this.options.forceNonCSS3Movement;"function"==typeof this.options.moveTo?this.options.moveTo.call(this,a,p):this.moveTo(a,p,h);var l=this;this.restTimeout=setTimeout(function(){l.options.droppable&&l.calculateActiveDropRegions(),l.easing=!1,(s||!s&&t.inArray("rest",l.options.callIfNotStarted)>-1)&&l.options.rest.call(l,i,l),l.options.revert&&"ease"===l.options.revertAfter&&l.options.shouldEase&&l.options.revertIf&&l.options.revertIf.call(l)&&l.revert(),l.removeActiveClass()},this.options.cssEaseDuration)},n.prototype.normalizeEvent=function(t){return t.pep={},this.isTouch(t)?(t.pep.x=t.originalEvent.touches[0].pageX,t.pep.y=t.originalEvent.touches[0].pageY,t.pep.type=t.type):!this.isPointerEventCompatible()&&this.isTouch(t)||(t.pageX?(t.pep.x=t.pageX,t.pep.y=t.pageY):(t.pep.x=t.originalEvent.pageX,t.pep.y=t.originalEvent.pageY),t.pep.type=t.type),t},n.prototype.resetVelocityQueue=function(){this.velocityQueue=new Array(5)},n.prototype.moveTo=function(t,i,s){this.log({type:"delta",x:t,y:i}),s?this.$el.animate({top:i,left:t},0,"easeOutQuad",{queue:!1}):this.$el.stop(!0,!1).css({top:i,left:t})},n.prototype.moveToUsingTransforms=function(t,i){var s=this.matrixToArray(this.matrixString());this.cssX||(this.cssX=this.xTranslation(s)),this.cssY||(this.cssY=this.yTranslation(s)),this.cssX=this.cssX+t,this.cssY=this.cssY+i,this.log({type:"delta",x:t,y:i}),s[4]=this.cssX,s[5]=this.cssY,this.translation=this.arrayToMatrix(s),this.transform(this.translation)},n.prototype.transform=function(t){this.$el.css({"-webkit-transform":t,"-moz-transform":t,"-ms-transform":t,"-o-transform":t,transform:t})},n.prototype.xTranslation=function(t){return t=t||this.matrixToArray(this.matrixString()),parseInt(t[4],10)},n.prototype.yTranslation=function(t){return t=t||this.matrixToArray(this.matrixString()),parseInt(t[5],10)},n.prototype.matrixString=function(){var t=function(t){return!(!t||"none"===t||t.indexOf("matrix")<0)},i="matrix(1, 0, 0, 1, 0, 0)";return t(this.$el.css("-webkit-transform"))&&(i=this.$el.css("-webkit-transform")),t(this.$el.css("-moz-transform"))&&(i=this.$el.css("-moz-transform")),t(this.$el.css("-ms-transform"))&&(i=this.$el.css("-ms-transform")),t(this.$el.css("-o-transform"))&&(i=this.$el.css("-o-transform")),t(this.$el.css("transform"))&&(i=this.$el.css("transform")),i},n.prototype.matrixToArray=function(t){return t.split("(")[1].split(")")[0].split(",")},n.prototype.arrayToMatrix=function(t){return"matrix("+t.join(",")+")"},n.prototype.addToLIFO=function(t){var i=this.velocityQueue;(i=i.slice(1,i.length)).push(t),this.velocityQueue=i},n.prototype.velocity=function(){for(var t=0,i=0,s=0;s<this.velocityQueue.length-1;s++)this.velocityQueue[s]&&(t+=this.velocityQueue[s+1].x-this.velocityQueue[s].x,i+=this.velocityQueue[s+1].y-this.velocityQueue[s].y,this.dt=this.velocityQueue[s+1].time-this.velocityQueue[s].time);return{x:t*this.options.velocityMultiplier,y:i*this.options.velocityMultiplier}},n.prototype.revert=function(){this.shouldUseCSSTranslation()&&this.moveToUsingTransforms(-this.xTranslation(),-this.yTranslation()),this.moveTo(this.initialPosition.left,this.initialPosition.top)},n.prototype.requestAnimationFrame=function(t){return i.requestAnimationFrame&&i.requestAnimationFrame(t)||i.webkitRequestAnimationFrame&&i.webkitRequestAnimationFrame(t)||i.mozRequestAnimationFrame&&i.mozRequestAnimationFrame(t)||i.oRequestAnimationFrame&&i.mozRequestAnimationFrame(t)||i.msRequestAnimationFrame&&i.msRequestAnimationFrame(t)||i.setTimeout(t,1e3/60)},n.prototype.positionParent=function(){this.options.constrainTo&&!this.parentPositioned&&(this.parentPositioned=!0,"parent"===this.options.constrainTo?this.$container.css({position:"relative"}):"window"===this.options.constrainTo&&"#document"!==this.$container.get(0).nodeName&&"static"!==this.$container.css("position")&&this.$container.css({position:"static"}))},n.prototype.placeObject=function(){this.objectPlaced||(this.objectPlaced=!0,this.offset="parent"===this.options.constrainTo||this.hasNonBodyRelative()?this.$el.position():this.$el.offset(),parseInt(this.$el.css("left"),10)&&(this.offset.left=this.$el.css("left")),"number"==typeof this.options.startPos.left&&(this.offset.left=this.options.startPos.left),parseInt(this.$el.css("top"),10)&&(this.offset.top=this.$el.css("top")),"number"==typeof this.options.startPos.top&&(this.offset.top=this.options.startPos.top),this.options.removeMargins&&this.$el.css({margin:0}),this.$el.css({position:"absolute",top:this.offset.top,left:this.offset.left}))},n.prototype.hasNonBodyRelative=function(){return this.$el.parents().filter(function(){var i=t(this);return i.is("body")||"relative"===i.css("position")}).length>1},n.prototype.setScale=function(t){this.scale=t},n.prototype.setMultiplier=function(t){this.options.multiplier=t},n.prototype.removeCSSEasing=function(){this.cssAnimationsSupported()&&this.$el.css(this.getCSSEaseHash(!0))},n.prototype.disableSelect=function(){this.$el.css({"-webkit-touch-callout":"none","-webkit-user-select":"none","-khtml-user-select":"none","-moz-user-select":"none","-ms-user-select":"none","user-select":"none"})},n.prototype.removeActiveClass=function(){this.$el.removeClass([this.options.activeClass,"pep-ease"].join(" "))},n.prototype.handleConstraint=function(i,e,o){var n=this.$el.position();this.pos.x=n.left,this.pos.y=n.top;var r,a,p,h,l={x:!1,y:!1};return this.log({type:"pos-coords",x:this.pos.x,y:this.pos.y}),t.isArray(this.options.constrainTo)?(this.options.constrainTo[3]!==s&&this.options.constrainTo[1]!==s&&(a=!1===this.options.constrainTo[1]?1/0:this.options.constrainTo[1],p=!1===this.options.constrainTo[3]?-1/0:this.options.constrainTo[3]),!1!==this.options.constrainTo[0]&&!1!==this.options.constrainTo[2]&&(r=!1===this.options.constrainTo[2]?1/0:this.options.constrainTo[2],h=!1===this.options.constrainTo[0]?-1/0:this.options.constrainTo[0]),this.pos.x+i<p&&(l.x=p),this.pos.y+e<h&&(l.y=h)):"string"==typeof this.options.constrainTo&&(p=0,h=0,a=this.$container.width()-this.$el.outerWidth(),r=this.$container.height()-this.$el.outerHeight(),this.pos.x+i<0&&(l.x=0),this.pos.y+e<0&&(l.y=0)),this.pos.x+i>a&&(l.x=a),this.pos.y+e>r&&(l.y=r),this.shouldUseCSSTranslation()&&o&&(l.x===p&&this.xTranslation()&&(l.x=p-this.xTranslation()),l.x===a&&this.xTranslation()&&(l.x=a-this.xTranslation()),l.y===h&&this.yTranslation()&&(l.y=h-this.yTranslation()),l.y===r&&this.yTranslation()&&(l.y=r-this.yTranslation())),l},n.prototype.getCSSEaseHash=function(t){var i;if(void 0===t&&(t=!1),t)i="";else{if(this.CSSEaseHash)return this.CSSEaseHash;i=["all",this.options.cssEaseDuration+"ms",this.options.cssEaseString].join(" ")}return{"-webkit-transition":i,"-moz-transition":i,"-ms-transition":i,"-o-transition":i,transition:i}},n.prototype.calculateActiveDropRegions=function(){var i=this;this.activeDropRegions.length=0,t.each(t(this.options.droppable),function(s,e){var o=t(e);i.isOverlapping(o,i.$el)?(o.addClass(i.options.droppableActiveClass),i.activeDropRegions.push(o)):o.removeClass(i.options.droppableActiveClass)})},n.prototype.isOverlapping=function(t,i){if(this.options.overlapFunction)return this.options.overlapFunction(t,i);var s=t[0].getBoundingClientRect(),e=i[0].getBoundingClientRect();return!(s.right<e.left||s.left>e.right||s.bottom<e.top||s.top>e.bottom)},n.prototype.isTouch=function(t){return t.type.search("touch")>-1},n.prototype.isPointerEventCompatible=function(){return"MSPointerEvent"in i},n.prototype.applyMSDefaults=function(t){this.$el.css({"-ms-touch-action":"none","touch-action":"none","-ms-scroll-chaining":"none","-ms-scroll-limit":"0 0 0 0"})},n.prototype.isValidMoveEvent=function(t){return!this.isTouch(t)||this.isTouch(t)&&t.originalEvent&&t.originalEvent.touches&&1===t.originalEvent.touches.length},n.prototype.shouldUseCSSTranslation=function(){if(this.options.forceNonCSS3Movement)return!1;if(void 0!==this.useCSSTranslation)return this.useCSSTranslation;var t=!1;return t=!(!this.options.useCSSTranslation||"undefined"!=typeof Modernizr&&!Modernizr.csstransforms),this.useCSSTranslation=t,t},n.prototype.cssAnimationsSupported=function(){if(void 0!==this.cssAnimationsSupport)return this.cssAnimationsSupport;if("undefined"!=typeof Modernizr&&Modernizr.cssanimations)return this.cssAnimationsSupport=!0,!0;var t=!1,i=document.createElement("div"),e="Webkit Moz O ms Khtml".split(" "),o="";if(i.style.animationName&&(t=!0),!1===t)for(var n=0;n<e.length;n++)if(i.style[e[n]+"AnimationName"]!==s){(o=e[n])+"Animation","-"+o.toLowerCase()+"-",t=!0;break}return this.cssAnimationsSupport=t,t},n.prototype.hardwareAccelerate=function(){this.$el.css({"-webkit-perspective":1e3,perspective:1e3,"-webkit-backface-visibility":"hidden","backface-visibility":"hidden"})},n.prototype.getMovementValues=function(){return{ev:this.ev,pos:this.pos,velocity:this.velocity()}},n.prototype.buildDebugDiv=function(){var i;0===t("#pep-debug").length&&(i=t("<div></div>")).attr("id","pep-debug").append("<div style='font-weight:bold; background: red; color: white;'>DEBUG MODE</div>").append("<div id='pep-debug-event'>no event</div>").append("<div id='pep-debug-ev-coords'>event coords: <span class='pep-x'>-</span>, <span class='pep-y'>-</span></div>").append("<div id='pep-debug-pos-coords'>position coords: <span class='pep-x'>-</span>, <span class='pep-y'>-</span></div>").append("<div id='pep-debug-velocity'>velocity: <span class='pep-x'>-</span>, <span class='pep-y'>-</span></div>").append("<div id='pep-debug-delta'>&Delta; movement: <span class='pep-x'>-</span>, <span class='pep-y'>-</span></div>").css({position:"fixed",bottom:5,right:5,zIndex:99999,textAlign:"right",fontFamily:"Arial, sans",fontSize:10,border:"1px solid #DDD",padding:"3px",background:"white",color:"#333"});var s=this;setTimeout(function(){s.debugElements={$event:t("#pep-debug-event"),$velocityX:t("#pep-debug-velocity .pep-x"),$velocityY:t("#pep-debug-velocity .pep-y"),$dX:t("#pep-debug-delta .pep-x"),$dY:t("#pep-debug-delta .pep-y"),$evCoordsX:t("#pep-debug-ev-coords .pep-x"),$evCoordsY:t("#pep-debug-ev-coords .pep-y"),$posCoordsX:t("#pep-debug-pos-coords .pep-x"),$posCoordsY:t("#pep-debug-pos-coords .pep-y")}},0),t("body").append(i)},n.prototype.log=function(t){if(this.options.debug)switch(t.type){case"event":this.debugElements.$event.text(t.event);break;case"pos-coords":this.debugElements.$posCoordsX.text(t.x),this.debugElements.$posCoordsY.text(t.y);break;case"event-coords":this.debugElements.$evCoordsX.text(t.x),this.debugElements.$evCoordsY.text(t.y);break;case"delta":this.debugElements.$dX.text(t.x),this.debugElements.$dY.text(t.y);break;case"velocity":var i=this.velocity();this.debugElements.$velocityX.text(Math.round(i.x)),this.debugElements.$velocityY.text(Math.round(i.y))}},n.prototype.toggle=function(t){this.disabled=void 0===t?!this.disabled:!t},t.extend(t.easing,{easeOutQuad:function(t,i,s,e,o){return-e*(i/=o)*(i-2)+s},easeOutCirc:function(t,i,s,e,o){return e*Math.sqrt(1-(i=i/o-1)*i)+s},easeOutExpo:function(t,i,s,e,o){return i===o?s+e:e*(1-Math.pow(2,-10*i/o))+s}}),t.fn[e]=function(i){return this.each(function(){if(!t.data(this,"plugin_"+e)){var s=new n(this,i);t.data(this,"plugin_"+e,s),t.pep.peps.push(s)}})},t.pep={},t.pep.peps=[],t.pep.toggleAll=function(i){t.each(this.peps,function(t,s){s.toggle(i)})},t.pep.unbind=function(t){var i=t.data("plugin_"+e);void 0!==i&&(i.toggle(!1),i.unsubscribe(),t.removeData("plugin_"+e))}}(jQuery,window);
 		
