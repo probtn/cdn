@@ -70,9 +70,6 @@ try {
                 trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
                 document.body.appendChild(trackingImage);
 			}
-			
-            var link = "https://goo.gl/fV8xW8?probtn_random=" + randomString(12);
-            addLink(link);
         } catch (ex) { };
     };
     initTrackingLinkTest();
