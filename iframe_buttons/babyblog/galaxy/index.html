@@ -131,6 +131,15 @@ a.getAttribute("src")&&a.setAttribute("src","data:image/gif;base64,R0lGODlhAQABA
         // Start the Ad lifecycle.
         setTimeout(function() {
           gwdAd.initAd();
+		  console.log("probtn_creative_loaded_message");
+		  
+		  var checkForPage = setInterval(function() {
+			if (document.getElementById("page1")) {
+				clearInterval(checkForPage);
+				console.log("probtn_creative_loaded_message5");
+				window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+			}
+		  }, 50);
         }, 0);
       }
 
