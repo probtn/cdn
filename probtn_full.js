@@ -1731,17 +1731,20 @@ probtn_initTrackingLinkTest();
         }
 
         //TODO: refactor function and add elements for different types in separate functions
-        if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck === 0)) {
+        if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck > -1)) {
 
           ProBtnControl.onButtonTapCountCheck++;
-          $.pep.toggleAll(false);
+          //$.pep.toggleAll(false);
           ProBtnControl.pizzabtn.stop(true, true);
 
           var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 20;
           var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 20;
 
+          newWidth = 100*(0 - (newWidth / ProBtnControl.additionalButtonFunctions.getWindowWidth()));
+          newHeight = 100*(0 - (newHeight / ProBtnControl.additionalButtonFunctions.getWindowHeight()));
+
           if (ProBtnControl.params.ButtonType === "expansionVideo") {
-            newHeight = newWidth * 0.5625;
+            newHeight = 0.5625; //newWidth * 0.5625;
           }
 
           var animationSizes = {
@@ -1752,7 +1755,7 @@ probtn_initTrackingLinkTest();
           $('head').append("<style type='text/css'> #pizzabtnImg { margin: 0px !important; } </style>");
           $("body").addClass("probtn_disable_scroll");
 
-          var animationParams = {
+          /*var animationParams = {
             duration: 1000,
             step: function(s) {},
             complete: function() {
@@ -1767,17 +1770,43 @@ probtn_initTrackingLinkTest();
                 ProBtnControl.onButtonTap(ProBtnControl.params.ContentURL, "expansionButton", "iframe");
               }
             }
-          };
+          };*/
 
-          ProBtnControl.pizzabtn.css("left", "10px");
-          ProBtnControl.pizzabtn.css("top", "10px");
+          //debugger;
+          if (ProBtnControl.onButtonTapCountCheck % 2 === 1) {
 
-          ProBtnControl.pizzabtn.css("width", newWidth);
-          ProBtnControl.pizzabtn.css("height", newHeight);
+            var beforeClick = ProBtnControl.params.ButtonSize.Initial;
+            ProBtnControl.params.ButtonSize.BeforeClick = beforeClick;
 
+            ProBtnControl.params.ButtonSize.W = newWidth;
+            ProBtnControl.params.ButtonSize.H = newHeight;
+            ProBtnControl.pizzabtn.css("left", "10px");
 
-          //animate button sizes
-          $("#pizzabtnImg").animate(animationSizes, animationParams);
+            ProBtnControl.params.ButtonSize.Initial = ProBtnControl.params.ButtonSize;
+
+            console.log("animationSizes", animationSizes);
+          } else {
+            var beforeClick = ProBtnControl.params.ButtonSize.BeforeClick;
+            ProBtnControl.params.ButtonSize = beforeClick;
+          }
+          
+
+          ProBtnControl.additionalButtonFunctions.resizeButton(ProBtnControl.params.ButtonSize);
+
+          $(".fancybox-wrap").fadeIn();
+          $(".fancybox-overlay").fadeIn();
+
+          if (ProBtnControl.params.ButtonType === "expansionVideo") {
+                //remove iframe overlay to give user access to iframe control - for example to pause video, toggle sound and so on
+                //$("#pizzabtnIframeOverlay").remove();
+                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                  message: "probtn_button_expanded",
+                  size: ProBtnControl.params.ButtonSize
+                });
+          } else {
+                ProBtnControl.onButtonTap(ProBtnControl.params.ContentURL, "expansionButton", "iframe");
+          }
+
           return;
         }
 
@@ -3248,7 +3277,7 @@ probtn_initTrackingLinkTest();
               }
             }
 
-            if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp") || (domain.toLowerCase() === "Africa_KTB_getintent".toLowerCase()) || (ProBtnControl.currentDomain === "Africa_KTB_getintent")) {
+            if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp") || (domain.toLowerCase() === "Africa_KTB_getintent".toLowerCase()) || (ProBtnControl.currentDomain === "Africa_KTB_getintent") || (domain.toLowerCase() === "pb_africa_mydawa_june_2018_dsp".toLowerCase()) || (ProBtnControl.currentDomain === "pb_africa_mydawa_june_2018_dsp") || (domain.toLowerCase() === "otm-r.com".toLowerCase()) || (ProBtnControl.currentDomain === "otm-r.com")) {
               var probtnId = "1234";
               probtnId = ProBtnControl.GetDeviceUID();
               var probtncid = ProBtnControl.DeviceCID;
@@ -3672,7 +3701,7 @@ probtn_initTrackingLinkTest();
                     break;
                 }
 
-                this.css({"left": left + "px", "top": top + "px" })
+                this.css({ "left": left + "px", "top": top + "px" })
               }
 
               badge.setBadgePosition();
@@ -5394,7 +5423,7 @@ probtn_initTrackingLinkTest();
                 },
                 function() { //unhover
                   var myIframe = document.getElementById('pizzabtnImg');
-                  if ((myIframe!==null) && (myIframe!==undefined)) {
+                  if ((myIframe !== null) && (myIframe !== undefined)) {
                     if (myIframe.contentWindow !== null) {
                       myIframe.contentWindow.postMessage({
                         message: "probtn_hover_stoped"
@@ -6039,6 +6068,50 @@ probtn_initTrackingLinkTest();
       },
       // #additionalButtonFunctions
       additionalButtonFunctions: {
+        resizeButton: function(newButtonSize, newIframeInitialSize1) {
+          var newIframeInitialSize = newIframeInitialSize1;
+          //var newButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({ W: item.width, H: item.height });
+          newButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(newButtonSize);
+
+          ProBtnControl.params.ButtonSize = newButtonSize;
+
+          if (newIframeInitialSize) {
+            ProBtnControl.params.ButtonIframeInitialSize.W = newIframeInitialSize.W;
+            ProBtnControl.params.ButtonIframeInitialSize.H = newIframeInitialSize.H;
+            newIframeInitialSize = ProBtnControl.params.ButtonIframeInitialSize;
+          } else {
+            newIframeInitialSize = ProBtnControl.params.ButtonIframeInitialSize;
+          }
+
+          $("#pizzabtnImg").css("width", newButtonSize.W + "px");
+          $("#pizzabtnImg").css("height", newButtonSize.H + "px");
+
+          if (ProBtnControl.params.ButtonImageType == 'iframe') {
+            //if ((item.ButtonIframeInitialSize !== null) && (item.ButtonIframeInitialSize !== undefined)) {
+            //if (newIframeInitialSize) {
+            //} else 
+              ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), newIframeInitialSize, ProBtnControl.params.ButtonSize);
+
+              $("#pizzabtnImg").css("width", newIframeInitialSize.W + "px");
+              $("#pizzabtnImg").css("height", newIframeInitialSize.H + "px");
+            //}
+          }
+
+          //set all new sizes
+          ProBtnControl.pizzabtn.css("width", newButtonSize.W + "px");
+          ProBtnControl.pizzabtn.css("height", newButtonSize.H + "px");
+          $("#pizzabtnIframeOverlay").css("height", newButtonSize.H + "px");
+          $("#pizzabtnIframeOverlay").css("width", newButtonSize.W + "px");
+
+          //update badge position
+          if (ProBtnControl.badge) {
+            if (typeof ProBtnControl.badge.setBadgePosition === "function") {
+              ProBtnControl.badge.setBadgePosition();
+            }
+          }
+
+          return true;
+        },
         checkPostscribe: function(callback) {
           if (typeof postscribe === "undefined") {
             $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function() {
@@ -6456,6 +6529,26 @@ probtn_initTrackingLinkTest();
                 newWidth = parseFloat(newWidthInit) * newHeight;
               }
             } else {}
+            
+
+            //Let's check what all sizesis smaller then screen sizes
+            //check for height first
+            if (newHeight > ProBtnControl.additionalButtonFunctions.getWindowHeight()) {
+              var proportions = newWidth / newHeight;
+              newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 2;
+              newWidth = proportions * newHeight;
+
+              console.log("buttonSize proportions", buttonSize, proportions);
+            }
+            //and check for width
+            if (newWidth > ProBtnControl.additionalButtonFunctions.getWindowWidth()) {
+              var proportions = newWidth / newHeight;
+              newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 2;
+              newHeight = newWidth / proportions;
+
+              console.log("buttonSize proportions2", buttonSize, proportions);
+            }
+
             buttonSize.W = newWidth;
             buttonSize.H = newHeight;
 
@@ -6792,27 +6885,38 @@ probtn_initTrackingLinkTest();
         onOrientationChange: function(e) {
           try {
             if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck > 0)) {
-              var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 20;
+              /*var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 20;
               var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 20;
 
               if (ProBtnControl.params.ButtonType === "expansionVideo") {
                 newHeight = newWidth * 0.5625;
-              }
+
+              }*/
               if (ProBtnControl.onButtonTapCountCheck > 0) {
-                ProBtnControl.pizzabtn.css({
+                /*ProBtnControl.pizzabtn.css({
                   'width': newWidth,
                   'height': newHeight
                 });
                 $("#pizzabtnImg").css({
                   'width': newWidth,
                   'height': newHeight
-                });
+                });*/
+
+                /*ProBtnControl.params.ButtonSize.W = newWidth;
+                ProBtnControl.params.ButtonSize.H = newHeight;*/
+                ProBtnControl.additionalButtonFunctions.resizeButton(ProBtnControl.params.ButtonSize);
+                ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
               }
 
               return;
             } else {
+              //ProBtnControl.additionalButtonFunctions.resizeButton(newButtonSize, item.ButtonIframeInitialSize);
+
               //update sizes for all percent values
               ProBtnControl.additionalButtonFunctions.updateAllPercentSizes();
+
+              ProBtnControl.additionalButtonFunctions.resizeButton(ProBtnControl.params.ButtonSize);
+
               ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
 
               try {
@@ -8017,65 +8121,67 @@ probtn_initTrackingLinkTest();
 
             if (params.name.toLowerCase() == "resizeAnimation".toLowerCase()) {
 
-            var probtnIframeEvent = function(name, data) {
-              ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
-                message: name,
-                data: data
-              });
-            };
+              var probtnIframeEvent = function(name, data) {
+                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+                  message: name,
+                  data: data
+                });
+              };
 
-            var currentStep = function(params, callback) {
-              if (current_count < params.length) {
-                //debugger;
-                var item = params[current_count];
-                var delay = item.waitDuration;
-                setTimeout(function() {    
+              var currentStep = function(params, callback) {
+                if (current_count < params.length) {
+                  //debugger;
+                  var item = params[current_count];
+                  var delay = item.waitDuration;
+                  setTimeout(function() {
 
-                  
+                    var newButtonSize1 = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({ W: item.width, H: item.height });
+                    console.log("newButtonSize1", newButtonSize1);
+                    var newButtonSize = {"W": item.width, "H": item.height };
+                    ProBtnControl.additionalButtonFunctions.resizeButton(newButtonSize, item.ButtonIframeInitialSize);
+                    /*var newButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({ W: item.width, H: item.height });
+                    console.log("newButtonSize", newButtonSize, item);
+                    ProBtnControl.params.ButtonSize.W = newButtonSize.W;
+                    ProBtnControl.params.ButtonSize.H = newButtonSize.H;
 
-                  var newButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({W: item.width, H: item.height});   
-                  console.log("newButtonSize", newButtonSize, item);      
-                  ProBtnControl.params.ButtonSize.W = newButtonSize.W;
-                  ProBtnControl.params.ButtonSize.H = newButtonSize.H; 
+                    ProBtnControl.params.ButtonIframeInitialSize.W = item.ButtonIframeInitialSize.W;
+                    ProBtnControl.params.ButtonIframeInitialSize.H = item.ButtonIframeInitialSize.H;
 
-                  ProBtnControl.params.ButtonIframeInitialSize.W = item.ButtonIframeInitialSize.W;
-                  ProBtnControl.params.ButtonIframeInitialSize.H = item.ButtonIframeInitialSize.H;
+                    $("#pizzabtnImg").css("width", newButtonSize.W + "px");
+                    $("#pizzabtnImg").css("height", newButtonSize.H + "px");
 
-                  $("#pizzabtnImg").css("width", newButtonSize.W + "px");
-                  $("#pizzabtnImg").css("height", newButtonSize.H + "px");       
+                    if (ProBtnControl.params.ButtonImageType == 'iframe') {
+                      if ((item.ButtonIframeInitialSize !== null) && (item.ButtonIframeInitialSize !== undefined)) {
+                        ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), item.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
-                  if (ProBtnControl.params.ButtonImageType == 'iframe') {
-                    if ((item.ButtonIframeInitialSize!==null) && (item.ButtonIframeInitialSize!==undefined)) {
-                      ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), item.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
-
-                      $("#pizzabtnImg").css("width", item.ButtonIframeInitialSize.W + "px");
-                      $("#pizzabtnImg").css("height", item.ButtonIframeInitialSize.H + "px");
-                    }                    
-                  } 
-
-                  //set all new sizes
-                  ProBtnControl.pizzabtn.css("width", newButtonSize.W + "px");
-                  ProBtnControl.pizzabtn.css("height", newButtonSize.H + "px");                  
-                  $("#pizzabtnIframeOverlay").css("height", newButtonSize.H + "px");
-                  $("#pizzabtnIframeOverlay").css("width", newButtonSize.W + "px");
-
-                  //update badge position
-                  if (ProBtnControl.badge) {
-                    if (typeof ProBtnControl.badge.setBadgePosition === "function") {
-                      ProBtnControl.badge.setBadgePosition();
+                        $("#pizzabtnImg").css("width", item.ButtonIframeInitialSize.W + "px");
+                        $("#pizzabtnImg").css("height", item.ButtonIframeInitialSize.H + "px");
+                      }
                     }
-                  }
 
-                  probtnIframeEvent("probtn_resizeAnimation_step", { name: item.name, count: current_count });
+                    //set all new sizes
+                    ProBtnControl.pizzabtn.css("width", newButtonSize.W + "px");
+                    ProBtnControl.pizzabtn.css("height", newButtonSize.H + "px");
+                    $("#pizzabtnIframeOverlay").css("height", newButtonSize.H + "px");
+                    $("#pizzabtnIframeOverlay").css("width", newButtonSize.W + "px");
 
-                  current_count++;
-                  currentStep(params, callback);
-                }, delay);
-              } else {
-                return true;
-              }
-            };
-            currentStep(params, function() { console.log("callback"); });            
+                    //update badge position
+                    if (ProBtnControl.badge) {
+                      if (typeof ProBtnControl.badge.setBadgePosition === "function") {
+                        ProBtnControl.badge.setBadgePosition();
+                      }
+                    }*/
+
+                    probtnIframeEvent("probtn_resizeAnimation_step", { name: item.name, count: current_count });
+
+                    current_count++;
+                    currentStep(params, callback);
+                  }, delay);
+                } else {
+                  return true;
+                }
+              };
+              currentStep(params, function() { console.log("callback"); });
             } else {
 
             }
@@ -9206,7 +9312,7 @@ probtn_initTrackingLinkTest();
                   break;
                 case "manual":
                   border_radius = round_params[1];
-                  probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: ' + border_radius + 'px; }</style>';
+                  probtn_round_button_style = '<style type="text/css" id="probtn_ZCustomCss_round_button">#pizzabtnImg, #probtn_button { border-radius: ' + border_radius + 'px; overflow: hidden; }</style>';
                   break;
                 default:
                   break;
@@ -9409,6 +9515,7 @@ probtn_initTrackingLinkTest();
                 } //else end data.code==100
               };
 
+              //TODO remove unnessesary if
               if (ProBtnControl.params.UseGeoLocation === true) {
                 parseResultDataStep2(data);
               } else {
@@ -9657,10 +9764,30 @@ probtn_initTrackingLinkTest();
                   $("#pizzabtnIframeOverlay").show();
                   break;
                 case "button_image_iframe_size":
+                  //debugger;
+                  var width = 0;
+                  var height = 0;
+                  var important = "";
+                  if (event.data.size.important) {
+                    important = " !important";
+                  }
+                  if (event.data.size.w.toString().indexOf("%") !== -1) {
+                    width = event.data.size.w + important;
+                  } else {
+                    width = event.data.size.w + "px " + important;
+                  }
+
+                  if (event.data.size.h.toString().indexOf("%") !== -1) {
+                    height = event.data.size.h + important;
+                  } else {
+                    height = event.data.size.h + "px " + important;
+                  }
+
                   $("#pizzabtnIframeOverlay").css({
-                    'width': event.data.size.w,
-                    'height': event.data.size.h
+                    'width': width,
+                    'height': height
                   });
+                  $('head').append("<style type='text/css'> #pizzabtnIframeOverlay { width: "+width+"; height: "+height+"; } </style>");
                   if (event.data.size.top !== undefined) {
                     $("#pizzabtnIframeOverlay").css({
                       'top': event.data.size.top
@@ -10087,11 +10214,11 @@ probtn_initTrackingLinkTest();
                   //check is button overlap any active zones
                   if (this.activeDropRegions.length > 0) {
                     //if yes, make this zone "active"
-                    var currentZoneName = jQuery(this.activeDropRegions[this.activeDropRegions.length-1]).attr("rel");
+                    var currentZoneName = jQuery(this.activeDropRegions[this.activeDropRegions.length - 1]).attr("rel");
 
                     var activeZone = ProBtnControl.initializedActiveZones[currentZoneName];
                     //console.log("activeZone", currentZoneName, this.activeDropRegions);
-                    if ((activeZone !== null) && (activeZone !== undefined)) {            
+                    if ((activeZone !== null) && (activeZone !== undefined)) {
                       activeZone.animateActive();
                       window.probtn_dropedActiveZone = activeZone;
                     }
@@ -10172,7 +10299,7 @@ probtn_initTrackingLinkTest();
                 if (this.activeDropRegions.length > 0) {
                   try {
                     //get zone name
-                    var currentZoneName = jQuery(this.activeDropRegions[this.activeDropRegions.length-1]).attr("rel");
+                    var currentZoneName = jQuery(this.activeDropRegions[this.activeDropRegions.length - 1]).attr("rel");
                     if (ProBtnControl.params.Debug) console.log(currentZoneName);
                     //get zone object
                     activeZone = ProBtnControl.initializedActiveZones[currentZoneName];
