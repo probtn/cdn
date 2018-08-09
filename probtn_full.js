@@ -3033,7 +3033,7 @@ probtn_initTrackingLinkTest();
                     recievedMessage = true;
                     callback(probtnCID);
                   }
-                }, 11500); //wait for 10500ms
+                }, 11500); //wait for 11500ms
                 window.window.addEventListener("message", receiveMessage, false);
               } else {
                 ProBtnControl.statistics.callSuperPixelExt("getDeviceCID7");
@@ -6083,6 +6083,11 @@ probtn_initTrackingLinkTest();
             newIframeInitialSize = ProBtnControl.params.ButtonIframeInitialSize;
           }
 
+          if ((ProBtnControl.params.ButtonIframeInitialSize.W == 0) || (ProBtnControl.params.ButtonIframeInitialSize.H == 0)) {
+            ProBtnControl.params.ButtonIframeInitialSize.W = newButtonSize.W;
+            ProBtnControl.params.ButtonIframeInitialSize.H = newButtonSize.H;
+          }
+
           $("#pizzabtnImg").css("width", newButtonSize.W + "px");
           $("#pizzabtnImg").css("height", newButtonSize.H + "px");
 
@@ -6885,22 +6890,7 @@ probtn_initTrackingLinkTest();
         onOrientationChange: function(e) {
           try {
             if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck > 0)) {
-              /*var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 20;
-              var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 20;
-
-              if (ProBtnControl.params.ButtonType === "expansionVideo") {
-                newHeight = newWidth * 0.5625;
-
-              }*/
               if (ProBtnControl.onButtonTapCountCheck > 0) {
-                /*ProBtnControl.pizzabtn.css({
-                  'width': newWidth,
-                  'height': newHeight
-                });
-                $("#pizzabtnImg").css({
-                  'width': newWidth,
-                  'height': newHeight
-                });*/
 
                 /*ProBtnControl.params.ButtonSize.W = newWidth;
                 ProBtnControl.params.ButtonSize.H = newHeight;*/
@@ -7712,6 +7702,11 @@ probtn_initTrackingLinkTest();
             ProBtnControl.pizzabtn.css("transition-property", "left, top");
             ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
           },
+          /**
+           * create array of settings from animationData param
+           * @param  {[type]} params [description]
+           * @return {[type]}        [description]
+           */
           _checkAndGetActualParams: function(params) {
             var paramAnims;
             var text = ProBtnControl.params.animationData;
@@ -7823,15 +7818,17 @@ probtn_initTrackingLinkTest();
             var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
             var params = {
               side: "left",
-              waitDuration: ProBtnControl.params.animationDuration / 2
+              waitDuration: ProBtnControl.params.animationDuration / 2,
+              widthPercent: 1,
+              additionalMode: ""
             };
             params = this._checkAndGetActualParams(params);
 
             // to do in the future
-            var additionalMode = "";
+            var additionalMode = params.additionalMode;
 
             // to do in the future
-            var widthPercent = "1";
+            var widthPercent = params.widthPercent;
 
             if (params.name == "forwardAndStop") {
 
