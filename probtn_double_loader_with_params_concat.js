@@ -67,15 +67,19 @@ if (window.top !== window.self) {
 	});
 }
 
-//run banner in iframe
-if ((checkIframe() === "XD_IFRAME")) {
-	document.getElementById("probtn_additional_params").innerHTML = document.getElementById("probtn_additional_params_banner_safeframe").innerHTML;
-	loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
-	});
+var runBanner = function(param, name) {
+	if ((checkIframe() === param)) {
+		var settings_banner = document.getElementById(name);
+		if ((settings_banner!==null) && (settings_banner!==undefined)) {
+			document.getElementById("probtn_additional_params").innerHTML = settings_banner.innerHTML;
+			loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
+			});
+		} else {
+			console.log("no " + name + " for " + param);
+		}
+	}
 }
-if ((checkIframe() === "IFRAME")) {
-	document.getElementById("probtn_additional_params").innerHTML = document.getElementById("probtn_additional_params_banner_iframe").innerHTML;
-	loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
-	});
-}
+runBanner("XD_IFRAME", "probtn_additional_params_banner_safeframe");
+runBanner("IFRAME", "probtn_additional_params_banner_iframe");
+
 })();
