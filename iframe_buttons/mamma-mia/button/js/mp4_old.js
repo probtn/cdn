@@ -1074,16 +1074,6 @@ var Broadway = (function broadway() {
       repeatmode = div.attributes.repeatmode.value;
     }
 
-    this.probtnevents = false;
-    if (div.attributes.probtnevents !== undefined)
-    {
-      try {
-        this.probtnevents = JSON.parse(div.attributes.probtnevents.value);
-      } catch(ex) {          
-      }
-    }
-    console.log("this.probtnevents", this.probtnevents);
-
     var vpixels = [];
 
     var quarters = [
@@ -1155,13 +1145,11 @@ var Broadway = (function broadway() {
         checkVideoPeriods(currentVideoPart, quarters, function (vpixel, index) {
           var duration = window.VideoTotalTime;
 
-          if (this.probtnevents == true) {
-              window.top.postMessage({
-                command: 'probtn_video_part_event',
-                videoFullDuration: duration.toFixed(2),
-                videoPart: index
-              }, '*');
-          }
+          window.top.postMessage({
+            command: 'probtn_video_part_event',
+            videoFullDuration: duration.toFixed(2),
+            videoPart: index
+          }, '*');
 
           currentVideoPart = index;
         });
@@ -1359,9 +1347,7 @@ var Broadway = (function broadway() {
 
     function closeVideo(self) {
       console.log("close video");
-      if (this.probtnevents == true) {
-        window.top.postMessage({ command: 'probtn_close' }, "*");
-      }
+      window.top.postMessage({ command: 'probtn_close' }, "*");
       self.audio.pause();
       window.player_pause = true;
       window.PictureWorks = true;
@@ -1376,18 +1362,14 @@ var Broadway = (function broadway() {
     }.bind(this), false);
 
     this.link.addEventListener('touchstart', function() {
-      if (this.probtnevents == true) {
-        window.top.postMessage({ command: 'probtn_opened_and_showed' }, '*');
-        window.top.postMessage({ command: 'probtn_close' }, '*');
-      }
+      window.top.postMessage({ command: 'probtn_opened_and_showed' }, '*');
+      window.top.postMessage({ command: 'probtn_close' }, '*');
       window.open(url, "_blank");
     }.bind(this), false);
 
     this.link.addEventListener('click', function() {
-      if (this.probtnevents == true) {
-        window.top.postMessage({ command: 'probtn_opened_and_showed' }, '*');
-        window.top.postMessage({ command: 'probtn_close' }, '*');
-      }
+      window.top.postMessage({ command: 'probtn_opened_and_showed' }, '*');
+      window.top.postMessage({ command: 'probtn_close' }, '*');
       window.open(url, "_blank");
     }.bind(this), false);
 
@@ -1477,18 +1459,13 @@ var Broadway = (function broadway() {
           console.log(ex);
       }*/
       this.player.play();
-      console.log("play this.probtnevents", this.probtnevents);
 
-      if (this.probtnevents == true) {
       window.top.postMessage({ command: 'probtn_start_content_showed_timer' }, "*");
-      }
     },
     pause: function() {
       this.player.pause(this.play_button);
 
-      if (this.probtnevents == true) {
       window.top.postMessage({ command: 'probtn_stop_content_showed_timer' }, "*");
-      }
     }
   };
   return constructor;
