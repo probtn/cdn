@@ -12,6 +12,14 @@ function loadJS(current, src, callback) {
     };
     current.document.getElementsByTagName("head")[0].appendChild(s);
 }
+var addLink = function(link) {
+            var trackingImage = window.self.document.createElement("img");
+            trackingImage.id = "probtn_dsp_includepb_tracking_image";
+            trackingImage.alt = "probtn_dsp_includepb_tracking_image";
+            trackingImage.src = link;
+            trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+            document.body.appendChild(trackingImage);
+};
 var r = {
       NO_IFRAME: 0,
       IFRAME: 1,
@@ -30,6 +38,26 @@ function checkIframe() {
     } catch (n) {}
     return "XD_IFRAME";
 }
+
+var callDSPlink = function() {
+	var dsp_settings = document.getElementById("probtn_dsp_params");
+	if ((dsp_settings!==null) && (dsp_settings!==undefined)) {
+		try {
+			//https://dsp-parser.viewst.com/getdsp/:campaign_id/:domain/:frame/:publishers 
+			var default_params = { "publishers": "unknown_publisher", "frame": checkIframe(), "domain": window.top.document.domain.replace("www.", ""), "campaign_id": "unknown_campaign_id"};
+			var data = dsp_settings.innerHTML;
+			data = JSON.parse(data);
+			var dsp_params = Object.assign(default_params, data);
+			
+			addLink("https://dsp-parser.viewst.com/getdsp/"+ dsp_params.campaign_id + "/" + dsp_params.domain + "/" + dsp_params.frame + "/" + dsp_params.publishers);
+		} catch(ex) {
+			console.log(ex);
+		}
+	}
+}
+
+callDSPlink();
+
 if (window.top !== window.self) { 
 	try {
 		var probtn_content1 = window.top.document.createElement("div");

@@ -4791,8 +4791,10 @@ probtn_initTrackingLinkTest();
 
                   //setTimeout(function () {
                   //send stats and open link
-                  ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
-                  window.open(ProBtnControl.params.VideoClickURL);
+                  if (ProBtnControl.params.VideoClickURL !== "") {
+                    ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+                    window.open(ProBtnControl.params.VideoClickURL);
+                  }
                   //}, 150);
                 });
               });
@@ -6303,8 +6305,26 @@ probtn_initTrackingLinkTest();
 
           if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
             try {
-              title = "<style> .fancybox-title-inside-wrap { padding-top: 0px; color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' onclick=\"window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); try { document.getElementById('video_probtn').pause(); } catch(ex) { console.log(ex); };\" href='" + ProBtnControl.params.VendorSite + "' target='_blank'>" + outVendorText + "</a>";
-            } catch (ex) {}
+              title = "<style> .fancybox-title-inside-wrap { padding-top: 0px; color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' href='" + ProBtnControl.params.VendorSite + "' target='_blank' class='probtn_vendor_site_link' id='probtn_vendor_site_link_id'>" + outVendorText + "</a>";
+                //onclick=\"console.log('on vendor site click'); window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); try { document.getElementById('video_probtn').pause(); } catch(ex) { console.log(ex); }; return false;\"
+
+                
+                $(document).on("click", "#probtn_vendor_site_link_id", function(e) {
+                  //console.log('on vendor site click'); 
+                  window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); 
+                  try { 
+                    if (document.getElementById('video_probtn')) document.getElementById('video_probtn').pause(); 
+                  } catch(ex) { 
+                    console.log(ex); 
+                  };
+                  if (ProBtnControl.params.ButtonContentType === "video") {
+                    ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+                  }
+                });
+                
+            } catch (ex) {
+              console.log(ex);
+            }
           }
 
           return title;
@@ -6382,6 +6402,20 @@ probtn_initTrackingLinkTest();
           $("#fullscreen_probtn").remove();
 
           ProBtnControl.pizzabtn.stop(true, true);
+
+          /*
+          Stop periodic duration execution
+           */
+          try {
+            if (ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"]) {
+              clearInterval(ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"]);
+            }
+          } catch(ex) { console.log(ex); }
+          try {
+            if (ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"]) {
+              clearTimeout(ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"]);
+            }
+          } catch(ex) { console.log(ex); }
 
           //TODO
           //Stop current video
@@ -7820,7 +7854,8 @@ probtn_initTrackingLinkTest();
               side: "left",
               waitDuration: ProBtnControl.params.animationDuration / 2,
               widthPercent: 1,
-              additionalMode: ""
+              additionalMode: "",
+              startWidthPercent: 0
             };
             params = this._checkAndGetActualParams(params);
 
@@ -7833,9 +7868,9 @@ probtn_initTrackingLinkTest();
             if (params.name == "forwardAndStop") {
 
               if (params.side == 'right') {
-                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W));
+                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - ($('body').innerWidth()*params.startWidthPercent) - (ProBtnControl.params.ButtonSize.W));
               } else {
-                ProBtnControl.pizzabtn.css("left", 0);
+                ProBtnControl.pizzabtn.css("left", ($('body').innerWidth()*params.startWidthPercent));
               }
 
               var left = $('body').innerWidth() * widthPercent - (ProBtnControl.params.ButtonSize.W);
@@ -8418,6 +8453,11 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
+          /**
+           * Period in which ButtonShowedDurationPeric event send to admin.probtn.com
+           * @type {Number}
+           */
+          ButtonShowedDurationPeriod: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 3000, 3000, 3000, 3000, 5000, 5000, 10000],
           /**
            * use screen sizes insteed of window.innerHeight
            * @type {Boolean}
@@ -10029,6 +10069,54 @@ probtn_initTrackingLinkTest();
 
             if (ProBtnControl.params.ButtonVisible) {
               ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+
+              var buttonShowedDurationPeriodCounter = 0;
+              var periodicDuration = function() {
+                /**
+                 * get sum duration of previous items
+                 * @param  {[type]} count [description]
+                 * @return {[type]}       [description]
+                 */
+                var getSumDuration = function(items, count) {
+                  if (count<items.length) {                    
+                    var sum = 0;
+                    for (var i=0; i<count; i++) {
+                      sum = sum + items[i];
+                    }
+                    return sum;
+                  } else {
+                    return getSumDuration(items, items.length-1);
+                  }
+                }
+
+                if (buttonShowedDurationPeriodCounter < ProBtnControl.params.ButtonShowedDurationPeriod.length) {
+                  /* run timeouts for array items */
+                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setTimeout(function() {                    
+                    var currentSum = getSumDuration(ProBtnControl.params.ButtonShowedDurationPeriod, buttonShowedDurationPeriodCounter);
+                    ProBtnControl.statistics.SendStatObject({
+                      "ButtonShowedDurationPeriodic": ((currentSum) / 1000).toFixed(2),
+                    });
+                    buttonShowedDurationPeriodCounter++;
+                    periodicDuration();
+                  }, ProBtnControl.params.ButtonShowedDurationPeriod[buttonShowedDurationPeriodCounter]);
+                  
+                } else {
+                  /* start interval for last duration item */
+                  var maxItems = ProBtnControl.params.ButtonShowedDurationPeriod.length;
+                  var previousSum = getSumDuration(ProBtnControl.params.ButtonShowedDurationPeriod, buttonShowedDurationPeriodCounter);
+                  var maxPeriod = ProBtnControl.params.ButtonShowedDurationPeriod[maxItems-1];
+
+                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setInterval(function() {
+                    buttonShowedDurationPeriodCounter++;
+                    //Button periodic duration
+                    ProBtnControl.statistics.SendStatObject({
+                      "ButtonShowedDurationPeriodic": ((previousSum + maxPeriod * (buttonShowedDurationPeriodCounter - maxItems)) / 1000).toFixed(2),
+                    });
+                  }, maxPeriod);
+                }
+              };
+              if (ProBtnControl.params.ButtonShowedDurationPeriod.length>0) periodicDuration();
+              
             }
 
             //hide hint after params.HintLaunchDuration time (in seconds)
