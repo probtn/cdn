@@ -270,15 +270,16 @@
 
 
 
-                    var receiveMessage = function () {
+                    var receiveMessage = function (event) {
                         try {
 
-                                hypeDocument.showNextScene();
+
+                              if (event.data.message === "probtn_forwardAndStop_stop") {
+                                  hypeDocument.showNextScene();
+
+
 
                                 setTimeout(function () {
-                                    console.log("start scene1");
-                                    //hypeDocument.showSceneNamed("scene-1");
-                                    //$('#index_hype_container').hide();
 
                                     scene1 = true;
 
@@ -286,15 +287,15 @@
                                         eventFire(document.getElementById('canvas'), 'click');
                                     }
                                     paused = true;
-                            //        $("#video").fadeTo(500, 1, function () { });
+                                    $("#video").fadeTo(500, 1, function () { });
                                     $("#age").fadeTo(500, 1, function () { });
                                 }, 5000);
-
+                              }
                         } catch (ex) { }
                     }
-                    receiveMessage();
+
                     // run your functions that require a loaded Hype scene here.
-                  //  window.self.addEventListener("message", receiveMessage, false);
+                    window.self.addEventListener("message", receiveMessage, false);
                 }, 100);
             } else {
                 console.log("hypeDocument exists", hypeDocument);
