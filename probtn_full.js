@@ -8457,7 +8457,7 @@ probtn_initTrackingLinkTest();
            * Period in which ButtonShowedDurationPeric event send to admin.probtn.com
            * @type {Number}
            */
-          ButtonShowedDurationPeriod: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 3000, 3000, 3000, 3000, 5000, 5000, 10000],
+          ButtonShowedDurationPeriod: [1000, 1000, 1000, 2000, 2000, 3000, 3000, 3000, 4000, 5000, 5000, 10000, 20000, 30000, 60000, 90000, 240000, 480000, 1800000],
           /**
            * use screen sizes insteed of window.innerHeight
            * @type {Boolean}
