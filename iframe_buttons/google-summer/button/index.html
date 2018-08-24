@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>Рекламный баннер</title>
+	<meta charset="utf-8">
+	<meta name="authoring-tool" content="Adobe_Animate_CC">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<style type="text/css">html{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}*,:after,:before{-webkit-box-sizing:inherit;-moz-box-sizing:inherit;box-sizing:inherit}body{width:100%;height:100%;overflow:hidden;-ms-user-select:none;user-select:none;-moz-user-select:none;-webkit-user-select:none;-webkit-font-smoothing:antialiased}body,h1,h2,h3,h4,h5,h6,p{margin:0;padding:0}a,div,i,img,p,svg{position:absolute;left:0;top:0}img{border:0}a{text-decoration:none}#container{overflow:hidden}#canvas,#container{width:200px;height:200px;background-color:hsla(0,0%,100%,0)}#canvas{display:block;position:absolute}#overlay{display:block;width:200px;height:200px;pointer-events:none;overflow:hidden}</style>
+</head>
+
+<body>
+	<a id="link" href="#" target="_blank" aria-label="Перейти по ссылке в баннере">
+		<div id="container" aria-hidden="true">
+			<canvas id="canvas"></canvas>
+			<div id="overlay"></div>
+		</div>
+	</a>
+	<script src="createjs-2015.11.26.min.js"></script>
+	<script src="index.js"></script>
+	<script>
+(function(window, document, undefined) {
+var canvas, stage, exportRoot, container, overlay, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	container = document.getElementById("container");
+	overlay = document.getElementById("overlay");
+	var comp=AdobeAn.getComposition("3033048C2B935141BC7C10AAA0354821");
+	var lib=comp.getLibrary();
+	handleComplete({},comp);
+}
+window.onload = init;
+function handleComplete(evt,comp) {
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	exportRoot = new lib.indexfla();
+	stage = new lib.Stage(canvas);
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = w*sRatio+'px';				
+			canvas.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;            
+			stage.tickOnUpdate = false;            
+			stage.update();            
+			stage.tickOnUpdate = true;		
+		}
+	}
+	makeResponsive(false,'both',false,1);
+	window.exportRoot = exportRoot;
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+})(window, window.document);
+</script>
+</body>
+
+</html>
