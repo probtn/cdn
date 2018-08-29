@@ -47,7 +47,13 @@
         <script>
             var active = false;
             var timeout = undefined;
-            window.addEventListener('devicemotion', function (event) {
+
+            var getData = true;
+
+            var sensitivity = 4;
+            var x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0;
+
+  /*          window.addEventListener('devicemotion', function (event) {
                 if (event.acceleration.x != null) {
                     var msg = "devicemotion " + event.acceleration.x + ' m/s2';
                     //console.log(event.acceleration);
@@ -81,7 +87,56 @@
                         }
                     }
                 }
-            });
+            }); */
+
+            setInterval(function () {
+                if (getData) {
+                    var change = Math.abs(x1 - x2 + y1 - y2 + z1 - z2);
+                    //console.log("change", change);
+                    if (change > sensitivity) {
+                        console.log('Shake!');
+
+                        $("#move").fadeIn();
+                        $("#stop").fadeOut();
+                        active = true;
+                        try {
+                            clearTimeout(timeout);
+                            timeout = undefined;
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                    } else {
+                        if ((timeout === null) || (timeout === undefined)) {
+                        //alert(timeout);
+                        timeout = setTimeout(function () {
+                            $("#move").fadeOut();
+                            $("#stop").fadeIn();
+                            active = false;
+                        }, 1000);
+                        }
+                    }
+                }
+
+                // Update new position
+                x2 = x1;
+                y2 = y1;
+                z2 = z1;
+                getData = true;
+            }, 150);
+
+
+            var receiveMessage = function (event) {
+                if ((event.data!==null) && (event.data!==undefined)) {
+                  if (event.data.message === "probtn_page_devicemotion") {
+                      x1 = event.data.dataEvent.x;
+                        y1 = event.data.dataEvent.y;
+                        z1 = event.data.dataEvent.z;
+                        //console.log("e.accelerationIncludingGravity", event.data.dataEvent);
+                  }
+              }
+            }
+            // run your functions that require a loaded Hype scene here.
+            window.self.addEventListener("message", receiveMessage, false);
         </script>
     </body>
 </html>
