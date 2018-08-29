@@ -9623,11 +9623,11 @@ probtn_initTrackingLinkTest();
                   } else {
                     settingsUrl = ProBtnControl.statistics.createStatisticsLink("getClientSettings", "&SelectAdSet=" + ProBtnControl.params.SelectAdSet + networktype + Details);
                   }
-
-
                 } else {
                   settingsUrl = ProBtnControl.params.localSettingsPath;
                 }
+
+                var settingsViewstUrl = settingsUrl.replace("admin.probtn.com", "admin.viewst.com");
 
                 ProBtnControl.statistics.callSuperPixelExt("getClientSettings");
 
@@ -9672,6 +9672,14 @@ probtn_initTrackingLinkTest();
                     parseResultData(data);
                     CheckInFrameAndEnabled();
                   });
+                }
+
+                try {
+                  $.getJSON(settingsViewstUrl, parseResultData).done(function() {
+                    console.log("viewst getClientSettings done");
+                  }).fail(function(jqXHR, textStatus, errorThrown) { console.log("viewst getClientSettings fail", errorThrown); });
+                } catch(ex) {
+                  console.log("viewst getClientSettings problem");
                 }
               };
 
