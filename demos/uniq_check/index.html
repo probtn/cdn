@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>Tinkoff video1</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            body {
+                margin: 0px;
+                padding:  0px;
+            }
+            #probtn_wrapper {
+            }
+        </style>
+    </head>
+    <body>
+		<div class="uniq_block" style="position: absolute; top: 0px; left: 0px; background: red; color: white; width: 200px; height: 80px;">
+			<span id="local_cookie"></span>
+			<span id="global_cookie"></span>
+			<script>
+			var readCookie = function(name) {
+			  var nameEQ = name + "=";
+			  var ca = document.cookie.split(';');
+			  for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+			  }
+			  return null;
+			}
+			document.getElementById("local_cookie").value = readCookie("probtnId");
+			document.getElementById("global_cookie").value = readCookie("probtnCID");
+			</script>
+		</div>
+        <img id="bg" style="width:  100%; margin: 0px;" alt="bazaar.ru"/>
+        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change.js"></script>
+        <script>
+            $(document).ready(function () {
+                $.getScript('//cdn.probtn.com/probtn.js', function () { 
+                    ////cdn.probtn.com/probtn.js
+                    $(document).StartButton({
+                        'domain': 'probtn.com'
+                    });
+                });
+            });
+    </script>
+    </body>
+</html>
