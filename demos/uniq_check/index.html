@@ -15,7 +15,7 @@
         </style>
     </head>
     <body>
-		<div class="uniq_block" style="position: absolute; top: 0px; left: 0px; background: red; color: white; width: 200px; height: 80px;">
+		<div class="uniq_block" style="position: absolute; top: 0px; left: 0px; background: red; color: white; width: 220px; height: 70px;">
 			<span id="local_cookie"></span>
 			<span id="global_cookie"></span>
 			<script>
@@ -29,8 +29,8 @@
 			  }
 			  return null;
 			}
-			document.getElementById("local_cookie").value = readCookie("probtnId");
-			document.getElementById("global_cookie").value = readCookie("probtnCID");
+			document.getElementById("local_cookie").innerHTML = readCookie("probtnId");
+			document.getElementById("global_cookie").innerHTML = readCookie("probtnCID");
 			</script>
 		</div>
         <img id="bg" style="width:  100%; margin: 0px;" alt="bazaar.ru"/>
