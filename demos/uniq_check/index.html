@@ -18,6 +18,7 @@
 		<div class="uniq_block" style="position: absolute; top: 0px; left: 0px; background: red; color: white; width: 220px; height: 70px;">
 			<span id="local_cookie"></span>
 			<span id="global_cookie"></span>
+			<span id="recieved_cookie"></span>
 			<script>
 			var readCookie = function(name) {
 			  var nameEQ = name + "=";
@@ -31,6 +32,21 @@
 			}
 			document.getElementById("local_cookie").innerHTML = readCookie("probtnId");
 			document.getElementById("global_cookie").innerHTML = readCookie("probtnCID");
+			var recievedMessage = false;
+			var receiveMessage = function(event) {
+                  //console.log("DeviceCID event", event);
+                  try {
+                    //(event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))
+                    if ((event.data.type !== undefined) && (event.data.type !== null) && (recievedMessage === false)) {
+                      recievedMessage = true;
+                      document.getElementById("recieved_cookie").innerHTML = event.data.cid;
+                    } else {}
+                  } catch (ex) {
+                    console.log(ex);
+					document.getElementById("recieved_cookie").innerHTML = ex.toString();
+                  }
+            };
+			window.window.addEventListener("message", receiveMessage, false);
 			</script>
 		</div>
         <img id="bg" style="width:  100%; margin: 0px;" alt="bazaar.ru"/>
