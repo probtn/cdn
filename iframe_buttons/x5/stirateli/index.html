@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>index</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<script type="text/javascript" charset="utf-8" src="orientcontrollib.js"></script>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=375" />
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="index_hype_container" style="margin:auto;position:relative;width:375px;height:176px;overflow:hidden;">
+	<script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?90244"></script>
+	</div>
+	
+    <script>
+	var wasShake = false;
+	var started = false;
+     function MyFunctions(hypeDocument, element, event) {
+		if (!started) {
+		 started = true;
+         setTimeout(function () {
+             window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+         }, 100);
+
+         var receiveMessage = function (event) {
+			if (event.data.message === "probtn_resizeAnimation_step") {
+				console.log("probtn_resizeAnimation_step", event.data);
+				//hypeDocument.showNextScene();
+				hypeDocument.showSceneNamed('scene-3');
+			}
+         }
+		 
+		 console.log("hypeDocument.sceneNames();", hypeDocument.sceneNames());
+		 
+		 var param = { 
+			motionSensitive : 6, 
+			motionStarted : function(){ 
+				 
+			}, 
+			motionFinished : function(){ 
+				if (!wasShake) {
+					wasShake = true;
+					console.log("shake_finished");
+					hypeDocument.showSceneNamed('scene-2');
+					window.top.postMessage({ "command": "probtn_start_animation" }, "*"); 
+					window.self.addEventListener("message", receiveMessage, false);
+				}
+			}, isRepeated : false };
+		setTimeout(function() {
+			var motion = MotionControl(param);
+		}, 5500);
+		
+		 
+         // run your functions that require a loaded Hype scene here. 
+        } 
+    }
+     if ("HYPE_eventListeners" in window === false) {
+         window.HYPE_eventListeners = Array();
+     }
+     window.HYPE_eventListeners.push({
+         "type": "HypeSceneLoad",
+         "callback": MyFunctions
+     });
+   </script>
+
+	<!-- end copy -->
+  </body>
+</html>
