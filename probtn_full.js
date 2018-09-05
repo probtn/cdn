@@ -8142,7 +8142,9 @@ probtn_initTrackingLinkTest();
           //animation that change button sizes
           resizeAnimation: function() {
             //debugger;
-            var params = [{
+            var params =  [            
+            {
+              autoStart: true,
               width: 200,
               height: 100,
               waitDuration: 6000,
@@ -8150,6 +8152,7 @@ probtn_initTrackingLinkTest();
             }];
             var current_count = 0;
             params = this._checkAndGetActualParams(params);
+            
 
             if (params.name.toLowerCase() == "resizeAnimation".toLowerCase()) {
 
@@ -8159,6 +8162,12 @@ probtn_initTrackingLinkTest();
                   data: data
                 });
               };
+
+              var autoStart = true;              
+              if (params[0]) {
+                var autoStart = params[0].autoStart;
+              };
+              console.log("autoStart", autoStart, params[0]);
 
               var currentStep = function(params, callback) {
                 if (current_count < params.length) {
@@ -8171,41 +8180,7 @@ probtn_initTrackingLinkTest();
                     console.log("newButtonSize1", newButtonSize1);
                     var newButtonSize = {"W": item.width, "H": item.height };
                     ProBtnControl.additionalButtonFunctions.resizeButton(newButtonSize, item.ButtonIframeInitialSize);
-                    /*var newButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({ W: item.width, H: item.height });
-                    console.log("newButtonSize", newButtonSize, item);
-                    ProBtnControl.params.ButtonSize.W = newButtonSize.W;
-                    ProBtnControl.params.ButtonSize.H = newButtonSize.H;
-
-                    ProBtnControl.params.ButtonIframeInitialSize.W = item.ButtonIframeInitialSize.W;
-                    ProBtnControl.params.ButtonIframeInitialSize.H = item.ButtonIframeInitialSize.H;
-
-                    $("#pizzabtnImg").css("width", newButtonSize.W + "px");
-                    $("#pizzabtnImg").css("height", newButtonSize.H + "px");
-
-                    if (ProBtnControl.params.ButtonImageType == 'iframe') {
-                      if ((item.ButtonIframeInitialSize !== null) && (item.ButtonIframeInitialSize !== undefined)) {
-                        ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), item.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
-
-                        $("#pizzabtnImg").css("width", item.ButtonIframeInitialSize.W + "px");
-                        $("#pizzabtnImg").css("height", item.ButtonIframeInitialSize.H + "px");
-                      }
-                    }
-
-                    //set all new sizes
-                    ProBtnControl.pizzabtn.css("width", newButtonSize.W + "px");
-                    ProBtnControl.pizzabtn.css("height", newButtonSize.H + "px");
-                    $("#pizzabtnIframeOverlay").css("height", newButtonSize.H + "px");
-                    $("#pizzabtnIframeOverlay").css("width", newButtonSize.W + "px");
-
-                    //update badge position
-                    if (ProBtnControl.badge) {
-                      if (typeof ProBtnControl.badge.setBadgePosition === "function") {
-                        ProBtnControl.badge.setBadgePosition();
-                      }
-                    }*/
-
                     probtnIframeEvent("probtn_resizeAnimation_step", { name: item.name, count: current_count });
-
                     current_count++;
                     currentStep(params, callback);
                   }, delay);
@@ -8213,7 +8188,25 @@ probtn_initTrackingLinkTest();
                   return true;
                 }
               };
-              currentStep(params, function() { console.log("callback"); });
+
+              /** type of animation start - automatic or after 'probtn_start_animation' event */
+              //currentStep(params, function() { console.log("callback"); });
+              if (autoStart) {
+                currentStep(params, function() { console.log("callback"); });
+              } else {
+                //check for command to start animation
+                var receiveMessageStart = function (event) {
+                  try {
+                    if (event.data.command === "probtn_start_animation") {
+                      currentStep(params, function() { console.log("callback"); });
+                    }
+                  } catch(ex) {
+
+                  }
+                };
+                window.self.addEventListener("message", receiveMessageStart, false);
+              }
+
             } else {
 
             }
@@ -9631,6 +9624,8 @@ probtn_initTrackingLinkTest();
 
                 ProBtnControl.statistics.callSuperPixelExt("getClientSettings");
 
+                var mainServerFail = false;
+
                 try {
                   $.getJSON(settingsUrl, parseResultData).done(function() {
                     ProBtnControl.statistics.callSuperPixelExt("getClientSettings_loaded");
@@ -9638,6 +9633,7 @@ probtn_initTrackingLinkTest();
                   }).fail(function(jqXHR, textStatus, errorThrown) {
                     if (ProBtnControl.params.Debug) console.log(errorThrown);
                     if (ProBtnControl.params.Debug) console.log(textStatus);
+                    mainServerFail = true;
                   }).always(function() {
                     //console.log("CheckInFrameAndEnabled", ProBtnControl.params.RequireLocation);
 
@@ -9674,13 +9670,14 @@ probtn_initTrackingLinkTest();
                   });
                 }
 
-                try {
-                  $.getJSON(settingsViewstUrl, parseResultData).done(function() {
+                /*try {
+                  $.getJSON(settingsViewstUrl, parseResultData).done(function(data) {
                     console.log("viewst getClientSettings done");
+                    //thinking about calling reserve getClientSettings
                   }).fail(function(jqXHR, textStatus, errorThrown) { console.log("viewst getClientSettings fail", errorThrown); });
                 } catch(ex) {
                   console.log("viewst getClientSettings problem");
-                }
+                }*/
               };
 
               loadSettings();
