@@ -42,9 +42,15 @@ function checkIframe() {
 var callDSPlink = function() {
 	var dsp_settings = document.getElementById("probtn_dsp_params");
 	if ((dsp_settings!==null) && (dsp_settings!==undefined)) {
+		var domain = "unknown_domain";
+		try {
+			domain = window.top.document.domain.replace("www.", "");
+		} catch(ex) {
+			console.log(ex);
+		}
 		try {
 			//https://dsp-parser.viewst.com/getdsp/:campaign_id/:domain/:frame/:publishers 
-			var default_params = { "publishers": "unknown_publisher", "frame": checkIframe(), "domain": window.top.document.domain.replace("www.", ""), "campaign_id": "unknown_campaign_id"};
+			var default_params = { "publishers": "unknown_publisher", "frame": checkIframe(), "domain": domain, "campaign_id": "unknown_campaign_id"};
 			var data = dsp_settings.innerHTML;
 			data = JSON.parse(data);
 			var dsp_params = Object.assign(default_params, data);
