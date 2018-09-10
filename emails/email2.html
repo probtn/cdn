@@ -1,0 +1,569 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Simple Transactional Email</title>
+  <style>
+  /* -------------------------------------
+          GLOBAL RESETS
+      ------------------------------------- */
+
+  img {
+    border: none;
+    -ms-interpolation-mode: bicubic;
+    max-width: 100%;
+  }
+
+  body {
+    background-color: #f6f6f6;
+    font-family: Arial;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  table {
+    border-collapse: separate;
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+    width: 100%;
+  }
+
+  table td {
+    font-family: Arial;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  /* -------------------------------------
+          BODY & CONTAINER
+      ------------------------------------- */
+
+  .body {
+    background-color: #f3f7fb;
+    width: 100%;
+  }
+  /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+
+  .container {
+    display: block;
+    margin: 0 auto !important;
+    /* makes it centered */
+    max-width: 580px;
+    padding: 10px;
+    width: 580px;
+  }
+  /* This should also be a block element, so that it will fill 100% of the .container */
+
+  .content {
+    box-sizing: border-box;
+    display: block;
+    Margin: 0 auto;
+    max-width: 580px;
+    /*padding: 10px;*/
+  }
+  /* -------------------------------------
+          HEADER, FOOTER, MAIN
+      ------------------------------------- */
+
+  .main {
+    border-radius: 3px;
+    width: 100%;
+  }
+
+  .main2 {
+    background: #ffffff;
+  }
+
+  .main-header-img {
+    width: 100%;
+    margin-bottom: -5px;
+  }
+
+  .main-logo-td {
+    vertical-align: middle;
+  }
+
+  .main-logo-td img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 152px;
+    height: auto;
+  }
+
+  #phone {
+    width: 252px;
+    height: auto;
+  }
+
+  .wrapper {
+    box-sizing: border-box;
+    padding: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .content-block {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .footer {
+    clear: both;
+    ьargin-top: 0px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer td,
+  .footer p,
+  .footer span,
+  .footer a {
+    color: #FFFFFF;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .footer table {
+    background-color: #ff6269;
+  }
+
+  .footer .footer-logo-block .footer-logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+    max-width: 110px;
+  }
+
+  .footer .footer-address-block {
+    vertical-align: middle;
+  }
+
+  .footer .footer-blue {
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    background-color: #2a9eee;
+  }
+
+  .footer-blue img {
+    margin-top: 48px;
+    width: 33%;
+    height: auto;
+  }
+
+  #anchor_img {
+    width: 41px;
+    height: auto;
+  }
+  /* -------------------------------------
+          TYPOGRAPHY
+      ------------------------------------- */
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #000000;
+    font-family: Arial;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+    Margin-bottom: 30px;
+  }
+
+  h1 {
+    font-size: 35px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  h2 {
+    font-family: Arial;
+    font-size: 36px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    font-weight: bold;
+  }
+
+  h3 {
+    /*height: 44px;*/
+    font-family: Arial;
+    font-size: 36px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.8;
+    letter-spacing: normal;
+    /*text-align: left;*/
+    color: #000000;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    margin-top: 25px;
+  }
+
+  p,
+  ul,
+  ol {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    margin-bottom: 15px;
+    line-height: 24px;
+  }
+
+  p li,
+  ul li,
+  ol li {
+    list-style-position: inside;
+    margin-left: 5px;
+  }
+
+  a {
+    color: #3498db;
+    text-decoration: underline;
+  }
+
+  tr, td, table {
+    border-spacing: 0px;
+  }
+  /* -------------------------------------
+          BUTTONS
+      ------------------------------------- */
+
+  .btn {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .btn>tbody>tr>td {
+    padding-bottom: 15px;
+  }
+
+  .btn table {
+    width: auto;
+  }
+
+  .btn table td {
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .btn a {
+    background-color: #ffffff;
+    border: solid 1px #3498db;
+    border-radius: 24px;
+    box-sizing: border-box;
+    color: #3498db;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 12px 25px;
+    text-decoration: none;
+    text-transform: capitalize;
+    width: 221px;
+    height: 48px;
+  }
+
+  .btn-primary table td {
+    background-color: #ff6269;
+  }
+
+  .btn-primary a {
+    background-color: #ff6269;
+    border-color: #ff6269;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  /*width: 221px;
+  height: 48px;
+  border-radius: 24px;*/
+
+
+  /* -------------------------------------
+          OTHER STYLES THAT MIGHT BE USEFUL
+      ------------------------------------- */
+
+  .last {
+    margin-bottom: 0;
+  }
+
+  .first {
+    margin-top: 0;
+  }
+
+  .align-center {
+    text-align: center;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .align-left {
+    text-align: left;
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  .mt0 {
+    margin-top: 0;
+  }
+
+  .mb0 {
+    margin-bottom: 0;
+  }
+
+  .preheader {
+    color: transparent;
+    display: none;
+    height: 0;
+    max-height: 0;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    mso-hide: all;
+    visibility: hidden;
+    width: 0;
+  }
+
+  .powered-by a {
+    text-decoration: none;
+  }
+
+  hr {
+    border: 0;
+    border-bottom: 1px solid #f6f6f6;
+    Margin: 20px 0;
+  }
+  /* -------------------------------------
+          RESPONSIVE AND MOBILE FRIENDLY STYLES
+      ------------------------------------- */
+
+
+  @media only screen and (max-width: 620px) {
+    table[class=body] h1 {
+      font-size: 28px !important;
+      margin-bottom: 10px !important;
+    }
+    table[class=body] p,
+    table[class=body] ul,
+    table[class=body] ol,
+    table[class=body] td,
+    table[class=body] span,
+    table[class=body] a {
+      /*font-size: 16px !important;*/
+    }
+
+    table[class=body] .wrapper,
+    table[class=body] .article {
+      padding: 10px !important;
+    }
+    table[class=body] .content {
+      padding: 0 !important;
+    }
+    table[class=body] .container {
+      padding: 0 !important;
+      width: 100% !important;
+    }
+    table[class=body] .main {
+      border-left-width: 0 !important;
+      border-radius: 0 !important;
+      border-right-width: 0 !important;
+    }
+    table[class=body] .btn table {
+      width: 100% !important;
+    }
+    table[class=body] .btn a {
+      width: 100% !important;
+    }
+    table[class=body] .img-responsive {
+      height: auto !important;
+      max-width: 100% !important;
+      width: auto !important;
+    }
+  }
+
+  .footer-blue p {
+    font-size: 22px !important;
+    margin-bottom: 70px;
+    margin-right: 40px;
+    margin-left: 40px;
+    line-height: 28px;
+    font-weight: bold;
+  }
+
+  /* -------------------------------------
+          PRESERVE THESE STYLES IN THE HEAD
+      ------------------------------------- */
+
+  @media all {
+    .ExternalClass {
+      width: 100%;
+    }
+    .ExternalClass,
+    .ExternalClass p,
+    .ExternalClass span,
+    .ExternalClass font,
+    .ExternalClass td,
+    .ExternalClass div {
+      line-height: 100%;
+    }
+    .apple-link a {
+      color: inherit !important;
+      font-family: inherit !important;
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      line-height: inherit !important;
+      text-decoration: none !important;
+    }
+    .btn-primary table td:hover {
+      background-color: #34495e !important;
+    }
+    .btn-primary a:hover {
+      background-color: #FF3842 !important;
+      border-color: #FF3842 !important;
+    }
+  }
+
+.measure {
+font-family: Arial;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    line-height: 24px;
+}
+
+  </style>
+</head>
+
+<body class="">
+  <table border="0" cellpadding="0" cellspacing="0" class="body">
+    <tr>
+      <!--<td>&nbsp;</td>-->
+      <td class="container">
+        <div class="content">
+          <!-- START CENTERED WHITE CONTAINER -->
+          <span class="preheader">Viewst Digest, Special Offer for Publicis Groupe</span>
+          <table class="main" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="main-logo-td">
+                <center><img src="https://cdn.probtn.com/email/images/logo-1.png?r=11" alt="main-logo" /></center>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img class="main-header-img" src="https://cdn.probtn.com/email/images/pic-main.png?r=11" alt="main header" />
+              </td>
+            </tr>
+            <!-- START MAIN CONTENT AREA -->
+            <tr class="main2">
+              <td class="wrapper">
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <p>Отличные новости для всех, чьи клиенты любят видео форматы, но не хотят быть слишком назойливыми. Видео floater от Viewst поможет улучшить user experience и будет куда менее навязчивым, чем стандартные FullScreen или Inread видео. На дворе 2018-ый, пора расширять горизонты и пользоваться новыми необычными инструментами, чтобы подтолкнуть к этому своих клиентов, вас ждет приятный бонус в конце этого письма. Ниже предлагаем посмотреть цифры по последнему размещению J&J с этим форматом.</p>
+
+
+                      <table border="0" cellpadding="0" cellspacing="0" class="">
+                        <tbody width="100%">
+                          <tr width="100%">
+                            <td style="width: 33%; text-align: center;">
+                              <h3>15<span class="measure"> sec</span></h3>
+                              <p>Viewable time</p>
+                            </td>
+                            <td style="width: 33%; text-align: center;">
+                              <h3>53<span class="measure">%</span></h3>
+                              <p>Video Completion Rate</p>
+                            </td>
+                            <td style="width: 33%; text-align: center;">
+                              <h3>3,9<span class="measure">%</span></h3>
+                              <p>CTR</p>
+                            </td>
+                          </tr>
+                          <tr width="100%">
+                            <td width="100%" colspan="3">
+                              <center>
+                                <img id="phone" src="https://cdn.probtn.com/email/images/iphone.png?r=23" alt="phone" />
+                              </center>
+                              <!--<img id="anchor_img" src="https://cdn.probtn.com/email/images/group.png?r=231" alt="anchor" />
+                              <br/>
+                              <a href="https://cdn.probtn.com/button_example5/acuvue_cta_video_movable/">acuvue_cta_video_movable</a><br/><br/>-->
+
+
+                                      <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                                        <tbody>
+                                          <tr>
+                                            <td style="text-align: center;"> 
+                                              <a href="https://demo.probtn.com/button_example5/acuvue_cta_video_movable/" target="_blank">Посмотреть демо</a>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <p>Базовый CPM этого формата стандартный — 800RUR, с учетом агентской скидки для Publicis Groupe — 560 RUR за 1К показов.</p>
+                      <h2>Brand Lift от Viewst</h2>
+                      <p>Brand Lift от Viewst поднимет вашу РК на новую высоту. Теперь проанализировать эффективность ваших кампаний можно еще тщательнее. Узнайте отношение пользователей к бренду в целом, конкретному продукту или рекламному сообщению. Охват и стоимость вас приятно удивят и вызовут непреодолимое желание отправить нам бриф на почту: <a href="mailto:hello@viewst.com">hello@viewst.com</a></p>
+                      <p>Все подробности доступны в <a href="https://www.dropbox.com/s/r7kcgdcg7q7g7p7/Brand-Lift.pdf?dl=0">короткой презентации</a></p>
+                      <img src="https://demo.probtn.com/email/images/3.png?r=asd" alt="bottom-body-img" style="width: 100%;" />
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- END MAIN CONTENT AREA -->
+          </table>
+          <!-- START FOOTER -->
+          <div class="footer">
+            <table class="footer-blue" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <center>
+                    <img src="https://cdn.probtn.com/email/images/shape.png?r=sdf" class="footer-logo" alt="footer-logo" />
+                    <p>7% показов бонусом
+                      <br/>при размещении в формате
+                      <br/>видео Floater до конца августа!</p>
+                  </center>
+                </td>
+              </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td class="footer-logo-block">
+                  <img src="https://cdn.probtn.com/email/images/logo-2.png?r=sf" class="footer-logo" alt="footer-logo" />
+                </td>
+              </tr>
+              <tr>
+                <td class="footer-address-block">
+                  <p style="margin-bottom: 32px;">Москва, ул. Бауманская, д.7, БЦ Central Yard, 3 этаж, офис 306</p></td>
+              </tr>
+            </table>
+          </div>
+          <!-- END FOOTER -->
+          <!-- END CENTERED WHITE CONTAINER -->
+        </div>
+      </td>
+      <!--<td>&nbsp;</td>-->
+    </tr>
+  </table>
+</body>
+
+</html>
