@@ -1,0 +1,712 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Simple Transactional Email</title>
+  <style>
+  /* -------------------------------------
+          GLOBAL RESETS
+      ------------------------------------- */
+
+  img {
+    border: none;
+    -ms-interpolation-mode: bicubic;
+    max-width: 100%;
+  }
+
+  body {
+    background-color: #f6f6f6;
+    font-family: Arial;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  table {
+    border-collapse: separate;
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+    width: 100%;
+  }
+
+  table td {
+    font-family: Arial;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  /* -------------------------------------
+          BODY & CONTAINER
+      ------------------------------------- */
+
+  .body {
+    background-color: #f3f7fb;
+    width: 100%;
+  }
+  /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+
+  .container {
+    display: block;
+    margin: 0 auto !important;
+    /* makes it centered */
+    max-width: 580px;
+    padding: 10px;
+    width: 580px;
+  }
+  /* This should also be a block element, so that it will fill 100% of the .container */
+
+  .content {
+    box-sizing: border-box;
+    display: block;
+    Margin: 0 auto;
+    max-width: 580px;
+    /*padding: 10px;*/
+  }
+  /* -------------------------------------
+          HEADER, FOOTER, MAIN
+      ------------------------------------- */
+
+  .main {
+    border-radius: 3px;
+    width: 100%;
+  }
+
+  .main2 {
+    background: #ffffff;
+  }
+
+  .main-header-img {
+    width: 90%;
+    margin-bottom: -55px;
+  }
+
+  .main-logo-td {
+    vertical-align: middle;
+  }
+
+  .main-logo-td img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 152px;
+    height: auto;
+  }
+
+  #phone {
+    width: 252px;
+    height: auto;
+  }
+
+  .wrapper {
+    box-sizing: border-box;
+    padding: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .content-block {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .footer {
+    clear: both;
+    ьargin-top: 0px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer td,
+  .footer p,
+  .footer span,
+  .footer a {
+    color: #FFFFFF;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .footer table {
+    background-color: #6f43d1;
+    background-image: linear-gradient(to top, #6f43d1, #349dea);
+  }
+
+  .footer .footer-logo-block .footer-logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+    max-width: 110px;
+  }
+
+  .footer .footer-address-block {
+    vertical-align: middle;
+  }
+
+  .footer .footer-blue {
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    background-color: #2a9eee;
+  }
+
+  .footer-blue img {
+    margin-top: 48px;
+    width: 33%;
+    height: auto;
+  }
+
+  #anchor_img {
+    width: 41px;
+    height: auto;
+  }
+  /* -------------------------------------
+          TYPOGRAPHY
+      ------------------------------------- */
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #000000;
+    font-family: Arial;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+    Margin-bottom: 30px;
+  }
+
+  h1 {
+    font-size: 35px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  h2 {
+    font-family: Arial;
+    font-size: 36px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    font-weight: bold;
+  }
+
+  h3 {
+    /*height: 44px;*/
+    font-family: Arial;
+    font-size: 36px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.8;
+    letter-spacing: normal;
+    /*text-align: left;*/
+    color: #000000;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    margin-top: 25px;
+  }
+
+  p,
+  ul,
+  ol {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    margin-bottom: 15px;
+    line-height: 24px;
+  }
+
+  p li,
+  ul li,
+  ol li {
+    list-style-position: inside;
+    margin-left: 5px;
+  }
+
+  a {
+    color: #3498db;
+    text-decoration: underline;
+  }
+
+  tr, td, table {
+    border-spacing: 0px;
+  }
+  /* -------------------------------------
+          BUTTONS
+      ------------------------------------- */
+
+  .btn {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .btn>tbody>tr>td {
+    padding-bottom: 15px;
+  }
+
+  .btn table {
+    width: auto;
+  }
+
+  .btn table td {
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .btn a {
+    background-color: #ffffff;
+    border: solid 1px #3498db;
+    border-radius: 24px;
+    box-sizing: border-box;
+    color: #3498db;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 12px 25px;
+    text-decoration: none;
+    text-transform: capitalize;
+    width: 221px;
+    height: 48px;
+  }
+
+  .btn-primary table td {
+    background-color: #ff6269;
+  }
+
+  .btn-primary a {
+    background-color: #ff6269;
+    border-color: #ff6269;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  /*width: 221px;
+  height: 48px;
+  border-radius: 24px;*/
+
+
+  /* -------------------------------------
+          OTHER STYLES THAT MIGHT BE USEFUL
+      ------------------------------------- */
+
+  .last {
+    margin-bottom: 0;
+  }
+
+  .first {
+    margin-top: 0;
+  }
+
+  .align-center {
+    text-align: center;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .align-left {
+    text-align: left;
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  .mt0 {
+    margin-top: 0;
+  }
+
+  .mb0 {
+    margin-bottom: 0;
+  }
+
+  .preheader {
+    color: transparent;
+    display: none;
+    height: 0;
+    max-height: 0;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    mso-hide: all;
+    visibility: hidden;
+    width: 0;
+  }
+
+  .powered-by a {
+    text-decoration: none;
+  }
+
+  hr {
+    border: 0;
+    border-bottom: 1px solid #f6f6f6;
+    Margin: 20px 0;
+  }
+  /* -------------------------------------
+          RESPONSIVE AND MOBILE FRIENDLY STYLES
+      ------------------------------------- */
+
+
+  @media only screen and (max-width: 620px) {
+    table[class=body] h1 {
+      font-size: 28px !important;
+      margin-bottom: 10px !important;
+    }
+    table[class=body] p,
+    table[class=body] ul,
+    table[class=body] ol,
+    table[class=body] td,
+    table[class=body] span,
+    table[class=body] a {
+      /*font-size: 16px !important;*/
+    }
+
+    table[class=body] .wrapper,
+    table[class=body] .article {
+      padding: 10px !important;
+    }
+    table[class=body] .content {
+      padding: 0 !important;
+    }
+    table[class=body] .container {
+      padding: 0 !important;
+      width: 100% !important;
+    }
+    table[class=body] .main {
+      border-left-width: 0 !important;
+      border-radius: 0 !important;
+      border-right-width: 0 !important;
+    }
+    table[class=body] .btn table {
+      width: 100% !important;
+    }
+    table[class=body] .btn a {
+      width: 100% !important;
+    }
+    table[class=body] .img-responsive {
+      height: auto !important;
+      max-width: 100% !important;
+      width: auto !important;
+    }
+  }
+
+  .footer-blue p {
+    font-size: 22px !important;
+    margin-bottom: 70px;
+    margin-right: 40px;
+    margin-left: 40px;
+    line-height: 28px;
+    font-weight: bold;
+  }
+
+  /* -------------------------------------
+          PRESERVE THESE STYLES IN THE HEAD
+      ------------------------------------- */
+
+  @media all {
+    .ExternalClass {
+      width: 100%;
+    }
+    .ExternalClass,
+    .ExternalClass p,
+    .ExternalClass span,
+    .ExternalClass font,
+    .ExternalClass td,
+    .ExternalClass div {
+      line-height: 100%;
+    }
+    .apple-link a {
+      color: inherit !important;
+      font-family: inherit !important;
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      line-height: inherit !important;
+      text-decoration: none !important;
+    }
+    .btn-primary table td:hover {
+      background-color: #34495e !important;
+    }
+    .btn-primary a:hover {
+      background-color: #FF3842 !important;
+      border-color: #FF3842 !important;
+    }
+  }
+
+.measure {
+  font-family: Arial;
+      font-size: 14px;
+      font-weight: normal;
+      margin: 0;
+      line-height: 24px;
+  }
+  .red {
+    color: #ff6269;
+  }
+
+  .bg_red {
+    background-color: #ff6269;
+    color: white;
+  }
+  .bg_red h3 {
+    color: white;
+  }
+  .publishers img, .advertisers img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .publishers td, .advertisers td {
+    text-align: center;
+  }
+  .light_blue {
+    background-color: #e7ecfe;
+  }
+  </style>
+</head>
+
+<body class="">
+  <table border="0" cellpadding="0" cellspacing="0" class="body">
+    <tr>
+      <!--<td>&nbsp;</td>-->
+      <td class="container">
+        <div class="content">
+          <!-- START CENTERED WHITE CONTAINER -->
+          <span class="preheader">Viewst Digest, Special Offer for Publicis Groupe</span>
+          <table class="main" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="main-logo-td">
+                <center><img src="https://cdn.probtn.com/emails/images/logo-1.png?r=11" alt="main-logo" /></center>
+              </td>
+            </tr>
+            <!-- START MAIN CONTENT AREA -->
+            <tr class="main2">
+              <td class="wrapper">
+                <img class="main-header-img" src="images/phone-picture@2x.png?r=11" alt="main header" />
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <h2 class="red">Brand Lift from Viewst</h2>
+                      <p>Viewst platform combines Creative Builder which makes it fast and easy to create standard rich media ad units as well as innovative new placements such as floating ad units to capture consumers attention and deliver proven results. Viewst Ad Management Platform enables distribution of high quality ads across different data-driven channels and provides unified analytics to optimize media buying and results.</p>
+
+                      <h2 class="red">Viewst offerings</h2>
+                      <ul>
+                        <li>Free production of floating ad units</li>
+                        <li>Programmatic media buying</li>
+                        <li>Detailed reporting</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- END MAIN CONTENT AREA -->
+          </table>
+  
+          <div class="wrapper bg_red">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="">
+                    <h3>100%</h3>
+                    <p>Viewability</p>
+                  </td>
+                  <td>
+                    <h3>38%</h3>
+                    <p>Engagement<br/>rate</p>
+                  </td>
+                  <td>
+                    <h3>27 sec</h3>
+                    <p>Dwell time <br/>on a unit</p>
+                  </td>
+                  <td>
+                    <h3>40%</h3>
+                    <p>Video <br/>completion rate</p>
+                  </td>
+                </tr>
+            </table>
+          </div>
+
+          <div class="wrapper">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td colspan="3">
+                    <h3 class="red" style="margin-bottom: 40px;">Creative templates</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="">
+                    <img src="images/templates/icon-floating-video.png" alt="templates"/>
+                    <p>Floating video</p>
+                  </td>
+                  <td>
+                    <img src="images/templates/icon-mini-games.png" alt="templates"/>
+                    <p>Mini-games</p>
+                  </td>
+                  <td>
+                    <img src="images/templates/icon-branding.png" alt="templates"/>
+                    <p>Branding</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="">
+                    <img src="images/templates/icon-sharing.png" alt="templates"/>
+                    <p>Sharing</p>
+                  </td>
+                  <td>
+                    <img src="images/templates/icon-survey.png" alt="templates"/>
+                    <p>Survey</p>
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+            </table>
+          </div>
+
+          <div class="wrapper publishers">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td colspan="3">
+                    <h3 class="red" style="margin-bottom: 40px;">Publishers</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="">
+                    <img src="images/publishers/publishers-01-popular-mechanics.png" alt="publishers"/>
+                  </td>
+                  <td>
+                    <img src="images/publishers/publishers-01-womens-health.png" alt="publishers"/>
+                  </td>
+                  <td>
+                    <img src="images/publishers/publishers-03-elle.png" alt="publishers"/>
+                  </td>
+                  <td>
+                    <img src="images/publishers/publishers-04-esquire.png" alt="publishers"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="">
+                    <img src="images/publishers/publishers-05-marie-claire.png" alt="publishers"/>
+                  </td>
+                  <td>
+                    <img src="images/publishers/publishers-06-cosmopolitan.png" alt="publishers"/>
+                  </td>
+                  <td>
+                    <img src="images/publishers/publishers-07-mens-health.png" alt="publishers"/>
+                  </td>
+                  <td>
+                    <img src="images/publishers/publishers-08-national-geographic.png" alt="publishers"/>
+                  </td>
+                </tr>
+            </table>
+          </div>
+
+          <div class="wrapper light_blue">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td colspan="3">
+                    <p class="quote" style="font-size: 20px; font-style: italic;">“Viewst is a new rich media channel for us, which delivers high quality traffic. It definitely becomes one of the best performing channels of our ad campaigns.”</p>
+                    <p><b>Alex Kovalenko, digital manager</b><br/>
+                    20th Century Fox</p>
+                  </td>
+                </tr>
+            </table>
+          </div>
+
+
+          <div class="wrapper advertisers">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td colspan="3">
+                    <h3 class="red" style="margin-bottom: 40px;">Advertisers</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="images/advertisers/advertisers-01.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-02.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-03.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-04.png" alt="advertisers"/>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <img src="images/advertisers/advertisers-05.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-06.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-07.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-08.png" alt="advertisers"/>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <img src="images/advertisers/advertisers-09.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-10.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-11.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-12.png" alt="advertisers"/>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <img src="images/advertisers/advertisers-13.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-14.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-15.png" alt="advertisers"/>
+                  </td>
+                  <td>
+                    <img src="images/advertisers/advertisers-16.png" alt="advertisers"/>
+                  </td>
+                </tr>
+            </table>
+          </div>
+
+          <!-- START FOOTER -->
+          <div class="footer">
+            <table border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td class="footer-logo-block">
+                  <img src="https://cdn.probtn.com/emails/images/logo-2.png?r=sf" class="footer-logo" alt="footer-logo" />
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!-- END FOOTER -->
+          <!-- END CENTERED WHITE CONTAINER -->
+        </div>
+      </td>
+      <!--<td>&nbsp;</td>-->
+    </tr>
+  </table>
+</body>
+
+</html>
