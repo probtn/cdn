@@ -1,0 +1,330 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" href="js/screen.css" rel="stylesheet">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=608">
+    <link href="js/jquery-ui.css" rel="stylesheet" type="text/css">
+    <style>
+        html, body {
+            width: 130px;
+            height: 160px;
+            margin: 0;
+            padding: 0px;
+        }
+
+        .broadway {
+            width: 130px;
+            height: 130px;
+            -moz-border-radius: 50% !important;
+            -webkit-border-radius: 50% !important;
+            -ms-border-radius: 50% !important;
+            -o-border-radius: 50% !important;
+            border-radius: 50% !important;
+            overflow: hidden !important;
+        }
+        canvas {
+            /*width:  260px;
+            height:  260px;
+            margin-left: -65px;
+            margin-top: -65px;*/
+            width: 275px;
+            height: 275px;
+            margin-left: -72px;
+            margin-top: -70px;
+            transform: scale(0.5);
+        }
+
+        #progressbar {
+            position: absolute;
+            height: 5px;
+            background-color: white;
+            width: 0;
+            bottom: 0px;
+            display: block;
+            left: 0px;
+            display: none !important;
+        }
+        img[src="loader.gif"] {
+            display: none !important;
+        }
+        #poster {
+            width: 130px;
+            height: 130px;
+            display: inline-block;
+            z-index: 20;
+        }
+        #poster_img {
+            width: 130px;
+            height: 130px;
+            z-index: 18;
+        }
+        #loader {
+            display: none;
+            margin: 0 auto;
+            width: 20%;
+            z-index: 19;
+            position: fixed;
+            /*top: 50%;
+            left: 40%;*/
+
+            top: 150px;
+            left: 140px;
+        }
+        #play {
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            top: 30%;
+            display: none;
+            cursor: pointer;
+        }
+
+            #play.active {
+                display: block;
+            }
+
+        #volume {
+            position: absolute;
+            left: 5px;
+            bottom: 8px;
+            /*display: none;*/
+        }
+
+        #close {
+            position: absolute;
+            right: 5px;
+            bottom: 8px;
+            z-index: 30;
+            /*display: none;*/
+        }
+        #close_img {
+            display: block;
+            cursor: pointer;
+            width:  28px;
+            height:  28px;
+        }
+
+        #volume_on, #volume_off {
+            display: none;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            z-index: 30;
+        }
+        #volume_on.active, #volume_off.active {
+            display: none;
+        }
+        canvas {
+            /*border-radius: 10px !important;
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.22) !important;*/
+            background: transparent !important;
+        }
+        #link {
+            background: url(images/go-min.png) no-repeat left center;
+            width: 50%;
+            height: 28px;
+            position: absolute;
+            bottom: 10px;
+            left: 25%;
+            color: white;
+            font-size: 20px;
+            padding-left: 30px;
+            text-shadow: 2px 1px 5px black;
+            display: none;
+            z-index: 30;
+            background-size: contain;
+            font-weight: normal;
+            font-family: Arial;
+
+            display: none !important;
+        }
+        /*@media (max-height:300px) {
+            #link {
+                display: none !important;
+            }
+        }*/
+        /*@media (max-width:300px) {
+            #link {
+                display: block !important;
+            }
+        }*/
+        /*#bg {
+            background: url(images/bg-min.png) transparent repeat-x bottom;
+            width: 100%;
+            height: 30%;
+            bottom:  0px;
+            position: absolute;
+            background-size: contain;
+        }*/
+
+        #name_date {
+          animation: scale-up 0.7s linear 8s 1 both;
+          -webkit-animation: scale-up 0.7s linear 8s 1 both;
+          -moz-animation: scale-up 0.7s linear 8s 1 both;
+          width: 135px;
+          height: 50px;
+          z-index: 100;
+          position: absolute;
+          top: 115px;
+          left: 7px;
+          display: block;
+          opacity: 0;
+        }
+
+        #click_button {
+            animation: scale-up 0.7s linear 9s 1 both;
+            -webkit-animation: scale-up 0.7s linear 9s 1 both;
+            -moz-animation: scale-up 0.7s linear 9s 1 both;
+            width: 117px;
+            height: 24px;
+            z-index: 100;
+            position: absolute;
+            top: 170px;
+            left: 15px;
+            display: block;
+            opacity: 0;
+        }
+
+        #controls {
+            display: none;
+        }
+
+        #video {
+          display: none;
+          z-index: 100;
+          opacity: 0;
+        }
+
+        #video {
+            top: 10px;
+            left: 10px;
+            position: absolute !important;
+            box-shadow: 0 0 12px 0 #3EB1FF;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+    <!--<img id="age" src="age@2x.png?r=12" style="width:  32px; height:  32px; top: 0px; left:  0px; position: absolute; display: block;" alt=""/>-->
+    <div id="index_hype_container" style="margin:auto;position:relative;width:130px;height:130px;overflow:hidden;">
+		      <script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?19514"></script>
+	  </div>
+    <div class="broadway" id="video" url="" text="" audio="" poster="poster_2.jpg?rnd=1123" src="output8.mp4?rnd=13" width="260" height="260" style="float: left; position: relative;" workers="true" webgl="auto" render="false" repeatmode="off" probtnevents="false">
+
+
+    </div>
+    <script type="text/javascript" src="js/Decoder.js?r=12343"></script>
+    <script type="text/javascript" src="js/YUVCanvas.js?r=12343"></script>
+    <script type="text/javascript" src="js/Player.js?r=12343"></script>
+    <script type="text/javascript" src="js/stream.js?r=12343"></script>
+    <script type="text/javascript" src="js/mp4.js?random=a1222"></script>
+    <script type="text/javascript">
+
+        function eventFire(el, etype) {
+            if (el.fireEvent) {
+                el.fireEvent('on' + etype);
+            } else {
+                var evObj = document.createEvent('Events');
+                evObj.initEvent(etype, true, false);
+                el.dispatchEvent(evObj);
+            }
+        }
+
+
+
+        var hypeDocument = null;
+        var scene1 = false;
+        var paused = false;
+
+        //document.addEventListener("DOMContentLoaded", ready);
+
+        //var ready = function() {
+        function load() {
+            //        jQuery(document).ready(function () {
+            try {
+                console.log(Broadway);
+                var nodes = document.querySelectorAll('div.broadway');
+                for (var i = 0; i < nodes.length; i++) {
+                    var broadway = new Broadway(nodes[i]);
+                }
+
+
+
+                /*  $("#mes_img").show();
+                $("#mes_img").addClass("animate");*/
+            } catch (ex) {
+                console.log(ex);
+            }
+            //      });
+        }
+
+        function MyFunctions(hypeDocument_local, element, event) {
+            console.log("hypeDocument_local1", hypeDocument_local);
+            if (hypeDocument === null) {
+                setTimeout(function () {
+                    window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+                    hypeDocument = hypeDocument_local;
+                    console.log("hypeDocument_local2", hypeDocument, hypeDocument_local);
+                    load();
+
+                    setTimeout(function () {
+                        console.log("start scene1");
+                        //hypeDocument.showSceneNamed("scene-1");
+                        //$('#index_hype_container').hide();
+
+                        scene1 = true;
+
+                        if (paused === true) {
+                            eventFire(document.getElementById('canvas'), 'click');
+                        }
+                        paused = true;
+                        $("#video").fadeTo(500, 1, function () { });
+                    }, 3000);
+                }, 100);
+            } else {
+                console.log("hypeDocument exists", hypeDocument);
+            }
+        }
+
+        if ("HYPE_eventListeners" in window === false) {
+            window.HYPE_eventListeners = Array();
+        }
+
+        window.HYPE_eventListeners.push({
+            "type": "HypeSceneLoad",
+            "callback": MyFunctions
+        });
+        document.addEventListener('broadway_video_started', function (e) {
+            //console.log("broadway_video_started1");
+            if (paused == false) {
+                eventFire(document.getElementById('canvas'), 'click');
+                paused = true;
+            }
+        });
+        document.addEventListener('broadway_video_ended', function (e) {
+            console.log(111);
+            if (scene1 === true) {
+                $("#video").fadeTo(500, 0, function () { });
+
+                console.log("hypeDocument1", hypeDocument);
+                if (hypeDocument !== null) {
+                    console.log("hypeDocument2", hypeDocument);
+                    hypeDocument.showSceneNamed("scene-2");
+                } else {
+                    var wait = setInterval(function () {
+                        if (hypeDocument !== null) {
+                            console.log("hypeDocument3", hypeDocument);
+                            hypeDocument.showSceneNamed("scene-2");
+
+                            clearInterval(wait);
+                        }
+                    }, 100);
+                }
+            }
+        }, false);
+
+    </script>
+
+</body>
+</html>

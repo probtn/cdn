@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>index</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=150" />
+    <link href="js/jquery-ui.css" rel="stylesheet" type="text/css">
+    <style>
+        html, body {
+            width: 150px;
+            height: 150px;
+            margin: 0;
+            padding: 0px;
+        }
+
+        .broadway {
+            width: 140px;
+            height: 140px;
+            -moz-border-radius: 50% !important;
+            -webkit-border-radius: 50% !important;
+            -ms-border-radius: 50% !important;
+            -o-border-radius: 50% !important;
+            border-radius: 50% !important;
+            overflow: hidden !important;
+        }
+        canvas {
+            /*width:  260px;
+            height:  260px;
+            margin-left: -65px;
+            margin-top: -65px;*/
+            width: 290px;
+            height: 290px;
+            margin-left: -77px;
+            margin-top: -77px;
+            transform: scale(0.5);
+        }
+
+        #progressbar {
+            position: absolute;
+            height: 5px;
+            background-color: white;
+            width: 0;
+            bottom: 0px;
+            display: block;
+            left: 0px;
+            display: none !important;
+        }
+        img[src="loader.gif"] {
+            display: none !important;
+        }
+        #poster {
+            width: 150px;
+            height: 150px;
+            display: inline-block;
+            z-index: 20;
+        }
+        #poster_img {
+            width: 140px;
+            height: 140px;
+            z-index: 18;
+        }
+        #loader {
+            display: none;
+            margin: 0 auto;
+            width: 20%;
+            z-index: 19;
+            position: fixed;
+            /*top: 50%;
+            left: 40%;*/
+
+            top: 150px;
+            left: 140px;
+        }
+        #play {
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            top: 30%;
+            display: none;
+            cursor: pointer;
+        }
+
+            #play.active {
+                display: block;
+            }
+
+        #volume {
+            position: absolute;
+            left: 5px;
+            bottom: 8px;
+            /*display: none;*/
+        }
+
+        #close {
+            position: absolute;
+            right: 5px;
+            bottom: 8px;
+            z-index: 30;
+            /*display: none;*/
+        }
+        #close_img {
+            display: block;
+            cursor: pointer;
+            width:  28px;
+            height:  28px;
+        }
+
+        #volume_on, #volume_off {
+            display: none;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            z-index: 30;
+        }
+        #volume_on.active, #volume_off.active {
+            display: none;
+        }
+        canvas {
+            /*border-radius: 10px !important;
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.22) !important;*/
+            background: transparent !important;
+        }
+        #link {
+            background: url(images/go-min.png) no-repeat left center;
+            width: 50%;
+            height: 28px;
+            position: absolute;
+            bottom: 10px;
+            left: 25%;
+            color: white;
+            font-size: 20px;
+            padding-left: 30px;
+            text-shadow: 2px 1px 5px black;
+            display: none;
+            z-index: 30;
+            background-size: contain;
+            font-weight: normal;
+            font-family: Arial;
+
+            display: none !important;
+        }
+        /*@media (max-height:300px) {
+            #link {
+                display: none !important;
+            }
+        }*/
+        /*@media (max-width:300px) {
+            #link {
+                display: block !important;
+            }
+        }*/
+        /*#bg {
+            background: url(images/bg-min.png) transparent repeat-x bottom;
+            width: 100%;
+            height: 30%;
+            bottom:  0px;
+            position: absolute;
+            background-size: contain;
+        }*/
+
+        #name_date {
+          animation: scale-up 0.7s linear 8s 1 both;
+          -webkit-animation: scale-up 0.7s linear 8s 1 both;
+          -moz-animation: scale-up 0.7s linear 8s 1 both;
+          width: 135px;
+          height: 50px;
+          z-index: 100;
+          position: absolute;
+          top: 115px;
+          left: 7px;
+          display: block;
+          opacity: 0;
+        }
+
+        #click_button {
+            animation: scale-up 0.7s linear 9s 1 both;
+            -webkit-animation: scale-up 0.7s linear 9s 1 both;
+            -moz-animation: scale-up 0.7s linear 9s 1 both;
+            width: 117px;
+            height: 24px;
+            z-index: 100;
+            position: absolute;
+            top: 170px;
+            left: 15px;
+            display: block;
+            opacity: 0;
+        }
+
+        #controls {
+            display: none;
+        }
+
+        #video {
+          z-index: 100;
+          opacity: 1;
+        }
+
+        #video {
+            top: 5px;
+            left: 5px;
+            position: absolute !important;
+            box-shadow: 0 2px 4px 0 #E01A46;
+            background: #E01A46; /*url("poster.jpg") */
+            background-size: contain;
+        }
+
+        .fade-in {
+            -webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                    animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        }
+        .fade-in05 {
+            -webkit-animation: fade-in 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                    animation: fade-in 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        }
+
+        .fade-out {
+            -webkit-animation: fade-out 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                    animation: fade-out 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        }
+        .fade-out05 {
+            -webkit-animation: fade-out 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                    animation: fade-out 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        }
+        /* ----------------------------------------------
+         * Generated by Animista on 2018-9-7 11:27:35
+         * w: http://animista.net, t: @cssanimista
+         * ---------------------------------------------- */
+
+        /**
+         * ----------------------------------------
+         * animation fade-in
+         * ----------------------------------------
+         */
+        @-webkit-keyframes fade-in {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+        @keyframes fade-in {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        @-webkit-keyframes fade-out {
+          0% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+        @keyframes fade-out {
+          0% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+    </style>
+    <!--<script src="https://code.jquery.com/jquery-1.11.1.js"></script>-->
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="index_hype_container" style="top: 0px; left: 0px; margin:auto;position:relative;width:150px;height:155px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?65291"></script>
+	</div>
+
+    <div class="broadway" id="video" url="" text="" audio="" poster="poster.jpg?rnd=112sdf3" src="video2.mp4?rnd=13" width="280" height="280" style="float: left; position: relative;" workers="true" webgl="auto" render="false" repeatmode="off" probtnevents="false">
+		<img src="video.gif" id="video1" style="opacity: 1; width: 140px; height: 140px; display: inline-block;    position: absolute; top: 0px; z-index: 60; left: 0px;"/>
+    </div>
+    <img src="images/text-1@2x.png" id="text1" style="opacity: 0;    width: 130px;    /* height: 54px; */    display: inline-block;    position: absolute;    top: 40px;    z-index: 100;    left: 10px;"/>
+    <img src="images/text-2@2x.png" id="text2" style="opacity: 0;    width: 100px;    /* height: 38px; */    display: inline-block;    position: absolute;    top: 80px;    z-index: 100;    left: 25px;"/>
+    <!--<script type="text/javascript" src="js/Decoder.js?r=12343"></script>
+    <script type="text/javascript" src="js/YUVCanvas.js?r=12343"></script>
+    <script type="text/javascript" src="js/Player.js?r=12343"></script>
+    <script type="text/javascript" src="js/stream.js?r=12343"></script>
+    <script type="text/javascript" src="js/mp4.js?random=a1222"></script>-->
+    <script type="text/javascript">
+
+        function eventFire(el, etype) {
+            if (el.fireEvent) {
+                el.fireEvent('on' + etype);
+            } else {
+                var evObj = document.createEvent('Events');
+                evObj.initEvent(etype, true, false);
+                el.dispatchEvent(evObj);
+            }
+        }
+
+
+
+        var hypeDocument = null;
+        var scene1 = false;
+        var paused = false;
+
+        //document.addEventListener("DOMContentLoaded", ready);
+
+        //var ready = function() {
+        function load() {
+            /*try {
+                console.log(Broadway);
+                var nodes = document.querySelectorAll('div.broadway');
+                for (var i = 0; i < nodes.length; i++) {
+                    var broadway = new Broadway(nodes[i]);
+                }
+            } catch (ex) {
+                console.log(ex);
+            }*/
+        }
+		
+		function showFirstScene() {
+						try {
+							document.getElementById("video").classList.remove("fade-out05");
+							document.getElementById("text1").classList.remove("fade-in");
+							document.getElementById("text2").classList.remove("fade-in");
+							document.getElementById("text2").classList.remove("fade-out05");
+							document.getElementById("text1").classList.remove("fade-out05");
+						} catch(ex) {
+							console.log(ex); 
+						}
+		                scene1 = true;
+                        //if (!showText) {
+                            //showText = true;
+                            setTimeout(function() {
+                                document.getElementById("text1").classList.add("fade-in");
+                                setTimeout(function() {
+                                    document.getElementById("text2").classList.add("fade-in");
+                                }, 100);
+                            }, 500);
+                        //}
+                        setTimeout(function() {
+                            nextScene();
+                        }, 4000);
+		}
+
+        function MyFunctions(hypeDocument_local, element, event) {
+            console.log("hypeDocument_local1", hypeDocument_local);
+			console.log("hypeDocument_local.currentSceneName()", hypeDocument_local.currentSceneName());
+			
+			if (hypeDocument_local.currentSceneName() == "scene-1") {
+				scene1 = false;
+				showFirstScene();
+			}
+			
+			
+            if (hypeDocument === null) {
+                setTimeout(function () {
+                    window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+                    hypeDocument = hypeDocument_local;
+                    console.log("hypeDocument_local2", hypeDocument, hypeDocument_local);
+                    load();
+                }, 100);
+            } else {
+                console.log("hypeDocument exists", hypeDocument);
+            }            
+        }
+
+        function nextScene() {
+            console.log(111);
+            if (scene1 === true) {
+                document.getElementById("video").classList.add("fade-out05");
+                document.getElementById("text1").classList.add("fade-out05");
+                document.getElementById("text2").classList.add("fade-out05");
+                //$("#video").fadeTo(500, 0, function () { });
+
+                console.log("hypeDocument1", hypeDocument);
+                if (hypeDocument !== null) {
+                    console.log("hypeDocument2", hypeDocument);
+                    hypeDocument.showSceneNamed("scene-2");
+                } else {
+                    var wait = setInterval(function () {
+                        if (hypeDocument !== null) {
+                            console.log("hypeDocument3", hypeDocument);
+                            //hypeDocument.showSceneNamed("scene-1");
+
+                            clearInterval(wait);
+                        }
+                    }, 100);
+                }
+            }
+        }
+
+        if ("HYPE_eventListeners" in window === false) {
+            window.HYPE_eventListeners = Array();
+        }
+
+        window.HYPE_eventListeners.push({
+            "type": "HypeSceneLoad",
+            "callback": MyFunctions
+        });
+        var showText = false;
+        document.addEventListener('broadway_video_started', function (e) {
+            //console.log("broadway_video_started1");
+            /*if (paused == false) {
+                eventFire(document.getElementById('canvas'), 'click');
+                paused = true;
+            }*/
+            if (!showText) {
+                showText = true;
+                setTimeout(function() {
+                    document.getElementById("text1").classList.add("fade-in");
+                    setTimeout(function() {
+                        document.getElementById("text2").classList.add("fade-in");
+                    }, 1000);
+                }, 1000);
+            }
+            
+        });
+    </script>
+
+  </body>
+</html>
