@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Global Cookie Iframe page</title>
+		<script>
+			var adcm_config = {
+				id:1114,
+				platformId: 114
+			}
+			
+			function loadJS(src, callback) {
+				var s = document.createElement('script');
+				s.src = src;
+				s.async = true;
+				s.onreadystatechange = s.onload = function () {
+					var state = s.readyState;
+					if (!callback.done && (!state || /loaded|complete/.test(state))) {
+						callback.done = true;
+						callback();
+					}
+				};
+				document.getElementsByTagName('head')[0].appendChild(s);
+			}
+		</script>	
+
+		<style>
+			.buttons {
+				cursor: pointer;
+				text-decoration: underline;
+			}
+		</style>
+    </head>
+    <body>	
+
+        <table>
+        	<tr>
+        		<td colspan="2">
+        			<h4>Interest-based ads are <span id="status">unknown</span></h4>
+        		</td>
+        	</tr>
+        	<tr>
+        		<td>
+        			<span id="enable" class="buttons">Click here to opt-in</span>
+        		</td>
+        		<td>
+        			<span id="disable" class="buttons">Click here to opt-out</span>
+        		</td>
+        	</tr>
+        </table>
+
+		<script>			
+            String.prototype.ProBtnHashCode = function () {
+                var hash = 0;
+                //, i, char;
+                var char1 = 0;
+                var i = 0;
+                if (this.length === 0) return hash;
+                for (i = 0, l = this.length; i < l; i++) {
+                    char1 = this.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char1;
+                    hash |= 0; // Convert to 32bit integer
+                }
+                return hash;
+            };
+
+            var cookieFunctions = {
+                GetDeviceCUID: function () {
+                    var probtnId = "1234";
+					var readCookieValue = cookieFunctions.readCookie("probtnCID");
+                    if ((readCookieValue !== null) && (readCookieValue !== undefined) && (readCookieValue !== "null") && (readCookieValue !== "") && (readCookieValue !== "undefined")) {
+						probtnId = readCookieValue;
+                    } else {
+                        //set cookie
+                        var currentdate = new Date();
+                        currentdate = currentdate.getTime();
+                        probtnId = currentdate.toString() + "-" + navigator.userAgent.toString().ProBtnHashCode();
+                        cookieFunctions.createCookie("probtnCID", probtnId, 365);
+                    }  
+					
+                    return probtnId;
+                },
+                createCookie: function (name, value, days) {
+                    var expires = "";
+                    if (days) {
+                        var date = new Date();
+                        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                        expires = "; expires=" + date.toGMTString();
+                    }
+                    document.cookie = name + "=" + value + expires + "; path=/";
+                },
+                readCookie: function (name) {
+                    var nameEQ = name + "=";
+                    var ca = document.cookie.split(';');
+                    for (var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                    }
+                    return null;
+                },
+                eraseCookie: function (name) {
+                    cookieFunctions.createCookie(name, "", -1);
+                }
+            }
+
+            document.getElementById("enable").addEventListener( "click" , function() {
+            	cookieFunctions.eraseCookie("viewst_opt_out");
+
+            	document.getElementById("status").innerText = "enabled";
+            });
+
+            document.getElementById("disable").addEventListener( "click" , function() {
+            	cookieFunctions.eraseCookie("probtnCID"); //remove existing user id
+            	cookieFunctions.eraseCookie("probtnId");
+            	cookieFunctions.createCookie("viewst_opt_out", 1, 365*2);
+
+            	document.getElementById("status").innerText = "disabled";
+            });
+
+			window.onload = function() {  
+				var viewst_opt_out = cookieFunctions.readCookie("viewst_opt_out");    
+				console.log("viewst_opt_out", viewst_opt_out);
+
+					if (viewst_opt_out) {
+						document.getElementById("status").innerText = "disabled";
+					} else {
+						document.getElementById("status").innerText = "enabled";
+					}							
+				
+				var receiveMessage = function (event) {
+					if ((event.data.command !== undefined) && (event.data.command !== null)) {
+						try {
+							//console.log("init adcm", {profileId: cookieName});
+							//window.adcm.call({profileId: cookieName});
+						  } catch(ex) {
+							console.log(ex);
+						  }
+					}
+				}
+				window.self.addEventListener("message", receiveMessage, false);
+			}
+        </script>
+    </body>
+</html>
