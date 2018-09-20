@@ -2993,13 +2993,9 @@ probtn_initTrackingLinkTest();
               if (ProBtnControl.params.Debug) console.log(ex);
             }
             //////////////////////////////////////////////////////////////////
-
-            //var probtnCID = ProBtnControl.cookieFunctions.readCookie("probtnCID");
             var probtnCID = ProBtnControl.GetDeviceUID();
 
             if (ProBtnControl.params.useGuidIframe === false) {
-              //if ((probtnCID !== null) && (probtnCID !== undefined) && (probtnCID !== "")) {
-              //ProBtnControl.statistics.callSuperPixelExt("getDeviceCID0");
               ProBtnControl.DeviceCID = probtnCID;
               callback(probtnCID);
               return;
@@ -3009,19 +3005,23 @@ probtn_initTrackingLinkTest();
               if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
                 var recievedMessage = false;
                 var receiveMessage = function(event) {
-                  //console.log("DeviceCID event", event);
                   try {
-                    //(event.data.type === "probtnCID") && ((event.origin === "https://cdn.probtn.com") || (event.origin === "http://cdn.probtn.com"))
                     if ((event.data.type !== undefined) && (event.data.type !== null) && (recievedMessage === false)) {
-                      recievedMessage = true;
+                      
+                      /**
+                       * If we recieve user global ID
+                       */
+                      if (event.data.type === "probtnCID") {
+                        recievedMessage = true;
 
-                      ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_6");
-                      ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
+                        ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_6");
+                        ProBtnControl.DeviceCID_log = JSON.stringify(event.data);
 
 
-                      ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 1);
-                      ProBtnControl.DeviceCID = event.data.cid;
-                      callback(event.data.cid);
+                        ProBtnControl.cookieFunctions.createCookie("probtnCID", event.data.cid, 1);
+                        ProBtnControl.DeviceCID = event.data.cid;
+                        callback(event.data.cid);
+                      }
                     } else {}
                   } catch (ex) {
                     ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_ex_" + ex);
@@ -3262,7 +3262,7 @@ probtn_initTrackingLinkTest();
         callSuperPixel: function() {
           try {
             var superPixelPath = "https://pixel.probtn.com/1/from-ref";
-            ProBtnControl.statistics.createClickCounterImage(superPixelPath);
+            //ProBtnControl.statistics.createClickCounterImage(superPixelPath);
           } catch (ex) {}
         },
         callSuperPixelExt: function(param) {
@@ -3282,8 +3282,8 @@ probtn_initTrackingLinkTest();
               probtnId = ProBtnControl.GetDeviceUID();
               var probtncid = ProBtnControl.DeviceCID;
 
-              var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
-              ProBtnControl.statistics.createClickCounterImage(superPixelPath);
+              //var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
+              //ProBtnControl.statistics.createClickCounterImage(superPixelPath);
             }
           } catch (ex) {
             console.log(ex);
