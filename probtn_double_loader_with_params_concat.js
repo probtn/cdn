@@ -76,7 +76,7 @@ var callDSPlink = function() {
 
 callDSPlink();
 
-if ((window.top !== window.self) && ((checkIframe()!=="XD_IFRAME"))) { 
+if (window.top !== window.self) { 
 	try {
 		var probtn_content1 = window.top.document.createElement("div");
 		probtn_content1.id = "probtn_content1";
