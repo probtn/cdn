@@ -41,7 +41,7 @@ function checkIframe() {
 
 var callDSPlink = function() {
 	var dsp_settings = document.getElementById("probtn_dsp_params");
-	addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "callDSPlink");
+	//addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "callDSPlink");
 	if ((dsp_settings!==null) && (dsp_settings!==undefined)) {
 		var domain = "unknown_domain";
 		try {
@@ -56,7 +56,7 @@ var callDSPlink = function() {
 			data = JSON.parse(data);
 			var dsp_params = Object.assign(default_params, data);
 			
-			addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "campaign_id_" + dsp_params.campaign_id);
+			//addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "campaign_id_" + dsp_params.campaign_id);
 			addLink("https://dsp-parser.viewst.com/getdspimg/"+ dsp_params.campaign_id + "/" + dsp_params.domain + "/" + dsp_params.frame + "/" + dsp_params.publishers);
 		} catch(ex) {
 			console.log(ex);
