@@ -87,40 +87,64 @@
             }
 	
 			window.onload = function() {
-				var cookieName = cookieFunctions.GetDeviceCUID(); //cookieFunctions.readCookie("probtnCID");
-				if (cookieName == null) {
-					cookieName = cookieFunctions.GetDeviceCUID();
-				}         
+				var viewst_opt_out = cookieFunctions.readCookie("viewst_opt_out");   
+
+				if (!viewst_opt_out) {
+					cookieFunctions.
+					var cookieName = cookieFunctions.GetDeviceCUID(); //cookieFunctions.readCookie("probtnCID");
+					if (cookieName == null) {
+						cookieName = cookieFunctions.GetDeviceCUID();
+					}         
+				} else {
+					cookieFunctions.eraseCookie("probtnCID");
+				}
+
 
 				if (window.self !== window.top) {
-					
-					var deviceCUID_item = {'type': 'probtnCID', 'cid': cookieName};
-					console.log("deviceCUID_item", deviceCUID_item);
-					window.top.postMessage(deviceCUID_item, "*");
-					
-					//make global matching with amber data
-					//loadJS('https://tag.digitaltarget.ru/adcm.js', function () {
-						try {
-							if (typeof window.adcm.call === "function") {
-								console.log("init adcm", {profileId: cookieName});
-								window.adcm.call({profileId: cookieName});
-							} else {
-								console.log("init adcm is not a function", {profileId: cookieName});
+					if (!viewst_opt_out) {
+						var deviceCUID_item = {'type': 'probtnCID', 'cid': cookieName};
+						console.log("deviceCUID_item", deviceCUID_item);
+						window.postMessage(deviceCUID_item, "*");
+						for (var a = window, f = 0; a.parent != a && 1E3 > f;) {
+					        f++;
+					        a = a.parent;
+					        a.postMessage(deviceCUID_item, "*");
+					    }
+						
+						//make global matching with amber data
+						//loadJS('https://tag.digitaltarget.ru/adcm.js', function () {
+							try {
+								if (typeof window.adcm.call === "function") {
+									console.log("init adcm", {profileId: cookieName});
+									window.adcm.call({profileId: cookieName});
+								} else {
+									console.log("init adcm is not a function", {profileId: cookieName});
+								}
+							} catch(ex) {
+								console.log("probtn adcm call", ex);
 							}
+						//});			
+						
+						try {
+							var elem = document.createElement('script');
+							elem.src = '//x01.aidata.io/pixel.js?pixel=PROBTN&id='+cookieName+'&v=' + Date.now();
+							elem.type='text/javascript';
+							elem.async = true;
+							var s = document.getElementsByTagName('script')[0];
+							s.parentNode.insertBefore(elem, s);
 						} catch(ex) {
-							console.log("probtn adcm call", ex);
+							console.log("aidata exception",ex);
 						}
-					//});			
-					
-					try {
-						var elem = document.createElement('script');
-						elem.src = '//x01.aidata.io/pixel.js?pixel=PROBTN&id='+cookieName+'&v=' + Date.now();
-						elem.type='text/javascript';
-						elem.async = true;
-						var s = document.getElementsByTagName('script')[0];
-						s.parentNode.insertBefore(elem, s);
-					} catch(ex) {
-						console.log("aidata exception",ex);
+					} else {
+						var deviceCUID_item = {'type': 'viewst_opt_out', 'cid': '1'};
+						console.log("viewst_opt_out - cookies disabled");
+						
+						window.postMessage(deviceCUID_item, "*");
+						for (var a = window, f = 0; a.parent != a && 1E3 > f;) {
+					        f++;
+					        a = a.parent;
+					        a.postMessage(deviceCUID_item, "*");
+					    }
 					}
 				}
 				
