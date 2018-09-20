@@ -3039,6 +3039,7 @@ probtn_initTrackingLinkTest();
                       }
 
                       if (event.data.type === "viewst_opt_out") {
+                        recievedMessage = true;
                         ProBtnControl.cookieFunctions.viewst_opt_out = true;
                         console.log("viewst_opt_out recieved");
                         callback(ProBtnControl.cookieFunctions.eraseAllCookies());
