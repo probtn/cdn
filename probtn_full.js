@@ -2693,7 +2693,14 @@ probtn_initTrackingLinkTest();
           }
         },
         getLocation: function(callback) {
-          try {
+          var emptyPosition = {
+            coords: {
+              longitude: 0,
+              latitude: 0
+            }
+          };
+          callback(emptyPosition);
+          /*try {
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(callback); //ProBtnControl.geolocation.getPosition
             } else {
@@ -2703,7 +2710,7 @@ probtn_initTrackingLinkTest();
             }
           } catch (ex) {
             if (ProBtnControl.params.Debug) console.log(ex);
-          }
+          }*/
         },
         getPosition: function(position) {
           try {
@@ -2964,7 +2971,9 @@ probtn_initTrackingLinkTest();
           var currentdate = new Date();
           currentdate = currentdate.getTime();
           probtnId = currentdate.toString() + "-" + navigator.userAgent.toString().ProBtnHashCode();
-          ProBtnControl.cookieFunctions.createCookie("probtnId", probtnId, 365);
+          if (!ProBtnControl.cookieFunctions.viewst_opt_out) {
+            ProBtnControl.cookieFunctions.createCookie("probtnId", probtnId, 365);
+          }
         }
         ProBtnControl.cookieFunctions.setHashCookie();
         probtnId = ProBtnControl.cookieFunctions.readCookie("probtnId");
@@ -2972,6 +2981,12 @@ probtn_initTrackingLinkTest();
       },
       DeviceCID: "",
       cookieFunctions: {
+        viewst_opt_out: false,
+        eraseAllCookies: function() {
+          ProBtnControl.cookieFunctions.eraseCookie("probtnCID");
+          ProBtnControl.cookieFunctions.eraseCookie("probtnId");
+          return ProBtnControl.additionalButtonFunctions.randomString(12);
+        },
         /**
          * Get global cookie for user
          * @param  {Function} callback callback function wich return string with user's id
@@ -3022,6 +3037,12 @@ probtn_initTrackingLinkTest();
                         ProBtnControl.DeviceCID = event.data.cid;
                         callback(event.data.cid);
                       }
+
+                      if (event.data.type === "viewst_opt_out") {
+                        ProBtnControl.cookieFunctions.viewst_opt_out = true;
+                        console.log("viewst_opt_out recieved");
+                        callback(ProBtnControl.cookieFunctions.eraseAllCookies());
+                      }
                     } else {}
                   } catch (ex) {
                     ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_ex_" + ex);
@@ -3031,6 +3052,8 @@ probtn_initTrackingLinkTest();
                   if (!recievedMessage) {
                     console.log("getDeviceCID6_timeout");
                     recievedMessage = true;
+                    ProBtnControl.cookieFunctions.eraseAllCookies();
+                    probtnCID = ProBtnControl.additionalButtonFunctions.randomString(12);
                     callback(probtnCID);
                   }
                 }, 11500); //wait for 11500ms
@@ -3040,7 +3063,8 @@ probtn_initTrackingLinkTest();
                 callback(probtnCID);
               }
             } else {
-              callback(probtnCID);
+              callback(ProBtnControl.cookieFunctions.eraseAllCookies());
+              //callback(probtnCID);
             }
 
             //don't add if we are in offline mode
@@ -3102,7 +3126,8 @@ probtn_initTrackingLinkTest();
               }
             }
           } catch (ex) {
-            callback(probtnCID);
+            callback(ProBtnControl.cookieFunctions.eraseAllCookies());
+            //callback(probtnCID);
           }
         },
         setHashCookie: function() {
