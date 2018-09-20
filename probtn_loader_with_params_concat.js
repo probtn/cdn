@@ -66,20 +66,21 @@ var callDSPlink = function() {
 
 callDSPlink();
 
-if (window.top !== window.self) { 
-	try {
-		var probtn_content1 = window.top.document.createElement("div");
-		probtn_content1.id = "probtn_content1";
-		probtn_content1.innerHTML = document.getElementById("probtn_content1").innerHTML;
-		probtn_content1.style.cssText = "display: none;";
-		window.top.document.body.appendChild(probtn_content1);
-		
-		loadJS(window.top, "https://cdn.probtn.com/probtn_concat.js", function() {
-		});
-	} catch(ex) {
-		console.log("cant go to top");
-		console.log(ex);
-	}
+if ((window.top !== window.self) && ((checkIframe()!=="XD_IFRAME"))) { 
+		try {
+			var probtn_content1 = window.top.document.createElement("div");
+			probtn_content1.id = "probtn_content1";
+			probtn_content1.innerHTML = document.getElementById("probtn_content1").innerHTML;
+			probtn_content1.style.cssText = "display: none;";
+			window.top.document.body.appendChild(probtn_content1);
+			
+			loadJS(window.top, "https://cdn.probtn.com/probtn_concat.js", function() {
+			});
+		} catch(ex) {
+			console.log("cant go to top");
+			loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
+			});
+		}
 } else {
 	loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
 	});
