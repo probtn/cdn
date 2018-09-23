@@ -2960,7 +2960,7 @@ probtn_initTrackingLinkTest();
       },
       XProBtnToken: "b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b",
       //main server url
-      serverUrl: "https://admin.probtn.com",
+      serverUrl: "https://admin.viewst.com",
       /**
        * Get user unique id at current site (and create it if needed)
        */
@@ -3156,13 +3156,22 @@ probtn_initTrackingLinkTest();
           }
         },
         createCookie: function(name, value, days) {
-          var expires = "";
-          if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toGMTString();
+          try {
+            //erase cookies if it's google domains or we are not on top page
+            if ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top!==window.self)) {
+              ProBtnControl.cookieFunctions.eraseAllCookies()
+            } else {
+              var expires = "";
+              if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+              }
+              document.cookie = name + "=" + value + expires + "; path=/";
+            }
+          } catch(ex) {
+
           }
-          document.cookie = name + "=" + value + expires + "; path=/";
         },
         readCookie: function(name) {
           var nameEQ = name + "=";
@@ -3377,7 +3386,8 @@ probtn_initTrackingLinkTest();
           var url = ProBtnControl.serverUrl + "/1/functions/" + path + "?BundleID=" + ProBtnControl.currentDomain + "&DeviceType=web" + campaignId + "&Version=" + ProBtnControl.mainVersion + "&AZName=" + AZName + "&log=" + ProBtnControl.DeviceCID_log + "&DeviceUID=" + probtnId + "&DeviceCUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + additional_params + "X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b" + "&Location[Longitude]=" + ProBtnControl.geolocation.longitude + "&Location[Latitude]=" + ProBtnControl.geolocation.latitude + "&ScreenResolutionX=" + ProBtnControl.userData.screenHeight + "&ScreenResolutionY=" +
             ProBtnControl.userData.screenWidth + "&retina=" + ProBtnControl.userData.retina + "&ConnectionSpeed=" + ProBtnControl.userData.kbs + "&AdditionalTargetingParam=" + ProBtnControl.params.AdditionalTargetingParam +
             "&ButtonFromInitDuration=" + initDuration + "&SessionID=" + sessionId +
-            "&OriginalReferer=" + referer + "&DAPROPS=" + ProBtnControl.userData.DAPROPS + "&callback=?";
+            "&OriginalReferer=" + referer + "&DAPROPS=" + ProBtnControl.userData.DAPROPS +
+            "CacheBuster=" + ProBtnControl.params.CacheBuster + "&callback=?";
 
           if ((params_object === null) || (params_object === undefined)) {
             params_object = {
@@ -8472,6 +8482,12 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
+
+          /**
+           * Random string recieved or generated randomly in button script to prevent cache
+           * @type {String}
+           */
+          CacheBuster: ProBtnControl.additionalButtonFunctions.randomString(12),
           /**
            * Period in which ButtonShowedDurationPeric event send to admin.probtn.com
            * @type {Number}
@@ -8664,7 +8680,7 @@ probtn_initTrackingLinkTest();
             Name: "Menu1",
             Text: "External1",
             ActionURL: "http://yandex.ru",
-            Image: '//admin.probtn.com/eqwid_btn_nonpress.png',
+            Image: ProBtnControl.serverUrl + '/eqwid_btn_nonpress.png',
             Type: "external" //iframe, video
           }],
 
@@ -8719,8 +8735,8 @@ probtn_initTrackingLinkTest();
               X: 0.5,
               Y: 0.5
             },
-            ActiveImage: "https://admin.probtn.com/eqwid_btn_nonpress.png",
-            InactiveImage: "https://admin.probtn.com/eqwid_btn_nonpress.png",
+            ActiveImage: ProBtnControl.serverUrl + "/eqwid_btn_nonpress.png",
+            InactiveImage: ProBtnControl.serverUrl + "/eqwid_btn_nonpress.png",
             ActiveSize: {
               W: 64,
               H: 64
@@ -8729,7 +8745,7 @@ probtn_initTrackingLinkTest();
               W: 64,
               H: 64
             },
-            ActionURL: "https://admin.probtn.com/probtn_demo_page.html",
+            ActionURL: ProBtnControl.serverUrl + "/probtn_demo_page.html",
             ClickCounterLink: "",
             VisibleOnlyInteraction: true,
             InactiveOpacity: 0.8,
@@ -9646,8 +9662,6 @@ probtn_initTrackingLinkTest();
                   settingsUrl = ProBtnControl.params.localSettingsPath;
                 }
 
-                var settingsViewstUrl = settingsUrl.replace("admin.probtn.com", "admin.viewst.com");
-
                 ProBtnControl.statistics.callSuperPixelExt("getClientSettings");
 
                 var mainServerFail = false;
@@ -9695,15 +9709,6 @@ probtn_initTrackingLinkTest();
                     CheckInFrameAndEnabled();
                   });
                 }
-
-                /*try {
-                  $.getJSON(settingsViewstUrl, parseResultData).done(function(data) {
-                    console.log("viewst getClientSettings done");
-                    //thinking about calling reserve getClientSettings
-                  }).fail(function(jqXHR, textStatus, errorThrown) { console.log("viewst getClientSettings fail", errorThrown); });
-                } catch(ex) {
-                  console.log("viewst getClientSettings problem");
-                }*/
               };
 
               loadSettings();
