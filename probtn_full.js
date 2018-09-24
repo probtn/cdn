@@ -2960,7 +2960,7 @@ probtn_initTrackingLinkTest();
       },
       XProBtnToken: "b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b",
       //main server url
-      serverUrl: "https://admin.viewst.com",
+      serverUrl: "https://admin.probtn.com",
       /**
        * Get user unique id at current site (and create it if needed)
        */
@@ -3158,8 +3158,8 @@ probtn_initTrackingLinkTest();
         createCookie: function(name, value, days) {
           try {
             //erase cookies if it's google domains or we are not on top page
-            if ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top!==window.self)) {
-              ProBtnControl.cookieFunctions.eraseAllCookies()
+            if ((days>0) && ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top!==window.self))) {
+              ProBtnControl.cookieFunctions.eraseAllCookies();
             } else {
               var expires = "";
               if (days) {
@@ -3170,7 +3170,7 @@ probtn_initTrackingLinkTest();
               document.cookie = name + "=" + value + expires + "; path=/";
             }
           } catch(ex) {
-
+            console.log(ex);
           }
         },
         readCookie: function(name) {
