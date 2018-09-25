@@ -1,6 +1,8 @@
 /*global _comma_separated_list_of_variables_*/
 
 /// <reference path="libs/jquery.js" />
+/// 
+var DeviceAtlas = undefined;
 
 function probtn_callPlayer(frame_id, func, args) {
   var player;
@@ -2949,6 +2951,7 @@ probtn_initTrackingLinkTest();
             kbs: 0,
             DAPROPS: daProps
           };
+          ProBtnControl.cookieFunctions.eraseCookie("DAPROPS");
           ProBtnControl.userData = result;
 
           callback(result);
@@ -2960,7 +2963,7 @@ probtn_initTrackingLinkTest();
       },
       XProBtnToken: "b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b",
       //main server url
-      serverUrl: "https://admin.probtn.com",
+      serverUrl: "https://admin.viewst.com",
       /**
        * Get user unique id at current site (and create it if needed)
        */
@@ -2985,6 +2988,7 @@ probtn_initTrackingLinkTest();
         eraseAllCookies: function() {
           ProBtnControl.cookieFunctions.eraseCookie("probtnCID");
           ProBtnControl.cookieFunctions.eraseCookie("probtnId");
+          ProBtnControl.cookieFunctions.eraseCookie("DAPROPS");
           return ProBtnControl.additionalButtonFunctions.randomString(12);
         },
         /**
@@ -5748,9 +5752,11 @@ probtn_initTrackingLinkTest();
           ProBtnControl.initFunctions.initProbtnClosingArea(btn);
 
           //ProbtnControl.params.JsImpressionCode
+          console.log("ProBtnControl.params.JsImpressionCode", ProBtnControl.params.JsImpressionCode);
           ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
             if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
-              var jscode = $('<textarea/>').html(ProBtnControl.params.JsImpressionCode).text();
+              var jscode = $('<textarea/>').html(ProBtnControl.params.JsImpressionCode).html();
+              console.log("jscode", jscode);
               ProBtnControl.statistics.SendStatisticsData("performedAction", "jsImpressionCode_started");
               postscribe("#probtn_button", '' + jscode + '');
             }
@@ -8452,6 +8458,10 @@ probtn_initTrackingLinkTest();
       if (typeof DeviceAtlas !== 'undefined') {
         getUserDataFunction(null);
       } else {
+        DeviceAtlas = {
+            cookieName: 'DAPROPS', // the cookie name
+            cookieExpiryDays: -1,  // the time the cookie expires in days
+        }
         $.getScript(ProBtnControl.atlasPath, getUserDataFunction);
         //getUserDataFunction(null);
       }

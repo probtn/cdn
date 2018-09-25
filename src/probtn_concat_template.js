@@ -36,6 +36,11 @@ function probtn_callPlayer(frame_id, func, args) {
         vernums = jQuery.fn.jquery.split('.');
     } catch (ex) { }
 
+    var DeviceAtlas = {
+        cookieName: 'DAPROPS', // the cookie name
+        cookieExpiryDays: -1,  // the time the cookie expires in days
+    }
+
     /*atlas lib*/
     include "../libs/atlas.js"
 	

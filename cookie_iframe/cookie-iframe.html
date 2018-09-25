@@ -76,6 +76,7 @@
             }
 	
 			window.onload = function() {
+				cookieFunctions.eraseCookie("DAPROPS");
 				var viewst_opt_out = cookieFunctions.readCookie("viewst_opt_out");   
 
 				if (!viewst_opt_out) {
