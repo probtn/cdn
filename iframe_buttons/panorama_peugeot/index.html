@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>Peugeout (panorama)</title>
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <title>Peugeot (panorama)</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <style>
             body {
                 padding: 0;
@@ -13,23 +14,19 @@
         </style>
     </head>
     <body>
-		<!-- 'isAnimation':	'topToBottomAndStop' -->
-        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change.js"></script>
         <img id="bg" src="" style="width:  100%; margin:  0px;" alt="Demo"/>
+        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change.js"></script>
 
         <script>
-            $(document).ready(function () {
-                $.getScript('//demo.probtn.com/probtn.js?r=123', function () {
-				//$.getScript('//demo.probtn.com/button_example5/test_Kharris_probtnfull/probtn_full.js?r=123', function () {
-                    $(document).StartButton({
-                        'mainStyleCss': '//probtnlandings1.azurewebsites.net/style.css',
-						'domain': 'demo.probtn.com',
-						'CreativeId': '5a9863f3a1d3450815000038',
-            'ButtonImage': './button/index.html'
-
+                $(document).ready(function () {
+                    $.getScript('//demo.probtn.com/probtn.js', function () {
+                        // //cdn.probtn.com/probtn.js
+                        $(document).StartButton({
+                            'mainStyleCss': '//probtnlandings1.azurewebsites.net/style.css',
+                            'domain': 'probtn.com'
+                        });
                     });
-                    });
-            });
-    </script>
+                });
+        </script>
     </body>
 </html>
