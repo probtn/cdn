@@ -67,7 +67,7 @@ var callDSPlink = function() {
 			
 			addLink("https://dsp-parser.viewst.com/getdsppixel?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "campaign_id_" + dsp_params.campaign_id);
 			addLink("https://dsp-parser.viewst.com/getdspimg/?campaign_id="+ dsp_params.campaign_id + "_getdspimg&domain=" + dsp_params.domain + "&frame=" + dsp_params.frame + "&publishers=" + dsp_params.publishers);
-			addLink("https://dsp-parser.viewst.com/getdsp/"+ dsp_params.campaign_id + "_getdsp/" + dsp_params.domain + "/" + dsp_params.frame + "/" + dsp_params.publishers);			
+			//addLink("https://dsp-parser.viewst.com/getdsp/"+ dsp_params.campaign_id + "_getdsp/" + dsp_params.domain + "/" + dsp_params.frame + "/" + dsp_params.publishers);			
 			addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "campaign_id_" + dsp_params.campaign_id);
 		} catch(ex) {
 			console.log(ex);
