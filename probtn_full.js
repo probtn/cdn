@@ -2504,6 +2504,7 @@ probtn_initTrackingLinkTest();
         } else {
           if (currentButtonContentType === "anchor") {
             if (currentContentURL.charAt(0) === "#") {
+              ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
               $.pep.toggleAll(true);
               window.location.hash = "";
               window.location.hash = currentContentURL;

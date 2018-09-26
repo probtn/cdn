@@ -65,11 +65,13 @@ var callDSPlink = function() {
 			data = JSON.parse(data);
 			var dsp_params = Object.assign(default_params, data);
 			
+			addLink("https://dsp-parser.viewst.com/getdsppixel?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "campaign_id_" + dsp_params.campaign_id);
+			addLink("https://dsp-parser.viewst.com/getdspimg/?campaign_id="+ dsp_params.campaign_id + "_getdspimg&domain=" + dsp_params.domain + "&frame=" + dsp_params.frame + "&publishers=" + dsp_params.publishers);
+			addLink("https://dsp-parser.viewst.com/getdsp/"+ dsp_params.campaign_id + "_getdsp/" + dsp_params.domain + "/" + dsp_params.frame + "/" + dsp_params.publishers);			
 			addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "campaign_id_" + dsp_params.campaign_id);
-			//addLink("https://dsp-parser.viewst.com/getdsp/"+ dsp_params.campaign_id + "/" + dsp_params.domain + "/" + dsp_params.frame + "/" + dsp_params.publishers);
-			addLink("https://dsp-parser.viewst.com/getdspimg/?campaign_id="+ dsp_params.campaign_id + "&domain=" + dsp_params.domain + "&frame=" + dsp_params.frame + "&publishers=" + dsp_params.publishers);
 		} catch(ex) {
 			console.log(ex);
+			addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + "error_" + ex.toString());
 		}
 	}
 }
