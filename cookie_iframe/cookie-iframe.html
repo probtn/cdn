@@ -47,6 +47,7 @@
                 	if (window.parent!==window.top) {
                 		cookieFunctions.eraseCookie("DAPROPS");
                 		cookieFunctions.readCookie("probtnCID");
+                		cookieFunctions.readCookie("probtnId");
                 		cookieFunctions.readCookie("viewst_opt_out");
                 		return probtnId;
                 	}
@@ -132,6 +133,7 @@
 						if (event.data.command === "eraseAllCookies") {
 	                		cookieFunctions.eraseCookie("DAPROPS");
 	                		cookieFunctions.eraseCookie("probtnCID");
+	                		cookieFunctions.eraseCookie("probtnId");
 	                		//cookieFunctions.eraseCookie("viewst_opt_out");
 						}
 					} catch(ex) {
