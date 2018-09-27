@@ -2988,8 +2988,6 @@ probtn_initTrackingLinkTest();
         viewst_opt_out: false,
         sendEraseToCookieIframePage:function() {
           try {
-            console.log('document.getElementById("probtn_guidIframe")', document.getElementById("probtn_guidIframe"));
-            debugger;
             if ((document.getElementById("probtn_guidIframe") !== undefined)) {
               document.getElementById("probtn_guidIframe").contentWindow.postMessage({
                 "command": "eraseAllCookies"
@@ -5770,7 +5768,6 @@ probtn_initTrackingLinkTest();
           ProBtnControl.initFunctions.initProbtnClosingArea(btn);
 
           //ProbtnControl.params.JsImpressionCode
-          console.log("ProBtnControl.params.JsImpressionCode", ProBtnControl.params.JsImpressionCode);
           ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
             if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
               var jscode = $('<textarea/>').html(ProBtnControl.params.JsImpressionCode).html();
