@@ -37,15 +37,25 @@
 
             var cookieFunctions = {
                 GetDeviceCUID: function () {
+
+                	//set cookie
+                    var currentdate = new Date();
+                    currentdate = currentdate.getTime();
+                    probtnId = currentdate.toString() + "-" + navigator.userAgent.toString().ProBtnHashCode();
+
+                    //if our parent isn't top - remove cookies
+                	if (window.parent!==window.top) {
+                		cookieFunctions.eraseCookie("DAPROPS");
+                		cookieFunctions.readCookie("probtnCID");
+                		cookieFunctions.readCookie("viewst_opt_out");
+                		return probtnId;
+                	}
+
                     var probtnId = "1234";
 					var readCookieValue = cookieFunctions.readCookie("probtnCID");
                     if ((readCookieValue !== null) && (readCookieValue !== undefined) && (readCookieValue !== "null") && (readCookieValue !== "") && (readCookieValue !== "undefined")) {
 						probtnId = readCookieValue;
                     } else {
-                        //set cookie
-                        var currentdate = new Date();
-                        currentdate = currentdate.getTime();
-                        probtnId = currentdate.toString() + "-" + navigator.userAgent.toString().ProBtnHashCode();
                         cookieFunctions.createCookie("probtnCID", probtnId, 365);
                     }  
 					
@@ -88,7 +98,6 @@
 					cookieFunctions.eraseCookie("probtnCID");
 				}
 
-
 				if (window.self !== window.top) {
 					if (!viewst_opt_out) {
 						var deviceCUID_item = {'type': 'probtnCID', 'cid': cookieName};
@@ -113,11 +122,20 @@
 				}
 				
 				var receiveMessage = function (event) {
-					if ((event.data.command !== undefined) && (event.data.command !== null) && (event.data.command === "amber_matching")) {
+					/*if ((event.data.command !== undefined) && (event.data.command !== null) && (event.data.command === "amber_matching")) {
 						try {
 						  } catch(ex) {
 							console.log(ex);
 						  }
+					}*/
+					try {
+						if (event.data.command === "eraseAllCookies") {
+	                		cookieFunctions.eraseCookie("DAPROPS");
+	                		cookieFunctions.eraseCookie("probtnCID");
+	                		//cookieFunctions.eraseCookie("viewst_opt_out");
+						}
+					} catch(ex) {
+						console.log(ex);
 					}
 				}
 				window.self.addEventListener("message", receiveMessage, false);

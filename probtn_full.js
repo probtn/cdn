@@ -2986,10 +2986,27 @@ probtn_initTrackingLinkTest();
       DeviceCID: "",
       cookieFunctions: {
         viewst_opt_out: false,
+        sendEraseToCookieIframePage:function() {
+          try {
+            console.log('document.getElementById("probtn_guidIframe")', document.getElementById("probtn_guidIframe"));
+            debugger;
+            if ((document.getElementById("probtn_guidIframe") !== undefined)) {
+              document.getElementById("probtn_guidIframe").contentWindow.postMessage({
+                "command": "eraseAllCookies"
+              }, ProBtnControl.guidCookieControlPath); //ProBtnControl.guidCookieControlPath
+            }
+          } catch (ex) {
+            console.log(ex);
+          }
+        },
         eraseAllCookies: function() {
           ProBtnControl.cookieFunctions.eraseCookie("probtnCID");
           ProBtnControl.cookieFunctions.eraseCookie("probtnId");
           ProBtnControl.cookieFunctions.eraseCookie("DAPROPS");
+          ProBtnControl.cookieFunctions.eraseCookie("hpmd_cd");         
+
+          ProBtnControl.cookieFunctions.sendEraseToCookieIframePage();
+
           return ProBtnControl.additionalButtonFunctions.randomString(12);
         },
         /**
