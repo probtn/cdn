@@ -5767,6 +5767,8 @@ probtn_initTrackingLinkTest();
           ProBtnControl.initFunctions.initProbtnBadge(btn);
           ProBtnControl.initFunctions.initProbtnClosingArea(btn);
 
+          ProBtnControl.DMP.launchIDataScript();
+
           //ProbtnControl.params.JsImpressionCode
           ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
             if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
@@ -6124,6 +6126,22 @@ probtn_initTrackingLinkTest();
         },
         intervalId: undefined,
         wasInteraction: false
+      },
+      DMP: {
+        launchIDataScript: function() {
+            try {
+              if (ProBtnControl.params.DmpEnabled === true) {
+                var elem = document.createElement('script');
+                elem.src = '//x01.aidata.io/pixel.js?pixel=PROBTN&id=' + ProBtnControl.DeviceCID + '&v=' + Date.now();
+                elem.type='text/javascript';
+                elem.async = true;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(elem, s);
+              }
+            } catch(ex) {
+              console.log("aidata exception",ex);
+            }
+        }
       },
       // #additionalButtonFunctions
       additionalButtonFunctions: {
@@ -8507,7 +8525,7 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
-
+          DmpEnabled: false,
           /**
            * Random string recieved or generated randomly in button script to prevent cache
            * @type {String}
