@@ -5767,8 +5767,6 @@ probtn_initTrackingLinkTest();
           ProBtnControl.initFunctions.initProbtnBadge(btn);
           ProBtnControl.initFunctions.initProbtnClosingArea(btn);
 
-          ProBtnControl.DMP.launchIDataScript();
-
           //ProbtnControl.params.JsImpressionCode
           ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
             if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
@@ -9359,6 +9357,7 @@ probtn_initTrackingLinkTest();
             console.log(ex);
           }
 
+          ProBtnControl.DMP.launchIDataScript();
 
           var isStartAppBanner = startAppBanner();
           CheckAndRunButtonAtParent();
