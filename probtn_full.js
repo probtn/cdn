@@ -6127,7 +6127,7 @@ probtn_initTrackingLinkTest();
       },
       DMP: {
         launchIDataScript: function() {
-            try {
+            /*try {
               if (ProBtnControl.params.DmpEnabled === true) {
                 var elem = document.createElement('script');
                 elem.src = '//x01.aidata.io/pixel.js?pixel=PROBTN&id=' + ProBtnControl.DeviceCID + '&v=' + Date.now();
@@ -6138,7 +6138,7 @@ probtn_initTrackingLinkTest();
               }
             } catch(ex) {
               console.log("aidata exception",ex);
-            }
+            }*/
         }
       },
       // #additionalButtonFunctions
