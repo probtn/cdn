@@ -5773,7 +5773,8 @@ probtn_initTrackingLinkTest();
               var jscode = $('<textarea/>').html(ProBtnControl.params.JsImpressionCode).html();
               console.log("jscode", jscode);
               ProBtnControl.statistics.SendStatisticsData("performedAction", "jsImpressionCode_started");
-              postscribe("#probtn_button", '' + jscode + '');
+              $("#probtn_button").append('<div id="jsImpressionCode" style="top: 0px; left: 0px; position: absolute; width: 100%; height: 100%;"></div>');
+              postscribe("#jsImpressionCode", '' + jscode + '');
             }
           });
 
