@@ -6128,7 +6128,7 @@ probtn_initTrackingLinkTest();
       },
       DMP: {
         launchIDataScript: function() {
-            /*try {
+            try {
               if (ProBtnControl.params.DmpEnabled === true) {
                 var elem = document.createElement('script');
                 elem.src = '//x01.aidata.io/pixel.js?pixel=PROBTN&id=' + ProBtnControl.DeviceCID + '&v=' + Date.now();
@@ -6139,7 +6139,7 @@ probtn_initTrackingLinkTest();
               }
             } catch(ex) {
               console.log("aidata exception",ex);
-            }*/
+            }
         }
       },
       // #additionalButtonFunctions
@@ -9531,6 +9531,10 @@ probtn_initTrackingLinkTest();
 
                     ProBtnControl.params.OnShowPixel = data.OnShowPixel;
                     ProBtnControl.params.OnNoShowPixel = data.OnNoShowPixel;
+                    
+                    if (data.DmpEnabledApp) {
+                      ProBtnControl.params.DmpEnabled = data.DmpEnabledApp;
+                    }                    
 
                     if ((ProBtnControl.params.PassbackCodeSelector === "") || (ProBtnControl.params.PassbackCodeSelector === undefined) || (ProBtnControl.params.PassbackCodeSelector === null)) {
                       ProBtnControl.params.PassbackCodeSelector = "#probtn_passback";
