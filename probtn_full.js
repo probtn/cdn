@@ -8101,6 +8101,8 @@ probtn_initTrackingLinkTest();
           TopToBottomAndStopAnimation: function() {
             var params = {
               side: "top",
+              heightPercent: 1,
+              startHeightPercent: 0,
               waitDuration: ProBtnControl.params.animationDuration / 2
             }
             params = this._checkAndGetActualParams(params);
@@ -8109,25 +8111,32 @@ probtn_initTrackingLinkTest();
             }
 
             var additionalMode = "";
-            /*try {
-              if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
-                additionalMode = forwardAndStopParams[3];
-              }
-            } catch (ex) {
+            var heightPercent = params.heightPercent;
+            var startHeightPercent = params.startHeightPercent;
+
+            /*if (params.side == 'right') {
+              ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - ($('body').innerWidth()*params.startWidthPercent) - (ProBtnControl.params.ButtonSize.W));
+            } else {
+              ProBtnControl.pizzabtn.css("left", ($('body').innerWidth()*params.startWidthPercent));
+            }
+
+            var left = $('body').innerWidth() * widthPercent - (ProBtnControl.params.ButtonSize.W);
+            if (params.side === 'right') {
+              left = $('body').innerWidth() * (1 - widthPercent);
             }*/
 
             if ((params.name.toLowerCase() == "TopToBottom".toLowerCase()) ||
               (params.name.toLowerCase() == "upToDown".toLowerCase())) {
 
               if (params.side == 'bottom') {
-                ProBtnControl.pizzabtn.css("top", ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H));
+                ProBtnControl.pizzabtn.css("top", ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H + $('body').innerHeight() * startHeightPercent));
               } else {
-                ProBtnControl.pizzabtn.css("top", 0);
+                ProBtnControl.pizzabtn.css("top", $('body').innerHeight() * startHeightPercent);
               }
 
-              var top = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H);
+              var top = ProBtnControl.additionalButtonFunctions.getWindowHeight()*heightPercent - (ProBtnControl.params.ButtonSize.H);
               if (params.side == 'bottom') {
-                top = 0;
+                top = 0 + (ProBtnControl.additionalButtonFunctions.getWindowHeight()*(1 - heightPercent));
               }
 
               this._setAnimationCSS();

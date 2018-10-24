@@ -30,6 +30,10 @@
 
 	<script>
         function MyFunctions(hypeDocument, element, event) {
+
+            setTimeout(function () {
+                window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+            }, 100);
             /*setTimeout(function() {
             hypeDocument.showNextScene();
             }, 3600);*/
