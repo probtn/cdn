@@ -3,30 +3,28 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>Jumanji-2 (eng)</title>
+        <title>Jumanji (eng)</title>
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <style>
             body {
-                margin: 0px;
-                padding:  0px;
-            }
-            #probtn_wrapper {
+                padding: 0;
+                margin: 0;
             }
         </style>
     </head>
     <body>
-        <img id="bg" style="width:  100%; margin: 0px;" alt="bazaar.ru"/>
-        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change-snow.js"></script>
-        <script>
+        <img id="bg" src="" style="width:  100%; margin:  0px;" alt="Demo"/>
+        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change.js"></script>
+
+        <script>   
             $(document).ready(function () {
-                $.getScript('//cdn.probtn.com/probtn.js', function () { 
-                    ////cdn.probtn.com/probtn.js
-                    $(document).StartButton({
-                        'domain': 'probtn.com',
-						'CreativeId': '5a8ade06700941573000000d'
+                    $.getScript('//cdn.probtn.com/probtn.js', function () {
+                        $(document).StartButton({
+                            'CreativeId': '5a8ade06700941573000000d',
+                            'domain': 'probtn.com'
+                        });
                     });
                 });
-            });
-    </script>
+        </script>
     </body>
 </html>

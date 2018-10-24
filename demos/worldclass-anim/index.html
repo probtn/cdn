@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>Worldclass-anim</title>
+        <title>Worldclass</title>
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <style>
             body {
@@ -13,17 +13,18 @@
         </style>
     </head>
     <body>
-        <img id="bg" style="width:  100%; margin: 0px;" alt="bazaar.ru"/>
-        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change-snow.js"></script>
+        <img id="bg" src="" style="width:  100%; margin:  0px;" alt="Demo"/>
+        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change.js"></script>
 
-        <script>
+        <script>   
             $(document).ready(function () {
-                $.getScript('//cdn.probtn.com/probtn.js', function () { 
-                    $(document).StartButton({
-                        'domain': 'probtn.com'
+                    $.getScript('//cdn.probtn.com/probtn.js', function () {
+                        $(document).StartButton({
+                            'CreativeId': '5a83499b71e4b4d215000042',
+                            'domain': 'probtn.com'
+                        });
                     });
                 });
-            });
-    </script>
+        </script>
     </body>
 </html>
