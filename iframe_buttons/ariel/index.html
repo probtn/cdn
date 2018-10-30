@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>Ariel</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <img id="bg" src="" style="width:  100%; margin:  0px;" alt="Demo"/>
+        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change.js"></script>
+
+        <script>   
+            $(document).ready(function () {
+                    $.getScript('//cdn.probtn.com/probtn.js', function () {
+                        $(document).StartButton({
+                            'CreativeId': '5bd84b8c3ac19b0100000012',
+                            'domain': 'probtn.com'
+                        });
+                    });
+                });
+        </script>
+    </body>
+</html>
+
