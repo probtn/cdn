@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>Fanta</title>
+        <title>Fanta (game)</title>
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <style>
             body {
@@ -13,26 +13,18 @@
         </style>
     </head>
     <body>
-
-        <!-- Cuba -->
         <img id="bg" src="" style="width:  100%; margin:  0px;" alt="Demo"/>
         <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change.js"></script>
 
-        <!-- Antarctic -->
-        <!-- <img id="bg" src="" style="width:  100%; margin:  0px;" alt="Demo"/>
-        <script src="https://cdn.probtn.com/demos/all-site-backgrounds/bg-change-snow.js"></script> -->
-
-        <script>
-                $(document).ready(function () {
-                    $.getScript('//demo.probtn.com/probtn.js', function () {
-                        // //cdn.probtn.com/probtn.js
+        <script>   
+            $(document).ready(function () {
+                    $.getScript('//cdn.probtn.com/probtn.js', function () {
                         $(document).StartButton({
-                            'mainStyleCss': '//probtnlandings1.azurewebsites.net/style.css',
-							'domain': 'probtn.com'
+                            'CreativeId': '5b3b7158873ecf0d0b00019a',
+                            'domain': 'probtn.com'
                         });
                     });
                 });
         </script>
-        
     </body>
 </html>
