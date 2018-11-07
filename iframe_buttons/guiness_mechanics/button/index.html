@@ -1,0 +1,210 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" href="js/screen.css" rel="stylesheet">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=608">
+    <link href="js/jquery-ui.css" rel="stylesheet" type="text/css">
+    <style>
+        html, body {
+            width: 140px;
+            height: 78px;
+            margin: 0;
+            padding: 0px;
+        }
+
+        .broadway {
+            width: 140px;
+            height: 78px;
+            overflow: hidden;
+        }
+        canvas {
+          width: 280px;
+          height: 158px;
+          margin-left: -76px;
+          margin-top: -43px;
+          transform: scale(0.5);
+        }
+
+        #progressbar {
+            position: absolute;
+            height: 5px;
+            background-color: white;
+            width: 0;
+            bottom: 0px;
+            display: block;
+            left: 0px;
+        }
+        #poster {
+            width: 140px;
+            height: 78px;
+            display: inline-block;
+            z-index: 20;
+        }
+        #poster_img {
+            width: 140px;
+            height: 78px;
+            z-index: 18;
+        }
+        #loader {
+            display: inline-block;
+            margin: 0 auto;
+            width: 20%;
+            z-index: 19;
+            position: fixed;
+            /*top: 50%;
+            left: 40%;*/
+
+            top: 150px;
+            left: 140px;
+        }
+        #play {
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            top: 30%;
+            display: none;
+            cursor: pointer;
+        }
+
+            #play.active {
+                display: block;
+            }
+
+        #volume {
+            position: absolute;
+            left: 5px;
+            bottom: 1px;
+            z-index: 100;
+            /*display: none;*/
+        }
+
+        #close {
+            position: absolute;
+            right: 5px;
+            bottom: 8px;
+            z-index: 30;
+            /*display: none;*/
+        }
+        #close_img {
+            display: none;
+            cursor: pointer;
+            width:  28px;
+            height:  28px;
+        }
+
+        #videotime {
+          position: absolute;
+          right: 7px;
+          bottom: 3px;
+          z-index: 100;
+        }
+
+        #volume_on, #volume_off {
+            display: none;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            z-index: 30;
+        }
+        #volume_on.active, #volume_off.active {
+            /*display: block;*/
+        }
+        canvas {
+            /*border-radius: 10px !important;
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.22) !important;*/
+            background: transparent !important;
+        }
+        #link {
+            background: url(images/go-min.png) no-repeat left center;
+            width: 50%;
+            height: 28px;
+            position: absolute;
+            bottom: 10px;
+            left: 25%;
+            color: white;
+            font-size: 20px;
+            padding-left: 30px;
+            text-shadow: 2px 1px 5px black;
+            display: none;
+            z-index: 30;
+            background-size: contain;
+            font-weight: normal;
+            font-family: Arial;
+
+            display: none !important;
+        }
+        /*@media (max-height:300px) {
+            #link {
+                display: none !important;
+            }
+        }*/
+        /*@media (max-width:300px) {
+            #link {
+                display: block !important;
+            }
+        }*/
+        /*#bg {
+            background: url(images/bg-min.png) transparent repeat-x bottom;
+            width: 100%;
+            height: 30%;
+            bottom:  0px;
+            position: absolute;
+            background-size: contain;
+        }*/
+        #click_button {
+            width: 210px;
+            height: 54px;
+            z-index: 100;
+            position: absolute;
+            top: 180px;
+            left: 79px;
+            display: none !important;
+        }
+        #controls {
+            /*display: none;*/
+        }
+    </style>
+</head>
+<body>
+
+    <div class="broadway" url="" text="" audio="audio.mp3" poster="poster.jpg?rnd=1123" src="video.mp4?rnd=1" width="150" height="86" style="float: left; position: relative;" workers="true" webgl="auto" render="false">
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="js/Decoder.js"></script>
+    <script type="text/javascript" src="js/YUVCanvas.js"></script>
+    <script type="text/javascript" src="js/Player.js"></script>
+    <script type="text/javascript" src="js/stream.js"></script>
+    <script type="text/javascript" src="js/mp4.js?random=124"></script><!--https://probtnlandings1.azurewebsites.net/button_example4/mp4_player/js/mp4.js-->
+    <script type="text/javascript">
+        function load() {
+            jQuery(document).ready(function () {
+                try {
+
+                    window.onresize = function (event) {
+                        console.log("window.onresize", window.innerWidth);
+                        if (window.innerWidth > 200) {
+                            document.getElementById("link").style.display = "block";
+                            document.getElementById("volume").style.display = "block";
+                            document.getElementById("close").style.display = "block";
+                        }
+                    };
+
+                    console.log(Broadway);
+                    var nodes = document.querySelectorAll('div.broadway');
+                    for (var i = 0; i < nodes.length; i++) {
+                        var broadway = new Broadway(nodes[i]);
+                    }
+
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+        load();
+    </script>
+
+</body>
+</html>
