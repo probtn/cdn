@@ -1621,6 +1621,20 @@ probtn_initTrackingLinkTest();
           return;
         }
 
+        /**
+         * Check VAST click
+         */
+        if (ProBtnControl.params.VASTbutton) {
+          var vastClick = ProBtnControl.vastFunctions.onClickCheck();
+          console.log("vastClick", vastClick);
+          if (vastClick) {
+            currentContentURL = vastClick;
+            ProBtnControl.params.ContentURL = vastClick;
+            ProBtnControl.params.OpenExternal = true;
+          }
+        }
+        /******************************************/
+
         if (ProBtnControl.params.Debug) console.log("onButtonTap");
         window.probtn_button_tap = true;
 
@@ -2988,7 +3002,7 @@ probtn_initTrackingLinkTest();
         viewst_opt_out: false,
         sendEraseToCookieIframePage:function() {
           try {
-            if ((document.getElementById("probtn_guidIframe") !== undefined)) {
+            if ((document.getElementById("probtn_guidIframe") !== undefined) && ((document.getElementById("probtn_guidIframe") !== null))) {
               document.getElementById("probtn_guidIframe").contentWindow.postMessage({
                 "command": "eraseAllCookies"
               }, ProBtnControl.guidCookieControlPath); //ProBtnControl.guidCookieControlPath
@@ -3986,6 +4000,8 @@ probtn_initTrackingLinkTest();
             if (ProBtnControl.params.Debug) console.log(ex);
             ProBtnControl.statistics.callSuperPixelExt("initButtonAndUserDeviceInfo_ex_" + ex);
           }
+
+          ProBtnControl.vastFunctions.initVast();
 
           allButton1();
         },
@@ -6126,6 +6142,110 @@ probtn_initTrackingLinkTest();
         intervalId: undefined,
         wasInteraction: false
       },
+      vastFunctions: {
+        initVast: function() {
+          return false;
+
+          /*disable messages*/
+          window.addEventListener("message", function (event) {
+              var message;
+              try {
+                  message = JSON.parse(event.data);
+              } catch(err) {
+                  return;
+              }
+              if(message.id !== parseQuery("id") || !message.event) {
+                  return;
+              }
+              if(message.event.type !== "AdRemainingTimeChange") {
+                  /*
+                      Вызов сторонних счетчиков осуществляется на стороне контейнера
+                   */
+                  //CustomEvent.trackEvent(message.event.type);
+                  //CustomEvent.trackEvent(message.event.type + message.event.viewState);
+              }
+              switch(message.event.type) {
+                  /*case "AdRemainingTimeChange":
+                      this.timeData = message.event.data;
+                      //CustomEvent.trackEvent("AdVideoProgress" + Math.round(this.timeData.currentTime));
+                      var i = 0, handlerData = {};
+                      if(this.handlers["timeChange"] && this.handlers["timeChange"].length) {
+                          for(i = 0; i < this.handlers["timeChange"].length; i++) {
+                              handlerData = this.handlers["timeChange"][i];
+                              handlerData.fn.call(handlerData.ctx, message.event.data);
+                          }
+                      }
+                      if(this.handlers["cuePoint"] && this.handlers["cuePoint"].length) {
+                          for(i = 0; i < this.handlers["cuePoint"].length; i++) {
+                              handlerData = this.handlers["cuePoint"][i];
+                              if(message.event.data.currentTime >= handlerData.time && !handlerData.fired) {
+                                  handlerData.fired = !0;
+                                  handlerData.fn.call(handlerData.ctx, handlerData.time, message.event.data);
+                              }
+                          }
+                      }
+                      $updateState.call(this, "AdRemainingTimeChange", message.event.data);
+                      break;
+                  case "AdSkippableStateChange":
+                      $updateState.call(this, "AdSkippableStateChange", message.event.data.value);
+                      break;
+                  case "AdPaused":
+                      $updateState.call(this, "AdPaused");
+                      break;
+                  case "AdPlaying":
+                      $updateState.call(this, "AdPlaying");
+                      break;
+                  case "AdVolumeChange":
+                      $updateState.call(this, "AdVolumeChange", message.event.data.volume);
+                      break;*/
+                  case "SetConfig":
+                      this.clicks = message.event.data.clicks;
+                      //ProBtnControl.params.VASTparams.clicks = message.event.data.clicks;
+                      this.customParams = message.event.data.customParams;
+                      this.defaultVolume = message.event.data.defaultVolume;
+                      
+                      //$updateState.call(this, "SetConfig", message.event.data);
+                      break;
+                  default :
+                      //$updateState.call(this, message.event.type, message.event.data);
+              }
+          }.bind(this), false);
+          //TODO
+          //send message about ad loaded event
+          //sendToAPP("action", {type:"AdLoaded"}, this.id);
+        },
+        onClickCheck: function(name) {
+          console.log("onClickCheck", name);
+          name = name || "default";
+          if (ProBtnControl.params.VASTparams.customParams["plc"]) { // if only player should open url
+              ProBtnControl.vastFunctions.sendMessageToApp("action", 
+                {type: "AdClickThru", id: name, url: getClickURL(ProBtnControl.params.VASTparams.clicks, name)},
+                ProBtnControl.params.VASTparams.id);
+              return false;
+          } else {
+              ProBtnControl.vastFunctions.sendMessageToApp("action", 
+                {type: "AdClickThru", id: name}, 
+                ProBtnControl.params.VASTparams.id);
+              return ProBtnControl.vastFunctions.getClickURL(ProBtnControl.params.VASTparams.clicks, name);
+          }
+        },
+        sendMessageToApp: function(type, data, id) {
+          try {
+          console.log("sendMessageToApp", type, data, id);
+          parent.postMessage(JSON.stringify({
+              type: type,
+              data: data,
+              id: id
+          }), "*");
+          } catch(ex) {
+            console.log(ex);
+          }
+        },
+        getClickURL: function(clicks, name) {
+          console.log("sendMessageToApp");
+          return clicks[name || "default"];
+        }
+      },
       DMP: {
         launchIDataScript: function() {
             try {
@@ -8100,10 +8220,10 @@ probtn_initTrackingLinkTest();
           },
           TopToBottomAndStopAnimation: function() {
             var params = {
-              side: "top",
+              side: "top",              
+              waitDuration: ProBtnControl.params.animationDuration / 2,
               heightPercent: 1,
-              startHeightPercent: 0,
-              waitDuration: ProBtnControl.params.animationDuration / 2
+              startHeightPercent: 0
             }
             params = this._checkAndGetActualParams(params);
             if (params.side == "down") {
@@ -8533,6 +8653,13 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
+          VASTbutton: false, 
+          VASTparams: {
+            clicks: {},
+            customParams: {}, 
+            id: 0
+          },
+
           DmpEnabled: false,
           /**
            * Random string recieved or generated randomly in button script to prevent cache
