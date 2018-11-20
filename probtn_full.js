@@ -1,7 +1,7 @@
 /*global _comma_separated_list_of_variables_*/
 
 /// <reference path="libs/jquery.js" />
-/// 
+///
 var DeviceAtlas = undefined;
 
 function probtn_callPlayer(frame_id, func, args) {
@@ -1791,9 +1791,13 @@ probtn_initTrackingLinkTest();
           //debugger;
           if (ProBtnControl.onButtonTapCountCheck % 2 === 1) {
 
-            var beforeClick = ProBtnControl.params.ButtonSize.Initial;
-            ProBtnControl.params.ButtonSize.BeforeClick = beforeClick;
-
+            var sizeBeforeClick = ProBtnControl.params.ButtonSize.Initial;
+            ProBtnControl.params.ButtonSize.BeforeClick = sizeBeforeClick;
+            var positionBeforeClick = {};
+            positionBeforeClick.x = ProBtnControl.pizzabtn.css("left");
+            positionBeforeClick.y = ProBtnControl.pizzabtn.css("top");
+            ProBtnControl.params.ButtonPosition.BeforeClick = positionBeforeClick;
+            console.log("tt", positionBeforeClick);
             ProBtnControl.params.ButtonSize.W = newWidth;
             ProBtnControl.params.ButtonSize.H = newHeight;
             ProBtnControl.pizzabtn.css("left", "10px");
@@ -1802,10 +1806,13 @@ probtn_initTrackingLinkTest();
 
             console.log("animationSizes", animationSizes);
           } else {
-            var beforeClick = ProBtnControl.params.ButtonSize.BeforeClick;
-            ProBtnControl.params.ButtonSize = beforeClick;
+            var sizeBeforeClick = ProBtnControl.params.ButtonSize.BeforeClick;
+            ProBtnControl.params.ButtonSize = sizeBeforeClick;
+            var positionBeforeClick = ProBtnControl.params.ButtonPosition.BeforeClick;
+            ProBtnControl.pizzabtn.css("left", positionBeforeClick.x);   
+            ProBtnControl.pizzabtn.css("top", positionBeforeClick.y);
           }
-          
+
 
           ProBtnControl.additionalButtonFunctions.resizeButton(ProBtnControl.params.ButtonSize);
 
@@ -3015,7 +3022,7 @@ probtn_initTrackingLinkTest();
           ProBtnControl.cookieFunctions.eraseCookie("probtnCID");
           ProBtnControl.cookieFunctions.eraseCookie("probtnId");
           ProBtnControl.cookieFunctions.eraseCookie("DAPROPS");
-          ProBtnControl.cookieFunctions.eraseCookie("hpmd_cd");         
+          ProBtnControl.cookieFunctions.eraseCookie("hpmd_cd");
 
           ProBtnControl.cookieFunctions.sendEraseToCookieIframePage();
 
@@ -3056,7 +3063,7 @@ probtn_initTrackingLinkTest();
                 var receiveMessage = function(event) {
                   try {
                     if ((event.data.type !== undefined) && (event.data.type !== null) && (recievedMessage === false)) {
-                      
+
                       /**
                        * If we recieve user global ID
                        */
@@ -6203,7 +6210,7 @@ probtn_initTrackingLinkTest();
                       //ProBtnControl.params.VASTparams.clicks = message.event.data.clicks;
                       this.customParams = message.event.data.customParams;
                       this.defaultVolume = message.event.data.defaultVolume;
-                      
+
                       //$updateState.call(this, "SetConfig", message.event.data);
                       break;
                   default :
@@ -6218,13 +6225,13 @@ probtn_initTrackingLinkTest();
           console.log("onClickCheck", name);
           name = name || "default";
           if (ProBtnControl.params.VASTparams.customParams["plc"]) { // if only player should open url
-              ProBtnControl.vastFunctions.sendMessageToApp("action", 
+              ProBtnControl.vastFunctions.sendMessageToApp("action",
                 {type: "AdClickThru", id: name, url: getClickURL(ProBtnControl.params.VASTparams.clicks, name)},
                 ProBtnControl.params.VASTparams.id);
               return false;
           } else {
-              ProBtnControl.vastFunctions.sendMessageToApp("action", 
-                {type: "AdClickThru", id: name}, 
+              ProBtnControl.vastFunctions.sendMessageToApp("action",
+                {type: "AdClickThru", id: name},
                 ProBtnControl.params.VASTparams.id);
               return ProBtnControl.vastFunctions.getClickURL(ProBtnControl.params.VASTparams.clicks, name);
           }
@@ -6290,7 +6297,7 @@ probtn_initTrackingLinkTest();
           if (ProBtnControl.params.ButtonImageType == 'iframe') {
             //if ((item.ButtonIframeInitialSize !== null) && (item.ButtonIframeInitialSize !== undefined)) {
             //if (newIframeInitialSize) {
-            //} else 
+            //} else
               ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), newIframeInitialSize, ProBtnControl.params.ButtonSize);
 
               $("#pizzabtnImg").css("width", newIframeInitialSize.W + "px");
@@ -6502,20 +6509,20 @@ probtn_initTrackingLinkTest();
               title = "<style> .fancybox-title-inside-wrap { padding-top: 0px; color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' href='" + ProBtnControl.params.VendorSite + "' target='_blank' class='probtn_vendor_site_link' id='probtn_vendor_site_link_id'>" + outVendorText + "</a>";
                 //onclick=\"console.log('on vendor site click'); window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); try { document.getElementById('video_probtn').pause(); } catch(ex) { console.log(ex); }; return false;\"
 
-                
+
                 $(document).on("click", "#probtn_vendor_site_link_id", function(e) {
-                  //console.log('on vendor site click'); 
-                  window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); 
-                  try { 
-                    if (document.getElementById('video_probtn')) document.getElementById('video_probtn').pause(); 
-                  } catch(ex) { 
-                    console.log(ex); 
+                  //console.log('on vendor site click');
+                  window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');
+                  try {
+                    if (document.getElementById('video_probtn')) document.getElementById('video_probtn').pause();
+                  } catch(ex) {
+                    console.log(ex);
                   };
                   if (ProBtnControl.params.ButtonContentType === "video") {
                     ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
                   }
                 });
-                
+
             } catch (ex) {
               console.log(ex);
             }
@@ -6762,7 +6769,7 @@ probtn_initTrackingLinkTest();
                 newWidth = parseFloat(newWidthInit) * newHeight;
               }
             } else {}
-            
+
 
             //Let's check what all sizesis smaller then screen sizes
             //check for height first
@@ -8220,7 +8227,7 @@ probtn_initTrackingLinkTest();
           },
           TopToBottomAndStopAnimation: function() {
             var params = {
-              side: "top",              
+              side: "top",
               waitDuration: ProBtnControl.params.animationDuration / 2,
               heightPercent: 1,
               startHeightPercent: 0
@@ -8345,7 +8352,7 @@ probtn_initTrackingLinkTest();
           //animation that change button sizes
           resizeAnimation: function() {
             //debugger;
-            var params =  [            
+            var params =  [
             {
               autoStart: true,
               width: 200,
@@ -8355,7 +8362,7 @@ probtn_initTrackingLinkTest();
             }];
             var current_count = 0;
             params = this._checkAndGetActualParams(params);
-            
+
 
             if (params.name.toLowerCase() == "resizeAnimation".toLowerCase()) {
 
@@ -8366,7 +8373,7 @@ probtn_initTrackingLinkTest();
                 });
               };
 
-              var autoStart = true;              
+              var autoStart = true;
               if (params[0]) {
                 var autoStart = params[0].autoStart;
               };
@@ -8653,10 +8660,10 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
-          VASTbutton: false, 
+          VASTbutton: false,
           VASTparams: {
             clicks: {},
-            customParams: {}, 
+            customParams: {},
             id: 0
           },
 
@@ -9667,10 +9674,10 @@ probtn_initTrackingLinkTest();
 
                     ProBtnControl.params.OnShowPixel = data.OnShowPixel;
                     ProBtnControl.params.OnNoShowPixel = data.OnNoShowPixel;
-                    
+
                     if (data.DmpEnabledApp) {
                       ProBtnControl.params.DmpEnabled = data.DmpEnabledApp;
-                    }                    
+                    }
 
                     if ((ProBtnControl.params.PassbackCodeSelector === "") || (ProBtnControl.params.PassbackCodeSelector === undefined) || (ProBtnControl.params.PassbackCodeSelector === null)) {
                       ProBtnControl.params.PassbackCodeSelector = "#probtn_passback";
@@ -10050,7 +10057,7 @@ probtn_initTrackingLinkTest();
                     });
                   }
                   break;
-                  //VideoParts event 
+                  //VideoParts event
                 case 'probtn_video_part_event':
                   ProBtnControl.statistics.SendStatObject({
                     "VideoPart": event.data.videoPart,
@@ -10297,7 +10304,7 @@ probtn_initTrackingLinkTest();
                  * @return {[type]}       [description]
                  */
                 var getSumDuration = function(items, count) {
-                  if (count<items.length) {                    
+                  if (count<items.length) {
                     var sum = 0;
                     for (var i=0; i<count; i++) {
                       sum = sum + items[i];
@@ -10310,7 +10317,7 @@ probtn_initTrackingLinkTest();
 
                 if (buttonShowedDurationPeriodCounter < ProBtnControl.params.ButtonShowedDurationPeriod.length) {
                   /* run timeouts for array items */
-                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setTimeout(function() {                    
+                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setTimeout(function() {
                     var currentSum = getSumDuration(ProBtnControl.params.ButtonShowedDurationPeriod, buttonShowedDurationPeriodCounter);
                     ProBtnControl.statistics.SendStatObject({
                       "ButtonShowedDurationPeriodic": ((currentSum) / 1000).toFixed(2),
@@ -10318,7 +10325,7 @@ probtn_initTrackingLinkTest();
                     buttonShowedDurationPeriodCounter++;
                     periodicDuration();
                   }, ProBtnControl.params.ButtonShowedDurationPeriod[buttonShowedDurationPeriodCounter]);
-                  
+
                 } else {
                   /* start interval for last duration item */
                   var maxItems = ProBtnControl.params.ButtonShowedDurationPeriod.length;
@@ -10335,7 +10342,7 @@ probtn_initTrackingLinkTest();
                 }
               };
               if (ProBtnControl.params.ButtonShowedDurationPeriod.length>0) periodicDuration();
-              
+
             }
 
             //hide hint after params.HintLaunchDuration time (in seconds)
