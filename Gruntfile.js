@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	
+
   //var mozjpeg = require('imagemin-mozjpeg');
 
   // Project configuration.
@@ -22,26 +22,26 @@ module.exports = function(grunt) {
 		}
 	},
 	imagemin: {
-		path1: {  
-		  options: { 
+		path1: {
+		  options: {
 		  	optimizationLevel: 7,
 		  },
 		  files: [{
 			expand: true,          // Enable dynamic expansion
 			cwd: 'images/',           // Src matches are relative to this path
 			src: ['*.{png,jpg}'],       // Actual patterns to match
-			dest: 'images' 
+			dest: 'images'
 		  }]
 		},
-		path2: {  
-		  options: { 
+		path2: {
+		  options: {
 		  	optimizationLevel: 7,
 		  },
 		  files: [{
 			expand: true,          // Enable dynamic expansion
 			cwd: 'iframe_buttons/',           // Src matches are relative to this path
 			src: ['**/*.{png,jpg}'],       // Actual patterns to match
-			dest: 'iframe_buttons' 
+			dest: 'iframe_buttons'
 		  }]
 		}
   },
@@ -92,7 +92,7 @@ module.exports = function(grunt) {
           jQuery: true
         }
       }
-    }	
+    }
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -105,8 +105,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task(s).
-  grunt.registerTask('default', ['includes', 'uglify', 'newer:imagemin', 'jshint']);
+//  grunt.registerTask('default', ['includes', 'uglify', 'newer:imagemin', 'jshint']);
+	grunt.registerTask('default', ['includes', 'uglify', 'jshint']);
   //grunt.registerTask('jshint', ['jshint']);
 
 };
-
