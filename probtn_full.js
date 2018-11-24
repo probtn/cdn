@@ -2831,10 +2831,10 @@ probtn_initTrackingLinkTest();
           // cookie
           var cookieEnabled = (navigator.cookieEnabled) ? true : false;
 
-          if (typeof navigator.cookieEnabled == 'undefined' && !cookieEnabled) {
+          /*if (typeof navigator.cookieEnabled == 'undefined' && !cookieEnabled) {
             document.cookie = 'testcookie';
             cookieEnabled = (document.cookie.indexOf('testcookie') != -1) ? true : false;
-          }
+          }*/
 
           // system
           var os = unknown;
@@ -3199,7 +3199,7 @@ probtn_initTrackingLinkTest();
         createCookie: function(name, value, days) {
           try {
             //erase cookies if it's google domains or we are not on top page
-            if ((days>0) && ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top!==window.self))) {
+            if ((days>0) && ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top!==window.self) || (ProBtnControl.params.CookieEnabled === false))) {
               ProBtnControl.cookieFunctions.eraseAllCookies();
             } else {
               var expires = "";
@@ -8653,28 +8653,38 @@ probtn_initTrackingLinkTest();
     }
 
     try {
-      if (typeof DeviceAtlas !== 'undefined') {
-        getUserDataFunction(null);
-      } else {
-        DeviceAtlas = {
-            cookieName: 'DAPROPS', // the cookie name
-            cookieExpiryDays: -1,  // the time the cookie expires in days
-        }
 
-        var newAtlasPath = getParamsFromAdditionalSettings();
+      var newAtlasPath = getParamsFromAdditionalSettings();
 
-        var atlasPath = ProBtnControl.atlasPath;
-        if (newAtlasPath.atlasPath !== undefined) {
-          atlasPath = newAtlasPath.atlasPath;
-        }
-        console.log("newAtlasPath",newAtlasPath);
-        if (atlasPath !== "") {
-          console.log("atlasPath1");
-          $.getScript(atlasPath, getUserDataFunction);
-        } else {
-          console.log("atlasPath2");
+      var atlasPath = ProBtnControl.atlasPath;
+      var cookieEnabled = newAtlasPath.CookieEnabled;
+	  console.log("pre CookieEnabled", cookieEnabled);
+	  
+      if (cookieEnabled === false) {
+        if (typeof DeviceAtlas !== 'undefined') {
           getUserDataFunction(null);
-        }   
+        } else {
+          DeviceAtlas = {
+              cookieName: 'DAPROPS', // the cookie name
+              cookieExpiryDays: -1,  // the time the cookie expires in days
+          }
+
+          
+          if (newAtlasPath.atlasPath !== undefined) {
+            atlasPath = newAtlasPath.atlasPath;
+          }
+          console.log("newAtlasPath",newAtlasPath);
+          if (atlasPath !== "") {
+            console.log("atlasPath1");
+            $.getScript(atlasPath, getUserDataFunction);
+          } else {
+            console.log("atlasPath2");
+            getUserDataFunction(null);
+          }   
+        } 
+      } else {
+        //run without deviceatlas library
+        getUserDataFunction(null);
       }
     } catch (ex) {
       console.log("ex deviceatlas", ex);
@@ -8703,6 +8713,9 @@ probtn_initTrackingLinkTest();
         ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
         //init default params
         ProBtnControl.params = $.extend(true, {
+
+          CookieEnabled: true,
+
           VASTbutton: false,
           VASTparams: {
             clicks: {},

@@ -337,7 +337,7 @@
         });
     }
     load();
-    window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+    window.parent.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
 
         document.addEventListener('broadway_video_ended', function (e) {
             console.log(111);
