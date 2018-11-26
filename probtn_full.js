@@ -3387,6 +3387,7 @@ probtn_initTrackingLinkTest();
          */
         createClickCounterImage: function(clickPath, name) {
           try {
+            if ((clickPath!=="") && (clickPath!==undefined)) {
             var clickCounterLink_random = clickPath;
             clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
             if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
@@ -3407,6 +3408,9 @@ probtn_initTrackingLinkTest();
               style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
             }).prependTo(prependBlock);
             //console.log("probtn_TrackingLink", probtn_TrackingLink);
+            } else {
+              //console.log("empty clickPath");
+            }
           } catch (ex) {
             console.log(ex);
           }
@@ -8658,8 +8662,7 @@ probtn_initTrackingLinkTest();
 
       var atlasPath = ProBtnControl.atlasPath;
       var cookieEnabled = newAtlasPath.CookieEnabled;
-	  console.log("pre CookieEnabled", cookieEnabled);
-	  
+
       if (cookieEnabled === false) {
         if (typeof DeviceAtlas !== 'undefined') {
           getUserDataFunction(null);
