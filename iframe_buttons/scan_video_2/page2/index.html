@@ -38,7 +38,7 @@
 	                    id:50882210,
 	                    clickmap:true,
 	                    trackLinks:true,
-	                    accurateTrackBounce:true,
+	                    accurateTrackBounce: 10000,
 	                    webvisor:true
 	                });
 	            } catch(e) { }
@@ -55,6 +55,30 @@
 	            d.addEventListener("DOMContentLoaded", f, false);
 	        } else { f(); }
 	    })(document, window, "yandex_metrika_callbacks2");
+	</script>
+	<script>
+		function callbackFunction(hypeDocument, element, event) {
+			setTimeout(function () {
+				document.querySelectorAll('[role="button"]')[0].addEventListener("click", function(e) { 
+					//console.log(e); 
+					//e.preventDefault(); return false; 
+					try {
+						window.yaCounter50882210.reachGoal("scan_video_2__learn_more_clicked", function(e) { console.log("reachGoal", e); });
+					} catch(ex) {
+						console.log(ex);
+					}
+				});
+			}, 100);
+		}
+
+		if ("HYPE_eventListeners" in window === false) {
+				 window.HYPE_eventListeners = Array();
+		}
+
+		window.HYPE_eventListeners.push({
+			"type": "HypeSceneLoad",
+			"callback": callbackFunction
+		});
 	</script>
 	<noscript><div><img src="https://mc.yandex.ru/watch/50882210" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 	<!-- /Yandex.Metrika counter -->
