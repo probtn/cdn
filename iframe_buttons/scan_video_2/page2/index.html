@@ -72,8 +72,6 @@
 		function callbackFunction(hypeDocument, element, event) {
 			setTimeout(function () {
 				document.querySelectorAll('[role="button"]')[0].addEventListener("click", function(e) { 
-					//console.log(e); 
-					//e.preventDefault(); return false; 
 					try {
 						window.yaCounter50882210.reachGoal("scan_video_2__learn_more_clicked", function(e) { console.log("reachGoal", e); });
 					} catch(ex) {
@@ -83,6 +81,7 @@
 					try {
 						gtag('event', 'purchase');
 					} catch(ex) {
+						console.log(ex);
 					}
 				});
 			}, 100);
