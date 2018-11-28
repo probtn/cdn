@@ -70,8 +70,23 @@
 	
 	<script>
 		function callbackFunction(hypeDocument, element, event) {
+			//document.querySelectorAll('[role="button"]')[0].onclick = function(e) { console.log("click"); };
+			console.log("hype loaded", document.querySelectorAll('[role="button"]')[0]);
+			
+			/*var classname = document.getElementsByClassName("HYPE_element");
+
+			var myFunction = function() {
+				var attribute = this.getAttribute("role");
+				console.log(attribute);
+			};
+
+			for (var i = 0; i < classname.length; i++) {
+				classname[i].addEventListener('click', myFunction, false);
+			}*/
+			
 			setTimeout(function () {
-				document.querySelectorAll('[role="button"]')[0].addEventListener("click", function(e) { 
+				var onClickEvent = function(e) { 
+					console.log("learn more click");
 					try {
 						window.yaCounter50882210.reachGoal("scan_video_2_getintent__learn_more_clicked", function(e) { console.log("reachGoal", e); });
 					} catch(ex) {
@@ -83,7 +98,9 @@
 					} catch(ex) {
 						console.log(ex);
 					}
-				});
+				};
+				document.querySelectorAll('[role="button"]')[0].addEventListener("click", onClickEvent);
+				document.querySelectorAll('[role="button"]')[0].addEventListener("touchend", onClickEvent);
 			}, 100);
 		}
 
