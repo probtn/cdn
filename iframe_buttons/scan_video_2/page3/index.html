@@ -65,7 +65,7 @@
 	  gtag('js', new Date());
 
 	  gtag('config', 'UA-122034527-2');
-	  setTimeout("gtag('event', 'No Bounce', { 'event_category' : 'Adjusted Bounce' })", 10000);
+	  setTimeout("gtag('event', 'No Bounce (getintent)', { 'event_category' : 'Adjusted Bounce' })", 10000);
 	</script>
 	
 	<script>
@@ -73,13 +73,13 @@
 			setTimeout(function () {
 				document.querySelectorAll('[role="button"]')[0].addEventListener("click", function(e) { 
 					try {
-						window.yaCounter50882210.reachGoal("scan_video_2__learn_more_clicked", function(e) { console.log("reachGoal", e); });
+						window.yaCounter50882210.reachGoal("scan_video_2_getintent__learn_more_clicked", function(e) { console.log("reachGoal", e); });
 					} catch(ex) {
 						console.log(ex);
 					}
 					
 					try {
-						gtag('event', 'learn_more_click');
+						gtag('event', 'getintent_scan_video_learn_more_click');
 					} catch(ex) {
 						console.log(ex);
 					}
