@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>index</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			background-color:#FFFFFF;
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, width=320" />
+	<link href='https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700&subset=cyrillic,latin,latin-ext,vietnamese,cyrillic-ext' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=IBM+Plex+Sans&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="index_hype_container" style="margin:auto;position:relative;width:100%;height:100%;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?97059"></script>
+	</div>
+	
+	<script type="text/javascript" >
+	    (function (d, w, c) {
+	        (w[c] = w[c] || []).push(function() {
+	            try {
+	                w.yaCounter50882210 = new Ya.Metrika2({
+	                    id:50882210,
+	                    clickmap:true,
+	                    trackLinks:true,
+	                    accurateTrackBounce: 10000,
+	                    webvisor:true
+	                });
+	            } catch(e) { }
+	        });
+
+	        var n = d.getElementsByTagName("script")[0],
+	            s = d.createElement("script"),
+	            f = function () { n.parentNode.insertBefore(s, n); };
+	        s.type = "text/javascript";
+	        s.async = true;
+	        s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+	        if (w.opera == "[object Opera]") {
+	            d.addEventListener("DOMContentLoaded", f, false);
+	        } else { f(); }
+	    })(document, window, "yandex_metrika_callbacks2");
+	</script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122034527-2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-122034527-2');
+	  setTimeout("gtag('event', 'No Bounce', { 'event_category' : 'Adjusted Bounce' })", 10000);
+	</script>
+	
+	<script>
+		function callbackFunction(hypeDocument, element, event) {
+			setTimeout(function () {
+				var onClickEvent = function(e) { 
+					try {
+						window.yaCounter50882210.reachGoal("viewst_new_year_dbm1", function(e) { console.log("reachGoal", e); });
+					} catch(ex) {
+						console.log(ex);
+					}
+					
+					try {
+						gtag('event', 'get_button_new_year_viewst');
+					} catch(ex) {
+						console.log(ex);
+					}
+				};
+				document.querySelectorAll('[role="button"]')[0].addEventListener("click", onClickEvent);
+				document.querySelectorAll('[role="button"]')[0].addEventListener("touchend", onClickEvent);
+			}, 100);
+		}
+
+		if ("HYPE_eventListeners" in window === false) {
+				 window.HYPE_eventListeners = Array();
+		}
+
+		window.HYPE_eventListeners.push({
+			"type": "HypeSceneLoad",
+			"callback": callbackFunction
+		});
+	</script>
+	
+	<!-- end copy -->
+  </body>
+</html>
