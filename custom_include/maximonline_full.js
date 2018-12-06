@@ -3243,8 +3243,9 @@ var loadProbtn = function (jQuery) {
 	        },
 	        createCookie: function(name, value, days) {
 	          try {
+	            var cookieEnabled = (ProBtnControl.params.CookieEnabled == 'true'); //to apply string value of boolean
 	            //erase cookies if it's google domains or we are not on top page
-	            if ((days>0) && ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top!==window.self) || (ProBtnControl.params.CookieEnabled === false))) {
+	            if ((days>0) && ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top !== window.self) || (cookieEnabled == false))) {
 	              ProBtnControl.cookieFunctions.eraseAllCookies();
 	            } else {
 	              var expires = "";
@@ -3412,14 +3413,14 @@ var loadProbtn = function (jQuery) {
 	              }
 	            }
 
-	            if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp") || (domain.toLowerCase() === "Africa_KTB_getintent".toLowerCase()) || (ProBtnControl.currentDomain === "Africa_KTB_getintent") || (domain.toLowerCase() === "pb_africa_mydawa_june_2018_dsp".toLowerCase()) || (ProBtnControl.currentDomain === "pb_africa_mydawa_june_2018_dsp") || (domain.toLowerCase() === "otm-r.com".toLowerCase()) || (ProBtnControl.currentDomain === "otm-r.com")) {
+	            /*if ((ProBtnControl.currentDomain === "getintent_dsp") || (domain === "getintent_dsp") || (domain.toLowerCase() === "Africa_KTB_getintent".toLowerCase()) || (ProBtnControl.currentDomain === "Africa_KTB_getintent") || (domain.toLowerCase() === "pb_africa_mydawa_june_2018_dsp".toLowerCase()) || (ProBtnControl.currentDomain === "pb_africa_mydawa_june_2018_dsp") || (domain.toLowerCase() === "otm-r.com".toLowerCase()) || (ProBtnControl.currentDomain === "otm-r.com")) {
 	              var probtnId = "1234";
 	              probtnId = ProBtnControl.GetDeviceUID();
 	              var probtncid = ProBtnControl.DeviceCID;
 
 	              //var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
 	              //ProBtnControl.statistics.createClickCounterImage(superPixelPath);
-	            }
+	            }*/
 	          } catch (ex) {
 	            console.log(ex);
 	          }
