@@ -6918,7 +6918,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        replaceRandom: function(contentURL) {
 			          var output = contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
-			          output = contentURL.replace(/\[DOMAIN\]/g, ProBtnControl.realDomain);
+
+			          output = output.replace(/\[DOMAIN\]/g, ProBtnControl.realDomain);
+
+			          var currentTimestamp = new Date().getTime();
+			          output = output.replace(/\[timestamp\]/g, currentTimestamp);
+			          output = output.replace(/\[TIMESTAMP\]/g, currentTimestamp);
+
 			          output = output.replace(/\%random\%/g, ProBtnControl.additionalButtonFunctions.randomString(12));
 			          output = output.replace(/\%RANDOM\%/g, ProBtnControl.additionalButtonFunctions.randomString(12));
 
