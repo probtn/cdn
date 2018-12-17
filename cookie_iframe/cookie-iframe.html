@@ -37,7 +37,7 @@
 
             var cookieFunctions = {
                 GetDeviceCUID: function () {
-
+					var probtnId = "1234";
                 	//set cookie
                     var currentdate = new Date();
                     currentdate = currentdate.getTime();
@@ -52,7 +52,6 @@
                 		return probtnId;
                 	}
 
-                    var probtnId = "1234";
 					var readCookieValue = cookieFunctions.readCookie("probtnCID");
                     if ((readCookieValue !== null) && (readCookieValue !== undefined) && (readCookieValue !== "null") && (readCookieValue !== "") && (readCookieValue !== "undefined")) {
 						probtnId = readCookieValue;
