@@ -165,8 +165,6 @@ p.decode(<binary>);
             };
 
 
-            console.log("111",self.canvasObj);
-
 //-------dirty shity code, sorry, please
             var elem_canv2 = document.getElementById("canv_2");
 
