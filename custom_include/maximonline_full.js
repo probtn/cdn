@@ -3243,7 +3243,7 @@ var loadProbtn = function (jQuery) {
 	        },
 	        createCookie: function(name, value, days) {
 	          try {
-	            var cookieEnabled = (ProBtnControl.params.CookieEnabled == 'true'); //to apply string value of boolean
+	            var cookieEnabled = JSON.parse(ProBtnControl.params.CookieEnabled);
 	            //erase cookies if it's google domains or we are not on top page
 	            if ((days>0) && ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top !== window.self) || (cookieEnabled == false))) {
 	              ProBtnControl.cookieFunctions.eraseAllCookies();
