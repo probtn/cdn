@@ -53,7 +53,7 @@
                 	}
 
 					var readCookieValue = cookieFunctions.readCookie("probtnCID");
-                    if ((readCookieValue !== null) && (readCookieValue !== undefined) && (readCookieValue !== "null") && (readCookieValue !== "") && (readCookieValue !== "undefined")) {
+                    if ((readCookieValue !== null) && (readCookieValue !== undefined) && (readCookieValue !== "null") && (readCookieValue !== "") && (readCookieValue !== "undefined") && (readCookieValue !== "1234")) {
 						probtnId = readCookieValue;
                     } else {
                         cookieFunctions.createCookie("probtnCID", probtnId, 365);
