@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>Default</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+
+    @keyframes translate {
+      0%   { left: 0px; }
+      100% { left: -400px; }
+    }
+
+    @keyframes fade-out {
+      0%   { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes fade-in {
+      0%   { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    #image_view {
+      width: 140px;
+      height: 140px;
+      -moz-border-radius: 50% !important;
+      -webkit-border-radius: 50% !important;
+      -ms-border-radius: 50% !important;
+      -o-border-radius: 50% !important;
+      border-radius: 50% !important;
+      overflow: hidden !important;
+      position: absolute;
+      z-index: 100;
+      top: 14px;
+      left: 14px;
+    }
+
+    #blur {
+      position: absolute;
+      z-index: 1;
+      top: 0px;
+      left: 0px;
+      width: 168px;
+      height: 168px;
+      animation: fade-in 0.5s linear 0s 1 backwards, fade-out 0.5s linear 6.5s 1 forwards;
+    }
+
+    #image_view img {
+      position: relative;
+      width: 556px;
+      height: 140px;
+      height: auto;
+      animation: translate 6s linear 0.5s 1 both, fade-in 0.5s linear 0s 1 backwards, fade-out 0.5s linear 6.5s 1 forwards;
+      -webkit-animation: translate 6s linear 0.5s 1 both, fade-in 0.5s linear 0s 1 backwards, fade-out 0.5s linear 6.5s 1 forwards;
+      -moz-animation: translate 6s linear 0.5s 1 both, fade-in 0.5s linear 0s 1 backwards, fade-out 0.5s linear 6.5s 1 forwards;
+    }
+
+    #default_hype_container {
+      opacity: 0;
+      top: 14px;
+      z-index: 100;
+    }
+
+    #text-1 {
+      animation: fade-in 0.5s linear 0s 1 backwards, fade-out 0.1s linear 2.5s 1 forwards;
+      -webkit-animation: fade-in 0.5s linear 0s 1 backwards, fade-out 0.1s linear 2.5s 1 forwards;
+      -moz-animation: fade-in 0.5s linear 0s 1 backwards fade-out 0.1s linear 2.5s 1 forwards;
+      width: 93px;
+      height: 28px;
+      position: absolute;
+      display: block;
+      top: 110px;
+      left: 39px;
+      z-index: 200;
+    }
+
+    #text-2 {
+      animation: fade-in 0.1s linear 2.6s 1 backwards, fade-out 0.1s linear 4.6s 1 forwards;
+      -webkit-animation: fade-in 0.1s linear 2.6s 1 backwards, fade-out 0.1s linear 4.6s 1 forwards;
+      -moz-animation: fade-in 0.1s linear 2.6s 1 backwards fade-out 0.1s linear 4.6s 1 forwards;
+      width: 96px;
+      height: 28px;
+      position: absolute;
+      display: block;
+      top: 110px;
+      left: 36px;
+      z-index: 200;
+
+    }
+
+    #absa {
+      animation: fade-in 0.1s linear 4.7s 1 backwards, fade-out 0.5s linear 6.5s 1 forwards;
+      -webkit-animation: fade-in 0.1s linear 4.7s 1 backwards, fade-out 0.5s linear 6.5s 1 forwards;
+      -moz-animation: fade-in 0.1s linear 4.7s 1 backwards fade-out 0.5s linear 6.5s 1 forwards;
+      width: 118px;
+      height: 26px;
+      position: absolute;
+      display: block;
+      top: 110px;
+      left:17px;
+      z-index: 200;
+    }
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=140" />
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="default_hype_container" style="margin:auto;position:relative;width:140px;height:140px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="Default.hyperesources/default_hype_generated_script.js?62010"></script>
+	</div>
+
+  <img id="blur" src="images/blur.png"/>
+  <div id="image_view">
+    <img src="./images/people.jpg"/>
+  </div>
+
+  <img id="text-1" src="images/Text-1@2x.png?r=12" alt=""/>
+  <img id="text-2" src="images/Text-2@2x.png?r=12" alt=""/>
+  <img id="absa" src="images/Absa@2x.png?r=12" alt=""/>
+<script>
+  var hypeDocument = null;
+
+  function MyFunctions(hypeDocument_local, element, event) {
+      console.log("hypeDocument_local1", hypeDocument_local);
+      if (hypeDocument === null) {
+          setTimeout(function () {
+            document.getElementById("default_hype_container").style.opacity = 1;
+            hypeDocument_local.showSceneNamed("index");
+          }, 7000);
+      } else {
+          console.log("hypeDocument exists", hypeDocument);
+      }
+  }
+
+  if ("HYPE_eventListeners" in window === false) {
+      window.HYPE_eventListeners = Array();
+  }
+
+  window.HYPE_eventListeners.push({
+      "type": "HypeSceneLoad",
+      "callback": MyFunctions
+  });
+
+  window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+    </script>
+  </body>
+</html>
