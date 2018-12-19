@@ -1854,7 +1854,7 @@ var loadProbtn = function (jQuery) {
 	            var sizeBeforeClick = ProBtnControl.params.ButtonSize.BeforeClick;
 	            ProBtnControl.params.ButtonSize = sizeBeforeClick;
 	            var positionBeforeClick = ProBtnControl.params.ButtonPosition.BeforeClick;
-	            ProBtnControl.pizzabtn.css("left", positionBeforeClick.x);   
+	            ProBtnControl.pizzabtn.css("left", positionBeforeClick.x);
 	            ProBtnControl.pizzabtn.css("top", positionBeforeClick.y);
 	          }
 
@@ -3368,7 +3368,7 @@ var loadProbtn = function (jQuery) {
 	           */
 	          try {
 	            var frames = window.frames; // or // var frames = window.parent.frames;
-	            for (var i = 0; i < frames.length; i++) { 
+	            for (var i = 0; i < frames.length; i++) {
 	              // do something with each subframe as frames[i]
 	              frames[i].postMessage(data, '*');
 	            }
@@ -7133,6 +7133,13 @@ var loadProbtn = function (jQuery) {
 	            myIframe.contentWindow.postMessage(object, '*');
 	          }
 	        },
+	        sendMessageToActiveZones: function(object) {
+	          $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+	              if (activeZone[0].contentWindow !== undefined) {
+	                activeZone[0].contentWindow.postMessage(object, '*');
+	              }
+	          });
+	        },
 	        sendMessageToModal: function(object) {
 	          var frame_id = $(".fancybox-iframe").first().attr("id");
 	          if ($("#" + frame_id).is("iframe")) {
@@ -8727,7 +8734,7 @@ var loadProbtn = function (jQuery) {
 	              cookieExpiryDays: -1,  // the time the cookie expires in days
 	          }
 
-	          
+
 	          if (newAtlasPath.atlasPath !== undefined) {
 	            atlasPath = newAtlasPath.atlasPath;
 	          }
@@ -8738,8 +8745,8 @@ var loadProbtn = function (jQuery) {
 	          } else {
 	            console.log("atlasPath2");
 	            getUserDataFunction(null);
-	          }   
-	        } 
+	          }
+	        }
 	      } else {
 	        //run without deviceatlas library
 	        getUserDataFunction(null);
@@ -10542,6 +10549,8 @@ var loadProbtn = function (jQuery) {
 	                }
 
 	                //show each active zone which visible when button moves
+
+
 	                $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
 	                  if (activeZone.currentActiveZone.VisibleOnlyInteraction) {
 	                    activeZone.show();
@@ -10573,6 +10582,10 @@ var loadProbtn = function (jQuery) {
 	                  ProBtnControl.contentTime.startTimer("MovedDuration");
 
 	                  ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+	                    message: "probtn_start_move"
+	                  });
+
+	                  ProBtnControl.additionalButtonFunctions.sendMessageToActiveZones({
 	                    message: "probtn_start_move"
 	                  });
 	                });
@@ -10717,7 +10730,7 @@ var loadProbtn = function (jQuery) {
 
 	                //event that button stoped (for example to get in postion for some interactions and so on)
 	                ProBtnControl.additionalButtonFunctions.sendMessageToModal({ message: "probtn_stop_event" });
-
+	                ProBtnControl.additionalButtonFunctions.sendMessageToActiveZones({ message: "probtn_stop_event" });
 	                ProBtnControl.contentTime.endTimer("MovedDuration");
 	                var activeZone = null;
 	                //check is there is some active zone after we stop using button

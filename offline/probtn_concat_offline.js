@@ -1857,7 +1857,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var sizeBeforeClick = ProBtnControl.params.ButtonSize.BeforeClick;
 			            ProBtnControl.params.ButtonSize = sizeBeforeClick;
 			            var positionBeforeClick = ProBtnControl.params.ButtonPosition.BeforeClick;
-			            ProBtnControl.pizzabtn.css("left", positionBeforeClick.x);   
+			            ProBtnControl.pizzabtn.css("left", positionBeforeClick.x);
 			            ProBtnControl.pizzabtn.css("top", positionBeforeClick.y);
 			          }
 
@@ -3371,7 +3371,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			           */
 			          try {
 			            var frames = window.frames; // or // var frames = window.parent.frames;
-			            for (var i = 0; i < frames.length; i++) { 
+			            for (var i = 0; i < frames.length; i++) {
 			              // do something with each subframe as frames[i]
 			              frames[i].postMessage(data, '*');
 			            }
@@ -7136,6 +7136,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			            myIframe.contentWindow.postMessage(object, '*');
 			          }
 			        },
+			        sendMessageToActiveZones: function(object) {
+			          $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+			              if (activeZone[0].contentWindow !== undefined) {
+			                activeZone[0].contentWindow.postMessage(object, '*');
+			              }
+			          });
+			        },
 			        sendMessageToModal: function(object) {
 			          var frame_id = $(".fancybox-iframe").first().attr("id");
 			          if ($("#" + frame_id).is("iframe")) {
@@ -8730,7 +8737,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              cookieExpiryDays: -1,  // the time the cookie expires in days
 			          }
 
-			          
+
 			          if (newAtlasPath.atlasPath !== undefined) {
 			            atlasPath = newAtlasPath.atlasPath;
 			          }
@@ -8741,8 +8748,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			          } else {
 			            console.log("atlasPath2");
 			            getUserDataFunction(null);
-			          }   
-			        } 
+			          }
+			        }
 			      } else {
 			        //run without deviceatlas library
 			        getUserDataFunction(null);
@@ -10545,6 +10552,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 			                //show each active zone which visible when button moves
+
+
 			                $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
 			                  if (activeZone.currentActiveZone.VisibleOnlyInteraction) {
 			                    activeZone.show();
@@ -10576,6 +10585,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.contentTime.startTimer("MovedDuration");
 
 			                  ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+			                    message: "probtn_start_move"
+			                  });
+
+			                  ProBtnControl.additionalButtonFunctions.sendMessageToActiveZones({
 			                    message: "probtn_start_move"
 			                  });
 			                });
@@ -10720,7 +10733,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                //event that button stoped (for example to get in postion for some interactions and so on)
 			                ProBtnControl.additionalButtonFunctions.sendMessageToModal({ message: "probtn_stop_event" });
-
+			                ProBtnControl.additionalButtonFunctions.sendMessageToActiveZones({ message: "probtn_stop_event" });
 			                ProBtnControl.contentTime.endTimer("MovedDuration");
 			                var activeZone = null;
 			                //check is there is some active zone after we stop using button
