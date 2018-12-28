@@ -1,0 +1,109 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" href="js/screen.css" rel="stylesheet">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=608">
+    <link href="js/jquery-ui.css" rel="stylesheet" type="text/css">
+    <style>
+        html, body {
+            width: 150px;
+            height: 150px;
+            margin: 0;
+            padding: 0px;
+        }
+
+        @keyframes scale-up {
+          0%   { transform: scale(0); }
+          100% { transform: scale(1); }
+        }
+        #wrapper {
+          animation: scale-up 0.5s linear 0s 1 both;
+          -webkit-animation: scale-up 0.5s linear 0s 1 both;
+          -moz-animation: scale-up 0.5s linear 0s 1 both;
+          width: 115px;
+          height: 115px;
+          box-shadow: 0 0 10px 0 #DF3C27;
+          border-radius: 50%;
+          overflow: hidden;
+          background-color: black;
+          position: relative;
+          top: 10px;
+          left: 3px;
+        }
+
+        #fire {
+          animation: scale-up 0.5s linear 0s 1 both;
+          -webkit-animation: scale-up 0.5s linear 0s 1 both;
+          -moz-animation: scale-up 0.5s linear 0s 1 both;
+          width: 147px;
+          height: 147px;
+          position: relative;
+          top: -16px;
+          left: -16px;
+        }
+
+        #index_hype_container {
+          top: 0px;
+          left: -9px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+      <img src="fire.gif" id="fire" />
+
+
+	</div>
+  <div id="index_hype_container" style="margin:auto;position:absolute;width:140px;height:145px;overflow:hidden;">
+</div>
+
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+$(document).ready(function () {
+
+    var isImgLoaded = false, isHypeLoaded = false;
+
+
+    function imgLoaded()
+    {
+      isImgLoaded = true;
+      checkAndStartInterval();
+    }
+
+    function checkAndStartInterval()
+    {
+      if (isImgLoaded && isHypeLoaded)
+      {
+        setInterval(function(){
+          $("#fire").fadeTo(500, 0);
+        }, 3000);
+      }
+    }
+
+    function callbackFunction(hypeDocument, element, event) {
+        setTimeout(function () {
+          window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+        }, 100);
+
+        isHypeLoaded = true;
+        checkAndStartInterval();
+      }
+
+      if ("HYPE_eventListeners" in window === false) {
+             window.HYPE_eventListeners = Array();
+      }
+
+      window.HYPE_eventListeners.push({
+        "type": "HypeDocumentLoad",
+        "callback": callbackFunction
+      });
+
+      $("#fire").load(imgLoaded());
+  });
+    </script>
+    <script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?11161"></script>
+
+</body>
+</html>
