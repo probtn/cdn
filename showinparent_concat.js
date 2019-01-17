@@ -69,6 +69,11 @@
 	 * @return {[type]}            [none]
 	 */
 	function checkApps(domain, callback) {
+
+		//don't use this option 
+		callback();
+		return;
+
 		jsonp("https://admin.viewst.com/1/functions/checkApps?BundleID=" + domain + 
 			"&X-ProBtn-Token=b04bb84b22cdacb0d57fd8f8fd3bfeb8ad430d1b", function(answer) {
 			
