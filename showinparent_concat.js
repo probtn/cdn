@@ -166,11 +166,16 @@
 	 * Check if we should load probtn 
 	 */
 	checkApps(domain, function(data) {
-		var paramsDiv = window.top.document.createElement('div');
-		paramsDiv.id = "probtn_additional_params";
-		paramsDiv.innerHTML = JSON.stringify(params);
-		paramsDiv.style.cssText = "display: none;";
-		window.top.document.body.appendChild(paramsDiv);
+
+		try {
+			var paramsDiv = window.top.document.createElement('div');
+			paramsDiv.id = "probtn_additional_params";
+			paramsDiv.innerHTML = JSON.stringify(params);
+			paramsDiv.style.cssText = "display: none;";
+			window.top.document.body.appendChild(paramsDiv);
+		} catch(ex) {
+			
+		}
 
 		try {
 			if ((window.frameElement!==null) && (window.frameElement!==undefined)) {
