@@ -3486,7 +3486,7 @@ var loadProbtn = function (jQuery) {
 	            }
 
 	            var prependBlock = ProBtnControl.additionalItemsContainer;
-	            if ((ProBtnControl.additionalItemsContainer === null) && (ProBtnControl.additionalItemsContainer === undefined)) {
+	            if ((ProBtnControl.additionalItemsContainer === null) || (ProBtnControl.additionalItemsContainer === undefined)) {
 	              prependBlock = "body";
 	            }
 	            var currentName = ProBtnControl.additionalButtonFunctions.randomString(12);
@@ -9823,8 +9823,14 @@ var loadProbtn = function (jQuery) {
 	                } else {
 	                  if (ProBtnControl.params.Debug) console.log(ProBtnControl.params);
 
-	                  if (data.result.CloseImage == "") {
-	                    data.result.CloseImage = ProBtnControl.params.CloseImage;
+	                  try {
+	                  if (data.result) {
+	                    if (data.result.CloseImage == "") {
+	                      data.result.CloseImage = ProBtnControl.params.CloseImage;
+	                    }
+	                  }
+	                  } catch(ex) {
+	                    console.log(ex);
 	                  }
 
 	                  var params1 = $.extend(true, {}, ProBtnControl.params, data.result);
