@@ -45,6 +45,7 @@
     #sidebar {
         width: 100%;
         z-index: 999;
+		overflow-y: scroll;
     }
     #sidebar:before {
         display: none;
