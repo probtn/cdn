@@ -3627,6 +3627,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if (value === "" || value === null || value === undefined) {
 			              value = 1;
 			            }
+
+			            var outVastMessage = {};
+			            outVastMessage[paramName] = value;
+			            ProBtnControl.vastFunctions.sendVastMessage(paramName);
+
 			            if (custom === "" || custom === null || custom === undefined) {
 			              ProBtnControl.statistics.SendStat(paramName, value, probtnId, ProBtnControl.currentDomain, callback);
 			            } else {
@@ -3667,6 +3672,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        SendStatObject: function(object, callback) {
 			          var statistic = JSON.stringify(object);
+
+			          if (object["Closed"] || object["Hidded"] || object["Opened"]) {
+			            ProBtnControl.vastFunctions.sendVastMessage(Object.keys(object)[0]);
+			          }
 
 			          ProBtnControl.statistics.callSuperPixelExt("SendStatObject");
 			          if (ProBtnControl.params.isServerCommunicationEnabled) {
@@ -6247,46 +6256,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  //CustomEvent.trackEvent(message.event.type + message.event.viewState);
 			              }
 			              switch(message.event.type) {
-			                  /*case "AdRemainingTimeChange":
-			                      this.timeData = message.event.data;
-			                      //CustomEvent.trackEvent("AdVideoProgress" + Math.round(this.timeData.currentTime));
-			                      var i = 0, handlerData = {};
-			                      if(this.handlers["timeChange"] && this.handlers["timeChange"].length) {
-			                          for(i = 0; i < this.handlers["timeChange"].length; i++) {
-			                              handlerData = this.handlers["timeChange"][i];
-			                              handlerData.fn.call(handlerData.ctx, message.event.data);
-			                          }
-			                      }
-			                      if(this.handlers["cuePoint"] && this.handlers["cuePoint"].length) {
-			                          for(i = 0; i < this.handlers["cuePoint"].length; i++) {
-			                              handlerData = this.handlers["cuePoint"][i];
-			                              if(message.event.data.currentTime >= handlerData.time && !handlerData.fired) {
-			                                  handlerData.fired = !0;
-			                                  handlerData.fn.call(handlerData.ctx, handlerData.time, message.event.data);
-			                              }
-			                          }
-			                      }
-			                      $updateState.call(this, "AdRemainingTimeChange", message.event.data);
-			                      break;
-			                  case "AdSkippableStateChange":
-			                      $updateState.call(this, "AdSkippableStateChange", message.event.data.value);
-			                      break;
-			                  case "AdPaused":
-			                      $updateState.call(this, "AdPaused");
-			                      break;
-			                  case "AdPlaying":
-			                      $updateState.call(this, "AdPlaying");
-			                      break;
-			                  case "AdVolumeChange":
-			                      $updateState.call(this, "AdVolumeChange", message.event.data.volume);
-			                      break;*/
 			                  case "SetConfig":
 			                      this.clicks = message.event.data.clicks;
+			                      this.trackingEvents = message.event.data.trackingEvents; 
 			                      //ProBtnControl.params.VASTparams.clicks = message.event.data.clicks;
 			                      this.customParams = message.event.data.customParams;
 			                      this.defaultVolume = message.event.data.defaultVolume;
-
-			                      //$updateState.call(this, "SetConfig", message.event.data);
 			                      break;
 			                  default :
 			                      //$updateState.call(this, message.event.type, message.event.data);
@@ -6309,6 +6284,39 @@ function probtn_callPlayer(frame_id, func, args) {
 			                {type: "AdClickThru", id: name},
 			                ProBtnControl.params.VASTparams.id);
 			              return ProBtnControl.vastFunctions.getClickURL(ProBtnControl.params.VASTparams.clicks, name);
+			          }
+			        },
+			        /**
+			         * TODO - rewrite this function using existing functions, especialy for SendToApp function
+			         * @param name
+			         */
+			        sendVastMessage: function(name) {
+			          if (ProBtnControl.params.VASTbutton) {
+
+			            function parseQuery(name) {
+			              var query = location.search.substr(1).split("&");
+			              var result = {};
+			              for(var i = 0; i < query.length; i++) {
+			                var item = query[i].split("=");
+			                result[item[0]] = decodeURIComponent(item[1]);
+			              }
+			              return name ? result[name] : result;
+			            }
+			            var id = parseQuery("id");
+			            var out_name = "default";
+			            switch(name) {
+			              case "Closed":
+			                ProBtnControl.vastFunctions.sendMessageToApp("action", {type: "AdUserClose", id: out_name}, id);
+			                break;
+			              case "Hidded":
+			                ProBtnControl.vastFunctions.sendMessageToApp("action", {type: "AdUserClose", id: out_name}, id);
+			                break;
+			              case "Opened":
+			                //ProBtnControl.vastFunctions.sendMessageToApp("action", {type: "AdVideoStart", id: out_name}, id);
+			                break;
+			              default:
+			                break;
+			            }
 			          }
 			        },
 			        sendMessageToApp: function(type, data, id) {
