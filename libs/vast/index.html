@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Viewst test VAST add</title>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="https://demo.probtn.com/probtn.js"></script>
-	<style>
+  <style>
         body, html {
             margin: 0;
             padding: 0;
@@ -39,7 +37,7 @@
             top: 2%;
             left: 39%;
             opacity: 0;
-			 z-index: 15500;
+       z-index: 15500;
             cursor: pointer;
         }
         #click[data-event="ad-resume"] {
@@ -90,12 +88,12 @@
         #more:hover {
             background: #cfc1ff;
         }
-	</style>
-	</head>
+  </style>
+  </head>
 <body>
     <div id="layer" class="">
     </div>
-	
+  
     <div id="timer" data-event="ad-timer"></div>
     <div id="sound" data-event="ad-mute"></div>
     <div id="close" data-event="ad-close">Закрыть</div>
@@ -105,7 +103,7 @@
     <div id="bg-right" class="bg-fields"></div>
     <div id="bg-top" class="bg-fields"></div>
     <div id="bg-bottom" class="bg-fields"></div>
-	
+  
     <script type="text/javascript" src="interface.js"></script>
 
     <script type="text/javascript">
@@ -116,28 +114,91 @@
                 case "SetConfig":
                     /**init viewst button on video**/
                     console.log("SetConfig", data);
-                    $(document).StartButton({
-                        "SelectAdSet": "5b28c4b0fccfde6c140002a2", 
-                        "domain":"viewst.com",
+
+                    var clickCounterLink = "";
+                    if ((data.trackingEvents) && (data.trackingEvents.click)) {
+                        clickCounterLink = data.trackingEvents.click;
+                    }
+
+                    var buttonParams = {
+                        "ButtonEnabled": true,
+                        "ButtonVisible": true,
+                        "BadgeActive": false, 
+                        "domain":"hck.app",
                         "HideInFrame":"false", 
-                        "waitIframeLoadedMsg": false,
                         "VASTbutton": true,
+                        "CloseAreaType": "attached",
+                        "AttachedClosePosition": "top_right",
+                        "waitIframeLoadedMsg": false,
+                        "ZCustomCSS": "",
+                        "isAnimation": "",
+                        "OpenExternal": true,
+                        "CloseButtonShowDelay": 0,
+                        /*params which would be populated with data when with template would be rendered*/
+                        "ButtonSize": {
+                          "W": 100,
+                          "H": 100
+                        },
+                        "ButtonDragSize": {
+                          "W": 100,
+                          "H": 100
+                        },
+                        "ButtonImage": "creative.html",
+                        "ButtonImageType": "iframe",
+                        "ButtonIframeInitialSize": {
+                          "W": 100,
+                          "H": 100
+                        },
+                        "ButtonPosition": {
+                          "X": 0.3,
+                          "Y": 0.6
+                        },
+                        "ClickCounterLink": clickCounterLink,
+                        /*end of this params*/
+                        /*VAST params*/
                         "VASTparams": {
                             "clicks": data.clicks,
                             "customParams": data.customParams,
                             "id": app.id
                         }
-                    });
+                    };
+
+                    console.log("buttonParams", buttonParams);
+
+                    var oHead = window.document.getElementsByTagName('HEAD').item(0);
+
+                    function loadJS(src, callback) {
+                        var s = window.document.createElement('script');
+                        s.src = src;
+                        s.async = true;
+                        s.onreadystatechange = s.onload = function () {
+                            var state = s.readyState;
+                            if (!callback.done && (!state || /loaded|complete/.test(state))) {
+                                callback.done = true;
+                                callback();
+                            }
+                        };
+                        window.document.getElementsByTagName('head')[0].appendChild(s);
+                    }
+                    var params = buttonParams;
+                    var paramsDiv = window.document.createElement('div');
+                    paramsDiv.id = "probtn_additional_params";
+                    paramsDiv.innerHTML = JSON.stringify(params);
+                    paramsDiv.style.cssText = "display: none;";
+                    window.document.body.appendChild(paramsDiv);
+
+                    loadJS('https://demo.probtn.com/probtn_concat.js?r=sdfaw', function () {});
+                    //$(document).StartButton(buttonParams);
                     break;
                 case "AdVideoComplete":
                     app.setFlags("userInteraction", true);
                     break;
-            }
+            };
         });
         app.initFromDOM(document.body);
 
         function pauseMe() { app.pause(); }
         window.pauseMe = pauseMe;
-    </script>	
+    </script> 
 </body>
 </html>
