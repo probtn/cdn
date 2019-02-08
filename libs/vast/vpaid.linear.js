@@ -75,7 +75,7 @@
       if (t.type === videoDomElementsAndPostMessages.VIDEO && S.video) return S.video.eventHandler.call(S.video, t.data);
       switch (t.data.type) {
         case eventDescriptionObject.AdLoaded:
-        console.log("mainAdObject", mainAdObject);
+        //console.log("mainAdObject", mainAdObject);
           videoDomElementsAndPostMessages.update({
             type: "SetConfig",
             data: {
@@ -102,7 +102,7 @@
           }
           break;
         case eventDescriptionObject.AdClickThru:
-          console.log("eventDescriptionObject.AdClickThru", t.data);
+          //console.log("eventDescriptionObject.AdClickThru", t.data);
           if (t.data.url) {
             eventProcessingObject.d(eventDescriptionObject.create(eventDescriptionObject.AdClickThru, {
               playerHandles: !0,
@@ -121,7 +121,7 @@
           }
           break;
         case eventDescriptionObject.AdUserClose:
-          console.log("y.AdUserClose");
+          //console.log("y.AdUserClose");
           mainAdObject.state = eventDescriptionObject.AdUserClose;
           if (mainAdObject.customParams.nov) {
             p.stop();
@@ -284,7 +284,7 @@
     var T;
     T = {
       init: function (t) {
-        console.log("init T", t);
+        // console.log("init T", t);
         function e(t) {
           return t.childNodes && t.childNodes[0] && (t = t.childNodes[0], t.wholeText) ? t.wholeText.trim() : null
         }
@@ -295,7 +295,7 @@
           if (4 === i.readyState && 200 === i.status) {
             var t = i.responseXML;
             if (t) {
-              console.log("t", t);
+              //console.log("t", t);
               for (var a, o = t.querySelectorAll("TrackingEvents event"), r = 0, n = o.length; r < n; r++) a = o[r], this.addEvent(a.getAttribute("name"), e(a));
               if (this.loaded = !0, this.queue) for (; this.queue.length;) this.trackEvent(this.queue.shift())
             }
@@ -313,7 +313,7 @@
         }
       },
       sendToURL: function (t) {
-        console.log("sendToURL h.location", mainAdObject.location, mainAdObject);
+        //console.log("sendToURL h.location", mainAdObject.location, mainAdObject);
         var e = new Image;
         t = t.replace("~RANDOM~", Math.round(1e6 * Math.random()));
         t = t.replace("[RANDOM]", Math.round(1e6 * Math.random()));
@@ -752,7 +752,7 @@
           for (1 === this.video.nodeType && "undefined" != typeof this.video.hasAttribute && this.video.hasAttribute("src") && "" != this.video.getAttribute("src") && (mainAdObject.savedSource = this.video.getAttribute("src"), this.video.removeAttribute("src")), i = 0; i < mediaFiles.length; i++) {
             if (this.video.canPlayType(mediaFiles[i].type)) {
               var currentVideoSource = currentDocument.createElement("source");
-              console.log("currentVideoSource", currentVideoSource, mediaPath, mediaFiles[i], mediaFiles[i].src);
+              //console.log("currentVideoSource", currentVideoSource, mediaPath, mediaFiles[i], mediaFiles[i].src);
               if (currentVideoSource.type = mediaFiles[i].type, currentVideoSource.src = mediaFiles[i].src, currentVideoSource.id = "wb-src-" + Math.round(1e12 * Math.random()).toString(36), "function" == typeof this.video.appendChild && this.video.appendChild(currentVideoSource), this.video.f && this.video.f.indexOf("goog_") != -1 || "function" == typeof this.video.hasAttribute && !this.video.hasAttribute("src") || "function" == typeof this.video.getAttribute && "" == this.video.getAttribute("src")) {
                 var u = mediaFiles[i].src;
                 this.video.setAttribute("src", u)
@@ -772,18 +772,32 @@
       },
       play: function () {
         try {
-          console.log("play video1");
+          //console.log("play video1");
           this.flags.started = !0;
-          console.log("this.video", this.video, this.video.play);
+          //console.log("this.video", this.video, this.video.play);
 
-          /*var playInterval = setInterval(function() {
+          try {
+            Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
+              get: function () {
+                return !!(this.currentTime > 0 && !this.paused && !this.ended && this.readyState > 2);
+              }
+            });
+          } catch(ex) {
+
+          }
+
+          var playInterval = setInterval(function() {
             try {
-              this.video.play();
-              //clearInterval(playInterval);
+              if(document.querySelector('video').playing) { // checks if element is playing right now
+                // Do anything you want to
+                clearInterval(playInterval);
+              } else {
+                this.video.play();
+              }
             } catch(ex) {
               console.log(ex);
             }
-          }.bind(this), 1000);*/
+          }.bind(this), 500);
 
           this.video.play();
         } catch(ex) {
@@ -899,7 +913,7 @@
       },
       update: function (updateData) {
         if ((updateData.type === "AdUserClose") || (updateData.type === "AdStopped")) {
-          console.log("postMessage update", updateData);
+          //console.log("postMessage update", updateData);
         }
         this.frameElement && this.frameElement.contentWindow && this.frameElement && this.frameElement.contentWindow.postMessage(JSON.stringify({
           id: this.root.id,
@@ -1164,7 +1178,7 @@
         }
       },
       injectIFrames: function (t, i) {
-        console.log("injectIFrames: function (t, i) {", t, i);
+        //console.log("injectIFrames: function (t, i) {", t, i);
         if (mainAdObject.customParams.sf > 0) {
           var a = currentDocument.createElement("iframe");
           //remove weborama iframe

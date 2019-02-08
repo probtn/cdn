@@ -5927,7 +5927,7 @@ probtn_initTrackingLinkTest();
               console.log("probtn_closeButton click set");
 
               var closeClickFunction = function() {
-                console.log("probtn_closeButton clicked");
+                //console.log("probtn_closeButton clicked");
                 ProBtnControl.statistics.SendStatObject({
                   "Closed": 1
                 });
@@ -6219,7 +6219,7 @@ probtn_initTrackingLinkTest();
           //sendToAPP("action", {type:"AdLoaded"}, this.id);
         },
         onClickCheck: function(name) {
-          console.log("onClickCheck", name);
+          //console.log("onClickCheck", name);
           name = name || "default";
           if (ProBtnControl.params.VASTparams.customParams["plc"]) { // if only player should open url
               ProBtnControl.vastFunctions.sendMessageToApp("action",
@@ -6268,7 +6268,6 @@ probtn_initTrackingLinkTest();
         },
         sendMessageToApp: function(type, data, id) {
           try {
-          console.log("sendMessageToApp", type, data, id);
           parent.postMessage(JSON.stringify({
               type: type,
               data: data,
@@ -6279,7 +6278,6 @@ probtn_initTrackingLinkTest();
           }
         },
         getClickURL: function(clicks, name) {
-          console.log("sendMessageToApp");
           return clicks[name || "default"];
         }
       },
