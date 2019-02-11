@@ -105,8 +105,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task(s).
-//  grunt.registerTask('default', ['includes', 'uglify', 'newer:imagemin', 'jshint']);
-	grunt.registerTask('default', ['includes', 'uglify', 'jshint']);
+  //grunt.registerTask('default', ['includes', 'uglify', 'newer:imagemin', 'jshint']);
+  grunt.registerTask('default', ['includes', 'uglify', 'jshint']);
   //grunt.registerTask('jshint', ['jshint']);
+  //grunt.registerTask('imagemin', ['newer:imagemin']);
 
 };
