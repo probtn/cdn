@@ -795,7 +795,6 @@
                 this.video.play();
               }
             } catch(ex) {
-              console.log(ex);
             }
           }.bind(this), 500);
 
