@@ -69,7 +69,7 @@ module.exports = function(grunt) {
         //banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd HH:mm:ss") %> */\n'
       }
     },
-	githooks: {
+	/*githooks: {
 		all: {
 		  'pre-commit': 'default',
 		  'post-commit': {
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
 		  //run this template before commit - to add unglyfied probtn.js to commit
 		  template: 'precommit.js'
 		},
-	},
+	},*/
 	jshint: {
       files: ['probtn_full.js'],
 	  //reporterOutput: 'report_probtn_full.txt',
