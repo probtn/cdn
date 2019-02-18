@@ -6,7 +6,7 @@
 <Creatives>
 <Creative>
 <Linear>
-<Duration>00:00:29</Duration>
+<Duration>00:00:20</Duration>
 <TrackingEvents>
 	<Tracking event="start"><![CDATA[https://cdn.viewst.com/libs/vast/start.gif?event=start]]></Tracking>
 	<Tracking event="close"><![CDATA[https://demo.probtn.com/testing/vast/close.gif?event=close]]></Tracking>
@@ -21,7 +21,7 @@
 </Impression>
 <AdParameters>
 <![CDATA[
-{ "mediapath": "https://builder.viewst.com/uploads/zvy4b3ltts00/", "mediafiles": [ {"src": "https://demo.probtn.com/button_example/fanta/page/video.mp4","type":"video/mp4"} ], "warm": { "uuid": "414714052ed3327a71b1d2a0aa23954a" }, "clicks": { "default": "https://viewst.com/?utm_source=vast&utm_medium=vast&utm_campaign=vast_probtn_video_test&utm_content=branded"}}
+{ "mediapath": "https://cdn.viewst.com/ads/2019/imho/vast_alfa_02_2019/", "mediafiles": [ {"src": "https://cdn.viewst.com/ads/2019/imho/vast_alfa_02_2019/video.mp4","type":"video/mp4"} ], "warm": { "uuid": "414714052ed3327a71b1d2a0aa23954a" }, "clicks": { "default": "https://alfabank.ru/"}}
 ]]>
 </AdParameters>
 <MediaFiles>
