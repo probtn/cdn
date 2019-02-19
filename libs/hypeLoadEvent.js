@@ -1,6 +1,6 @@
 function callbackFunction(hypeDocument, element, event) {
     setTimeout(function () {
-      window.top.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+      window.parent.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
     }, 100);
 }
 
