@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Viewst test VAST add</title>
+  <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+
+        }
+
+        #timer, #close {
+            position: absolute;
+            top:15px;
+            font-size: 14px;
+            font-weight: 300;
+            color: white;
+            text-shadow: 2px 2px 3px black, 0 0 1em black;
+            font-family: sans-serif;
+        }
+        #timer {
+            left: 15px;
+            z-index: 3;
+        }
+        #close {
+            right: 15px;
+            cursor: pointer;
+            z-index: 50;
+        }
+        #click {
+             width: 60%;
+            position: absolute;
+            height: 60%;
+            top: 2%;
+            left: 39%;
+            opacity: 0;
+       z-index: 15500;
+            cursor: pointer;
+        }
+        #click[data-event="ad-resume"] {
+            background: #000000 url(play_btn.png) no-repeat center;
+            opacity: 0.75;
+            z-index: 1000;
+            transition: opacity 0.25s linear;
+        }
+        #click[data-event="ad-resume"]:hover {
+            opacity: 0.25;
+        }
+        #sound {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            bottom: 7px;
+            right: 7px;
+            cursor: pointer;
+            background-color: rgba(0,0,0,0.5);
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 5px;
+            z-index: 150;
+        }
+        #sound[data-event="ad-mute"] {
+            background-image: url(sound.png);
+        }
+        #sound[data-event="ad-unmute"] {
+            background-image: url(mute.png);
+        }
+
+
+        #more {
+            position: absolute;
+            left: 15px;
+            bottom: 30px;
+            display: inline-block;
+            display: none;
+            width: 110px;
+            padding: 5px;
+            border-radius: 2px;
+            text-align: center;
+            background: #ffdcf1;
+            color: rgba(33, 24, 26, 1);
+            cursor: pointer;
+            transition: all .5s ease;
+        }
+        #more:hover {
+            background: #cfc1ff;
+        }
+  </style>
+  </head>
+<body>
+    <div id="layer" class="">
+    </div>
+  
+    <div id="timer" data-event="ad-timer"></div>
+    <div id="sound" data-event="ad-mute"></div>
+    <div id="close" data-event="ad-close">Close</div>
+
+
+    <div id="bg-left" class="bg-fields"></div>
+    <div id="bg-right" class="bg-fields"></div>
+    <div id="bg-top" class="bg-fields"></div>
+    <div id="bg-bottom" class="bg-fields"></div>
+  
+    <script type="text/javascript" src="interface.js"></script>
+
+    <script type="text/javascript">
+        var app = new Interface();
+
+        app.stateChange(function (state, data) {
+            switch (state) {
+                case "SetConfig":
+                    /**init viewst button on video**/
+                    console.log("SetConfig", data);
+
+                    var clickCounterLink = "";
+                    if ((data.trackingEvents) && (data.trackingEvents.click)) {
+                        clickCounterLink = data.trackingEvents.click;
+                    }
+
+                    var buttonParams = {
+						"CreativeId": "5b62dd68ca6a805117000015",
+                        "ButtonEnabled": true,
+                        "ButtonVisible": true,
+                        "BadgeActive": false, 
+						"domain": "probtn.com",
+                        "HideInFrame":"false", 
+                        "VASTbutton": true,
+                        "CloseButtonShowDelay": 0,
+                        /*params which would be populated with data when with template would be rendered*/
+                        "ClickCounterLink": clickCounterLink,
+                        /*end of this params*/
+                        /*VAST params*/
+                        "VASTparams": {
+                            "clicks": data.clicks,
+                            "customParams": data.customParams,
+                            "id": app.id
+                        }
+                    };
+
+                    var oHead = window.document.getElementsByTagName('HEAD').item(0);
+
+                    function loadJS(src, callback) {
+                        var s = window.document.createElement('script');
+                        s.src = src;
+                        s.async = true;
+                        s.onreadystatechange = s.onload = function () {
+                            var state = s.readyState;
+                            if (!callback.done && (!state || /loaded|complete/.test(state))) {
+                                callback.done = true;
+                                callback();
+                            }
+                        };
+                        window.document.getElementsByTagName('head')[0].appendChild(s);
+                    }
+                    var params = buttonParams;
+                    var paramsDiv = window.document.createElement('div');
+                    paramsDiv.id = "probtn_additional_params";
+                    paramsDiv.innerHTML = JSON.stringify(params);
+                    paramsDiv.style.cssText = "display: none;";
+                    window.document.body.appendChild(paramsDiv);
+
+                    loadJS('https://cdn.viewst.com/probtn_concat.js', function () {});
+                    //$(document).StartButton(buttonParams);
+                    break;
+                case "AdVideoComplete":
+                    app.setFlags("userInteraction", true);
+                    break;
+            };
+        });
+        app.initFromDOM(document.body);
+
+        function pauseMe() { app.pause(); }
+        window.pauseMe = pauseMe;
+    </script> 
+</body>
+</html>
