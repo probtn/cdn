@@ -2339,6 +2339,8 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                  var curVideoPixel = null;
 			                  var currentQuartIndex = null;
+			                  var isVideoFooterButtonStarted = false;
+			                  var koefVideo = null;
 
 			                  $(video).on("timeupdate", function() {
 
@@ -2378,6 +2380,40 @@ function probtn_callPlayer(frame_id, func, args) {
 			                      }
 			                      curVideoPixel = index;
 			                    });
+
+			                      if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined)
+			                          && (ProBtnControl.params.VideoFooterButton !== ""))
+			                    {
+			                      var width_cur = parseInt(video.style.width, 10);
+			                      var koef = width_cur / ProBtnControl.params.VideoSize.X;
+			                      if (koef !== koefVideo)
+			                      {
+			                        var offsetDeltaX = $(video).position().left;
+			                        var newPosition = {};
+			                        var offsetVideoX = $(video).width();
+			                        newPosition.left = koef * ProBtnControl.params.VideoFooterButton.left + offsetDeltaX;
+			                        newPosition.top = koef * ProBtnControl.params.VideoFooterButton.top;
+			                        newPosition.width = koef * ProBtnControl.params.VideoFooterButton.width;
+			                        newPosition.height = koef * ProBtnControl.params.VideoFooterButton.height;
+			                        $("#footerVideoButton").css("left", newPosition.left);
+			                        $("#footerVideoButton").css("top", newPosition.top);
+			                        $("#footerVideoButton").css("width", newPosition.width);
+			                        $("#footerVideoButton").css("height", newPosition.height);
+			                        koefVideo = koef;
+			                      }
+			                      var startTime = ProBtnControl.params.VideoFooterButton.startTime;
+			                      if ((video.currentTime > startTime) && (!isVideoFooterButtonStarted))
+			                      {
+			                        $("#footerVideoButton").css("display", "block");
+			                        isVideoFooterButtonStarted = true;
+			                      }
+
+			                      if ((video.currentTime < startTime) && (isVideoFooterButtonStarted))
+			                      {
+			                        $("#footerVideoButton").css("display", "none");
+			                        isVideoFooterButtonStarted = false;
+			                      }
+			                    }
 			                  });
 
 
@@ -5233,6 +5269,36 @@ function probtn_callPlayer(frame_id, func, args) {
 			              headerImage = "<tr id=\"probtn_video_header_tr\"><td id=\"probtn_video_header_td\" style=\"height: 1px;text-align: center;\"><img src=\"" + ProBtnControl.params.VideoItemHeaderImage + "\" id=\"probtn_video_header_img\" alt=\"\" style=\"width: 70%; margin-top: 5%;\"></td></tr>";
 			            }
 
+			            var videoFooterButton = "";
+
+			            if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined) &&
+			             (ProBtnControl.params.VideoPixels !== "")) {
+
+			            var text = ProBtnControl.params.VideoFooterButton;
+			            ProBtnControl.params.VideoFooterButton = $('<div/>').html(text).text();
+			            var paramsVFB = "";
+			            try {
+			              paramsVFB = JSON.parse(ProBtnControl.params.VideoFooterButton);
+			            } catch (ex) {
+			              paramsVFB = "";
+			            }
+
+			            if ((paramsVFB !== null) && (paramsVFB !== undefined) && (paramsVFB !== ""))
+			            {
+			              ProBtnControl.params.VideoFooterButton = paramsVFB;
+			          /*    if ((ProBtnControl.params.VendorSite !== "") && (ProBtnControl.params.VendorSite !== null) && (ProBtnControl.params.VendorSite !== undefined))
+			              {
+			                paramsVFB.href = ProBtnControl.params.VendorSite;
+			              }
+			          */
+			              var style = 'position: absolute; z-index: 1000; display: none;' + 'width:' + paramsVFB.width + 'px;' + 'height:' + paramsVFB.height + 'px;' + 'top:' + paramsVFB.top + 'px;' + 'left:' + paramsVFB.left + 'px;';
+			              videoFooterButton = '<a href="' + paramsVFB.href + '" target="_blank"><div id="footerVideoButton" style='+ '"' + style + '"></div></a>';
+			              $(document).on("click", "#footerVideoButton", function(e) {
+			                ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+			                //console.log('on vendor site click');
+			              });
+			            }
+			          }
 			            // replace with video item
 			            content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
 			              '<table cellspacing="0" cellpadding="0" class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;">' +
@@ -5242,12 +5308,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			              '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
 			              '<source src="' + ProBtnControl.params.ContentURL + '" type="video/mp4">' +
 			              'Your browser does not support the video tag. ' +
-			              '</video></td></tr></table>' +
+			              '</video>' + videoFooterButton + '</td></tr></table>' +
 			              '</div>';
+
+
 
 			            //$('body').append(content);
 			            ProBtnControl.additionalItemsContainer.append(content);
-
+			            console.log($("#probtn_video").width());
 			            if ((ProBtnControl.params.VideoClickURL !== "") && (ProBtnControl.params.VideoClickURL !== null) && (ProBtnControl.params.VideoClickURL !== undefined)) {
 
 			              console.log("ProBtnControl.params.VideoClickURL1", ProBtnControl.params.VideoClickURL);
@@ -6258,7 +6326,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              switch(message.event.type) {
 			                  case "SetConfig":
 			                      this.clicks = message.event.data.clicks;
-			                      this.trackingEvents = message.event.data.trackingEvents; 
+			                      this.trackingEvents = message.event.data.trackingEvents;
 			                      //ProBtnControl.params.VASTparams.clicks = message.event.data.clicks;
 			                      this.customParams = message.event.data.customParams;
 			                      this.defaultVolume = message.event.data.defaultVolume;
@@ -8469,7 +8537,9 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              var autoStart = true;
 			              if (params[0]) {
-			                var autoStart = params[0].autoStart;
+			                if (params[0].autoStart) {
+			                  autoStart = params[0].autoStart;
+			                }
 			              };
 			              console.log("autoStart", autoStart, params[0]);
 
