@@ -665,7 +665,8 @@
             i = {
               totalTime: mainAdObject.customParams.nov,
               currentTime: e
-            };
+            };//adStarted
+
           return i.currentTime >= i.totalTime ? (p.stop(), void p.complete()) : (p.flags.videoStart || (p.flags.videoStart = !0, n.call(p, eventDescriptionObject.create(eventDescriptionObject.AdVideoStart, i))), void(mainAdObject.flags.userEngaged || n.call(p, eventDescriptionObject.create(eventDescriptionObject.AdRemainingTimeChange, i))))
         }, r.DELAY)))
       },
@@ -911,6 +912,7 @@
         this.frameElement && (this.frameElement.style.display = t ? "none" : "inline-block")
       },
       update: function (updateData) {
+        //console.log("postMessage update", updateData);
         if ((updateData.type === "AdUserClose") || (updateData.type === "AdStopped")) {
           //console.log("postMessage update", updateData);
         }
@@ -1269,7 +1271,7 @@
           height: height,
           viewMode: viewMode
         }, i = !!mainAdObject.customParams.dm, mainAdObject.defaultVolume = .5, injectContentObject.log("initAd", arguments), slotInDomIds.videoSlot && "undefined" != typeof slotInDomIds.videoSlot.attributes) for (var R, E = 0, w = slotInDomIds.videoSlot.attributes, D = w.length; E < D; E++) R = w[E], mainAdObject.savedAttributes[R.nodeName] = R.nodeValue;
-      cntEventsTracking.init(mainAdObject.adParameters.warm, [eventDescriptionObject.AdImpression, eventDescriptionObject.AdVideoStart, eventDescriptionObject.AdVideoFirstQuartile, eventDescriptionObject.AdVideoMidpoint, eventDescriptionObject.AdVideoThirdQuartile, eventDescriptionObject.AdVideoComplete]), mainAdObject.customParams.us > 0 && T.init(mainAdObject.adParameters.mediapath + "settings.xml"), !slotInDomIds.videoSlot || 1 === slotInDomIds.videoSlot.nodeType && "VIDEO" === slotInDomIds.videoSlot.nodeName.toUpperCase() || slotInDomIds.videoSlot.f && slotInDomIds.videoSlot.f.indexOf("goog_") != -1 || (slotInDomIds.videoSlot = null, injectContentObject.warn('Invalid parameter "environmentVars.videoSlot"'));
+      cntEventsTracking.init(mainAdObject.adParameters.warm, [eventDescriptionObject.AdStarted, eventDescriptionObject.AdImpression, eventDescriptionObject.AdVideoStart, eventDescriptionObject.AdVideoFirstQuartile, eventDescriptionObject.AdVideoMidpoint, eventDescriptionObject.AdVideoThirdQuartile, eventDescriptionObject.AdVideoComplete]), mainAdObject.customParams.us > 0 && T.init(mainAdObject.adParameters.mediapath + "settings.xml"), !slotInDomIds.videoSlot || 1 === slotInDomIds.videoSlot.nodeType && "VIDEO" === slotInDomIds.videoSlot.nodeName.toUpperCase() || slotInDomIds.videoSlot.f && slotInDomIds.videoSlot.f.indexOf("goog_") != -1 || (slotInDomIds.videoSlot = null, injectContentObject.warn('Invalid parameter "environmentVars.videoSlot"'));
       var V = S.video || slotInDomIds.videoSlot;
       videoDomElementsAndPostMessages.init(slotInDomIds.slot, V ? V : null);
       A = new r(videoDomElementsAndPostMessages.root);
@@ -1288,6 +1290,15 @@
       } else {
         mainVideo.play() && (mainAdObject.state = eventDescriptionObject.AdStarted)
       }
+      /*videoDomElementsAndPostMessages.update({
+        type: eventDescriptionObject.AdStarted
+      });*/
+      videoDomElementsAndPostMessages.update({
+        type: eventDescriptionObject.AdStarted,
+        data: {
+          totalTime: mainAdObject.customParams.nov,
+        }
+      });
     };
     possibleMainAdUnit.prototype.stopAd = function () {
       injectContentObject.log("stopAd");
