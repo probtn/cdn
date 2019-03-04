@@ -517,19 +517,14 @@ probtn_initTrackingLinkTest();
         /* /////////////////////
         // Media players BEGIN
         ////////////////////////
-
         , [
-
         /(apple(?:coremedia|))\/((\d+)[\w\._]+)/i,                          // Generic Apple CoreMedia
         /(coremedia) v((\d+)[\w\._]+)/i
         ], [NAME, VERSION], [
-
         /(aqualung|lyssna|bsplayer)\/((\d+)?[\w\.-]+)/i                     // Aqualung/Lyssna/BSPlayer
         ], [NAME, VERSION], [
-
         /(ares|ossproxy)\s((\d+)[\w\.-]+)/i                                 // Ares/OSSProxy
         ], [NAME, VERSION], [
-
         /(audacious|audimusicstream|amarok|bass|core|dalvik|gnomemplayer|music on console|nsplayer|psp-internetradioplayer|videos)\/((\d+)[\w\.-]+)/i,
                                                                             // Audacious/AudiMusicStream/Amarok/BASS/OpenCORE/Dalvik/GnomeMplayer/MoC
                                                                             // NSPlayer/PSP-InternetRadioPlayer/Videos
@@ -539,87 +534,66 @@ probtn_initTrackingLinkTest();
         ], [NAME, VERSION], [
         /(nexplayer)\s((\d+)[\w\.-]+)/i                                     // Nexplayer
         ], [NAME, VERSION], [
-
         /(flrp)\/((\d+)[\w\.-]+)/i                                          // Flip Player
         ], [[NAME, 'Flip Player'], VERSION], [
-
         /(fstream|nativehost|queryseekspider|ia-archiver|facebookexternalhit)/i
                                                                             // FStream/NativeHost/QuerySeekSpider/IA Archiver/facebookexternalhit
         ], [NAME], [
-
         /(gstreamer) souphttpsrc (?:\([^\)]+\)){0,1} libsoup\/((\d+)[\w\.-]+)/i
                                                                             // Gstreamer
         ], [NAME, VERSION], [
-
         /(htc streaming player)\s[\w_]+\s\/\s((\d+)[\d\.]+)/i,              // HTC Streaming Player
         /(java|python-urllib|python-requests|wget|libcurl)\/((\d+)[\w\.-_]+)/i,
                                                                             // Java/urllib/requests/wget/cURL
         /(lavf)((\d+)[\d\.]+)/i                                             // Lavf (FFMPEG)
         ], [NAME, VERSION], [
-
         /(htc_one_s)\/((\d+)[\d\.]+)/i                                      // HTC One S
         ], [[NAME, /_/g, ' '], VERSION], [
-
         /(mplayer)(?:\s|\/)(?:(?:sherpya-){0,1}svn)(?:-|\s)(r\d+(?:-\d+[\w\.-]+){0,1})/i
                                                                             // MPlayer SVN
         ], [NAME, VERSION], [
-
         /(mplayer)(?:\s|\/|[unkow-]+)((\d+)[\w\.-]+)/i                      // MPlayer
         ], [NAME, VERSION], [
-
         /(mplayer)/i,                                                       // MPlayer (no other info)
         /(yourmuze)/i,                                                      // YourMuze
         /(media player classic|nero showtime)/i                             // Media Player Classic/Nero ShowTime
         ], [NAME], [
-
         /(nero (?:home|scout))\/((\d+)[\w\.-]+)/i                           // Nero Home/Nero Scout
         ], [NAME, VERSION], [
-
         /(nokia\d+)\/((\d+)[\w\.-]+)/i                                      // Nokia
         ], [NAME, VERSION], [
-
         /\s(songbird)\/((\d+)[\w\.-]+)/i                                    // Songbird/Philips-Songbird
         ], [NAME, VERSION], [
-
         /(winamp)3 version ((\d+)[\w\.-]+)/i,                               // Winamp
         /(winamp)\s((\d+)[\w\.-]+)/i,
         /(winamp)mpeg\/((\d+)[\w\.-]+)/i
         ], [NAME, VERSION], [
-
         /(ocms-bot|tapinradio|tunein radio|unknown|winamp|inlight radio)/i  // OCMS-bot/tap in radio/tunein/unknown/winamp (no other info)
                                                                             // inlight radio
         ], [NAME], [
-
         /(quicktime|rma|radioapp|radioclientapplication|soundtap|totem|stagefright|streamium)\/((\d+)[\w\.-]+)/i
                                                                             // QuickTime/RealMedia/RadioApp/RadioClientApplication/
                                                                             // SoundTap/Totem/Stagefright/Streamium
         ], [NAME, VERSION], [
-
         /(smp)((\d+)[\d\.]+)/i                                              // SMP
         ], [NAME, VERSION], [
-
         /(vlc) media player - version ((\d+)[\w\.]+)/i,                     // VLC Videolan
         /(vlc)\/((\d+)[\w\.-]+)/i,
         /(xbmc|gvfs|xine|xmms|irapp)\/((\d+)[\w\.-]+)/i,                    // XBMC/gvfs/Xine/XMMS/irapp
         /(foobar2000)\/((\d+)[\d\.]+)/i,                                    // Foobar2000
         /(itunes)\/((\d+)[\d\.]+)/i                                         // iTunes
         ], [NAME, VERSION], [
-
         /(wmplayer)\/((\d+)[\w\.-]+)/i,                                     // Windows Media Player
         /(windows-media-player)\/((\d+)[\w\.-]+)/i
         ], [[NAME, /-/g, ' '], VERSION], [
-
         /windows\/((\d+)[\w\.-]+) upnp\/[\d\.]+ dlnadoc\/[\d\.]+ (home media server)/i
                                                                             // Windows Media Server
         ], [VERSION, [NAME, 'Windows']], [
-
         /(com\.riseupradioalarm)\/((\d+)[\d\.]*)/i                          // RiseUP Radio Alarm
         ], [NAME, VERSION], [
-
         /(rad.io)\s((\d+)[\d\.]+)/i,                                        // Rad.io
         /(radio.(?:de|at|fr))\s((\d+)[\d\.]+)/i
         ], [[NAME, 'rad.io'], VERSION]
-
         //////////////////////
         // Media players END
         ////////////////////*/
@@ -1207,12 +1181,10 @@ probtn_initTrackingLinkTest();
         /*//////////////////////////
             // TODO: move to string map
             ////////////////////////////
-
             /(C6603)/i                                                          // Sony Xperia Z C6603
             ], [[MODEL, 'Xperia Z C6603'], [VENDOR, 'Sony'], [TYPE, MOBILE]], [
             /(C6903)/i                                                          // Sony Xperia Z 1
             ], [[MODEL, 'Xperia Z 1'], [VENDOR, 'Sony'], [TYPE, MOBILE]], [
-
             /(SM-G900[F|H])/i                                                   // Samsung Galaxy S5
             ], [[MODEL, 'Galaxy S5'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
             /(SM-G7102)/i                                                       // Samsung Galaxy Grand 2
@@ -1227,17 +1199,14 @@ probtn_initTrackingLinkTest();
             ], [[MODEL, 'Galaxy S5 Mini'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
             /(SM-T311)/i                                                        // Samsung Galaxy Tab 3 8.0
             ], [[MODEL, 'Galaxy Tab 3 8.0'], [VENDOR, 'Samsung'], [TYPE, TABLET]], [
-
             /(T3C)/i                                                            // Advan Vandroid T3C
             ], [MODEL, [VENDOR, 'Advan'], [TYPE, TABLET]], [
             /(ADVAN T1J\+)/i                                                    // Advan Vandroid T1J+
             ], [[MODEL, 'Vandroid T1J+'], [VENDOR, 'Advan'], [TYPE, TABLET]], [
             /(ADVAN S4A)/i                                                      // Advan Vandroid S4A
             ], [[MODEL, 'Vandroid S4A'], [VENDOR, 'Advan'], [TYPE, MOBILE]], [
-
             /(V972M)/i                                                          // ZTE V972M
             ], [MODEL, [VENDOR, 'ZTE'], [TYPE, MOBILE]], [
-
             /(i-mobile)\s(IQ\s[\d\.]+)/i                                        // i-mobile IQ
             ], [VENDOR, MODEL, [TYPE, MOBILE]], [
             /(IQ6.3)/i                                                          // i-mobile IQ IQ 6.3
@@ -1246,10 +1215,8 @@ probtn_initTrackingLinkTest();
             ], [VENDOR, MODEL, [TYPE, MOBILE]], [
             /(i-STYLE2.1)/i                                                     // i-mobile i-STYLE 2.1
             ], [[MODEL, 'i-STYLE 2.1'], [VENDOR, 'i-mobile'], [TYPE, MOBILE]], [
-
             /(mobiistar touch LAI 512)/i                                        // mobiistar touch LAI 512
             ], [[MODEL, 'Touch LAI 512'], [VENDOR, 'mobiistar'], [TYPE, MOBILE]], [
-
             /////////////
             // END TODO
             ///////////*/
@@ -1592,6 +1559,7 @@ probtn_initTrackingLinkTest();
       closebutton: undefined,
       closeButtonClicked: false,
       overlaped: false,
+      isExpansed: false,
       buttonMainParams: {
         isEmpty: true,
         hidden: false
@@ -1747,39 +1715,21 @@ probtn_initTrackingLinkTest();
         }
 
         //TODO: refactor function and add elements for different types in separate functions
-        if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck > -1)) {
+        if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansion_video")) && (ProBtnControl.onButtonTapCountCheck > -1)) {
 
           ProBtnControl.onButtonTapCountCheck++;
           //$.pep.toggleAll(false);
           ProBtnControl.pizzabtn.stop(true, true);
 
-          var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 20;
-          var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 20;
 
-          newWidth = 100*(0 - (newWidth / ProBtnControl.additionalButtonFunctions.getWindowWidth()));
-          newHeight = 100*(0 - (newHeight / ProBtnControl.additionalButtonFunctions.getWindowHeight()));
-
-          if (ProBtnControl.params.ButtonType === "expansionVideo") {
-            newHeight = 0.5625; //newWidth * 0.5625;
-          }
-
-          var animationSizes = {
-            width: newWidth,
-            height: newHeight
-          };
-
-          $('head').append("<style type='text/css'> #pizzabtnImg { margin: 0px !important; } </style>");
-          $("body").addClass("probtn_disable_scroll");
 
           /*var animationParams = {
             duration: 1000,
             step: function(s) {},
             complete: function() {
-
               $(".fancybox-wrap").fadeIn();
               $(".fancybox-overlay").fadeIn();
-
-              if (ProBtnControl.params.ButtonType === "expansionVideo") {
+              if (ProBtnControl.params.ButtonType === "expansion_video") {
                 //remove iframe overlay to give user access to iframe control - for example to pause video, toggle sound and so on
                 $("#pizzabtnIframeOverlay").remove();
               } else {
@@ -1789,47 +1739,27 @@ probtn_initTrackingLinkTest();
           };*/
 
           //debugger;
-          if (ProBtnControl.onButtonTapCountCheck % 2 === 1) {
-
-            var sizeBeforeClick = ProBtnControl.params.ButtonSize.Initial;
-            ProBtnControl.params.ButtonSize.BeforeClick = sizeBeforeClick;
-            var positionBeforeClick = {};
-            positionBeforeClick.x = ProBtnControl.pizzabtn.css("left");
-            positionBeforeClick.y = ProBtnControl.pizzabtn.css("top");
-            ProBtnControl.params.ButtonPosition.BeforeClick = positionBeforeClick;
-            console.log("tt", positionBeforeClick);
-            ProBtnControl.params.ButtonSize.W = newWidth;
-            ProBtnControl.params.ButtonSize.H = newHeight;
-            ProBtnControl.pizzabtn.css("left", "10px");
-
-            ProBtnControl.params.ButtonSize.Initial = ProBtnControl.params.ButtonSize;
-
-            console.log("animationSizes", animationSizes);
-          } else {
-            var sizeBeforeClick = ProBtnControl.params.ButtonSize.BeforeClick;
-            ProBtnControl.params.ButtonSize = sizeBeforeClick;
-            var positionBeforeClick = ProBtnControl.params.ButtonPosition.BeforeClick;
-            ProBtnControl.pizzabtn.css("left", positionBeforeClick.x);
-            ProBtnControl.pizzabtn.css("top", positionBeforeClick.y);
+          if (ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"])
+          {
+            clearInterval(ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]);
           }
 
-
-          ProBtnControl.additionalButtonFunctions.resizeButton(ProBtnControl.params.ButtonSize);
+          if (ProBtnControl.isExpansed) {
+            ProBtnControl.additionalButtonFunctions.fromExpanseToNormalView();
+          } else {
+            ProBtnControl.additionalButtonFunctions.toExpanseView();
+          }
 
           $(".fancybox-wrap").fadeIn();
           $(".fancybox-overlay").fadeIn();
 
-          if (ProBtnControl.params.ButtonType === "expansionVideo") {
+          if (ProBtnControl.params.ButtonType !== "expansion_video") {
                 //remove iframe overlay to give user access to iframe control - for example to pause video, toggle sound and so on
                 //$("#pizzabtnIframeOverlay").remove();
-                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
-                  message: "probtn_button_expanded",
-                  size: ProBtnControl.params.ButtonSize
-                });
-          } else {
-                ProBtnControl.onButtonTap(ProBtnControl.params.ContentURL, "expansionButton", "iframe");
-          }
 
+                ProBtnControl.onButtonTap(ProBtnControl.params.ContentURL, "expansionButton", "iframe");
+
+          }
           return;
         }
 
@@ -2053,10 +1983,8 @@ probtn_initTrackingLinkTest();
                         }, '*');
                       }
                     } catch (ex) {
-
                     }
                   }
-
                   $(".fancybox-inner").addClass("opened");
                   //console.log('load the iframe');
                 });*/
@@ -3411,7 +3339,6 @@ probtn_initTrackingLinkTest();
               var probtnId = "1234";
               probtnId = ProBtnControl.GetDeviceUID();
               var probtncid = ProBtnControl.DeviceCID;
-
               //var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
               //ProBtnControl.statistics.createClickCounterImage(superPixelPath);
             }*/
@@ -5687,6 +5614,8 @@ probtn_initTrackingLinkTest();
             setTimeout(function() {
               me.stop(true, true).fadeIn(ProBtnControl.params.ButtonShowDuration * 1000);
             }, ProBtnControl.params.ButtonShowDelay * 1000);
+
+
           };
 
           btn.hide = function() {
@@ -5931,42 +5860,46 @@ probtn_initTrackingLinkTest();
               ProBtnControl.params.AttachedClosePosition = "top_left";
             }
 
-            var closingAreaParams = ProBtnControl.params.AttachedClosePosition.split("_");
-            //console.log(ProBtnControl.params.AttachedClosePosition, closingAreaParams);
-            //if (closingAreaParams[0] === "attached") {
-            var left = ProBtnControl.params.CloseSize.W / 2;
-            var top = ProBtnControl.params.ButtonSize.H - ProBtnControl.params.CloseSize.H / 2;
+            btn.setClosePosition = function()
+            {
+              var closingAreaParams = ProBtnControl.params.AttachedClosePosition.split("_");
+              //console.log(ProBtnControl.params.AttachedClosePosition, closingAreaParams);
+              //if (closingAreaParams[0] === "attached") {
+              var left = ProBtnControl.params.CloseSize.W / 2;
+              var top = ProBtnControl.params.ButtonSize.H - ProBtnControl.params.CloseSize.H / 2;
 
-            if (closingAreaParams[0] === "top") {
-              top = -ProBtnControl.params.CloseSize.H / 2;
+              if (closingAreaParams[0] === "top") {
+                top = -ProBtnControl.params.CloseSize.H / 2;
+              }
+              switch (closingAreaParams[1]) {
+                case "center":
+                  left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.CloseSize.W) / 2;
+                  break;
+                case "right":
+                  left = (ProBtnControl.params.ButtonSize.W - (ProBtnControl.params.CloseSize.W / 2));
+                  break;
+                case "left":
+                  left = -ProBtnControl.params.CloseSize.W / 2;
+                  break;
+                default:
+                  left = -ProBtnControl.params.CloseSize.W / 2;
+                  break;
+              }
+              //}
+
+
+
+              btn.css({
+                "margin": "0 auto",
+                "display": "none",
+                "top": top + "px",
+                "position": "absolute",
+                "left": left + "px",
+                "z-index": "9999"
+              });
             }
-            switch (closingAreaParams[1]) {
-              case "center":
-                left = (ProBtnControl.params.ButtonSize.W - ProBtnControl.params.CloseSize.W) / 2;
-                break;
-              case "right":
-                left = (ProBtnControl.params.ButtonSize.W - (ProBtnControl.params.CloseSize.W / 2));
-                break;
-              case "left":
-                left = -ProBtnControl.params.CloseSize.W / 2;
-                break;
-              default:
-                left = -ProBtnControl.params.CloseSize.W / 2;
-                break;
-            }
-            //}
 
-
-
-            btn.css({
-              "margin": "0 auto",
-              "display": "none",
-              "top": top + "px",
-              "position": "absolute",
-              "left": left + "px",
-              "z-index": "9999"
-            });
-
+            btn.setClosePosition();
             //CloseButtonShowDelay for attached close position
             if (ProBtnControl.params.CloseButtonShowDelay > 0) {
               setTimeout(function() {
@@ -6414,6 +6347,12 @@ probtn_initTrackingLinkTest();
             }
           }
 
+          //update close position
+          if (ProBtnControl.closeButton) {
+            if (typeof ProBtnControl.closeButton.setClosePosition === "function") {
+              ProBtnControl.closeButton.setClosePosition();
+            }
+          }
           return true;
         },
         checkPostscribe: function(callback) {
@@ -6709,8 +6648,8 @@ probtn_initTrackingLinkTest();
             }
           } catch(ex) { console.log(ex); }
           try {
-            if (ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"]) {
-              clearTimeout(ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"]);
+            if (ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]) {
+              clearTimeout(ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]);
             }
           } catch(ex) { console.log(ex); }
 
@@ -7233,7 +7172,7 @@ probtn_initTrackingLinkTest();
         //when window is resized or changed orientation on device
         onOrientationChange: function(e) {
           try {
-            if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansionVideo")) && (ProBtnControl.onButtonTapCountCheck > 0)) {
+            if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansion_video")) && (ProBtnControl.onButtonTapCountCheck > 0)) {
               if (ProBtnControl.onButtonTapCountCheck > 0) {
 
                 /*ProBtnControl.params.ButtonSize.W = newWidth;
@@ -7566,7 +7505,19 @@ probtn_initTrackingLinkTest();
         },
         animation: {
           animationRuning: false,
-          //
+          _setAnimationCSS: function() {
+            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
+            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
+            ProBtnControl.pizzabtn.css("transition-property", "left, top");
+            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
+          },
+          probtnIframeEvent: function(name, data) {
+            ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+              message: name,
+              data: data
+            });
+          },
           pathAnimation: function(animationName) {
 
             //crSpline animation
@@ -8039,13 +7990,6 @@ probtn_initTrackingLinkTest();
 
             }
           },
-          _setAnimationCSS: function() {
-            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
-            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
-            ProBtnControl.pizzabtn.css("transition-property", "left, top");
-            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
-          },
           /**
            * create array of settings from animationData param
            * @param  {[type]} params [description]
@@ -8355,7 +8299,6 @@ probtn_initTrackingLinkTest();
             } else {
               ProBtnControl.pizzabtn.css("left", ($('body').innerWidth()*params.startWidthPercent));
             }
-
             var left = $('body').innerWidth() * widthPercent - (ProBtnControl.params.ButtonSize.W);
             if (params.side === 'right') {
               left = $('body').innerWidth() * (1 - widthPercent);
@@ -8532,6 +8475,69 @@ probtn_initTrackingLinkTest();
 
             }
           },
+          forwardMoveAndStopAndMoveAnimation: function() {
+            var forwardMoveAndStopandMoveParams = ProBtnControl.params.isAnimation.split('_');
+            var params = {
+              "side": "left",
+              "stopDuration": 2000,
+              "stopWidth": 0.5,
+              "firstPartDuration": 3000,
+              "secondPartDuration": 3000,
+              "waitDuration": 0
+            };
+            params = this._checkAndGetActualParams(params);
+            if (params.name === "forwardMoveAndStopandMove") {
+
+              this._setAnimationCSS();
+              ProBtnControl.pizzabtn.stop(true, true);
+
+              if (params.side === 'right') {
+                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W));
+              } else {
+                ProBtnControl.pizzabtn.css("left", 0);
+              }
+              var left = $('body').innerWidth() * params.stopWidth - (ProBtnControl.params.ButtonSize.W/2);
+              if (params.side === 'right') {
+                left = $('body').innerWidth() * (1 - params.stopWidth + (ProBtnControl.params.ButtonSize.W/2));
+              }
+              var currentThis = this;
+
+              setTimeout(function() {
+                currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_firstPart_start");
+                ProBtnControl.pizzabtn.animate({
+                  left: left
+                }, {
+                  duration: params.firstPartDuration,
+                  complete: function() {
+                    currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_firstPart_stop", ProBtnControl.pizzabtn.position());
+
+                    //wait for stop
+                    setTimeout(function() {
+                      currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_secondPart_start");
+
+                      var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+                      if (params.side === 'right') {
+                        left = 0;
+                      }
+                      ProBtnControl.pizzabtn.animate({
+                        left: left
+                      }, {
+                        duration: params.secondPartDuration,
+                        complete: function() {
+                          currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_secondPart_stop", ProBtnControl.pizzabtn.position());
+                        },
+                        done: function() {
+                        }
+                      });
+
+                    }, params.stopDuration);
+                  },
+                  done: function() {
+                  }
+                });
+              }, params.waitDuration);
+            }
+          },
           checkAndRunAnimation: function() {
 
             setTimeout(function() {
@@ -8554,14 +8560,12 @@ probtn_initTrackingLinkTest();
               //ProBtnControl.additionalButtonFunctions.animation.forwardAndBackAnimation();
               ProBtnControl.additionalButtonFunctions.animation.forwardStopAndAwayAnimation();
 
-
               ProBtnControl.additionalButtonFunctions.animation.opacityAnimation(ProBtnControl.params.isAnimation);
-
               ProBtnControl.additionalButtonFunctions.animation.pathAnimation(ProBtnControl.params.isAnimation);
-
               ProBtnControl.additionalButtonFunctions.animation.ToCenterAnimation(ProBtnControl.params.isAnimation);
 
               ProBtnControl.additionalButtonFunctions.animation.resizeAnimation();
+              ProBtnControl.additionalButtonFunctions.animation.forwardMoveAndStopAndMoveAnimation();
 
               //});
             }, 400);
@@ -8688,7 +8692,125 @@ probtn_initTrackingLinkTest();
                 break;
             }
           }
+        },
+        toExpanseView: function() {
+          var newWidth = null;
+          var newHeight = null;
+          var marginLeft = null;
+          var marginRight = null;
+
+          if ((ProBtnControl.params.ExpansionVideoData !== null) && (ProBtnControl.params.ExpansionVideoData !== undefined)
+            &&(ProBtnControl.params.ExpansionVideoData !== ""))
+            {
+              if ((ProBtnControl.params.ExpansionVideoData.marginLeft !== null) && (ProBtnControl.params.ExpansionVideoData.marginLeft !== undefined)
+                &&(ProBtnControl.params.ExpansionVideoData.marginLeft !== ""))
+              {
+                marginLeft = ProBtnControl.params.ExpansionVideoData.marginLeft;
+              }
+
+              if ((ProBtnControl.params.ExpansionVideoData.marginRight !== null) && (ProBtnControl.params.ExpansionVideoData.marginRight !== undefined)
+                &&(ProBtnControl.params.ExpansionVideoData.marginRight !== ""))
+              {
+                marginRight = ProBtnControl.params.ExpansionVideoData.marginRight;
+              }
+
+              if ((ProBtnControl.params.ExpansionVideoData.width !== null) && (ProBtnControl.params.ExpansionVideoData.width !== undefined)
+                &&(ProBtnControl.params.ExpansionVideoData.width !== ""))
+              {
+                newWidth = ProBtnControl.params.ExpansionVideoData.width;
+                if (marginLeft === null)
+                {
+                  if (marginRight === null)
+                  {
+                    marginLeft = 0;
+                  }
+                   else
+                  {
+                    marginLeft = (ProBtnControl.additionalButtonFunctions.getWindowWidth() - newWidth - marginRight);
+                  }
+                }
+              }
+
+              if ((ProBtnControl.params.ExpansionVideoData.height !== null) && (ProBtnControl.params.ExpansionVideoData.height !== undefined)
+                &&(ProBtnControl.params.ExpansionVideoData.height !== ""))
+              {
+                newHeight = ProBtnControl.params.ExpansionVideoData.height;
+                marginTop = (ProBtnControl.additionalButtonFunctions.getWindowHeight() - newHeight) / 2;
+              }
+            }
+          if (newWidth === null)
+          {
+            if (marginLeft === null)
+            {
+              marginLeft = 0;
+            }
+
+            if (marginRight === null)
+            {
+              marginRight = 0;
+            }
+
+            newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - marginLeft - marginRight;
+            newWidth = 100*(0 - (newWidth / ProBtnControl.additionalButtonFunctions.getWindowWidth()));
+          }
+
+          if (newHeight === null)
+          {
+            newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 20;
+            newHeight = 100*(0 - (newHeight / ProBtnControl.additionalButtonFunctions.getWindowHeight()));
+            if (ProBtnControl.params.ButtonType === "expansion_video") {
+              newHeight = 0.5625; //newWidth * 0.5625;
+            }
+          }
+
+
+          var animationSizes = {
+            width: newWidth,
+            height: newHeight
+          };
+
+          $('head').append("<style type='text/css'> #pizzabtnImg { margin: 0px !important; } </style>");
+          $("body").addClass("probtn_disable_scroll");
+
+          var sizeBeforeClick = ProBtnControl.params.ButtonSize.Initial;
+          ProBtnControl.params.ButtonSize.BeforeClick = sizeBeforeClick;
+          var positionBeforeClick = {};
+          positionBeforeClick.x = ProBtnControl.pizzabtn.css("left");
+          positionBeforeClick.y = ProBtnControl.pizzabtn.css("top");
+          ProBtnControl.params.ButtonPosition.BeforeClick = positionBeforeClick;
+          console.log("tt", positionBeforeClick);
+          ProBtnControl.params.ButtonSize.W = newWidth;
+          ProBtnControl.params.ButtonSize.H = newHeight;
+
+          ProBtnControl.pizzabtn.css("left", marginLeft);
+    //      ProBtnControl.pizzabtn.css("top", marginTop);
+
+          ProBtnControl.params.ButtonSize.Initial = ProBtnControl.params.ButtonSize;
+
+          ProBtnControl.additionalButtonFunctions.resizeButton(ProBtnControl.params.ButtonSize);
+          ProBtnControl.isExpansed = true;
+
+          ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+            message: "probtn_button_expanded",
+            size: ProBtnControl.params.ButtonSize
+          });
+        },
+
+        fromExpanseToNormalView: function() {
+          var sizeBeforeClick = ProBtnControl.params.ButtonSize.BeforeClick;
+          ProBtnControl.params.ButtonSize = sizeBeforeClick;
+          var positionBeforeClick = ProBtnControl.params.ButtonPosition.BeforeClick;
+          ProBtnControl.pizzabtn.css("left", positionBeforeClick.x);
+          ProBtnControl.pizzabtn.css("top", positionBeforeClick.y);
+          ProBtnControl.additionalButtonFunctions.resizeButton(ProBtnControl.params.ButtonSize);
+          ProBtnControl.isExpansed = false;
+
+          ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+            message: "probtn_button_minimized_to_normal",
+            size: ProBtnControl.params.ButtonSize
+          });
         }
+
       }
     };
 
@@ -10418,7 +10540,24 @@ probtn_initTrackingLinkTest();
             //TODO fix undefined values
             ProBtnControl.statistics.SendStatisticsData();
             ProBtnControl.statistics.SendBrowserStatsInfo();
+            // expansion video events
+            var processStartVideoExpEvent = function()
+            {
+              ProBtnControl.additionalButtonFunctions.toExpanseView();
+              ProBtnControl.pizzabtn.css("top", ProBtnControl.additionalButtonFunctions.getWindowHeight() - ProBtnControl.params.ButtonSize.H);
+              isStarted = true;
+            }
 
+            window.addEventListener('time_to_start_video_expansion_event', processStartVideoExpEvent, false);
+
+            var processStopVideoExpEvent = function()
+            {
+              ProBtnControl.additionalButtonFunctions.fromExpanseToNormalView();
+              ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
+              clearInterval(ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]);
+            }
+
+            window.addEventListener('time_to_stop_video_expansion_event', processStopVideoExpEvent, false);
             // show button
             if (ProBtnControl.params.ButtonEnabled && ProBtnControl.params.ButtonVisible) {
 
@@ -10428,7 +10567,43 @@ probtn_initTrackingLinkTest();
               ProBtnControl.statistics.checkAdBlock();
               ProBtnControl.pizzabtn.show();
               ProBtnControl.closeButton.center();
+              if ((ProBtnControl.params.ExpansionVideoData !== null) && (ProBtnControl.params.ExpansionVideoData !== undefined) &&
+               (ProBtnControl.params.ExpansionVideoData !== "")) {
 
+              var text = ProBtnControl.params.ExpansionVideoData;
+              ProBtnControl.params.ExpansionVideoData = $('<div/>').html(text).text();
+              var paramsEVD = "";
+              try {
+                paramsEVD = JSON.parse(ProBtnControl.params.ExpansionVideoData);
+              } catch (ex) {
+                console.log("aaaaaaaaaaaaaaaaa");
+                paramsEVD = "";
+              }
+
+              if ((paramsEVD !== null) && (paramsEVD !== undefined) && (paramsEVD !== ""))
+              {
+                ProBtnControl.params.ExpansionVideoData = paramsEVD;
+                console.log("test", ProBtnControl.params.ExpansionVideoData);
+                var isStarted = false;
+                var dispatchVideoExpansionEvent = function(name)
+                {
+                  var event = document.createEvent('Event');
+                  event.initEvent(name, true, true);
+                  document.dispatchEvent(event);
+                }
+                 ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"] = setInterval(function(){
+                  if ((ProBtnControl.contentTime.timeValue["ButtonShowedDuration"] >= ProBtnControl.params.ExpansionVideoData.startTime) && (!isStarted))
+                  {
+                    dispatchVideoExpansionEvent('time_to_start_video_expansion_event');
+                  }
+
+                  if ((ProBtnControl.contentTime.timeValue["ButtonShowedDuration"] >= ProBtnControl.params.ExpansionVideoData.stopTime))
+                  {
+                    dispatchVideoExpansionEvent('time_to_stop_video_expansion_event');
+                  }
+                }.bind(this), 200);
+              }
+            }
               //always show close button
               /*if (ProBtnControl.params.AlwaysShowCloseButton === true) {
                 setTimeout(function () {
