@@ -36,7 +36,7 @@
     function n(t) {
       switch (t.type) {
         case eventDescriptionObject.AdVideoStart:
-          videoDomElementsAndPostMessages.hide(!1), videoDomElementsAndPostMessages.updateSize(), mainAdObject.mute && cntEventsTracking.customEvent("initiallyMuted"), cntEventsTracking.customEvent(mainAdObject.playerSize), mainAdObject.state = eventDescriptionObject.AdImpression, mainAdObject.state = eventDescriptionObject.AdVideoStart;
+          videoDomElementsAndPostMessages.hide(!1), videoDomElementsAndPostMessages.updateSize(), mainAdObject.mute && cntEventsTracking.customEvent("initiallyMuted"), cntEventsTracking.customEvent(mainAdObject.playerSize), mainAdObject.state = eventDescriptionObject.AdStarted, mainAdObject.state = eventDescriptionObject.AdImpression, mainAdObject.state = eventDescriptionObject.AdVideoStart;
           break;
         case eventDescriptionObject.AdRemainingTimeChange:
           mainAdObject.metaData = t.data;
@@ -75,7 +75,7 @@
       if (t.type === videoDomElementsAndPostMessages.VIDEO && S.video) return S.video.eventHandler.call(S.video, t.data);
       switch (t.data.type) {
         case eventDescriptionObject.AdLoaded:
-        //console.log("mainAdObject", mainAdObject);
+          //console.log("mainAdObject", mainAdObject);
           videoDomElementsAndPostMessages.update({
             type: "SetConfig",
             data: {
@@ -159,7 +159,8 @@
       }
     }
 
-    var eventProcessingObject, errorMessagesAndCodes, l, mainAdObject, possibleMainAdUnit, p, mainVideo, videoDomElementsAndPostMessages, cntEventsTracking, A, E, eventDescriptionObject, injectContentObject;
+    var eventProcessingObject, errorMessagesAndCodes, l, mainAdObject, possibleMainAdUnit, p, mainVideo,
+      videoDomElementsAndPostMessages, cntEventsTracking, A, E, eventDescriptionObject, injectContentObject;
     Object.assign || Object.defineProperty(Object, "assign", {
       enumerable: !1,
       configurable: !0,
@@ -368,6 +369,7 @@
         }
       },
       d: function (creativeEvent) {
+        //console.log("creativeEvent", creativeEvent);
         creativeEvent.type != eventDescriptionObject.AdRemainingTimeChange && creativeEvent.type != eventDescriptionObject.AdError && injectContentObject.log("DispatchEvent =>", creativeEvent.type, A.getViewAbility(mainAdObject.viewAbilityPercent, mainAdObject.viewAbilityHasFocus).state, (this.subscribers[creativeEvent.type] || []).length), (this.subscribers[creativeEvent.type] || []).forEach(function (e) {
           //we call external function which call extarnal lib and call link
           //from TrckingEvents in XML
@@ -438,13 +440,13 @@
         },
         set: function (t) {
           if (this._adSize ? this._adSize.width === t.width && this._adSize.height === t.height || (this._adSize = t, videoDomElementsAndPostMessages.update({
-              type: eventDescriptionObject.AdSizeChange,
-              data: this.adSize
-            }), eventProcessingObject.d(eventDescriptionObject.create(eventDescriptionObject.AdSizeChange, {
-              width: t.width,
-              height: t.height
-            }))) : this._adSize = t, this.adSize.width && "object" == typeof this.playerSizeParams) {
-            if (this.fullscreen) return void(this.playerSize = "PlayerFullscreen");
+            type: eventDescriptionObject.AdSizeChange,
+            data: this.adSize
+          }), eventProcessingObject.d(eventDescriptionObject.create(eventDescriptionObject.AdSizeChange, {
+            width: t.width,
+            height: t.height
+          }))) : this._adSize = t, this.adSize.width && "object" == typeof this.playerSizeParams) {
+            if (this.fullscreen) return void (this.playerSize = "PlayerFullscreen");
             var e = this.playerSizeParams,
               i = this.adSize.width;
             for (var a in e) if (e.hasOwnProperty(a)) {
@@ -659,7 +661,7 @@
         if (!this.flags.inited && !this.flags.started) return this.flags.inited = !0, !0
       },
       play: function () {
-        return !(!this.flags.inited || this.flags.started) && (this.flags.started = !0, mainAdObject.animationStartTime = Date.now(), void(mainAdObject.animationInterval = setInterval(function () {
+        return !(!this.flags.inited || this.flags.started) && (this.flags.started = !0, mainAdObject.animationStartTime = Date.now(), void (mainAdObject.animationInterval = setInterval(function () {
           var t = Date.now() - mainAdObject.animationStartTime,
             e = (t / 1e3).toFixed(1),
             i = {
@@ -667,7 +669,7 @@
               currentTime: e
             };//adStarted
 
-          return i.currentTime >= i.totalTime ? (p.stop(), void p.complete()) : (p.flags.videoStart || (p.flags.videoStart = !0, n.call(p, eventDescriptionObject.create(eventDescriptionObject.AdVideoStart, i))), void(mainAdObject.flags.userEngaged || n.call(p, eventDescriptionObject.create(eventDescriptionObject.AdRemainingTimeChange, i))))
+          return i.currentTime >= i.totalTime ? (p.stop(), void p.complete()) : (p.flags.videoStart || (p.flags.videoStart = !0, n.call(p, eventDescriptionObject.create(eventDescriptionObject.AdVideoStart, i))), void (mainAdObject.flags.userEngaged || n.call(p, eventDescriptionObject.create(eventDescriptionObject.AdRemainingTimeChange, i))))
         }, r.DELAY)))
       },
       pause: function () {
@@ -783,24 +785,24 @@
                 return !!(this.currentTime > 0 && !this.paused && !this.ended && this.readyState > 2);
               }
             });
-          } catch(ex) {
+          } catch (ex) {
 
           }
 
-          var playInterval = setInterval(function() {
+          var playInterval = setInterval(function () {
             try {
-              if(document.querySelector('video').playing) { // checks if element is playing right now
+              if (document.querySelector('video').playing) { // checks if element is playing right now
                 // Do anything you want to
                 clearInterval(playInterval);
               } else {
                 this.video.play();
               }
-            } catch(ex) {
+            } catch (ex) {
             }
           }.bind(this), 500);
 
           this.video.play();
-        } catch(ex) {
+        } catch (ex) {
           cosnole.log(ex);
         }
 
@@ -948,7 +950,7 @@
         }
       },
       updateSize: function () {
-        return !!this.root && (S.active && S.updateSize(), void(mainAdObject.customParams.fh || (this.root.style.width = mainAdObject.adSize.width + "px", this.root.style.height = mainAdObject.adSize.height + "px", !mainAdObject.flags.resizeVideoElement && this.videoElement && this.videoElement.style && (this.videoElement.style.width = mainAdObject.adSize.width + "px", this.videoElement.style.height = mainAdObject.adSize.height + "px"))))
+        return !!this.root && (S.active && S.updateSize(), void (mainAdObject.customParams.fh || (this.root.style.width = mainAdObject.adSize.width + "px", this.root.style.height = mainAdObject.adSize.height + "px", !mainAdObject.flags.resizeVideoElement && this.videoElement && this.videoElement.style && (this.videoElement.style.width = mainAdObject.adSize.width + "px", this.videoElement.style.height = mainAdObject.adSize.height + "px"))))
       },
       setETDuration: function (t) {
         videoDomElementsAndPostMessages.etDuration >= 0 ? videoDomElementsAndPostMessages.etDuration += t : videoDomElementsAndPostMessages.etDuration = t
@@ -1197,6 +1199,7 @@
         console.log.apply(console, ["JS-VPAID-WARM::WARN =>"].concat(arguments))
       },
       error: function () {
+        console.log("error arguments", arguments);
         console.log.apply(console, ["JS-VPAID-WARM::ERROR =>"].concat(arguments))
       }
     };
@@ -1210,8 +1213,8 @@
     };
     possibleMainAdUnit.prototype.initAd = function (width, height, viewMode, n, adParameters, slotInDomIds) {
       if ("string" == typeof adParameters && (adParameters = {
-          AdParameters: adParameters
-        }, injectContentObject.warn('The typeof parameter "creativeData" should be an "object" with key "AdParameters"'), injectContentObject.warn("Read page 44 from https://www.iab.com/wp-content/uploads/2015/06/VPAID_2_0_Final_04-10-2012.pdf")), "object" != typeof adParameters || !adParameters.AdParameters || "object" != typeof slotInDomIds || !slotInDomIds.slot) {
+        AdParameters: adParameters
+      }, injectContentObject.warn('The typeof parameter "creativeData" should be an "object" with key "AdParameters"'), injectContentObject.warn("Read page 44 from https://www.iab.com/wp-content/uploads/2015/06/VPAID_2_0_Final_04-10-2012.pdf")), "object" != typeof adParameters || !adParameters.AdParameters || "object" != typeof slotInDomIds || !slotInDomIds.slot) {
         return injectContentObject.error(errorMessagesAndCodes.WRONG_INIT_PARAMS), injectContentObject.error("initAd", arguments), eventProcessingObject.d(eventDescriptionObject.create(eventDescriptionObject.AdError, errorMessagesAndCodes.WRONG_INIT_PARAMS));
       }
 
@@ -1262,15 +1265,15 @@
       } catch (m) {
       }
       if (mainAdObject.customParams = p, mainAdObject.playerSizeParams = mainAdObject.adParameters.playerSize || {
-          PlayerSmall: [0, 480],
-          PlayerNormal: [480, 720],
-          PlayerBig: [720, 960],
-          PlayerHuge: [960, 0]
-        }, mainAdObject.adSize = {
-          width: width,
-          height: height,
-          viewMode: viewMode
-        }, i = !!mainAdObject.customParams.dm, mainAdObject.defaultVolume = .5, injectContentObject.log("initAd", arguments), slotInDomIds.videoSlot && "undefined" != typeof slotInDomIds.videoSlot.attributes) for (var R, E = 0, w = slotInDomIds.videoSlot.attributes, D = w.length; E < D; E++) R = w[E], mainAdObject.savedAttributes[R.nodeName] = R.nodeValue;
+        PlayerSmall: [0, 480],
+        PlayerNormal: [480, 720],
+        PlayerBig: [720, 960],
+        PlayerHuge: [960, 0]
+      }, mainAdObject.adSize = {
+        width: width,
+        height: height,
+        viewMode: viewMode
+      }, i = !!mainAdObject.customParams.dm, mainAdObject.defaultVolume = .5, injectContentObject.log("initAd", arguments), slotInDomIds.videoSlot && "undefined" != typeof slotInDomIds.videoSlot.attributes) for (var R, E = 0, w = slotInDomIds.videoSlot.attributes, D = w.length; E < D; E++) R = w[E], mainAdObject.savedAttributes[R.nodeName] = R.nodeValue;
       cntEventsTracking.init(mainAdObject.adParameters.warm, [eventDescriptionObject.AdStarted, eventDescriptionObject.AdImpression, eventDescriptionObject.AdVideoStart, eventDescriptionObject.AdVideoFirstQuartile, eventDescriptionObject.AdVideoMidpoint, eventDescriptionObject.AdVideoThirdQuartile, eventDescriptionObject.AdVideoComplete]), mainAdObject.customParams.us > 0 && T.init(mainAdObject.adParameters.mediapath + "settings.xml"), !slotInDomIds.videoSlot || 1 === slotInDomIds.videoSlot.nodeType && "VIDEO" === slotInDomIds.videoSlot.nodeName.toUpperCase() || slotInDomIds.videoSlot.f && slotInDomIds.videoSlot.f.indexOf("goog_") != -1 || (slotInDomIds.videoSlot = null, injectContentObject.warn('Invalid parameter "environmentVars.videoSlot"'));
       var V = S.video || slotInDomIds.videoSlot;
       videoDomElementsAndPostMessages.init(slotInDomIds.slot, V ? V : null);
@@ -1293,12 +1296,18 @@
       /*videoDomElementsAndPostMessages.update({
         type: eventDescriptionObject.AdStarted
       });*/
-      videoDomElementsAndPostMessages.update({
+
+      /*videoDomElementsAndPostMessages.update({
         type: eventDescriptionObject.AdStarted,
         data: {
           totalTime: mainAdObject.customParams.nov,
         }
-      });
+      });*/
+      var e = {
+        totalTime: mainAdObject.customParams.nov,
+        currentTime: this.currentTime
+      };
+      n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdStarted, e));
     };
     possibleMainAdUnit.prototype.stopAd = function () {
       injectContentObject.log("stopAd");
