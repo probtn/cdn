@@ -2303,10 +2303,10 @@ var loadProbtn = function (jQuery) {
 	                    if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined) &&
 	                      (ProBtnControl.params.VideoFooterButton !== "")) {
 	                      var checkClickAreaPosition = function() {
-	                        var width_cur = parseInt(video.style.width, 10);
+	                        var width_cur = document.getElementById("video_probtn").offsetWidth;
 	                        var coef_w = width_cur / ProBtnControl.params.VideoSize.X;
 	                        if (coef_w !== coefVideo) {
-	                          var height_cur = parseInt(video.style.height, 10);
+	                          var height_cur = document.getElementById("video_probtn").offsetHeight;
 	                          var coef_h = height_cur / ProBtnControl.params.VideoSize.Y;
 	                          var offsetDeltaX = $(video).position().left;
 	                          var offsetDeltaY = $(video).position().top;
@@ -2341,6 +2341,11 @@ var loadProbtn = function (jQuery) {
 	                      var checkVideoPosition = function(clickableArea) {
 	                        var startTime = clickableArea.startTime;
 	                        var stopTime = clickableArea.stopTime;
+	                        if (stopTime === undefined)
+	                        {
+	                            stopTime = video.duration;
+	                        }
+
 	                        var id = clickableArea.id;
 	                        if ((video.currentTime > startTime) && (video.currentTime < stopTime)) {
 	                          if ((curClickableVideoAreaID === null)) {
