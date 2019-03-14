@@ -1792,8 +1792,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          };*/
 
 			          //debugger;
-			          if (ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"])
-			          {
+			          if (ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]) {
 			            clearInterval(ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]);
 			          }
 
@@ -1807,10 +1806,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			          $(".fancybox-overlay").fadeIn();
 
 			          if (ProBtnControl.params.ButtonType !== "expansion_video") {
-			                //remove iframe overlay to give user access to iframe control - for example to pause video, toggle sound and so on
-			                //$("#pizzabtnIframeOverlay").remove();
+			            //remove iframe overlay to give user access to iframe control - for example to pause video, toggle sound and so on
+			            //$("#pizzabtnIframeOverlay").remove();
 
-			                ProBtnControl.onButtonTap(ProBtnControl.params.ContentURL, "expansionButton", "iframe");
+			            ProBtnControl.onButtonTap(ProBtnControl.params.ContentURL, "expansionButton", "iframe");
 
 			          }
 			          return;
@@ -2267,8 +2266,8 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                  var curVideoPixel = null;
 			                  var currentQuartIndex = null;
-			                  var isVideoFooterButtonStarted = false;
-			                  var koefVideo = null;
+			                  var curClickableVideoAreaID = null;
+			                  var coefVideo = null;
 
 			                  $(video).on("timeupdate", function() {
 
@@ -2309,38 +2308,69 @@ function probtn_callPlayer(frame_id, func, args) {
 			                      curVideoPixel = index;
 			                    });
 
-			                      if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined)
-			                          && (ProBtnControl.params.VideoFooterButton !== ""))
-			                    {
-			                      var width_cur = parseInt(video.style.width, 10);
-			                      var koef = width_cur / ProBtnControl.params.VideoSize.X;
-			                      if (koef !== koefVideo)
-			                      {
-			                        var offsetDeltaX = $(video).position().left;
-			                        var newPosition = {};
-			                        var offsetVideoX = $(video).width();
-			                        newPosition.left = koef * ProBtnControl.params.VideoFooterButton.left + offsetDeltaX;
-			                        newPosition.top = koef * ProBtnControl.params.VideoFooterButton.top;
-			                        newPosition.width = koef * ProBtnControl.params.VideoFooterButton.width;
-			                        newPosition.height = koef * ProBtnControl.params.VideoFooterButton.height;
-			                        $("#footerVideoButton").css("left", newPosition.left);
-			                        $("#footerVideoButton").css("top", newPosition.top);
-			                        $("#footerVideoButton").css("width", newPosition.width);
-			                        $("#footerVideoButton").css("height", newPosition.height);
-			                        koefVideo = koef;
-			                      }
-			                      var startTime = ProBtnControl.params.VideoFooterButton.startTime;
-			                      if ((video.currentTime > startTime) && (!isVideoFooterButtonStarted))
-			                      {
-			                        $("#footerVideoButton").css("display", "block");
-			                        isVideoFooterButtonStarted = true;
+			                    if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined) &&
+			                      (ProBtnControl.params.VideoFooterButton !== "")) {
+			                      var checkClickAreaPosition = function() {
+			                        var width_cur = parseInt(video.style.width, 10);
+			                        var coef_w = width_cur / ProBtnControl.params.VideoSize.X;
+			                        if (coef_w !== coefVideo) {
+			                          var height_cur = parseInt(video.style.height, 10);
+			                          var coef_h = height_cur / ProBtnControl.params.VideoSize.Y;
+			                          var offsetDeltaX = $(video).position().left;
+			                          var offsetDeltaY = $(video).position().top;
+			                          var correctClickAreaPosition = function(clickableArea) {
+			                            var id = clickableArea.id;
+			                            var newPosition = {};
+			                            newPosition.left = coef_w * clickableArea.left + offsetDeltaX;
+			                            newPosition.top = coef_h * clickableArea.top + offsetDeltaY;
+			                            newPosition.width = coef_w * clickableArea.width;
+			                            newPosition.height = coef_h * clickableArea.height;
+			                            $("#" + id).css("left", newPosition.left);
+			                            $("#" + id).css("top", newPosition.top);
+			                            $("#" + id).css("width", newPosition.width);
+			                            $("#" + id).css("height", newPosition.height);
+			                            coefVideo = coef_w;
+
+			                            if ((clickableArea.html !== undefined) && (clickableArea.html !== null) &&
+			                              (clickableArea.html !== "")) {
+			                              $("#" + clickableArea.id + "_htmlArea").css("top", offsetDeltaY);
+			                              var height = $(video).height();
+			                              $("#" + clickableArea.id + "_htmlArea").css("height", height);
+			                            }
+			                          }
+
+			                          var clickableAreas = ProBtnControl.params.VideoFooterButton;
+			                          clickableAreas.forEach(function(item) {
+			                            correctClickAreaPosition(item);
+			                          });
+			                        }
 			                      }
 
-			                      if ((video.currentTime < startTime) && (isVideoFooterButtonStarted))
-			                      {
-			                        $("#footerVideoButton").css("display", "none");
-			                        isVideoFooterButtonStarted = false;
+			                      var checkVideoPosition = function(clickableArea) {
+			                        var startTime = clickableArea.startTime;
+			                        var stopTime = clickableArea.stopTime;
+			                        var id = clickableArea.id;
+			                        if ((video.currentTime > startTime) && (video.currentTime < stopTime)) {
+			                          if ((curClickableVideoAreaID === null)) {
+			                            $("#" + id).css("display", "block");
+			                            curClickableVideoAreaID = id;
+			                            console.log(id, "start");
+			                          }
+			                        } else {
+			                          if (curClickableVideoAreaID === id) {
+			                            $("#" + id).css("display", "none");
+			                            curClickableVideoAreaID = null;
+			                            console.log(id, "stop");
+			                          }
+			                        }
 			                      }
+
+			                      checkClickAreaPosition();
+
+			                      var clickableAreas = ProBtnControl.params.VideoFooterButton;
+			                      clickableAreas.forEach(function(item) {
+			                        checkVideoPosition(item);
+			                      });
 			                    }
 			                  });
 
@@ -3024,7 +3054,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			      DeviceCID: "",
 			      cookieFunctions: {
 			        viewst_opt_out: false,
-			        sendEraseToCookieIframePage:function() {
+			        sendEraseToCookieIframePage: function() {
 			          try {
 			            if ((document.getElementById("probtn_guidIframe") !== undefined) && ((document.getElementById("probtn_guidIframe") !== null))) {
 			              document.getElementById("probtn_guidIframe").contentWindow.postMessage({
@@ -3220,7 +3250,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              cookieEnabled = JSON.parse(ProBtnControl.params.CookieEnabled);
 			            }
 			            //erase cookies if it's google domains or we are not on top page
-			            if ((days>0) && ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top !== window.self) || (cookieEnabled == false))) {
+			            if ((days > 0) && ((document.domain === "doubleclick.net") || (document.domain === "googlesyndication.com") || (window.top !== window.self) || (cookieEnabled == false))) {
 			              ProBtnControl.cookieFunctions.eraseAllCookies();
 			            } else {
 			              var expires = "";
@@ -3231,7 +3261,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }
 			              document.cookie = name + "=" + value + expires + "; path=/";
 			            }
-			          } catch(ex) {
+			          } catch (ex) {
 			            console.log(ex);
 			          }
 			        },
@@ -3344,7 +3374,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              // do something with each subframe as frames[i]
 			              frames[i].postMessage(data, '*');
 			            }
-			          } catch(ex) {
+			          } catch (ex) {
 			            console.log("frames postMessage error", ex);
 			          }
 			        },
@@ -3407,27 +3437,27 @@ function probtn_callPlayer(frame_id, func, args) {
 			         */
 			        createClickCounterImage: function(clickPath, name) {
 			          try {
-			            if ((clickPath!=="") && (clickPath!==undefined)) {
-			            var clickCounterLink_random = clickPath;
-			            clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
-			            if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
-			              clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
-			            }
+			            if ((clickPath !== "") && (clickPath !== undefined)) {
+			              var clickCounterLink_random = clickPath;
+			              clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceRandom(clickPath);
+			              if ((clickCounterLink_random === clickPath) && (clickPath !== ProBtnControl.params.TrackingLink)) {
+			                clickCounterLink_random = ProBtnControl.additionalButtonFunctions.replaceUrlParam(clickCounterLink_random, 'probtn_random', ProBtnControl.additionalButtonFunctions.randomString(12));
+			              }
 
-			            var prependBlock = ProBtnControl.additionalItemsContainer;
-			            if ((ProBtnControl.additionalItemsContainer === null) || (ProBtnControl.additionalItemsContainer === undefined)) {
-			              prependBlock = "body";
-			            }
-			            var currentName = ProBtnControl.additionalButtonFunctions.randomString(12);
-			            if ((name !== null) && (name !== undefined)) {
-			              currentName = name;
-			            }
-			            $("<img/>", {
-			              id: "probtn_ClickCounterLink_" + currentName,
-			              src: clickCounterLink_random,
-			              style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
-			            }).prependTo(prependBlock);
-			            //console.log("probtn_TrackingLink", probtn_TrackingLink);
+			              var prependBlock = ProBtnControl.additionalItemsContainer;
+			              if ((ProBtnControl.additionalItemsContainer === null) || (ProBtnControl.additionalItemsContainer === undefined)) {
+			                prependBlock = "body";
+			              }
+			              var currentName = ProBtnControl.additionalButtonFunctions.randomString(12);
+			              if ((name !== null) && (name !== undefined)) {
+			                currentName = name;
+			              }
+			              $("<img/>", {
+			                id: "probtn_ClickCounterLink_" + currentName,
+			                src: clickCounterLink_random,
+			                style: 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;'
+			              }).prependTo(prependBlock);
+			              //console.log("probtn_TrackingLink", probtn_TrackingLink);
 			            } else {
 			              //console.log("empty clickPath");
 			            }
@@ -5196,49 +5226,100 @@ function probtn_callPlayer(frame_id, func, args) {
 			              headerImage = "<tr id=\"probtn_video_header_tr\"><td id=\"probtn_video_header_td\" style=\"height: 1px;text-align: center;\"><img src=\"" + ProBtnControl.params.VideoItemHeaderImage + "\" id=\"probtn_video_header_img\" alt=\"\" style=\"width: 70%; margin-top: 5%;\"></td></tr>";
 			            }
 
+
+			            //TODO
+			            //move this code in separate funtions
+			            //@Segey
 			            var videoFooterButton = "";
-
 			            if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined) &&
-			             (ProBtnControl.params.VideoPixels !== "")) {
+			              (ProBtnControl.params.VideoFooterButton !== "")) {
 
-			            var text = ProBtnControl.params.VideoFooterButton;
-			            ProBtnControl.params.VideoFooterButton = $('<div/>').html(text).text();
-			            var paramsVFB = "";
-			            try {
-			              paramsVFB = JSON.parse(ProBtnControl.params.VideoFooterButton);
-			            } catch (ex) {
-			              paramsVFB = "";
-			            }
-
-			            if ((paramsVFB !== null) && (paramsVFB !== undefined) && (paramsVFB !== ""))
-			            {
-			              ProBtnControl.params.VideoFooterButton = paramsVFB;
-			          /*    if ((ProBtnControl.params.VendorSite !== "") && (ProBtnControl.params.VendorSite !== null) && (ProBtnControl.params.VendorSite !== undefined))
-			              {
-			                paramsVFB.href = ProBtnControl.params.VendorSite;
+			              var paramsVFB = "";
+			              try {
+			                paramsVFB = JSON.parse(ProBtnControl.params.VideoFooterButton);
+			              } catch (ex) {
+			                try {
+			                  var text = ProBtnControl.params.VideoFooterButton;
+			                  ProBtnControl.params.VideoFooterButton = $('<div/>').html(text).text();
+			                  paramsVFB = JSON.parse(ProBtnControl.params.VideoFooterButton);
+			                } catch (ex) {
+			                  paramsVFB = "";
+			                }
 			              }
-			          */
-			              var style = 'position: absolute; z-index: 1000; display: none;' + 'width:' + paramsVFB.width + 'px;' + 'height:' + paramsVFB.height + 'px;' + 'top:' + paramsVFB.top + 'px;' + 'left:' + paramsVFB.left + 'px;';
-			              videoFooterButton = '<a href="' + paramsVFB.href + '" target="_blank"><div id="footerVideoButton" style='+ '"' + style + '"></div></a>';
-			              $(document).on("click", "#footerVideoButton", function(e) {
-			                ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
-			                //console.log('on vendor site click');
-			              });
+
+			              if ((paramsVFB !== null) && (paramsVFB !== undefined) && (paramsVFB !== "")) {
+			                // if it is not array, we'll create him
+			                if (!Array.isArray(paramsVFB)) {
+			                  paramsVFB = [paramsVFB];
+			                }
+			                // checking parameter id, and adding it, if it's empty
+			                paramsVFB = paramsVFB.map(function(item, index) {
+			                  if ((item.id === null) || (item.id === undefined) || (item.id === "")) {
+			                    item.id = "clickableVideoArea_" + index;
+			                  }
+			                  return item;
+			                });
+
+			                ProBtnControl.params.VideoFooterButton = paramsVFB;
+
+			                paramsVFB.forEach(function(elem, index) {
+			                  var style = 'position: absolute; z-index: 1000; display: none;' + 'width:' + elem.width + 'px;' + 'height:' + elem.height + 'px;' + 'top:' + elem.top + 'px;' + 'left:' + elem.left + 'px;';
+			                  var clickableArea = '<div class="clickableVideoAreaClass" id="' + elem.id + '" style=' + '"' + style + '"></div>';
+			                  if ((elem.href !== undefined) && (elem.href !== null) && (elem.href !== "")) {
+			                    // go to href after click
+			                    videoFooterButton += '<a href="' + elem.href + '" target="_blank">' + clickableArea + '</a>';
+
+			                    $(document).on("click", "#" + elem.id, function(e) {
+			                      ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+			                    });
+			                  } else {
+			                    if ((elem.html !== undefined) && (elem.html !== null) && (elem.html !== "")) {
+			                      var closeArea = '';
+			                      if ((elem.htmlCloseImg !== undefined) && (elem.htmlCloseImg !== null) && (elem.htmlCloseImg !== ""))
+			                      {
+			                        var id = elem.id + "closeHtmlArea";
+			                        closeArea = '<img class="closeAreaImgClass" src="' + elem.htmlCloseImg + '" id="' + id + '"/>'
+
+			                        $(document).on("click", "#" + id, function(e) {
+			                          $("#" + elem.id + "_htmlArea").css("display", "none");
+			                          document.getElementById('video_probtn').play();
+			                        });
+			                      }
+
+			                      var htmlArea = '<div class="htmlAreaClass" id="' + elem.id + '_htmlArea" style="display: none">' + closeArea + elem.html + '</div>';
+			                      // open html-area after click
+			                      videoFooterButton += clickableArea + htmlArea;
+			                      $(document).on("click", "#" + elem.id, function(e) {
+			                        $("#" + elem.id).css("display", "none");
+			                        $("#" + elem.id + "_htmlArea").css("display", "block");
+			                        document.getElementById('video_probtn').pause();
+			                      });
+			                    }
+			                  }
+			                });
+
+			              }
+			            } //end of code working with VideoFooterButton
+
+			            var preloadAttr = 'preload="none"';
+
+			            if ((ProBtnControl.params.NoVideoPreload !== undefined) && (ProBtnControl.params.NoVideoPreload !== null)
+			            && (ProBtnControl.params.NoVideoPreload !== ""))
+			            {
+			              preloadAttr = "";
 			            }
-			          }
+
 			            // replace with video item
 			            content = '<div id="video_item" class="probtn_video_wrapper2" style="display: none; width: auto; height: auto; margin: 0 auto; vertical-align: middle; background: black;">' +
 			              '<table cellspacing="0" cellpadding="0" class="probtn_video_wrapper2" style="width: auto; height: auto; margin: 0px;">' +
 			              headerImage +
-			              '<tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline onclick="' +
+			              '<tr><td style="vertical-align: middle; text-align: center;"><video playsinline webkit-playsinline ' + preloadAttr + ' onclick="' +
 			              videoOnCLick + '" poster="' + ProBtnControl.params.VideoPoster +
 			              '" id="video_probtn" class="probtn_video"  controls="controls" width="100%"height="100%" style="background: black; margin: 0 auto; vertical-align: middle; width: 100%; height: 100%; display: inline-block;">' +
 			              '<source src="' + ProBtnControl.params.ContentURL + '" type="video/mp4">' +
 			              'Your browser does not support the video tag. ' +
 			              '</video>' + videoFooterButton + '</td></tr></table>' +
 			              '</div>';
-
-
 
 			            //$('body').append(content);
 			            ProBtnControl.additionalItemsContainer.append(content);
@@ -5913,8 +5994,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              ProBtnControl.params.AttachedClosePosition = "top_left";
 			            }
 
-			            btn.setClosePosition = function()
-			            {
+			            btn.setClosePosition = function() {
 			              var closingAreaParams = ProBtnControl.params.AttachedClosePosition.split("_");
 			              //console.log(ProBtnControl.params.AttachedClosePosition, closingAreaParams);
 			              //if (closingAreaParams[0] === "attached") {
@@ -6239,34 +6319,34 @@ function probtn_callPlayer(frame_id, func, args) {
 			          return false;
 
 			          /*disable messages*/
-			          window.addEventListener("message", function (event) {
-			              var message;
-			              try {
-			                  message = JSON.parse(event.data);
-			              } catch(err) {
-			                  return;
-			              }
-			              if(message.id !== parseQuery("id") || !message.event) {
-			                  return;
-			              }
-			              if(message.event.type !== "AdRemainingTimeChange") {
-			                  /*
-			                      Вызов сторонних счетчиков осуществляется на стороне контейнера
-			                   */
-			                  //CustomEvent.trackEvent(message.event.type);
-			                  //CustomEvent.trackEvent(message.event.type + message.event.viewState);
-			              }
-			              switch(message.event.type) {
-			                  case "SetConfig":
-			                      this.clicks = message.event.data.clicks;
-			                      this.trackingEvents = message.event.data.trackingEvents;
-			                      //ProBtnControl.params.VASTparams.clicks = message.event.data.clicks;
-			                      this.customParams = message.event.data.customParams;
-			                      this.defaultVolume = message.event.data.defaultVolume;
-			                      break;
-			                  default :
-			                      //$updateState.call(this, message.event.type, message.event.data);
-			              }
+			          window.addEventListener("message", function(event) {
+			            var message;
+			            try {
+			              message = JSON.parse(event.data);
+			            } catch (err) {
+			              return;
+			            }
+			            if (message.id !== parseQuery("id") || !message.event) {
+			              return;
+			            }
+			            if (message.event.type !== "AdRemainingTimeChange") {
+			              /*
+			                  Вызов сторонних счетчиков осуществляется на стороне контейнера
+			               */
+			              //CustomEvent.trackEvent(message.event.type);
+			              //CustomEvent.trackEvent(message.event.type + message.event.viewState);
+			            }
+			            switch (message.event.type) {
+			              case "SetConfig":
+			                this.clicks = message.event.data.clicks;
+			                this.trackingEvents = message.event.data.trackingEvents;
+			                //ProBtnControl.params.VASTparams.clicks = message.event.data.clicks;
+			                this.customParams = message.event.data.customParams;
+			                this.defaultVolume = message.event.data.defaultVolume;
+			                break;
+			              default:
+			                //$updateState.call(this, message.event.type, message.event.data);
+			            }
 			          }.bind(this), false);
 			          //TODO
 			          //send message about ad loaded event
@@ -6276,15 +6356,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			          //console.log("onClickCheck", name);
 			          name = name || "default";
 			          if (ProBtnControl.params.VASTparams.customParams["plc"]) { // if only player should open url
-			              ProBtnControl.vastFunctions.sendMessageToApp("action",
-			                {type: "AdClickThru", id: name, url: getClickURL(ProBtnControl.params.VASTparams.clicks, name)},
-			                ProBtnControl.params.VASTparams.id);
-			              return false;
+			            ProBtnControl.vastFunctions.sendMessageToApp("action", { type: "AdClickThru", id: name, url: getClickURL(ProBtnControl.params.VASTparams.clicks, name) },
+			              ProBtnControl.params.VASTparams.id);
+			            return false;
 			          } else {
-			              ProBtnControl.vastFunctions.sendMessageToApp("action",
-			                {type: "AdClickThru", id: name},
-			                ProBtnControl.params.VASTparams.id);
-			              return ProBtnControl.vastFunctions.getClickURL(ProBtnControl.params.VASTparams.clicks, name);
+			            ProBtnControl.vastFunctions.sendMessageToApp("action", { type: "AdClickThru", id: name },
+			              ProBtnControl.params.VASTparams.id);
+			            return ProBtnControl.vastFunctions.getClickURL(ProBtnControl.params.VASTparams.clicks, name);
 			          }
 			        },
 			        /**
@@ -6297,7 +6375,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            function parseQuery(name) {
 			              var query = location.search.substr(1).split("&");
 			              var result = {};
-			              for(var i = 0; i < query.length; i++) {
+			              for (var i = 0; i < query.length; i++) {
 			                var item = query[i].split("=");
 			                result[item[0]] = decodeURIComponent(item[1]);
 			              }
@@ -6305,12 +6383,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			            var id = parseQuery("id");
 			            var out_name = "default";
-			            switch(name) {
+			            switch (name) {
 			              case "Closed":
-			                ProBtnControl.vastFunctions.sendMessageToApp("action", {type: "AdUserClose", id: out_name}, id);
+			                ProBtnControl.vastFunctions.sendMessageToApp("action", { type: "AdUserClose", id: out_name }, id);
 			                break;
 			              case "Hidded":
-			                ProBtnControl.vastFunctions.sendMessageToApp("action", {type: "AdUserClose", id: out_name}, id);
+			                ProBtnControl.vastFunctions.sendMessageToApp("action", { type: "AdUserClose", id: out_name }, id);
 			                break;
 			              case "Opened":
 			                //ProBtnControl.vastFunctions.sendMessageToApp("action", {type: "AdVideoStart", id: out_name}, id);
@@ -6322,12 +6400,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        sendMessageToApp: function(type, data, id) {
 			          try {
-			          parent.postMessage(JSON.stringify({
+			            parent.postMessage(JSON.stringify({
 			              type: type,
 			              data: data,
 			              id: id
-			          }), "*");
-			          } catch(ex) {
+			            }), "*");
+			          } catch (ex) {
 			            console.log(ex);
 			          }
 			        },
@@ -6337,18 +6415,18 @@ function probtn_callPlayer(frame_id, func, args) {
 			      },
 			      DMP: {
 			        launchIDataScript: function() {
-			            try {
-			              if (ProBtnControl.params.DmpEnabled === true) {
-			                var elem = document.createElement('script');
-			                elem.src = '//x01.aidata.io/pixel.js?pixel=PROBTN&id=' + ProBtnControl.DeviceCID + '&v=' + Date.now();
-			                elem.type='text/javascript';
-			                elem.async = true;
-			                var s = document.getElementsByTagName('script')[0];
-			                s.parentNode.insertBefore(elem, s);
-			              }
-			            } catch(ex) {
-			              console.log("aidata exception",ex);
+			          try {
+			            if (ProBtnControl.params.DmpEnabled === true) {
+			              var elem = document.createElement('script');
+			              elem.src = '//x01.aidata.io/pixel.js?pixel=PROBTN&id=' + ProBtnControl.DeviceCID + '&v=' + Date.now();
+			              elem.type = 'text/javascript';
+			              elem.async = true;
+			              var s = document.getElementsByTagName('script')[0];
+			              s.parentNode.insertBefore(elem, s);
 			            }
+			          } catch (ex) {
+			            console.log("aidata exception", ex);
+			          }
 			        }
 			      },
 			      // #additionalButtonFunctions
@@ -6380,10 +6458,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			            //if ((item.ButtonIframeInitialSize !== null) && (item.ButtonIframeInitialSize !== undefined)) {
 			            //if (newIframeInitialSize) {
 			            //} else
-			              ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), newIframeInitialSize, ProBtnControl.params.ButtonSize);
+			            ProBtnControl.additionalButtonFunctions.applyIframeScale($("#pizzabtnImg"), newIframeInitialSize, ProBtnControl.params.ButtonSize);
 
-			              $("#pizzabtnImg").css("width", newIframeInitialSize.W + "px");
-			              $("#pizzabtnImg").css("height", newIframeInitialSize.H + "px");
+			            $("#pizzabtnImg").css("width", newIframeInitialSize.W + "px");
+			            $("#pizzabtnImg").css("height", newIframeInitialSize.H + "px");
 			            //}
 			          }
 
@@ -6462,7 +6540,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.statistics.SendStatisticsData("performedAction", "passback_added");
 			                  postscribe(ProBtnControl.params.PassbackCodeSelector, '' + ProBtnControl.params.PassbackCustomCode + '');
 			                }
-			              break;
+			                break;
 			            }
 			          };
 			          /*if (typeof postscribe === "undefined") {
@@ -6595,21 +6673,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			          if ((outVendorText !== "") && (ProBtnControl.params.ButtonEnabled === true) && (ProBtnControl.params.ButtonVisible === true)) {
 			            try {
 			              title = "<style> .fancybox-title-inside-wrap { padding-top: 0px; color: rgba(" + ProBtnControl.params.VendorColor.R + "," + ProBtnControl.params.VendorColor.G + "," + ProBtnControl.params.VendorColor.B + "," + ProBtnControl.params.VendorColor.A + "); text-align: center; } </style><a style='font-family: " + ProBtnControl.params.VendorTextFont.Family + "; font-size: " + ProBtnControl.params.VendorTextFont.Size + "px; color: rgba(" + ProBtnControl.params.VendorTextColor.R + "," + ProBtnControl.params.VendorTextColor.G + "," + ProBtnControl.params.VendorTextColor.B + "," + ProBtnControl.params.VendorTextColor.A + ")' href='" + ProBtnControl.params.VendorSite + "' target='_blank' class='probtn_vendor_site_link' id='probtn_vendor_site_link_id'>" + outVendorText + "</a>";
-			                //onclick=\"console.log('on vendor site click'); window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); try { document.getElementById('video_probtn').pause(); } catch(ex) { console.log(ex); }; return false;\"
+			              //onclick=\"console.log('on vendor site click'); window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); try { document.getElementById('video_probtn').pause(); } catch(ex) { console.log(ex); }; return false;\"
 
 
-			                $(document).on("click", "#probtn_vendor_site_link_id", function(e) {
-			                  //console.log('on vendor site click');
-			                  window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');
-			                  try {
-			                    if (document.getElementById('video_probtn')) document.getElementById('video_probtn').pause();
-			                  } catch(ex) {
-			                    console.log(ex);
-			                  };
-			                  if (ProBtnControl.params.ButtonContentType === "video") {
-			                    ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
-			                  }
-			                });
+			              $(document).on("click", "#probtn_vendor_site_link_id", function(e) {
+			                //console.log('on vendor site click');
+			                window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');
+			                try {
+			                  if (document.getElementById('video_probtn')) document.getElementById('video_probtn').pause();
+			                } catch (ex) {
+			                  console.log(ex);
+			                };
+			                if (ProBtnControl.params.ButtonContentType === "video") {
+			                  ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+			                }
+			              });
 
 			            } catch (ex) {
 			              console.log(ex);
@@ -6699,12 +6777,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if (ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"]) {
 			              clearInterval(ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"]);
 			            }
-			          } catch(ex) { console.log(ex); }
+			          } catch (ex) { console.log(ex); }
 			          try {
 			            if (ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]) {
 			              clearTimeout(ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]);
 			            }
-			          } catch(ex) { console.log(ex); }
+			          } catch (ex) { console.log(ex); }
 
 			          //TODO
 			          //Stop current video
@@ -7156,9 +7234,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        sendMessageToActiveZones: function(object) {
 			          $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
-			              if (activeZone[0].contentWindow !== undefined) {
-			                activeZone[0].contentWindow.postMessage(object, '*');
-			              }
+			            if (activeZone[0].contentWindow !== undefined) {
+			              activeZone[0].contentWindow.postMessage(object, '*');
+			            }
 			          });
 			        },
 			        sendMessageToModal: function(object) {
@@ -8175,9 +8253,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if (params.name == "forwardAndStop") {
 
 			              if (params.side == 'right') {
-			                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - ($('body').innerWidth()*params.startWidthPercent) - (ProBtnControl.params.ButtonSize.W));
+			                ProBtnControl.pizzabtn.css("left", $('body').innerWidth() - ($('body').innerWidth() * params.startWidthPercent) - (ProBtnControl.params.ButtonSize.W));
 			              } else {
-			                ProBtnControl.pizzabtn.css("left", ($('body').innerWidth()*params.startWidthPercent));
+			                ProBtnControl.pizzabtn.css("left", ($('body').innerWidth() * params.startWidthPercent));
 			              }
 
 			              var left = $('body').innerWidth() * widthPercent - (ProBtnControl.params.ButtonSize.W);
@@ -8366,9 +8444,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			                ProBtnControl.pizzabtn.css("top", $('body').innerHeight() * startHeightPercent);
 			              }
 
-			              var top = ProBtnControl.additionalButtonFunctions.getWindowHeight()*heightPercent - (ProBtnControl.params.ButtonSize.H);
+			              var top = ProBtnControl.additionalButtonFunctions.getWindowHeight() * heightPercent - (ProBtnControl.params.ButtonSize.H);
 			              if (params.side == 'bottom') {
-			                top = 0 + (ProBtnControl.additionalButtonFunctions.getWindowHeight()*(1 - heightPercent));
+			                top = 0 + (ProBtnControl.additionalButtonFunctions.getWindowHeight() * (1 - heightPercent));
 			              }
 
 			              this._setAnimationCSS();
@@ -8457,8 +8535,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          //animation that change button sizes
 			          resizeAnimation: function() {
 			            //debugger;
-			            var params =  [
-			            {
+			            var params = [{
 			              autoStart: true,
 			              width: 200,
 			              height: 100,
@@ -8495,7 +8572,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                    var newButtonSize1 = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({ W: item.width, H: item.height });
 			                    console.log("newButtonSize1", newButtonSize1);
-			                    var newButtonSize = {"W": item.width, "H": item.height };
+			                    var newButtonSize = { "W": item.width, "H": item.height };
 			                    ProBtnControl.additionalButtonFunctions.resizeButton(newButtonSize, item.ButtonIframeInitialSize);
 			                    probtnIframeEvent("probtn_resizeAnimation_step", { name: item.name, count: current_count });
 			                    current_count++;
@@ -8512,12 +8589,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                currentStep(params, function() { console.log("callback"); });
 			              } else {
 			                //check for command to start animation
-			                var receiveMessageStart = function (event) {
+			                var receiveMessageStart = function(event) {
 			                  try {
 			                    if (event.data.command === "probtn_start_animation") {
 			                      currentStep(params, function() { console.log("callback"); });
 			                    }
-			                  } catch(ex) {
+			                  } catch (ex) {
 
 			                  }
 			                };
@@ -8549,9 +8626,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			              } else {
 			                ProBtnControl.pizzabtn.css("left", 0);
 			              }
-			              var left = $('body').innerWidth() * params.stopWidth - (ProBtnControl.params.ButtonSize.W/2);
+			              var left = $('body').innerWidth() * params.stopWidth - (ProBtnControl.params.ButtonSize.W / 2);
 			              if (params.side === 'right') {
-			                left = $('body').innerWidth() * (1 - params.stopWidth + (ProBtnControl.params.ButtonSize.W/2));
+			                left = $('body').innerWidth() * (1 - params.stopWidth + (ProBtnControl.params.ButtonSize.W / 2));
 			              }
 			              var currentThis = this;
 
@@ -8579,14 +8656,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        complete: function() {
 			                          currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_secondPart_stop", ProBtnControl.pizzabtn.position());
 			                        },
-			                        done: function() {
-			                        }
+			                        done: function() {}
 			                      });
 
 			                    }, params.stopDuration);
 			                  },
-			                  done: function() {
-			                  }
+			                  done: function() {}
 			                });
 			              }, params.waitDuration);
 			            }
@@ -8752,65 +8827,52 @@ function probtn_callPlayer(frame_id, func, args) {
 			          var marginLeft = null;
 			          var marginRight = null;
 
-			          if ((ProBtnControl.params.ExpansionVideoData !== null) && (ProBtnControl.params.ExpansionVideoData !== undefined)
-			            &&(ProBtnControl.params.ExpansionVideoData !== ""))
-			            {
-			              if ((ProBtnControl.params.ExpansionVideoData.marginLeft !== null) && (ProBtnControl.params.ExpansionVideoData.marginLeft !== undefined)
-			                &&(ProBtnControl.params.ExpansionVideoData.marginLeft !== ""))
-			              {
-			                marginLeft = ProBtnControl.params.ExpansionVideoData.marginLeft;
-			              }
+			          if ((ProBtnControl.params.ExpansionVideoData !== null) && (ProBtnControl.params.ExpansionVideoData !== undefined) &&
+			            (ProBtnControl.params.ExpansionVideoData !== "")) {
+			            if ((ProBtnControl.params.ExpansionVideoData.marginLeft !== null) && (ProBtnControl.params.ExpansionVideoData.marginLeft !== undefined) &&
+			              (ProBtnControl.params.ExpansionVideoData.marginLeft !== "")) {
+			              marginLeft = ProBtnControl.params.ExpansionVideoData.marginLeft;
+			            }
 
-			              if ((ProBtnControl.params.ExpansionVideoData.marginRight !== null) && (ProBtnControl.params.ExpansionVideoData.marginRight !== undefined)
-			                &&(ProBtnControl.params.ExpansionVideoData.marginRight !== ""))
-			              {
-			                marginRight = ProBtnControl.params.ExpansionVideoData.marginRight;
-			              }
+			            if ((ProBtnControl.params.ExpansionVideoData.marginRight !== null) && (ProBtnControl.params.ExpansionVideoData.marginRight !== undefined) &&
+			              (ProBtnControl.params.ExpansionVideoData.marginRight !== "")) {
+			              marginRight = ProBtnControl.params.ExpansionVideoData.marginRight;
+			            }
 
-			              if ((ProBtnControl.params.ExpansionVideoData.width !== null) && (ProBtnControl.params.ExpansionVideoData.width !== undefined)
-			                &&(ProBtnControl.params.ExpansionVideoData.width !== ""))
-			              {
-			                newWidth = ProBtnControl.params.ExpansionVideoData.width;
-			                if (marginLeft === null)
-			                {
-			                  if (marginRight === null)
-			                  {
-			                    marginLeft = 0;
-			                  }
-			                   else
-			                  {
-			                    marginLeft = (ProBtnControl.additionalButtonFunctions.getWindowWidth() - newWidth - marginRight);
-			                  }
+			            if ((ProBtnControl.params.ExpansionVideoData.width !== null) && (ProBtnControl.params.ExpansionVideoData.width !== undefined) &&
+			              (ProBtnControl.params.ExpansionVideoData.width !== "")) {
+			              newWidth = ProBtnControl.params.ExpansionVideoData.width;
+			              if (marginLeft === null) {
+			                if (marginRight === null) {
+			                  marginLeft = 0;
+			                } else {
+			                  marginLeft = (ProBtnControl.additionalButtonFunctions.getWindowWidth() - newWidth - marginRight);
 			                }
 			              }
-
-			              if ((ProBtnControl.params.ExpansionVideoData.height !== null) && (ProBtnControl.params.ExpansionVideoData.height !== undefined)
-			                &&(ProBtnControl.params.ExpansionVideoData.height !== ""))
-			              {
-			                newHeight = ProBtnControl.params.ExpansionVideoData.height;
-			                marginTop = (ProBtnControl.additionalButtonFunctions.getWindowHeight() - newHeight) / 2;
-			              }
 			            }
-			          if (newWidth === null)
-			          {
-			            if (marginLeft === null)
-			            {
+
+			            if ((ProBtnControl.params.ExpansionVideoData.height !== null) && (ProBtnControl.params.ExpansionVideoData.height !== undefined) &&
+			              (ProBtnControl.params.ExpansionVideoData.height !== "")) {
+			              newHeight = ProBtnControl.params.ExpansionVideoData.height;
+			              marginTop = (ProBtnControl.additionalButtonFunctions.getWindowHeight() - newHeight) / 2;
+			            }
+			          }
+			          if (newWidth === null) {
+			            if (marginLeft === null) {
 			              marginLeft = 0;
 			            }
 
-			            if (marginRight === null)
-			            {
+			            if (marginRight === null) {
 			              marginRight = 0;
 			            }
 
 			            newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - marginLeft - marginRight;
-			            newWidth = 100*(0 - (newWidth / ProBtnControl.additionalButtonFunctions.getWindowWidth()));
+			            newWidth = 100 * (0 - (newWidth / ProBtnControl.additionalButtonFunctions.getWindowWidth()));
 			          }
 
-			          if (newHeight === null)
-			          {
+			          if (newHeight === null) {
 			            newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 20;
-			            newHeight = 100*(0 - (newHeight / ProBtnControl.additionalButtonFunctions.getWindowHeight()));
+			            newHeight = 100 * (0 - (newHeight / ProBtnControl.additionalButtonFunctions.getWindowHeight()));
 			            if (ProBtnControl.params.ButtonType === "expansion_video") {
 			              newHeight = 0.5625; //newWidth * 0.5625;
 			            }
@@ -8836,7 +8898,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          ProBtnControl.params.ButtonSize.H = newHeight;
 
 			          ProBtnControl.pizzabtn.css("left", marginLeft);
-			    //      ProBtnControl.pizzabtn.css("top", marginTop);
+			          //      ProBtnControl.pizzabtn.css("top", marginTop);
 
 			          ProBtnControl.params.ButtonSize.Initial = ProBtnControl.params.ButtonSize;
 
@@ -8936,15 +8998,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			          getUserDataFunction(null);
 			        } else {
 			          DeviceAtlas = {
-			              cookieName: 'DAPROPS', // the cookie name
-			              cookieExpiryDays: -1,  // the time the cookie expires in days
+			            cookieName: 'DAPROPS', // the cookie name
+			            cookieExpiryDays: -1, // the time the cookie expires in days
 			          }
 
 
 			          if (newAtlasPath.atlasPath !== undefined) {
 			            atlasPath = newAtlasPath.atlasPath;
 			          }
-			          console.log("newAtlasPath",newAtlasPath);
+			          console.log("newAtlasPath", newAtlasPath);
 			          if (atlasPath !== "") {
 			            console.log("atlasPath1");
 			            $.getScript(atlasPath, getUserDataFunction);
@@ -9988,12 +10050,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  if (ProBtnControl.params.Debug) console.log(ProBtnControl.params);
 
 			                  try {
-			                  if (data.result) {
-			                    if (data.result.CloseImage == "") {
-			                      data.result.CloseImage = ProBtnControl.params.CloseImage;
+			                    if (data.result) {
+			                      if (data.result.CloseImage == "") {
+			                        data.result.CloseImage = ProBtnControl.params.CloseImage;
+			                      }
 			                    }
-			                  }
-			                  } catch(ex) {
+			                  } catch (ex) {
 			                    console.log(ex);
 			                  }
 
@@ -10383,7 +10445,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    'width': width,
 			                    'height': height
 			                  });
-			                  $('head').append("<style type='text/css'> #pizzabtnIframeOverlay { width: "+width+"; height: "+height+"; } </style>");
+			                  $('head').append("<style type='text/css'> #pizzabtnIframeOverlay { width: " + width + "; height: " + height + "; } </style>");
 			                  if (event.data.size.top !== undefined) {
 			                    $("#pizzabtnIframeOverlay").css({
 			                      'top': event.data.size.top
@@ -10594,8 +10656,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ProBtnControl.statistics.SendStatisticsData();
 			            ProBtnControl.statistics.SendBrowserStatsInfo();
 			            // expansion video events
-			            var processStartVideoExpEvent = function()
-			            {
+			            var processStartVideoExpEvent = function() {
 			              ProBtnControl.additionalButtonFunctions.toExpanseView();
 			              ProBtnControl.pizzabtn.css("top", ProBtnControl.additionalButtonFunctions.getWindowHeight() - ProBtnControl.params.ButtonSize.H);
 			              isStarted = true;
@@ -10603,8 +10664,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            window.addEventListener('time_to_start_video_expansion_event', processStartVideoExpEvent, false);
 
-			            var processStopVideoExpEvent = function()
-			            {
+			            var processStopVideoExpEvent = function() {
 			              ProBtnControl.additionalButtonFunctions.fromExpanseToNormalView();
 			              ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
 			              clearInterval(ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]);
@@ -10621,42 +10681,38 @@ function probtn_callPlayer(frame_id, func, args) {
 			              ProBtnControl.pizzabtn.show();
 			              ProBtnControl.closeButton.center();
 			              if ((ProBtnControl.params.ExpansionVideoData !== null) && (ProBtnControl.params.ExpansionVideoData !== undefined) &&
-			               (ProBtnControl.params.ExpansionVideoData !== "")) {
+			                (ProBtnControl.params.ExpansionVideoData !== "")) {
 
-			              var text = ProBtnControl.params.ExpansionVideoData;
-			              ProBtnControl.params.ExpansionVideoData = $('<div/>').html(text).text();
-			              var paramsEVD = "";
-			              try {
-			                paramsEVD = JSON.parse(ProBtnControl.params.ExpansionVideoData);
-			              } catch (ex) {
-			                console.log("aaaaaaaaaaaaaaaaa");
-			                paramsEVD = "";
-			              }
-
-			              if ((paramsEVD !== null) && (paramsEVD !== undefined) && (paramsEVD !== ""))
-			              {
-			                ProBtnControl.params.ExpansionVideoData = paramsEVD;
-			                console.log("test", ProBtnControl.params.ExpansionVideoData);
-			                var isStarted = false;
-			                var dispatchVideoExpansionEvent = function(name)
-			                {
-			                  var event = document.createEvent('Event');
-			                  event.initEvent(name, true, true);
-			                  document.dispatchEvent(event);
+			                var text = ProBtnControl.params.ExpansionVideoData;
+			                ProBtnControl.params.ExpansionVideoData = $('<div/>').html(text).text();
+			                var paramsEVD = "";
+			                try {
+			                  paramsEVD = JSON.parse(ProBtnControl.params.ExpansionVideoData);
+			                } catch (ex) {
+			                  console.log("aaaaaaaaaaaaaaaaa");
+			                  paramsEVD = "";
 			                }
-			                 ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"] = setInterval(function(){
-			                  if ((ProBtnControl.contentTime.timeValue["ButtonShowedDuration"] >= ProBtnControl.params.ExpansionVideoData.startTime) && (!isStarted))
-			                  {
-			                    dispatchVideoExpansionEvent('time_to_start_video_expansion_event');
-			                  }
 
-			                  if ((ProBtnControl.contentTime.timeValue["ButtonShowedDuration"] >= ProBtnControl.params.ExpansionVideoData.stopTime))
-			                  {
-			                    dispatchVideoExpansionEvent('time_to_stop_video_expansion_event');
+			                if ((paramsEVD !== null) && (paramsEVD !== undefined) && (paramsEVD !== "")) {
+			                  ProBtnControl.params.ExpansionVideoData = paramsEVD;
+			                  console.log("test", ProBtnControl.params.ExpansionVideoData);
+			                  var isStarted = false;
+			                  var dispatchVideoExpansionEvent = function(name) {
+			                    var event = document.createEvent('Event');
+			                    event.initEvent(name, true, true);
+			                    document.dispatchEvent(event);
 			                  }
-			                }.bind(this), 200);
+			                  ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"] = setInterval(function() {
+			                    if ((ProBtnControl.contentTime.timeValue["ButtonShowedDuration"] >= ProBtnControl.params.ExpansionVideoData.startTime) && (!isStarted)) {
+			                      dispatchVideoExpansionEvent('time_to_start_video_expansion_event');
+			                    }
+
+			                    if ((ProBtnControl.contentTime.timeValue["ButtonShowedDuration"] >= ProBtnControl.params.ExpansionVideoData.stopTime)) {
+			                      dispatchVideoExpansionEvent('time_to_stop_video_expansion_event');
+			                    }
+			                  }.bind(this), 200);
+			                }
 			              }
-			            }
 			              //always show close button
 			              /*if (ProBtnControl.params.AlwaysShowCloseButton === true) {
 			                setTimeout(function () {
@@ -10690,14 +10746,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			                 * @return {[type]}       [description]
 			                 */
 			                var getSumDuration = function(items, count) {
-			                  if (count<items.length) {
+			                  if (count < items.length) {
 			                    var sum = 0;
-			                    for (var i=0; i<count; i++) {
+			                    for (var i = 0; i < count; i++) {
 			                      sum = sum + items[i];
 			                    }
 			                    return sum;
 			                  } else {
-			                    return getSumDuration(items, items.length-1);
+			                    return getSumDuration(items, items.length - 1);
 			                  }
 			                }
 
@@ -10716,7 +10772,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  /* start interval for last duration item */
 			                  var maxItems = ProBtnControl.params.ButtonShowedDurationPeriod.length;
 			                  var previousSum = getSumDuration(ProBtnControl.params.ButtonShowedDurationPeriod, buttonShowedDurationPeriodCounter);
-			                  var maxPeriod = ProBtnControl.params.ButtonShowedDurationPeriod[maxItems-1];
+			                  var maxPeriod = ProBtnControl.params.ButtonShowedDurationPeriod[maxItems - 1];
 
 			                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setInterval(function() {
 			                    buttonShowedDurationPeriodCounter++;
@@ -10727,7 +10783,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  }, maxPeriod);
 			                }
 			              };
-			              if (ProBtnControl.params.ButtonShowedDurationPeriod.length>0) periodicDuration();
+			              if (ProBtnControl.params.ButtonShowedDurationPeriod.length > 0) periodicDuration();
 
 			            }
 
