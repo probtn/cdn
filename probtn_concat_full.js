@@ -2310,41 +2310,6 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                    if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined) &&
 			                      (ProBtnControl.params.VideoFooterButton !== "")) {
-			                      var checkClickAreaPosition = function() {
-			                        var width_cur = document.getElementById("video_probtn").offsetWidth;
-			                        var coef_w = width_cur / ProBtnControl.params.VideoSize.X;
-			                        if (coef_w !== coefVideo) {
-			                          var height_cur = document.getElementById("video_probtn").offsetHeight;
-			                          var coef_h = height_cur / ProBtnControl.params.VideoSize.Y;
-			                          var offsetDeltaX = $(video).position().left;
-			                          var offsetDeltaY = $(video).position().top;
-			                          var correctClickAreaPosition = function(clickableArea) {
-			                            var id = clickableArea.id;
-			                            var newPosition = {};
-			                            newPosition.left = coef_w * clickableArea.left + offsetDeltaX;
-			                            newPosition.top = coef_h * clickableArea.top + offsetDeltaY;
-			                            newPosition.width = coef_w * clickableArea.width;
-			                            newPosition.height = coef_h * clickableArea.height;
-			                            $("#" + id).css("left", newPosition.left);
-			                            $("#" + id).css("top", newPosition.top);
-			                            $("#" + id).css("width", newPosition.width);
-			                            $("#" + id).css("height", newPosition.height);
-			                            coefVideo = coef_w;
-
-			                            if ((clickableArea.html !== undefined) && (clickableArea.html !== null) &&
-			                              (clickableArea.html !== "")) {
-			                              $("#" + clickableArea.id + "_htmlArea").css("top", offsetDeltaY);
-			                              var height = $(video).height();
-			                              $("#" + clickableArea.id + "_htmlArea").css("height", height);
-			                            }
-			                          }
-
-			                          var clickableAreas = ProBtnControl.params.VideoFooterButton;
-			                          clickableAreas.forEach(function(item) {
-			                            correctClickAreaPosition(item);
-			                          });
-			                        }
-			                      }
 
 			                      var checkVideoPosition = function(clickableArea) {
 			                        var startTime = clickableArea.startTime;
@@ -2369,8 +2334,6 @@ function probtn_callPlayer(frame_id, func, args) {
 			                          }
 			                        }
 			                      }
-
-			                      checkClickAreaPosition();
 
 			                      var clickableAreas = ProBtnControl.params.VideoFooterButton;
 			                      clickableAreas.forEach(function(item) {
@@ -5240,16 +5203,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			              (ProBtnControl.params.VideoFooterButton !== "")) {
 
 			              var paramsVFB = "";
+
 			              try {
+			                var text = ProBtnControl.params.VideoFooterButton;
+			                ProBtnControl.params.VideoFooterButton = $('<div/>').html(text).text();
 			                paramsVFB = JSON.parse(ProBtnControl.params.VideoFooterButton);
 			              } catch (ex) {
-			                try {
-			                  var text = ProBtnControl.params.VideoFooterButton;
-			                  ProBtnControl.params.VideoFooterButton = $('<div/>').html(text).text();
-			                  paramsVFB = JSON.parse(ProBtnControl.params.VideoFooterButton);
-			                } catch (ex) {
-			                  paramsVFB = "";
-			                }
+			                paramsVFB = "";
 			              }
 
 			              if ((paramsVFB !== null) && (paramsVFB !== undefined) && (paramsVFB !== "")) {
@@ -5289,6 +5249,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                          $("#" + elem.id + "_htmlArea").css("display", "none");
 			                          document.getElementById('video_probtn').play();
 			                        });
+
+			                        var flag = true;
+			                        $(document).on("click", ".custom_clickable", function(e) {
+
+			                        });
 			                      }
 
 			                      var htmlArea = '<div class="htmlAreaClass" id="' + elem.id + '_htmlArea" style="display: none">' + closeArea + elem.html + '</div>';
@@ -5298,10 +5263,60 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        $("#" + elem.id).css("display", "none");
 			                        $("#" + elem.id + "_htmlArea").css("display", "block");
 			                        document.getElementById('video_probtn').pause();
+			                        var timeToCloseHtmlArea = 8000;
+			                        if ((elem.closeWithoutInteractionTime !== undefined) && (elem.closeWithoutInteractionTime !== null)
+			                         && (elem.closeWithoutInteractionTime !== ""))
+			                        {
+			                          timeToCloseHtmlArea = elem.closeWithoutInteractionTime;
+			                        }
+
+			                        setTimeout(function()
+			                        {
+			                          $("#" + elem.id + "_htmlArea").css("display", "none");
+			                          var video = document.getElementById('video_probtn');
+			                          if (video.paused)
+			                          {
+			                            video.play();
+			                          }
+			                        }.bind(this), timeToCloseHtmlArea);
 			                      });
 			                    }
 			                  }
 			                });
+
+			                 ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos = function() {
+			                  var width_cur = document.getElementById("video_probtn").offsetWidth;
+			                  var coef_w = width_cur / ProBtnControl.params.VideoSize.X;
+
+			                    var height_cur = document.getElementById("video_probtn").offsetHeight;
+			                    var coef_h = height_cur / ProBtnControl.params.VideoSize.Y;
+			                    var offsetDeltaX = $("#video_probtn").position().left;
+			                    var offsetDeltaY = $("#video_probtn").position().top;
+			                    var correctClickAreaPosition = function(clickableArea) {
+			                      var id = clickableArea.id;
+			                      var newPosition = {};
+			                      newPosition.left = coef_w * clickableArea.left + offsetDeltaX;
+			                      newPosition.top = coef_h * clickableArea.top + offsetDeltaY;
+			                      newPosition.width = coef_w * clickableArea.width;
+			                      newPosition.height = coef_h * clickableArea.height;
+			                      $("#" + id).css("left", newPosition.left);
+			                      $("#" + id).css("top", newPosition.top);
+			                      $("#" + id).css("width", newPosition.width);
+			                      $("#" + id).css("height", newPosition.height);
+
+			                      if ((clickableArea.html !== undefined) && (clickableArea.html !== null) &&
+			                        (clickableArea.html !== "")) {
+			                        $("#" + clickableArea.id + "_htmlArea").css("top", offsetDeltaY);
+			                        var height = $("#video_probtn").height();
+			                        $("#" + clickableArea.id + "_htmlArea").css("height", height);
+			                      }
+			                    }
+
+			                    var clickableAreas = ProBtnControl.params.VideoFooterButton;
+			                    clickableAreas.forEach(function(item) {
+			                      correctClickAreaPosition(item);
+			                    });
+			                }
 
 			              }
 			            } //end of code working with VideoFooterButton
@@ -7383,6 +7398,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  }
 
 			                }
+			              }
+
+			              if (ProBtnControl.params.ButtonContentType === "video") {
+			                if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined) &&
+			                  (ProBtnControl.params.VideoFooterButton !== ""))
+			                  {
+			                    ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos();
+			                  }
 			              }
 			            }
 			          } catch (ex) {}
