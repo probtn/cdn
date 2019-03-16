@@ -5286,7 +5286,9 @@ var loadProbtn = function (jQuery) {
 
 	                        var flag = true;
 	                        $(document).on("click", ".custom_clickable", function(e) {
-
+	                          e.stopPropagation();
+	                          e.stopImmediatePropagation();
+	                          ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
 	                        });
 	                      }
 
