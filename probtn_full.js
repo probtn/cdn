@@ -5229,6 +5229,8 @@ probtn_initTrackingLinkTest();
                           }
                         }.bind(this), timeToCloseHtmlArea);
                       });
+
+
                     }
                   }
                 });
@@ -5267,13 +5269,14 @@ probtn_initTrackingLinkTest();
                     });
                 }
 
+                $(window).bind("scroll", ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos);
               }
             } //end of code working with VideoFooterButton
 
             var preloadAttr = 'preload="none"';
 
-            if ((ProBtnControl.params.NoVideoPreload !== undefined) && (ProBtnControl.params.NoVideoPreload !== null)
-            && (ProBtnControl.params.NoVideoPreload !== ""))
+            if ((ProBtnControl.params.VideoPreload !== undefined) && (ProBtnControl.params.VideoPreload !== null)
+            && (ProBtnControl.params.VideoPreload !== "") && (ProBtnControl.params.VideoPreload !== false))
             {
               preloadAttr = "";
             }
@@ -7355,6 +7358,15 @@ probtn_initTrackingLinkTest();
                   {
                     ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos();
                   }
+                if (ProBtnControl.params.DisableVideoFullscreen === "true")
+                {
+                  var doc = window.document;
+                  if (doc.fullscreen === true)
+                  {
+                    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+                    cancelFullScreen.call(doc);
+                  }
+                }
               }
             }
           } catch (ex) {}
@@ -9976,7 +9988,7 @@ probtn_initTrackingLinkTest();
               //bind orientation change events
               $(window).bind("orientationchange", ProBtnControl.additionalButtonFunctions.onOrientationChange);
               $(window).bind("resize", ProBtnControl.additionalButtonFunctions.onOrientationChange);
-
+              
               if ((ProBtnControl.params.ButtonInitDelay !== 0) && (ProBtnControl.params.ButtonInitDelay !== null) && (ProBtnControl.params.ButtonInitDelay !== undefined)) {
                 setTimeout(BeginButtonProcess, ProBtnControl.params.ButtonInitDelay);
               } else {
