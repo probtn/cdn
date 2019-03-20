@@ -5221,7 +5221,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                });
 
 			                ProBtnControl.params.VideoFooterButton = paramsVFB;
-
+			                var isClicked = false;
+			                var timerId = null;
 			                paramsVFB.forEach(function(elem, index) {
 			                  var style = 'position: absolute; z-index: 1000; display: none;' + 'width:' + elem.width + 'px;' + 'height:' + elem.height + 'px;' + 'top:' + elem.top + 'px;' + 'left:' + elem.left + 'px;';
 			                  var clickableArea = '<div class="clickableVideoAreaClass" id="' + elem.id + '" style=' + '"' + style + '"></div>';
@@ -5235,6 +5236,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  } else {
 			                    if ((elem.html !== undefined) && (elem.html !== null) && (elem.html !== "")) {
 			                      var closeArea = '';
+
 			                      if ((elem.htmlCloseImg !== undefined) && (elem.htmlCloseImg !== null) && (elem.htmlCloseImg !== ""))
 			                      {
 			                        var id = elem.id + "closeHtmlArea";
@@ -5243,13 +5245,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        $(document).on("click", "#" + id, function(e) {
 			                          $("#" + elem.id + "_htmlArea").css("display", "none");
 			                          document.getElementById('video_probtn').play();
-			                        });
-
-			                        var flag = true;
-			                        $(document).on("click", ".custom_clickable", function(e) {
-			                          e.stopPropagation();
-			                          e.stopImmediatePropagation();
-			                          ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+			                          isClicked = false;
+			                          console.log(isClicked);
 			                        });
 			                      }
 
@@ -5260,6 +5257,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        $("#" + elem.id).css("display", "none");
 			                        $("#" + elem.id + "_htmlArea").css("display", "block");
 			                        document.getElementById('video_probtn').pause();
+			                        isClicked = false;
+			                        if (timerId !== null)
+			                        {
+			                            clearTimeout(timerId);
+			                        }
+
 			                        var timeToCloseHtmlArea = 8000;
 			                        if ((elem.closeWithoutInteractionTime !== undefined) && (elem.closeWithoutInteractionTime !== null)
 			                         && (elem.closeWithoutInteractionTime !== ""))
@@ -5267,17 +5270,26 @@ function probtn_callPlayer(frame_id, func, args) {
 			                          timeToCloseHtmlArea = elem.closeWithoutInteractionTime;
 			                        }
 
-			                        setTimeout(function()
+			                        timerId = setTimeout(function()
 			                        {
 			                          $("#" + elem.id + "_htmlArea").css("display", "none");
 			                          var video = document.getElementById('video_probtn');
-			                          if (video.paused)
+			                          console.log("timeout", isClicked);
+			                          if (video.paused && (!isClicked))
 			                          {
 			                            video.play();
 			                          }
 			                        }.bind(this), timeToCloseHtmlArea);
 			                      });
 
+			                      $(document).on("click", ".custom_clickable", function(e) {
+			                        e.stopPropagation();
+			                        e.stopImmediatePropagation();
+			                        ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+			                        document.getElementById('video_probtn').pause();
+			                        isClicked = true;
+			                        console.log(isClicked);
+			                      });
 
 			                    }
 			                  }
@@ -5323,8 +5335,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            var preloadAttr = 'preload="none"';
 
-			            if ((ProBtnControl.params.VideoPreload !== undefined) && (ProBtnControl.params.VideoPreload !== null)
-			            && (ProBtnControl.params.VideoPreload !== "") && (ProBtnControl.params.VideoPreload !== false))
+			            if (ProBtnControl.params.VideoPreload === true)
 			            {
 			              preloadAttr = "";
 			            }
@@ -7406,7 +7417,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  {
 			                    ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos();
 			                  }
-			                if (ProBtnControl.params.DisableVideoFullscreen === "true")
+			                if (ProBtnControl.params.DisableVideoFullscreen === true)
 			                {
 			                  var doc = window.document;
 			                  if (doc.fullscreen === true)
@@ -10036,7 +10047,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              //bind orientation change events
 			              $(window).bind("orientationchange", ProBtnControl.additionalButtonFunctions.onOrientationChange);
 			              $(window).bind("resize", ProBtnControl.additionalButtonFunctions.onOrientationChange);
-			              
+
 			              if ((ProBtnControl.params.ButtonInitDelay !== 0) && (ProBtnControl.params.ButtonInitDelay !== null) && (ProBtnControl.params.ButtonInitDelay !== undefined)) {
 			                setTimeout(BeginButtonProcess, ProBtnControl.params.ButtonInitDelay);
 			              } else {
