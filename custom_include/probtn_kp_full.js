@@ -2289,8 +2289,8 @@ var loadProbtn = function (jQuery) {
 	                    { "StartPosition": 0.95, "EndPosition": 1 }
 	                  ];
 
-	                  vpixels = recalculateVideoPositions(vpixels);
-	                  quarters = recalculateVideoPositions(quarters);
+	      //            vpixels = recalculateVideoPositions(vpixels);
+	      //            quarters = recalculateVideoPositions(quarters);
 
 	                  //console.log("quarters", quarters);
 	                  //console.log("vpixels", vpixels);
@@ -2302,8 +2302,14 @@ var loadProbtn = function (jQuery) {
 	                  var currentQuartIndex = null;
 	                  var curClickableVideoAreaID = null;
 	                  var coefVideo = null;
-
+	                  var isFirstStart = false;
 	                  $(video).on("timeupdate", function() {
+	                    if (!isFirstStart)
+	                    {
+	                      vpixels = recalculateVideoPositions(vpixels);
+	                      quarters = recalculateVideoPositions(quarters);
+	                      isFirstStart = true;
+	                    }
 
 	                    var checkVideoPeriods = function(currentIndex, vpixels, callback) {
 	                      vpixels.forEach(function(vpixel, index) {
@@ -5319,6 +5325,7 @@ var loadProbtn = function (jQuery) {
 	                            video.play();
 	                          }
 	                        }.bind(this), timeToCloseHtmlArea);
+	                        ProBtnControl.statistics.SendStatisticsData("performedAction", "ClickOnClickableArea");
 	                      });
 
 	                      $(document).on("click", ".custom_clickable", function(e) {
