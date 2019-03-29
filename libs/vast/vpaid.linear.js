@@ -82,7 +82,8 @@
               clicks: mainAdObject.adParameters.clicks,
               customParams: mainAdObject.customParams,
               defaultVolume: mainAdObject.defaultVolume,
-              trackingEvents: mainAdObject.adParameters.trackingEvents,
+              additionalParams: mainAdObject.adParameters.additionalParams,
+              tracking: mainAdObject.adParameters.tracking
             }
           });
           videoDomElementsAndPostMessages.hide(!0);
@@ -153,9 +154,9 @@
     function processCreativeEventWithData(creativeEventWithData) {
       if (creativeEventWithData.type === videoDomElementsAndPostMessages.EVENT && creativeEventWithData.data.type) {
         cntEventsTracking.customEvent(creativeEventWithData.data.type, creativeEventWithData.data.element);
-        mainAdObject.isPreviewer && console.log("JS-VPAID-WARM::CUSTOM EVENT =>", creativeEventWithData.data.type);
+        mainAdObject.isPreviewer && console.log("JS-VPAID-VIEWST::CUSTOM EVENT =>", creativeEventWithData.data.type);
       } else {
-        creativeEventWithData.type === videoDomElementsAndPostMessages.EVENTRTB && (0 !== mainAdObject.customParams.impid && cntEventsTracking.rtbEvent(creativeEventWithData.data), mainAdObject.isPreviewer && console.log("JS-VPAID-WARM::RTB EVENT ID =>", creativeEventWithData.data))
+        creativeEventWithData.type === videoDomElementsAndPostMessages.EVENTRTB && (0 !== mainAdObject.customParams.impid && cntEventsTracking.rtbEvent(creativeEventWithData.data), mainAdObject.isPreviewer && console.log("JS-VPAID-VIEWST::RTB EVENT ID =>", creativeEventWithData.data))
       }
     }
 
@@ -702,7 +703,7 @@
               n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdVideoComplete, e));
               break;
             case "error":
-              injectContentObject.error("JS-VPAID-WARM::ERROR => mediaElement as animation"), n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdError, e));
+              injectContentObject.error("JS-VPAID-VIEWST::ERROR => mediaElement as animation"), n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdError, e));
               break;
             case "timeupdate":
               //REMOVE adVideoStart call to prevent it from calling until button will do it
@@ -710,7 +711,7 @@
               !this.flags.videoStart && e.currentTime && (this.flags.videoStart = !0, n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdVideoStart, e))), mainAdObject.flags.userEngaged || n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdRemainingTimeChange, e));
               break;
             default:
-              injectContentObject.error("JS-VPAID-WARM::ERROR => wrong animation timer event")
+              injectContentObject.error("JS-VPAID-VIEWST::ERROR => wrong animation timer event")
           }
         }
       },
@@ -744,7 +745,7 @@
                   n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdVideoComplete, e));
                   break;
                 case "error":
-                  injectContentObject.error("JS-VPAID-WARM::ERROR => mediaElement", t), n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdError, e));
+                  injectContentObject.error("JS-VPAID-VIEWST::ERROR => mediaElement", t), n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdError, e));
                   break;
                 case "timeupdate":
                   //!this.flags.videoStart && e.currentTime && (this.flags.videoStart = !0, t.target.currentSrc && t.target.currentSrc.match(/[a-z0-9]+$/) && cntEventsTracking.customEvent(t.target.currentSrc.match(/[a-z0-9]+$/)[0].toUpperCase())), mainAdObject.flags.userEngaged || n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdRemainingTimeChange, e))
@@ -1193,25 +1194,26 @@
         }
       },
       log: function () {
-        i && console.log.apply(console, ["JS-VPAID-WARM::INFO =>"].concat(arguments))
+        i && console.log.apply(console, ["JS-VPAID-VIEWST::INFO =>"].concat(arguments))
       },
       warn: function () {
-        console.log.apply(console, ["JS-VPAID-WARM::WARN =>"].concat(arguments))
+        console.log.apply(console, ["JS-VPAID-VIEWST::WARN =>"].concat(arguments))
       },
       error: function () {
         console.log("error arguments", arguments);
-        console.log.apply(console, ["JS-VPAID-WARM::ERROR =>"].concat(arguments))
+        console.log.apply(console, ["JS-VPAID-VIEWST::ERROR =>"].concat(arguments))
       }
     };
 
     possibleMainAdUnit = function () {
-      console.log("JS-VPAID-WARM::INFO => 2018-10-08T10:58:13.342Z")
+      console.log("JS-VPAID-VIEWST::INFO => 2018-10-08T10:58:13.342Z")
     };
 
     possibleMainAdUnit.prototype.handshakeVersion = function () {
       return "2.0"
     };
     possibleMainAdUnit.prototype.initAd = function (width, height, viewMode, n, adParameters, slotInDomIds) {
+      console.log("initAd");
       if ("string" == typeof adParameters && (adParameters = {
         AdParameters: adParameters
       }, injectContentObject.warn('The typeof parameter "creativeData" should be an "object" with key "AdParameters"'), injectContentObject.warn("Read page 44 from https://www.iab.com/wp-content/uploads/2015/06/VPAID_2_0_Final_04-10-2012.pdf")), "object" != typeof adParameters || !adParameters.AdParameters || "object" != typeof slotInDomIds || !slotInDomIds.slot) {
@@ -1286,6 +1288,7 @@
       cntEventsTracking.customEvent(r.getPosition());
     };
     possibleMainAdUnit.prototype.startAd = function () {
+      console.log("startAd");
       injectContentObject.log("startAd");
       if (mainAdObject.customParams.nov) {
         p.play();
@@ -1293,23 +1296,18 @@
       } else {
         mainVideo.play() && (mainAdObject.state = eventDescriptionObject.AdStarted)
       }
-      /*videoDomElementsAndPostMessages.update({
-        type: eventDescriptionObject.AdStarted
-      });*/
-
-      /*videoDomElementsAndPostMessages.update({
-        type: eventDescriptionObject.AdStarted,
-        data: {
-          totalTime: mainAdObject.customParams.nov,
-        }
-      });*/
-      var e = {
-        totalTime: mainAdObject.customParams.nov,
-        currentTime: this.currentTime
-      };
-      n.call(this, eventDescriptionObject.create(eventDescriptionObject.AdStarted, e));
     };
     possibleMainAdUnit.prototype.stopAd = function () {
+      try {
+      console.log("stopAd");
+      mainAdObject.volume = 0;
+      //mainAdObject.stop(); 
+      mainVideo.stop();
+    } catch(ex) {
+      console.log(ex);
+    }
+
+
       injectContentObject.log("stopAd");
       if (mainAdObject.customParams.nov) {
         p.stop();
@@ -1324,6 +1322,7 @@
       }
     };
     possibleMainAdUnit.prototype.skipAd = function () {
+      console.log("skipAd");
       if (mainAdObject.customParams.nov) {
         this.getAdSkippableState() && (injectContentObject.log("skipAd"), mainAdObject.state = eventDescriptionObject.AdSkipped, p.stop(), cntEventsTracking.trackTime("animationDuration", 1e3 * Math.round(mainAdObject.metaData.currentTime)), videoDomElementsAndPostMessages.etDuration >= 0 && cntEventsTracking.trackTime("earnedTimeDuration", videoDomElementsAndPostMessages.etDuration), A.stop(), S.stop(), setTimeout(function () {
           E.stopAd()
