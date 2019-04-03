@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <title>STS 90's</title>
+  <script src="./video_standalone.js"></script>
+  <style>
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    @font-face {
+        font-family: Gilroy-Regular;
+        src: url(https://cdn.viewst.com/iframe_buttons/sts/materials/font/Gilroy-Regular.otf);
+    }
+
+    .htmlAreaClass {
+        position: absolute;
+        right: 0px;
+        width: 100%;
+        height: 100%;
+        color: white;
+        z-index: 1000;
+        background-color: #000000CC;
+        background-size: 20px;
+        background-position: 10px 10px;
+        font-family: Gilroy-Regular;
+    }
+
+    .clickableVideoAreaClass .closeAreaImgClass {
+        width: 20px;
+        z-index: 2000;
+        height: auto;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+
+    .htmlAreaClass h5 {
+        font-weight: bold;
+        font-size: 13px;
+        margin-top: 40px;
+        margin-bottom: 10px;
+    }
+
+    .htmlAreaClass p {
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .htmlAreaClass span {
+        color: #FFCE44;
+    }
+
+    .htmlAreaClass a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .custom_clickable {
+        margin-top: 40px;
+        text-align: left;
+        padding-right: 11px;
+        padding-left: 11px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="video_wrapper">
+    <video playsinline="" webkit-playsinline="" autoplay="true" muted="true" onclick="" poster="" id="video_probtn" class="probtn_video" controls="controls" width="100%" height="100%">
+      <source src="https://origin.viewst.com/video/sts/video_standalone.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <script>
+  /**
+
+  STS Tracking links:
+  ========================
+  - https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=show - show video ad
+  - https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=click&random=[RANDOM] - on click to open sts site
+  - https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=open_panel&random=[RANDOM] - on click to open panel with text
+
+  **/
+  window.onload = function() {
+    startScript({
+      'VideoSize': {
+        X: 1280,
+        Y: 1066
+      },
+      'TrackingLink': 'https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=show',
+      'VideoFooterButton': '[{\"html\": \"<div><img src=\'https://cdn.viewst.com/iframe_buttons/sts/materials/button.png\' alt=\'Smiley face\' height=\'60\' width=\'60\' style=\'position: absolute; right: 0px; top: 0px;\'></div>\", \"startTime\": 8, \"stopTime\": 10, \"top\": 550, \"left\": 168, \"width\": 632, \"height\": 240, \"clickType\" : \"area\", \"pauseOnClick\": true ,\"closeButton\": false, \"href\": \"area_1\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=open_panel&random=[RANDOM]\", \"id\": \"area_0\"},{\"html\": \"<div><img src=\'https://cdn.viewst.com/iframe_buttons/sts/materials/button.png\' alt=\'Smiley face\' height=\'60\' width=\'60\' style=\'position: absolute; right: 0px; top: 0px;\'></div>\", \"startTime\": 11, \"stopTime\": 13, \"top\": 550, \"left\": 168, \"width\": 632, \"height\": 240,\"clickType\" : \"area\", \"pauseOnClick\": true ,\"closeButton\": false,\"href\": \"area_5\", \"id\": \"area_2\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=open_panel&random=[RANDOM]\"},{\"html\": \"<div><img src=\'https://cdn.viewst.com/iframe_buttons/sts/materials/button.png\' alt=\'Smiley face\' height=\'60\' width=\'60\' style=\'position: absolute; right: 0px; top: 0px;\'></div>\", \"startTime\": 15, \"stopTime\": 18, \"top\": 550, \"left\": 168, \"width\": 632, \"height\": 240,\"clickType\" : \"area\", \"pauseOnClick\": true ,\"closeButton\": false, \"href\": \"area_3\", \"id\": \"area_4\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=open_panel&random=[RANDOM]\"},{\"html\": \"<div><img src=\'https://cdn.viewst.com/iframe_buttons/sts/materials/button.png\' alt=\'Smiley face\' height=\'60\' width=\'60\' style=\'position: absolute; right: 0px; top: 0px;\'></div>\", \"startTime\": 19, \"stopTime\": 24, \"top\": 550, \"left\": 168, \"width\": 632, \"height\": 240,\"clickType\" : \"area\", \"pauseOnClick\": true ,\"closeButton\": false,\"href\": \"area_7\", \"id\": \"area_6\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=open_panel&random=[RANDOM]\"},{\"html\": \"<div class=\'htmlAreaClass\'><div class=\'custom_clickable\'><p>За 1994 год НА-НА сыграли 865 концертов.</p><p>Ещё больше про 90&nbsp-&nbspе тут <span>ctc.ru</span></p></div></div>\", \"closeWithoutInteractionTime\": 7000, \"href\": \"http://90.ctc.ru\", \"top\": 0, \"left\": 800, \"width\": 480, \"height\": 1066, \"clickType\" : \"external\", \"pauseOnClick\": true, \"playOnClose\": true ,\"id\": \"area_1\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=click&random=[RANDOM]\",\"trackingLinkShow\": \"\", \"closeButton\": \"https://demo.probtn.com/ads/2019/sts/materials/close@2x.png\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=click&random=[RANDOM]\"},{\"html\": \"<div class=\'htmlAreaClass\'><div class=\'custom_clickable\'><p>Солист «Отпетых мошенников».<p>Ещё больше про 90&nbsp-&nbspе тут <span>ctc.ru</span></p></div></div>\", \"closeWithoutInteractionTime\": 7000, \"href\": \"http://90.ctc.ru\", \"top\": 0, \"left\": 800, \"width\": 480, \"height\": 1066, \"clickType\" : \"external\", \"pauseOnClick\": true, \"playOnClose\": true ,\"id\": \"area_3\", \"closeButton\": \"https://demo.probtn.com/ads/2019/sts/materials/close@2x.png\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=click&random=[RANDOM]\"},{\"html\": \"<div class=\'htmlAreaClass\'><div class=\'custom_clickable\'><p>Король электро-попа 90-х.</p><p>Ещё больше про 90&nbsp-&nbspе тут <span>ctc.ru</span></p></div></div>\", \"href\":\"http://90.ctc.ru\",\"closeWithoutInteractionTime\": 7000, \"top\": 0, \"left\": 800, \"width\": 480, \"height\": 1066, \"clickType\" : \"external\", \"pauseOnClick\": true, \"playOnClose\": true ,\"id\": \"area_5\", \"closeButton\": \"https://demo.probtn.com/ads/2019/sts/materials/close@2x.png\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=click&random=[RANDOM]\"},{\"html\": \"<div class=\'htmlAreaClass\'><div class=\'custom_clickable\'><p>Главные герои самой громкой премьеры весны.</p><p>Узнать больше про сериал тут <span>ctc.ru</span></p></div></div>\", \"closeWithoutInteractionTime\": 7000, \"href\": \"http://90.ctc.ru\",\"top\": 0, \"left\": 800, \"width\": 480, \"height\": 1066, \"clickType\" : \"external\", \"pauseOnClick\": true, \"playOnClose\": true ,\"id\": \"area_7\", \"closeButton\": \"https://demo.probtn.com/ads/2019/sts/materials/close@2x.png\", \"trackingLinkClick\": \"https://dsp-parser.viewst.com/getdsp/?campaign_id=sts_90&domain=unknown&frame=NO_IFRAME&publishers=click&random=[RANDOM]\"}]'
+    });
+  }
+  </script>
+</body>
+</html>
