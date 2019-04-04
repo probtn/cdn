@@ -87,13 +87,14 @@ table {
   border-radius: 100px;
   color: #FFFFFF;
   margin-right: 8px;
+  text-align: center;
 }
 
 .statistic_value h3 {
   display: inline-block;
   position: relative;
   top: 20px;
-  left: 25px;
+  left: 0px;
   font-weight: bold;
 }
 
