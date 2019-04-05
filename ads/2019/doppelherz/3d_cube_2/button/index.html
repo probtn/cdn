@@ -84,6 +84,40 @@
   }
 }
 
+@-webkit-keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.hideFace {
+  -webkit-animation-name: hide;
+  /*-webkit-animation-timing-function: ease-in-out;*/
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-duration: 0.1s;
+  -webkit-animation-delay: 13s;
+  -webkit-animation-fill-mode: forwards;
+  animation-name: hide;
+  /*animation-timing-function: ease-in-out;*/
+  animation-iteration-count: 1;
+  animation-duration: 0.1s;
+  animation-delay: 13s;
+  animation-fill-mode: forwards;
+}
+
   .cubespinner {
     -webkit-animation-name: spincube;
     /*-webkit-animation-timing-function: ease-in-out;*/
@@ -231,7 +265,7 @@
 <div class="stage container"
      style="width: 100px; height: 100px; margin:25px auto;-webkit-perspective: 300; perspective: 300;">
   <div class="cubespinner">
-    <div class="face1">
+    <div class="face1 hideFace">
       <img alt="1" src="img/image_1@2x.jpg" class="logo"/></div>
     <div class="face2">
       <img alt="1" src="img/image_2@2x.jpg" class="logo"></div>
