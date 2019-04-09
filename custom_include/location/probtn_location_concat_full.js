@@ -3791,6 +3791,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  "px; position: absolute;" +
 			                  "width:" + ProBtnControl.params.BadgeSize.W + "px;" +
 			                  "height:" + ProBtnControl.params.BadgeSize.H + "px;" +
+			                  "opacity:" + ProBtnControl.params.BadgeOpacity + ";" +
 			                  "left: " + "-1000" + "px;"
 			              }).appendTo(btn);
 
@@ -8528,11 +8529,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if ((params.name.toLowerCase() == "TopToBottom".toLowerCase()) ||
 			              (params.name.toLowerCase() == "upToDown".toLowerCase())) {
 
+			              var startTop = 0;
 			              if (params.side == 'bottom') {
-			                ProBtnControl.pizzabtn.css("top", ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H + $('body').innerHeight() * startHeightPercent));
+			                startTop = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H + $('body').innerHeight() * startHeightPercent);
+			                
 			              } else {
-			                ProBtnControl.pizzabtn.css("top", $('body').innerHeight() * startHeightPercent);
+			                startTop = ProBtnControl.additionalButtonFunctions.getWindowHeight() * startHeightPercent;
 			              }
+			              ProBtnControl.pizzabtn.css("top", startTop);
 
 			              var top = ProBtnControl.additionalButtonFunctions.getWindowHeight() * heightPercent - (ProBtnControl.params.ButtonSize.H);
 			              if (params.side == 'bottom') {
@@ -9197,6 +9201,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            W: 46,
 			            H: 18
 			          },
+			          BadgeOpacity: 0.7,
 			          BadgeActive: true,
 			          /**
 			           * Delay before showing button badge
