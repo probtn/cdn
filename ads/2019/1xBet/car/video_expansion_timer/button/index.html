@@ -1,0 +1,367 @@
+﻿<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link type="text/css" href="js/screen.css" rel="stylesheet">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <meta name="viewport" content="width=608">
+  <link href="js/jquery-ui.css" rel="stylesheet" type="text/css">
+  <style>
+    html, body {
+            width: 570px;
+            height: 320px;
+            margin: 0;
+            padding: 0px;
+            font-size: 30px;
+        }
+
+        .broadway {
+            width: 570px;
+            height: 320px;
+        }
+        canvas {
+            width:  570px;
+            height:  320px;
+        }
+
+        #progressbar {
+            position: absolute;
+            height: 5px;
+            background-color: white;
+            width: 0;
+            bottom: 0px;
+            display: block;
+            left: 0px;
+        }
+        #poster {
+            width: 570px;
+            height: 320px;
+            display: inline-block;
+            z-index: 20;
+        }
+        #poster_img {
+            width: 570px;
+            height: 320px;
+            z-index: 18;
+        }
+        #loader {
+            display: inline-block;
+            margin: 0 auto;
+            width: 20%;
+            z-index: 19;
+            position: fixed;
+            /*top: 50%;
+            left: 40%;*/
+
+            top: 150px;
+            left: 140px;
+        }
+        #play {
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            top: 30%;
+            display: none;
+            cursor: pointer;
+        }
+
+            #play.active {
+                display: block;
+            }
+
+        #volume {
+            position: absolute;
+            left: 5px;
+            bottom: 8px;
+            width: 80px;
+            height: 80px;
+        }
+
+        #close {
+            position: absolute;
+            right: 5px;
+            bottom: 8px;
+            z-index: 30;
+            /*display: none;*/
+        }
+        #close_img {
+            display: none;
+            cursor: pointer;
+            width:  28px;
+            height:  28px;
+        }
+
+        #volume_on, #volume_off {
+            display: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            padding-top: 40px;
+            z-index: 30;
+        }
+        #volume_on.active, #volume_off.active {
+            display: block;
+        }
+        canvas {
+            border-radius: 4px !important;
+            /*border-radius: 10px !important;
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.22) !important;*/
+            box-shadow: 0 14px 20px 0 rgba(0,0,0,0.40);
+            background: transparent !important;
+        }
+        #link {
+            background: url(images/go-min.png) no-repeat left center;
+            width: 50%;
+            height: 28px;
+            position: absolute;
+            bottom: 10px;
+            left: 25%;
+            color: white;
+            font-size: 20px;
+            padding-left: 30px;
+            text-shadow: 2px 1px 5px black;
+            display: none;
+            z-index: 30;
+            background-size: contain;
+            font-weight: normal;
+            font-family: Arial;
+            display: none !important;
+        }
+
+        @-webkit-keyframes scale-up-text {
+          0%{font-size: 36px;}
+          50%{font-size: 44px;}
+          100%{font-size: 36px;}
+        }
+          @keyframes  scale-up-text {
+            0%{font-size: 36px;}
+            50%{font-size: 44px;}
+            100%{font-size: 36px;}
+        }
+
+        .scale-up-text {
+          -webkit-animation: scale-up-text 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s infinite both;
+          animation: scale-up-text 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s infinite both;
+        }
+
+        #cta {
+          width: 400px;
+          height: 84px;
+          z-index: 100;
+          position: absolute;
+          bottom: -42px;
+          left: 69px;
+          background: #d41f2b;
+          border-radius: 100px;
+          cursor: pointer;
+          text-decoration: none;
+          text-align: center;
+          color: white;
+          line-height: 84px;
+        }
+
+        #cta span {
+          display: inline-block;
+        }
+
+
+        #replay_button {
+          position: absolute;
+          left: 40%;
+          width: 20%;
+          top: 30%;
+          display: block;
+          cursor: pointer;
+          background-image: url(images/replay.png);
+        }
+
+        #controls {
+            /*display: none;*/
+        }
+
+        #videotime {
+          position: absolute;
+          right: 5px;
+          bottom: 8px;
+        }
+
+        @-webkit-keyframes scale-up-center {
+          0% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+          }
+          50% {
+            -webkit-transform: scale(1.3);
+                    transform: scale(1.3);
+          }
+          100% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+          }
+        }
+
+        @keyframes scale-up-center {
+          0% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+          }
+          50% {
+            -webkit-transform: scale(1.3);
+                    transform: scale(1.3);
+          }
+          100% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+          }
+        }
+
+        .scale-up-center {
+          -webkit-animation: scale-up-center 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s infinite both;
+                  animation: scale-up-center 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s infinite both;
+        }
+
+        .img_btn_disabled {
+          display: none;
+        }
+        #bg {
+            height: 50px;
+            position: fixed;
+            top: 286px;
+            left: 0px;
+
+            width: 570px;
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,1e5799+100&0+0,1+100 */
+        }
+    </style>
+</head>
+
+<body>
+  <div class="broadway" url="" text="" audio="audio.mp3?rnd=12" poster="poster.png?rnd=1123" src="video.mp4?rnd=12" width="190" height="112" style="float: left; position: relative;" workers="true" webgl="auto" render="false" repeatmode="">
+    <!--close-->
+    <!--  <img src="cta@2x.png" id="cta" alt="cta" /> -->
+    <a id="cta" href="https://1xbet.mobi/en/" target="_blank" onclick="on_click_cta()">
+      <span class="scale-up-center">WANT A CAR?</span>
+    </a>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script type="text/javascript" src="js/Decoder.js"></script>
+  <script type="text/javascript" src="js/YUVCanvas.js"></script>
+  <script type="text/javascript" src="js/Player.js?r=12"></script>
+  <script type="text/javascript" src="js/stream.js"></script>
+  <script type="text/javascript" src="js/mp4.js?random=124"></script>
+  <!--https://probtnlandings1.azurewebsites.net/button_example4/mp4_player/js/mp4.js-->
+  <script type="text/javascript">
+  var originButtonWidth = 152;
+  var originButtonHeight = 94;
+  var originCtaWidth = 400;
+  var originCtaHeight = 104;
+  var creativeWidth = 570;
+  var originalFontSize = 32;
+
+    function on_click_cta(e) {
+  	try {
+  	console.log("on_click_cta", e);
+  	e.preventDefault();
+
+      window.parent.postMessage({ command: 'probtn_close' }, '*');
+      window.parent.postMessage({ command: 'probtn_opened_and_showed' }, '*');
+
+  	window.open("https://1xbet.mobi/en/", "_blank");
+  	} catch(ex) {
+  		console.log(ex);
+  	}
+  	return false;
+    }
+
+    document.getElementById("cta").addEventListener("click", on_click_cta);
+
+  function load() {
+    //window.top.postMessage({ command: 'button_image_iframe_size', size: {w: 190, h: 71} }, '*');
+    window.top.postMessage({ command: 'button_image_iframe_size', size: { w: "100%", h: "70%", "important": true } }, '*');
+    jQuery(document).ready(function() {
+      try {
+
+        window.onresize = function(event) {
+          console.log("window.onresize", window.innerWidth);
+          if (window.innerWidth > 200) {
+            document.getElementById("link").style.display = "block";
+            document.getElementById("volume").style.display = "block";
+            document.getElementById("close").style.display = "block";
+          }
+        };
+
+        console.log("Broadway", Broadway);
+        var nodes = document.querySelectorAll('div.broadway');
+        for (var i = 0; i < nodes.length; i++) {
+          var broadway = new Broadway(nodes[i]);
+        }
+
+        var size = {
+          W: document.getElementsByTagName("canvas")[0].offsetWidth,
+          H: document.getElementsByTagName("canvas")[0].offsetHeight
+        }
+        console.log("size", size);
+        expandedCtaButton(size);
+
+      } catch (ex) {
+        console.log(ex);
+      }
+    });
+
+
+  }
+  load();
+
+  /*  setTimeout(function () {
+        document.getElementById("click_button").className = "scale-in-center";
+    }, 5000); */
+  window.addEventListener("message", receiveMessage, false);
+
+  function expandedCtaButton(size) {
+   var сoefWidth = originButtonWidth / size.W;
+    var newCtaWidth = сoefWidth * originCtaWidth;
+    $("#cta").width(newCtaWidth);
+    сoefHeight = originButtonHeight / size.H;
+    var newCtaHeight = сoefHeight * originCtaHeight;
+    $("#cta").height(newCtaHeight);
+    var bottom = "-" + newCtaHeight / 2 + "px";
+    $("#cta").css("bottom", bottom);
+    var left = (creativeWidth / 2) - (newCtaWidth / 2) + "px";
+    console.log("koefWidth", сoefWidth);
+    $("#cta").css("left", left);
+    console.log("koefHeight", сoefHeight);
+
+    $("#cta").css("line-height", newCtaHeight + "px");
+
+    var newFontSize = Math.ceil(originalFontSize * сoefHeight);
+
+    $("#cta").css("font-size", newFontSize + "px");
+    var topP = Math.ceil((newCtaHeight - newFontSize) / 2 - 2) + "px"; // value "2" as observational error
+    console.log("top", topP);
+  }
+
+  function receiveMessage(event) {
+    if ((event.data !== null) && (event.data !== undefined)) {
+      if (event.data.message === "probtn_button_expanded") {
+        console.log("probtn_button_expanded");
+        expandedCtaButton(event.data.size);
+        $("#cta span").text("WANT A CAR?");
+      }
+
+      if (event.data.message === "probtn_button_minimized_to_normal") {
+        $("#cta").width(originCtaWidth);
+        $("#cta").height(originCtaHeight);
+        $("#cta").css("bottom", "-42px");
+        $("#cta").css("left", "69px");
+        $("#cta").css("font-size", "36px");
+        $("#cta").css("line-height", originCtaHeight + "px");
+        $("#cta span").text("PLACE A BET");
+        //$("#cta p").css("top", "16px");
+      }
+    }
+  }
+
+  </script>
+</body>
+
+</html>
