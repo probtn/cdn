@@ -8502,7 +8502,8 @@ var loadProbtn = function (jQuery) {
 	              side: "top",
 	              waitDuration: ProBtnControl.params.animationDuration / 2,
 	              heightPercent: 1,
-	              startHeightPercent: 0
+	              startHeightPercent: 0,
+	              dontChangeTop: false
 	            }
 	            params = this._checkAndGetActualParams(params);
 	            if (params.side == "down") {
@@ -8531,9 +8532,12 @@ var loadProbtn = function (jQuery) {
 	                startTop = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H + $('body').innerHeight() * startHeightPercent);
 	                
 	              } else {
-	                startTop = ProBtnControl.additionalButtonFunctions.getWindowHeight() * startHeightPercent;
+	                startTop = ProBtnControl.additionalButtonFunctions.getWindowHeight();
+	                startTop = startTop * startHeightPercent;
 	              }
-	              ProBtnControl.pizzabtn.css("top", startTop);
+	              if (!params.dontChangeTop) {
+	                ProBtnControl.pizzabtn.css("top", startTop);
+	              }
 
 	              var top = ProBtnControl.additionalButtonFunctions.getWindowHeight() * heightPercent - (ProBtnControl.params.ButtonSize.H);
 	              if (params.side == 'bottom') {
