@@ -1592,12 +1592,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			     */
 			    var ProBtnControl;
 			    ProBtnControl = {
-			      guidCookieControlPath: "https://cdn.probtn.com/cookie_iframe/cookie-iframe.html",
+			      guidCookieControlPath: "https://cdn.viewst.com/cookie_iframe/cookie-iframe.html",
 			      //guidCookieControlPath: "https://probtnlandings1.azurewebsites.net/cookie-iframe.html",
-			      //uaParserPath: 'https://cdn.probtn.com/libs/ua-parser.js',
-			      //atlasPath: 'https://cdn.probtn.com/libs/atlas.js',
-			      uaParserPath: 'https://cdn.probtn.com/libs/ua-parser.js',
-			      atlasPath: 'https://cdn.probtn.com/libs/atlas.js',
+			      //uaParserPath: 'https://cdn.viewst.com/libs/ua-parser.js',
+			      //atlasPath: 'https://cdn.viewst.com/libs/atlas.js',
+			      uaParserPath: 'https://cdn.viewst.com/libs/ua-parser.js',
+			      atlasPath: 'https://cdn.viewst.com/libs/atlas.js',
 			      currentDomain: document.domain.replace("www.", ""),
 			      realDomain: document.domain.replace("www.", ""),
 			      initializedActiveZones: {},
@@ -3314,7 +3314,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        checkAdBlock: function() {
 			          try {
 			            $.ajax({
-			              url: "https://cdn.probtn.com/showads.js", // this is just an empty js file
+			              url: "https://cdn.viewst.com/showads.js", // this is just an empty js file
 			              dataType: "javascript",
 			              success: function(data) {
 			                console.log("Success:", data);
@@ -3377,7 +3377,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        callSuperPixel: function() {
 			          try {
-			            var superPixelPath = "https://pixel.probtn.com/1/from-ref";
+			            var superPixelPath = "https://pixel.viewst.com/1/from-ref";
 			            //ProBtnControl.statistics.createClickCounterImage(superPixelPath);
 			          } catch (ex) {}
 			        },
@@ -6533,8 +6533,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        checkPostscribe: function(callback) {
 			          if (typeof postscribe === "undefined") {
-			            $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function() {
-			              $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", callback);
+			            $.getScript("https://cdn.viewst.com/libs/postscribe/htmlParser.js", function() {
+			              $.getScript("https://cdn.viewst.com/libs/postscribe/postscribe.js", callback);
 			            });
 			          } else {
 			            callback();
@@ -7129,7 +7129,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        testSpeed: function(callback) {
 			          if (ProBtnControl.params.isTestSpeed) {
 
-			            var imageAddr = "https://cdn.probtn.com/load2.png";
+			            var imageAddr = "https://cdn.viewst.com/load2.png";
 			            var downloadSize = 339234; //bytes
 
 			            measureSpeedByImage = function() {
@@ -9204,7 +9204,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			           * URL to badge image
 			           * @type {String}
 			           */
-			          BadgeImage: "https://cdn.probtn.com/images/viewst-ad-3.png",
+			          BadgeImage: "https://cdn.viewst.com/images/viewst-ad-3.png",
 			          BadgePosition: "bottom_center",
 			          BadgeSize: {
 			            W: 46,
@@ -9309,7 +9309,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          //should we wait for content in iframe-button loaded, or show it as fast as we can
 			          waitForIframeButtonLoaded: true,
 
-			          uaParserPath: '//cdn.probtn.com/libs/ua-parser.js',
+			          uaParserPath: '//cdn.viewst.com/libs/ua-parser.js',
 			          ButtonImageType: 'image', //variants image/iframe
 			          ButtonIframeInitialSize: {
 			            W: 0,
@@ -9350,7 +9350,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          },
 			          MenuClose: {
 			            MenuCloseEnabled: false,
-			            MenuCloseImage: "https://cdn.probtn.com/images/close-menu-btn@2x.png",
+			            MenuCloseImage: "https://cdn.viewst.com/images/close-menu-btn@2x.png",
 			            MenuCloseSize: {
 			              W: 72,
 			              H: 72
@@ -9445,8 +9445,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			          ClickCounterLink: "",
 
 			          isSmartBanner: false,
-			          smartbannerJsPath: '//cdn.probtn.com/libs/jquery.smartbanner.js',
-			          smartbannerCssPath: '//cdn.probtn.com/libs/jquery.smartbanner.css',
+			          smartbannerJsPath: '//cdn.viewst.com/libs/jquery.smartbanner.js',
+			          smartbannerCssPath: '//cdn.viewst.com/libs/jquery.smartbanner.css',
 
 			          animationDuration: 5000,
 			          isAnimation: "",
@@ -9525,15 +9525,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			          MaxHeight: 0,
 			          MaxWidth: 0,
 			          domain: "",
-			          fancyboxJsPath: "https://cdn.probtn.com/libs/jquery.fancybox.min.js",
+			          fancyboxJsPath: "https://cdn.viewst.com/libs/jquery.fancybox.min.js",
 			          //"//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js",
 			          //"//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.js",
-			          fancyboxCssPath: "https://cdn.probtn.com/libs/jquery.fancybox.min.css",
+			          fancyboxCssPath: "https://cdn.viewst.com/libs/jquery.fancybox.min.css",
 
 			          //"//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css",
 			          //"//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css",
-			          mainStyleCss: "https://cdn.probtn.com/style.css",
-			          jqueryPepPath: "https://cdn.probtn.com/libs/jquery.pep.min.js",
+			          mainStyleCss: "https://cdn.viewst.com/style.css",
+			          jqueryPepPath: "https://cdn.viewst.com/libs/jquery.pep.min.js",
 			          //"//cdn.jsdelivr.net/jquery.pep/0.6.3/jquery.pep.min.js",
 			          buttonAnimationTimeAfterFancybox: 0,
 
@@ -9611,8 +9611,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			          },
 			          CloseOpacity: 1.0, // Прозрачность
 			          CloseActiveOpacity: 1.0, // Прозрачность в активном состоянии
-			          CloseImage: "https://cdn.probtn.com/images/close-new.png", // Ссылка на изображение
-			          CloseActiveImage: "https://cdn.probtn.com/images/close-new.png", // Ссылка на изображение в активном состоянии
+			          CloseImage: "https://cdn.viewst.com/images/close-new.png", // Ссылка на изображение
+			          CloseActiveImage: "https://cdn.viewst.com/images/close-new.png", // Ссылка на изображение в активном состоянии
 			          HintInsets: {
 			            // Смещение от краев
 			            T: 4.0,
@@ -9871,7 +9871,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              };
 
 			              console.log("CheckAndRunButtonAtParent loadJS probtn_concat.js");
-			              loadJS('//cdn.probtn.com/probtn_concat.js', function() {});
+			              loadJS('//cdn.viewst.com/probtn_concat.js', function() {});
 			            } catch (ex) {
 			              if (ProBtnControl.params.Debug) console.log(ex);
 			            }
@@ -10273,8 +10273,8 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                  //TODO - if it is js execute after click, then load additional libs - postsribe
 			                  if (ProBtnControl.params.ButtonType == "js") {
-			                    $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function() {
-			                      $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", function() {
+			                    $.getScript("https://cdn.viewst.com/libs/postscribe/htmlParser.js", function() {
+			                      $.getScript("https://cdn.viewst.com/libs/postscribe/postscribe.js", function() {
 			                        ProBtnControl.loadedStatus.postscribe = true;
 			                      });
 			                    });
