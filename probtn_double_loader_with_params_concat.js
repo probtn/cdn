@@ -84,7 +84,7 @@ if (window.top !== window.self) {
 		probtn_content1.style.cssText = "display: none;";
 		window.top.document.body.appendChild(probtn_content1);
 		
-		loadJS(window.top, "https://cdn.probtn.com/probtn_concat.js", function() {
+		loadJS(window.top, "https://cdn.viewst.com/probtn_concat.js", function() {
 			runBanner("IFRAME", "probtn_additional_params_banner_iframe");
 		});
 	} catch(ex) {
@@ -92,7 +92,7 @@ if (window.top !== window.self) {
 		console.log(ex);
 	}
 } else {
-	loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
+	loadJS(window.self, "https://cdn.viewst.com/probtn_concat.js", function() {
 	});
 }
 
@@ -101,7 +101,7 @@ var runBanner = function(param, name) {
 		var settings_banner = document.getElementById(name);
 		if ((settings_banner!==null) && (settings_banner!==undefined)) {
 			document.getElementById("probtn_additional_params").innerHTML = settings_banner.innerHTML;
-			loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
+			loadJS(window.self, "https://cdn.viewst.com/probtn_concat.js", function() {
 			});
 		} else {
 			console.log("no " + name + " for " + param);
