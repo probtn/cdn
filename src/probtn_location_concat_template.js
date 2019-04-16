@@ -15,11 +15,11 @@ function probtn_callPlayer(frame_id, func, args) {
 
 
 (function () {
-    var mainStyleCssPath = "https://cdn.probtn.com/style.css";
-    var jquerypepPath = "https://cdn.probtn.com/libs/jquery.pep.min.js";
-    var fancyboxPath = "https://cdn.probtn.com/libs/jquery.fancybox.min.js";
-    var fancyboxCssPath = "https://cdn.probtn.com/libs/jquery.fancybox.min.css";
-    var probtnPath = "https://cdn.probtn.com/probtn.js"; //"//probtnexample1.azurewebsites.net/probtn2.js";
+    var mainStyleCssPath = "https://cdn.viewst.com/style.css";
+    var jquerypepPath = "https://cdn.viewst.com/libs/jquery.pep.min.js";
+    var fancyboxPath = "https://cdn.viewst.com/libs/jquery.fancybox.min.js";
+    var fancyboxCssPath = "https://cdn.viewst.com/libs/jquery.fancybox.min.css";
+    var probtnPath = "https://cdn.viewst.com/probtn.js"; //"//probtnexample1.azurewebsites.net/probtn2.js";
     var jqueryPath = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js';
     var isServerCommunicationEnabled = true;
     var useLocalFileSettings = false;

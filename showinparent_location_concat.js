@@ -62,6 +62,6 @@ if ((domain===null) || (domain===undefined) || (domain==="")) {
 	domain = document.domain.replace("www.", "");
 }
 
-loadJS('//cdn.probtn.com/custom_include/location/probtn_location_concat.js', function () {});
+loadJS('//cdn.viewst.com/custom_include/location/probtn_location_concat.js', function () {});
 
 })();
