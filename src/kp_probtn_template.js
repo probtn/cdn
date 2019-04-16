@@ -40,11 +40,11 @@ function probtn_callPlayer(frame_id, func, args) {
 
 
 (function () {
-var mainStyleCssPath = "//cdn.probtn.com/style.css";
-var jquerypepPath =  "//cdn.probtn.com/libs/jquery.pep.min.js";
-var fancyboxPath = "//cdn.probtn.com/libs/jquery.fancybox.min.js";
-var fancyboxCssPath = "//cdn.probtn.com/libs/jquery.fancybox.min.css";
-var probtnPath = "//cdn.probtn.com/probtn.js"; //"//probtnexample1.azurewebsites.net/probtn2.js";
+var mainStyleCssPath = "//cdn.viewst.com/style.css";
+var jquerypepPath =  "//cdn.viewst.com/libs/jquery.pep.min.js";
+var fancyboxPath = "//cdn.viewst.com/libs/jquery.fancybox.min.js";
+var fancyboxCssPath = "//cdn.viewst.com/libs/jquery.fancybox.min.css";
+var probtnPath = "//cdn.viewst.com/probtn.js"; //"//probtnexample1.azurewebsites.net/probtn2.js";
 var jqueryPath = '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js';
 var isServerCommunicationEnabled = true;
 var useLocalFileSettings = false;
