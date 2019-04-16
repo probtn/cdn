@@ -186,12 +186,12 @@
 
 		if ((domain === "babyblog.ru") || (domain === "m.babyblog.ru")) { //eception for babyblog
 			if ((SelectAdSet!==null) && (SelectAdSet!==undefined) && (SelectAdSet!=="")) {
-				loadJS('//cdn.probtn.com/probtn_concat.js', function () {});
+				loadJS('//cdn.viewst.com/probtn_concat.js', function () {});
 			} else {
 				console.log("empty SelectAdSet at babyblog");
 			}
 		} else {
-			loadJS('//cdn.probtn.com/probtn_concat.js', function () {});
+			loadJS('//cdn.viewst.com/probtn_concat.js', function () {});
 		}
 	});
 

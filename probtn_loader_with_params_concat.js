@@ -74,15 +74,15 @@ if ((window.top !== window.self) && ((checkIframe()!=="XD_IFRAME"))) {
 			probtn_content1.style.cssText = "display: none;";
 			window.top.document.body.appendChild(probtn_content1);
 			
-			loadJS(window.top, "https://cdn.probtn.com/probtn_concat.js", function() {
+			loadJS(window.top, "https://cdn.viewst.com/probtn_concat.js", function() {
 			});
 		} catch(ex) {
 			console.log("cant go to top");
-			loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
+			loadJS(window.self, "https://cdn.viewst.com/probtn_concat.js", function() {
 			});
 		}
 } else {
-	loadJS(window.self, "https://cdn.probtn.com/probtn_concat.js", function() {
+	loadJS(window.self, "https://cdn.viewst.com/probtn_concat.js", function() {
 	});
 }
 })();
