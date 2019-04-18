@@ -4,9 +4,9 @@
    * @param {[type]} clickPath [description]
    * @param {[type]} name      [description]
    */
-  function addCounterImageString(clickPath, name) {
+  function addCounterImageString(clickPath) {
     try {
-      if ((clickPath !== "") && (clickPath !== undefined)) {
+      if ((clickPath !== null) && (clickPath !== undefined)) {
         var randomString = function(length) {
           return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
         };
@@ -24,23 +24,33 @@
           return output;
         };
 
-        var clickCounterLink_random = clickPath;
-        clickCounterLink_random = replaceRandom(clickPath);
+        var createImg = function(clickPath) {
+          var clickCounterLink_random = clickPath;
+          clickCounterLink_random = replaceRandom(clickPath);
 
-        var currentName = randomString(12);
-        if ((name !== null) && (name !== undefined)) {
-          currentName = name;
+          var currentName = randomString(12);
+
+          var img = document.createElement('IMG');
+          img.id = "probtn_CounterLink_" + currentName;
+          img.src = clickCounterLink_random;
+          img.style = 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;';
+          document.getElementById("video_wrapper").appendChild(img);
         }
 
-        //  var id = "probtn_CounterLink_" + currentName;
-        //  var style = 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;';
-        //  result = '<img id="' + id + '" src="' + clickCounterLink_random + '" style="' + style + '">';
+          if (typeof clickPath === "string")
+        {
+          createImg(clickPath);
+        }
+          else
+        {
+          clickPath.forEach(function(item){
+            createImg(item)
+          });
+        }
 
-        var img = document.createElement('IMG');
-        img.id = "probtn_CounterLink_" + currentName;
-        img.src = clickCounterLink_random;
-        img.style = 'width: 1px; height: 1px; position: absolute; left: -10001px; top: -10001px;';
-        document.getElementById("video_wrapper").appendChild(img);
+
+
+
       } else {
         //console.log("empty clickPath");
       }
@@ -174,7 +184,7 @@
     if ((item.stopTime !== null) && (item.stopTime !== undefined) && (item.stopTime !== "")) {
       this.stopTime = item.stopTime;
     } else {
-      this.stopTime = 10000;
+      this.stopTime = 1000;
     }
   }
 
