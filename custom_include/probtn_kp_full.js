@@ -3342,7 +3342,7 @@ var loadProbtn = function (jQuery) {
 	        },
 	        /**
 	         * Check is adBlock active at current page.
-	         * At current moment not useful, case cdn.probtn.com added to black list
+	         * At current moment not useful, case cdn.viewst.com added to black list
 	         * @return {[type]} [description]
 	         */
 	        checkAdBlock: function() {
@@ -3363,7 +3363,7 @@ var loadProbtn = function (jQuery) {
 	            console.log("ex", ex);
 	          }
 	        },
-	        //create probtn_events event with data same as we send to admin.probtn.com
+	        //create probtn_events event with data same as we send to admin.viewst.com
 	        createEventHandler: function(data) {
 	          try {
 	            var event = document.createEvent('Event');
@@ -3431,7 +3431,7 @@ var loadProbtn = function (jQuery) {
 	              var probtnId = "1234";
 	              probtnId = ProBtnControl.GetDeviceUID();
 	              var probtncid = ProBtnControl.DeviceCID;
-	              //var superPixelPath = "https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
+	              //var superPixelPath = "https://pixel.viewst.com/1/from-ref?pbdebug=getintent&DeviceUID=" + probtncid + "&localDomain=" + ProBtnControl.realDomain + "&daction=" + param;
 	              //ProBtnControl.statistics.createClickCounterImage(superPixelPath);
 	            }*/
 	          } catch (ex) {
@@ -6623,8 +6623,8 @@ var loadProbtn = function (jQuery) {
 	            }
 	          };
 	          /*if (typeof postscribe === "undefined") {
-	            $.getScript("https://cdn.probtn.com/libs/postscribe/htmlParser.js", function () {
-	              $.getScript("https://cdn.probtn.com/libs/postscribe/postscribe.js", postscribeCall);
+	            $.getScript("https://cdn.viewst.com/libs/postscribe/htmlParser.js", function () {
+	              $.getScript("https://cdn.viewst.com/libs/postscribe/postscribe.js", postscribeCall);
 	            });
 	          } else {
 	            postscribeCall();
@@ -7716,8 +7716,8 @@ var loadProbtn = function (jQuery) {
 	            if (ProBtnControl.params.ConstrainByBlock) {
 	              //debugger;
 	              var currentMainBlock = $(ProBtnControl.params.ButtonInjectPath);
-	              /*console.log("currentMainBlock", 
-	                currentMainBlock, currentMainBlock.position(),  
+	              /*console.log("currentMainBlock",
+	                currentMainBlock, currentMainBlock.position(),
 	                currentMainBlock.parent().position());*/
 	              width = currentMainBlock.innerWidth();
 	              height = currentMainBlock.innerHeight();
@@ -8572,7 +8572,7 @@ var loadProbtn = function (jQuery) {
 	              var startTop = 0;
 	              if (params.side == 'bottom') {
 	                startTop = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H + $('body').innerHeight() * startHeightPercent);
-	                
+
 	              } else {
 	                startTop = ProBtnControl.additionalButtonFunctions.getWindowHeight();
 	                startTop = startTop * startHeightPercent;
@@ -8694,7 +8694,7 @@ var loadProbtn = function (jQuery) {
 
 	              var autoStart = true;
 	              if (params[0]) {
-	                if (params[0].autoStart) {
+	                if ((params[0].autoStart !== null) && (params[0].autoStart !== undefined) && (params[0].autoStart !== "")) {
 	                  autoStart = params[0].autoStart;
 	                }
 	              };
@@ -9206,7 +9206,7 @@ var loadProbtn = function (jQuery) {
 	           */
 	          CacheBuster: ProBtnControl.additionalButtonFunctions.randomString(12),
 	          /**
-	           * Period in which ButtonShowedDurationPeric event send to admin.probtn.com
+	           * Period in which ButtonShowedDurationPeric event send to admin.viewst.com
 	           * @type {Number}
 	           */
 	          ButtonShowedDurationPeriod: [1000, 1000, 1000, 2000, 2000, 3000, 3000, 3000, 4000, 5000, 5000, 10000, 20000, 30000, 60000, 90000, 240000, 480000, 1800000],
@@ -9265,7 +9265,7 @@ var loadProbtn = function (jQuery) {
 	          ButtonInjectPath: "body",
 
 	          LocationPoints: [], //lcations we should check before showing button
-	          RequireLocation: false, //should we check geolocation after get settings from admin.probtn.com
+	          RequireLocation: false, //should we check geolocation after get settings from admin.viewst.com
 
 	          useGuidIframe: true, //create and use iframe to get guid of user
 
@@ -9287,15 +9287,15 @@ var loadProbtn = function (jQuery) {
 
 	          ExternalDataSources: [{
 	            Name: "ASource3",
-	            Source: "https://demo.probtn.com/button_example4/externalData/iframe3/",
+	            Source: "https://demo.viewst.com/button_example4/externalData/iframe3/",
 	            Priority: 13
 	          }, {
 	            Name: "Source1",
-	            Source: "https://demo.probtn.com/button_example4/externalData/iframe1/",
+	            Source: "https://demo.viewst.com/button_example4/externalData/iframe1/",
 	            Priority: 1
 	          }, {
 	            Name: "Source2",
-	            Source: "https://demo.probtn.com/button_example4/externalData/iframe2/",
+	            Source: "https://demo.viewst.com/button_example4/externalData/iframe2/",
 	            Priority: 2
 	          }],
 
@@ -9887,7 +9887,7 @@ var loadProbtn = function (jQuery) {
 	              ProBtnControl.params.showInParent = false;
 	              ProBtnControl.params.HideInFrame = true;
 
-	              // https://cdn.probtn.com/includepb.min.js
+	              // https://cdn.viewst.com/includepb.min.js
 	              var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
 	              var loadJS = function(src, callback) {
@@ -10166,7 +10166,7 @@ var loadProbtn = function (jQuery) {
 	          ProBtnControl.userData.retina = retina;
 
 	          /**
-	           * parse results recieved from admin.probtn.com (or local source)
+	           * parse results recieved from admin.viewst.com (or local source)
 	           * @param  {[json]} data json data
 	           * @return {[type]}
 	           */
@@ -10206,7 +10206,7 @@ var loadProbtn = function (jQuery) {
 	                  var params1 = $.extend(true, {}, ProBtnControl.params, data.result);
 	                  ProBtnControl.params = params1;
 
-	                  //set PassbackCustomCode from admin.probtn.com
+	                  //set PassbackCustomCode from admin.viewst.com
 	                  try {
 	                    ProBtnControl.params.PassbackCustomCode = data.PassbackCustomCode;
 	                    ProBtnControl.params.PassbackCodeSelector = data.PassbackCodeSelector;
@@ -10502,6 +10502,7 @@ var loadProbtn = function (jQuery) {
 	                      ProBtnControl.wrapper.removeClass('hide');
 	                      ProBtnControl.additionalButtonFunctions.animation.checkAndRunAnimation();
 	                      ProBtnControl.buttonMainParams.hidden = false;
+	                      ProBtnControl.statistics.SendStatisticsData("Showed", 1);
 	                    } else {
 
 	                    }
@@ -10880,7 +10881,9 @@ var loadProbtn = function (jQuery) {
 
 
 	            if (ProBtnControl.params.ButtonVisible) {
-	              ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+	              if (!ProBtnControl.params.waitIframeLoadedMsg) {
+	                ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+	              }
 
 	              var buttonShowedDurationPeriodCounter = 0;
 	              var periodicDuration = function() {
