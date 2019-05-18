@@ -1,0 +1,9 @@
+.textarea-div {
+  display: inline-block;
+  margin-left: 180px;
+}
+
+#analysis-field {
+  width: 400px;
+  height: 200px;
+}
