@@ -3,7 +3,8 @@
   margin-left: 180px;
 }
 
-#analysis-field {
+#analysis-field,
+#rec-field {
   width: 400px;
   height: 200px;
 }
