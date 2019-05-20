@@ -9154,8 +9154,8 @@ probtn_initTrackingLinkTest();
           BadgeImage: "https://cdn.viewst.com/images/viewst-ad-3.png",
           BadgePosition: "bottom_center",
           BadgeSize: {
-            W: 46,
-            H: 18
+            W: 40,
+            H: 16
           },
           BadgeOpacity: 0.7,
           BadgeActive: true,
@@ -9168,7 +9168,7 @@ probtn_initTrackingLinkTest();
           BrandingImage: "", //image which would be used as background-image for #probtn_wrapper
 
           CloseAreaType: "attached",
-          AttachedClosePosition: "top_right",
+          AttachedClosePosition: "top_left",
 
           CorrectPositionBeforeMove: true, //should we coreect button position before button moves first time
 
@@ -9509,8 +9509,8 @@ probtn_initTrackingLinkTest();
           },
           ButtonPosition: {
             // Позиция
-            X: 0.10,
-            Y: 0.77
+            X: 0.8,
+            Y: 0.8
           },
           ButtonSize: {
             // Размер
@@ -9548,13 +9548,13 @@ probtn_initTrackingLinkTest();
           },
           CloseSize: {
             // Размер
-            W: 32,
-            H: 32
+            W: 28,
+            H: 28
           },
           CloseActiveSize: {
             // Размер в активном состоянии
-            W: 32,
-            H: 32
+            W: 28,
+            H: 28
           },
           CloseOpacity: 1.0, // Прозрачность
           CloseActiveOpacity: 1.0, // Прозрачность в активном состоянии
