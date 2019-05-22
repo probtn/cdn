@@ -1,0 +1,380 @@
+﻿<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link type="text/css" href="js/screen.css" rel="stylesheet">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <meta name="viewport" content="width=608">
+  <link href="js/jquery-ui.css" rel="stylesheet" type="text/css">
+  <style>
+    html, body {
+            width: 480px;
+            height: 270px;
+            margin: 0;
+            padding: 0px;
+            font-size: 30px;
+        }
+
+        .broadway {
+            width: 480px;
+            height: 270px;
+        }
+        canvas {
+            width: 480px;
+            height:  270px;
+        }
+
+        #progressbar {
+            position: absolute;
+            height: 5px;
+            background-color: white;
+            width: 0;
+            bottom: 0px;
+            display: block;
+            left: 0px;
+        }
+        #poster {
+            width: 480px;
+            height: 270px;
+            display: inline-block;
+            z-index: 20;
+        }
+        #poster_img {
+            width: 480px;
+            height: 270px;
+            z-index: 18;
+        }
+        #loader {
+            display: none;
+            margin: 0 auto;
+            width: 20%;
+            z-index: 19;
+            position: fixed;
+            /*top: 50%;
+            left: 40%;*/
+
+            top: 150px;
+            left: 140px;
+        }
+        #play {
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            top: 30%;
+            display: none;
+            cursor: pointer;
+        }
+
+            #play.active {
+                display: block;
+            }
+
+        #volume, #native_volume {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: 80px;
+            height: 80px;
+        }
+
+        #native_volume {
+          z-index: 20;
+        }
+
+        #close {
+            position: absolute;
+            right: 5px;
+            bottom: 8px;
+            z-index: 30;
+            /*display: none;*/
+        }
+        #close_img {
+            display: none;
+            cursor: pointer;
+            width:  28px;
+            height:  28px;
+        }
+
+        #volume_on, #volume_off, #native_volume_on, #native_volume_off {
+            display: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            z-index: 30;
+            padding-top: 32px;
+            padding-left: 8px;
+        }
+
+        #native_volume_on.active, #native_volume_off.active {
+            display: block;
+        }
+
+        #volume_on.active, #volume_off.active {
+            display: block;
+        }
+
+        #native_video {
+          position: relative;
+          z-index: 10;
+          box-shadow: 0 14px 20px 0 rgba(0,0,0,0.40);
+          border-radius: 4px;
+        }
+
+        #native_video_wrapper {
+          position: relative;
+        }
+
+        canvas {
+            border-radius: 4px !important;
+            /*border-radius: 10px !important;
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.22) !important;*/
+            box-shadow: 0 14px 20px 0 rgba(0,0,0,0.40);
+            background: transparent !important;
+        }
+        #link {
+            background: url(images/go-min.png) no-repeat left center;
+            width: 50%;
+            height: 28px;
+            position: absolute;
+            bottom: 10px;
+            left: 25%;
+            color: white;
+            font-size: 20px;
+            padding-left: 30px;
+            text-shadow: 2px 1px 5px black;
+            display: none;
+            z-index: 30;
+            background-size: contain;
+            font-weight: normal;
+            font-family: Arial;
+            display: none !important;
+        }
+
+        #cta {
+          width: 176px;
+          height: 43px;
+          z-index: 100;
+          position: absolute;
+          bottom: 0px;
+          left: 150px;
+          cursor: pointer;
+        }
+
+        #replay_button {
+          position: absolute;
+          left: 40%;
+          width: 20%;
+          top: 30%;
+          display: block;
+          cursor: pointer;
+          background-image: url(images/replay.png);
+        }
+
+        #controls {
+            /*display: none;*/
+        }
+
+        #videotime, #native_videotime {
+          position: absolute;
+          right: 5px;
+          bottom: 3px;
+          z-index: 100;
+          font-size: 40px;
+          font-weight: 400;
+          color: #FFFFFF;
+        }
+
+        .img_btn_disabled {
+          display: none;
+        }
+        #bg {
+            height: 50px;
+            position: fixed;
+            top: 286px;
+            left: 0px;
+
+            width: 480px;
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,1e5799+100&0+0,1+100 */
+        }
+    </style>
+</head>
+
+<body>
+  <div id="native_video_wrapper">
+    <video id="native_video" playsinline="" webkit-playsinline="" autoplay="true" muted="true" onclick="" loop="loop" poster="" id="video_probtn" class="probtn_video" width="100%" height="100%">
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div id="native_volume">
+      <img id="native_volume_on" src="images/volume_on@2x.png?r=1" class="">
+      <img id="native_volume_off" src="images/volume_off@2x.png?r=1" class="active">
+    </div>
+    <output id="native_videotime">0</output>
+  </div>
+  <img src="cta.png" id="cta" alt="cta" />
+  <div class="broadway" url="" text="" audio="audio.mp3?rnd=12" poster="poster.png?rnd=1123" src="video.mp4?rnd=12" width="190" height="112" style="float: left; position: relative;" workers="true" webgl="auto" render="false" repeatmode="">
+    <!--close-->
+    <!--  <a id="cta" href="https://1xbet.mobi/en/" target="_blank" onclick="on_click_cta()">
+      <span>DIAL *544#</span>
+    </a> -->
+  </div>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script type="text/javascript" src="js/Decoder.js"></script>
+  <script type="text/javascript" src="js/YUVCanvas.js"></script>
+  <script type="text/javascript" src="js/Player.js?r=12"></script>
+  <script type="text/javascript" src="js/stream.js"></script>
+  <script type="text/javascript" src="js/mp4.js?random=124"></script>
+  <!--https://probtnlandings1.azurewebsites.net/button_example4/mp4_player/js/mp4.js-->
+  <script type="text/javascript">
+  jQuery(document).ready(function() {
+    window.parent.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+    var video = document.getElementById("native_video");
+    document.getElementById("native_volume").addEventListener("click", on_native_volume_click);
+    window.top.postMessage({ command: 'button_image_iframe_size', size: { w: "100%", h: "70%", "important": true } }, '*');
+
+    var originButtonWidth = 152;
+    var originButtonHeight = 94;
+    var originCtaWidth = 264;
+    var originCtaHeight = 66;
+    var creativeWidth = 480;
+
+    function on_click_cta(e) {
+      try {
+        console.log("on_click_cta", e);
+        e.preventDefault();
+
+        window.parent.postMessage({ command: 'probtn_close' }, '*');
+        window.parent.postMessage({ command: 'probtn_opened_and_showed' }, '*');
+
+        window.open("tel:*554#", "_blank");
+      } catch (ex) {
+        console.log(ex);
+      }
+      return false;
+    }
+
+    document.getElementById("cta").addEventListener("click", on_click_cta);
+
+    function load() {
+      //window.top.postMessage({ command: 'button_image_iframe_size', size: {w: 190, h: 71} }, '*');
+      window.top.postMessage({ command: 'button_image_iframe_size', size: { w: "100%", h: "70%", "important": true } }, '*');
+      jQuery(document).ready(function() {
+        try {
+
+          window.onresize = function(event) {
+            console.log("window.onresize", window.innerWidth);
+            if (window.innerWidth > 200) {
+              document.getElementById("link").style.display = "block";
+              document.getElementById("volume").style.display = "block";
+              document.getElementById("close").style.display = "block";
+            }
+          };
+
+          console.log("Broadway", Broadway);
+          var nodes = document.querySelectorAll('div.broadway');
+          for (var i = 0; i < nodes.length; i++) {
+            var broadway = new Broadway(nodes[i]);
+          }
+        } catch (ex) {
+          console.log(ex);
+        }
+      });
+
+
+    }
+    //  load();
+    var isNativeVolumeOn = false;
+
+    function on_native_volume_click() {
+      isNativeVolumeOn = !isNativeVolumeOn;
+      if (isNativeVolumeOn) {
+        document.getElementById("native_volume_off").style.display = "none";
+        document.getElementById("native_volume_on").style.display = "block";
+        video.muted = false;
+      } else {
+        document.getElementById("native_volume_off").style.display = "block";
+        document.getElementById("native_volume_on").style.display = "none";
+        video.muted = true;
+      }
+    }
+
+    var isPlay = false;
+    var timer_output = document.getElementById("native_videotime");
+    video.ontimeupdate = function() {
+      if (!isPlay) {
+        isPlay = true;
+      }
+
+      var curTime = video.currentTime;
+      var min = Math.floor(curTime / 60);
+      var sec = Math.floor(curTime % 60);
+      if (sec < 10) {
+        sec = "0" + sec;
+      }
+
+      timer_output.value = min + ":" + sec;
+    };
+
+    setTimeout(function() {
+      if (!isPlay) {
+        var video_wrapper = document.getElementById("native_video_wrapper");
+        video_wrapper.style.display = "none";
+        load();
+      }
+    }.bind(this), 2000);
+
+
+
+    /*  setTimeout(function () {
+          document.getElementById("click_button").className = "scale-in-center";
+      }, 5000); */
+    window.addEventListener("message", receiveMessage, false);
+
+    function expandedCtaButton(size) {
+      console.log("expanded");
+      var сoefWidth = originButtonWidth / size.W;
+      var newCtaWidth = сoefWidth * originCtaWidth;
+      $("#cta").width(newCtaWidth);
+      сoefHeight = originButtonHeight / size.H;
+      var newCtaHeight = сoefHeight * originCtaHeight;
+      $("#cta").height(newCtaHeight);
+      var bottom = newCtaHeight / 2 + "px";
+      if (isPlay === false) {
+        bottom = 0 + "px";
+      }
+      $("#cta").css("bottom", bottom);
+      var left = (creativeWidth / 2) - (newCtaWidth / 2) + "px";
+      console.log("koefWidth", сoefWidth);
+      $("#cta").css("left", left);
+      console.log("koefHeight", сoefHeight);
+    }
+
+    function receiveMessage(event) {
+      if ((event.data !== null) && (event.data !== undefined)) {
+        if (event.data.message === "probtn_button_expanded") {
+          console.log("probtn_button_expanded");
+          expandedCtaButton(event.data.size);
+        }
+
+        if (event.data.message === "probtn_button_minimized_to_normal") {
+
+          $("#cta").width(originCtaWidth);
+          $("#cta").height(originCtaHeight);
+
+          $("#cta").css("left", (window.innerWidth - originCtaWidth)/2);
+        }
+      }
+    }
+
+    var size = {
+      W: document.getElementsByTagName("canvas")[0].offsetWidth,
+      H: document.getElementsByTagName("canvas")[0].offsetHeight
+    }
+    console.log("size", size);
+    expandedCtaButton(size);
+  });
+
+  </script>
+</body>
+
+</html>
