@@ -75,10 +75,7 @@
             bottom: 0px;
             width: 80px;
             height: 80px;
-        }
-
-        #native_volume {
-          z-index: 20;
+            z-index: 300;
         }
 
         #close {
@@ -178,8 +175,8 @@
           position: absolute;
           right: 5px;
           bottom: 3px;
-          z-index: 100;
-          font-size: 40px;
+          z-index: 300;
+          font-size: 30px;
           font-weight: 400;
           color: #FFFFFF;
         }
@@ -196,6 +193,15 @@
             width: 480px;
             /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,1e5799+100&0+0,1+100 */
         }
+
+        #cta_wrapper {
+          width: 480px;
+          height: 270px;
+          position: absolute;
+          z-index: 100;
+          top: 0px;
+          left: 0px;
+        }
     </style>
 </head>
 
@@ -211,8 +217,10 @@
     </div>
     <output id="native_videotime">0</output>
   </div>
-  <img src="cta.png" id="cta" alt="cta" />
-  <div class="broadway" url="" text="" audio="audio.mp3?rnd=12" poster="poster.png?rnd=1123" src="video.mp4?rnd=12" width="190" height="112" style="float: left; position: relative;" workers="true" webgl="auto" render="false" repeatmode="">
+  <div id="cta_wrapper">
+    <img src="cta.png" id="cta" alt="cta" />
+  </div>
+  <div class="broadway" url="" text="" audio="audio.mp3?rnd=12" poster="poster.png?rnd=1123" src="video.mp4?rnd=12" width="190" height="112" style="float: left; position: relative;" workers="true" webgl="auto" render="false" repeatmode="" reverseTimer="true">
     <!--close-->
     <!--  <a id="cta" href="https://1xbet.mobi/en/" target="_blank" onclick="on_click_cta()">
       <span>DIAL *544#</span>
@@ -305,7 +313,7 @@
         isPlay = true;
       }
 
-      var curTime = video.currentTime;
+      var curTime = video.duration - video.currentTime;
       var min = Math.floor(curTime / 60);
       var sec = Math.floor(curTime % 60);
       if (sec < 10) {
@@ -338,10 +346,7 @@
       сoefHeight = originButtonHeight / size.H;
       var newCtaHeight = сoefHeight * originCtaHeight;
       $("#cta").height(newCtaHeight);
-      var bottom = newCtaHeight / 2 + "px";
-      if (isPlay === false) {
-        bottom = 0 + "px";
-      }
+      var bottom = "-" + newCtaHeight / 1.2 + "px";
       $("#cta").css("bottom", bottom);
       var left = (creativeWidth / 2) - (newCtaWidth / 2) + "px";
       console.log("koefWidth", сoefWidth);
@@ -362,13 +367,14 @@
           $("#cta").height(originCtaHeight);
 
           $("#cta").css("left", (window.innerWidth - originCtaWidth)/2);
+    //      $("#cta").css("bottom", 0);
         }
       }
     }
 
     var size = {
-      W: document.getElementsByTagName("canvas")[0].offsetWidth,
-      H: document.getElementsByTagName("canvas")[0].offsetHeight
+      W: 480,//document.getElementsByTagName("canvas")[0].offsetWidth,
+      H: 270//document.getElementsByTagName("canvas")[0].offsetHeight
     }
     console.log("size", size);
     expandedCtaButton(size);
