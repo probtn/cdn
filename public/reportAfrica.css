@@ -16,6 +16,7 @@ table {
 #header_block {
   height: 640px;
   background-image: linear-gradient(to bottom right, #632ACC 0%, #4793EB 100%);
+  -webkit-print-color-adjust: exact;
 }
 
 #red_circle {
@@ -26,6 +27,7 @@ table {
   position: absolute;
   top: -280px;
   left: -170px;
+  -webkit-print-color-adjust: exact;
 }
 
 #logo_img {
@@ -129,6 +131,7 @@ table {
 #cd_block {
   background-color: #ff6269;
   color: #FFFFFF;
+  -webkit-print-color-adjust: exact;
 }
 
 #cd_block h1 {
@@ -169,6 +172,7 @@ table {
   background: linear-gradient(298.54deg, #428CE2 12.68%, #703AD4 87.32%);
   color: #FFFFFF;
   height: 640px;
+  -webkit-print-color-adjust: exact;
 }
 
 #contacts_block h1 {
