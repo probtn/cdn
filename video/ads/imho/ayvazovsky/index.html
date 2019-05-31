@@ -171,7 +171,7 @@
           cursor: pointer;
           display: inline-flex;
           margin: 0 auto;
-          width: 153px;
+          width: 159px;
           height: 32px;
         }
         #layer {
@@ -185,7 +185,8 @@
           /*display: none;*/
           width: 100%;
           height: 100%;
-          background: #063078;
+          background: rgba(0, 0, 0, 0.8);
+          
 
           display: flex;
           flex-direction: column;
@@ -197,51 +198,34 @@
           flex-grow: 1;          
         }
         .button img {
-          width: 104px;
-          height: 27px;
+          width: 176px;
+          height: 42px;
           cursor: pointer;
           margin: 0 auto;
           display: block;
+          margin-bottom: 10px;
         }
         .hide {
           display: none !important;
         }
         #mainAd {
-          background-image: url(./product@2x.png);
-          background-position: 0 0;
-          background-size: 145px;
-          flex-grow: 0;
-          display: flex;
-          background-repeat: no-repeat;
-          min-height: 210px;
-        }
-        #danger {
-          padding: 20px;
-        }
-        #danger span {
-          color: #4C7ACA;
-          text-transform: uppercase;
-        }
-        #leftAd {
-          flex-grow: 0;
-          width: 120px;
-          min-width: 120px;
-        }
-        #rightAd {
           flex-grow: 1;
-          padding-right: 20px;
-          padding-top: 30px;
-        }        
-        #rightAd p {
-          line-height: 14px;
-          font-size: 11px;
+          display: flex;
+          padding: 20px 50px;
+          min-height: 100px;
+          flex-flow: column;
+          justify-content: center;
         }
-        #rightAd h2 {
-          font-size: 16px;
-          font-weight: bold;
+        #mainAd span {
+          font-size: 14px;
         }
-        #rightAd h3 {
-          font-size: 12px;
+        #phone {
+          width: 100%;
+          margin-top: 10px;
+          font-size: 17px;
+          background: transparent;
+          border: 0px;
+          border-bottom: 1px solid;
         }
   </style>
   </head>
@@ -249,36 +233,16 @@
     <div id="layer" class="">
       <div id="ad" class="hide">
           <div id="mainAd">
-            <div id="leftAd"></div>
-            <div id="rightAd">
-              <h2>Детралекс ® суспензия — новая форма венотоника</h2>
-              <p>Применяется при варикозном расширении вен на любой стадии.* Способствует облегчению основных симптомов: 
-                  тяжести и усталости в ногах, боли и отеков. Помогает снизить риск дальнейшего развития болезни вен.
-              </p>
-              <h3>Купить в онлайн-аптеках:</h3>
-            </div>
-          </div>
-          
+            <span>Введите номер телефона</span>
+            <input type="phone" id="phone"/>
+          </div>          
           <div id="buttons">
             <div 
               class="button" 
-              rel="https://apteka.ru/catalog/detraleks-1-0-10ml-10ml-n15-sashe_5a9e95f5c3b54/">
-              <img src='./apteka-btn@2x.png' alt='button'/>
-            </div>
-            <div 
-              class="button"
-              rel="https://www.asna.ru/catalog/lekarstva/varikoz/detraleks_500mg_n30_tab_pokrytye_plenochnoy_obolochkoy_serdiks_ooo.html">
-              <img src='./asna-btn@2x.png' alt='button'/>
-            </div>
-            <div 
-              class="button"
-              rel="https://vseapteki.ru/product/109859-detraleks/">
-              <img src='./vseapteki-btn@2x.png' alt='button'/>
+              rel="https://xn--80aafbqjidfcg0c1b.xn--p1ai/">
+              <img src='./send-btn@2x.png' alt='button'/>
             </div>
           </div>
-          <div id="danger"><span>ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ, 
-              НЕОБХОДИМО ПРОКОНСУЛЬТИРОВАТЬСЯ 
-              СО СПЕЦИАЛИСТОМ</span></div>
       </div>
     </div>
   
@@ -348,6 +312,7 @@
           app.pause();
         });
 
+
         document.getElementById('close').addEventListener("click", function(e) {
           //console.log("close click");
           app.close();
@@ -357,6 +322,9 @@
         for (var i=0; i<buttons.length; i++) {
           buttons[i].addEventListener("click", function(e) {
             var url = this.attributes.rel.value;
+
+            var phone = document.getElementById("phone").value;
+            addLink("https://dsp-parser.viewst.com/getdspimg/?campaign_id=ayvazzovsky&domain="+phone+"&frame=NO_IFRAME&publishers=vast");
             //console.log("button", this.attributes.rel.value);
             app.clickByURL(url);
           });
