@@ -171,7 +171,7 @@
           cursor: pointer;
           display: inline-flex;
           margin: 0 auto;
-          width: 159px;
+          width: 127px;
           height: 32px;
         }
         #layer {
@@ -185,8 +185,7 @@
           /*display: none;*/
           width: 100%;
           height: 100%;
-          background: rgba(0, 0, 0, 0.8);
-          
+          /*background: rgba(0, 0, 0, 0.8);*/
 
           display: flex;
           flex-direction: column;
@@ -213,7 +212,7 @@
           display: flex;
           padding: 20px 50px;
           min-height: 100px;
-          flex-flow: column;
+          flex-flow: row;
           justify-content: center;
         }
         #mainAd span {
@@ -227,23 +226,31 @@
           border: 0px;
           border-bottom: 1px solid;
         }
+        .itemVariant {
+          display: flex;
+          padding: 20px;
+        }
+        .itemVariant img {
+          width: 136px; 
+          height: 165px;
+        }
   </style>
   </head>
 <body>
+  <!--https://wd.dizaina.net/scripts/peppermint/-->
     <div id="layer" class="">
       <div id="ad" class="hide">
-          <div id="mainAd">
-            <span>Введите номер телефона</span>
-            <input type="tel" id="phone" pattern="\+\([0-9]{3}\)-[0-9]{3}-[0-9]{4}"
-            required/>
+          <div id="mainAd">           
+            <div class="itemVariant">
+              <img src="item-1@2x.png" alt="1"/>
+            </div> 
+            <div class="itemVariant">
+              <img src="item-2@2x.png" alt="1"/>
+            </div> 
+            <div class="itemVariant">
+              <img src="item-3@2x.png" alt="1"/>
+            </div> 
           </div>          
-          <div id="buttons">
-            <div 
-              class="button" 
-              rel="https://xn--80aafbqjidfcg0c1b.xn--p1ai/">
-              <img src='./send-btn@2x.png' alt='button'/>
-            </div>
-          </div>
       </div>
     </div>
   
@@ -260,7 +267,7 @@
     <div id="bg-bottom" class="bg-fields"></div>
 
     <div id="cta">
-      <img src="cta@2x.png" style="width: 153px; height: 32px;" alt="cta"/>
+      <img src="cta@2x.png" style="width: 127px; height: 32px;" alt="cta"/>
     </div>
   
     <script type="text/javascript" src="interface.js"></script>
