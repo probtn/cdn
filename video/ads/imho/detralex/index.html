@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Viewst test VAST add</title>
+  <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+
+        }
+        @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Thin'), local('Roboto-Thin'), url('Robotothin.ttf') format('truetype');
+          font-weight: 100;
+          font-style: normal;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Thin Italic'), local('Roboto-ThinItalic'), url('Robotothinitalic.ttf') format('truetype');
+          font-weight: 100;
+          font-style: italic;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Light'), local('Roboto-Light'), url('Robotolight.ttf') format('truetype');
+          font-weight: 300;
+          font-style: normal;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Light Italic'), local('Roboto-LightItalic'), url('Robotolightitalic.ttf') format('truetype');
+          font-weight: 300;
+          font-style: italic;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto'), local('Roboto-Regular'), url('Roboto.ttf') format('truetype');
+          font-weight: 400;
+          font-style: normal;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Italic'), local('Roboto-Italic'), url('Robotoitalic.ttf') format('truetype');
+          font-weight: 400;
+          font-style: italic;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Medium'), local('Roboto-Medium'), url('Robotomedium.ttf') format('truetype');
+          font-weight: 500;
+          font-style: normal;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Medium Italic'), local('Roboto-MediumItalic'), url('Robotomediumitalic.ttf') format('truetype');
+          font-weight: 500;
+          font-style: italic;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.ttf') format('truetype');
+          font-weight: 700;
+          font-style: normal;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Bold Italic'), local('Roboto-BoldItalic'), url('Robotobolditalic.ttf') format('truetype');
+          font-weight: 700;
+          font-style: italic;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Black'), local('Roboto-Black'), url('Robotoblack.ttf') format('truetype');
+          font-weight: 900;
+          font-style: normal;
+      }
+      @font-face {
+          font-family: 'Roboto';
+          src: local('Roboto Black Italic'), local('Roboto-BlackItalic'), url('Robotoblackitalic.ttf') format('truetype');
+          font-weight: 900;
+          font-style: italic;
+      }
+
+        * {
+          color: white;
+          font-family: 'Roboto', Arial, Helvetica, sans-serif;
+        }
+
+        #timer, #close {
+            position: absolute;
+            top:15px;
+            font-size: 14px;
+            font-weight: 300;
+            color: white;
+            text-shadow: 2px 2px 3px black, 0 0 1em black;
+            font-family: sans-serif;
+        }
+        #timer {
+            left: 15px;
+            z-index: 3;
+        }
+        #close {
+            right: 15px;
+            cursor: pointer;
+            z-index: 50;
+        }
+        #click {
+             width: 60%;
+            position: absolute;
+            height: 60%;
+            top: 2%;
+            left: 39%;
+            opacity: 0;
+       z-index: 15500;
+            cursor: pointer;
+        }
+        #click[data-event="ad-resume"] {
+            background: #000000 url(play_btn.png) no-repeat center;
+            opacity: 0.75;
+            z-index: 1000;
+            transition: opacity 0.25s linear;
+        }
+        #click[data-event="ad-resume"]:hover {
+            opacity: 0.25;
+        }
+        #sound {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            bottom: 7px;
+            right: 7px;
+            cursor: pointer;
+            background-color: rgba(0,0,0,0.5);
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 5px;
+            z-index: 150;
+        }
+        #sound[data-event="ad-mute"] {
+            background-image: url(sound.png);
+        }
+        #sound[data-event="ad-unmute"] {
+            background-image: url(mute.png);
+        }
+
+
+        #more {
+            position: absolute;
+            left: 15px;
+            bottom: 30px;
+            display: inline-block;
+            display: none;
+            width: 110px;
+            padding: 5px;
+            border-radius: 2px;
+            text-align: center;
+            background: #ffdcf1;
+            color: rgba(33, 24, 26, 1);
+            cursor: pointer;
+            transition: all .5s ease;
+        }
+        #more:hover {
+            background: #cfc1ff;
+        }
+
+        #cta {
+          cursor: pointer;
+          display: inline-flex;
+          margin: 0 auto;
+          width: 153px;
+          height: 32px;
+        }
+        #layer {
+          flex-grow: 1;
+        }
+        body {
+          display: flex;
+          flex-direction: column;
+        }
+        #ad {
+          /*display: none;*/
+          width: 100%;
+          height: 100%;
+          background: #063078;
+
+          display: flex;
+          flex-direction: column;
+        }
+        #buttons {
+          display: flex;
+        }
+        .button {
+          flex-grow: 1;          
+        }
+        .button img {
+          width: 104px;
+          height: 27px;
+          cursor: pointer;
+          margin: 0 auto;
+          display: block;
+        }
+        .hide {
+          display: none !important;
+        }
+        #mainAd {
+          background-image: url(./product@2x.png);
+          background-position: 0 0;
+          background-size: 145px;
+          flex-grow: 0;
+          display: flex;
+          background-repeat: no-repeat;
+        }
+        #danger {
+          padding: 20px;
+        }
+        #danger span {
+          color: #4C7ACA;
+          text-transform: uppercase;
+        }
+        #leftAd {
+          flex-grow: 0;
+          width: 120px;
+          min-width: 120px;
+        }
+        #rightAd {
+          flex-grow: 1;
+          padding-right: 20px;
+          padding-top: 30px;
+        }        
+        #rightAd p {
+          line-height: 14px;
+          font-size: 11px;
+        }
+        #rightAd h2 {
+          font-size: 16px;
+          font-weight: bold;
+        }
+        #rightAd h3 {
+          font-size: 12px;
+        }
+  </style>
+  </head>
+<body>
+    <div id="layer" class="">
+      <div id="ad" class="hide">
+          <div id="mainAd">
+            <div id="leftAd"></div>
+            <div id="rightAd">
+              <h2>Детралекс ® суспензия — новая форма венотоника</h2>
+              <p>Применяется при варикозном расширении вен на любой стадии.* Способствует облегчению основных симптомов: 
+                  тяжести и усталости в ногах, боли и отеков. Помогает снизить риск дальнейшего развития болезни вен.
+              </p>
+              <h3>Купить в онлайн-аптеках:</h3>
+            </div>
+          </div>
+          <div id="buttons">
+            <div class="button">
+              <img src='./apteka-btn@2x.png' alt='button'/>
+            </div>
+            <div class="button">
+              <img src='./asna-btn@2x.png' alt='button'/>
+            </div>
+            <div class="button">
+              <img src='./vseapteki-btn@2x.png' alt='button'/>
+            </div>
+          </div>
+          <div id="danger"><span>ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ, 
+              НЕОБХОДИМО ПРОКОНСУЛЬТИРОВАТЬСЯ 
+              СО СПЕЦИАЛИСТОМ</span></div>
+      </div>
+    </div>
+  
+    <div id="timer" data-event="ad-timer"></div>
+    <div id="sound" data-event="ad-mute"></div>
+    <div id="close" data-event="ad-close">
+      <img src='./close-new@2x.png' style="width: 37px; height: 37px;" alt="close"/>
+    </div>
+
+
+    <div id="bg-left" class="bg-fields"></div>
+    <div id="bg-right" class="bg-fields"></div>
+    <div id="bg-top" class="bg-fields"></div>
+    <div id="bg-bottom" class="bg-fields"></div>
+
+    <div id="cta">
+      <img src="./cta.png" style="width: 153px; height: 32px;" alt="cta"/>
+    </div>
+  
+    <script type="text/javascript" src="interface.js"></script>
+
+    <script type="text/javascript">
+        var app = new Interface();
+
+          app.additionalParams = {
+            clickOnVideo: false
+          }
+
+          var randomString = function(length) {
+            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+          };
+
+          var replaceRandom = function(contentURL) {
+            var output = contentURL.replace(/\[RANDOM\]/g, randomString(12));
+            var currentTimestamp = new Date().getTime();
+
+            output = output.replace(/\[timestamp\]/g, currentTimestamp);
+            output = output.replace(/\[TIMESTAMP\]/g, currentTimestamp);
+
+            output = output.replace(/\%random\%/g, randomString(12));
+            output = output.replace(/\%RANDOM\%/g, randomString(12));
+
+            return output;
+          }
+
+          var addLink = function(link) {
+            link = replaceRandom(link);
+            var trackingImage = document.createElement('img');
+            trackingImage.id = "viewst_tracking_image_" + randomString(12);
+            trackingImage.alt = "viewst_tracking_image";
+            //trackingImage.src = link;
+            trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+            document.body.appendChild(trackingImage);
+
+            var newImg = new Image;
+            newImg.onload = function() {
+              trackingImage.src = this.src;
+            }
+            newImg.src = link;
+          };
+
+
+        document.getElementById('cta').addEventListener("click", function(e) {
+          document.getElementById('cta').classList.add("hide");
+          document.getElementById('ad').classList.remove("hide");
+          app.setAdVolume(0);
+        });
+
+        app.stateChange(function (state, data) {
+            switch (state) {
+                case "SetConfig":
+                    /**init viewst button on video**/
+                    console.log("SetConfig", data);
+
+
+
+                    /*layer.addEventListener("click", function(e) {
+                        console.log("layer click", e);
+                        app.click();
+                      });*/
+
+                    break;
+                case "AdVideoComplete":
+                    app.setFlags("userInteraction", true);
+                    break;
+            };
+        });
+        app.initFromDOM(document.body);
+
+        function pauseMe() { app.pause(); }
+        window.pauseMe = pauseMe;
+    </script> 
+</body>
+</html>
