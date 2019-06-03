@@ -90,6 +90,7 @@ table {
   color: #FFFFFF;
   margin-right: 8px;
   text-align: center;
+  -webkit-print-color-adjust: exact;
 }
 
 .statistic_value h3 {
@@ -119,6 +120,7 @@ table {
   background: url(https://cdn.viewst.com/public/images/report/phone@2x.png) no-repeat;
   background-size: cover;
   text-align: center;
+  -webkit-print-color-adjust: exact;
 }
 
 .phone_preview img {
