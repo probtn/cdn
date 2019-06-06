@@ -294,9 +294,12 @@
     <link rel="stylesheet" href="./glider.min.css" />
     <style>
       #glider {
-        margin-top: 50px;
+        margin-top: 50px;       
+        display: flex;
       }
-
+      .glider-track {
+        margin: 0 auto;
+      }
       .button,
       .button img {
         width: 43px;
@@ -313,6 +316,9 @@
         top: 120px;
         left: 0px;
       }
+      /*.button.disabled {
+        display: none;
+      }*/
     </style>
   </head>
 
@@ -417,11 +423,25 @@
 
           slidesToShow: 1,
           slidesToScroll: 1,
-          scrollLock: true,
+          /*scrollLock: true,*/
           arrows: {
             prev: "#prev",
             next: "#next"
-          }
+          },
+          responsive: [
+            {
+              // screens greater than >= 775px
+              breakpoint: 500,
+              settings: {
+                // Set to `auto` and provide item width to adjust to viewport
+                slidesToShow: "auto",
+                slidesToScroll: "auto",
+                itemWidth: 136,
+                duration: 0.25,
+                arrows: undefined
+              }
+            }
+          ]
         });
 
         //app.setAdVolume(0);

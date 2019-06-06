@@ -123,7 +123,12 @@
         bottom: 40px; 
         right: 0px;
         margin: 0 auto;
-        width: 166px;
+        width: 162px;
+        height: 45px;
+      }
+      
+      #cta img {
+        width: 162px;
         height: 45px;
       }
 
@@ -229,7 +234,7 @@
     <div id="bg-bottom" class="bg-fields"></div>
 
     <div id="cta">
-      <img src="cta-1@2x.png" style="width: 166px; height: 45px;" alt="cta" />
+      <img src="cta-1@2x.png" alt="cta" />
     </div>
 
     <script type="text/javascript" src="interface.js"></script>
@@ -291,7 +296,7 @@
         document.getElementById("cta").classList.add("hide");
         skipAd = false;
         //app.setAdVolume(0);
-        app.pause();
+        //app.pause();
       });
 
       document.getElementById("close").addEventListener("click", function(e) {

@@ -189,6 +189,7 @@
 
           display: flex;
           flex-direction: column;
+          align-items: center;
         }
         #buttons {
           display: flex;
@@ -206,6 +207,13 @@
         .hide {
           display: none !important;
         }
+        #ad {
+          background-image: url(./bg@2x.png);
+          background-position: 0 0;
+          background-size: 145px;
+          min-height: 203px;
+          background-repeat: no-repeat;
+        }
         #mainAd {
           background-image: url(./product@2x.png);
           background-position: 0 0;
@@ -213,7 +221,11 @@
           flex-grow: 0;
           display: flex;
           background-repeat: no-repeat;
-          min-height: 210px;
+          min-height: 203px;
+        }
+        .adItem {
+          max-width: 450px;
+          width: 100%;
         }
         #danger {
           padding: 20px;
@@ -250,7 +262,7 @@
 <body>
     <div id="layer" class="">
       <div id="ad" class="hide">
-          <div id="mainAd">
+          <div id="mainAd" class="adItem">
             <div id="leftAd"></div>
             <div id="rightAd">
               <h2>Детралекс ® суспензия — новая форма венотоника</h2>
@@ -261,7 +273,7 @@
             </div>
           </div>
           
-          <div id="buttons">
+          <div id="buttons" class="adItem">
             <div 
               class="button" 
               rel="https://apteka.ru/catalog/detraleks-1-0-10ml-10ml-n15-sashe_5a9e95f5c3b54/">
@@ -278,7 +290,7 @@
               <img src='./vseapteki-btn@2x.png' alt='button'/>
             </div>
           </div>
-          <div id="danger"><span>ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ, 
+          <div id="danger" class="adItem"><span>ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ, 
               НЕОБХОДИМО ПРОКОНСУЛЬТИРОВАТЬСЯ 
               СО СПЕЦИАЛИСТОМ</span></div>
       </div>

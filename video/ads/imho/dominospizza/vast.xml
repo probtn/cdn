@@ -22,8 +22,8 @@
 <AdParameters>
 <![CDATA[
 { 
-	"mediapath": "https://cdn.viewst.com/video/ads/imho/dominopizza/", 
-	"mediafiles": [ {"src": "https://cdn.viewst.com/video/ads/imho/dominopizza/video.mp4","type":"video/mp4"} ], 
+	"mediapath": "https://cdn.viewst.com/video/ads/imho/dominospizza/", 
+	"mediafiles": [ {"src": "https://cdn.viewst.com/video/ads/imho/dominospizza/video.mp4","type":"video/mp4"} ], 
 	"warm": { "uuid": "414714052ed3327a71b1d2a0aa23954a" }, 
 	"clicks": { "default": "https://viewst.com/?utm_source=vast&utm_medium=vast&utm_campaign=vast_probtn_video_test&utm_content=branded"}
 }
