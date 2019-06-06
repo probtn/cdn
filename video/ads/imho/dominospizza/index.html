@@ -273,29 +273,47 @@
         border-bottom: 1px solid;
       }
 
-      .itemVariant {
+      /*.itemVariant {
         display: flex;
         padding: 20px;
+      }*/
+      .itemVariant {
+        text-align: center;
+      }
+      .itemVariant a {
+        display: inline-block;
+        margin: 0 auto;
       }
 
       .itemVariant img {
         width: 136px;
         height: 165px;
+        cursor: pointer;
       }
     </style>
     <link rel="stylesheet" href="./glider.min.css" />
     <style>
-    #glider { 
-      margin-top: 50px; 
+      #glider {
+        margin-top: 50px;
       }
-      .glider-prev {
-        top: 120px;
+
+      .button,
+      .button img {
+        width: 43px;
+        height: 52px;
+        cursor: pointer;
       }
-      .glider-next {
+      #next {
+        position: absolute;
         top: 120px;
+        right: 0px;
+      }
+      #prev {
+        position: absolute;
+        top: 120px;
+        left: 0px;
       }
     </style>
-
   </head>
 
   <body>
@@ -306,15 +324,19 @@
           <div class="glider-contain">
             <div class="glider" id="glider">
               <div class="itemVariant">
-                <a href="tel:88003331616"><img src="item-1@2x.png" alt="1" /></a>
+                <a href="tel:88003331616"><img src="item-1@2x.png" alt="1"/></a>
               </div>
               <div class="itemVariant">
-                  <a href="tel:88003331616"><img src="item-1@2x.png" alt="1" /></a>
+                <a href="tel:88003331616"><img src="item-2@2x.png" alt="2"/></a>
               </div>
               <div class="itemVariant">
-                  <a href="tel:88003331616"><img src="item-1@2x.png" alt="1" /></a>
+                <a href="tel:88003331616"><img src="item-3@2x.png" alt="3"/></a>
               </div>
             </div>
+            <div id="prev" class="button">
+              <img src="./btn-left@2x.png" alt="43x52" />
+            </div>
+            <div id="next" class="button"><img src="./btn-right@2x.png" /></div>
           </div>
         </div>
       </div>
@@ -343,12 +365,6 @@
     <script type="text/javascript" src="glider.js"></script>
     <script type="text/javascript">
       var app = new Interface();
-
-      var glider = new Glider(document.querySelector(".glider"), {
-        itemWidth: 136,
-        exactWidth: false,
-        slidesToShow: 3       
-      });
 
       app.additionalParams = {
         clickOnVideo: false
@@ -395,6 +411,19 @@
       document.getElementById("cta").addEventListener("click", function(e) {
         document.getElementById("cta").classList.add("hide");
         document.getElementById("ad").classList.remove("hide");
+
+        var glider = new Glider(document.querySelector(".glider"), {
+          itemWidth: 136,
+
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          scrollLock: true,
+          arrows: {
+            prev: "#prev",
+            next: "#next"
+          }
+        });
+
         //app.setAdVolume(0);
         app.pause();
       });
