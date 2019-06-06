@@ -1,265 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <meta charset="UTF-8">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width,minimum-scale=1,initial-scale=1"
+    />
+    <meta charset="UTF-8" />
     <title>Viewst test VAST add</title>
-  <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-
-        }
-        @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Thin'), local('Roboto-Thin'), url('Robotothin.ttf') format('truetype');
-          font-weight: 100;
-          font-style: normal;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Thin Italic'), local('Roboto-ThinItalic'), url('Robotothinitalic.ttf') format('truetype');
-          font-weight: 100;
-          font-style: italic;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Light'), local('Roboto-Light'), url('Robotolight.ttf') format('truetype');
-          font-weight: 300;
-          font-style: normal;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Light Italic'), local('Roboto-LightItalic'), url('Robotolightitalic.ttf') format('truetype');
-          font-weight: 300;
-          font-style: italic;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto'), local('Roboto-Regular'), url('Roboto.ttf') format('truetype');
-          font-weight: 400;
-          font-style: normal;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Italic'), local('Roboto-Italic'), url('Robotoitalic.ttf') format('truetype');
-          font-weight: 400;
-          font-style: italic;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Medium'), local('Roboto-Medium'), url('Robotomedium.ttf') format('truetype');
-          font-weight: 500;
-          font-style: normal;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Medium Italic'), local('Roboto-MediumItalic'), url('Robotomediumitalic.ttf') format('truetype');
-          font-weight: 500;
-          font-style: italic;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.ttf') format('truetype');
-          font-weight: 700;
-          font-style: normal;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Bold Italic'), local('Roboto-BoldItalic'), url('Robotobolditalic.ttf') format('truetype');
-          font-weight: 700;
-          font-style: italic;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Black'), local('Roboto-Black'), url('Robotoblack.ttf') format('truetype');
-          font-weight: 900;
-          font-style: normal;
-      }
-      @font-face {
-          font-family: 'Roboto';
-          src: local('Roboto Black Italic'), local('Roboto-BlackItalic'), url('Robotoblackitalic.ttf') format('truetype');
-          font-weight: 900;
-          font-style: italic;
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
       }
 
-        * {
-          color: white;
-          font-family: 'Roboto', Arial, Helvetica, sans-serif;
-        }
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Thin"), local("Roboto-Thin"),
+          url("Robotothin.ttf") format("truetype");
+        font-weight: 100;
+        font-style: normal;
+      }
 
-        #timer, #close {
-            position: absolute;
-            top:15px;
-            font-size: 14px;
-            font-weight: 300;
-            color: white;
-            text-shadow: 2px 2px 3px black, 0 0 1em black;
-            font-family: sans-serif;
-        }
-        #timer {
-            left: 15px;
-            z-index: 3;
-        }
-        #close {
-            right: 15px;
-            cursor: pointer;
-            z-index: 50;
-        }
-        #click {
-             width: 60%;
-            position: absolute;
-            height: 60%;
-            top: 2%;
-            left: 39%;
-            opacity: 0;
-       z-index: 15500;
-            cursor: pointer;
-        }
-        #click[data-event="ad-resume"] {
-            background: #000000 url(play_btn.png) no-repeat center;
-            opacity: 0.75;
-            z-index: 1000;
-            transition: opacity 0.25s linear;
-        }
-        #click[data-event="ad-resume"]:hover {
-            opacity: 0.25;
-        }
-        #sound {
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            bottom: 7px;
-            right: 7px;
-            cursor: pointer;
-            background-color: rgba(0,0,0,0.5);
-            background-size: cover;
-            background-repeat: no-repeat;
-            border-radius: 5px;
-            z-index: 150;
-        }
-        #sound[data-event="ad-mute"] {
-            background-image: url(sound.png);
-        }
-        #sound[data-event="ad-unmute"] {
-            background-image: url(mute.png);
-        }
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Thin Italic"), local("Roboto-ThinItalic"),
+          url("Robotothinitalic.ttf") format("truetype");
+        font-weight: 100;
+        font-style: italic;
+      }
 
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Light"), local("Roboto-Light"),
+          url("Robotolight.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
 
-        #more {
-            position: absolute;
-            left: 15px;
-            bottom: 30px;
-            display: inline-block;
-            display: none;
-            width: 110px;
-            padding: 5px;
-            border-radius: 2px;
-            text-align: center;
-            background: #ffdcf1;
-            color: rgba(33, 24, 26, 1);
-            cursor: pointer;
-            transition: all .5s ease;
-        }
-        #more:hover {
-            background: #cfc1ff;
-        }
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Light Italic"), local("Roboto-LightItalic"),
+          url("Robotolightitalic.ttf") format("truetype");
+        font-weight: 300;
+        font-style: italic;
+      }
 
-        #cta {
-          cursor: pointer;
-          display: inline-flex;
-          margin: 0 auto;
-          width: 127px;
-          height: 32px;
-        }
-        #layer {
-          flex-grow: 1;
-        }
-        body {
-          display: flex;
-          flex-direction: column;
-        }
-        #ad {
-          /*display: none;*/
-          width: 100%;
-          height: 100%;
-          /*background: rgba(0, 0, 0, 0.8);*/
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto"), local("Roboto-Regular"),
+          url("Roboto.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
 
-          display: flex;
-          flex-direction: column;
-        }
-        #buttons {
-          display: flex;
-        }
-        .button {
-          flex-grow: 1;          
-        }
-        .button img {
-          width: 176px;
-          height: 42px;
-          cursor: pointer;
-          margin: 0 auto;
-          display: block;
-          margin-bottom: 10px;
-        }
-        .hide {
-          display: none !important;
-        }
-        #mainAd {
-          flex-grow: 1;
-          display: flex;
-          padding: 20px 50px;
-          min-height: 100px;
-          flex-flow: row;
-          justify-content: center;
-        }
-        #mainAd span {
-          font-size: 14px;
-        }
-        #phone {
-          width: 100%;
-          margin-top: 10px;
-          font-size: 17px;
-          background: transparent;
-          border: 0px;
-          border-bottom: 1px solid;
-        }
-        .itemVariant {
-          display: flex;
-          padding: 20px;
-        }
-        .itemVariant img {
-          width: 136px; 
-          height: 165px;
-        }
-  </style>
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Italic"), local("Roboto-Italic"),
+          url("Robotoitalic.ttf") format("truetype");
+        font-weight: 400;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Medium"), local("Roboto-Medium"),
+          url("Robotomedium.ttf") format("truetype");
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Medium Italic"), local("Roboto-MediumItalic"),
+          url("Robotomediumitalic.ttf") format("truetype");
+        font-weight: 500;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Bold"), local("Roboto-Bold"),
+          url("Robotobold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Bold Italic"), local("Roboto-BoldItalic"),
+          url("Robotobolditalic.ttf") format("truetype");
+        font-weight: 700;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Black"), local("Roboto-Black"),
+          url("Robotoblack.ttf") format("truetype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Black Italic"), local("Roboto-BlackItalic"),
+          url("Robotoblackitalic.ttf") format("truetype");
+        font-weight: 900;
+        font-style: italic;
+      }
+
+      * {
+        color: white;
+        font-family: "Roboto", Arial, Helvetica, sans-serif;
+      }
+
+      #timer,
+      #close {
+        position: absolute;
+        top: 15px;
+        font-size: 14px;
+        font-weight: 300;
+        color: white;
+        text-shadow: 2px 2px 3px black, 0 0 1em black;
+        font-family: sans-serif;
+      }
+
+      #timer {
+        left: 15px;
+        z-index: 3;
+      }
+
+      #close {
+        right: 15px;
+        cursor: pointer;
+        z-index: 50;
+      }
+
+      #click {
+        width: 60%;
+        position: absolute;
+        height: 60%;
+        top: 2%;
+        left: 39%;
+        opacity: 0;
+        z-index: 15500;
+        cursor: pointer;
+      }
+
+      #click[data-event="ad-resume"] {
+        background: #000000 url(play_btn.png) no-repeat center;
+        opacity: 0.75;
+        z-index: 1000;
+        transition: opacity 0.25s linear;
+      }
+
+      #click[data-event="ad-resume"]:hover {
+        opacity: 0.25;
+      }
+
+      #sound {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        bottom: 7px;
+        right: 7px;
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.5);
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: 5px;
+        z-index: 150;
+      }
+
+      #sound[data-event="ad-mute"] {
+        background-image: url(sound.png);
+      }
+
+      #sound[data-event="ad-unmute"] {
+        background-image: url(mute.png);
+      }
+
+      #more {
+        position: absolute;
+        left: 15px;
+        bottom: 30px;
+        display: inline-block;
+        display: none;
+        width: 110px;
+        padding: 5px;
+        border-radius: 2px;
+        text-align: center;
+        background: #ffdcf1;
+        color: rgba(33, 24, 26, 1);
+        cursor: pointer;
+        transition: all 0.5s ease;
+      }
+
+      #more:hover {
+        background: #cfc1ff;
+      }
+
+      #cta {
+        cursor: pointer;
+        display: inline-flex;
+        margin: 0 auto;
+        width: 127px;
+        height: 32px;
+      }
+
+      #layer {
+        flex-grow: 1;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #ad {
+        /*display: none;*/
+        width: 100%;
+        height: 100%;
+        /*background: rgba(0, 0, 0, 0.8);*/
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      #buttons {
+        display: flex;
+      }
+
+      .button {
+        flex-grow: 1;
+      }
+
+      .button img {
+        width: 176px;
+        height: 42px;
+        cursor: pointer;
+        margin: 0 auto;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .hide {
+        display: none !important;
+      }
+
+      #mainAd {
+        flex-grow: 1;
+        display: flex;
+        /*padding: 20px 50px*/
+        min-height: 100px;
+        flex-flow: row;
+        justify-content: center;
+      }
+
+      #mainAd span {
+        font-size: 14px;
+      }
+
+      #phone {
+        width: 100%;
+        margin-top: 10px;
+        font-size: 17px;
+        background: transparent;
+        border: 0px;
+        border-bottom: 1px solid;
+      }
+
+      .itemVariant {
+        display: flex;
+        padding: 20px;
+      }
+
+      .itemVariant img {
+        width: 136px;
+        height: 165px;
+      }
+    </style>
+    <link rel="stylesheet" href="./glider.min.css" />
+    <style>
+    #glider { 
+      margin-top: 50px; 
+      }
+      .glider-prev {
+        top: 120px;
+      }
+      .glider-next {
+        top: 120px;
+      }
+    </style>
+
   </head>
-<body>
-  <!--https://wd.dizaina.net/scripts/peppermint/-->
+
+  <body>
+    <!--https://wd.dizaina.net/scripts/peppermint/-->
     <div id="layer" class="">
       <div id="ad" class="hide">
-          <div id="mainAd">           
-            <div class="itemVariant">
-              <img src="item-1@2x.png" alt="1"/>
-            </div> 
-            <div class="itemVariant">
-              <img src="item-2@2x.png" alt="1"/>
-            </div> 
-            <div class="itemVariant">
-              <img src="item-3@2x.png" alt="1"/>
-            </div> 
-          </div>          
+        <div id="mainAd">
+          <div class="glider-contain">
+            <div class="glider" id="glider">
+              <div class="itemVariant">
+                <a href="tel:88003331616"><img src="item-1@2x.png" alt="1" /></a>
+              </div>
+              <div class="itemVariant">
+                  <a href="tel:88003331616"><img src="item-1@2x.png" alt="1" /></a>
+              </div>
+              <div class="itemVariant">
+                  <a href="tel:88003331616"><img src="item-1@2x.png" alt="1" /></a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
+
     <div id="timer" data-event="ad-timer" class="hide"></div>
     <div id="sound" data-event="ad-mute"></div>
     <div id="close" data-event="ad-close1">
-      <img src='close-new@2x.png' style="width: 37px; height: 37px;" alt="close"/>
+      <img
+        src="close-new@2x.png"
+        style="width: 37px; height: 37px;"
+        alt="close"
+      />
     </div>
-
 
     <div id="bg-left" class="bg-fields"></div>
     <div id="bg-right" class="bg-fields"></div>
@@ -267,97 +336,112 @@
     <div id="bg-bottom" class="bg-fields"></div>
 
     <div id="cta">
-      <img src="cta@2x.png" style="width: 127px; height: 32px;" alt="cta"/>
+      <img src="cta@2x.png" style="width: 127px; height: 32px;" alt="cta" />
     </div>
-  
+
     <script type="text/javascript" src="interface.js"></script>
-
+    <script type="text/javascript" src="glider.js"></script>
     <script type="text/javascript">
-        var app = new Interface();
+      var app = new Interface();
 
-          app.additionalParams = {
-            clickOnVideo: false
-          }
+      var glider = new Glider(document.querySelector(".glider"), {
+        itemWidth: 136,
+        exactWidth: false,
+        slidesToShow: 3       
+      });
 
-          var randomString = function(length) {
-            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-          };
+      app.additionalParams = {
+        clickOnVideo: false
+      };
 
-          var replaceRandom = function(contentURL) {
-            var output = contentURL.replace(/\[RANDOM\]/g, randomString(12));
-            var currentTimestamp = new Date().getTime();
+      var randomString = function(length) {
+        return Math.round(
+          Math.pow(36, length + 1) - Math.random() * Math.pow(36, length)
+        )
+          .toString(36)
+          .slice(1);
+      };
 
-            output = output.replace(/\[timestamp\]/g, currentTimestamp);
-            output = output.replace(/\[TIMESTAMP\]/g, currentTimestamp);
+      var replaceRandom = function(contentURL) {
+        var output = contentURL.replace(/\[RANDOM\]/g, randomString(12));
+        var currentTimestamp = new Date().getTime();
 
-            output = output.replace(/\%random\%/g, randomString(12));
-            output = output.replace(/\%RANDOM\%/g, randomString(12));
+        output = output.replace(/\[timestamp\]/g, currentTimestamp);
+        output = output.replace(/\[TIMESTAMP\]/g, currentTimestamp);
 
-            return output;
-          }
+        output = output.replace(/\%random\%/g, randomString(12));
+        output = output.replace(/\%RANDOM\%/g, randomString(12));
 
-          var addLink = function(link) {
-            link = replaceRandom(link);
-            var trackingImage = document.createElement('img');
-            trackingImage.id = "viewst_tracking_image_" + randomString(12);
-            trackingImage.alt = "viewst_tracking_image";
-            //trackingImage.src = link;
-            trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
-            document.body.appendChild(trackingImage);
+        return output;
+      };
 
-            var newImg = new Image;
-            newImg.onload = function() {
-              trackingImage.src = this.src;
-            }
-            newImg.src = link;
-          };
+      var addLink = function(link) {
+        link = replaceRandom(link);
+        var trackingImage = document.createElement("img");
+        trackingImage.id = "viewst_tracking_image_" + randomString(12);
+        trackingImage.alt = "viewst_tracking_image";
+        //trackingImage.src = link;
+        trackingImage.style.cssText =
+          "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+        document.body.appendChild(trackingImage);
 
+        var newImg = new Image();
+        newImg.onload = function() {
+          trackingImage.src = this.src;
+        };
+        newImg.src = link;
+      };
 
-        document.getElementById('cta').addEventListener("click", function(e) {
-          document.getElementById('cta').classList.add("hide");
-          document.getElementById('ad').classList.remove("hide");
-          //app.setAdVolume(0);
-          app.pause();
+      document.getElementById("cta").addEventListener("click", function(e) {
+        document.getElementById("cta").classList.add("hide");
+        document.getElementById("ad").classList.remove("hide");
+        //app.setAdVolume(0);
+        app.pause();
+      });
+
+      document.getElementById("close").addEventListener("click", function(e) {
+        //console.log("close click");
+        app.close();
+      });
+
+      var buttons = document.getElementsByClassName("button");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function(e) {
+          var url = this.attributes.rel.value;
+
+          var phone = document.getElementById("phone").value;
+          addLink(
+            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=ayvazzovsky&domain=" +
+              phone +
+              "&frame=NO_IFRAME&publishers=vast"
+          );
+          //console.log("button", this.attributes.rel.value);
+          app.clickByURL(url);
         });
+      }
 
+      app.stateChange(function(state, data) {
+        switch (state) {
+          case "SetConfig":
+            /**init viewst button on video**/
 
-        document.getElementById('close').addEventListener("click", function(e) {
-          //console.log("close click");
-          app.close();
-        });
+            /*layer.addEventListener("click", function(e) {
+              console.log("layer click", e);
+              app.click();
+            });*/
 
-        var buttons = document.getElementsByClassName('button');
-        for (var i=0; i<buttons.length; i++) {
-          buttons[i].addEventListener("click", function(e) {
-            var url = this.attributes.rel.value;
-
-            var phone = document.getElementById("phone").value;
-            addLink("https://dsp-parser.viewst.com/getdspimg/?campaign_id=ayvazzovsky&domain="+phone+"&frame=NO_IFRAME&publishers=vast");
-            //console.log("button", this.attributes.rel.value);
-            app.clickByURL(url);
-          });
+            break;
+          case "AdVideoComplete":
+            app.setFlags("userInteraction", true);
+            break;
         }
+      });
+      app.initFromDOM(document.body);
 
-        app.stateChange(function (state, data) {
-            switch (state) {
-                case "SetConfig":
-                    /**init viewst button on video**/
-
-                    /*layer.addEventListener("click", function(e) {
-                        console.log("layer click", e);
-                        app.click();
-                      });*/
-
-                    break;
-                case "AdVideoComplete":
-                    app.setFlags("userInteraction", true);
-                    break;
-            };
-        });
-        app.initFromDOM(document.body);
-
-        function pauseMe() { app.pause(); }
-        window.pauseMe = pauseMe;
-    </script> 
-</body>
+      function pauseMe() {
+        app.pause();
+      }
+      window.pauseMe = pauseMe;
+    </script>
+  </body>
 </html>

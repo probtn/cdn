@@ -1,0 +1,44 @@
+<VAST version="2.0">
+<Ad id="1">
+<InLine>
+<AdSystem>WARM</AdSystem>
+<AdTitle>VAST otkritie</AdTitle>
+<Creatives>
+<Creative>
+<Linear>
+<Duration>00:01:21</Duration>
+<TrackingEvents>
+	<Tracking event="start"><![CDATA[https://cdn.viewst.com/libs/vast/start.gif?event=start]]></Tracking>
+	<Tracking event="close"><![CDATA[https://demo.probtn.com/testing/vast/close.gif?event=close]]></Tracking>
+</TrackingEvents>
+<VideoClicks>
+    <ClickTracking>
+		<![CDATA[https://cdn.viewst.com/libs/vast/click.gif?event=start]]>
+	</ClickTracking>
+</VideoClicks>
+<Impression>
+	<![CDATA[https://cdn.viewst.com/libs/blank.gif?event=impression]]>
+</Impression>
+<AdParameters>
+<![CDATA[
+{ 
+	"mediapath": "https://cdn.viewst.com/video/ads/imho/otkritie/", 
+	"mediafiles": [ {"src": "https://cdn.viewst.com/video/ads/imho/otkritie/video.mp4","type":"video/mp4"} ], 
+	"warm": { "uuid": "414714052ed3327a71b1d2a0aa23954a" }, 
+	"clicks": { "default": "https://viewst.com/?utm_source=vast&utm_medium=vast&utm_campaign=vast_probtn_video_test&utm_content=branded"}
+}
+]]>
+</AdParameters>
+<MediaFiles>
+<MediaFile maintainAspectRatio="true" scalable="true" delivery="progressive" width="640" height="360" bitrate="256" apiFramework="VPAID" type="application/javascript">
+<![CDATA[
+https://cdn.viewst.com/libs/vast/vpaid.linear.js
+]]>
+</MediaFile>
+</MediaFiles>
+</Linear>
+</Creative>
+</Creatives>
+</InLine>
+</Ad>
+</VAST>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width,minimum-scale=1,initial-scale=1"
+    />
+    <meta charset="UTF-8" />
+    <title>Viewst test VAST add</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      @font-face {
+        font-family: "Roboto";
+        src: local("Roboto Light"), local("Roboto-Light"),
+          url("Robotolight.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+
+
+      * {
+        color: white;
+        font-family: "Roboto", Arial, Helvetica, sans-serif;
+      }
+
+      #timer,
+      #close {
+        position: absolute;
+        top: 15px;
+        font-size: 14px;
+        font-weight: 300;
+        color: white;
+        text-shadow: 2px 2px 3px black, 0 0 1em black;
+        font-family: sans-serif;
+      }
+
+      #timer {
+        left: 15px;
+        z-index: 3;
+      }
+
+      #close {
+        right: 15px;
+        cursor: pointer;
+        z-index: 50;
+      }
+
+      #click {
+        width: 60%;
+        position: absolute;
+        height: 60%;
+        top: 2%;
+        left: 39%;
+        opacity: 0;
+        z-index: 15500;
+        cursor: pointer;
+      }
+
+      #click[data-event="ad-resume"] {
+        background: #000000 url(play_btn.png) no-repeat center;
+        opacity: 0.75;
+        z-index: 1000;
+        transition: opacity 0.25s linear;
+      }
+
+      #click[data-event="ad-resume"]:hover {
+        opacity: 0.25;
+      }
+
+      #sound {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        bottom: 7px;
+        left: 7px;
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.5);
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: 5px;
+        z-index: 150;
+      }
+
+      #sound[data-event="ad-mute"] {
+        background-image: url(sound.png);
+      }
+
+      #sound[data-event="ad-unmute"] {
+        background-image: url(mute.png);
+      }
+
+      #more {
+        position: absolute;
+        left: 15px;
+        bottom: 30px;
+        display: inline-block;
+        display: none;
+        width: 110px;
+        padding: 5px;
+        border-radius: 2px;
+        text-align: center;
+        background: #ffdcf1;
+        color: rgba(33, 24, 26, 1);
+        cursor: pointer;
+        transition: all 0.5s ease;
+      }
+
+      #more:hover {
+        background: #cfc1ff;
+      }
+
+      #cta {
+        cursor: pointer;
+        display: block;
+        position: fixed;
+        bottom: 40px; 
+        right: 0px;
+        margin: 0 auto;
+        width: 166px;
+        height: 45px;
+      }
+
+      #layer {
+        flex-grow: 1;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #ad {
+        /*display: none;*/
+        width: 100%;
+        height: 100%;
+        /*background: rgba(0, 0, 0, 0.8);*/
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      #buttons {
+        display: flex;
+      }
+
+      .button {
+        flex-grow: 1;
+      }
+
+      .button img {
+        width: 176px;
+        height: 42px;
+        cursor: pointer;
+        margin: 0 auto;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .hide {
+        display: none !important;
+      }
+
+      #mainAd {
+        flex-grow: 1;
+        display: flex;
+        /*padding: 20px 50px*/
+        min-height: 100px;
+        flex-flow: row;
+        justify-content: center;
+      }
+
+      #mainAd span {
+        font-size: 14px;
+      }
+
+      #phone {
+        width: 100%;
+        margin-top: 10px;
+        font-size: 17px;
+        background: transparent;
+        border: 0px;
+        border-bottom: 1px solid;
+      }
+
+      .itemVariant {
+        display: flex;
+        padding: 20px;
+      }
+
+      .itemVariant img {
+        width: 136px;
+        height: 165px;
+      }
+    </style>
+
+
+  </head>
+
+  <body>
+    <!--https://wd.dizaina.net/scripts/peppermint/-->
+    <div id="layer" class="">
+      <div id="ad" class="hide">
+        <div id="mainAd">
+
+        </div>
+      </div>
+    </div>
+
+    <div id="timer" data-event="ad-timer" class="hide"></div>
+    <div id="sound" data-event="ad-mute"></div>
+    <div id="close" data-event="ad-close1">
+      <img
+        src="close-new@2x.png"
+        style="width: 37px; height: 37px;"
+        alt="close"
+      />
+    </div>
+
+    <div id="bg-left" class="bg-fields"></div>
+    <div id="bg-right" class="bg-fields"></div>
+    <div id="bg-top" class="bg-fields"></div>
+    <div id="bg-bottom" class="bg-fields"></div>
+
+    <div id="cta">
+      <img src="cta-1@2x.png" style="width: 166px; height: 45px;" alt="cta" />
+    </div>
+
+    <script type="text/javascript" src="interface.js"></script>
+    <script type="text/javascript">
+      var app = new Interface();
+
+
+      app.additionalParams = {
+        clickOnVideo: false
+      };
+
+      var randomString = function(length) {
+        return Math.round(
+          Math.pow(36, length + 1) - Math.random() * Math.pow(36, length)
+        )
+          .toString(36)
+          .slice(1);
+      };
+
+      var replaceRandom = function(contentURL) {
+        var output = contentURL.replace(/\[RANDOM\]/g, randomString(12));
+        var currentTimestamp = new Date().getTime();
+
+        output = output.replace(/\[timestamp\]/g, currentTimestamp);
+        output = output.replace(/\[TIMESTAMP\]/g, currentTimestamp);
+
+        output = output.replace(/\%random\%/g, randomString(12));
+        output = output.replace(/\%RANDOM\%/g, randomString(12));
+
+        return output;
+      };
+
+      var addLink = function(link) {
+        link = replaceRandom(link);
+        var trackingImage = document.createElement("img");
+        trackingImage.id = "viewst_tracking_image_" + randomString(12);
+        trackingImage.alt = "viewst_tracking_image";
+        //trackingImage.src = link;
+        trackingImage.style.cssText =
+          "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+        document.body.appendChild(trackingImage);
+
+        var newImg = new Image();
+        newImg.onload = function() {
+          trackingImage.src = this.src;
+        };
+        newImg.src = link;
+      };
+
+      var skipAd = true;
+      setTimeout(function() {
+        if (skipAd) {
+          console.log("close by timer");
+          app.close();
+        }
+      }, 15000);
+
+      document.getElementById("cta").addEventListener("click", function(e) {
+        document.getElementById("cta").classList.add("hide");
+        skipAd = false;
+        //app.setAdVolume(0);
+        app.pause();
+      });
+
+      document.getElementById("close").addEventListener("click", function(e) {
+        //console.log("close click");
+        app.close();
+      });
+
+      var buttons = document.getElementsByClassName("button");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function(e) {
+          var url = this.attributes.rel.value;
+
+          var phone = document.getElementById("phone").value;
+          addLink(
+            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=ayvazzovsky&domain=" +
+              phone +
+              "&frame=NO_IFRAME&publishers=vast"
+          );
+          //console.log("button", this.attributes.rel.value);
+          app.clickByURL(url);
+        });
+      }
+
+      app.stateChange(function(state, data) {
+        switch (state) {
+          case "SetConfig":
+            /**init viewst button on video**/
+
+            /*layer.addEventListener("click", function(e) {
+              console.log("layer click", e);
+              app.click();
+            });*/
+
+            break;
+          case "AdVideoComplete":
+            app.setFlags("userInteraction", true);
+            break;
+        }
+      });
+      app.initFromDOM(document.body);
+
+      function pauseMe() {
+        app.pause();
+      }
+      window.pauseMe = pauseMe;
+    </script>
+  </body>
+</html>
