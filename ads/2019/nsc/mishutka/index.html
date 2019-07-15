@@ -472,6 +472,7 @@
         buttons[i].addEventListener("click", function(e) {          
           var url = this.attributes.rel.value;
           //console.log(url);
+          addLink("https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=click&frame=NO_IFRAME&publishers=NSC");
           app.click(); //app.clickByURL(url);
           app.pause();
         });
@@ -486,6 +487,7 @@
               console.log("layer click", e);
               app.click();
             });*/
+            addLink("https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=show&frame=NO_IFRAME&publishers=NSC");
             break;
           case "AdVideoComplete":
             app.setFlags("userInteraction", true);
