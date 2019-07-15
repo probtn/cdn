@@ -190,7 +190,7 @@
     };
     Interface.prototype.click = function(name) {
         name = name || "default";
-        debugger;
+        //debugger;
         if (this.customParams["plc"]) { // if only player should open url
             sendToAPP("action", {type: "AdClickThru", id: name, url: getClickURL(this.clicks, name)}, this.id);
         } else {
