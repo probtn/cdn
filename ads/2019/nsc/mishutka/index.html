@@ -376,7 +376,7 @@
     <div id="bg-top" class="bg-fields"></div>
     <div id="bg-bottom" class="bg-fields"></div>
 
-    <div id="cta" rel="https://mishutka52.ru/?utm_source=rmedia&utm_medium=cpm&utm_campaign=showjet">
+    <div id="cta" class="hide" rel="https://mishutka52.ru/?utm_source=rmedia&utm_medium=cpm&utm_campaign=showjet">
       <div id="index_hype_container" style="margin:auto;position:relative;width:190px;height:62px;overflow:hidden;">
         <script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?80127"></script>
       </div>
@@ -458,6 +458,10 @@
         app.pause();
       });*/
 
+      setTimeout(function() {
+        document.getElementById("cta").classList.remove("hide");
+      }, 3000);
+
       document.getElementById("close").addEventListener("click", function(e) {
         //console.log("close click");
         app.close();
@@ -468,7 +472,7 @@
         buttons[i].addEventListener("click", function(e) {          
           var url = this.attributes.rel.value;
           //console.log(url);
-          app.clickByURL(url);
+          app.click(); //app.clickByURL(url);
           app.pause();
         });
       }
@@ -476,6 +480,7 @@
       app.stateChange(function(state, data) {
         switch (state) {
           case "SetConfig":
+           //app.customParams['plc'] = true;
             /**init viewst button on video**/
             /*layer.addEventListener("click", function(e) {
               console.log("layer click", e);

@@ -190,6 +190,7 @@
     };
     Interface.prototype.click = function(name) {
         name = name || "default";
+        debugger;
         if (this.customParams["plc"]) { // if only player should open url
             sendToAPP("action", {type: "AdClickThru", id: name, url: getClickURL(this.clicks, name)}, this.id);
         } else {
@@ -313,7 +314,9 @@
                 this.components.timer.innerText = "Реклама | " + Math.round(data.totalTime - data.currentTime) + " сек.";
                 break;
             case "AdSkippableStateChange":
-                this.components.close.style.display = "block";
+                if (this.components.close) {
+                    this.components.close.style.display = "block";
+                }
                 break;
             case "AdVolumeChange":
                 if (this.components.sound) {

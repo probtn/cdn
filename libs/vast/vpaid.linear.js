@@ -197,12 +197,21 @@
         }(), this.slot = this.targetWindow.document.body, this.initEvents(this.targetWindow)
       },
       stop: function () {
-        this.active && (this.targetWindow.removeEventListener("resize", this.updateSize), this.targetWindow.removeEventListener("scroll", this.updateSize))
+        if (this.active) {
+          this.targetWindow.removeEventListener("resize", this.updateSize);
+          this.targetWindow.removeEventListener("scroll", this.updateSize);
+          this.targetWindow.removeEventListener("orientationchange", this.updateSize);
+        }
       },
       initEvents: function (t) {
-        this.updateSize = this.updateSize.bind(this), t.addEventListener("resize", this.updateSize), t.addEventListener("scroll", this.updateSize)
+        console.log("initEvents", t);
+        this.updateSize = this.updateSize.bind(this);
+         t.addEventListener("resize", this.updateSize);
+         t.addEventListener("orientationchange", this.updateSize);
+         t.addEventListener("scroll", this.updateSize);
       },
       updateSize: function () {
+        console.log("updateSize");
         var t = getNewSizes(this.environmentSlot, this.targetWindow);
         videoDomElementsAndPostMessages.update({
           type: "AdResize",
@@ -376,9 +385,21 @@
           //from TrckingEvents in XML
           //TRACKING HERE
           //console.log("d(creativeEvent)", creativeEvent);
-          if ((creativeEvent.type == eventDescriptionObject.AdUserClose) || (creativeEvent.type == eventDescriptionObject.AdStopped)) {
+          if ((creativeEvent.type == eventDescriptionObject.AdUserClose) || 
+            (creativeEvent.type == eventDescriptionObject.AdStopped)) {
           }
-          e.fn && (creativeEvent.type == eventDescriptionObject.AdClickThru && mainAdObject.customParams.plc ? e.fn.call(e.ctx, creativeEvent.data.url, creativeEvent.data.id, creativeEvent.data.playerHandles) : e.fn.call(e.ctx, creativeEvent))
+          if (e.fn) {
+              if (creativeEvent.type == eventDescriptionObject.AdClickThru && 
+                mainAdObject.customParams.plc) {
+                    e.fn.call(e.ctx, creativeEvent.data.url, creativeEvent.data.id, creativeEvent.data.playerHandles)
+                } else {
+                    e.fn.call(e.ctx, creativeEvent, creativeEvent.data.id, false);
+                }
+          }; 
+          /*&& (creativeEvent.type == eventDescriptionObject.AdClickThru && 
+            mainAdObject.customParams.plc ? 
+                e.fn.call(e.ctx, creativeEvent.data.url, creativeEvent.data.id, creativeEvent.data.playerHandles) : 
+                e.fn.call(e.ctx, creativeEvent))*/
         })
       }
     };
@@ -882,6 +903,14 @@
             })
           });
         }
+
+        var parentThis = this;
+        window.addEventListener("orientationchange", function(e) {
+          console.log("orientationchange", e);
+          parentThis.updateSize("orientationchange");
+        });
+
+
         this.updateSize();
         mainAdObject.realWindow.addEventListener("message", function (recieveMessage) {
           //console.log("mainAdObject recieveMessage", recieveMessage);
@@ -939,7 +968,7 @@
         function e(t) {
           return t + ("string" == typeof t ? "" : "px")
         }
-
+        console.log('resizeVideoElement', this.videoElement);
         this.videoElement && this.videoElement.style && ((0 != t.left && 0 !== t.left.indexOf("0") || 0 != t.top && 0 !== t.top.indexOf("0") || "100%" !== t.width || "100%" !== t.height) && (mainAdObject.flags.resizeVideoElement = !0, this.videoElement.style.position = "absolute"), this.videoElement.style.width = e(t.width), this.videoElement.style.height = e(t.height), this.videoElement.style.top = e(t.top), this.videoElement.style.left = e(t.left))
       },
       translateVideoElement: function (t) {
@@ -950,8 +979,25 @@
           this.videoElement.style.webkitTransform = a, this.videoElement.style.transform = a
         }
       },
-      updateSize: function () {
-        return !!this.root && (S.active && S.updateSize(), void (mainAdObject.customParams.fh || (this.root.style.width = mainAdObject.adSize.width + "px", this.root.style.height = mainAdObject.adSize.height + "px", !mainAdObject.flags.resizeVideoElement && this.videoElement && this.videoElement.style && (this.videoElement.style.width = mainAdObject.adSize.width + "px", this.videoElement.style.height = mainAdObject.adSize.height + "px"))))
+      updateSize: function (type) {
+        var mainAdObject2 = mainAdObject;
+        if (type === "orientationchange") {
+          if (screen.availWidth !== mainAdObject2.adSize.width) {
+            mainAdObject2.adSize.width = screen.availWidth;
+            mainAdObject2.adSize.height = screen.availHeight;
+          } else {
+            if ((window.orientation === 90) || (window.orientation === 270)) {
+              mainAdObject2.adSize.width = screen.availHeight;
+              mainAdObject2.adSize.height = screen.availWidth;
+            }
+          }
+        }       
+        
+        console.log("updateSize2", mainAdObject2.adSize);
+        //debugger;
+        return !!this.root && (S.active && S.updateSize(), void (mainAdObject2.customParams.fh || (this.root.style.width = mainAdObject2.adSize.width + "px", this.root.style.height = mainAdObject2.adSize.height + "px", !mainAdObject2.flags.resizeVideoElement && this.videoElement && this.videoElement.style && (this.videoElement.style.width = mainAdObject2.adSize.width + "px", this.videoElement.style.height = mainAdObject2.adSize.height + "px"))));
+        //return !!this.root && (S.active && S.updateSize(), void (mainAdObject.customParams.fh || (this.root.style.width = mainAdObject.adSize.width + "px", this.root.style.height = mainAdObject.adSize.height + "px", !mainAdObject.flags.resizeVideoElement && this.videoElement && this.videoElement.style && (this.videoElement.style.width = mainAdObject.adSize.width + "px", this.videoElement.style.height = mainAdObject.adSize.height + "px"))));
+        return true;
       },
       setETDuration: function (t) {
         videoDomElementsAndPostMessages.etDuration >= 0 ? videoDomElementsAndPostMessages.etDuration += t : videoDomElementsAndPostMessages.etDuration = t
@@ -1334,6 +1380,7 @@
       }
     };
     possibleMainAdUnit.prototype.resizeAd = function (t, e, i) {
+      console.log("resizeAd");
       injectContentObject.log("resizeAd", arguments);
       var a = mainAdObject.fullscreen;
       mainAdObject.adSize = {
