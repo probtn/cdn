@@ -384,7 +384,7 @@
       };
 
       //setTimeout(function() {
-      tracking.trackEvent("Showed");
+      
       //}, 5000);
 
       document.getElementById("close").addEventListener("click", function(e) {
@@ -415,6 +415,7 @@
             tracking.addLink(
               "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=show&frame=NO_IFRAME&publishers=NSC"
             );
+			tracking.trackEvent("Showed");
             break;
           case "AdVideoComplete":
             app.setFlags("userInteraction", true);
