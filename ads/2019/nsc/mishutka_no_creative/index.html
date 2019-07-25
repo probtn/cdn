@@ -370,6 +370,9 @@
   <script type="text/javascript">
     var app = new Interface();
     var tracking = customTrackingEvents();
+    var currentTime = 0;
+    var setConfigTime = 0;
+    setInterval(function() { currentTime = currentTime + 100 }, 100);
 
     var updateCTAScale = function () {
       var maxHeight = 152;
@@ -391,7 +394,7 @@
 
     document.getElementById("close").addEventListener("click", function (e) {
       tracking.addLink(
-        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=closed&frame=NO_IFRAME&publishers=NSC"
+        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=closed&frame=NO_IFRAME&publishers="+currentTime+"_"+setConfigTime
       );
       tracking.trackEvent("Closed");
       app.close();
@@ -399,7 +402,7 @@
 
     document.getElementById("layer").addEventListener("click", function (e) {
       tracking.addLink(
-        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=layer_click&frame=NO_IFRAME&publishers=NSC"
+        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=layer_click&frame=NO_IFRAME&publishers="+currentTime+"_"+setConfigTime
       );
       //tracking.trackEvent("ContentShowed");
       app.click();
@@ -412,7 +415,7 @@
         var url = this.attributes.rel.value;
         //console.log(url);
         tracking.addLink(
-          "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=click&frame=NO_IFRAME&publishers=NSC"
+          "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=click&frame=NO_IFRAME&publishers="+currentTime+"_"+setConfigTime
         );
         tracking.trackEvent("ContentShowed");
         app.click(); //app.clickByURL(url);
@@ -425,15 +428,17 @@
         case "SetConfig":
           if (data.tracking) {
             tracking = customTrackingEvents(data.tracking);
-          }
+          }          
+          setInterval(function() { setConfigTime = setConfigTime + 100 }, 100);
+          
           tracking.addLink(
-            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=setconfig&frame=NO_IFRAME&publishers=NSC"
+            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=setconfig&frame=NO_IFRAME&publishers="+currentTime+"_"+setConfigTime+"_"+setConfigTime
           );
           break;
         case "AdStarted":
           tracking.trackEvent("Showed");
           tracking.addLink(
-            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=adstarted&frame=NO_IFRAME&publishers=NSC"
+            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=adstarted&frame=NO_IFRAME&publishers="+currentTime+"_"+setConfigTime
           );
           break;
         case "AdVideoComplete":
