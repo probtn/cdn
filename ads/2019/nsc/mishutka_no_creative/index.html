@@ -391,7 +391,7 @@
 
     document.getElementById("close").addEventListener("click", function (e) {
       tracking.addLink(
-        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=closed&frame=NO_IFRAME&publishers=NSC"
+        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=closed&frame=NO_IFRAME&publishers=NSC"
       );
       tracking.trackEvent("Closed");
       app.close();
@@ -399,26 +399,26 @@
 
     document.getElementById("layer").addEventListener("click", function (e) {
       tracking.addLink(
-        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=layer_click&frame=NO_IFRAME&publishers=NSC"
+        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=layer_click&frame=NO_IFRAME&publishers=NSC"
       );
       //tracking.trackEvent("ContentShowed");
       app.click();
       app.pause();
     });
 
-    var buttons = document.querySelectorAll("#cta");
+    /*var buttons = document.querySelectorAll("#cta");
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", function (e) {
         var url = this.attributes.rel.value;
         //console.log(url);
         tracking.addLink(
-          "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=click&frame=NO_IFRAME&publishers=NSC"
+          "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=click&frame=NO_IFRAME&publishers=NSC"
         );
         tracking.trackEvent("ContentShowed");
         app.click(); //app.clickByURL(url);
         app.pause();
       });
-    }
+    }*/
 
     app.stateChange(function (state, data) {
       switch (state) {
@@ -427,13 +427,13 @@
             tracking = customTrackingEvents(data.tracking);
           }
           tracking.addLink(
-            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=setconfig&frame=NO_IFRAME&publishers=NSC"
+            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=setconfig&frame=NO_IFRAME&publishers=NSC"
           );
           break;
         case "AdStarted":
           tracking.trackEvent("Showed");
           tracking.addLink(
-            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=adstarted&frame=NO_IFRAME&publishers=NSC"
+            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=adstarted&frame=NO_IFRAME&publishers=NSC"
           );
           break;
         case "AdVideoComplete":
