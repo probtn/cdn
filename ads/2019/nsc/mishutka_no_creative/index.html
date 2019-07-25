@@ -372,7 +372,7 @@
     var tracking = customTrackingEvents();
     var currentTime = 0;
     var setConfigTime = 0;
-    setInterval(function() { currentTime = currentTime + 100 }, 100);
+    //setInterval(function() { currentTime = currentTime + 100 }, 100);
 
     var updateCTAScale = function () {
       var maxHeight = 152;
@@ -429,10 +429,10 @@
           if (data.tracking) {
             tracking = customTrackingEvents(data.tracking);
           }          
-          setInterval(function() { setConfigTime = setConfigTime + 100 }, 100);
+          //setInterval(function() { setConfigTime = setConfigTime + 100 }, 100);
           
           tracking.addLink(
-            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=setconfig&frame=NO_IFRAME&publishers="+currentTime+"_"+setConfigTime+"_"+setConfigTime
+            "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1_nocreative&domain=setconfig&frame=NO_IFRAME&publishers="+currentTime+"_"+setConfigTime
           );
           break;
         case "AdStarted":

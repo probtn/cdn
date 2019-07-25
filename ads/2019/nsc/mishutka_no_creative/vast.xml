@@ -1,191 +1,182 @@
 <VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
-    <Ad id="43668" sequence="1">
-        <InLine>
-            <AdSystem version="1.0">1.0</AdSystem>
-            <AdTitle/>
-            <Description/>
-            <Error>
-                <![CDATA[
+<Ad id="43668" sequence="1">
+<InLine>
+<AdSystem version="1.0">1.0</AdSystem>
+<AdTitle/>
+<Description/>
+<Error>
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=err&tpy=m&eid=5d2cad630588a9000191636d
 ]]>
-            </Error>
-            <Impression>
-                <![CDATA[
+</Error>
+<Impression>
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=imp&tpy=m&eid=5d2cad630588a9000191636e
 ]]>
-            </Impression>
-            <Creatives>
-                <Creative id="99121">
-                    <Linear>
-                        <Duration>00:00:20</Duration>
-                        <AdParameters>
-                            <![CDATA[
-{"mediapath":"https:\/\/cdn.viewst.com\/ads\/2019\/nsc\/mishutka\/",
-"mediafiles":[{"src":"https:\/\/cdn.viewst.com\/ads\/2019\/nsc\/mishutka\/video.mp4",
-"type":"video\/mp4"}],"warm":{"uuid":"414714052ed3327a71b1d2a0aa23954a"},
-"clicks":{"default":"https:\/\/mishutka52.ru\/?utm_source=rmedia&utm_medium=cpm&utm_campaign=showjet"},
-"tracking":
-{"ContentShowed":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m1&eid=5d2cad630588a90001916373"],
-"Moved":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m2&eid=5d2cad630588a90001916374"],
-"Closed":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m3&eid=5d2cad630588a90001916375"],
-"Showed":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m4&eid=5d2cad630588a90001916376"]
-}}
+</Impression>
+<Creatives>
+<Creative id="99121">
+<Linear>
+<Duration>00:00:20</Duration>
+<AdParameters>
+<![CDATA[
+{"mediapath":"https:\/\/vast-creatives.viewst.com\/nsc\/mishutka_no_creative\/", "mediafiles":[{"src":"https:\/\/cdn.viewst.com\/ads\/2019\/nsc\/mishutka\/video.mp4", "type":"video\/mp4"}],"warm":{"uuid":"414714052ed3327a71b1d2a0aa23954a"}, "clicks":{"default":"https:\/\/mishutka52.ru\/?utm_source=rmedia&utm_medium=cpm&utm_campaign=showjet"}, "tracking": {"ContentShowed":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m1&eid=5d2cad630588a90001916373"], "Moved":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m2&eid=5d2cad630588a90001916374"], "Closed":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m3&eid=5d2cad630588a90001916375"], "Showed":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m4&eid=5d2cad630588a90001916376"] }}
 ]]>
-                        </AdParameters>
-                        <TrackingEvents>
-                            <Tracking event="creativeView">
-                                <![CDATA[
+</AdParameters>
+<TrackingEvents>
+<Tracking event="creativeView">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=cv&eid=5d2cad630588a9000191637b
 ]]>
-                            </Tracking>
-                            <Tracking event="start">
-                                <![CDATA[
+</Tracking>
+<Tracking event="start">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=st&eid=5d2cad630588a9000191637c
 ]]>
-                            </Tracking>
-                            <Tracking event="midpoint">
-                                <![CDATA[
+</Tracking>
+<Tracking event="midpoint">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=mp&eid=5d2cad630588a9000191637d
 ]]>
-                            </Tracking>
-                            <Tracking event="firstQuartile">
-                                <![CDATA[
+</Tracking>
+<Tracking event="firstQuartile">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=fq&eid=5d2cad630588a9000191637e
 ]]>
-                            </Tracking>
-                            <Tracking event="thirdQuartile">
-                                <![CDATA[
+</Tracking>
+<Tracking event="thirdQuartile">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=tq&eid=5d2cad630588a9000191637f
 ]]>
-                            </Tracking>
-                            <Tracking event="complete">
-                                <![CDATA[
+</Tracking>
+<Tracking event="complete">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=cp&eid=5d2cad630588a90001916380
 ]]>
-                            </Tracking>
-                            <Tracking event="mute">
-                                <![CDATA[
+</Tracking>
+<Tracking event="mute">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=mt&eid=5d2cad630588a90001916381
 ]]>
-                            </Tracking>
-                            <Tracking event="unmute">
-                                <![CDATA[
+</Tracking>
+<Tracking event="unmute">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=um&eid=5d2cad630588a90001916382
 ]]>
-                            </Tracking>
-                            <Tracking event="pause">
-                                <![CDATA[
+</Tracking>
+<Tracking event="pause">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=ps&eid=5d2cad630588a90001916383
 ]]>
-                            </Tracking>
-                            <Tracking event="rewind">
-                                <![CDATA[
+</Tracking>
+<Tracking event="rewind">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=rw&eid=5d2cad630588a90001916384
 ]]>
-                            </Tracking>
-                            <Tracking event="resume">
-                                <![CDATA[
+</Tracking>
+<Tracking event="resume">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=rs&eid=5d2cad630588a90001916385
 ]]>
-                            </Tracking>
-                            <Tracking event="fullscreen">
-                                <![CDATA[
+</Tracking>
+<Tracking event="fullscreen">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=fs&eid=5d2cad630588a90001916386
 ]]>
-                            </Tracking>
-                            <Tracking event="expand">
-                                <![CDATA[
+</Tracking>
+<Tracking event="expand">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=ep&eid=5d2cad630588a90001916387
 ]]>
-                            </Tracking>
-                            <Tracking event="collapse">
-                                <![CDATA[
+</Tracking>
+<Tracking event="collapse">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=cl&eid=5d2cad630588a90001916388
 ]]>
-                            </Tracking>
-                            <Tracking event="acceptInvitation">
-                                <![CDATA[
+</Tracking>
+<Tracking event="acceptInvitation">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=ai&eid=5d2cad630588a90001916389
 ]]>
-                            </Tracking>
-                            <Tracking event="close">
-                                <![CDATA[
+</Tracking>
+<Tracking event="close">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=tge&tpy=cs&eid=5d2cad630588a9000191638a
 ]]>
-                            </Tracking>
-                        </TrackingEvents>
-                        <VideoClicks>
-                            <ClickThrough>
-                                <![CDATA[
+</Tracking>
+</TrackingEvents>
+<VideoClicks>
+<ClickThrough>
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=cli&tpy=th&eid=5d2cad630588a90001916378
 ]]>
-                            </ClickThrough>
-                            <ClickTracking>
-                                <![CDATA[
+</ClickThrough>
+<ClickTracking>
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=cli&tpy=tr&eid=5d2cad630588a90001916379
 ]]>
-                            </ClickTracking>
-                        </VideoClicks>
-                        <MediaFiles>
-                            <MediaFile id="" delivery="progressive" type="application/javascript" maintainAspectRatio="false" scalable="true" bitrate="0" width="0" height="0" apiFramework="VPAID">
-                                <![CDATA[ https://cdn.viewst.com/libs/vast/vpaid.linear.js ]]>
-                            </MediaFile>
-                        </MediaFiles>
-                    </Linear>
-                </Creative>
-            </Creatives>
-            <Extensions>
-                <Extension type="skipTime">
-                    <![CDATA[
+</ClickTracking>
+</VideoClicks>
+<MediaFiles>
+<MediaFile id="" delivery="progressive" type="application/javascript" maintainAspectRatio="false" scalable="true" bitrate="0" width="0" height="0" apiFramework="VPAID">
+<![CDATA[ https://cdn.viewst.com/libs/vast/vpaid.linear.js ]]>
+</MediaFile>
+</MediaFiles>
+</Linear>
+</Creative>
+</Creatives>
+<Extensions>
+<Extension type="skipTime">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=t&eid=5d2cad630588a9000191636f
 ]]>
-                </Extension>
-                <Extension type="skipAd">
-                    <![CDATA[
+</Extension>
+<Extension type="skipAd">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=a&eid=5d2cad630588a90001916370
 ]]>
-                </Extension>
-                <Extension type="addClick">
-                    <![CDATA[
+</Extension>
+<Extension type="addClick">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=c&eid=5d2cad630588a90001916371
 ]]>
-                </Extension>
-                <Extension type="CustomTracking">
-                    <Tracking event="onVastLoad">
-                        <![CDATA[
+</Extension>
+<Extension type="CustomTracking">
+<Tracking event="onVastLoad">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m&eid=5d2cad630588a90001916372
 ]]>
-                    </Tracking>
-                </Extension>
-                <Extension type="Custom1">
-                    <![CDATA[
+</Tracking>
+</Extension>
+<Extension type="Custom1">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m1&eid=5d2cad630588a90001916373
 ]]>
-                </Extension>
-                <Extension type="Custom2">
-                    <![CDATA[
+</Extension>
+<Extension type="Custom2">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m2&eid=5d2cad630588a90001916374
 ]]>
-                </Extension>
-                <Extension type="Custom3">
-                    <![CDATA[
+</Extension>
+<Extension type="Custom3">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m3&eid=5d2cad630588a90001916375
 ]]>
-                </Extension>
-                <Extension type="Custom4">
-                    <![CDATA[
+</Extension>
+<Extension type="Custom4">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m4&eid=5d2cad630588a90001916376
 ]]>
-                </Extension>
-                <Extension type="Custom5">
-                    <![CDATA[
+</Extension>
+<Extension type="Custom5">
+<![CDATA[
 https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m5&eid=5d2cad630588a90001916377
 ]]>
-                </Extension>
-                <Extension type="isClickable">
-                    <![CDATA[ 1 ]]>
-                </Extension>
-            </Extensions>
-        </InLine>
-    </Ad>
+</Extension>
+<Extension type="isClickable">
+<![CDATA[ 1 ]]>
+</Extension>
+</Extensions>
+</InLine>
+</Ad>
 </VAST>
