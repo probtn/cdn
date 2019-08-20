@@ -247,39 +247,19 @@
     var app = new Interface();
     var tracking = customTrackingEvents();
 
-    /*var updateCTAScale = function () {
-
-      var maxHeight = 152;
-      var maxWidth = 475;
-      var scale = 1;
-      var maxScreenWidth = window.innerWidth / 2;
-      if (maxScreenWidth < maxWidth) {
-        scale = maxScreenWidth / maxWidth;
-      }
-      document.getElementById("cta").style.transform = "scale(" + scale + ")";
-    };
-    window.addEventListener("orientationchange", updateCTAScale, false);
-    window.addEventListener("resize", updateCTAScale, false);
-    updateCTAScale();
-    */
-
     app.additionalParams = {
       clickOnVideo: false
     };
 
     document.getElementById("close").addEventListener("click", function (e) {
-      /*tracking.addLink(
-        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=closed&frame=NO_IFRAME&publishers=NSC"
-      );*/
       tracking.trackEvent("Closed");
       app.close();
     });
 
-    document.getElementById("layer").addEventListener("click", function (e) {
-      /*tracking.addLink(
-        "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=layer_click&frame=NO_IFRAME&publishers=NSC"
-      );*/
+    var layerBlock = document.getElementById("layer");
+    layerBlock.addEventListener("click", function (e) {
       tracking.trackEvent("VideoClicked");
+      layerBlock.style.display = "none";
       app.click();
       app.pause();
     });

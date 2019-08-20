@@ -11,18 +11,18 @@
             <Creatives>
                 <Creative id="99121">
                     <Linear>
-                        <Duration>00:00:20</Duration>
+                        <Duration>00:00:17</Duration>
                         <AdParameters>
                             <![CDATA[
                             {"mediapath":"https:\/\/cdn.viewst.com\/ads\/2019\/imho\/otkrytie_13.08.19\/",
                             "mediafiles":[{"src":"https:\/\/cdn.viewst.com\/video\/ads\/imho\/otkrytie_13.08.19\/OpenCard_16x9_17s_restaurant_perevody_IMHO.mp4",
                             "type":"video\/mp4"}],"warm":{"uuid":"414714052ed3327a71b1d2a0aa23954a"},
-                            "clicks":{"default":"https:\/\/open.ru\/"},
+                            "clicks":{"default":"https:\/\/ad.doubleclick.net\/ddm\/trackclk\/N447208.277178IMHOVI\/B23041870.252754894;dc_trk_aid=449019267;dc_trk_cid=119726190;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua="},
                             "tracking":
                             {"ContentShowed":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_restaurant_perevody_IMHO&domain=ContentShowed&frame=NO_IFRAME&publishers=IMHO"],
                             "Moved":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_restaurant_perevody_IMHO&domain=Moved&frame=NO_IFRAME&publishers=IMHO"],
                             "Closed":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_restaurant_perevody_IMHO&domain=Closed&frame=NO_IFRAME&publishers=IMHO"],
-                            "Showed":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_restaurant_perevody_IMHO&domain=Showed&frame=NO_IFRAME&publishers=IMHO"],
+                            "Showed":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_restaurant_perevody_IMHO&domain=Showed&frame=NO_IFRAME&publishers=IMHO", "https://ad.doubleclick.net/ddm/trackimp/N447208.277178IMHOVI/B23041870.252754894;dc_trk_aid=449019267;dc_trk_cid=119726190;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=?"],
                             "VideoClicked":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_restaurant_perevody_IMHO&domain=VideoClicked&frame=NO_IFRAME&publishers=IMHO"],
                             "SetConfig":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_restaurant_perevody_IMHO&domain=SetConfig&frame=NO_IFRAME&publishers=IMHO"]
                             }}
