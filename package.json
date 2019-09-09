@@ -9,7 +9,8 @@
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^2.1.0",
-    "jshint-html-reporter": "^0.2.5"
+    "jshint-html-reporter": "^0.2.5",
+    "load-grunt-tasks": "^5.1.0"
   },
   "dependencies": {
     "grunt": "^1.0.4",

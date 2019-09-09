@@ -5279,6 +5279,7 @@ var loadProbtn = function (jQuery) {
 
 	                    $(document).on("click", "#" + elem.id, function(e) {
 	                      ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
+	                      document.getElementById('video_probtn').pause();
 	                    });
 	                  } else {
 	                    if ((elem.html !== undefined) && (elem.html !== null) && (elem.html !== "")) {
