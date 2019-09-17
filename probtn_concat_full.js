@@ -81,11 +81,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			 * @return {[type]} [description]
 			 */
 			function probtn_initTrackingLinkTest() {
-			  var randomString = function(length) {
+			  var randomString = function (length) {
 			    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 			  };
 			  try {
-			    var addLink = function(link) {
+			    var addLink = function (link) {
 			      var trackingImage = window.top.document.createElement('img');
 			      trackingImage.id = "probtn_includepb_tracking_image";
 			      trackingImage.alt = "probtn_includepb_tracking_image";
@@ -108,13 +108,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			    } catch (ex) {
 			      console.log(ex);
 			    }
-			  } catch (ex) {}
+			  } catch (ex) { }
 			}
 
 			probtn_initTrackingLinkTest();
 
-
-			(function($) {
+			/**
+			 * Main viewst button function
+			 */
+			(function ($) {
 			  //'use strict';
 
 			  /**
@@ -126,7 +128,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			   * Dual licensed under GPLv2 & MIT
 			   */
 
-			  (function(window, undefined) {
+			  (function (window, undefined) {
 
 			    'use strict';
 
@@ -163,7 +165,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 
 			    var util = {
-			      extend: function(regexes, extensions) {
+			      extend: function (regexes, extensions) {
 			        var margedRegexes = {};
 			        for (var i in regexes) {
 			          if (extensions[i] && extensions[i].length % 2 === 0) {
@@ -174,20 +176,20 @@ function probtn_callPlayer(frame_id, func, args) {
 			        }
 			        return margedRegexes;
 			      },
-			      has: function(str1, str2) {
+			      has: function (str1, str2) {
 			        if (typeof str1 === "string") {
 			          return str2.toLowerCase().indexOf(str1.toLowerCase()) !== -1;
 			        } else {
 			          return false;
 			        }
 			      },
-			      lowerize: function(str) {
+			      lowerize: function (str) {
 			        return str.toLowerCase();
 			      },
-			      major: function(version) {
-			        return typeof(version) === STR_TYPE ? version.replace(/[^\d\.]/g, '').split(".")[0] : undefined;
+			      major: function (version) {
+			        return typeof (version) === STR_TYPE ? version.replace(/[^\d\.]/g, '').split(".")[0] : undefined;
 			      },
-			      trim: function(str) {
+			      trim: function (str) {
 			        return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 			      }
 			    };
@@ -200,7 +202,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			    var mapper = {
 
-			      rgx: function(ua, arrays) {
+			      rgx: function (ua, arrays) {
 
 			        //var result = {},
 			        var i = 0,
@@ -262,7 +264,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        //return this;
 			      },
 
-			      str: function(str, map) {
+			      str: function (str, map) {
 
 			        for (var i in map) {
 			          // check if array
@@ -1441,7 +1443,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			    var Engine = Browser;
 			    var OS = Browser;
 			    */
-			    var UAParser = function(uastring, extensions) {
+			    var UAParser = function (uastring, extensions) {
 
 			      if (typeof uastring === 'object') {
 			        extensions = uastring;
@@ -1460,33 +1462,33 @@ function probtn_callPlayer(frame_id, func, args) {
 			      //var engine = new Engine();
 			      //var os = new OS();
 
-			      this.getBrowser = function() {
+			      this.getBrowser = function () {
 			        var browser = { name: undefined, version: undefined };
 			        mapper.rgx.call(browser, ua, rgxmap.browser);
 			        browser.major = util.major(browser.version); // deprecated
 			        return browser;
 			      };
-			      this.getCPU = function() {
+			      this.getCPU = function () {
 			        var cpu = { architecture: undefined };
 			        mapper.rgx.call(cpu, ua, rgxmap.cpu);
 			        return cpu;
 			      };
-			      this.getDevice = function() {
+			      this.getDevice = function () {
 			        var device = { vendor: undefined, model: undefined, type: undefined };
 			        mapper.rgx.call(device, ua, rgxmap.device);
 			        return device;
 			      };
-			      this.getEngine = function() {
+			      this.getEngine = function () {
 			        var engine = { name: undefined, version: undefined };
 			        mapper.rgx.call(engine, ua, rgxmap.engine);
 			        return engine;
 			      };
-			      this.getOS = function() {
+			      this.getOS = function () {
 			        var os = { name: undefined, version: undefined };
 			        mapper.rgx.call(os, ua, rgxmap.os);
 			        return os;
 			      };
-			      this.getResult = function() {
+			      this.getResult = function () {
 			        return {
 			          ua: this.getUA(),
 			          browser: this.getBrowser(),
@@ -1496,10 +1498,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			          cpu: this.getCPU()
 			        };
 			      };
-			      this.getUA = function() {
+			      this.getUA = function () {
 			        return ua;
 			      };
-			      this.setUA = function(uastring) {
+			      this.setUA = function (uastring) {
 			        ua = uastring;
 			        //browser = new Browser();
 			        //cpu = new CPU();
@@ -1556,10 +1558,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			    if (typeof $ !== UNDEF_TYPE) {
 			      var parser = new UAParser();
 			      $.ua = parser.getResult();
-			      $.ua.get = function() {
+			      $.ua.get = function () {
 			        return parser.getUA();
 			      };
-			      $.ua.set = function(uastring) {
+			      $.ua.set = function (uastring) {
 			        parser.setUA(uastring);
 			        var result = parser.getResult();
 			        for (var prop in result) {
@@ -1570,9 +1572,11 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			  })(typeof window === 'object' ? window : this);
 
-			  //load nessesary libraries and show button
-			  $.fn.StartButton = function(options) {
-			    String.prototype.ProBtnHashCode = function() {
+			  /**
+			   * Main viewst jQuery plugin code
+			   */
+			  $.fn.StartButton = function (options) {
+			    String.prototype.ProBtnHashCode = function () {
 			      var hash = 0;
 			      //, i, char;
 			      var char1 = 0;
@@ -1635,7 +1639,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			       * @param  {[type]} currentButtonContentType
 			       * @return {[type]}
 			       */
-			      onButtonTap: function(currentContentURL, areaName, currentButtonContentType) {
+			      onButtonTap: function (currentContentURL, areaName, currentButtonContentType) {
 
 			        if (ProBtnControl.closeButtonClicked) {
 			          //console.log("onButtonTap after close");
@@ -1704,7 +1708,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        }
 
-			        if ((currentContentURL !== null) && (currentContentURL !== undefined) && (currentContentURL !== "")) {} else {
+			        if ((currentContentURL !== null) && (currentContentURL !== undefined) && (currentContentURL !== "")) { } else {
 			          currentContentURL = ProBtnControl.params.ContentURL;
 			        }
 
@@ -1730,7 +1734,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        currentContentURL = ProBtnControl.additionalButtonFunctions.replaceDeviceCUID(currentContentURL);
 			        currentContentURL = ProBtnControl.additionalButtonFunctions.getContentUrlWithUtm(currentContentURL);
 
-			        if ((currentButtonContentType !== null) && (currentButtonContentType !== undefined) && (currentButtonContentType !== "")) {} else {
+			        if ((currentButtonContentType !== null) && (currentButtonContentType !== undefined) && (currentButtonContentType !== "")) { } else {
 			          currentButtonContentType = ProBtnControl.params.ButtonContentType;
 
 			          //init menu mode
@@ -1746,7 +1750,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			        //TODO: refactor function and add elements for different types in separate functions
 			        if (ProBtnControl.params.ButtonType == "js") {
-			          var waitForPostscribe = setInterval(function() {
+			          var waitForPostscribe = setInterval(function () {
 			            if (ProBtnControl.loadedStatus.postscribe) {
 			              clearInterval(waitForPostscribe);
 
@@ -1837,7 +1841,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          try {
 			            if (ProBtnControl.params.dfp.clickUrlEsc !== "") {
 			              $.get(ProBtnControl.params.dfp.clickUrlEsc,
-			                function(data) {
+			                function (data) {
 			                  //we send get request for dfp
 			                }
 			              );
@@ -1860,7 +1864,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          ProBtnControl.statistics.callSuperPixelExt("ClickCounterLink");
 			        }
 
-			        ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {});
+			        ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () { });
 
 			        var isMobileLandscape = (ProBtnControl.additionalButtonFunctions.isLandscape() && ProBtnControl.userData.mobile),
 			          position = ProBtnControl.pizzabtn.position(),
@@ -1972,7 +1976,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              type: 'inside'
 			            }
 			          },
-			          beforeLoad: function() {
+			          beforeLoad: function () {
 			            ProBtnControl.hintText.hide();
 
 			            $(".fancybox-iframe").first().attr("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
@@ -1986,8 +1990,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
 			                  additionalMode = forwardAndStopParams[3].toLowerCase();
 			                }
-			              } catch (ex) {}
-			              if (((lookoutParams[0] === "lookoutAndOut") && (lookoutParams[4] !== "noAuto")) || (additionalMode === "openmodal")) {} else {
+			              } catch (ex) { }
+			              if (((lookoutParams[0] === "lookoutAndOut") && (lookoutParams[4] !== "noAuto")) || (additionalMode === "openmodal")) { } else {
 
 			                //move button top edge of the screen then modal is opened
 			                //if (((ProBtnControl.params.isAnimation.trim() === "") || (ProBtnControl.params.isAnimation.trim() === undefined) || (ProBtnControl.params.isAnimation.trim() === null))) {
@@ -2011,7 +2015,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 
 			            if (ProBtnControl.userData.os === "iOS") {
-			              $(document.body).bind("touchmove", function(e) {
+			              $(document.body).bind("touchmove", function (e) {
 			                e.preventDefault();
 			                e.stopPropagation();
 			                e.returnValue = false; // ie
@@ -2019,7 +2023,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			            $('html').css("overflow", "hidden");
 			          },
-			          beforeShow: function() {
+			          beforeShow: function () {
 			            //  $("body").addClass("probtn_disable_scroll");
 			            //send message inside iframe, that it's showed and ready
 			            /*    $(".fancybox-iframe").first().on('load', function() {
@@ -2041,7 +2045,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  //console.log('load the iframe');
 			                });*/
 			          },
-			          afterShow: function() {
+			          afterShow: function () {
 			            var pizzabtn_wrapper = ProBtnControl.wrapper;
 			            var opts = {
 			              width: ProBtnControl.additionalButtonFunctions.getWindowWidth(),
@@ -2059,7 +2063,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            $(".fancybox-iframe").first().attr("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
 			            try {
 			              $(".fancybox-iframe").first().contents().find("html").css("visibility", "visible !important");
-			            } catch (ex) {}
+			            } catch (ex) { }
 
 			            var frame_id = $(".fancybox-iframe").first().attr("id");
 			            ProBtnControl.additionalButtonFunctions.setIfameSizes();
@@ -2099,10 +2103,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    message: "probtn_lookoutandout_start"
 			                  });
 			                  ProBtnControl.pizzabtn.animate({
-			                      left: (parseFloat(lookOutAndOut_right) + parseFloat(left_diff)),
-			                      top: (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff))
-			                    }, 3000,
-			                    function() {
+			                    left: (parseFloat(lookOutAndOut_right) + parseFloat(left_diff)),
+			                    top: (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff))
+			                  }, 3000,
+			                    function () {
 			                      setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100);
 			                      ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                        message: "probtn_lookoutandout_stop"
@@ -2117,12 +2121,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.pizzabtn.animate({
 			                    left: (parseFloat(lookOutAndOut_left) + parseFloat(left_diff)),
 			                    top: (parseFloat($(".fancybox-wrap").position().top) + parseFloat(top_diff))
-			                  }, 3000, function() {
+			                  }, 3000, function () {
 			                    setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100);
 			                  });
 			                }
 
-			              } else {}
+			              } else { }
 
 			              var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
 			              var additionalMode = "";
@@ -2130,7 +2134,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
 			                  additionalMode = forwardAndStopParams[3].toLowerCase();
 			                }
-			              } catch (ex) {}
+			              } catch (ex) { }
 			              if (additionalMode === "openmodal") {
 			                ProBtnControl.additionalButtonFunctions.MaximizeWrapper();
 
@@ -2142,10 +2146,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			                ProBtnControl.pizzabtn.stop(true, false);
 
 			                ProBtnControl.pizzabtn.animate({
-			                    //left: (parseFloat(lookOutAndOut_right) + parseFloat(left_diff)),
-			                    top: parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height())
-			                  }, 3000,
-			                  function() {
+			                  //left: (parseFloat(lookOutAndOut_right) + parseFloat(left_diff)),
+			                  top: parseFloat($(".fancybox-wrap").position().top + $(".fancybox-wrap").height())
+			                }, 3000,
+			                  function () {
 			                    setTimeout(ProBtnControl.additionalButtonFunctions.MinimizeWrapper(), 100);
 			                    /*ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                                            message: "probtn_lookoutandout_stop"
@@ -2162,7 +2166,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			             * @param  {[type]} currentButtonContentType [description]
 			             * @return {[type]}                          [description]
 			             */
-			            var videoEventsInit = function() {
+			            var videoEventsInit = function () {
 			              if ((currentButtonContentType === "video") || (currentButtonContentType === "video_and_iframe")) {
 			                ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
 			                try {
@@ -2183,17 +2187,17 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    console.log(ex);
 			                  }
 			                } finally {
-			                  $(video).on("pause", function() {
+			                  $(video).on("pause", function () {
 			                    var curTime = video.currentTime.toFixed(2);
 			                    ProBtnControl.statistics.SendStatisticsData("VideoPaused", curTime);
 			                  });
 
-			                  $(video).on("playing", function() {
+			                  $(video).on("playing", function () {
 			                    var curTime = video.currentTime.toFixed(2);
 			                    ProBtnControl.statistics.SendStatisticsData("VideoStarted", curTime);
 			                  });
 
-			                  $(video).on("seeked", function() {
+			                  $(video).on("seeked", function () {
 			                    var curTime = video.currentTime.toFixed(2);
 			                    ProBtnControl.statistics.SendStatisticsData("VideoSeeked", curTime);
 			                  });
@@ -2206,7 +2210,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                      skip_video_btn = "#skip_video_btn_" + areaName;
 			                    }
 
-			                    $(video).on("ended", function() {
+			                    $(video).on("ended", function () {
 			                      $(video_item).remove();
 			                      $(skip_video_btn).remove();
 			                    });
@@ -2235,8 +2239,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                   * @param  {[type]} vpixels array of objects with StartPosition and EndPosition
 			                   * @return {[type]} uopdated vpixels array
 			                   */
-			                  var recalculateVideoPositions = function(vpixels) {
-			                    vpixels.forEach(function(vpixel) {
+			                  var recalculateVideoPositions = function (vpixels) {
+			                    vpixels.forEach(function (vpixel) {
 			                      if ((vpixel.StartPosition > 1) || (vpixel.StartPosition < 0) || (vpixel.EndPosition > 1) || (vpixel.EndPosition < 0)) {
 			                        isOk = false;
 			                      };
@@ -2255,8 +2259,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    { "StartPosition": 0.95, "EndPosition": 1 }
 			                  ];
 
-			      //            vpixels = recalculateVideoPositions(vpixels);
-			      //            quarters = recalculateVideoPositions(quarters);
+			                  //            vpixels = recalculateVideoPositions(vpixels);
+			                  //            quarters = recalculateVideoPositions(quarters);
 
 			                  //console.log("quarters", quarters);
 			                  //console.log("vpixels", vpixels);
@@ -2269,16 +2273,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  var curClickableVideoAreaID = null;
 			                  var coefVideo = null;
 			                  var isFirstStart = false;
-			                  $(video).on("timeupdate", function() {
-			                    if (!isFirstStart)
-			                    {
+			                  $(video).on("timeupdate", function () {
+			                    if (!isFirstStart) {
 			                      vpixels = recalculateVideoPositions(vpixels);
 			                      quarters = recalculateVideoPositions(quarters);
 			                      isFirstStart = true;
 			                    }
 
-			                    var checkVideoPeriods = function(currentIndex, vpixels, callback) {
-			                      vpixels.forEach(function(vpixel, index) {
+			                    var checkVideoPeriods = function (currentIndex, vpixels, callback) {
+			                      vpixels.forEach(function (vpixel, index) {
 			                        if ((video.currentTime > vpixel.StartPosition) && (video.currentTime < vpixel.EndPosition)) {
 			                          if (currentIndex !== index) {
 			                            callback(vpixel, index);
@@ -2289,7 +2292,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                      });
 			                    }
 
-			                    checkVideoPeriods(currentQuartIndex, quarters, function(vpixel, index) {
+			                    checkVideoPeriods(currentQuartIndex, quarters, function (vpixel, index) {
 			                      try {
 			                        ProBtnControl.statistics.SendStatObject({
 			                          "VideoPart": index,
@@ -2304,7 +2307,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    /**
 			                     * Call video pixels depending from duration
 			                     */
-			                    checkVideoPeriods(curVideoPixel, vpixels, function(vpixel, index) {
+			                    checkVideoPeriods(curVideoPixel, vpixels, function (vpixel, index) {
 			                      try {
 			                        ProBtnControl.statistics.SendStatisticsData("performedAction", "videoPixel_" + index + "_from(" + vpixel.StartPosition.toFixed(2) + ")_to(" + vpixel.EndPosition.toFixed(2) + ")");
 			                        ProBtnControl.statistics.createClickCounterImage(vpixel.TrackingLink);
@@ -2317,7 +2320,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined) &&
 			                      (ProBtnControl.params.VideoFooterButton !== "")) {
 
-			                      var checkVideoPosition = function(clickableArea) {
+			                      var checkVideoPosition = function (clickableArea) {
 			                        var startTime = clickableArea.startTime;
 			                        var stopTime = clickableArea.stopTime;
 			                        if (stopTime === undefined) {
@@ -2341,7 +2344,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                      }
 
 			                      var clickableAreas = ProBtnControl.params.VideoFooterButton;
-			                      clickableAreas.forEach(function(item) {
+			                      clickableAreas.forEach(function (item) {
 			                        checkVideoPosition(item);
 			                      });
 			                    }
@@ -2349,7 +2352,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 
 
-			                  $('.fancybox-wrap').on("close", function() {
+			                  $('.fancybox-wrap').on("close", function () {
 			                    //WHY THIS? Alert?
 			                    //Sergey, why?
 			                    //alert();
@@ -2380,7 +2383,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }
 			            }
 			          },
-			          afterClose: function() {
+			          afterClose: function () {
 			            $("body").removeClass("probtn_disable_scroll");
 			            if (currentButtonContentType === "video") {
 			              try {
@@ -2392,14 +2395,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  video = $("#video_probtn").get(0);
 			                  video.pause();
 			                }
-			              } catch (ex) {} finally {
+			              } catch (ex) { } finally {
 			                var curTime = video.currentTime.toFixed(2);
 			                ProBtnControl.statistics.SendStatisticsData("VideoClosed", curTime);
 			              }
 			            }
 
 			            if (ProBtnControl.params.ButtonType !== "menu") {
-			              ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function() {}, ProBtnControl.params.MinimizeWrapperTime);
+			              ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function () { }, ProBtnControl.params.MinimizeWrapperTime);
 			            }
 
 			            if (ProBtnControl.userData.os === "iOS") {
@@ -2427,7 +2430,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ProBtnControl.contentTime.endTimer();
 			            ProBtnControl.HpmdFunctions.closeHpmdTrack();
 			          },
-			          onUpdate: function() {
+			          onUpdate: function () {
 			            ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
 			          }
 			        };
@@ -2459,7 +2462,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              fancyboxParams.href = item;
 			            }
-			          } catch (ex) {}
+			          } catch (ex) { }
 			        }
 
 			        function formatTitle() {
@@ -2523,7 +2526,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          fancyboxParams.maxHeight = ProBtnControl.params.MaxHeight;
 			        }
 
-			        var hideButtonAfterFirstShow = function() {
+			        var hideButtonAfterFirstShow = function () {
 			          if (ProBtnControl.params.HideAfterFirstShow === true) {
 			            ProBtnControl.additionalButtonFunctions.hideAll();
 			          }
@@ -2538,7 +2541,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          {
 
 			          }
-			          ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function() {});
+			          ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function () { });
 
 			          hideButtonAfterFirstShow();
 
@@ -2552,7 +2555,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
 			            } else {
-			              ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1, null, function() {
+			              ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1, null, function () {
 
 			                $.pep.toggleAll(true);
 			                window.open(currentContentURL, '_top');
@@ -2572,7 +2575,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  additionalMode = lookoutParams[3].toLowerCase();
 			                }
 
-			                if ((lookoutParams[0] === "lookoutAndOut") || (additionalMode.toLowerCase() === "openmodal")) {} else {
+			                if ((lookoutParams[0] === "lookoutAndOut") || (additionalMode.toLowerCase() === "openmodal")) { } else {
 			                  ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 			                }
 			              } catch (ex) {
@@ -2620,21 +2623,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        contentOpenedTime: 0,
 			        movedTime: 0, //button moved duration
-			        startTimer: function(param) {
+			        startTimer: function (param) {
 			          if ((param === null) || (param === undefined)) {
 			            param = "ContentShowedDuration";
 			          }
 
 			          if (ProBtnControl.contentTime.intervalId[param] !== undefined) {
 			            clearInterval(ProBtnControl.contentTime.intervalId[param]);
-			          } else {}
+			          } else { }
 			          ProBtnControl.contentTime.timeValue[param] = 0;
 
-			          ProBtnControl.contentTime.intervalId[param] = setInterval(function() {
+			          ProBtnControl.contentTime.intervalId[param] = setInterval(function () {
 			            ProBtnControl.contentTime.timeValue[param] += 0.01;
 			          }, 10);
 			        },
-			        endTimer: function(param) {
+			        endTimer: function (param) {
 			          if ((param === null) || (param === undefined)) {
 			            param = "ContentShowedDuration";
 			          }
@@ -2642,7 +2645,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          clearInterval(ProBtnControl.contentTime.intervalId[param]);
 			          ProBtnControl.contentTime.intervalId[param] = undefined;
 
-			          var callbackAfterStat = function() {
+			          var callbackAfterStat = function () {
 			            if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType === "button_and_active_zones")) {
 			              if (param === "ContentShowedDuration") {
 			                ProBtnControl.params.currentAreaName = "";
@@ -2656,7 +2659,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var videoDuration = 0;
 			            try {
 			              videoDuration = Math.floor(document.getElementById("video_probtn").duration);
-			            } catch (ex) {}
+			            } catch (ex) { }
 			            ProBtnControl.statistics.SendStatObject({
 			              "ContentShowedDuration": ProBtnControl.contentTime.timeValue[param].toFixed(2),
 			              "VideoFullDuration": videoDuration.toFixed(2)
@@ -2683,7 +2686,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			       * @type {Object}
 			       */
 			      geolocation: {
-			        checkPlaces: function(callback) {
+			        checkPlaces: function (callback) {
 
 			          //test coordinates
 			          //ProBtnControl.geolocation.latitude = 57.58689;
@@ -2703,7 +2706,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          callback(false, null);
 			          return;
 			        },
-			        calculateDistance: function(lat1, lon1, lat2, lon2) {
+			        calculateDistance: function (lat1, lon1, lat2, lon2) {
 			          // Converts numeric degrees to radians
 			          function toRad(Value) {
 			            return Value * Math.PI / 180;
@@ -2721,15 +2724,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			          var d = R * c;
 			          return d * 1000; //in meters
 			        },
-			        checkAndRunGeolocation: function(callback) {
+			        checkAndRunGeolocation: function (callback) {
 			          if (ProBtnControl.params.UseGeoLocation === true) {
 			            if (ProBtnControl.params.WaitForGeoLocation === true) {
-			              ProBtnControl.geolocation.getLocation(function(position) {
+			              ProBtnControl.geolocation.getLocation(function (position) {
 			                ProBtnControl.geolocation.getPosition(position);
 			                callback();
 			              });
 			            } else {
-			              ProBtnControl.geolocation.getLocation(function(position) {
+			              ProBtnControl.geolocation.getLocation(function (position) {
 			                ProBtnControl.geolocation.getPosition(position);
 			              });
 			              callback();
@@ -2738,7 +2741,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            callback();
 			          }
 			        },
-			        getLocation: function(callback) {
+			        getLocation: function (callback) {
 			          var emptyPosition = {
 			            coords: {
 			              longitude: 0,
@@ -2758,7 +2761,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if (ProBtnControl.params.Debug) console.log(ex);
 			          }*/
 			        },
-			        getPosition: function(position) {
+			        getPosition: function (position) {
 			          try {
 			            if (ProBtnControl.params.Debug) {
 			              console.log("position", position);
@@ -2776,7 +2779,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        latitude: 0
 			      },
 			      //get user data - information about browser, os and so on
-			      userDataFunction: function(callback) {
+			      userDataFunction: function (callback) {
 			        try {
 			          var unknown = 'Unbekannt';
 
@@ -3011,9 +3014,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			      /**
 			       * Get user unique id at current site (and create it if needed)
 			       */
-			      GetDeviceUID: function() {
+			      GetDeviceUID: function () {
 			        var probtnId = "1234";
-			        if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) {} else {
+			        if (ProBtnControl.cookieFunctions.readCookie("probtnId") !== null) { } else {
 			          //set cookie
 			          var currentdate = new Date();
 			          currentdate = currentdate.getTime();
@@ -3029,7 +3032,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			      DeviceCID: "",
 			      cookieFunctions: {
 			        viewst_opt_out: false,
-			        sendEraseToCookieIframePage: function() {
+			        sendEraseToCookieIframePage: function () {
 			          try {
 			            if ((document.getElementById("probtn_guidIframe") !== undefined) && ((document.getElementById("probtn_guidIframe") !== null))) {
 			              document.getElementById("probtn_guidIframe").contentWindow.postMessage({
@@ -3040,7 +3043,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            console.log(ex);
 			          }
 			        },
-			        eraseAllCookies: function() {
+			        eraseAllCookies: function () {
 			          ProBtnControl.cookieFunctions.eraseCookie("probtnCID");
 			          ProBtnControl.cookieFunctions.eraseCookie("probtnId");
 			          ProBtnControl.cookieFunctions.eraseCookie("DAPROPS");
@@ -3054,7 +3057,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * Get global cookie for user
 			         * @param  {Function} callback callback function wich return string with user's id
 			         */
-			        getDeviceCID: function(callback) {
+			        getDeviceCID: function (callback) {
 			          try {
 
 			            /////////////////////////////////////////////////////////////////
@@ -3082,7 +3085,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if (ProBtnControl.params.useGuidIframe === true) {
 			              if (ProBtnControl.params.isServerCommunicationEnabled !== false) {
 			                var recievedMessage = false;
-			                var receiveMessage = function(event) {
+			                var receiveMessage = function (event) {
 			                  try {
 			                    if ((event.data.type !== undefined) && (event.data.type !== null) && (recievedMessage === false)) {
 
@@ -3107,12 +3110,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        console.log("viewst_opt_out recieved");
 			                        callback(ProBtnControl.cookieFunctions.eraseAllCookies());
 			                      }
-			                    } else {}
+			                    } else { }
 			                  } catch (ex) {
 			                    ProBtnControl.statistics.callSuperPixelExt("getDeviceCID6_ex_" + ex);
 			                  }
 			                };
-			                setTimeout(function() {
+			                setTimeout(function () {
 			                  if (!recievedMessage) {
 			                    console.log("getDeviceCID6_timeout");
 			                    recievedMessage = true;
@@ -3144,7 +3147,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                var isCordovaApp = !!window.cordova;
 			                if (isCordovaApp) {
 			                  ProBtnControl.statistics.callSuperPixelExt("getDeviceCID2");
-			                  setTimeout(function() {
+			                  setTimeout(function () {
 			                    var cookieName = "";
 			                    var deviceCUID_item = {
 			                      'type': 'probtnCID',
@@ -3194,7 +3197,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            //callback(probtnCID);
 			          }
 			        },
-			        setHashCookie: function() {
+			        setHashCookie: function () {
 			          var re = /#\S*=/g;
 			          var str = window.location.hash;
 			          var m;
@@ -3218,7 +3221,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          }
 			        },
-			        createCookie: function(name, value, days) {
+			        createCookie: function (name, value, days) {
 			          try {
 			            var cookieEnabled = true;
 			            if (ProBtnControl.params.CookieEnabled !== undefined) {
@@ -3240,7 +3243,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            console.log(ex);
 			          }
 			        },
-			        readCookie: function(name) {
+			        readCookie: function (name) {
 			          var nameEQ = name + "=";
 			          var ca = document.cookie.split(';');
 			          for (var i = 0; i < ca.length; i++) {
@@ -3250,24 +3253,24 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			          return null;
 			        },
-			        eraseCookie: function(name) {
+			        eraseCookie: function (name) {
 			          ProBtnControl.cookieFunctions.createCookie(name, "", -1);
 			        }
 			      },
 			      allButtonInit: false,
 			      params: {},
 			      HpmdFunctions: {
-			        probtnHpmdTrack: function(i) {
+			        probtnHpmdTrack: function (i) {
 			          if (ProBtnControl.params.isHPMD) {
 			            try {
 			              if (i === undefined) {
 			                i = 1;
 			              }
 			              //ProBtnControl.params.hpmd.trackEvent("probtn" + i);
-			            } catch (ex) {}
+			            } catch (ex) { }
 			          }
 			        },
-			        closeHpmdTrack: function() {
+			        closeHpmdTrack: function () {
 			          //ProBtnControl.contentTime.endTimer();
 			          if (ProBtnControl.params.isHPMD) {
 			            try {
@@ -3277,10 +3280,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			              ProBtnControl.params.hpmd.trackEvent("hpmd.time-expanded", {
 			                weight: ProBtnControl.contentTime.contentOpenedTime
 			              });
-			            } catch (ex) {}
+			            } catch (ex) { }
 			          }
 			        },
-			        expandHpmdTrack: function() {
+			        expandHpmdTrack: function () {
 			          if (ProBtnControl.params.isHPMD) {
 			            try {
 			              //fancybox closed
@@ -3300,7 +3303,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			       */
 			      statistics: {
 			        _currentSessionID: null,
-			        getCurrentSessionID: function() {
+			        getCurrentSessionID: function () {
 			          if (this._currentSessionID === null) {
 			            this._currentSessionID = new Date().getTime().toString() + navigator.userAgent.toString().ProBtnHashCode() + ProBtnControl.additionalButtonFunctions.randomString(12);
 			          }
@@ -3311,15 +3314,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * At current moment not useful, case cdn.viewst.com added to black list
 			         * @return {[type]} [description]
 			         */
-			        checkAdBlock: function() {
+			        checkAdBlock: function () {
 			          try {
 			            $.ajax({
 			              url: "https://cdn.viewst.com/showads.js", // this is just an empty js file
 			              dataType: "javascript",
-			              success: function(data) {
+			              success: function (data) {
 			                console.log("Success:", data);
 			              }
-			            }).fail(function(xhr) {
+			            }).fail(function (xhr) {
 			              if (xhr.status === 0) {
 			                ProBtnControl.statistics.SendStatisticsData("performedAction", "adBlockDetected");
 			                console.log("probtn.js - adBlock detected");
@@ -3330,7 +3333,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 			        //create probtn_events event with data same as we send to admin.viewst.com
-			        createEventHandler: function(data) {
+			        createEventHandler: function (data) {
 			          try {
 			            var event = document.createEvent('Event');
 			            event.initEvent('probtn_events', true, true);
@@ -3354,7 +3357,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 
-			        prepareObjectForEventHandler: function(object) {
+			        prepareObjectForEventHandler: function (object) {
 			          var result_object = {
 			            AZName: "",
 			            Statistic: []
@@ -3375,13 +3378,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			          return result_object;
 			        },
-			        callSuperPixel: function() {
+			        callSuperPixel: function () {
 			          try {
 			            var superPixelPath = "https://pixel.viewst.com/1/from-ref";
 			            //ProBtnControl.statistics.createClickCounterImage(superPixelPath);
-			          } catch (ex) {}
+			          } catch (ex) { }
 			        },
-			        callSuperPixelExt: function(param) {
+			        callSuperPixelExt: function (param) {
 			          try {
 			            //console.log("callSuperPixelExt " + param);
 			            var domain = "";
@@ -3410,7 +3413,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * @param  {[type]} name - specific name in format probtn_ClickCounterLink_NAME, if not set would be random
 			         * @return {[type]}
 			         */
-			        createClickCounterImage: function(clickPath, name) {
+			        createClickCounterImage: function (clickPath, name) {
 			          try {
 			            if ((clickPath !== "") && (clickPath !== undefined)) {
 			              var clickCounterLink_random = clickPath;
@@ -3441,7 +3444,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 
 			        },
-			        createStatisticsLink: function(path, additional_params, params_object) {
+			        createStatisticsLink: function (path, additional_params, params_object) {
 			          if ((path === undefined) || (path === null)) {
 			            path = "updateUserStatistic";
 			          }
@@ -3485,26 +3488,26 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        //TODO:
 			        //check AZName value - correct using of areaName
-			        sendAreaActivatedStats: function(areaName, callback) {
+			        sendAreaActivatedStats: function (areaName, callback) {
 			          if (ProBtnControl.params.isServerCommunicationEnabled) {
 			            ProBtnControl.params.currentAreaName = areaName;
 			            //"&AZName=" + areaName +
 			            $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ContentShowed\": \"1\"}&", {
-			                AZName: areaName,
-			                Statistic: [{
-			                  "name": "ContentShowed",
-			                  "value": 1
-			                }]
-			              }),
-			              function() {}).always(function() {
-			              if ((callback !== null) && (callback !== undefined)) {
-			                callback();
-			              }
-			            });
+			              AZName: areaName,
+			              Statistic: [{
+			                "name": "ContentShowed",
+			                "value": 1
+			              }]
+			            }),
+			              function () { }).always(function () {
+			                if ((callback !== null) && (callback !== undefined)) {
+			                  callback();
+			                }
+			              });
 			          }
 			        },
 			        //TODO refactoring - make universal function with azname stats sending
-			        sendScrollAreaShowedStats: function(areaName, callback) {
+			        sendScrollAreaShowedStats: function (areaName, callback) {
 
 			          if ($("#pizzabtnImg").is("iframe")) {
 			            var myIframe = document.getElementById('pizzabtnImg');
@@ -3518,23 +3521,23 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ProBtnControl.params.currentAreaName = areaName;
 
 			            $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"ScrollZoneShowed\": \"1\"}&", {
-			                AZName: areaName,
-			                Statistic: [{
-			                  "name": "ScrollZoneShowed",
-			                  "value": 1
-			                }]
-			              }),
-			              function() {}).done(function() {}).fail(function() {}).always(function() {
-			              if ((callback !== null) && (callback !== undefined)) {
-			                callback();
-			              }
-			            });
+			              AZName: areaName,
+			              Statistic: [{
+			                "name": "ScrollZoneShowed",
+			                "value": 1
+			              }]
+			            }),
+			              function () { }).done(function () { }).fail(function () { }).always(function () {
+			                if ((callback !== null) && (callback !== undefined)) {
+			                  callback();
+			                }
+			              });
 			          }
 			        },
 			        ///
 			        /// send information about browser version, resolution and some other data
 			        ///
-			        SendBrowserStatsInfo: function() {
+			        SendBrowserStatsInfo: function () {
 			          try {
 			            if (ProBtnControl.params.isServerCommunicationEnabled) {
 
@@ -3558,21 +3561,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * @param {[type]} probtnId      [description]
 			         * @param {[type]} currentDomain [description]
 			         */
-			        SendCustomStat: function(name, value) {
+			        SendCustomStat: function (name, value) {
 			          if (ProBtnControl.params.isServerCommunicationEnabled) {
 			            //&AZName=areaName
 			            $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", {
-			                AZName: areaName,
-			                Statistic: [{
-			                  "name": name,
-			                  "value": value
-			                }]
-			              }),
-			              function() {}).always(function() {
-			              if ((callback !== null) && (callback !== undefined)) {
-			                callback();
-			              }
-			            });
+			              AZName: areaName,
+			              Statistic: [{
+			                "name": name,
+			                "value": value
+			              }]
+			            }),
+			              function () { }).always(function () {
+			                if ((callback !== null) && (callback !== undefined)) {
+			                  callback();
+			                }
+			              });
 			          }
 			        },
 			        /**
@@ -3582,7 +3585,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * @param {[type]}   custom - if set to 1, this param and it's value will be send as custom stats
 			         * @param {Function} callback
 			         */
-			        SendStatisticsData: function(paramName, value, custom, callback) {
+			        SendStatisticsData: function (paramName, value, custom, callback) {
 			          if (ProBtnControl.params.isServerCommunicationEnabled) {
 
 			            var probtnId = "1234";
@@ -3607,7 +3610,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          }
 			        },
-			        SendStat: function(name, value, probtnId, currentDomain, callback) {
+			        SendStat: function (name, value, probtnId, currentDomain, callback) {
 
 			          ProBtnControl.statistics.callSuperPixelExt("SendStat");
 			          //ProBtnControl.statistics.callSuperPixelExt('{"' + name + '": "' + value + '"}');
@@ -3625,20 +3628,20 @@ function probtn_callPlayer(frame_id, func, args) {
 			              value = "";
 			            }
 			            $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + "{\"" + name + "\": \"" + value + "\"}&", {
-			                AZName: AZName,
-			                Statistic: [{
-			                  "name": name,
-			                  "value": value
-			                }]
-			              }),
-			              function(data1) {}).always(function() {
-			              if ((callback !== null) && (callback !== undefined)) {
-			                callback();
-			              }
-			            });
+			              AZName: AZName,
+			              Statistic: [{
+			                "name": name,
+			                "value": value
+			              }]
+			            }),
+			              function (data1) { }).always(function () {
+			                if ((callback !== null) && (callback !== undefined)) {
+			                  callback();
+			                }
+			              });
 			          }
 			        },
-			        SendStatObject: function(object, callback) {
+			        SendStatObject: function (object, callback) {
 			          var statistic = JSON.stringify(object);
 
 			          if (object["Closed"] || object["Hidded"] || object["Opened"]) {
@@ -3649,33 +3652,33 @@ function probtn_callPlayer(frame_id, func, args) {
 			          if (ProBtnControl.params.isServerCommunicationEnabled) {
 			            var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
 			            $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateUserStatistic", "&Statistic=" + statistic + "&", converted_object),
-			              function(data1) {
+			              function (data1) {
 			                if (ProBtnControl.params.Debug) {
 			                  console.log(data1);
 			                }
-			              }).done(function() {}).fail(function() {}).always(function() {
-			              if ((callback !== null) && (callback !== undefined)) {
-			                callback();
-			              }
-			            });
+			              }).done(function () { }).fail(function () { }).always(function () {
+			                if ((callback !== null) && (callback !== undefined)) {
+			                  callback();
+			                }
+			              });
 			          }
 			        },
-			        SendStatisticsDataObject: function(object, callback) {
+			        SendStatisticsDataObject: function (object, callback) {
 
 			          ProBtnControl.statistics.callSuperPixelExt("SendStatisticsDataObject");
 			          if (ProBtnControl.params.isServerCommunicationEnabled) {
 
 			            var converted_object = ProBtnControl.statistics.prepareObjectForEventHandler(object);
 			            $.getJSON(ProBtnControl.statistics.createStatisticsLink("updateCustomStatistic", "&Statistic=" + JSON.stringify(object) + "&", converted_object),
-			              function(data1) {
+			              function (data1) {
 			                if (ProBtnControl.params.Debug) {
 			                  console.log(data1);
 			                }
-			              }).done(function() {}).fail(function() {}).always(function() {
-			              if ((callback !== null) && (callback !== undefined)) {
-			                callback();
-			              }
-			            });
+			              }).done(function () { }).fail(function () { }).always(function () {
+			                if ((callback !== null) && (callback !== undefined)) {
+			                  callback();
+			                }
+			              });
 			          }
 			        }
 			      },
@@ -3686,7 +3689,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * @param  {[type]} path - url to video
 			         * @return {[type]}
 			         */
-			        createVideoItem: function(name, path) {
+			        createVideoItem: function (name, path) {
 
 			          var videoItemNameBlock = "video_item";
 			          var videoItemNameVideo = "video_probtn";
@@ -3719,7 +3722,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              } else {
 			                newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
 			              }
-			            } else {}
+			            } else { }
 
 			            var videoHeight = 0;
 			            var videoWidth = 0;
@@ -3741,7 +3744,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * @param  {[type]} name       zone name
 			         * @return {[type]}            [description]
 			         */
-			        createVideoAndIframeItem: function(contentUrl, name) {
+			        createVideoAndIframeItem: function (contentUrl, name) {
 			          var params = contentUrl.split("|");
 
 			          var videoAndIframeItemNameBlock = "video_and_iframe_item";
@@ -3780,7 +3783,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * Init probtnad badge if it's enabled
 			         * @param  {[type]} btn - #probtn_button object from DOM of the page
 			         */
-			        initProbtnBadge: function(btn) {
+			        initProbtnBadge: function (btn) {
 			          var pizzabtn_wrapper = ProBtnControl.wrapper;
 			          var body = $('body');
 
@@ -3803,7 +3806,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              /**
 			               * update badge position (initial and if button size changed)
 			               */
-			              badge.setBadgePosition = function() {
+			              badge.setBadgePosition = function () {
 			                var positionsParams = ProBtnControl.params.BadgePosition.split("_");
 
 			                var left = 0;
@@ -3841,7 +3844,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                ProBtnControl.params.BadgeDelayBeforeShow = 0;
 			              }
 
-			              setInterval(function() {
+			              setInterval(function () {
 			                badge.css("display", "block");
 			              }, ProBtnControl.params.BadgeDelayBeforeShow);
 
@@ -3851,7 +3854,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			          ProBtnControl.badge = badge;
 			        },
-			        initProbtnClosingArea: function(btn) {
+			        initProbtnClosingArea: function (btn) {
 			          if ((ProBtnControl.params.CloseAreaType !== "") && (ProBtnControl.params.CloseAreaType !== "default") && (ProBtnControl.params.CloseAreaType !== undefined)) {
 			            ProBtnControl.closeButton.prependTo(btn);
 			            ProBtnControl.closeButton.clickOnCloseButton();
@@ -3860,7 +3863,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ProBtnControl.closeButton.clickOnCloseButton();
 			          }
 			        },
-			        stopWebAudio: function() {
+			        stopWebAudio: function () {
 			          ProBtnControl.initFunctions.stopedWebAudio = true;
 			          if ((ProBtnControl.initFunctions.soundSource !== null) && (ProBtnControl.initFunctions.soundSource !== undefined)) {
 			            ProBtnControl.initFunctions.soundSource.stop(0);
@@ -3869,7 +3872,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        soundSource: null,
 			        stopedWebAudio: false,
-			        initWebAudio: function() {
+			        initWebAudio: function () {
 
 			          if ((ProBtnControl.params.SoundURL !== "") && (ProBtnControl.params.SoundURL !== null) && (ProBtnControl.params.SoundURL !== undefined)) {
 
@@ -3878,7 +3881,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            window.AudioContext = window.AudioContext || window.webkitAudioContext;
 			            var context = new AudioContext();
 
-			            var loadSound = function(url) {
+			            var loadSound = function (url) {
 			              var request = new XMLHttpRequest();
 			              request.open('GET', url, true);
 			              request.responseType = 'arraybuffer';
@@ -3888,8 +3891,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }
 
 			              // Decode asynchronously
-			              request.onload = function() {
-			                context.decodeAudioData(request.response, function(buffer) {
+			              request.onload = function () {
+			                context.decodeAudioData(request.response, function (buffer) {
 			                  var playBuffer = buffer;
 			                  playSound(playBuffer);
 			                }, onError);
@@ -3897,14 +3900,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			              request.send();
 			            };
 
-			            var playSound = function(buffer) {
+			            var playSound = function (buffer) {
 			              ProBtnControl.initFunctions.soundSource = context.createBufferSource(); // creates a sound source
 			              ProBtnControl.initFunctions.soundSource.buffer = buffer; // tell the source which sound to play
 			              ProBtnControl.initFunctions.soundSource.connect(context.destination); // connect the source to the context's destination (the speakers)
 			              ProBtnControl.initFunctions.soundSource.start(0); // play the source now
 			              // note: on older systems, may have to use deprecated noteOn(time);
 
-			              ProBtnControl.initFunctions.soundSource.onended = function() {
+			              ProBtnControl.initFunctions.soundSource.onended = function () {
 			                if ((soundMode[1] === "cycle") && (!ProBtnControl.initFunctions.stopedWebAudio)) {
 			                  playSound(buffer);
 			                }
@@ -3920,13 +3923,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var isUnlocked = false;
 			            var isIOS = false;
 
-			            var isFunction = function(functionToCheck) {
+			            var isFunction = function (functionToCheck) {
 			              var getType = {};
 			              return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 			            };
 
 			            if (touchSoundStart) {
-			              var unlock = function(callback) {
+			              var unlock = function (callback) {
 			                if (isIOS || this.unlocked) {
 			                  console.log("return");
 			                  callback();
@@ -3951,7 +3954,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 			                // by checking the play state after some time, we know if we're really unlocked
-			                setTimeout(function() {
+			                setTimeout(function () {
 			                  if ((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
 			                    isUnlocked = true;
 			                    callback();
@@ -3961,11 +3964,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }, 0);
 			              };
 
-			              var checkndStartAudio = function() {
+			              var checkndStartAudio = function () {
 			                //alert("checkndStartAudio");
 			                if (audioUnlocked) {
 			                  try {
-			                    unlock(function() {
+			                    unlock(function () {
 			                      if (audioUnlocked) {
 			                        audioUnlocked = false;
 
@@ -4017,7 +4020,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          }
 			        },
-			        initButtonAndUserDeviceInfo: function() {
+			        initButtonAndUserDeviceInfo: function () {
 			          try {
 			            var parser = new UAParser();
 			            var parsed_ua = parser.getResult();
@@ -4067,18 +4070,18 @@ function probtn_callPlayer(frame_id, func, args) {
 			        },
 			        initExternalData: {
 			          //init external user data, when first avialable data from external service will used
-			          initFirstAvailable: function(callback) {
+			          initFirstAvailable: function (callback) {
 			            ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable1");
 			            if (ProBtnControl.params.UseExternalDataAboutUser === true) {
 			              if (ProBtnControl.params.ExternalDataSources.length > 0) {
 			                ProBtnControl.params.ExternalDataSources.sort(
-			                  function(a, b) {
+			                  function (a, b) {
 			                    return a.Priority - b.Priority;
 			                  }
 			                );
 
 			                window.addEventListener("message", receiveMessage, false);
-			                var receiveMessage = function(event) {
+			                var receiveMessage = function (event) {
 			                  var origin = event.origin || event.originalEvent.origin;
 			                  origin = ProBtnControl.additionalButtonFunctions.extractDomain(origin);
 
@@ -4099,10 +4102,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          },
 			          //init external use data, when all sources
-			          initSupplementing: function() {
+			          initSupplementing: function () {
 
 			          },
-			          createExternalDataIframe: function(item) {
+			          createExternalDataIframe: function (item) {
 			            $("<iframe/>", {
 			              id: item.Name,
 			              scrolling: 'no',
@@ -4118,7 +4121,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }).appendTo("body");
 			          }
 			        },
-			        circularMenuPositionUpdate: function() {
+			        circularMenuPositionUpdate: function () {
 			          var probtn_menu_items = $("#probtn_menu_ul li");
 
 			          function toDegrees(angle) {
@@ -4141,7 +4144,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          var animateTop = ProBtnControl.additionalButtonFunctions.getWindowHeight() / 2 - ProBtnControl.pizzabtn.height() / 2;
 			          var animateLeft = ProBtnControl.additionalButtonFunctions.getWindowWidth() / 2 - ProBtnControl.pizzabtn.width() / 2;
 
-			          probtn_menu_items.each(function(count, item) {
+			          probtn_menu_items.each(function (count, item) {
 			            try {
 			              var anglePart = toRadians(360 / (ProBtnControl.params.MenuItems.length));
 
@@ -4165,7 +4168,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * Init menu button mode and create all nessesary DOM elements
 			         * @return {[type]} [description]
 			         */
-			        initFloatingMenu: function() {
+			        initFloatingMenu: function () {
 			          console.log("initFloatingMenu");
 
 			          if ((ProBtnControl.params.ClickCounterLink) && (ProBtnControl.params.ClickCounterLink !== "")) {
@@ -4185,7 +4188,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			          ProBtnControl.pizzabtn.stop(true, true);
 
-			          ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+			          ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 
 			            var pizzabtn_wrapper = ProBtnControl.wrapper;
 			            pizzabtn_wrapper.css("background", "rgba(0, 0, 0, 0.5)");
@@ -4212,7 +4215,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }).prependTo(ProBtnControl.additionalItemsContainer);
 
 			                //set position for menuCLose button
-			                menuClose.setPosition = function() {
+			                menuClose.setPosition = function () {
 			                  //debugger;
 			                  var closex = ProBtnControl.params.MenuClose.MenuClosePosition.X / 100;
 			                  var closey = ProBtnControl.params.MenuClose.MenuClosePosition.Y / 100;
@@ -4232,7 +4235,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  this.css('left', (ProBtnControl.additionalButtonFunctions.getWindowWidth()) * closex - closeWidth / 2 + $(window).scrollLeft() + 'px');
 			                };
 
-			                menuClose.on("click", function() {
+			                menuClose.on("click", function () {
 			                  ProBtnControl.initFunctions.initRemoveMenu();
 			                });
 
@@ -4245,7 +4248,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ////////////////////////////////
 
 			            ProBtnControl.pizzabtn.stop(true, true);
-			            setTimeout(function() {
+			            setTimeout(function () {
 
 			              var animateLeft = 0;
 			              var animateTop = ProBtnControl.additionalButtonFunctions.getWindowHeight() - ProBtnControl.pizzabtn.height();
@@ -4259,8 +4262,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			              ProBtnControl.pizzabtn.animate({
 			                left: animateLeft,
 			                top: animateTop
-			              }, 500, function() {
-			                setTimeout(function() {
+			              }, 500, function () {
+			                setTimeout(function () {
 			                  var menu = $("<div/>", {
 			                    id: "probtn_menu",
 			                    style: "opacity: 0.1"
@@ -4297,7 +4300,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  if (ProBtnControl.params.MenuItems) {
 			                    var count = 1;
 			                    var style = "style='font-size:" + ProBtnControl.params.MenuOptions.FontSize + "; font-family: " + ProBtnControl.params.MenuOptions.FontFamily + "; color: " + ProBtnControl.params.MenuOptions.ForegroundColor + " '";
-			                    $.each(ProBtnControl.params.MenuItems, function(index, menuItem) {
+			                    $.each(ProBtnControl.params.MenuItems, function (index, menuItem) {
 			                      var image = "";
 			                      if ((menuItem.Image !== undefined) && (menuItem.Image !== null) && (menuItem.Image !== "")) {
 			                        image = "<img style='height: 50px; margin-right: 10px;' src='" + menuItem.Image + "'/>";
@@ -4382,7 +4385,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    });
 			                  }
 
-			                  $(document).on("click", ".probtn_menu_link", function(e) {
+			                  $(document).on("click", ".probtn_menu_link", function (e) {
 			                    var menuType = $(this).attr("rev");
 
 			                    switch (menuType) {
@@ -4396,7 +4399,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                        e.preventDefault();
 			                        return false;
-			                        //break;
+			                      //break;
 			                      case "iframe":
 			                        window.probtn_dropedActiveZone = {};
 			                        window.probtn_dropedActiveZone.currentActiveZone = null;
@@ -4408,7 +4411,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                      case "closeMenu":
 			                        ProBtnControl.initFunctions.initRemoveMenu();
 			                        return false;
-			                        //break;
+			                      //break;
 			                      case "video":
 			                        window.probtn_dropedActiveZone = {};
 			                        window.probtn_dropedActiveZone.currentActiveZone = {};
@@ -4418,13 +4421,13 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                        ProBtnControl.onButtonTap($(this).attr("href"), $(this).attr("rel"), "video");
 			                        return false;
-			                        //break;
+			                      //break;
 			                      default:
 			                        ProBtnControl.statistics.sendAreaActivatedStats($(this).attr("rel"));
 			                        window.open($(this).attr("href"));
 			                        e.preventDefault();
 			                        return false;
-			                        //break;
+			                      //break;
 			                    }
 			                  });
 
@@ -4447,14 +4450,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  menu.animate({
 			                    left: 1,
 			                    opacity: 1.0
-			                  }, 500, function() {});
+			                  }, 500, function () { });
 
 			                  var countLi = 300;
-			                  $.each($("#probtn_menu li"), function(index, value) {
+			                  $.each($("#probtn_menu li"), function (index, value) {
 			                    $(value).animate({
 			                      "margin-left": 0,
 			                      opacity: 1.0
-			                    }, countLi, function() {});
+			                    }, countLi, function () { });
 			                    //});
 			                    countLi = countLi + 300;
 			                  });
@@ -4471,7 +4474,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * Remove menu block from page DOM
 			         * @return
 			         */
-			        initRemoveMenu: function() {
+			        initRemoveMenu: function () {
 			          var pizzabtn_wrapper = ProBtnControl.wrapper;
 			          pizzabtn_wrapper.css("background", "rgba(0, 0, 0, 0)");
 			          $("#probtn_menu").remove();
@@ -4482,7 +4485,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * Show fullscreen
 			         * @return {[type]} [description]
 			         */
-			        fullscreenInitAndShow: function() {
+			        fullscreenInitAndShow: function () {
 
 			          //if HideAfterFirstShow
 			          var cookieHideAfterClose = null;
@@ -4534,7 +4537,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            ProBtnControl.interactionFunctions.initInteractionTimer();
 
-			            $("body").on('click', '#probtn_iframe_overlay', function() {
+			            $("body").on('click', '#probtn_iframe_overlay', function () {
 			              ProBtnControl.statistics.SendStatObject({
 			                "Clicked": 1
 			              });
@@ -4549,7 +4552,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ProBtnControl.additionalButtonFunctions.onOrientationChange(null);
 
 			            //listen for click event's on items - to close our 'fullscreen'
-			            $('body').on('click', "#fullscreen_probtn .fancybox-close, .fancybox-overlay", function() {
+			            $('body').on('click', "#fullscreen_probtn .fancybox-close, .fancybox-overlay", function () {
 			              $('#fullscreen_probtn').hide();
 			              $('.fancybox-overlay').hide();
 
@@ -4561,18 +4564,18 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if (ProBtnControl.params.HideAfterFirstShow === true) {
 			              //and now add cookie to add flag that we are open fullscreen once
 			              ProBtnControl.cookieFunctions.createCookie("probtnCloseFlag", true, 60);
-			            } else {}
+			            } else { }
 			          }
 			        },
 			        /**
 			         * init active zones if enabled in options
 			         * @return {[type]} [description]
 			         */
-			        initActiveZones: function() {
+			        initActiveZones: function () {
 			          if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType == "button_and_active_zones")) {
 
 			            //define nessesary zone functions to add it to all zones in cycle later
-			            var activeZone_setPosition = function() {
+			            var activeZone_setPosition = function () {
 			              var body = $('body');
 
 			              var activex = this.currentActiveZone.Position.X;
@@ -4601,7 +4604,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              this.css('left', left + 'px');
 			            };
 
-			            var activeZone_animateActive = function() {
+			            var activeZone_animateActive = function () {
 			              this.setTransitionDuration(ProBtnControl.params.CloseActiveDuration);
 			              //if (this.isActive == false) {
 			              this.isActive = true;
@@ -4625,7 +4628,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }
 			            };
 
-			            var activeZone_setTransitionDuration = function(duration) {
+			            var activeZone_setTransitionDuration = function (duration) {
 			              var val = duration + 's';
 			              this.css({
 			                'transition-duration': val,
@@ -4635,7 +4638,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              });
 			            };
 
-			            var activeZone_animateInactive = function() {
+			            var activeZone_animateInactive = function () {
 			              this.setTransitionDuration(ProBtnControl.params.CloseActiveDuration);
 
 			              var activeZoneBtn = this;
@@ -4654,7 +4657,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }
 			            };
 
-			            var activeZone_requestClickCounterLink = function() {
+			            var activeZone_requestClickCounterLink = function () {
 			              if ((this.currentActiveZone.ClickCounterLink) && (this.currentActiveZone.ClickCounterLink !== "")) {
 			                try {
 			                  ProBtnControl.statistics.createClickCounterImage(this.currentActiveZone.ClickCounterLink);
@@ -4743,8 +4746,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * @param  {[type]} runOnScroll [description]
 			         * @return {[type]}
 			         */
-			        initScrollChange: function(runOnScroll) {
-			          var onScroll = function(e) {
+			        initScrollChange: function (runOnScroll) {
+			          var onScroll = function (e) {
 			            var scrollZone = ProBtnControl.initFunctions.initStartScrollParams('get');
 			            var scrollEvent = e;
 
@@ -4816,7 +4819,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                //if ((scrollEvent !== undefined) && (scrollEvent !== null)) {
 			                //if (Object.is(ProBtnControl.currentScrollZone, scrollZone) !== true) {
 			                if (ProBtnControl.currentScrollZone !== scrollZone) {
-			                  if (scrollZone.ButtonImageType === "iframe") {} else {
+			                  if (scrollZone.ButtonImageType === "iframe") { } else {
 			                    $("#pizzabtnImg").attr("src", scrollZone.ButtonImage);
 			                  }
 			                }
@@ -4856,7 +4859,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                if (ProBtnControl.buttonMainParams.isEmpty === false) {
 
 			                  if (ProBtnControl.currentScrollZone == scrollZone) {
-			                    if (scrollZone.ButtonImageType === "iframe") {} else {
+			                    if (scrollZone.ButtonImageType === "iframe") { } else {
 			                      $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", scrollZone.ButtonImage);
 			                    }
 			                  }
@@ -4908,11 +4911,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if ((runOnScroll !== null) && (runOnScroll !== undefined)) {
 			              onScroll(null);
 			            } else {
-			              $.each(ProBtnControl.params.ScrollZones, function(index, scrollZone) {
+			              $.each(ProBtnControl.params.ScrollZones, function (index, scrollZone) {
 			                ProBtnControl.additionalButtonFunctions.preloadImage(scrollZone.ButtonImage);
 			                ProBtnControl.additionalButtonFunctions.preloadImage(scrollZone.ButtonDragImage);
 
-			                $("body").on('click', "#video_probtn_" + scrollZone.Name, function(e) {
+			                $("body").on('click', "#video_probtn_" + scrollZone.Name, function (e) {
 			                  console.log("");
 			                  try {
 			                    var video = $("#video_probtn_" + scrollZone.Name).get(0);
@@ -4944,7 +4947,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * @param  {[type]} position [description]
 			         * @return {[type]}          [description]
 			         */
-			        initStartScrollParams: function(position) {
+			        initStartScrollParams: function (position) {
 			          if (ProBtnControl.params.ButtonType == "button_and_scroll_zones") {
 
 			            var currentZone = null;
@@ -4956,17 +4959,17 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var isOpera = (ua.indexOf('opera') > -1);
 			            var isIE = (!isOpera && ua.indexOf('msie') > -1);
 
-			            var getViewportHeight = function() {
+			            var getViewportHeight = function () {
 			              return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat') ? document.documentElement.clientHeight : document.body.clientHeight : (document.parentWindow || document.defaultView).innerHeight;
 			            };
 
-			            var getDocumentHeight = function() {
+			            var getDocumentHeight = function () {
 			              return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
 			            };
 
 			            //if all at one screen mode
 			            if (ProBtnControl.params.ChangeScrollButtonAtFullSiteHeight === false) {
-			              getDocumentHeight = function() {
+			              getDocumentHeight = function () {
 			                return window.innerHeight;
 			              };
 			              top = 0;
@@ -4981,7 +4984,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 
 			            var currentFullTop = 0;
-			            $.each(ProBtnControl.params.ScrollZones, function(index, scrollZone) {
+			            $.each(ProBtnControl.params.ScrollZones, function (index, scrollZone) {
 
 			              if ((scrollZone.Name === undefined) || (scrollZone.Name === null)) {
 			                scrollZone.Name = "scrollZone" + index;
@@ -5016,7 +5019,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.params.currentContentURL = scrollZone.CustomContentURL;
 			                  ProBtnControl.params.currentButtonContentType = scrollZone.ButtonContentType;
 			                  ProBtnControl.params.currentAreaName = scrollZone.Name;
-			                } catch (ex) {}
+			                } catch (ex) { }
 			                ProBtnControl.params.ButtonImage = scrollZone.ButtonImage;
 
 			                var widgetHTML = "";
@@ -5102,7 +5105,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 			                //if (Object.is(ProBtnControl.currentScrollZone, scrollZone)) {
-			                if (false) {} else {
+			                if (false) { } else {
 			                  if (scrollZone.CustomButtonParams) {
 			                    //save main button params
 			                    if (ProBtnControl.buttonMainParams.isEmpty) {
@@ -5147,7 +5150,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 			        //pizza button constructor
-			        initPizzaButton: function() {
+			        initPizzaButton: function () {
 			          var pizzabtn_wrapper = ProBtnControl.wrapper;
 			          var body = $('body');
 
@@ -5171,14 +5174,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			              '</div>');
 
 			            //close youtube player
-			            body.on('click', "#fullscreen_probtn .fancybox-close, .fancybox-overlay", function() {
+			            body.on('click', "#fullscreen_probtn .fancybox-close, .fancybox-overlay", function () {
 			              $('#fullscreen_probtn').hide();
 			              $('.fancybox-overlay').hide();
 
 			              ProBtnControl.contentTime.endTimer();
 			              ProBtnControl.HpmdFunctions.closeHpmdTrack();
 
-			              ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function() {}, ProBtnControl.params.MinimizeWrapperTime);
+			              ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function () { }, ProBtnControl.params.MinimizeWrapperTime);
 
 			              $.pep.toggleAll(true);
 			              probtn_callPlayer("video_probtn", "pauseVideo");
@@ -5226,7 +5229,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  paramsVFB = [paramsVFB];
 			                }
 			                // checking parameter id, and adding it, if it's empty
-			                paramsVFB = paramsVFB.map(function(item, index) {
+			                paramsVFB = paramsVFB.map(function (item, index) {
 			                  if ((item.id === null) || (item.id === undefined) || (item.id === "")) {
 			                    item.id = "clickableVideoArea_" + index;
 			                  }
@@ -5236,27 +5239,25 @@ function probtn_callPlayer(frame_id, func, args) {
 			                ProBtnControl.params.VideoFooterButton = paramsVFB;
 			                var isClicked = false;
 			                var timerId = null;
-			                paramsVFB.forEach(function(elem, index) {
+			                paramsVFB.forEach(function (elem, index) {
 			                  var style = 'position: absolute; z-index: 1000; display: none;' + 'width:' + elem.width + 'px;' + 'height:' + elem.height + 'px;' + 'top:' + elem.top + 'px;' + 'left:' + elem.left + 'px;';
 			                  var clickableArea = '<div class="clickableVideoAreaClass" id="' + elem.id + '" style=' + '"' + style + '"></div>';
 			                  if ((elem.href !== undefined) && (elem.href !== null) && (elem.href !== "")) {
 			                    // go to href after click
 			                    videoFooterButton += '<a href="' + elem.href + '" target="_blank">' + clickableArea + '</a>';
 
-			                    $(document).on("click", "#" + elem.id, function(e) {
+			                    $(document).on("click", "#" + elem.id, function (e) {
 			                      ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
-			                      document.getElementById('video_probtn').pause();
 			                    });
 			                  } else {
 			                    if ((elem.html !== undefined) && (elem.html !== null) && (elem.html !== "")) {
 			                      var closeArea = '';
 
-			                      if ((elem.htmlCloseImg !== undefined) && (elem.htmlCloseImg !== null) && (elem.htmlCloseImg !== ""))
-			                      {
+			                      if ((elem.htmlCloseImg !== undefined) && (elem.htmlCloseImg !== null) && (elem.htmlCloseImg !== "")) {
 			                        var id = elem.id + "closeHtmlArea";
 			                        closeArea = '<img class="closeAreaImgClass" src="' + elem.htmlCloseImg + '" id="' + id + '"/>'
 
-			                        $(document).on("click", "#" + id, function(e) {
+			                        $(document).on("click", "#" + id, function (e) {
 			                          $("#" + elem.id + "_htmlArea").css("display", "none");
 			                          document.getElementById('video_probtn').play();
 			                          isClicked = false;
@@ -5267,14 +5268,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			                      var htmlArea = '<div class="htmlAreaClass" id="' + elem.id + '_htmlArea" style="display: none">' + closeArea + elem.html + '</div>';
 			                      // open html-area after click
 			                      videoFooterButton += clickableArea + htmlArea;
-			                      $(document).on("click", "#" + elem.id, function(e) {
+			                      $(document).on("click", "#" + elem.id, function (e) {
 			                        $("#" + elem.id).css("display", "none");
 			                        $("#" + elem.id + "_htmlArea").css("display", "block");
 			                        document.getElementById('video_probtn').pause();
 			                        isClicked = false;
-			                        if (timerId !== null)
-			                        {
-			                            clearTimeout(timerId);
+			                        if (timerId !== null) {
+			                          clearTimeout(timerId);
 			                        }
 
 			                        var timeToCloseHtmlArea = 8000;
@@ -5283,20 +5283,18 @@ function probtn_callPlayer(frame_id, func, args) {
 			                          timeToCloseHtmlArea = elem.closeWithoutInteractionTime;
 			                        }
 
-			                        timerId = setTimeout(function()
-			                        {
+			                        timerId = setTimeout(function () {
 			                          $("#" + elem.id + "_htmlArea").css("display", "none");
 			                          var video = document.getElementById('video_probtn');
 			                          console.log("timeout", isClicked);
-			                          if (video.paused && (!isClicked))
-			                          {
+			                          if (video.paused && (!isClicked)) {
 			                            video.play();
 			                          }
 			                        }.bind(this), timeToCloseHtmlArea);
 			                        ProBtnControl.statistics.SendStatisticsData("performedAction", "ClickOnClickableArea");
 			                      });
 
-			                      $(document).on("click", ".custom_clickable", function(e) {
+			                      $(document).on("click", ".custom_clickable", function (e) {
 			                        e.stopPropagation();
 			                        e.stopImmediatePropagation();
 			                        ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
@@ -5309,7 +5307,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  }
 			                });
 
-			                ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos = function() {
+			                ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos = function () {
 			                  var width_cur = document.getElementById("video_probtn").offsetWidth;
 			                  var coef_w = width_cur / ProBtnControl.params.VideoSize.X;
 
@@ -5317,7 +5315,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  var coef_h = height_cur / ProBtnControl.params.VideoSize.Y;
 			                  var offsetDeltaX = $("#video_probtn").position().left;
 			                  var offsetDeltaY = $("#video_probtn").position().top;
-			                  var correctClickAreaPosition = function(clickableArea) {
+			                  var correctClickAreaPosition = function (clickableArea) {
 			                    var id = clickableArea.id;
 			                    var newPosition = {};
 			                    newPosition.left = coef_w * clickableArea.left + offsetDeltaX;
@@ -5338,7 +5336,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  }
 
 			                  var clickableAreas = ProBtnControl.params.VideoFooterButton;
-			                  clickableAreas.forEach(function(item) {
+			                  clickableAreas.forEach(function (item) {
 			                    correctClickAreaPosition(item);
 			                  });
 			                }
@@ -5349,8 +5347,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            var preloadAttr = 'preload="none"';
 
-			            if (ProBtnControl.params.VideoPreload === true)
-			            {
+			            if (ProBtnControl.params.VideoPreload === true) {
 			              preloadAttr = "";
 			            }
 
@@ -5373,7 +5370,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              console.log("ProBtnControl.params.VideoClickURL1", ProBtnControl.params.VideoClickURL);
 
-			              $("body").on('click', "#video_probtn", function(e) {
+			              $("body").on('click', "#video_probtn", function (e) {
 			                try {
 			                  var video = $("#video_probtn").get(0);
 			                  video.pause();
@@ -5404,7 +5401,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              } else {
 			                newFancyboxHeight = ProBtnControl.params.ContentSize.Y;
 			              }
-			            } else {}
+			            } else { }
 
 			            var videoHeight = 0;
 			            var videoWidth = 0;
@@ -5437,7 +5434,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          ProBtnControl.statistics.callSuperPixelExt("TrackingLink");
 			          if ((ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== null) && (ProBtnControl.params.TrackingLink !== "")) {
 			            var links = ProBtnControl.params.TrackingLink.split("%7C");
-			            links.forEach(function(element, index) {
+			            links.forEach(function (element, index) {
 			              ProBtnControl.statistics.createClickCounterImage(element);
 			            });
 			          }
@@ -5462,7 +5459,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              extrusionMode_height = parseInt(extrusionMode_params[3]);
 
 			              $('head').append('<style type="text/css" id="extrusionMode_topButton">body {margin-top: ' + ProBtnControl.params.ButtonSize.H + 'px; } #probtn_button { top: 0px !important;} #probtn_wrapper { margin-top:' + "-" + ProBtnControl.params.ButtonSize.H + 'px !important; position: absolute !important; }</style>');
-			              setTimeout(function() {
+			              setTimeout(function () {
 			                $("#extrusionMode_topButton").remove();
 			                ProBtnControl.params.ButtonSize.W = extrusionMode_width;
 			                ProBtnControl.params.ButtonSize.H = extrusionMode_height;
@@ -5492,7 +5489,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              var topButtonScrollTriggered = false;
 
-			              var onScroll_topButtonScroll = function(e) {
+			              var onScroll_topButtonScroll = function (e) {
 
 			                var doc = document.documentElement;
 			                var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
@@ -5504,11 +5501,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                var isOpera = (ua.indexOf('opera') > -1);
 			                var isIE = (!isOpera && ua.indexOf('msie') > -1);
 
-			                var getViewportHeight = function() {
+			                var getViewportHeight = function () {
 			                  return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat') ? document.documentElement.clientHeight : document.body.clientHeight : (document.parentWindow || document.defaultView).innerHeight;
 			                };
 
-			                var getDocumentHeight = function() {
+			                var getDocumentHeight = function () {
 			                  return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
 			                };
 
@@ -5655,16 +5652,32 @@ function probtn_callPlayer(frame_id, func, args) {
 			          var pizzabtnImg = null;
 			          if (ProBtnControl.params.ButtonImageType === 'iframe') {
 			            //init iframe button
-			            //
 			            pizzabtnCss.border = '0px';
 			            pizzabtnCss.overflow = 'hidden';
-			            pizzabtnImg = $("<iframe/>", {
+
+			            var iframeParams = {
 			              id: "pizzabtnImg",
 			              scrolling: 'no',
 			              'seamless': "seamless",
-			              src: ProBtnControl.params.ButtonImage,
 			              css: pizzabtnCss
-			            }).appendTo(btn);
+			            }
+
+			            if (ProBtnControl.params.ButtonIframeContent === "") {
+			              iframeParams.src = ProBtnControl.params.ButtonImage;
+			            } else {
+			              iframeParams.srcdoc = ProBtnControl.params.ButtonIframeContent;
+			            }
+			            pizzabtnImg = $("<iframe/>", iframeParams).appendTo(btn);
+
+			            //console.log("ProBtnControl.params.ButtonIframeContent", ProBtnControl.params.ButtonIframeContent);
+			            /**
+			             * Add html content inside iframe from ButtonIframeContent param
+			             */
+			            /*if (ProBtnControl.params.ButtonIframeContent !== "") {
+			              var context = $(pizzabtnImg)[0].contentWindow.document;
+			              var $body = $('body', context);
+			              $body.html(ProBtnControl.params.ButtonIframeContent);
+			            }*/
 
 			            ProBtnControl.additionalButtonFunctions.applyIframeScale(pizzabtnImg, ProBtnControl.params.ButtonIframeInitialSize, ProBtnControl.params.ButtonSize);
 
@@ -5683,7 +5696,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              var myIframe = document.getElementById('pizzabtnImg');
 			              btn.hide();
 			              try {
-			                myIframe.onload = function() {
+			                myIframe.onload = function () {
 			                  if (ProBtnControl.params.Debug) console.log("waitForIframeButtonLoaded show1");
 			                  btn.show();
 
@@ -5692,14 +5705,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			              } catch (ex) {
 
 			              }
-			            } else {}
+			            } else { }
 
 			            //add hover event
 			            //TODO:
 			            //replace with universal function
 			            try {
 			              $("#pizzabtnIframeOverlay").hover(
-			                function() { //hover
+			                function () { //hover
 			                  var myIframe = document.getElementById('pizzabtnImg');
 			                  if (myIframe.contentWindow !== null) {
 			                    myIframe.contentWindow.postMessage({
@@ -5707,7 +5720,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    }, '*');
 			                  }
 			                },
-			                function() { //unhover
+			                function () { //unhover
 			                  var myIframe = document.getElementById('pizzabtnImg');
 			                  if ((myIframe !== null) && (myIframe !== undefined)) {
 			                    if (myIframe.contentWindow !== null) {
@@ -5719,7 +5732,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 			              );
 
-			            } catch (ex) {}
+			            } catch (ex) { }
 			          } else {
 			            // add image
 			            pizzabtnImg = $("<img/>", {
@@ -5761,9 +5774,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }).appendTo(btn);
 			          btn.hintTextActive = false;
 
-			          ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function() {}, ProBtnControl.params.MinimizeWrapperTime);
+			          ProBtnControl.additionalButtonFunctions.MinimizeWrapper(function () { }, ProBtnControl.params.MinimizeWrapperTime);
 
-			          ProBtnControl.hintText.makeInvisible = function() {
+			          ProBtnControl.hintText.makeInvisible = function () {
 			            this.css({
 			              'transition-duration': ProBtnControl.params.HintHideDuration + 's',
 			              '-webkit-transition-duration': ProBtnControl.params.HintHideDuration + 's',
@@ -5773,33 +5786,33 @@ function probtn_callPlayer(frame_id, func, args) {
 			            this.css('opacity', 0);
 			          };
 
-			          btn.startShowedTimer = function() {
+			          btn.startShowedTimer = function () {
 			            ProBtnControl.contentTime.startTimer("ButtonShowedDuration");
 			          }
 
-			          btn.stopShowedTimer = function() {
+			          btn.stopShowedTimer = function () {
 			            ProBtnControl.contentTime.endTimer("ButtonShowedDuration");
 			          }
 
-			          btn.center = function() {
+			          btn.center = function () {
 			            var body = ProBtnControl.wrapper;
 			            this.css('top', (ProBtnControl.additionalButtonFunctions.getWindowHeight() - this.height()) / 2 + $(window).scrollTop() + 'px');
 			            this.css('left', (ProBtnControl.additionalButtonFunctions.getWindowWidth() - this.width()) / 2 + $(window).scrollLeft() + 'px');
 			          };
 
-			          btn.show = function() {
+			          btn.show = function () {
 			            var me = this;
 			            me.startShowedTimer();
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              me.stop(true, true).fadeIn(ProBtnControl.params.ButtonShowDuration * 1000);
 			            }, ProBtnControl.params.ButtonShowDelay * 1000);
 
 
 			          };
 
-			          btn.hide = function() {
+			          btn.hide = function () {
 			            var me = this; //jQuery("#probtn_button");
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                message: "probtn_closed"
 			              });
@@ -5812,10 +5825,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			          //aditional actions
 			          window.proBtn = {};
 			          window.proBtn.hide = btn.hide;
-			          window.proBtn.hideContent = function() {
+			          window.proBtn.hideContent = function () {
 			            $.fancybox.close();
 			          };
-			          window.proBtn.close = function() {
+			          window.proBtn.close = function () {
 			            $.fancybox.close();
 			            ProBtnControl.statistics.SendStatObject({
 			              "Closed": 1
@@ -5824,22 +5837,22 @@ function probtn_callPlayer(frame_id, func, args) {
 			            $("body").removeClass("probtn_disable_scroll");
 			            ProBtnControl.additionalButtonFunctions.hideAll();
 			          };
-			          window.proBtn.performAction = function() {
+			          window.proBtn.performAction = function () {
 			            if (ProBtnControl.params.CampaignID !== null) {
 			              $.getJSON(ProBtnControl.serverUrl + "/1/functions/performAction?DeviceType=web&DeviceUID=" + ProBtnControl.GetDeviceUID() + "&DeviceCUID=" + ProBtnControl.DeviceCID + "&X-ProBtn-Token=" + XProBtnToken + "&CampaignID=" + ProBtnControl.params.CampaignID + "&random=" + Math.random() + "&callback=?",
-			                function(data) {
+			                function (data) {
 
 			                }
 			              );
 			            }
 			          };
 
-			          btn.dragAnimate = function() {
+			          btn.dragAnimate = function () {
 			            if ((ProBtnControl.params.ButtonDragImage !== "") && (ProBtnControl.params.ButtonDragImage !== undefined) && (ProBtnControl.params.ButtonDragImage !== null) && (ProBtnControl.params.ButtonImageType !== "iframe")) {
 			              if (ProBtnControl.params.Debug) console.log("drag image apply");
 			              pizzabtnImg.attr("src", ProBtnControl.params.ButtonDragImage);
 			            }
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              if (ProBtnControl.params.ControlInIframeFromParent !== true) {
 			                pizzabtnImg.css({
 			                  'transition-duration': ProBtnControl.params.ButtonDragDuration + 's',
@@ -5860,11 +5873,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }, ProBtnControl.params.ButtonDragDelay * 1000);
 			          };
 
-			          btn.undragAnimate = function() {
+			          btn.undragAnimate = function () {
 			            if ((ProBtnControl.params.ButtonImageType !== "iframe")) {
 			              pizzabtnImg.attr("src", ProBtnControl.params.ButtonImage);
 			            }
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              if (ProBtnControl.params.ControlInIframeFromParent !== true) {
 			                pizzabtnImg.css({
 			                  'transition-duration': ProBtnControl.params.ButtonUndragDuration + 's',
@@ -5888,9 +5901,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }, ProBtnControl.params.ButtonUndragDelay * 1000);
 			          };
 
-			          btn.showHint = function() {
+			          btn.showHint = function () {
 			            var me = this;
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              ProBtnControl.hintText.css(ProBtnControl.initFunctions.hintTextStyle);
 			              me.hintTextActive = true;
 
@@ -5902,22 +5915,22 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }, ProBtnControl.params.HintLaunchDelay * 1000);
 			          };
 
-			          btn.hideHint = function() {
+			          btn.hideHint = function () {
 			            var me = this;
 			            ProBtnControl.hintText.makeInvisible();
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              me.animateDuringHintHide();
 			            }, 100);
 			            me.hintTextActive = false;
 			          };
 
-			          btn.hideHintDelay = function() {
-			            setTimeout(function() {
+			          btn.hideHintDelay = function () {
+			            setTimeout(function () {
 			              ProBtnControl.hintText.makeInvisible();
 			            }, ProBtnControl.params.HintLaunchDuration * 1000);
 			          };
 
-			          btn.animateDuringHintHide = function() {
+			          btn.animateDuringHintHide = function () {
 			            var me = this;
 			            var hintWidth = ProBtnControl.hintText.outerWidth();
 			            var diffWidth = (hintWidth - ProBtnControl.params.ButtonSize.W) / 2;
@@ -5943,7 +5956,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if ($("#pizzabtnImg").is("iframe")) {
 			              try {
 			                var myIframeCheck = document.getElementById('pizzabtnImg');
-			                window.addEventListener('deviceorientation', function(event) {
+			                window.addEventListener('deviceorientation', function (event) {
 			                  if (myIframeCheck.contentWindow !== null) {
 			                    myIframeCheck.contentWindow.postMessage({
 			                      message: "probtn_page_deviceorientation",
@@ -5956,7 +5969,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  }
 			                });
 
-			                window.addEventListener('devicemotion', function(e) {
+			                window.addEventListener('devicemotion', function (e) {
 			                  //console.log("e.accelerationIncludingGravity1", e.accelerationIncludingGravity);
 			                  if (myIframeCheck.contentWindow !== null) {
 			                    myIframeCheck.contentWindow.postMessage({
@@ -5992,13 +6005,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ProBtnControl.buttonMainParams.hidden = true;
 			            ProBtnControl.wrapper.addClass('hide');
 			            btn.hide();
-			          } else {}
+			          } else { }
 
 			          ProBtnControl.initFunctions.initProbtnBadge(btn);
 			          ProBtnControl.initFunctions.initProbtnClosingArea(btn);
 
 			          //ProbtnControl.params.JsImpressionCode
-			          ProBtnControl.additionalButtonFunctions.checkPostscribe(function() {
+			          ProBtnControl.additionalButtonFunctions.checkPostscribe(function () {
 			            if ((ProBtnControl.params.JsImpressionCode !== null) && (ProBtnControl.params.JsImpressionCode !== undefined) && (ProBtnControl.params.JsImpressionCode !== "")) {
 			              var jscode = $('<textarea/>').html(ProBtnControl.params.JsImpressionCode).html();
 			              console.log("jscode", jscode);
@@ -6013,7 +6026,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 
 			        // close button constructor
-			        initCloseButton: function() {
+			        initCloseButton: function () {
 			          var btn = $('<img/>', {
 			            id: 'probtn_closeButton',
 			            'src': ProBtnControl.params.CloseImage,
@@ -6039,7 +6052,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              ProBtnControl.params.AttachedClosePosition = "top_left";
 			            }
 
-			            btn.setClosePosition = function() {
+			            btn.setClosePosition = function () {
 			              var closingAreaParams = ProBtnControl.params.AttachedClosePosition.split("_");
 			              //console.log(ProBtnControl.params.AttachedClosePosition, closingAreaParams);
 			              //if (closingAreaParams[0] === "attached") {
@@ -6080,7 +6093,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            btn.setClosePosition();
 			            //CloseButtonShowDelay for attached close position
 			            if (ProBtnControl.params.CloseButtonShowDelay > 0) {
-			              setTimeout(function() {
+			              setTimeout(function () {
 			                btn.css({
 			                  "display": "block"
 			                });
@@ -6099,13 +6112,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			            $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
 			          }*/
 
-			          btn.clickOnCloseButton = function() {
+			          btn.clickOnCloseButton = function () {
 			            //hide button on close area click
 			            if (ProBtnControl.params.ClickOnCloseButton === true) {
 			              btn.css("cursor", "pointer");
 			              console.log("probtn_closeButton click set");
 
-			              var closeClickFunction = function() {
+			              var closeClickFunction = function () {
 			                //console.log("probtn_closeButton clicked");
 			                ProBtnControl.statistics.SendStatObject({
 			                  "Closed": 1
@@ -6115,7 +6128,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              ProBtnControl.closeButtonClicked = false;
 
 			              if (document.getElementById("probtn_closeButton")) {
-			                document.getElementById("probtn_closeButton").addEventListener('click', function(e) {
+			                document.getElementById("probtn_closeButton").addEventListener('click', function (e) {
 			                  if (!ProBtnControl.closeButtonClicked) {
 			                    ProBtnControl.closeButtonClicked = true;
 			                    closeClickFunction();
@@ -6123,7 +6136,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    return false;
 			                  }
 			                }, false);
-			                document.getElementById("probtn_closeButton").addEventListener('touchstart', function(e) {
+			                document.getElementById("probtn_closeButton").addEventListener('touchstart', function (e) {
 			                  if (!ProBtnControl.closeButtonClicked) {
 			                    ProBtnControl.closeButtonClicked = true;
 			                    closeClickFunction();
@@ -6171,7 +6184,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          });
 
 			          //set close button position
-			          btn.center = function() {
+			          btn.center = function () {
 			            if ((ProBtnControl.params.CloseAreaType !== "") && (ProBtnControl.params.CloseAreaType !== "default")) {
 			              if (ProBtnControl.params.CloseAreaType === "corner") {
 			                this.css('display', 'none');
@@ -6184,7 +6197,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var closex = ProBtnControl.params.ClosePosition.X;
 			            var closey = ProBtnControl.params.ClosePosition.Y;
 
-			            if (ProBtnControl.params.ControlInIframeFromParent === true) {}
+			            if (ProBtnControl.params.ControlInIframeFromParent === true) { }
 
 			            ProBtnControl.params.CloseSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseSize);
 
@@ -6202,22 +6215,22 @@ function probtn_callPlayer(frame_id, func, args) {
 			            this.css('left', (ProBtnControl.additionalButtonFunctions.getWindowWidth() - closeWidth) * closex + $(window).scrollLeft() + 'px');
 			          };
 
-			          btn.show = function() {
+			          btn.show = function () {
 			            var me = this;
 			            me.center();
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              me.stop(true, true).fadeIn(ProBtnControl.params.CloseShowDuration * 1000);
 			            }, ProBtnControl.params.CloseShowDelay * 1000);
 			          };
 
-			          btn.hide = function() {
+			          btn.hide = function () {
 			            var me = this;
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              me.stop(true, true).fadeOut(ProBtnControl.params.CloseHideDuration * 1000);
 			            }, ProBtnControl.params.CloseHideDelay * 1000);
 			          };
 
-			          btn.setTransitionDuration = function(duration) {
+			          btn.setTransitionDuration = function (duration) {
 			            var val = duration + 's';
 			            this.css({
 			              'transition-duration': val,
@@ -6231,14 +6244,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			           * add styles for never closing close button
 			           * @return {[type]} [description]
 			           */
-			          btn.initAlwaysShowCloseStyles = function() {
+			          btn.initAlwaysShowCloseStyles = function () {
 			            var me = this;
-			            var addStyles = function() {
+			            var addStyles = function () {
 			              //console.log("AlwaysShowCloseButton", ProBtnControl.params.CloseSize);
 			              if (ProBtnControl.params.AlwaysShowCloseButton === true) {
 			                me.setUnactiveSize();
 
-			                setTimeout(function() {
+			                setTimeout(function () {
 			                  var par = 'block';
 			                  if (ProBtnControl.params.CloseAreaType === "corner") {
 			                    par = 'none';
@@ -6250,7 +6263,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			            console.log("this.ready", this.ready);
 			            if (!this.ready) {
-			              var interval = setInterval(function() {
+			              var interval = setInterval(function () {
 			                addStyles();
 			              }, 100);
 			            } else {
@@ -6264,7 +6277,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 
 			          // Animation when close button become active - change size and opacity
-			          btn.overlayActive = function() {
+			          btn.overlayActive = function () {
 			            if ((ProBtnControl.params.CloseAreaType !== "") && (ProBtnControl.params.CloseAreaType !== "default")) {
 			              return;
 			            }
@@ -6275,7 +6288,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            ProBtnControl.params.CloseActiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseActiveSize);
 
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              me.css({
 			                opacity: ProBtnControl.params.CloseActiveOpacity,
 			                width: ProBtnControl.params.CloseActiveSize.W,
@@ -6285,7 +6298,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          };
 
 			          // Animation when button become inactive - restore close button size and opacity
-			          btn.overlayUnactive = function() {
+			          btn.overlayUnactive = function () {
 			            var me = this;
 			            var body = $('body');
 			            var closex = ProBtnControl.params.ClosePosition.X;
@@ -6297,7 +6310,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                        var left = (body.innerWidth() - ProBtnControl.closeButton.width()) * closex + $(window).scrollLeft();*/
 
 			            me.setTransitionDuration(ProBtnControl.params.CloseUnactiveDuration);
-			            setTimeout(function() {
+			            setTimeout(function () {
 			              /*ProBtnControl.params.CloseSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseSize);
 			              var options = {
 			                opacity: ProBtnControl.params.CloseOpacity,
@@ -6311,7 +6324,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }, ProBtnControl.params.CloseUnactiveDelay * 1000);
 			          };
 
-			          btn.setUnactiveSize = function() {
+			          btn.setUnactiveSize = function () {
 			            ProBtnControl.params.CloseSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.CloseSize);
 			            var options = {
 			              opacity: ProBtnControl.params.CloseOpacity,
@@ -6335,15 +6348,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			      },
 			      interactionFunctions: {
 			        time: 0,
-			        initInteractionTimer: function() {
-			          if (ProBtnControl.interactionFunctions.intervalId !== undefined) {} else {
+			        initInteractionTimer: function () {
+			          if (ProBtnControl.interactionFunctions.intervalId !== undefined) { } else {
 			            clearInterval(ProBtnControl.interactionFunctions.intervalId);
 			          }
 			          ProBtnControl.interactionFunctions.time = 0;
 
 			          if (ProBtnControl.params.HideWithoutInteractionTime > 0) {
 
-			            ProBtnControl.contentTime.intervalId = setTimeout(function() {
+			            ProBtnControl.contentTime.intervalId = setTimeout(function () {
 			              if ((ProBtnControl.interactionFunctions.wasInteraction === false) || (ProBtnControl.interactionFunctions.wasInteraction === undefined)) {
 			                //hide button
 			                ProBtnControl.additionalButtonFunctions.hideAll();
@@ -6351,9 +6364,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  try {
 			                    $(".fancybox-overlay").remove();
 			                    $("#fullscreen_probtn").remove();
-			                  } catch (ex) {}
+			                  } catch (ex) { }
 			                }
-			              } else {}
+			              } else { }
 			            }, ProBtnControl.params.HideWithoutInteractionTime);
 			          }
 			        },
@@ -6361,11 +6374,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			        wasInteraction: false
 			      },
 			      vastFunctions: {
-			        initVast: function() {
+			        initVast: function () {
 			          return false;
 
 			          /*disable messages*/
-			          window.addEventListener("message", function(event) {
+			          window.addEventListener("message", function (event) {
 			            var message;
 			            try {
 			              message = JSON.parse(event.data);
@@ -6391,14 +6404,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			                this.defaultVolume = message.event.data.defaultVolume;
 			                break;
 			              default:
-			                //$updateState.call(this, message.event.type, message.event.data);
+			              //$updateState.call(this, message.event.type, message.event.data);
 			            }
 			          }.bind(this), false);
 			          //TODO
 			          //send message about ad loaded event
 			          //sendToAPP("action", {type:"AdLoaded"}, this.id);
 			        },
-			        onClickCheck: function(name) {
+			        onClickCheck: function (name) {
 			          //console.log("onClickCheck", name);
 			          name = name || "default";
 			          if (ProBtnControl.params.VASTparams.customParams["plc"]) { // if only player should open url
@@ -6415,7 +6428,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			         * TODO - rewrite this function using existing functions, especialy for SendToApp function
 			         * @param name
 			         */
-			        sendVastMessage: function(name) {
+			        sendVastMessage: function (name) {
 			          if (ProBtnControl.params.VASTbutton) {
 
 			            function parseQuery(name) {
@@ -6444,7 +6457,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          }
 			        },
-			        sendMessageToApp: function(type, data, id) {
+			        sendMessageToApp: function (type, data, id) {
 			          try {
 			            parent.postMessage(JSON.stringify({
 			              type: type,
@@ -6455,12 +6468,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			            console.log(ex);
 			          }
 			        },
-			        getClickURL: function(clicks, name) {
+			        getClickURL: function (clicks, name) {
 			          return clicks[name || "default"];
 			        }
 			      },
 			      DMP: {
-			        launchIDataScript: function() {
+			        launchIDataScript: function () {
 			          try {
 			            if (ProBtnControl.params.DmpEnabled === true) {
 			              var elem = document.createElement('script');
@@ -6477,7 +6490,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			      },
 			      // #additionalButtonFunctions
 			      additionalButtonFunctions: {
-			        resizeButton: function(newButtonSize, newIframeInitialSize1) {
+			        resizeButton: function (newButtonSize, newIframeInitialSize1) {
 			          var newIframeInitialSize = newIframeInitialSize1;
 			          //var newButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({ W: item.width, H: item.height });
 			          newButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(newButtonSize);
@@ -6532,25 +6545,25 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			          return true;
 			        },
-			        checkPostscribe: function(callback) {
+			        checkPostscribe: function (callback) {
 			          if (typeof postscribe === "undefined") {
-			            $.getScript("https://cdn.viewst.com/libs/postscribe/htmlParser.js", function() {
+			            $.getScript("https://cdn.viewst.com/libs/postscribe/htmlParser.js", function () {
 			              $.getScript("https://cdn.viewst.com/libs/postscribe/postscribe.js", callback);
 			            });
 			          } else {
 			            callback();
 			          }
 			        },
-			        callPassback: function() {
+			        callPassback: function () {
 			          if ((ProBtnControl.params.OnNoShowPixel !== undefined) &&
 			            (ProBtnControl.params.OnNoShowPixel !== null) &&
 			            (ProBtnControl.params.OnNoShowPixel !== "")) {
 			            ProBtnControl.statistics.createClickCounterImage(ProBtnControl.params.OnNoShowPixel);
 			          }
 
-			          var postscribeCall = function() {
+			          var postscribeCall = function () {
 
-			            var sendDuplicateInfo = function(name) {
+			            var sendDuplicateInfo = function (name) {
 			              if (name === undefined) {
 			                name = "duplicateDetected";
 			              }
@@ -6598,7 +6611,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }*/
 			          ProBtnControl.additionalButtonFunctions.checkPostscribe(postscribeCall);
 			        },
-			        extractDomain: function(url) {
+			        extractDomain: function (url) {
 			          var domain;
 			          //find & remove protocol (http, ftp, etc.) and get domain
 			          if (url.indexOf("://") > -1) {
@@ -6612,7 +6625,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			          return domain;
 			        },
-			        checkProtocolInUrl: function(url) {
+			        checkProtocolInUrl: function (url) {
 			          if (window.location.protocol === "https:") {
 			            var position = url.indexOf("http://");
 			            if (position === 0) {
@@ -6621,7 +6634,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			          return url;
 			        },
-			        checkProtocolLinks: function(inObject) {
+			        checkProtocolLinks: function (inObject) {
 			          try {
 			            for (var property in inObject) {
 			              if (inObject.hasOwnProperty(property)) {
@@ -6639,9 +6652,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 			              }
 			            }
-			          } catch (ex) {}
+			          } catch (ex) { }
 			        },
-			        setButtonStartPosition: function(btn) {
+			        setButtonStartPosition: function (btn) {
 			          try {
 			            var top = (ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H / 2)) * (ProBtnControl.params.ButtonPosition.Y);
 
@@ -6704,10 +6717,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			              top: top,
 			              position: 'absolute'
 			            });
-			          } catch (ex) {}
+			          } catch (ex) { }
 			        },
 			        //format title for fancybox\modal window
-			        getTitleTextForModalWindow: function() {
+			        getTitleTextForModalWindow: function () {
 			          var title = "";
 			          var outVendorText = "";
 			          if (ProBtnControl.params.Debug === true) {
@@ -6722,7 +6735,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              //onclick=\"console.log('on vendor site click'); window.window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*'); try { document.getElementById('video_probtn').pause(); } catch(ex) { console.log(ex); }; return false;\"
 
 
-			              $(document).on("click", "#probtn_vendor_site_link_id", function(e) {
+			              $(document).on("click", "#probtn_vendor_site_link_id", function (e) {
 			                //console.log('on vendor site click');
 			                window.postMessage({ command: 'probtn_performed_action', value: 'VendorSite_clicked' }, '*');
 			                try {
@@ -6743,7 +6756,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          return title;
 			        },
 			        //calculate and apply custom fancybox for sizes
-			        youtubeModalWindowSizes: function() {
+			        youtubeModalWindowSizes: function () {
 			          if ($("#youtube_fullscreen:visible").length > 0) {
 			            var margins = ProBtnControl.additionalButtonFunctions.getFancyboxMargins();
 			            var titleHeight = $(".fancybox-title").first().height();
@@ -6765,7 +6778,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            $("#fullscreen_probtn .fancybox-inner").css(style);
 			          }
 			        },
-			        hideAll: function() {
+			        hideAll: function () {
 			          ProBtnControl.closed = true;
 
 			          //TODO: save and restore body margin to prevent errors with some custome sites
@@ -6843,12 +6856,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                video = $("#video_probtn").get(0);
 			                video.pause();
 			              }
-			            } catch (ex) {} finally {}
+			            } catch (ex) { } finally { }
 			          }
 			        },
 			        //TODO
 			        //fix incorrect written word Correct (insted of Corrent)
-			        checkAndCorrentButtonPosition: function() {
+			        checkAndCorrentButtonPosition: function () {
 
 			          switch (ProBtnControl.params.ExtrusionMode) {
 			            case "insertBlock":
@@ -6873,7 +6886,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 			        //update values for all percent params
-			        updateAllPercentSizes: function() {
+			        updateAllPercentSizes: function () {
 			          if (ProBtnControl.params.ButtonImageType !== 'iframe') {
 			            //for main button
 			            ProBtnControl.params.ButtonSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(ProBtnControl.params.ButtonSize);
@@ -6902,7 +6915,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          //for active zones
 			          if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType == "button_and_active_zones")) {
 			            //check every zone
-			            $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+			            $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
 			              if (activeZone.currentActiveZone.ButtonImageType !== 'iframe') {
 			                //activeZoneBtn.currentActiveZone
 			                activeZone.currentActiveZone.ActiveSize = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize(activeZone.currentActiveZone.ActiveSize);
@@ -6912,7 +6925,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 			        //convert button percents to px
-			        convertPercentButtonSize: function(buttonSize) {
+			        convertPercentButtonSize: function (buttonSize) {
 			          try {
 			            var sButtonSize = buttonSize;
 			            var newWidth = buttonSize.W;
@@ -6964,7 +6977,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              if ((parseFloat(newHeightInit) > 0) && (buttonSize.W.toString().indexOf('%') == -1)) {
 			                newHeight = newWidth * parseFloat(newHeightInit);
 			              }
-			            } else {}
+			            } else { }
 			            if ((newHeight.toString().indexOf('%') !== -1) || (parseFloat(newHeight) < 0)) {
 			              if (parseFloat(newHeightInit) < 0) {
 			                newHeight = Math.abs(parseFloat(newHeight));
@@ -6980,7 +6993,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              if ((parseFloat(newWidthInit) > 0) && (buttonSize.H.toString().indexOf('%') == -1)) {
 			                newWidth = parseFloat(newWidthInit) * newHeight;
 			              }
-			            } else {}
+			            } else { }
 
 
 			            //Let's check what all sizesis smaller then screen sizes
@@ -7015,15 +7028,15 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            }
 
-			          } catch (ex) {}
+			          } catch (ex) { }
 			          return buttonSize;
 			        },
 			        //check is ButtonIframeInitialSize exists and set properly
-			        checkExistInitIframeSIze: function(activeZone) {
+			        checkExistInitIframeSIze: function (activeZone) {
 			          return ((activeZone.currentActiveZone.ButtonImageType == "iframe") && (activeZone.currentActiveZone.ButtonIframeInitialSize.W > 0) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H > 0) && (activeZone.currentActiveZone.ButtonIframeInitialSize.W !== undefined) && (activeZone.currentActiveZone.ButtonIframeInitialSize.W !== null) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H !== undefined) && (activeZone.currentActiveZone.ButtonIframeInitialSize.H !== null));
 			        },
 			        //apply scale for iframe item (used for button image iframe)
-			        applyIframeScale: function(iframeItem, ButtonIframeInitialSize, ButtonSize) {
+			        applyIframeScale: function (iframeItem, ButtonIframeInitialSize, ButtonSize) {
 			          if ((ButtonIframeInitialSize.W > 0) && (ButtonIframeInitialSize.H > 0) && (ButtonIframeInitialSize.W !== undefined) && (ButtonIframeInitialSize.W !== null) && (ButtonIframeInitialSize.H !== undefined) && (ButtonIframeInitialSize.H !== null)) {
 
 			            var round_params = ProBtnControl.params.RoundButton.split('_');
@@ -7045,7 +7058,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 			        //add transform css properties for iframe items (to scale it)
-			        setTransform: function(iframeItem, scaleX, scaleY) {
+			        setTransform: function (iframeItem, scaleX, scaleY) {
 			          iframeItem.css({
 			            "transform": "scale(" + scaleX + "," + scaleY + ")",
 			            "-moz-transform": "scale(" + scaleX + "," + scaleY + ")",
@@ -7061,7 +7074,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          iframeItem.css("-o-transform-origin", "top left");
 			          iframeItem.css("-ms-transform-origin", "top left");
 			        },
-			        replaceRandom: function(contentURL) {
+			        replaceRandom: function (contentURL) {
 			          var output = contentURL.replace(/\[RANDOM\]/g, ProBtnControl.additionalButtonFunctions.randomString(12));
 
 			          output = output.replace(/\[DOMAIN\]/g, ProBtnControl.realDomain);
@@ -7075,15 +7088,15 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			          return output;
 			        },
-			        replaceDeviceUID: function(contentURL) {
+			        replaceDeviceUID: function (contentURL) {
 			          return contentURL.replace(/\[DEVICEUID\]/g, ProBtnControl.GetDeviceUID());
 			        },
-			        replaceDeviceCUID: function(contentURL) {
+			        replaceDeviceCUID: function (contentURL) {
 			          return contentURL.replace(/\[DEVICECUID\]/g, ProBtnControl.DeviceCID);
 			        },
-			        hideAllActiveZones: function() {
+			        hideAllActiveZones: function () {
 			          try {
-			            $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+			            $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
 			              activeZone.hide();
 			              /*if (activeZone.currentActiveZone.VisibleOnlyInteraction) {
 			                            activeZone.attr("src", activeZone.currentActiveZone.InactiveImage);
@@ -7100,7 +7113,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 			        //add utm param to link
-			        getContentUrlWithUtm: function(currentContentURL) {
+			        getContentUrlWithUtm: function (currentContentURL) {
 			          try {
 			            //check for utm source settings
 			            if (ProBtnControl.params.isAddUtmSource) {
@@ -7127,21 +7140,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			          return currentContentURL;
 			        },
-			        testSpeed: function(callback) {
+			        testSpeed: function (callback) {
 			          if (ProBtnControl.params.isTestSpeed) {
 
 			            var imageAddr = "https://cdn.viewst.com/load2.png";
 			            var downloadSize = 339234; //bytes
 
-			            measureSpeedByImage = function() {
+			            measureSpeedByImage = function () {
 			              var startTime, endTime;
 			              var download = new Image();
-			              download.onload = function() {
+			              download.onload = function () {
 			                endTime = (new Date()).getTime();
 			                showResults();
 			              };
 
-			              download.onerror = function(err, msg) {
+			              download.onerror = function (err, msg) {
 			                if (ProBtnControl.params.Debug) console.log(err);
 			              };
 
@@ -7174,7 +7187,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          }
 			        },
-			        preloadImage: function(clickPath) {
+			        preloadImage: function (clickPath) {
 			          var clickCounterLink_random = clickPath;
 
 			          var probtn_TrackingLink = $("<img/>", {
@@ -7184,15 +7197,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }).prependTo(ProBtnControl.additionalItemsContainer);
 			          $(probtn_TrackingLink).attr("src", clickCounterLink_random);
 			        },
-			        preloadIframe: function(iframePath) {
+			        preloadIframe: function (iframePath) {
 
 			        },
 			        preloadIframeScrollZonesDone: false,
-			        hideIframeScrollZones: function() {
+			        hideIframeScrollZones: function () {
 			          $("iframe.pizzabtnImg_iframe_cached").attr("id", "");
 			          $("iframe.pizzabtnImg_iframe_cached").hide();
 			        },
-			        preloadIframeScrollZones: function() {
+			        preloadIframeScrollZones: function () {
 			          if (ProBtnControl.additionalButtonFunctions.preloadIframeScrollZonesDone === false) {
 			            ProBtnControl.additionalButtonFunctions.preloadIframeScrollZonesDone = true;
 
@@ -7254,7 +7267,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          }
 			        },
-			        sendMessageToParent: function(type) {
+			        sendMessageToParent: function (type) {
 			          if ((type === null) || (type === undefined)) {
 			            type = "probtn_end_move";
 			          }
@@ -7271,21 +7284,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			            button: position
 			          });
 			        },
-			        sendMessageToCreative: function(object) {
+			        sendMessageToCreative: function (object) {
 			          if ($("#pizzabtnImg").is("iframe")) {
 
 			            var myIframe = document.getElementById('pizzabtnImg');
 			            myIframe.contentWindow.postMessage(object, '*');
 			          }
 			        },
-			        sendMessageToActiveZones: function(object) {
-			          $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+			        sendMessageToActiveZones: function (object) {
+			          $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
 			            if (activeZone[0].contentWindow !== undefined) {
 			              activeZone[0].contentWindow.postMessage(object, '*');
 			            }
 			          });
 			        },
-			        sendMessageToModal: function(object) {
+			        sendMessageToModal: function (object) {
 			          var frame_id = $(".fancybox-iframe").first().attr("id");
 			          if ($("#" + frame_id).is("iframe")) {
 			            try {
@@ -7300,14 +7313,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          }
 			        },
-			        sendCustomMessageToParent: function(object) {
+			        sendCustomMessageToParent: function (object) {
 			          if (ProBtnControl.params.ControlInIframeFromParent === true) {
 			            if (window.window !== window.top) {
 			              window.top.postMessage(object, "*");
 			            }
 			          }
 			        },
-			        getWindowHeight: function() {
+			        getWindowHeight: function () {
 			          var height = window.innerHeight;
 			          if ((height > window.outerHeight) && (ProBtnControl.params.UseScreenSizes)) { height = window.outerHeight };
 			          if (ProBtnControl.params.ControlInIframeFromParent === true) {
@@ -7321,7 +7334,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            return height; //window.innerHeight;
 			          }
 			        },
-			        getWindowWidth: function() {
+			        getWindowWidth: function () {
 			          var width = window.innerWidth;
 			          //console.log("width", width);
 			          if ((width > window.outerWidth) && (ProBtnControl.params.UseScreenSizes)) { width = window.outerWidth };
@@ -7336,7 +7349,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            return width; //window.innerWidth;
 			          }
 			        },
-			        replaceUrlParam: function(url, paramName, paramValue) {
+			        replaceUrlParam: function (url, paramName, paramValue) {
 			          var pattern = new RegExp('(\\?|\\&)(' + paramName + '=).*?(&|$)');
 			          var newUrl = url;
 			          if (url.search(pattern) >= 0) {
@@ -7347,7 +7360,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          return newUrl;
 			        },
 			        //when window is resized or changed orientation on device
-			        onOrientationChange: function(e) {
+			        onOrientationChange: function (e) {
 			          try {
 			            if (((ProBtnControl.params.ButtonType === "expansionButton") || (ProBtnControl.params.ButtonType === "expansion_video")) && (ProBtnControl.onButtonTapCountCheck > 0)) {
 			              if (ProBtnControl.onButtonTapCountCheck > 0) {
@@ -7386,7 +7399,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              //check is menu opened and update it's positions
 			              if (ProBtnControl.params.ButtonType == "menu") {
 			                if ($("#probtn_menu").length > 0) {
-			                  ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {});
+			                  ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () { });
 
 			                  //fix button position for menu varians
 			                  switch (ProBtnControl.params.MenuTemplateVariant) {
@@ -7429,21 +7442,19 @@ function probtn_callPlayer(frame_id, func, args) {
 			              if (ProBtnControl.params.ButtonContentType === "video") {
 			                if ((ProBtnControl.params.VideoFooterButton !== null) && (ProBtnControl.params.VideoFooterButton !== undefined) &&
 			                  (ProBtnControl.params.VideoFooterButton !== "")) {
-			                    ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos();
-			                  }
+			                  ProBtnControl.additionalButtonFunctions.recalculateVideoClickableAreasPos();
+			                }
 
-			                if (ProBtnControl.params.DisableVideoFullscreen === true)
-			                {
+			                if (ProBtnControl.params.DisableVideoFullscreen === true) {
 			                  var doc = window.document;
-			                  if (doc.fullscreen === true)
-			                  {
+			                  if (doc.fullscreen === true) {
 			                    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
 			                    cancelFullScreen.call(doc);
 			                  }
 			                }
 			              }
 			            }
-			          } catch (ex) {}
+			          } catch (ex) { }
 
 			          //check is fancybox is open at current moment
 			          var isOpen = false;
@@ -7451,7 +7462,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            if ($.fancybox !== undefined) {
 			              isOpen = $.fancybox.isOpen;
 			            }
-			          } catch (ex) {}
+			          } catch (ex) { }
 
 			          if (($.fancybox !== undefined) || (ProBtnControl.params.ButtonType === "fullscreen")) {
 			            if ((isOpen) || (ProBtnControl.params.ButtonType === "fullscreen")) {
@@ -7497,12 +7508,12 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              if ((margins[0] > 0) && (margins[2] > 0)) {
 			                newFancyboxHeight = newFancyboxHeight - margins[0] - margins[2];
-			              } else {}
+			              } else { }
 			              if ((margins[1] > 0) && (margins[3] > 0)) {
 			                newFancyboxWidth = newFancyboxWidth - margins[1] - margins[3];
-			              } else {}
+			              } else { }
 
-			              var setFancyboxSizes = function(fancyboxHeight, fancyboxWidth, fancyboxHeightInner, margins) {
+			              var setFancyboxSizes = function (fancyboxHeight, fancyboxWidth, fancyboxHeightInner, margins) {
 
 			                if (ProBtnControl.params.IsManualSize === true) {
 			                  $('.fancybox-wrap').width(fancyboxWidth);
@@ -7580,14 +7591,14 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              var elements = document.getElementsByClassName("video_iframe");
 			              if (elements.length > 0) {
-			                Array.prototype.forEach.call(elements, function(element) {
+			                Array.prototype.forEach.call(elements, function (element) {
 			                  element.setAttribute("width", $('.fancybox-inner').width());
 			                  element.setAttribute("height", $('.fancybox-inner').height());
 			                });
 			              }
 			              setFancyboxSizes(newFancyboxHeight, newFancyboxWidth, newFancyboxHeightInner, margins);
 
-			              setTimeout(function() {
+			              setTimeout(function () {
 
 			                var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
 			                var additionalMode = "";
@@ -7595,7 +7606,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  if ((forwardAndStopParams[3] !== null) && (forwardAndStopParams[3] !== undefined)) {
 			                    additionalMode = forwardAndStopParams[3].toLowerCase();
 			                  }
-			                } catch (ex) {}
+			                } catch (ex) { }
 			                if ((additionalMode === "openmodal")) {
 
 			                  ProBtnControl.additionalButtonFunctions.setIfameSizes();
@@ -7611,7 +7622,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 
-			        changeBodySize: function() {
+			        changeBodySize: function () {
 			          var opts = {
 			            width: window.availWidth,
 			            height: window.availHeight
@@ -7621,10 +7632,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			          try {
 			            $('body').css(opts);
-			          } catch (ex) {}
+			          } catch (ex) { }
 			        },
 
-			        MinimizeWrapper: function(callback1, time) {
+			        MinimizeWrapper: function (callback1, time) {
 
 			          //console.log("minimizeWrapper");
 
@@ -7667,7 +7678,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 			        //maximiza button wrapper
-			        MaximizeWrapper: function(callback) {
+			        MaximizeWrapper: function (callback) {
 			          var pizzabtn_wrapper = ProBtnControl.wrapper;
 			          var width = window.innerWidth;
 			          var height = window.innerHeight;
@@ -7714,7 +7725,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                left: newleft + 'px'
 			              });
 			            }
-			          } catch (ex) {}
+			          } catch (ex) { }
 			          try {
 			            var scrollTop = 0;
 			            scrollTop = $(window).scrollTop();
@@ -7725,39 +7736,40 @@ function probtn_callPlayer(frame_id, func, args) {
 			                top: newtop + 'px'
 			              });
 			            }
-			          } catch (ex) {}
+			          } catch (ex) { }
 
 			          try {
 			            callback();
-			          } catch (ex) {}
+			          } catch (ex) { }
 			        },
 			        animation: {
 			          animationRuning: false,
-			          _setAnimationCSS: function() {
+			          _setAnimationCSS: function () {
 			            ProBtnControl.pizzabtn.css("-webkit-transform", "translateZ(0)");
 			            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
 			            ProBtnControl.pizzabtn.css("transform", "translateZ(0)");
 			            ProBtnControl.pizzabtn.css("transition-property", "left, top");
 			            ProBtnControl.pizzabtn.css("-webkit-transition-property", "left, top");
 			          },
-			          probtnIframeEvent: function(name, data) {
+			          probtnIframeEvent: function (name, data) {
 			            ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			              message: name,
 			              data: data
 			            });
 			          },
-			          pathAnimation: function(animationName) {
+			          pathAnimation: function (animationName) {
+			            //console.log("pathAnimation");
 
 			            //crSpline animation
 			            //path https://raw.githubusercontent.com/MmmCurry/jquery.crSpline/master/jquery.crSpline.js
 			            //https://github.com/MmmCurry/jquery.crSpline/
-			            (function($) {
+			            (function ($) {
 
 			              $.crSpline = {};
 
 			              // Catmull-Rom interpolation between p0 and p1 for previous point p_1 and later point p2
 			              // http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline
-			              var interpolate = function(t, p_1, p0, p1, p2) {
+			              var interpolate = function (t, p_1, p0, p1, p2) {
 			                return Math.floor((t * ((2 - t) * t - 1) * p_1 +
 			                  (t * t * (3 * t - 5) + 2) * p0 +
 			                  t * ((4 - 3 * t) * t + 1) * p1 +
@@ -7766,7 +7778,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              };
 
 			              // Extend this p1,p2 sequence linearly to a new p3
-			              var generateExtension = function(p1, p2) {
+			              var generateExtension = function (p1, p2) {
 			                return [
 			                  p2[0] + (p2[0] - p1[0]),
 			                  p2[1] + (p2[1] - p1[1])
@@ -7774,7 +7786,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              };
 
-			              var converPointList = function(initPointList) {
+			              var converPointList = function (initPointList) {
 			                var pointList = [];
 			                var initPointList_length = initPointList.length;
 
@@ -7790,8 +7802,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  var y = initPointList[i].y;
 
 			                  if (initPointList[i].scalable) {
-			                    x = Math.round(initPointList[i].x * ProBtnControl.additionalButtonFunctions.getWindowWidth());
-			                    y = Math.round(initPointList[i].y * ProBtnControl.additionalButtonFunctions.getWindowHeight());
+			                    x = Math.round(initPointList[i].x * (ProBtnControl.additionalButtonFunctions.getWindowWidth() - ProBtnControl.params.ButtonSize.W));
+			                    y = Math.round(initPointList[i].y * (ProBtnControl.additionalButtonFunctions.getWindowHeight() - ProBtnControl.params.ButtonSize.W));
 			                  }
 
 			                  if (i === 0) {
@@ -7807,14 +7819,14 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                  pointList[i + countadd] = [x, y];
 			                };
-			                console.log("new pointList", pointList, JSON.stringify(pointList));
+			                //console.log("new pointList", pointList, JSON.stringify(pointList));
 
 			                return pointList;
 			              }
 
 			              // Return an animation object based on a sequence of points
 			              // pointList must be an array of [x,y] pairs
-			              $.crSpline.buildSequence = function(rawPointList) {
+			              $.crSpline.buildSequence = function (rawPointList) {
 			                var res = {};
 			                var seq = [];
 			                var numSegments;
@@ -7838,7 +7850,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                numSegments = seq.length - 3;
 
-			                res.getPos = function(t) {
+			                res.getPos = function (t) {
 			                  // XXX For now, assume all segments take equal time
 			                  var segNum = Math.floor(t * numSegments);
 			                  if (segNum === numSegments) {
@@ -7865,7 +7877,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                return res;
 			              };
 
-			              $.fx.step.crSpline = function(fx) {
+			              $.fx.step.crSpline = function (fx) {
 			                var css = fx.end.getPos(fx.pos);
 			                for (var i in css) {
 			                  fx.elem.style[i] = css[i];
@@ -7906,21 +7918,25 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }];
 			            }
 			            //console.log("path2", path);
+			            
 
 			            if (animations[0] === "path") {
-			              ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
-			                setTimeout(function() {
+			              ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
+			                setTimeout(function () {
 			                  $("#probtn_button").animate({
 			                    crSpline: $.crSpline.buildSequence(path)
-			                  }, ProBtnControl.params.animationDuration, function() {
-			                    console.log("pathAnimation finished");
+			                  }, ProBtnControl.params.animationDuration, function () {
+			                    //console.log("pathAnimation finished");
+			                    ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+			                      message: "viewt_pathAnimation_finished"
+			                    });
 			                  });
-			                }, ProBtnControl.params.animationDuration / 5);
+			                }, 100);
 			              });
 			            }
 
 			          },
-			          opacityAnimation: function(animationName) {
+			          opacityAnimation: function (animationName) {
 			            //console.log("opacityAnimation1", animationName);
 			            var params = {
 			              finalOpacity: 0.5,
@@ -7929,19 +7945,19 @@ function probtn_callPlayer(frame_id, func, args) {
 			            };
 			            params = this._checkAndGetActualParams(params);
 			            if (params.name == "opacity") {
-			              var startOpacityAnimation = function() {
-			                setTimeout(function() {
+			              var startOpacityAnimation = function () {
+			                setTimeout(function () {
 			                  ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
 			                  //ProBtnControl.pizzabtn
 			                  ProBtnControl.pizzabtn.animate({
 			                    opacity: params.finalOpacity
 			                  }, {
-			                    duration: ProBtnControl.params.animationDuration,
-			                    step: function(now) {
-			                      //console.log("step", now);
-			                    },
-			                    complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
-			                  });
+			                      duration: ProBtnControl.params.animationDuration,
+			                      step: function (now) {
+			                        //console.log("step", now);
+			                      },
+			                      complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
+			                    });
 			                }, params.delay);
 			              };
 			              if (params.startType == "scroll") {
@@ -7951,7 +7967,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }
 			            }
 			          },
-			          rolloutAnimation: function() {
+			          rolloutAnimation: function () {
 			            var params = {
 			              side: "left",
 			              rollOutPercent: 80
@@ -7966,7 +7982,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8));
 			              }
 
-			              var onScrollRollAnimation = function(e) {
+			              var onScrollRollAnimation = function (e) {
 			                //send message about scroll
 			                //TODO: check new function
 			                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
@@ -7983,11 +7999,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                var isOpera = (ua.indexOf('opera') > -1);
 			                var isIE = (!isOpera && ua.indexOf('msie') > -1);
 
-			                var getViewportHeight = function() {
+			                var getViewportHeight = function () {
 			                  return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat') ? document.documentElement.clientHeight : document.body.clientHeight : (document.parentWindow || document.defaultView).innerHeight;
 			                };
 
-			                var getDocumentHeight = function() {
+			                var getDocumentHeight = function () {
 			                  return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, getViewportHeight());
 			                };
 
@@ -8005,7 +8021,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              $(window).scroll(onScrollRollAnimation);
 			            }
 			          },
-			          lookoutAndOutAnimation: function() {
+			          lookoutAndOutAnimation: function () {
 			            var params = {
 			              side: "left",
 			              rollOutPercent: 50
@@ -8030,14 +8046,14 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              var lookoutCount = 0;
 
-			              var onBackLookOut = function(e) {
+			              var onBackLookOut = function (e) {
 			                console.log("onBackLookOut");
 			                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                  message: "probtn_lookoutandout_stop",
 			                  "count": lookoutCount
 			                });
 
-			                ProBtnControl.lookOutTimeout2 = setTimeout(function() {
+			                ProBtnControl.lookOutTimeout2 = setTimeout(function () {
 			                  var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
 			                  if (params.side === 'right') {
 			                    left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
@@ -8053,14 +8069,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.pizzabtn.animate({
 			                    left: left
 			                  }, {
-			                    duration: ProBtnControl.params.animationDuration,
-			                    easing: "linear",
-			                    complete: onLookOut
-			                  });
+			                      duration: ProBtnControl.params.animationDuration,
+			                      easing: "linear",
+			                      complete: onLookOut
+			                    });
 			                }, ProBtnControl.params.animationDuration / 2);
 			              };
 
-			              var onLookOut = function(e) {
+			              var onLookOut = function (e) {
 			                console.log("onLookOut");
 			                lookoutCount++;
 			                var left = 0;
@@ -8083,11 +8099,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.pizzabtn.animate({
 			                    left: left
 			                  }, {
-			                    duration: ProBtnControl.params.animationDuration,
-			                    easing: "linear",
-			                    complete: onBackLookOut,
-			                    queue: true
-			                  });
+			                      duration: ProBtnControl.params.animationDuration,
+			                      easing: "linear",
+			                      complete: onBackLookOut,
+			                      queue: true
+			                    });
 			                  //}, ProBtnControl.params.animationDuration);
 			                } else {
 			                  if (autostartContent) {
@@ -8101,26 +8117,26 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.pizzabtn.animate({
 			                    left: left
 			                  }, {
-			                    duration: ProBtnControl.params.animationDuration,
-			                    easing: "linear",
-			                    complete: function(e) {
+			                      duration: ProBtnControl.params.animationDuration,
+			                      easing: "linear",
+			                      complete: function (e) {
 
-			                      console.log("finish animation done");
+			                        console.log("finish animation done");
 
-			                      ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
-			                        message: "probtn_lookoutandout_stop",
-			                        "step": "last"
-			                      });
+			                        ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+			                          message: "probtn_lookoutandout_stop",
+			                          "step": "last"
+			                        });
 
-			                      if (autostartContent) {
-			                        ProBtnControl.lookOutTimeout = setTimeout(function() {
-			                          console.log("lookout timeout click now");
-			                          ProBtnControl.statistics.SendStatisticsData("Showed", 1);
-			                          ProBtnControl.onButtonTap();
-			                        }, 10000);
+			                        if (autostartContent) {
+			                          ProBtnControl.lookOutTimeout = setTimeout(function () {
+			                            console.log("lookout timeout click now");
+			                            ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+			                            ProBtnControl.onButtonTap();
+			                          }, 10000);
+			                        }
 			                      }
-			                    }
-			                  });
+			                    });
 			                }
 			              };
 
@@ -8129,7 +8145,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              ProBtnControl.lookOutTimeout2 = setTimeout(onLookOut, ProBtnControl.params.animationDuration / 2);
 			            }
 			          },
-			          lookoutAnimation: function() {
+			          lookoutAnimation: function () {
 			            var params = {
 			              side: "left"
 			            }
@@ -8144,8 +8160,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			                ProBtnControl.pizzabtn.css("left", -(ProBtnControl.params.ButtonSize.W * 0.8));
 			              }
 
-			              var onBackLookOut = function(e) {
-			                setTimeout(function() {
+			              var onBackLookOut = function (e) {
+			                setTimeout(function () {
 			                  var left = -(ProBtnControl.params.ButtonSize.W * 0.8);
 			                  if (params.side === 'right') {
 			                    left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.2);
@@ -8155,15 +8171,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.pizzabtn.animate({
 			                    left: left
 			                  }, {
-			                    duration: ProBtnControl.params.animationDuration,
-			                    easing: "linear",
-			                    complete: onLookOut
-			                  });
+			                      duration: ProBtnControl.params.animationDuration,
+			                      easing: "linear",
+			                      complete: onLookOut
+			                    });
 			                }, ProBtnControl.params.animationDuration);
 			              };
 
-			              var onLookOut = function(e) {
-			                setTimeout(function() {
+			              var onLookOut = function (e) {
+			                setTimeout(function () {
 			                  var left = -(ProBtnControl.params.ButtonSize.W * 0.1);
 			                  if (params.side == 'right') {
 			                    left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W * 0.9);
@@ -8173,23 +8189,23 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.pizzabtn.animate({
 			                    left: left
 			                  }, {
-			                    duration: ProBtnControl.params.animationDuration,
-			                    easing: "linear",
-			                    complete: onBackLookOut
-			                  });
+			                      duration: ProBtnControl.params.animationDuration,
+			                      easing: "linear",
+			                      complete: onBackLookOut
+			                    });
 			                }, ProBtnControl.params.animationDuration);
 			              };
 
 			              setTimeout(onLookOut, ProBtnControl.params.animationDuration);
 			            }
 			          },
-			          cornerToCornerAnimation: function() {
+			          cornerToCornerAnimation: function () {
 			            if ((ProBtnControl.params.isAnimation === "anim1") || (ProBtnControl.params.isAnimation === "anim2")) {
 			              var initLeft = ProBtnControl.pizzabtn.position().left;
 			              var initTop = ProBtnControl.pizzabtn.position().top;
 
 			              ProBtnControl.additionalButtonFunctions.animation.animationRuning = true;
-			              ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+			              ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 
 			                var count = 0;
 
@@ -8197,23 +8213,23 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  top: (ProBtnControl.additionalButtonFunctions.getWindowHeight() - ProBtnControl.pizzabtn.height()),
 			                  left: ($("body").innerWidth() - ProBtnControl.pizzabtn.width())
 			                }, {
-			                  duration: ProBtnControl.params.animationDuration,
-			                  step: function(now) {
-			                    if (ProBtnControl.userData.mobile) {
-			                      count = count + 2;
-			                    } else {
-			                      count = now;
-			                    }
+			                    duration: ProBtnControl.params.animationDuration,
+			                    step: function (now) {
+			                      if (ProBtnControl.userData.mobile) {
+			                        count = count + 2;
+			                      } else {
+			                        count = now;
+			                      }
 
-			                    if (ProBtnControl.params.isAnimation == "anim2") {
-			                      count = -count;
-			                      $(this).css(ProBtnControl.additionalButtonFunctions.animation.getRotationCss(count, '60% 50%'));
-			                    } else {
-			                      $(this).css(ProBtnControl.additionalButtonFunctions.animation.getRotationCss(count));
-			                    }
-			                  },
-			                  complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
-			                });
+			                      if (ProBtnControl.params.isAnimation == "anim2") {
+			                        count = -count;
+			                        $(this).css(ProBtnControl.additionalButtonFunctions.animation.getRotationCss(count, '60% 50%'));
+			                      } else {
+			                        $(this).css(ProBtnControl.additionalButtonFunctions.animation.getRotationCss(count));
+			                      }
+			                    },
+			                    complete: ProBtnControl.additionalButtonFunctions.animation.doneAnimation
+			                  });
 			              });
 
 			            }
@@ -8223,7 +8239,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			           * @param  {[type]} params [description]
 			           * @return {[type]}        [description]
 			           */
-			          _checkAndGetActualParams: function(params) {
+			          _checkAndGetActualParams: function (params) {
 			            var paramAnims;
 			            var text = ProBtnControl.params.animationData;
 			            ProBtnControl.params.animationData = $('<div/>').html(text).text();
@@ -8261,7 +8277,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            return params;
 			          },
-			          forwardStopAndAwayAnimation: function() {
+			          forwardStopAndAwayAnimation: function () {
 			            var params = {
 			              side: "left"
 			            };
@@ -8279,7 +8295,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                ProBtnControl.pizzabtn.stop(true, true);
 			              }
 
-			              window.setTimeout(function() {
+			              window.setTimeout(function () {
 
 			                var left = $('body').innerWidth() / 2 - (ProBtnControl.params.ButtonSize.W) / 2;
 			                //set first stop position for button
@@ -8299,38 +8315,38 @@ function probtn_callPlayer(frame_id, func, args) {
 			                ProBtnControl.pizzabtn.animate({
 			                  left: left
 			                }, {
-			                  duration: ProBtnControl.params.animationDuration,
-			                  easing: "linear",
-			                  done: function() {
-			                    if ((ProBtnControl.params.ButtonImage !== null) || (ProBtnControl.params.ButtonImage !== undefined)) {
-			                      $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonImage);
+			                    duration: ProBtnControl.params.animationDuration,
+			                    easing: "linear",
+			                    done: function () {
+			                      if ((ProBtnControl.params.ButtonImage !== null) || (ProBtnControl.params.ButtonImage !== undefined)) {
+			                        $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonImage);
+			                      }
+			                      window.setTimeout(function () {
+			                        var left = $('body').innerWidth() + (ProBtnControl.params.ButtonSize.W) + 20;
+			                        if (params.side === 'right') {
+			                          left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W) - 20;
+			                        }
+
+			                        ProBtnControl.pizzabtn.stop(true, true);
+			                        if ((ProBtnControl.params.ButtonDragImage !== null) || (ProBtnControl.params.ButtonDragImage !== undefined)) {
+			                          $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonDragImage);
+			                        }
+
+			                        ProBtnControl.pizzabtn.animate({
+			                          left: left
+			                        }, {
+			                            step: function (now) { },
+			                            duration: ProBtnControl.params.animationDuration,
+			                            easing: "linear"
+			                          });
+			                      }, ProBtnControl.params.animationDuration);
 			                    }
-			                    window.setTimeout(function() {
-			                      var left = $('body').innerWidth() + (ProBtnControl.params.ButtonSize.W) + 20;
-			                      if (params.side === 'right') {
-			                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W) - 20;
-			                      }
-
-			                      ProBtnControl.pizzabtn.stop(true, true);
-			                      if ((ProBtnControl.params.ButtonDragImage !== null) || (ProBtnControl.params.ButtonDragImage !== undefined)) {
-			                        $("#pizzabtnImg", ProBtnControl.pizzabtn).attr("src", ProBtnControl.params.ButtonDragImage);
-			                      }
-
-			                      ProBtnControl.pizzabtn.animate({
-			                        left: left
-			                      }, {
-			                        step: function(now) {},
-			                        duration: ProBtnControl.params.animationDuration,
-			                        easing: "linear"
-			                      });
-			                    }, ProBtnControl.params.animationDuration);
-			                  }
-			                });
+			                  });
 			                //}, (ProBtnControl.params.animationDuration / 5));
 			              }, ProBtnControl.params.animationDuration);
 			            }
 			          },
-			          forwardAndStopAnimation: function() {
+			          forwardAndStopAnimation: function () {
 			            var forwardAndStopParams = ProBtnControl.params.isAnimation.split('_');
 			            var params = {
 			              side: "left",
@@ -8364,73 +8380,73 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              ProBtnControl.pizzabtn.stop(true, true);
 
-			              var probtnIframeEvent = function(name, data) {
+			              var probtnIframeEvent = function (name, data) {
 			                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                  message: name,
 			                  data: data
 			                });
 			              };
 
-			              setTimeout(function() {
+			              setTimeout(function () {
 			                probtnIframeEvent("probtn_forwardAndStop_start");
 			                ProBtnControl.pizzabtn.animate({
 			                  left: left
 			                }, {
-			                  duration: ProBtnControl.params.animationDuration,
-			                  complete: function() {
-			                    console.log("compelete");
-			                    probtnIframeEvent("probtn_forwardAndStop_stop", ProBtnControl.pizzabtn.position());
-			                    /*ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
-			                                            message: "probtn_forwardAndStop_stop",
-			                                            data: ProBtnControl.pizzabtn.position()
-			                                        });*/
+			                    duration: ProBtnControl.params.animationDuration,
+			                    complete: function () {
+			                      console.log("compelete");
+			                      probtnIframeEvent("probtn_forwardAndStop_stop", ProBtnControl.pizzabtn.position());
+			                      /*ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
+			                                              message: "probtn_forwardAndStop_stop",
+			                                              data: ProBtnControl.pizzabtn.position()
+			                                          });*/
 
 
-			                    switch (additionalMode) {
-			                      case "openModal":
-			                        if (!ProBtnControl.closed) {
-			                          console.log("ProBtnControl.once_moved", ProBtnControl.once_moved);
-			                          if (true) { // !ProBtnControl.once_moved
-			                            console.log("open modal param");
-			                            //ProBtnControl.statistics.SendStatisticsData("Showed", 1);
-			                            ProBtnControl.onButtonTap();
+			                      switch (additionalMode) {
+			                        case "openModal":
+			                          if (!ProBtnControl.closed) {
+			                            console.log("ProBtnControl.once_moved", ProBtnControl.once_moved);
+			                            if (true) { // !ProBtnControl.once_moved
+			                              console.log("open modal param");
+			                              //ProBtnControl.statistics.SendStatisticsData("Showed", 1);
+			                              ProBtnControl.onButtonTap();
+			                            }
 			                          }
-			                        }
-			                        break;
-			                      case "maximizeButton":
-			                        var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 0;
-			                        var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 0;
+			                          break;
+			                        case "maximizeButton":
+			                          var newWidth = ProBtnControl.additionalButtonFunctions.getWindowWidth() - 0;
+			                          var newHeight = ProBtnControl.additionalButtonFunctions.getWindowHeight() - 0;
 
-			                        ProBtnControl.pizzabtn.css("left", "0px");
-			                        ProBtnControl.pizzabtn.css("top", "0px");
+			                          ProBtnControl.pizzabtn.css("left", "0px");
+			                          ProBtnControl.pizzabtn.css("top", "0px");
 
-			                        ProBtnControl.pizzabtn.css("width", newWidth);
-			                        ProBtnControl.pizzabtn.css("height", newHeight);
+			                          ProBtnControl.pizzabtn.css("width", newWidth);
+			                          ProBtnControl.pizzabtn.css("height", newHeight);
 
-			                        $("#pizzabtnImg").css("width", newWidth);
-			                        $("#pizzabtnImg").css("height", newHeight);
-			                        break;
-			                      default:
-			                    }
-
-			                    setTimeout(function() {
-			                      var left = 0;
-			                      if (params.side == 'right') {
-			                        left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+			                          $("#pizzabtnImg").css("width", newWidth);
+			                          $("#pizzabtnImg").css("height", newHeight);
+			                          break;
+			                        default:
 			                      }
 
-			                      ProBtnControl.pizzabtn.stop(true, true);
-			                    }, ProBtnControl.params.animationDuration);
-			                  },
-			                  done: function() {
+			                      setTimeout(function () {
+			                        var left = 0;
+			                        if (params.side == 'right') {
+			                          left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+			                        }
 
-			                  }
-			                });
+			                        ProBtnControl.pizzabtn.stop(true, true);
+			                      }, ProBtnControl.params.animationDuration);
+			                    },
+			                    done: function () {
+
+			                    }
+			                  });
 			              }, params.waitDuration);
 
 			            }
 			          },
-			          forwardAndBackAnimation: function() {
+			          forwardAndBackAnimation: function () {
 			            var params = {
 			              side: "left",
 			              pauseDuration: 0,
@@ -8455,58 +8471,58 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              ProBtnControl.pizzabtn.stop(true, true);
 
-			              var probtnIframeEvent = function(name) {
+			              var probtnIframeEvent = function (name) {
 			                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                  message: name
 			                });
 			              };
 
-			              setTimeout(function() {
-			                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+			              setTimeout(function () {
+			                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 			                  //console.log("MaximizeWrapper forwardAndBack 2");
 			                  probtnIframeEvent("probtn_forwardAndBack_start");
 
 			                  ProBtnControl.pizzabtn.animate({
 			                    left: left
 			                  }, {
-			                    duration: ProBtnControl.params.animationDuration,
-			                    easing: "linear",
-			                    done: function() {
-			                      probtnIframeEvent("probtn_forwardAndBack_stop");
-			                      window.setTimeout(function() {
-			                        var left = 0;
-			                        if (params.side == 'right') {
-			                          left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
-			                        }
-
-			                        ProBtnControl.pizzabtn.stop(true, true);
-			                        probtnIframeEvent("probtn_forwardAndBack_reverse");
-			                        probtnIframeEvent("probtn_forwardAndBack_start");
-			                        probtnIframeEvent("probtn_forwardAndBack_start_reverse");
-			                        ProBtnControl.pizzabtn.animate({
-			                          left: left
-			                        }, {
-			                          duration: ProBtnControl.params.animationDuration,
-			                          easing: "linear",
-			                          done: function() {
-			                            probtnIframeEvent("probtn_forwardAndBack_stop");
-			                            probtnIframeEvent("probtn_forwardAndBack_stop_reverse");
-
-			                            setTimeout(function() {
-			                              ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
-			                            }, params.stopDuration);
-
+			                      duration: ProBtnControl.params.animationDuration,
+			                      easing: "linear",
+			                      done: function () {
+			                        probtnIframeEvent("probtn_forwardAndBack_stop");
+			                        window.setTimeout(function () {
+			                          var left = 0;
+			                          if (params.side == 'right') {
+			                            left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
 			                          }
-			                        });
-			                      }, params.pauseDuration);
-			                    }
-			                  });
+
+			                          ProBtnControl.pizzabtn.stop(true, true);
+			                          probtnIframeEvent("probtn_forwardAndBack_reverse");
+			                          probtnIframeEvent("probtn_forwardAndBack_start");
+			                          probtnIframeEvent("probtn_forwardAndBack_start_reverse");
+			                          ProBtnControl.pizzabtn.animate({
+			                            left: left
+			                          }, {
+			                              duration: ProBtnControl.params.animationDuration,
+			                              easing: "linear",
+			                              done: function () {
+			                                probtnIframeEvent("probtn_forwardAndBack_stop");
+			                                probtnIframeEvent("probtn_forwardAndBack_stop_reverse");
+
+			                                setTimeout(function () {
+			                                  ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
+			                                }, params.stopDuration);
+
+			                              }
+			                            });
+			                        }, params.pauseDuration);
+			                      }
+			                    });
 			                }, 50);
 			              }, (ProBtnControl.params.animationDuration / 2));
 			              //}, 0);
 			            }
 			          },
-			          TopToBottomAndStopAnimation: function() {
+			          TopToBottomAndStopAnimation: function () {
 			            var params = {
 			              side: "top",
 			              waitDuration: ProBtnControl.params.animationDuration / 2,
@@ -8557,7 +8573,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              ProBtnControl.pizzabtn.stop(true, true);
 
-			              var probtnIframeEvent = function(name, data) {
+			              var probtnIframeEvent = function (name, data) {
 			                if ($("#pizzabtnImg").is("iframe")) {
 			                  var myIframe = document.getElementById('pizzabtnImg');
 			                  myIframe.contentWindow.postMessage({
@@ -8567,39 +8583,39 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 			              };
 
-			              setTimeout(function() {
+			              setTimeout(function () {
 			                probtnIframeEvent("probtn_topToBottomAndStop_start");
 			                probtnIframeEvent("probtn_upToDown_start");
 
 			                ProBtnControl.pizzabtn.animate({
 			                  top: top
 			                }, {
-			                  duration: ProBtnControl.params.animationDuration,
-			                  done: function() {
-			                    probtnIframeEvent("probtn_topToBottomAndStop_stop", ProBtnControl.pizzabtn.position());
-			                    probtnIframeEvent("probtn_upToDown_stop", ProBtnControl.pizzabtn.position());
+			                    duration: ProBtnControl.params.animationDuration,
+			                    done: function () {
+			                      probtnIframeEvent("probtn_topToBottomAndStop_stop", ProBtnControl.pizzabtn.position());
+			                      probtnIframeEvent("probtn_upToDown_stop", ProBtnControl.pizzabtn.position());
 
-			                    switch (additionalMode) {
-			                      case "maximizeButton":
-			                        break;
-			                      default:
-			                    }
-
-			                    setTimeout(function() {
-			                      var top = 0;
-			                      if (params.side == 'bottom') {
-			                        top = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H);
+			                      switch (additionalMode) {
+			                        case "maximizeButton":
+			                          break;
+			                        default:
 			                      }
 
-			                      ProBtnControl.pizzabtn.stop(true, true);
-			                    }, ProBtnControl.params.animationDuration);
-			                  }
-			                });
+			                      setTimeout(function () {
+			                        var top = 0;
+			                        if (params.side == 'bottom') {
+			                          top = ProBtnControl.additionalButtonFunctions.getWindowHeight() - (ProBtnControl.params.ButtonSize.H);
+			                        }
+
+			                        ProBtnControl.pizzabtn.stop(true, true);
+			                      }, ProBtnControl.params.animationDuration);
+			                    }
+			                  });
 			              }, params.waitDuration);
 
 			            }
 			          },
-			          ToCenterAnimation: function() {
+			          ToCenterAnimation: function () {
 			            var params = {
 			              waitDuration: 1000
 			            };
@@ -8613,31 +8629,31 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			              ProBtnControl.pizzabtn.stop(true, true);
 
-			              var probtnIframeEvent = function(name, data) {
+			              var probtnIframeEvent = function (name, data) {
 			                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                  message: name,
 			                  data: data
 			                });
 			              };
 
-			              setTimeout(function() {
+			              setTimeout(function () {
 			                probtnIframeEvent("probtn_topToCenter_start");
 
 			                ProBtnControl.pizzabtn.animate({
 			                  top: top,
 			                  left: left
 			                }, {
-			                  duration: ProBtnControl.params.animationDuration,
-			                  done: function() {
-			                    probtnIframeEvent("probtn_topToCenter_stop", ProBtnControl.pizzabtn.position());
-			                  }
-			                });
+			                    duration: ProBtnControl.params.animationDuration,
+			                    done: function () {
+			                      probtnIframeEvent("probtn_topToCenter_stop", ProBtnControl.pizzabtn.position());
+			                    }
+			                  });
 			              }, params.waitDuration);
 
 			            }
 			          },
 			          //animation that change button sizes
-			          resizeAnimation: function() {
+			          resizeAnimation: function () {
 			            //debugger;
 			            var params = [{
 			              autoStart: true,
@@ -8652,7 +8668,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            if (params.name.toLowerCase() == "resizeAnimation".toLowerCase()) {
 
-			              var probtnIframeEvent = function(name, data) {
+			              var probtnIframeEvent = function (name, data) {
 			                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                  message: name,
 			                  data: data
@@ -8667,12 +8683,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			              };
 			              console.log("autoStart", autoStart, params[0]);
 
-			              var currentStep = function(params, callback) {
+			              var currentStep = function (params, callback) {
 			                if (current_count < params.length) {
 			                  //debugger;
 			                  var item = params[current_count];
 			                  var delay = item.waitDuration;
-			                  setTimeout(function() {
+			                  setTimeout(function () {
 
 			                    var newButtonSize1 = ProBtnControl.additionalButtonFunctions.convertPercentButtonSize({ W: item.width, H: item.height });
 			                    console.log("newButtonSize1", newButtonSize1);
@@ -8690,13 +8706,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			              /** type of animation start - automatic or after 'probtn_start_animation' event */
 			              //currentStep(params, function() { console.log("callback"); });
 			              if (autoStart) {
-			                currentStep(params, function() { console.log("callback"); });
+			                currentStep(params, function () { console.log("callback"); });
 			              } else {
 			                //check for command to start animation
-			                var receiveMessageStart = function(event) {
+			                var receiveMessageStart = function (event) {
 			                  try {
 			                    if (event.data.command === "probtn_start_animation") {
-			                      currentStep(params, function() { console.log("callback"); });
+			                      currentStep(params, function () { console.log("callback"); });
 			                    }
 			                  } catch (ex) {
 
@@ -8709,7 +8725,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            }
 			          },
-			          forwardMoveAndStopAndMoveAnimation: function() {
+			          forwardMoveAndStopAndMoveAnimation: function () {
 			            var forwardMoveAndStopandMoveParams = ProBtnControl.params.isAnimation.split('_');
 			            var params = {
 			              "side": "left",
@@ -8736,43 +8752,43 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }
 			              var currentThis = this;
 
-			              setTimeout(function() {
+			              setTimeout(function () {
 			                currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_firstPart_start");
 			                ProBtnControl.pizzabtn.animate({
 			                  left: left
 			                }, {
-			                  duration: params.firstPartDuration,
-			                  complete: function() {
-			                    currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_firstPart_stop", ProBtnControl.pizzabtn.position());
+			                    duration: params.firstPartDuration,
+			                    complete: function () {
+			                      currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_firstPart_stop", ProBtnControl.pizzabtn.position());
 
-			                    //wait for stop
-			                    setTimeout(function() {
-			                      currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_secondPart_start");
+			                      //wait for stop
+			                      setTimeout(function () {
+			                        currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_secondPart_start");
 
-			                      var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
-			                      if (params.side === 'right') {
-			                        left = 0;
-			                      }
-			                      ProBtnControl.pizzabtn.animate({
-			                        left: left
-			                      }, {
-			                        duration: params.secondPartDuration,
-			                        complete: function() {
-			                          currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_secondPart_stop", ProBtnControl.pizzabtn.position());
-			                        },
-			                        done: function() {}
-			                      });
+			                        var left = $('body').innerWidth() - (ProBtnControl.params.ButtonSize.W);
+			                        if (params.side === 'right') {
+			                          left = 0;
+			                        }
+			                        ProBtnControl.pizzabtn.animate({
+			                          left: left
+			                        }, {
+			                            duration: params.secondPartDuration,
+			                            complete: function () {
+			                              currentThis.probtnIframeEvent("probtn_forwardMoveAndStopandMove_secondPart_stop", ProBtnControl.pizzabtn.position());
+			                            },
+			                            done: function () { }
+			                          });
 
-			                    }, params.stopDuration);
-			                  },
-			                  done: function() {}
-			                });
+			                      }, params.stopDuration);
+			                    },
+			                    done: function () { }
+			                  });
 			              }, params.waitDuration);
 			            }
 			          },
-			          checkAndRunAnimation: function() {
+			          checkAndRunAnimation: function () {
 
-			            setTimeout(function() {
+			            setTimeout(function () {
 
 			              //console.log("ProBtnControl.params.isAnimation", ProBtnControl.params.isAnimation);
 
@@ -8802,7 +8818,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              //});
 			            }, 400);
 			          },
-			          getRotationCss: function(deg, origin) {
+			          getRotationCss: function (deg, origin) {
 			            if ((origin === null) && (origin === undefined)) {
 			              origin = '50% 50%';
 			            }
@@ -8820,7 +8836,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              'transform-origin': origin
 			            };
 			          },
-			          doneAnimation: function() {
+			          doneAnimation: function () {
 			            ProBtnControl.pizzabtn.css(ProBtnControl.additionalButtonFunctions.animation.getRotationCss(0));
 			            ProBtnControl.additionalButtonFunctions.animation.animationRuning = false;
 			            if ((ProBtnControl.params.ButtonAnimationDoneImage !== "") && (ProBtnControl.params.ButtonAnimationDoneImage !== undefined)) {
@@ -8832,7 +8848,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        },
 			        //search for active zone by name
-			        getCurrentActiveArea: function(areaName) {
+			        getCurrentActiveArea: function (areaName) {
 			          if (((ProBtnControl.params.ActiveZones !== null) || (ProBtnControl.params.ActiveZones.length > 0)) && (ProBtnControl.params.ButtonType === "button_and_active_zones")) {
 
 			            for (var i = 0; i < ProBtnControl.params.ActiveZones.length; i++) {
@@ -8847,14 +8863,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			            return null;
 			          }
 			        },
-			        randomString: function(length) {
+			        randomString: function (length) {
 			          return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 			        },
 			        //check for orientation - landscape or not
-			        isLandscape: function() {
+			        isLandscape: function () {
 			          return (ProBtnControl.additionalButtonFunctions.getWindowWidth() > ProBtnControl.additionalButtonFunctions.getWindowHeight());
 			        },
-			        getFancyboxMargins: function() {
+			        getFancyboxMargins: function () {
 			          var margins = [70, 70, 70, 70];
 			          if (((ProBtnControl.params.ContentInsets.T < 0) || (ProBtnControl.params.ContentInsets.B < 0) || (ProBtnControl.params.ContentInsets.L < 0) || (ProBtnControl.params.ContentInsets.R < 0)) && (ProBtnControl.params.isManualSize === true)) {
 			            var isMobileLandscape = (ProBtnControl.additionalButtonFunctions.isLandscape() && ProBtnControl.userData.mobile);
@@ -8872,7 +8888,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			          return margins;
 			        },
-			        setIfameSizes: function() {
+			        setIfameSizes: function () {
 			          if (ProBtnControl.userData.mobile) {
 			            //$(".fancybox-iframe").first().attr("scrolling", "no");
 			            //$(".fancybox-iframe").first().width($(".fancybox-inner").first().width());
@@ -8885,9 +8901,9 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            $(".fancybox-iframe").first().css("margin-bottom", "-5000px");
 			            $(".fancybox-iframe").css("margin-bottom", "-5000px");
-			          } else {}
+			          } else { }
 
-			          var setIframeScale = function(iframeScale) {
+			          var setIframeScale = function (iframeScale) {
 			            $(".fancybox-iframe").first().css("transform", "scale(" + iframeScale + ")");
 			            $(".fancybox-iframe").first().css("-moz-transform", "scale(" + iframeScale + ")");
 			            $(".fancybox-iframe").first().css("-webkit-transform", "scale(" + iframeScale + ")");
@@ -8925,7 +8941,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            }
 			          }
 			        },
-			        toExpanseView: function() {
+			        toExpanseView: function () {
 			          var newWidth = null;
 			          var newHeight = null;
 			          var marginLeft = null;
@@ -9015,7 +9031,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          });
 			        },
 
-			        fromExpanseToNormalView: function() {
+			        fromExpanseToNormalView: function () {
 			          var sizeBeforeClick = ProBtnControl.params.ButtonSize.BeforeClick;
 			          ProBtnControl.params.ButtonSize = sizeBeforeClick;
 			          var positionBeforeClick = ProBtnControl.params.ButtonPosition.BeforeClick;
@@ -9036,7 +9052,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			    ProBtnControl.statistics.callSuperPixelExt("StartButton");
 
 			    //check that all is initialized and start button
-			    var allButtonInitStart = function() {
+			    var allButtonInitStart = function () {
 			      ProBtnControl.statistics.callSuperPixelExt("allButtonInitStart_" + ProBtnControl.allButtonInit);
 			      if (ProBtnControl.allButtonInit === false) {
 			        ProBtnControl.allButtonInit = true;
@@ -9046,8 +9062,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			      }
 			    };
 
-			    var getUserDataFunction = function() {
-			      ProBtnControl.userDataFunction(function() {
+			    var getUserDataFunction = function () {
+			      ProBtnControl.userDataFunction(function () {
 			        window.probtn_ButtonContentType = null;
 
 			        ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
@@ -9057,7 +9073,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          allButtonInitStart();
 			        }
 
-			        $(window).bind("load", function() {
+			        $(window).bind("load", function () {
 			          ProBtnControl.statistics.callSuperPixelExt("Init_load");
 			          if (ProBtnControl.params.Debug) console.log("windows bind load");
 			          allButtonInitStart();
@@ -9066,7 +9082,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        //start hpmd tracking event
 			        ProBtnControl.HpmdFunctions.probtnHpmdTrack(1);
 
-			        setTimeout(function() {
+			        setTimeout(function () {
 			          ProBtnControl.statistics.callSuperPixelExt("Init_timeout");
 			          if (ProBtnControl.params.Debug) console.log("setTimeout");
 			          allButtonInitStart();
@@ -9106,16 +9122,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			            cookieExpiryDays: -1, // the time the cookie expires in days
 			          }
 
-
 			          if (newAtlasPath.atlasPath !== undefined) {
 			            atlasPath = newAtlasPath.atlasPath;
 			          }
-			          console.log("newAtlasPath", newAtlasPath);
 			          if (atlasPath !== "") {
-			            console.log("atlasPath1");
 			            $.getScript(atlasPath, getUserDataFunction);
 			          } else {
-			            console.log("atlasPath2");
 			            getUserDataFunction(null);
 			          }
 			        }
@@ -9128,6 +9140,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			      getUserDataFunction(null);
 			    }
 
+			    /**
+			     * Start button code and collect nessesary default settings and so on
+			     */
 			    function allButton1() {
 			      ProBtnControl.statistics.callSuperPixelExt("allButton1");
 
@@ -9150,6 +9165,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			        ProBtnControl.statistics.callSuperPixelExt("allButton1_not_ie");
 			        //init default params
 			        ProBtnControl.params = $.extend(true, {
+			          /**
+			           * HTML content to show in safeframe
+			           */
+			          ButtonIframeContent: "",
 
 			          /**
 			           * constrain button by size of DOM item specified in injectPath param
@@ -9846,7 +9865,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        var settingsUrl = "";
 
 			        //add button script at parent window
-			        var CheckAndRunButtonAtParent = function() {
+			        var CheckAndRunButtonAtParent = function () {
 			          ProBtnControl.statistics.callSuperPixelExt("CheckAndRunButtonAtParent1");
 			          if ((ProBtnControl.params.showInParent) && (window.window !== window.top)) {
 			            try {
@@ -9857,11 +9876,11 @@ function probtn_callPlayer(frame_id, func, args) {
 			              // https://cdn.viewst.com/includepb.min.js
 			              var oHead = window.top.document.getElementsByTagName('HEAD').item(0);
 
-			              var loadJS = function(src, callback) {
+			              var loadJS = function (src, callback) {
 			                var s = window.top.document.createElement('script');
 			                s.src = src;
 			                s.async = true;
-			                s.onreadystatechange = s.onload = function() {
+			                s.onreadystatechange = s.onload = function () {
 			                  var state = s.readyState;
 			                  if (!callback.done && (!state || /loaded|complete/.test(state))) {
 			                    callback.done = true;
@@ -9872,7 +9891,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              };
 
 			              console.log("CheckAndRunButtonAtParent loadJS probtn_concat.js");
-			              loadJS('//cdn.viewst.com/probtn_concat.js', function() {});
+			              loadJS('//cdn.viewst.com/probtn_concat.js', function () { });
 			            } catch (ex) {
 			              if (ProBtnControl.params.Debug) console.log(ex);
 			            }
@@ -9880,7 +9899,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			        };
 
 			        //check settings and run smartbanner
-			        var startAppBanner = function() {
+			        var startAppBanner = function () {
 			          ProBtnControl.statistics.callSuperPixelExt("startAppBanner");
 			          if ((ProBtnControl.params.ButtonType === "smartbanner") || (ProBtnControl.params.IsSmartBanner === true)) {
 
@@ -9889,7 +9908,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              $('head').append('<style type="text/css" id="probtn_ZCustomCss">' + ProBtnControl.params.ZCustomCss + '</style>');
 			            }
 
-			            var initSmartBanner = function() {
+			            var initSmartBanner = function () {
 			              if (ProBtnControl.params.Debug) console.log(ProBtnControl.params.smartbanner);
 			              ProBtnControl.statistics.SendStatObject({
 			                "Opened": 1,
@@ -9944,7 +9963,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 			                try {
-			                  $(document).on('click', "#smartbanner .sb-button", function() {
+			                  $(document).on('click', "#smartbanner .sb-button", function () {
 			                    if (ProBtnControl.params.Debug) console.log("smartbanner click");
 			                    ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
 			                  });
@@ -9954,7 +9973,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                try {
 			                  //close smartbanner
-			                  $(document).on('click', "#smartbanner a.sb-close", function() {
+			                  $(document).on('click', "#smartbanner a.sb-close", function () {
 			                    if (ProBtnControl.params.Debug) console.log("smartbanner close");
 			                    ProBtnControl.statistics.SendStatObject({
 			                      "Closed": 1,
@@ -9979,7 +9998,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              return true;
 			            } else {
 			              $('head').append('<link rel="stylesheet" href="' + ProBtnControl.params.smartbannerCssPath + '" type="text/css" />');
-			              $.getScript(ProBtnControl.params.smartbannerJsPath, function() {
+			              $.getScript(ProBtnControl.params.smartbannerJsPath, function () {
 			                initSmartBanner();
 			              });
 			              return true;
@@ -9989,7 +10008,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        };
 
-			        var CheckInFrameAndEnabled = function() {
+			        var CheckInFrameAndEnabled = function () {
 			          ProBtnControl.statistics.callSuperPixelExt("CheckInFrameAndEnabled1");
 			          try {
 			            if (((ProBtnControl.params.UseExternalDataAboutUser === true)) && (document.getElementById("probtn_guidIframe") !== undefined)) {
@@ -10123,7 +10142,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        };
 
-			        var getSettingsAndLaunchButton = function(operator) {
+			        var getSettingsAndLaunchButton = function (operator) {
 
 			          if (ProBtnControl.params.Debug) console.log("getSettingsAndLaunchButton");
 			          var retina = 1;
@@ -10143,14 +10162,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			            try {
 			              try {
 			                data.result.HintText = HintText;
-			              } catch (ex) {}
+			              } catch (ex) { }
 
 			              /**
 			               * Modify recieved settings - convert percent sizes, etc.
 			               * @param  {[json]} data
 			               * @return {[type]}
 			               */
-			              var parseResultDataStep2 = function(data) {
+			              var parseResultDataStep2 = function (data) {
 			                if (data.code === 100) {
 			                  if (data.MSMediaKeyNeededEvent.location === 1) {
 			                    /*ProBtnControl.geolocation.getLocation(function(position) {
@@ -10188,7 +10207,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    if ((ProBtnControl.params.PassbackCodeSelector === "") || (ProBtnControl.params.PassbackCodeSelector === undefined) || (ProBtnControl.params.PassbackCodeSelector === null)) {
 			                      ProBtnControl.params.PassbackCodeSelector = "#probtn_passback";
 			                    }
-			                  } catch (ex) {}
+			                  } catch (ex) { }
 			                  if (ProBtnControl.params.Debug) console.log("after server", ProBtnControl.params);
 			                  ProBtnControl.params = $.extend(true, ProBtnControl.params, options);
 
@@ -10216,24 +10235,25 @@ function probtn_callPlayer(frame_id, func, args) {
 			                   * check params for html code and remove unnessesary tags
 			                   * @param  {[object]} inObject - button params object
 			                   */
-			                  var checkHtmlInObject = function(inObject) {
+			                  var checkHtmlInObject = function (inObject) {
 			                    try {
 			                      for (var property in inObject) {
 			                        if (inObject.hasOwnProperty(property)) {
-			                          if (typeof(inObject[property]) == "string") {
+			                          if (typeof (inObject[property]) == "string") {
 			                            try {
 			                              /**
 			                               * TODO: add check what ButtonType == js and only then except ContentURL from this check
 			                               * Added ContentURL param exception
 			                               */
-			                              if ((property !== "PassbackCustomCode") && (property !== "JsImpressionCode") && ((property !== "ContentURL"))) {
+			                              if ((property !== "ButtonIframeContent") && (property !== "PassbackCustomCode") && 
+			                                (property !== "JsImpressionCode") && ((property !== "ContentURL"))) {
 			                                var before = inObject[property];
 			                                //inObject[property] = inObject[property].replace(/<\/?[^>]+(>|$)/g, ""); //$(inObject[property]).text();
 			                                inObject[property] = inObject[property].split('<style>').join('')
 			                                  .split('</style>').join('')
 			                                  .split('<script>').join('')
 			                                  .split('</script>').join('');
-			                              } else {}
+			                              } else { }
 			                            } catch (ex) {
 			                              if (ProBtnControl.params.Debug) console.log(ex);
 			                            }
@@ -10274,8 +10294,8 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                  //TODO - if it is js execute after click, then load additional libs - postsribe
 			                  if (ProBtnControl.params.ButtonType == "js") {
-			                    $.getScript("https://cdn.viewst.com/libs/postscribe/htmlParser.js", function() {
-			                      $.getScript("https://cdn.viewst.com/libs/postscribe/postscribe.js", function() {
+			                    $.getScript("https://cdn.viewst.com/libs/postscribe/htmlParser.js", function () {
+			                      $.getScript("https://cdn.viewst.com/libs/postscribe/postscribe.js", function () {
 			                        ProBtnControl.loadedStatus.postscribe = true;
 			                      });
 			                    });
@@ -10300,9 +10320,9 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ProBtnControl.statistics.callSuperPixel();
 			            ProBtnControl.statistics.callSuperPixelExt("getSettingsAndLaunchButton");
 
-			            ProBtnControl.additionalButtonFunctions.testSpeed(function(kbs) {
+			            ProBtnControl.additionalButtonFunctions.testSpeed(function (kbs) {
 			              ProBtnControl.userData.kbs = kbs; //add it to userData object to use it later on requests
-			              if ((ProBtnControl.params.Debug) && (kbs > 0)) {}
+			              if ((ProBtnControl.params.Debug) && (kbs > 0)) { }
 
 			              //get one more additional params
 			              try {
@@ -10324,7 +10344,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                settingsUrl = ProBtnControl.params.localSettingsPath;
 			              }
 
-			              var loadSettings = function() {
+			              var loadSettings = function () {
 
 			                if (!ProBtnControl.params.useLocalFileSettings) {
 
@@ -10363,21 +10383,21 @@ function probtn_callPlayer(frame_id, func, args) {
 			                var mainServerFail = false;
 
 			                try {
-			                  $.getJSON(settingsUrl, parseResultData).done(function() {
+			                  $.getJSON(settingsUrl, parseResultData).done(function () {
 			                    ProBtnControl.statistics.callSuperPixelExt("getClientSettings_loaded");
 			                    if (ProBtnControl.params.Debug) console.log('done settings load');
-			                  }).fail(function(jqXHR, textStatus, errorThrown) {
+			                  }).fail(function (jqXHR, textStatus, errorThrown) {
 			                    if (ProBtnControl.params.Debug) console.log(errorThrown);
 			                    if (ProBtnControl.params.Debug) console.log(textStatus);
 			                    mainServerFail = true;
-			                  }).always(function() {
+			                  }).always(function () {
 			                    //console.log("CheckInFrameAndEnabled", ProBtnControl.params.RequireLocation);
 
 			                    if (ProBtnControl.params.RequireLocation) {
 			                      ProBtnControl.statistics.SendStatisticsData("performedAction", "checkLocation");
-			                      ProBtnControl.geolocation.checkAndRunGeolocation(function() {
+			                      ProBtnControl.geolocation.checkAndRunGeolocation(function () {
 			                        if (ProBtnControl.params.RequireLocation) {
-			                          ProBtnControl.geolocation.checkPlaces(function(isNear, place) {
+			                          ProBtnControl.geolocation.checkPlaces(function (isNear, place) {
 			                            if (isNear) {
 			                              ProBtnControl.statistics.SendStatisticsData("performedAction", "isNearPlace");
 			                              CheckInFrameAndEnabled();
@@ -10400,7 +10420,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  });
 			                } catch (ex) {
 			                  console.log(ex);
-			                  $.getJSON(settingsUrl, function(data) {
+			                  $.getJSON(settingsUrl, function (data) {
 			                    parseResultData(data);
 			                    CheckInFrameAndEnabled();
 			                  });
@@ -10416,10 +10436,10 @@ function probtn_callPlayer(frame_id, func, args) {
 			        };
 
 			        //BEGIN BUTTON PROCESS
-			        var BeginButtonProcess = function() {
+			        var BeginButtonProcess = function () {
 			          ProBtnControl.statistics.callSuperPixelExt("BeginButtonProcess");
 
-			          var sendDuplicateInfo = function(name) {
+			          var sendDuplicateInfo = function (name) {
 			            if (name === undefined) {
 			              name = "duplicateDetected";
 			            }
@@ -10452,7 +10472,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			           * @param  {[type]} event [description]
 			           * @return {[type]}
 			           */
-			          var receiveMessage = function(event) {
+			          var receiveMessage = function (event) {
 			            try {
 			              //console.log("receiveMessage", event.data.command.toLowerCase());
 			              switch (event.data.command.toLowerCase()) {
@@ -10564,7 +10584,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    });
 			                  }
 			                  break;
-			                  //VideoParts event
+			                //VideoParts event
 			                case 'probtn_video_part_event':
 			                  ProBtnControl.statistics.SendStatObject({
 			                    "VideoPart": event.data.videoPart,
@@ -10574,7 +10594,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                default:
 			                  break;
 			              }
-			            } catch (ex) {}
+			            } catch (ex) { }
 
 			            try {
 			              ProBtnControl.params.ParentParams.width = event.data.width;
@@ -10680,7 +10700,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              if ((fancyboxFunction !== null) && (fancyboxFunction !== undefined)) {
 			                fancyboxFunction = jQuery.fancybox.open;
 			              }
-			            } catch (ex) {}
+			            } catch (ex) { }
 
 			            // load fancybox and jquery.pep
 			            if ((typeof fancyboxFunction === 'function') || (ProBtnControl.params.loadFancyboxJS === false)) {
@@ -10693,8 +10713,8 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 
 			          function addFancyboxAnimations() {
-			            (function($, F) {
-			              F.transitions.dropIn = function() {
+			            (function ($, F) {
+			              F.transitions.dropIn = function () {
 			                var endPos = F._getPosition(true);
 
 			                endPos.top = (parseInt(endPos.top, 10) - 200) + 'px';
@@ -10702,12 +10722,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                F.wrap.css(endPos).show().animate({
 			                  top: '+=200px'
 			                }, {
-			                  duration: F.current.openSpeed,
-			                  complete: F._afterZoomIn
-			                });
+			                    duration: F.current.openSpeed,
+			                    complete: F._afterZoomIn
+			                  });
 			              };
 
-			              F.transitions.perspectiveOut = function() {
+			              F.transitions.perspectiveOut = function () {
 			                var perspect = ProBtnControl.additionalButtonFunctions.getWindowHeight();
 			                if (ProBtnControl.additionalButtonFunctions.getWindowWidth() > ProBtnControl.additionalButtonFunctions.getWindowHeight()) {
 			                  perspect = ProBtnControl.additionalButtonFunctions.getWindowWidth();
@@ -10721,25 +10741,25 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }).animate({
 			                  deg: 7 * 50
 			                }, {
-			                  duration: F.current.closeSpeed,
-			                  step: function(now) {
-			                    var transform = 'rotateX(' + now / 50 + 'deg) scaleX(' + (1 - now / 720) + ')';
+			                    duration: F.current.closeSpeed,
+			                    step: function (now) {
+			                      var transform = 'rotateX(' + now / 50 + 'deg) scaleX(' + (1 - now / 720) + ')';
 
-			                    $(".fancybox-wrap").css('transform', transform);
-			                    $(".fancybox-skin").css('transform', transform);
+			                      $(".fancybox-wrap").css('transform', transform);
+			                      $(".fancybox-skin").css('transform', transform);
 
-			                  },
-			                  complete: function(e) {
-			                    $("body").css("perspective", "inherit");
-			                    F._afterZoomOut(e);
-			                  }
-			                });
+			                    },
+			                    complete: function (e) {
+			                      $("body").css("perspective", "inherit");
+			                      F._afterZoomOut(e);
+			                    }
+			                  });
 
 			                F.wrap.removeClass('fancybox-opened').animate({
 			                  top: "-300px"
 			                }, {
-			                  duration: F.current.closeSpeed
-			                });
+			                    duration: F.current.closeSpeed
+			                  });
 			              };
 
 			            }(jQuery, jQuery.fancybox));
@@ -10768,7 +10788,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            ProBtnControl.statistics.SendStatisticsData();
 			            ProBtnControl.statistics.SendBrowserStatsInfo();
 			            // expansion video events
-			            var processStartVideoExpEvent = function() {
+			            var processStartVideoExpEvent = function () {
 			              ProBtnControl.additionalButtonFunctions.toExpanseView();
 			              ProBtnControl.pizzabtn.css("top", ProBtnControl.additionalButtonFunctions.getWindowHeight() - ProBtnControl.params.ButtonSize.H);
 			              isStarted = true;
@@ -10776,7 +10796,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			            window.addEventListener('time_to_start_video_expansion_event', processStartVideoExpEvent, false);
 
-			            var processStopVideoExpEvent = function() {
+			            var processStopVideoExpEvent = function () {
 			              ProBtnControl.additionalButtonFunctions.fromExpanseToNormalView();
 			              ProBtnControl.additionalButtonFunctions.checkAndCorrentButtonPosition();
 			              clearInterval(ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"]);
@@ -10809,12 +10829,12 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  ProBtnControl.params.ExpansionVideoData = paramsEVD;
 			                  console.log("test", ProBtnControl.params.ExpansionVideoData);
 			                  var isStarted = false;
-			                  var dispatchVideoExpansionEvent = function(name) {
+			                  var dispatchVideoExpansionEvent = function (name) {
 			                    var event = document.createEvent('Event');
 			                    event.initEvent(name, true, true);
 			                    document.dispatchEvent(event);
 			                  }
-			                  ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"] = setInterval(function() {
+			                  ProBtnControl.contentTime.intervalId["ExpansionVideoTimer"] = setInterval(function () {
 			                    if ((ProBtnControl.contentTime.timeValue["ButtonShowedDuration"] >= ProBtnControl.params.ExpansionVideoData.startTime) && (!isStarted)) {
 			                      dispatchVideoExpansionEvent('time_to_start_video_expansion_event');
 			                    }
@@ -10831,7 +10851,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  $('head').append('<style type="text/css">#probtn_closeButton { display: block !important; }</style>');
 			                }, ProBtnControl.params.CloseButtonShowDelay);
 			              }*/
-			            } else {}
+			            } else { }
 
 			            if (ProBtnControl.params.ButtonType === "fullscreen_fancybox") {
 			              ProBtnControl.statistics.SendStatisticsData("Showed", 1);
@@ -10853,13 +10873,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			              }
 
 			              var buttonShowedDurationPeriodCounter = 0;
-			              var periodicDuration = function() {
+			              var periodicDuration = function () {
 			                /**
 			                 * get sum duration of previous items
 			                 * @param  {[type]} count [description]
 			                 * @return {[type]}       [description]
 			                 */
-			                var getSumDuration = function(items, count) {
+			                var getSumDuration = function (items, count) {
 			                  if (count < items.length) {
 			                    var sum = 0;
 			                    for (var i = 0; i < count; i++) {
@@ -10873,7 +10893,7 @@ function probtn_callPlayer(frame_id, func, args) {
 
 			                if (buttonShowedDurationPeriodCounter < ProBtnControl.params.ButtonShowedDurationPeriod.length) {
 			                  /* run timeouts for array items */
-			                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setTimeout(function() {
+			                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setTimeout(function () {
 			                    var currentSum = getSumDuration(ProBtnControl.params.ButtonShowedDurationPeriod, buttonShowedDurationPeriodCounter);
 			                    ProBtnControl.statistics.SendStatObject({
 			                      "ButtonShowedDurationPeriodic": ((currentSum) / 1000).toFixed(2),
@@ -10888,7 +10908,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  var previousSum = getSumDuration(ProBtnControl.params.ButtonShowedDurationPeriod, buttonShowedDurationPeriodCounter);
 			                  var maxPeriod = ProBtnControl.params.ButtonShowedDurationPeriod[maxItems - 1];
 
-			                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setInterval(function() {
+			                  ProBtnControl.contentTime.intervalId["ButtonShowedDurationPeriod"] = setInterval(function () {
 			                    buttonShowedDurationPeriodCounter++;
 			                    //Button periodic duration
 			                    ProBtnControl.statistics.SendStatObject({
@@ -10917,7 +10937,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			            var cssEaseDuration = ProBtnControl.params.cssEaseDuration;
 			            if (ProBtnControl.params.ControlInIframeFromParent === true) {
 			              cssEaseDuration = 0;
-			            } else {}
+			            } else { }
 
 			            var constrainObj = 'parent';
 			            if (ProBtnControl.params.CloseAreaType === "corner") {
@@ -10940,7 +10960,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			              droppable: '.probtn_active_zone',
 			              elementsWithInteraction: '#probtn_closeButton',
 			              initiate: ProBtnControl.additionalButtonFunctions.changeBodySize,
-			              start: function() {
+			              start: function () {
 			                ProBtnControl.once_moved = true;
 
 			                window.probtn_pizzabtn_moved = false;
@@ -10972,7 +10992,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    //hide menu if button moved
 			                    ProBtnControl.initFunctions.initRemoveMenu();
 			                  }
-			                } else {}
+			                } else { }
 
 			                window.probtn_dropedActiveZone = null;
 
@@ -10986,13 +11006,13 @@ function probtn_callPlayer(frame_id, func, args) {
 			                //show each active zone which visible when button moves
 
 
-			                $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+			                $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
 			                  if (activeZone.currentActiveZone.VisibleOnlyInteraction) {
 			                    activeZone.show();
 			                  }
 			                });
 
-			                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+			                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 
 			                  if (ProBtnControl.pizzabtn.moved === false) {
 			                    ProBtnControl.pizzabtn.dragAnimate();
@@ -11025,7 +11045,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  });
 			                });
 			              },
-			              drag: function(ev, obj) {
+			              drag: function (ev, obj) {
 			                window.probtn_pizzabtn_moved = true;
 
 			                ProBtnControl.initFunctions.initScrollChange(true);
@@ -11037,7 +11057,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 			                //check is button above close area
-			                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+			                ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 			                  var fancybox_wrap = $(".fancybox-wrap");
 
 			                  var pizzabtnRect = ProBtnControl.pizzabtn[0].getBoundingClientRect();
@@ -11060,7 +11080,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    });
 			                  }
 
-			                  if ((pizzabtnRect.top + pizzabtnRect.height) > ProBtnControl.additionalButtonFunctions.getWindowHeight()) {}
+			                  if ((pizzabtnRect.top + pizzabtnRect.height) > ProBtnControl.additionalButtonFunctions.getWindowHeight()) { }
 
 			                  if ((ProBtnControl.params.CloseAreaType === "") || (ProBtnControl.params.CloseAreaType === "default")) {
 			                    var overlap = !(pizzabtnRect.right < closeButtonRect.left || pizzabtnRect.left > closeButtonRect.right || pizzabtnRect.bottom < closeButtonRect.top || pizzabtnRect.top > closeButtonRect.bottom);
@@ -11100,7 +11120,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                    //todo uncomment
 			                    //window.probtn_dropedActiveZone = null;
 
-			                    $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+			                    $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
 
 			                      if (activeZone.currentActiveZone.ButtonImageType !== "iframe") {
 			                        activeZone.attr("src", activeZone.currentActiveZone.InactiveImage);
@@ -11157,7 +11177,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  };
 			                }
 			              },
-			              stop: function() {
+			              stop: function () {
 
 			                ProBtnControl.additionalButtonFunctions.sendMessageToCreative({
 			                  message: "probtn_lookoutandout_stop"
@@ -11190,7 +11210,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                      if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad !== false) || true) {
 			                        ProBtnControl.onButtonTap(activeZone.currentActiveZone.ActionURL, currentZoneName, activeZone.currentActiveZone.ButtonContentType);
 			                      } else {
-			                        if (ProBtnControl.params.VideoClickURL !== "") {}
+			                        if (ProBtnControl.params.VideoClickURL !== "") { }
 			                      }
 			                    }
 			                  } catch (ex) {
@@ -11203,7 +11223,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                }
 
 			                //hide zones and set inactive sizes
-			                $.each(ProBtnControl.initializedActiveZones, function(index, activeZone) {
+			                $.each(ProBtnControl.initializedActiveZones, function (index, activeZone) {
 			                  if (activeZone.currentActiveZone.VisibleOnlyInteraction) {
 			                    if (activeZone.currentActiveZone.ButtonImageType !== "iframe") {
 			                      activeZone.attr("src", activeZone.currentActiveZone.InactiveImage);
@@ -11260,17 +11280,17 @@ function probtn_callPlayer(frame_id, func, args) {
 			                  //ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 			                  if ((activeZone === null) || (activeZone === undefined)) {
 			                    if (ProBtnControl.params.ButtonContentType !== 'video') {
-			                      ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+			                      ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 			                        ProBtnControl.onButtonTap();
 			                      });
 			                    } else {
 			                      //if VIDEO mode
 			                      if ((ProBtnControl.userData.os !== "iOS") || (ProBtnControl.userData.isiPad) || true) {
-			                        ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+			                        ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 			                          ProBtnControl.onButtonTap();
 			                        });
 			                      } else {
-			                        ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function() {
+			                        ProBtnControl.additionalButtonFunctions.MaximizeWrapper(function () {
 			                          ProBtnControl.additionalButtonFunctions.MinimizeWrapper();
 			                          //send info that video showed
 			                          ProBtnControl.statistics.SendStatisticsData("ContentShowed", 1);
@@ -11279,7 +11299,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                          ProBtnControl.contentTime.startTimer();
 
 			                          //start timer for ios - to user's get video playback duration
-			                          $(window).on("touchstart", function(event) {
+			                          $(window).on("touchstart", function (event) {
 			                            if ((ProBtnControl.contentTime.intervalId !== undefined) && (ProBtnControl.contentTime.intervalId !== null)) {
 			                              // event.target is the clicked object
 			                              ProBtnControl.contentTime.endTimer();
@@ -11299,7 +11319,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			                              ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'anchor_external');
 			                              //}, 1000);
 			                            } else {
-			                              setTimeout(function() {
+			                              setTimeout(function () {
 			                                ProBtnControl.statistics.SendStatisticsData("VideoClicked", 1);
 			                                ProBtnControl.onButtonTap(ProBtnControl.params.VideoClickURL, null, 'iframe');
 			                              }, 1500);
@@ -11370,15 +11390,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			          //HideButtonAfterAjaxUpdate
 			          //Checking this to hide button if page is "changed" on some js app
 			          if (ProBtnControl.params.CheckPageAjaxUpdate === true) {
-			            if ("onhashchange" in window) {}
+			            if ("onhashchange" in window) { }
 
-			            var locationHashChanged = function() {
+			            var locationHashChanged = function () {
 			              if (ProBtnControl.params.HideButtonAfterAjaxUpdate === true) {
 			                ProBtnControl.additionalButtonFunctions.hideAll();
 			              }
 			            };
 
-			            var locationHashChanged2 = function() {
+			            var locationHashChanged2 = function () {
 			              if (ProBtnControl.params.HideButtonAfterAjaxUpdate === true) {
 			                if (window.location.pathname !== startLocation) {
 			                  ProBtnControl.additionalButtonFunctions.hideAll();
@@ -11392,15 +11412,15 @@ function probtn_callPlayer(frame_id, func, args) {
 			          }
 			        };
 
-			        ProBtnControl.cookieFunctions.getDeviceCID(function(guid) {
+			        ProBtnControl.cookieFunctions.getDeviceCID(function (guid) {
 			          console.log("guid", guid);
 			          ProBtnControl.DeviceCID = guid;
-			          ProBtnControl.initFunctions.initExternalData.initFirstAvailable(function() {
+			          ProBtnControl.initFunctions.initExternalData.initFirstAvailable(function () {
 
 			            ProBtnControl.statistics.callSuperPixelExt("initFirstAvailable_done");
 
 			            //get coordinates if nessesary
-			            ProBtnControl.geolocation.checkAndRunGeolocation(function() {
+			            ProBtnControl.geolocation.checkAndRunGeolocation(function () {
 			              getSettingsAndLaunchButton(null);
 			            });
 
