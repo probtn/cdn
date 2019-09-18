@@ -1655,7 +1655,7 @@ function probtn_callPlayer(frame_id, func, args) {
 			          if (vastClick) {
 			            currentContentURL = vastClick;
 			            ProBtnControl.params.ContentURL = vastClick;
-			            ProBtnControl.params.OpenExternal = true;
+			            //ProBtnControl.params.OpenExternal = true;
 			          }
 			        }
 			        /******************************************/
@@ -6415,13 +6415,14 @@ function probtn_callPlayer(frame_id, func, args) {
 			          //console.log("onClickCheck", name);
 			          name = name || "default";
 			          if (ProBtnControl.params.VASTparams.customParams["plc"]) { // if only player should open url
-			            ProBtnControl.vastFunctions.sendMessageToApp("action", { type: "AdClickThru", id: name, url: getClickURL(ProBtnControl.params.VASTparams.clicks, name) },
+			            ProBtnControl.vastFunctions.sendMessageToApp("action", { type: "AdClickThru", id: name, url: getClickURL(ProBtnControl.params.VASTparams.clicks, name), playerHandles: true },
 			              ProBtnControl.params.VASTparams.id);
 			            return false;
 			          } else {
-			            ProBtnControl.vastFunctions.sendMessageToApp("action", { type: "AdClickThru", id: name },
+			            var url = ProBtnControl.vastFunctions.getClickURL(ProBtnControl.params.VASTparams.clicks, name);
+			            ProBtnControl.vastFunctions.sendMessageToApp("action", { type: "AdClickThru", id: name, url: url, playerHandles: false },
 			              ProBtnControl.params.VASTparams.id);
-			            return ProBtnControl.vastFunctions.getClickURL(ProBtnControl.params.VASTparams.clicks, name);
+			            return url;
 			          }
 			        },
 			        /**
