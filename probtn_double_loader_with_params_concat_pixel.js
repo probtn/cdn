@@ -58,6 +58,9 @@ var callDSPlink = function() {
 		} catch(ex) {
 			console.log(ex);
 		}
+		if (document && document.domain) {
+			domain = document.domain.replace("www.", "");
+		}
 		try {
 			//https://dsp-parser.viewst.com/getdsp/:campaign_id/:domain/:frame/:publishers
 			var default_params = { "publishers": "unknown_publisher", "frame": checkIframe(), "domain": domain, "campaign_id": "unknown_campaign_id"};

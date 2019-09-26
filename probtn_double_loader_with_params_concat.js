@@ -39,7 +39,7 @@ function checkIframe() {
     return "XD_IFRAME";
 }
 var addSuperPixelLink = function(param) {
-	console.log(param);
+	//console.log(param);
 	var suf = "_ECLICK";
 	var out_param = param + suf;
 	//addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + out_param);
@@ -58,6 +58,9 @@ var callDSPlink = function() {
 		} catch(ex) {
 			console.log(ex);
 		}
+		if (document && document.domain) {
+			domain = document.domain.replace("www.", "");
+		}		
 		try {
 			//https://dsp-parser.viewst.com/getdsp/:campaign_id/:domain/:frame/:publishers 
 			var default_params = { "publishers": "unknown_publisher", "frame": checkIframe(), "domain": domain, "campaign_id": "unknown_campaign_id"};
