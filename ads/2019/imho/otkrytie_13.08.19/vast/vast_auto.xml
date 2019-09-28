@@ -98,7 +98,15 @@
                 <Extension type="Custom5">
                 </Extension>
                 <Extension type="isClickable">
-                    <![CDATA[ 1 ]]>
+                    <![CDATA[ 0 ]]>
+                </Extension>
+                <Extension type="skipAd"><![CDATA[
+                https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_auto_IMHO&domain=skipAdExtension&frame=NO_IFRAME&publishers=IMHO
+                 ]]>
+                </Extension>
+                <Extension type="addClick"><![CDATA[
+                https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_auto_IMHO&domain=addClickExtension&frame=NO_IFRAME&publishers=IMHO
+                 ]]>
                 </Extension>
             </Extensions>
         </InLine>

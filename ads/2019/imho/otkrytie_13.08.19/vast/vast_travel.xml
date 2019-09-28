@@ -1,4 +1,4 @@
-<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="2.0">
     <Ad id="43668" sequence="1">
         <InLine>
             <AdSystem version="1.0">1.0</AdSystem>
@@ -98,7 +98,15 @@
                 <Extension type="Custom5">
                 </Extension>
                 <Extension type="isClickable">
-                    <![CDATA[ 1 ]]>
+                    <![CDATA[ 0 ]]>
+                </Extension>
+                <Extension type="skipAd"><![CDATA[
+                https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_travel_IMHO&domain=skipAdExtension&frame=NO_IFRAME&publishers=IMHO
+                 ]]>
+                </Extension>
+                <Extension type="addClick"><![CDATA[
+                https://dsp-parser.viewst.com/getdspimg/?campaign_id=OpenCard_16x9_17s_travel_IMHO&domain=addClickExtension&frame=NO_IFRAME&publishers=IMHO
+                 ]]>
                 </Extension>
             </Extensions>
         </InLine>

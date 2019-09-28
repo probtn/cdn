@@ -385,21 +385,9 @@
           //from TrckingEvents in XML
           //TRACKING HERE
           //console.log("d(creativeEvent)", creativeEvent);
-          if ((creativeEvent.type == eventDescriptionObject.AdUserClose) || 
-            (creativeEvent.type == eventDescriptionObject.AdStopped)) {
+          if ((creativeEvent.type == eventDescriptionObject.AdUserClose) || (creativeEvent.type == eventDescriptionObject.AdStopped)) {
           }
-          if (e.fn) {
-              if (creativeEvent.type == eventDescriptionObject.AdClickThru && 
-                mainAdObject.customParams.plc) {
-                    e.fn.call(e.ctx, creativeEvent.data.url, creativeEvent.data.id, creativeEvent.data.playerHandles)
-                } else {
-                    e.fn.call(e.ctx, creativeEvent, creativeEvent.data.id, false);
-                }
-          }; 
-          /*&& (creativeEvent.type == eventDescriptionObject.AdClickThru && 
-            mainAdObject.customParams.plc ? 
-                e.fn.call(e.ctx, creativeEvent.data.url, creativeEvent.data.id, creativeEvent.data.playerHandles) : 
-                e.fn.call(e.ctx, creativeEvent))*/
+          e.fn && (creativeEvent.type == eventDescriptionObject.AdClickThru && mainAdObject.customParams.plc ? e.fn.call(e.ctx, creativeEvent.data.url, creativeEvent.data.id, creativeEvent.data.playerHandles) : e.fn.call(e.ctx, creativeEvent))
         })
       }
     };
@@ -777,10 +765,11 @@
           for (1 === this.video.nodeType && "undefined" != typeof this.video.hasAttribute && this.video.hasAttribute("src") && "" != this.video.getAttribute("src") && (mainAdObject.savedSource = this.video.getAttribute("src"), this.video.removeAttribute("src")), i = 0; i < mediaFiles.length; i++) {
             if (this.video.canPlayType(mediaFiles[i].type)) {
               var currentVideoSource = currentDocument.createElement("source");
-              //console.log("currentVideoSource", currentVideoSource, mediaPath, mediaFiles[i], mediaFiles[i].src);
+              console.log("currentVideoSource", currentVideoSource, mediaPath, mediaFiles[i], mediaFiles[i].src);
               if (currentVideoSource.type = mediaFiles[i].type, currentVideoSource.src = mediaFiles[i].src, currentVideoSource.id = "wb-src-" + Math.round(1e12 * Math.random()).toString(36), "function" == typeof this.video.appendChild && this.video.appendChild(currentVideoSource), this.video.f && this.video.f.indexOf("goog_") != -1 || "function" == typeof this.video.hasAttribute && !this.video.hasAttribute("src") || "function" == typeof this.video.getAttribute && "" == this.video.getAttribute("src")) {
                 var u = mediaFiles[i].src;
-                this.video.setAttribute("src", u)
+                this.video.setAttribute("src", u);                
+                console.log("this.video", this.video);
               }
               "undefined" != typeof this.video.load && this.video.load(), a = !0
             }
@@ -982,15 +971,8 @@
       updateSize: function (type) {
         var mainAdObject2 = mainAdObject;
         if (type === "orientationchange") {
-          if (screen.availWidth !== mainAdObject2.adSize.width) {
-            mainAdObject2.adSize.width = screen.availWidth;
-            mainAdObject2.adSize.height = screen.availHeight;
-          } else {
-            if ((window.orientation === 90) || (window.orientation === 270)) {
-              mainAdObject2.adSize.width = screen.availHeight;
-              mainAdObject2.adSize.height = screen.availWidth;
-            }
-          }
+          mainAdObject2.adSize.width = window.screen.width;
+          mainAdObject2.adSize.height = window.screen.height;
         }       
         
         console.log("updateSize2", mainAdObject2.adSize);
@@ -1380,7 +1362,6 @@
       }
     };
     possibleMainAdUnit.prototype.resizeAd = function (t, e, i) {
-      console.log("resizeAd");
       injectContentObject.log("resizeAd", arguments);
       var a = mainAdObject.fullscreen;
       mainAdObject.adSize = {

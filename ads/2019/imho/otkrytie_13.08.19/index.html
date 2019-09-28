@@ -197,15 +197,25 @@
       cursor: pointer;
     }
 
-    @keyframes move_cta { 
-      from { left: -200px } 
-      to { left: calc(100% - 175px); }  
+    @keyframes move_cta {
+      from {
+        left: -200px
       }
-   
-    @-webkit-keyframes move_cta  { 
-      from { left: -200px } 
-      to { left: calc(100% - 175px); }  
+
+      to {
+        left: calc(100% - 175px);
       }
+    }
+
+    @-webkit-keyframes move_cta {
+      from {
+        left: -200px
+      }
+
+      to {
+        left: calc(100% - 175px);
+      }
+    }
 
     #cta {
       position: fixed;
@@ -215,6 +225,20 @@
       transform: scale(0.37);
       animation: 0.3s linear 2s 1 forwards move_cta;
       -webkit-animation: 0.3s linear 2s 1 forwards move_cta;
+    }
+
+    #play {
+      width: 50px;
+      height: 50px;
+      display: none;
+
+      background: url(./play2.png);
+      background-size: cover;
+      position: fixed;
+      top: calc(50% - 25px);
+      left: calc(50% - 25px);
+      cursor: pointer;
+      border-radius: 25px;
     }
   </style>
 </head>
@@ -227,6 +251,7 @@
   <div id="close" data-event="ad-close1">
     <img src="close-new@2x.png" style="width: 37px; height: 37px;" alt="close" />
   </div>
+  <div id="play"></div>
 
   <div id="bg-left" class="bg-fields"></div>
   <div id="bg-right" class="bg-fields"></div>
@@ -234,9 +259,10 @@
   <div id="bg-bottom" class="bg-fields"></div>
 
   <!--<div id="cta" rel="https://mishutka52.ru/?utm_source=rmedia&utm_medium=cpm&utm_campaign=showjet">-->
-    <div id="cta">  
+  <div id="cta">
     <div id="index_hype_container" style="margin:auto;position:relative;width:395px;height:94px;overflow:hidden;">
-      <script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?38138"></script>
+      <script type="text/javascript" charset="utf-8"
+        src="index.hyperesources/index_hype_generated_script.js?38138"></script>
     </div>
   </div>
 
@@ -264,6 +290,16 @@
       app.pause();
     });
 
+    var play = document.getElementById("play");
+    play.addEventListener("click", function (e) {
+      try {
+        //console.log("play clicked");
+        play.style.display = "none";
+        app.resume();
+      } catch (ex) {
+      }
+    });
+
     var buttons = document.querySelectorAll("#cta");
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", function (e) {
@@ -273,12 +309,14 @@
           "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=click&frame=NO_IFRAME&publishers=NSC"
         );*/
         tracking.trackEvent("ContentShowed");
+        layerBlock.style.display = "none";
         app.click(); //app.clickByURL(url);
         app.pause();
       });
     }
 
     app.stateChange(function (state, data) {
+      console.log("state", state);
       switch (state) {
         case "SetConfig":
           if (data.tracking) {
@@ -294,6 +332,12 @@
           /*tracking.addLink(
             "https://dsp-parser.viewst.com/getdspimg/?campaign_id=mishutka52_vast1&domain=adstarted&frame=NO_IFRAME&publishers=NSC"
           );*/
+          break;
+        case "AdPlaying":
+          play.style.display = "none";
+          break;
+        case "AdPaused":
+          play.style.display = "initial";
           break;
         case "AdVideoComplete":
           app.setFlags("userInteraction", true);

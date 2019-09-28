@@ -82,6 +82,7 @@
     Interface.prototype.onUIEvent = function(event, data) {
         switch (event) {
             case 'ad-close':
+                console.log('ad-close');
                 this.close();
                 break;
             case 'ad-mute':
@@ -94,7 +95,7 @@
                 this.resume();
                 break;
             case 'ad-click':
-                if (this.customParams["ct"] === 1) {
+                if (this.customParams && (this.customParams["ct"] === 1)) {
                     this.click(data.value);
                     if (data.track) {
                         this.trackEvent(data.track);
@@ -139,6 +140,7 @@
         this.handlers.stateChange.push({fn: callback, ctx: context});
     };
     Interface.prototype.close = function() {
+        //console.log("AdUserClose");
         //this.trackEventRTB(2);
         sendToAPP("action", {type: "AdUserClose", id: name}, this.id);
     };
@@ -188,10 +190,20 @@
     };
     Interface.prototype.click = function(name) {
         name = name || "default";
-        if (this.customParams["plc"]) { // if only player should open url
+        //debugger;
+        if (this.customParams && this.customParams["plc"]) { // if only player should open url
             sendToAPP("action", {type: "AdClickThru", id: name, url: getClickURL(this.clicks, name)}, this.id);
         } else {
             window.open(getClickURL(this.clicks, name));
+            sendToAPP("action", {type: "AdClickThru", id: name}, this.id);
+        }
+    };
+    Interface.prototype.clickByURL = function(url) {
+        name = name || "default";
+        if ((this.customParams) && (this.customParams["plc"])) { // if only player should open url
+            sendToAPP("action", {type: "AdClickThru", id: name, url: url}, this.id);
+        } else {
+            window.open(url, "_blank");
             sendToAPP("action", {type: "AdClickThru", id: name}, this.id);
         }
     };
@@ -302,7 +314,9 @@
                 this.components.timer.innerText = "Реклама | " + Math.round(data.totalTime - data.currentTime) + " сек.";
                 break;
             case "AdSkippableStateChange":
-                this.components.close.style.display = "block";
+                if (this.components.close) {
+                    this.components.close.style.display = "block";
+                }
                 break;
             case "AdVolumeChange":
                 if (this.components.sound) {
@@ -310,10 +324,14 @@
                 }
                 break;
             case "AdPaused":
-                this.components.click.setAttribute("data-event", "ad-resume");
+                if (this.components && this.components.click) {
+                  this.components.click.setAttribute("data-event", "ad-resume");
+                }
                 break;
             case "AdPlaying":
-                this.components.click.setAttribute("data-event", "ad-click");
+                if (this.components && this.components.click) {
+                  this.components.click.setAttribute("data-event", "ad-click");
+                }
                 break;
         }
     };
