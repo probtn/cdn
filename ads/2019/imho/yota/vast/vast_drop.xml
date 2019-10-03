@@ -1,0 +1,115 @@
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="2.0">
+    <Ad id="43668" sequence="1">
+        <InLine>
+            <AdSystem version="1.0">1.0</AdSystem>
+            <AdTitle/>
+            <Description/>
+            <Error>
+            </Error>
+            <Impression>
+            </Impression>
+            <Creatives>
+                <Creative id="99121">
+                    <Linear>
+                        <Duration>00:00:20</Duration>
+                        <AdParameters>
+                            <![CDATA[
+                            {"mediapath":"https:\/\/cdn.viewst.com\/ads\/2019\/imho\/yota\/",
+                            "mediafiles":[{"src":"https:\/\/cdn.viewst.com\/video\/ads\/imho\/yota\/_YOTA_3_drop_16_9.mp4",
+                            "type":"video\/mp4"}],"warm":{"uuid":"414714052ed3327a71b1d2a0aa23954a"},
+                            
+                            "clicks":{"default":"https:\/\/ad.adriver.ru\/cgi-bin\/click.cgi?sid=1&bt=21&ad=688563&pid=2947969&bid=6288862&bn=6288862&rnd=297208550"},
+                            "tracking":
+                            {"ContentShowed":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=Yota_3_drop_16_9_IMHO&domain=ContentShowed&frame=NO_IFRAME&publishers=IMHO"],
+                            "Moved":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=Yota_3_drop_16_9_IMHO&domain=Moved&frame=NO_IFRAME&publishers=IMHO"],
+                            "Closed":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=Yota_3_drop_16_9_IMHO&domain=Closed&frame=NO_IFRAME&publishers=IMHO"],
+                            "Showed":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=Yota_3_drop_16_9_IMHO&domain=Showed&frame=NO_IFRAME&publishers=IMHO", "https://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=688563&pid=2947969&bid=6288862&bn=6288862&rnd=297208550"],
+                            "VideoClicked":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=Yota_3_drop_16_9_IMHO&domain=VideoClicked&frame=NO_IFRAME&publishers=IMHO"],
+                            "SetConfig":["https://dsp-parser.viewst.com/getdspimg/?campaign_id=Yota_3_drop_16_9_IMHO&domain=SetConfig&frame=NO_IFRAME&publishers=IMHO"]
+                            }}
+                            ]]>
+                        </AdParameters>
+                        <TrackingEvents>
+                            <Tracking event="creativeView">
+                            </Tracking>
+                            <Tracking event="start">
+                            </Tracking>
+                            <Tracking event="midpoint">
+                            </Tracking>
+                            <Tracking event="firstQuartile">
+                            </Tracking>
+                            <Tracking event="thirdQuartile">
+                            </Tracking>
+                            <Tracking event="complete">
+                            </Tracking>
+                            <Tracking event="mute">
+                            </Tracking>
+                            <Tracking event="unmute">
+                            </Tracking>
+                            <Tracking event="pause">
+                            </Tracking>
+                            <Tracking event="rewind">
+                            </Tracking>
+                            <Tracking event="resume">
+                            </Tracking>
+                            <Tracking event="fullscreen">
+                            </Tracking>
+                            <Tracking event="expand">
+                            </Tracking>
+                            <Tracking event="collapse">
+                            </Tracking>
+                            <Tracking event="acceptInvitation">
+                            </Tracking>
+                            <Tracking event="close">
+                            </Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickThrough>
+                            </ClickThrough>
+                            <ClickTracking>
+                            </ClickTracking>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile id="" delivery="progressive" type="application/javascript" maintainAspectRatio="false" scalable="true" bitrate="0" width="0" height="0" apiFramework="VPAID">
+                                <![CDATA[ https://vast-creatives.viewst.com/vpaid.linear.js ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="skipTime">
+                </Extension>
+                <Extension type="skipAd">
+                </Extension>
+                <Extension type="addClick">
+                </Extension>
+                <Extension type="CustomTracking">
+                    <Tracking event="onVastLoad">
+                    </Tracking>
+                </Extension>
+                <Extension type="Custom1">
+                </Extension>
+                <Extension type="Custom2">
+                </Extension>
+                <Extension type="Custom3">
+                </Extension>
+                <Extension type="Custom4">
+                </Extension>
+                <Extension type="Custom5">
+                </Extension>
+                <Extension type="isClickable">
+                    <![CDATA[ 0 ]]>
+                </Extension>
+                <Extension type="skipAd"><![CDATA[
+                https://dsp-parser.viewst.com/getdspimg/?campaign_id=Yota_3_drop_16_9_IMHO&domain=skipAdExtension&frame=NO_IFRAME&publishers=IMHO
+                 ]]>
+                </Extension>
+                <Extension type="addClick"><![CDATA[
+                https://dsp-parser.viewst.com/getdspimg/?campaign_id=Yota_3_drop_16_9_IMHO&domain=addClickExtension&frame=NO_IFRAME&publishers=IMHO
+                 ]]>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>
