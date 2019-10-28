@@ -39,6 +39,10 @@
 		window.self.addEventListener("message", receiveMessage, false);*/
 
 		function MyFunctions(hypeDocument, element, event) {
+			setTimeout(function () {
+            	window.parent.postMessage({ "command": "probtn_creative_loaded_message" }, "*");
+         	}, 100);
+			 
 			var receiveMessage = function (event) {
 				try {
 					if (event.data.message === "probtn_resizeAnimation_step") {
