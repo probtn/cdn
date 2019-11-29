@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <title>Demo</title>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .fotorama {
+            /*width: 100%;*/
+            max-width: 100vw;
+        }
+
+        .fotorama-wrapper {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .fotorama-button {
+            position: absolute;
+            display: inline-block;
+            text-decoration: none !important;
+            width: 90%;
+            font-size: 24px !important;
+            height: 52px;
+            line-height: 52px;
+            font-weight: 600;
+            border-radius: 36px;
+            bottom: 16px;
+            left: 5%;
+            color: #fff !important;
+            background-color: #000000;
+            text-align: center;
+            font-family: Arial, serif;
+        }
+    </style>
+    <link href="https://demo.viewst.com/ads/2019/iab/armchairs/page/lib/fotorama.css" rel="stylesheet">
+    <script src="https://demo.viewst.com/ads/2019/iab/armchairs/page/lib/fotorama.js"></script>
+</head>
+
+<body>
+    <div class="fotorama-wrapper">
+        <div class="fotorama">
+            <img src="https://demo.viewst.com/ads/2019/iab/armchairs/page/images/1.jpg">
+            <img src="https://demo.viewst.com/ads/2019/iab/armchairs/page/images/2.jpg">
+            <img src="https://demo.viewst.com/ads/2019/iab/armchairs/page/images/3.jpg">
+            <img src="https://demo.viewst.com/ads/2019/iab/armchairs/page/images/4.jpg">
+        </div>
+        <a class="fotorama-button" href="#">В магазин</a>
+    </div>
+
+</body>
+<script>
+    $('.fotorama').fotorama({
+        width: 500,
+        maxwidth: '100%',
+        nav: 'thumbs',
+        navwidth: '100%',
+        thumbwidth: '80',
+        thumbheight: '80',
+        arrows: false
+
+    });
+</script>
+
+</html>
