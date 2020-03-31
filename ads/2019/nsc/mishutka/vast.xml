@@ -21,9 +21,9 @@ https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=imp&tpy=m&eid=5d2cad630588a
                         <AdParameters>
                             <![CDATA[
 {"mediapath":"https:\/\/cdn.viewst.com\/ads\/2019\/nsc\/mishutka\/",
-"mediafiles":[{"src":"https:\/\/cdn.viewst.com\/ads\/2019\/nsc\/mishutka\/video.mp4",
+"mediafiles":[{"src":"https:\/\/cdn.viewst.com\/ads\/2019\/nsc\/mishutka\/showjet_1.mp4",
 "type":"video\/mp4"}],"warm":{"uuid":"414714052ed3327a71b1d2a0aa23954a"},
-"clicks":{"default":"https:\/\/mishutka52.ru\/?utm_source=rmedia&utm_medium=cpm&utm_campaign=showjet"},
+"clicks":{"default":"https://mishutka52.ru/?utm_source=rmedia&utm_medium=cpm&utm_campaign=showjet_interaktiv", "video_click": "https://mishutka52.ru/?utm_source=rmedia&utm_medium=cpm&utm_campaign=showjet"},
 "tracking":
 {"ContentShowed":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m1&eid=5d2cad630588a90001916373"],
 "Moved":["https://ads.nsc-lab.io/ads/vast/event?adid=43668&knd=ext&tpy=m2&eid=5d2cad630588a90001916374"],
