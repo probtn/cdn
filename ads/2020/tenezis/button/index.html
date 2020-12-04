@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>index</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=375" />
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="index_hype_container" style="margin:auto;position:relative;width:375px;height:180px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?4564"></script>
+	</div>
+
+	<!-- end copy -->
+	<script>
+          /*var receiveMessage = function (event) {
+          if ((event.data !== null) && (event.data !== undefined)) {                
+          if (event.data.message === "probtn_resizeAnimation_step") {
+          console.log("event.data", event.data);
+          }
+          }
+          }
+          // run your functions that require a loaded Hype scene here.
+          window.self.addEventListener("message", receiveMessage, false);*/
+
+          function MyFunctions(hypeDocument, element, event) {
+              var receiveMessage = function (event) {
+                  try {
+                      if (event.data.message === "probtn_resizeAnimation_step") {
+                          hypeDocument.showNextScene();
+                          document.getElementById("index_hype_container").style.marginTop = "-114px";
+                      }
+                  } catch (ex) { }
+              }
+              // run your functions that require a loaded Hype scene here. 
+              window.self.addEventListener("message", receiveMessage, false);
+          }
+          if ("HYPE_eventListeners" in window === false) {
+              window.HYPE_eventListeners = Array();
+          }
+          window.HYPE_eventListeners.push({
+              "type": "HypeSceneLoad",
+              "callback": MyFunctions
+          });
+</script>
+
+<script src="https://cdn.viewst.com/libs/hypeLoadEvent.js"></script>
+
+  </body>
+</html>
