@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+
+    <title>Smotrim fullscreen</title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+            background: blue;
+            background: radial-gradient(#6E01E9, #3E01B6);
+        }
+
+        #header {
+            margin: 0 auto;
+            position: fixed;
+            width: 375px;
+            height: 370px;
+            overflow: hidden;
+            border: 0px;
+            top: 0px;
+            z-index: 10;
+            transform-origin: 0% 0%;
+        }
+
+        #footer {
+            margin: auto;
+            position: fixed;
+            bottom: 0px;
+            border: 0px;
+            width: 375px;
+            height: 370px;
+            overflow: hidden;
+            transform-origin: 0% 100%;
+
+        }
+    </style>
+</head>
+
+<body>
+    <iframe src="./header/index.html" id="header"></iframe>
+    <iframe src="./footer/index.html" id="footer"></iframe>
+
+    <script>
+        const headerSize = {
+            width: 375,
+            height: 250
+        }
+        const footerSize = {
+            width: 375,
+            height: 370
+        }
+
+        window.addEventListener("load", function (event) {
+            const resizeIframes = function () {
+                const header = document.getElementById("header");
+                const footer = document.getElementById("footer");
+
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+
+                let width_k = width / headerSize.width;
+                header.style.transform = 'scale(' + width_k + ')';
+                footer.style.transform = 'scale(' + width_k + ')';
+
+                const totalHeight = width_k * headerSize.height + width_k * footerSize.height;
+                const DIFF = 100;
+                //console.log("totalHeight", totalHeight, height);
+
+                if (height > (totalHeight - DIFF)) {
+                    header.style.transform = 'scale(' + width_k + ')';
+                    footer.style.transform = 'scale(' + width_k + ')';
+
+                    const newLeftHeader = width / 2 - width_k * headerSize.width / 2;
+                    const newLeftFooter = width / 2 - width_k * footerSize.width / 2;
+
+                    header.style.left = newLeftHeader + 'px';
+                    footer.style.left = newLeftFooter + 'px';
+                } else {
+                    const height_k = height / (headerSize.height + footerSize.height);
+                    //console.log("update headers", height_k, width_k, width);
+
+                    header.style.transform = 'scale(' + height_k + ')';
+                    footer.style.transform = 'scale(' + height_k + ')';
+
+                    const newLeftHeader = (width / 2) - height_k * headerSize.width / 2;
+                    const newLeftFooter = (width / 2) - height_k * footerSize.width / 2;
+                    header.style.left = newLeftHeader + 'px';
+                    footer.style.left = newLeftFooter + 'px';
+                };
+            }
+
+            resizeIframes();
+
+            window.addEventListener("resize", resizeIframes);
+            window.addEventListener("orientationchange", resizeIframes);
+        });
+    </script>
+</body>
+
+</html>
